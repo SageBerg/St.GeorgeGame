@@ -1,0 +1,1 @@
+The St. George Game is a multiple choice medieval fantasy rpg where the player is a man on the run. The game consists of a series of frames where four options are presented and the player must select the best option(s) to survive. The game ends when the player loses by dying or wins by finding true love.
