@@ -4,6 +4,7 @@ Sage Berg
 Created: 7 Dec 2014
 """
 
+from actions import * #TODO should the actions go in here
 
 class Place(object):
     """
@@ -14,5 +15,8 @@ class Place(object):
         self.name = name
         self.connections = list()
 
-    def contribute(self):
+    def options(self):
+        """
+        returns several action objects and 
+        """
         pass

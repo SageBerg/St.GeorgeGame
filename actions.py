@@ -1,4 +1,5 @@
 """
+St. George Game
 actions.py
 Sage Berg
 Created: 7 Dec 2014
@@ -13,6 +14,9 @@ class Action(object):
 
     def __init__(self):
         self.name = ""
+
+    def __str__(self):
+        return self.name
 
     def exectute(self, place, person, prev_act):
         """
