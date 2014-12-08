@@ -1,9 +1,8 @@
 """
 St. George Game
-st.georgegame.py
+st_george_game.py
 Sage Berg
 Created: 5 Dec 2014
-Updated: 7 Dec 2014
 """
 
 from random import choose
@@ -16,27 +15,6 @@ class Character(object):
         self.attack = 0
         self.alive = True
         self.alone = True
-
-
-class Person(object):
-
-    def __init__(self, name, attack):
-        self.name = name
-        self.attack = attack
-        self.pronoun = "it"
-
-
-class Place(object):
-    """
-    abstract class
-    """
-
-    def __init__(self, name):
-        self.name = name
-        self.connections = list()
-
-    def contribute(self):
-        pass
 
 
 class Frame(object):
@@ -91,7 +69,9 @@ class Frame(object):
             else:
                 go_to_next = True
         print("good input")
-        self.actions_dict[choice].execute()
+        self.actions_dict[choice].execute(self.place,
+                                          self.person,
+                                          self.prev_act)
 
 
 class OptionsBag(object):
@@ -105,17 +85,3 @@ class OptionsBag(object):
 
     def get_option(self):
         return choose(self.options)
-
-
-class Action(object):
-    """
-    Abstract class
-    """
-    def __init__(self):
-        pass
-
-    def exectute():
-        """
-        returns a place, a person, and a prev_action
-        """
-        pass
