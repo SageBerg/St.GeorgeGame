@@ -5,47 +5,84 @@ Sage Berg
 Created: 5 Dec 2014
 """
 
-from random import choose
+from random import randint
 
 
 class Character(object):
+    """
+    Represents the character in the story who the player
+    is role playing.
+    """
 
     def __init__(self):
         self.best_weapon = ""
         self.attack = 0
         self.alive = True
-        self.alone = True
+        self.alone = True  # character has not found true love yet
+
+
+class ActionsBag(object):
+    """
+    ActionsBag contains a list of action objects, one of which
+    will be chosen and shown to the player.
+    """
+
+    def __init__(self):
+        self.options = dict()  # maps range tuples to actions
+        self.roll_range = 0
+
+    def add(self, action, times):
+        # TODO take list of tuples as argument
+        """
+        args: times is ...
+
+        """
+        key = (self.roll_range, self.roll_range + times)
+        self.options[key] = action
+        self.roll_range += times
+
+    def get_action(self):
+        roll = randint(0, self.roll_range)
+        # TODO check randints range
+        for key in self.options:
+            if roll >= key[0] and roll < key[1]:
+                # TODO check for off by one error
+                return self.options[key]
 
 
 class Frame(object):
     """
-
+    Each iteration of the game has a new frame object.
+    The frame chooses what actions are available, displays the
+    actions to the player, and executes the action taken
     """
 
-    def __init__(self):
-        self.message = ""
+    def __init__(self, message, place, person, prev_act):
+        self.message = message
+        self.place = place
+        self.person = person
+        self.prev_act = prev_act
 
-        self.place = None
-        self.person = None
-        self.prev_act = None
+        self.bags = {"a": ActionsBag(),
+                     "b": ActionsBag(),
+                     "c": ActionsBag(),
+                     "d": ActionsBag()}
+        for char in self.bags:
+            if self.place:
+                self.bags[char].add(self.place.options(char))
+            if self.person:
+                self.bags[char].add(self.person.options(char))
+            if self.prev_act:
+                self.bags[char].add(self.prev_act.options(char))
 
-        self.bags_dict = {"a": OptionsBag(),
-                          "b": OptionsBag(),
-                          "c": OptionsBag(),
-                          "d": OptionsBag()}
-        for key in self.bags_dict:
-            self.bags_dict[key].add(self.place.contribute(key))
-            self.bags_dict[key].add(self.person.contribute(key))
-            self.bags_dict[key].add(self.prev_act.contribute(key))
-
-        self.a = self.bags_dict["a"].get_option()
-        self.b = self.bags_dict["b"].get_option()
-        self.c = self.bags_dict["c"].get_option()
-        self.d = self.bags_dict["d"].get_option()
-        self.actions_dict = {"a": self.a,
-                             "b": self.b,
-                             "c": self.c,
-                             "d": self.d}
+        self.a_action = self.bags["a"].get_action()
+        self.b_action = self.bags["b"].get_action()
+        self.c_action = self.bags["c"].get_action()
+        self.d_action = self.bags["d"].get_action()
+        self.actions = {"a": self.a_action,
+                        "b": self.b_action,
+                        "c": self.c_action,
+                        "d": self.d_action}
 
     def prompt(self):
         """
@@ -54,10 +91,10 @@ class Frame(object):
         user input will spawn the next frame
         """
         print(self.message)
-        print(self.a)
-        print(self.b)
-        print(self.c)
-        print(self.d)
+        print(self.a_action)
+        print(self.b_action)
+        print(self.c_action)
+        print(self.d_action)
         choice = input()
         go_to_next = False
         while not go_to_next:
@@ -69,19 +106,6 @@ class Frame(object):
             else:
                 go_to_next = True
         print("good input")
-        self.actions_dict[choice].execute(self.place,
-                                          self.person,
-                                          self.prev_act)
-
-
-class OptionsBag(object):
-    #TODO improve time complexity later
-    def __init__(self):
-        self.options = list()
-
-    def add(self, item, times=1):
-        for i in times:
-            self.options.append(item)
-
-    def get_option(self):
-        return choose(self.options)
+        self.actions[choice].execute(self.place,
+                                     self.person,
+                                     self.prev_act)
