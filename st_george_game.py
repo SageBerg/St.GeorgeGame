@@ -17,13 +17,17 @@ class Character(object):
     def __init__(self):
         self.best_weapon = ""
         self.attack = 0
+        self.money = 0
         self.alive = True
-        self.alone = True  # character has not found true love yet
+        self.alone = True  # character has not found true love
+
+    def buy(self):
+        pass
 
 
-class ActionsBag(object):
+class ActionBag(object):
     """
-    ActionsBag contains a list of action objects, one of which
+    ActionBag contains a list of action objects, one of which
     will be chosen and shown to the player.
     """
 
@@ -31,22 +35,26 @@ class ActionsBag(object):
         self.options = dict()  # maps range tuples to actions
         self.roll_range = 0
 
-    def add(self, action, times):
-        # TODO take list of tuples as argument
+    def add(self, options):
         """
-        args: times is ...
-
+        args: a list of tuples
+        each tuple has an action object and a an integer
+        and ending with an integer
         """
-        key = (self.roll_range, self.roll_range + times)
-        self.options[key] = action
-        self.roll_range += times
+        for tup in options:
+            action = tup[0]
+            times = tup[1]
+            key = (self.roll_range, self.roll_range + times)
+            self.options[key] = action
+            self.roll_range += times
 
     def get_action(self):
+        """
+        chooses one action from the bag and returns it
+        """
         roll = randint(0, self.roll_range)
-        # TODO check randints range
         for key in self.options:
             if roll >= key[0] and roll < key[1]:
-                # TODO check for off by one error
                 return self.options[key]
 
 
@@ -63,10 +71,10 @@ class Frame(object):
         self.person = person
         self.prev_act = prev_act
 
-        self.bags = {"a": ActionsBag(),
-                     "b": ActionsBag(),
-                     "c": ActionsBag(),
-                     "d": ActionsBag()}
+        self.bags = {"a": ActionBag(),
+                     "b": ActionBag(),
+                     "c": ActionBag(),
+                     "d": ActionBag()}
         for char in self.bags:
             if self.place:
                 self.bags[char].add(self.place.options(char))

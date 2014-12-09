@@ -6,24 +6,30 @@ Created: 7 Dec 2014
 """
 
 from random import randint
+import abc
+
 
 class Action(object):
     """
-    Abstract class
+    abstract class
     """
+    __metaclass__ = abc.ABCMeta
 
+    @abc.abstractmethod
     def __init__(self):
         self.name = ""
 
     def __str__(self):
         return self.name
 
+    @abc.abstractmethod
     def exectute(self, place, person, prev_act):
         """
         returns a place, a person, a previous action, and some
         text explaining the outcome of the action to the player
         """
-        pass
+        return
+
 
 class AskAboutAssassins(object):
     """
@@ -40,8 +46,8 @@ class AskAboutAssassins(object):
                    "The first person you ask about assassins turns out to be an assassin. She assassinates you. You die."
             
         elif roll == 6 or roll == 7:
-            return tavern, pretty_lady, AskAboutAssassins
+            return Tavern, pretty_lady, AskAboutAssassins
         else:
-            return tavern, tavern_crowd, AskAboutAssassins,
+            return Tavern, tavern_crowd, AskAboutAssassins,
                    "You ask around, but nobody has heard anythingabout any assassins"
 
