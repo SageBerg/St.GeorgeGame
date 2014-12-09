@@ -32,7 +32,7 @@ class Place(object):
         return
 
 
-class TavernStart(Place):
+class Tavern(Place):
     """
     This place is only intended to exist in the first frame
     each action here (except for LeaveInAHuffStart) is a special
@@ -50,3 +50,4 @@ class TavernStart(Place):
         returns a list of tuples of action objects and their
         counts
         """
+        return

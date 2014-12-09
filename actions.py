@@ -31,7 +31,7 @@ class Action(object):
         return
 
 
-class AskAboutAssassins(object):
+class AskAboutAssassins(Action):
     """
     Often bad option
     """
