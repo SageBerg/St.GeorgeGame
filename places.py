@@ -8,6 +8,8 @@ Created: 7 Dec 2014
 from actions import *  # TODO should the actions go in here
 import abc
 
+from action_bag import ActionBag
+
 
 class Place(object):
     """
@@ -23,14 +25,6 @@ class Place(object):
     def __str__(self):
         return self.name
 
-    @abc.abstractmethod
-    def options(self, slot):
-        """
-        returns a list of tuples of action objects and their
-        counts
-        """
-        return
-
 
 class Tavern(Place):
     """
@@ -40,14 +34,11 @@ class Tavern(Place):
     the Tavern place (as a side effect)
     """
 
-    def __init__(self, name):
+    def __init__(self):
         self.name = "the tavern"
         self.connections = list()
-        self.connections.append(TheStreets)
-
-    def options(self):  # TODO have slot argument
-        """
-        returns a list of tuples of action objects and their
-        counts
-        """
-        return list() 
+        # self.connections.append(TheStreets)
+        self.options = {"a": ActionBag(),
+                        "b": ActionBag(),
+                        "c": ActionBag(),
+                        "d": ActionBag()}

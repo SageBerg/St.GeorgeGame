@@ -14,7 +14,7 @@ from actions import AskAboutAssassins, BuyADrink, LeaveInAHuff, SingASong
 def main():
     character = Character()
     msg = "You are in a tavern. The local assassins hate you."
-    opening_frame = Frame(msg, Tavern, None, None)
+    opening_frame = Frame(msg, Tavern(), None, None)
     opening_frame.actions["a"] = AskAboutAssassins()
     opening_frame.actions["b"] = BuyADrink()
     opening_frame.actions["c"] = LeaveInAHuff()

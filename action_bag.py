@@ -15,27 +15,33 @@ class ActionBag(object):
     """
 
     def __init__(self):
-        self.options = dict()  # maps range tuples to actions
-        self.roll_range = 0
+        self.options = dict()  # Maps options to weights
 
-    def add(self, options):
+    def add(self, option, weight=1):
         """
-        args: a list of tuples
-        each tuple has an action object and a an integer
-        and ending with an integer
         """
-        for tup in options:
-            action = tup[0]
-            times = tup[1]
-            key = (self.roll_range, self.roll_range + times)
-            self.options[key] = action
-            self.roll_range += times
+        if option in self.options:
+            self.options[option] += weight
+        else:
+            self.options[option] = weight
 
-    def get_action(self):
+    def get(self):
         """
-        chooses one action from the bag and returns it
+        chooses one action from the bag and returns it.
         """
-        roll = randint(0, self.roll_range)
-        for key in self.options:
-            if roll >= key[0] and roll < key[1]:
-                return self.options[key]
+        total_weights = 0
+        for weight in self.options.values():
+            total_weights += weight
+        roll = randint(0, total_weights)
+        for option, weight in self.options.items():
+            if roll < weight:
+                return option
+            else:
+                roll -= weight
+
+    def merge(self, other):
+        """
+        Merge the contents of another ActionBag with this ActionBag.
+        """
+        for option, weight in other.options.items():
+            self.add(option, weight)

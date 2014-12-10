@@ -27,17 +27,17 @@ class Frame(object):
                      "d": ActionBag()}
         for char in self.bags:
             if self.place:
-                self.bags[char].add(self.place.options(char))
+                self.bags[char].merge(self.place.options[char])
             if self.person:
-                self.bags[char].add(self.person.options(char))
+                self.bags[char].merge(self.person.options[char])
             #TODO actions will need an options method
             #if self.prev_act:
-            #    self.bags[char].add(self.prev_act.options(char))
+            #    self.bags[char].merge(self.prev_act.options[char])
 
-        self.actions = {"a": self.bags["a"].get_action(),
-                        "b": self.bags["b"].get_action(),
-                        "c": self.bags["c"].get_action(),
-                        "d": self.bags["d"].get_action()}
+        self.actions = {"a": self.bags["a"].get(),
+                        "b": self.bags["b"].get(),
+                        "c": self.bags["c"].get(),
+                        "d": self.bags["d"].get()}
 
     def prompt(self):
         """
