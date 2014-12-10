@@ -30,8 +30,9 @@ class Frame(object):
                 self.bags[char].add(self.place.options(char))
             if self.person:
                 self.bags[char].add(self.person.options(char))
-            if self.prev_act:
-                self.bags[char].add(self.prev_act.options(char))
+            #TODO actions will need an options method
+            #if self.prev_act:
+            #    self.bags[char].add(self.prev_act.options(char))
 
         self.actions = {"a": self.bags["a"].get_action(),
                         "b": self.bags["b"].get_action(),
@@ -44,7 +45,9 @@ class Frame(object):
         takes input from user
         user input will spawn the next frame
         """
+        print()
         print(self.message)
+        print()
         print("a. " + str(self.actions["a"]))
         print("b. " + str(self.actions["b"]))
         print("c. " + str(self.actions["b"]))
@@ -60,5 +63,4 @@ class Frame(object):
                 choice = input()
             else:
                 go_to_next = True
-        print("good input")
         return self.actions[choice]
