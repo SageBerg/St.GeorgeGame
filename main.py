@@ -5,7 +5,8 @@ Sage Berg, Skyler Berg
 Created: 5 Dec 2014
 """
 
-from st_george_game import Character, Frame, ActionBag
+from frame import Frame
+from character import Character 
 from places import Tavern
 from actions import AskAboutAssassins, BuyADrink, LeaveInAHuff, SingASong
 
@@ -19,8 +20,8 @@ def main():
     opening_frame.actions["d"] = SingASong()
     opening_frame.prompt()
     while character.alive and character.alone:
-        curr_frame = Frame(place, person, prev_act)
-        location, person, prev_act = curr_frame.prompt()
+        curr_frame = Frame(msg, place, person, prev_act)
+        msg, place, person, prev_act = curr_frame.prompt()
 
 if __name__ == "__main__":
     while True:  # the game automatically restarts
