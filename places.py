@@ -45,9 +45,9 @@ class Tavern(Place):
         self.connections = list()
         self.connections.append(TheStreets)
 
-    def options(self, slot):
+    def options(self):  # TODO have slot argument
         """
         returns a list of tuples of action objects and their
         counts
         """
-        return
+        return list() 

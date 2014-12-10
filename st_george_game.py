@@ -99,10 +99,11 @@ class Frame(object):
         user input will spawn the next frame
         """
         print(self.message)
-        print(self.a_action)
-        print(self.b_action)
-        print(self.c_action)
-        print(self.d_action)
+        print("a. " + str(self.a_action))
+        print("b. " + str(self.b_action))
+        print("c. " + str(self.c_action))
+        print("d. " + str(self.d_action))
+        print()
         choice = input()
         go_to_next = False
         while not go_to_next:
