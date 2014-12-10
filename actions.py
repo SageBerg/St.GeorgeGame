@@ -41,33 +41,21 @@ class copy_paste(Action):
     def execute(self, place, person, prev_act):
         pass
 
-class TODO_AskAboutAssassins(Action):
+class AskAboutAssassins(Action):
     """
     """
     
     def __init__(self):
         self.name = "Ask about assassins."
 
-    def exectute(self, place, person, prev_act):
+    def execute(self, place, person, prev_act):
         roll = randint(0,9)
         if roll < 6:
-            return tavern, assassin, AskAboutAssassins, "The first person you ask about assassins turns out to be an assassin. She assassinates you. You die."
-            
+            return "The first person you ask about assassins turns out to be an assassin. She assassinates you. You die.", place, None, self
         elif roll == 6 or roll == 7:
-            return Tavern, pretty_lady, AskAboutAssassins
+            return "During your search, you strike up a conversation with a pretty lady.", place, None, self 
         else:
-            return Tavern, tavern_crowd, AskAboutAssassins, "You ask around, but nobody has heard anythingabout any assassins"
-
-
-class AskAboutAssassins(Action):
-    """
-    """
-
-    def __init__(self):
-        self.name = "Ask about assassins."
-
-    def execute(self, place, person, prev_act):
-        pass
+            return "You ask around, but nobody has heard anythingabout any assassins", place, None, self 
 
 
 class BuyADrink(Action):
