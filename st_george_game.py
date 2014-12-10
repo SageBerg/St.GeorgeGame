@@ -1,7 +1,7 @@
 """
 St. George Game
 st_george_game.py
-Sage Berg
+Sage Berg, Skyler Berg
 Created: 5 Dec 2014
 """
 
@@ -83,14 +83,10 @@ class Frame(object):
             if self.prev_act:
                 self.bags[char].add(self.prev_act.options(char))
 
-        self.a_action = self.bags["a"].get_action()
-        self.b_action = self.bags["b"].get_action()
-        self.c_action = self.bags["c"].get_action()
-        self.d_action = self.bags["d"].get_action()
-        self.actions = {"a": self.a_action,
-                        "b": self.b_action,
-                        "c": self.c_action,
-                        "d": self.d_action}
+        self.actions = {"a": self.bags["a"].get_action(),
+                        "b": self.bags["b"].get_action(),
+                        "c": self.bags["c"].get_action(),
+                        "d": self.bags["d"].get_action()}
 
     def prompt(self):
         """
@@ -99,10 +95,10 @@ class Frame(object):
         user input will spawn the next frame
         """
         print(self.message)
-        print("a. " + str(self.a_action))
-        print("b. " + str(self.b_action))
-        print("c. " + str(self.c_action))
-        print("d. " + str(self.d_action))
+        print("a. " + str(self.actions["a"]))
+        print("b. " + str(self.actions["b"]))
+        print("c. " + str(self.actions["b"]))
+        print("d. " + str(self.actions["d"]))
         print()
         choice = input()
         go_to_next = False
