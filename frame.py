@@ -61,6 +61,4 @@ class Frame(object):
             else:
                 go_to_next = True
         print("good input")
-        self.actions[choice].execute(self.place,
-                                     self.person,
-                                     self.prev_act)
+        return self.actions[choice]

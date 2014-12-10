@@ -21,7 +21,10 @@ def main():
     opening_frame.prompt()
     while character.alive and character.alone:
         curr_frame = Frame(msg, place, person, prev_act)
-        msg, place, person, prev_act = curr_frame.prompt()
+        action = curr_frame.prompt()
+        msg, place, person, prev_act = action.exectue(curr_frame.place,
+                                                      curr_frame.person,
+                                                      curr_frame.prev_act)
 
 if __name__ == "__main__":
     while True:  # the game automatically restarts
