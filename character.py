@@ -7,6 +7,7 @@ Created: 9 Dec 2014
 
 
 from action_bag import ActionBag
+from actions import LickTheGround, LookForACat, LeaveInAPuff, SingASong
 from display import Display
 
 
@@ -31,6 +32,11 @@ class Character(object):
                      "b": ActionBag(),
                      "c": ActionBag(),
                      "d": ActionBag()}
+        self.bags["a"].add(LickTheGround())
+        self.bags["b"].add(LookForACat())
+        self.bags["c"].add(LeaveInAPuff())
+        self.bags["d"].add(SingASong())
+
         for char in self.bags:
             if self.place:
                 self.bags[char].merge(self.place.options[char])
@@ -52,6 +58,13 @@ class Character(object):
         Display().write("You are dead.")
         Display().disable()
         self.alive = False
+
+    def generate_actions(self):
+        """
+        Selection actions from the options available.
+        """
+        for letter in "abcd":
+            self.actions[letter] = self.bags[letter].get()
 
     def choose_action(self):
         """

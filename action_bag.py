@@ -34,7 +34,7 @@ class ActionBag(object):
             total_weights += weight
         roll = randint(0, total_weights)
         for option, weight in self.options.items():
-            if roll < weight:
+            if roll <= weight:
                 return option
             else:
                 roll -= weight
