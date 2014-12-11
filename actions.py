@@ -111,11 +111,9 @@ class LeaveInAHuff(Action):
         self.name = "Leave in a huff."
 
     def execute(self, character):
-        print(type(character.place))
-        print(character.place.__dict__)
         new_place = choice(character.place.connections)
-        character.place = new_place
-        Display().write("You find yourself in " + str(new_place) + ".")
+        character.place = new_place()
+        Display().write("You find yourself in " + str(character.place) + ".")
 
 
 class LeaveInAPuff(Action):

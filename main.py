@@ -15,7 +15,7 @@ def main():
     display = Display()
     display.enable()
     character = Character()
-    character.place = Tavern
+    character.place = Tavern()
     character.actions["a"] = AskAboutAssassins()
     character.actions["b"] = BuyADrink()
     character.actions["c"] = LeaveInAHuff()
