@@ -23,10 +23,9 @@ class Action(object):
         return self.name
 
     @abc.abstractmethod
-    def exectute(self, place, person, prev_act):
+    def exectute(self, character):
         """
-        returns a place, a person, a previous action, and some
-        text explaining the outcome of the action to the player
+        returns nothing, edits character attributes
         """
         return
 
@@ -48,14 +47,15 @@ class AskAboutAssassins(Action):
     def __init__(self):
         self.name = "Ask about assassins."
 
-    def execute(self, place, person, prev_act):
+    def execute(self, character):
         roll = randint(0,9)
         if roll < 6:
-            return "The first person you ask about assassins turns out to be an assassin. She assassinates you. You die.", place, None, self
+            character.message = "The first person you ask about assassins turns out to be an assassin. She assassinates you. You die." 
+            character.alive = False
         elif roll == 6 or roll == 7:
-            return "During your search, you strike up a conversation with a pretty lady.", place, None, self 
+            character.message = "During your search, you strike up a conversation with a pretty lady."
         else:
-            return "You ask around, but nobody has heard anythingabout any assassins", place, None, self 
+            character.message = "You ask around, but nobody has heard anything about any assassins."
 
 
 class BuyADrink(Action):
