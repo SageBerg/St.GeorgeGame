@@ -5,7 +5,7 @@ Sage Berg
 Created: 7 Dec 2014
 """
 
-from random import randint
+from random import randint, choice
 import abc
 
 from display import Display
@@ -32,16 +32,6 @@ class Action(object):
         return
 
 
-class copy_paste(Action):
-    """
-    """
-
-    def __init__(self):
-        self.name = ""
-
-    def execute(self, place, person, prev_act):
-        pass
-
 class AskAboutAssassins(Action):
     """
     """
@@ -67,7 +57,7 @@ class BuyADrink(Action):
     def __init__(self):
         self.name = "Buy a drink."
 
-    def execute(self, place, person, prev_act):
+    def execute(self, character):
         pass
 
 
@@ -78,8 +68,12 @@ class LeaveInAHuff(Action):
     def __init__(self):
         self.name = "Leave in a huff."
 
-    def execute(self, place, person, prev_act):
-        pass
+    def execute(self, character):
+        print(type(character.place))
+        print(character.place.__dict__)
+        new_place = choice(character.place.connections)
+        character.place = new_place
+        Display().write("You find yourself in " + str(new_place) + ".")
 
 
 class SingASong(Action):
@@ -91,5 +85,3 @@ class SingASong(Action):
 
     def execute(self, place, person, prev_act):
         pass
-
-
