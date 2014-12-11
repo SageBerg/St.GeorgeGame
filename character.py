@@ -60,7 +60,7 @@ class Character(object):
         print()
         print("a. " + str(self.actions["a"]))
         print("b. " + str(self.actions["b"]))
-        print("c. " + str(self.actions["b"]))
+        print("c. " + str(self.actions["c"]))
         print("d. " + str(self.actions["d"]))
         print()
         choice = input()
