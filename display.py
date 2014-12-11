@@ -6,11 +6,10 @@ class Display(object):
     attribute is shared across all instance of the display.
     """
 
-    _shared_state = {}
+    _shared_state = {'enabled': True}
 
     def __init__(self):
         self.__dict__ = self._shared_state
-        self.enabled = True
 
     def enable(self):
         self.enabled = True
@@ -19,4 +18,5 @@ class Display(object):
         self.enabled = False
 
     def write(self, msg):
-        print(msg)
+        if self.enabled:
+            print(msg)

@@ -50,6 +50,7 @@ class Character(object):
         Kill the character.
         """
         Display().write("You are dead.")
+        Display().disable()
         self.alive = False
 
     def choose_action(self):
