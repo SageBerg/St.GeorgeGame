@@ -5,7 +5,9 @@ Sage Berg
 Created: 9 Dec 2014
 """
 
+
 from action_bag import ActionBag
+from display import Display
 
 
 class Character(object):
@@ -42,6 +44,13 @@ class Character(object):
                         "b": self.bags["b"].get(),
                         "c": self.bags["c"].get(),
                         "d": self.bags["d"].get()}
+
+    def die(self):
+        """
+        Kill the character.
+        """
+        Display().write("You are dead.")
+        self.alive = False
 
     def choose_action(self):
         """

@@ -52,8 +52,8 @@ class AskAboutAssassins(Action):
     def execute(self, character):
         roll = randint(0,9)
         if roll < 6:
-            Display().write("The first person you ask about assassins turns out to be an assassin. She assassinates you. You die.")
-            character.alive = False
+            Display().write("The first person you ask about assassins turns out to be an assassin. She assassinates you.")
+            character.die()
         elif roll == 6 or roll == 7:
             Display().write("During your search, you strike up a conversation with a pretty lady.")
         else:
