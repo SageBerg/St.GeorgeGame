@@ -32,15 +32,29 @@ class Action(object):
         return
 
 
+class copy_paste(Action):
+    """
+    """
+
+    def __init__(self):
+        self.name = ""
+
+    def execute(self, character):
+        pass
+
+
+# B slot actions
+
+
 class AskAboutAssassins(Action):
     """
     """
-    
+
     def __init__(self):
         self.name = "Ask about assassins."
 
     def execute(self, character):
-        roll = randint(0,9)
+        roll = randint(0, 9)
         if roll < 6:
             Display().write("The first person you ask about assassins turns out to be an assassin. She assassinates you.")
             character.die()
@@ -48,6 +62,20 @@ class AskAboutAssassins(Action):
             Display().write("During your search, you strike up a conversation with a pretty lady.")
         else:
             Display().write("You ask around, but nobody has heard anything about any assassins.")
+
+
+class LickTheGround(Action):
+    """
+    """
+
+    def __init__(self):
+        self.name = "Lick the ground."
+
+    def execute(self, character):
+        pass
+
+
+# B slot actions
 
 
 class BuyADrink(Action):
@@ -59,6 +87,20 @@ class BuyADrink(Action):
 
     def execute(self, character):
         pass
+
+
+class LookForACat(Action):
+    """
+    """
+
+    def __init__(self):
+        self.name = "Look for a cat."
+
+    def execute(self, character):
+        pass
+
+
+# C slot actions
 
 
 class LeaveInAHuff(Action):
@@ -76,6 +118,20 @@ class LeaveInAHuff(Action):
         Display().write("You find yourself in " + str(new_place) + ".")
 
 
+class LeaveInAPuff(Action):
+    """
+    """
+
+    def __init__(self):
+        self.name = "Leave in a puff."
+
+    def execute(self, character):
+        pass
+
+
+# D slot actions
+
+
 class SingASong(Action):
     """
     """
@@ -83,5 +139,5 @@ class SingASong(Action):
     def __init__(self):
         self.name = "Sing a song."
 
-    def execute(self, place, person, prev_act):
+    def execute(self, character):
         pass
