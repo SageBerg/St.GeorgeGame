@@ -8,6 +8,8 @@ Created: 7 Dec 2014
 from random import randint
 import abc
 
+from display import Display
+
 
 class Action(object):
     """
@@ -50,12 +52,12 @@ class AskAboutAssassins(Action):
     def execute(self, character):
         roll = randint(0,9)
         if roll < 6:
-            character.message = "The first person you ask about assassins turns out to be an assassin. She assassinates you. You die." 
+            Display().write("The first person you ask about assassins turns out to be an assassin. She assassinates you. You die.")
             character.alive = False
         elif roll == 6 or roll == 7:
-            character.message = "During your search, you strike up a conversation with a pretty lady."
+            Display().write("During your search, you strike up a conversation with a pretty lady.")
         else:
-            character.message = "You ask around, but nobody has heard anything about any assassins."
+            Display().write("You ask around, but nobody has heard anything about any assassins.")
 
 
 class BuyADrink(Action):

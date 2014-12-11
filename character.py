@@ -7,6 +7,7 @@ Created: 9 Dec 2014
 
 from action_bag import ActionBag
 
+
 class Character(object):
     """
     Represents the character in the story who the player
@@ -16,13 +17,12 @@ class Character(object):
     def __init__(self):
         self.best_weapon = ""
         self.attack = 0
-        self.money = "" 
+        self.money = ""
         self.alive = True
         self.alone = True  # character has not found true love
 
-        self.message = "" 
-        self.place = None 
-        self.person = None 
+        self.place = None
+        self.person = None
         self.prev_act = None
 
         self.bags = {"a": ActionBag(),
@@ -45,11 +45,8 @@ class Character(object):
 
     def choose_action(self):
         """
-        prints outcome of last action (the message)
-        takes input from user
+        Prints your options and takes input from user.
         """
-        print()
-        print(self.message)
         print()
         print("a. " + str(self.actions["a"]))
         print("b. " + str(self.actions["b"]))
@@ -57,6 +54,7 @@ class Character(object):
         print("d. " + str(self.actions["d"]))
         print()
         choice = input()
+        print()
         go_to_next = False
         while not go_to_next:
             if choice not in "abcd" or \
