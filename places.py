@@ -21,6 +21,7 @@ class Place(object):
     def __init__(self):
         self.name = ""
         self.connections = list()
+        self.options = dict()
 
     def __str__(self):
         return self.name
@@ -28,16 +29,23 @@ class Place(object):
 
 class Tavern(Place):
     """
-    This place is only intended to exist in the first frame
-    each action here (except for LeaveInAHuffStart) is a special
-    version of a normal action that will take the character to
-    the Tavern place (as a side effect)
     """
 
     def __init__(self):
         self.name = "the tavern"
+        self.connections = [TheStreets]
+        self.options = {"a": ActionBag(),
+                        "b": ActionBag(),
+                        "c": ActionBag(),
+                        "d": ActionBag()}
+
+class TheStreets(Place):
+    """
+    """
+
+    def __init__(self):
+        self.name = "the streets"
         self.connections = list()
-        # self.connections.append(TheStreets)
         self.options = {"a": ActionBag(),
                         "b": ActionBag(),
                         "c": ActionBag(),
