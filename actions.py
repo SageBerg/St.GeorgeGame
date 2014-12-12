@@ -8,6 +8,7 @@ Created: 7 Dec 2014
 from random import randint, choice
 import abc
 
+from persons import *
 from display import Display
 
 
@@ -55,15 +56,26 @@ class AskAboutAssassins(Action):
 
     def execute(self, character):
         roll = randint(0, 9)
-        if roll < 6:
+        if roll < 0:
             Display().write("The first person you ask about assassins turns out to be an assassin. She assassinates you.")
             character.die()
-        elif roll == 6 or roll == 7:
+        elif roll == 6 or roll == 7 or roll < 10:
             Display().write("During your search, you strike up a conversation with a pretty lady.")
+            character.person = PrettyLady(Attack)
         else:
             Display().write("You ask around, but nobody has heard anything about any assassins.")
 
 
+class Attack(Action):
+    """
+    """
+
+    def __init__(self):
+        self.name = "Attack " + character.person.pronous[1] + "."
+
+    def execute(self, character):
+        pass
+    
 class LickTheGround(Action):
     """
     """
