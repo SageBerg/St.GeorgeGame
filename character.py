@@ -37,15 +37,6 @@ class Character(object):
         self.bags["c"].add(LeaveInAPuff())
         self.bags["d"].add(SingASong())
 
-        for char in self.bags:
-            if self.place:
-                self.bags[char].merge(self.place.options[char])
-            if self.person:
-                self.bags[char].merge(self.person.options[char])
-            #TODO actions will need an options method
-            #if self.prev_act:
-            #    self.bags[char].merge(self.prev_act.options[char])
-
         self.actions = {"a": self.bags["a"].get(),
                         "b": self.bags["b"].get(),
                         "c": self.bags["c"].get(),
@@ -61,8 +52,21 @@ class Character(object):
 
     def generate_actions(self):
         """
-        Selection actions from the options available.
+        Selects actions from the options available.
         """
+        for char in self.bags:
+            if self.place:
+                self.bags[char].merge(self.place.options[char])
+            if self.person:
+                self.bags[char].merge(self.person.options[char])
+            #TODO actions will need an options method
+            #if self.prev_act:
+            #    self.bags[char].merge(self.prev_act.options[char])
+
+        self.actions = {"a": self.bags["a"].get(),
+                        "b": self.bags["b"].get(),
+                        "c": self.bags["c"].get(),
+                        "d": self.bags["d"].get()}
         for letter in "abcd":
             self.actions[letter] = self.bags[letter].get()
 
