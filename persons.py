@@ -30,15 +30,17 @@ class Person(object):
 
 class PrettyLady(Person):
 
-    def __init__(self, Attack):
+    def __init__(self, Attack, BoastOfYourBravery):
         self.name = "pretty lady"
         self.attack = 1
-        self.pronouns = ("she", "her")
+        self.pronouns = ("she", "her", "s")  # the s is to append to
+                                             # verbs in output
         self.options = {"a": ActionBag(),
                         "b": ActionBag(),
                         "c": ActionBag(),
                         "d": ActionBag()}
-        self.options["a"].add(Attack())  # broken
-        #self.options["b"].add(BoastOfYourBravery)
+        for i in range(10):
+            self.options["a"].add(Attack(self))  
+        self.options["b"].add(BoastOfYourBravery())
         #self.options["b"].add(BuyHerADrink)
         #self.options["c"].add(TalkAboutCats)
