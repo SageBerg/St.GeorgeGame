@@ -44,7 +44,7 @@ class copy_paste(Action):
         pass
 
 
-# B slot actions
+# A slot actions
 
 
 class AskAboutAssassins(Action):
@@ -71,16 +71,16 @@ class Attack(Action):
     """
 
     def __init__(self, person):
-        self.name = "Attack " + person.pronouns[1] + "."
+        self.name = "Attack " + person.pronouns.obj + "."
 
     def execute(self, character):
         if character.person.attack >= character.attack:
-            Display().write(character.person.pronouns[0][0].upper() +
-                            character.person.pronouns[0][1:] + " kill" +
-                            character.person.pronouns[2] + " you.")
+            Display().write(character.person.pronouns.subj[0].upper() +
+                            character.person.pronouns.subj[1:] + " kill" +
+                            character.person.pronouns.tense + " you.")
             character.die()
         else:
-            Display().write("You kill " + character.person.pronouns[1])
+            Display().write("You kill " + character.person.pronouns.obj)
 
 
 class LickTheGround(Action):

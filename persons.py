@@ -11,7 +11,7 @@ from collections import namedtuple
 import actions
 from action_bag import ActionBag
 
-PRONOUNS = namedtuple("subject", "object", "tense")
+Pronouns = namedtuple("Pronouns", ["subj", "obj", "tense"])
 
 
 class Person(object):
@@ -37,7 +37,7 @@ class PrettyLady(Person):
     def __init__(self):
         self.name = "pretty lady"
         self.attack = 1
-        self.pronouns = PRONOUNS("she", "her", "s")
+        self.pronouns = Pronouns("she", "her", "s")
         self.options = {"a": ActionBag(),
                         "b": ActionBag(),
                         "c": ActionBag(),
