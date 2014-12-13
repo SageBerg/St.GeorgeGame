@@ -5,7 +5,7 @@ Sage Berg
 Created: 7 Dec 2014
 """
 
-from random import randint, choice
+from random import randint
 import abc
 
 from persons import PrettyLady
@@ -141,9 +141,7 @@ class LeaveInAHuff(Action):
         self.name = "Leave in a huff."
 
     def execute(self, character):
-        new_place = choice(character.place.connections)
-        character.place = new_place()
-        Display().write("You find yourself in " + str(character.place) + ".")
+        character.move(speed=1)
 
 
 class LeaveInAPuff(Action):

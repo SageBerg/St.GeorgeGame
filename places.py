@@ -19,7 +19,7 @@ class Place(object):
     @abc.abstractmethod
     def __init__(self):
         self.name = ""
-        self.connections = list()
+        self.connections = set()
         self.options = dict()
 
     def __str__(self):
@@ -32,7 +32,7 @@ class Tavern(Place):
 
     def __init__(self):
         self.name = "the tavern"
-        self.connections = [TheStreets]
+        self.connections = set([TheStreets()])
         self.options = {"a": Raffle(),
                         "b": Raffle(),
                         "c": Raffle(),
@@ -45,7 +45,7 @@ class TheStreets(Place):
 
     def __init__(self):
         self.name = "the streets"
-        self.connections = list()
+        self.connections = set()
         self.options = {"a": Raffle(),
                         "b": Raffle(),
                         "c": Raffle(),

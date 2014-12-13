@@ -5,6 +5,8 @@ Sage Berg
 Created: 9 Dec 2014
 """
 
+import random
+
 from raffle import Raffle
 from actions import LickTheGround, LookForACat, LeaveInAPuff, SingASong
 from display import Display
@@ -68,6 +70,19 @@ class Character(object):
                         "d": self.bags["d"].get()}
         for letter in "abcd":
             self.actions[letter] = self.bags[letter].get()
+
+    def move(self, speed=1):
+        """
+        """
+        visited = set([self.place])  # We don't go in circles
+        at = self.place
+        while speed:
+            options = at.connections - visited
+            if not options:
+                break
+            at = random.sample(options, 1)[0]
+        self.place = at
+        Display().write('You find yourself in ' + str(self.place) + '.')
 
     def choose_action(self):
         """
