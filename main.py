@@ -5,9 +5,9 @@ Sage Berg, Skyler Berg
 Created: 5 Dec 2014
 """
 
+import places
 from character import Character
 from display import Display
-from places import Tavern
 from actions import AskAboutAssassins, BuyADrink, LeaveInAHuff, SingASong
 
 
@@ -15,7 +15,7 @@ def main():
     display = Display()
     display.enable()
     character = Character()
-    character.place = Tavern()
+    character.place = places.tavern
     character.actions["a"] = AskAboutAssassins()
     character.actions["b"] = BuyADrink()
     character.actions["c"] = LeaveInAHuff()
