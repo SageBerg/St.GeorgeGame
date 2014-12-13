@@ -81,6 +81,7 @@ cave.connections.add(woods)
 woods.connections.add(cave)
 woods.connections.add(countryside)
 woods.connections.add(lord_carlos_manor)
+woods.connections.add(docks)
 
 lord_carlos_manor.connections.add(woods)
 
@@ -88,6 +89,7 @@ dark_alley.connections.add(streets)
 
 docks.connections.add(woods)
 docks.connections.add(streets)
+docks.connections.add(pirate_ship)
 
 lord_bartholomews_manor.connections.add(countryside)
 
