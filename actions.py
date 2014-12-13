@@ -9,7 +9,7 @@ import random
 import abc
 
 import places
-from persons import PrettyLady
+import persons
 from display import Display
 
 
@@ -62,7 +62,7 @@ class AskAboutAssassins(Action):
             character.die()
         elif roll == 6 or roll == 7 or roll < 10:
             Display().write("During your search, you strike up a conversation with a pretty lady.")
-            character.person = PrettyLady()
+            character.person = persons.PrettyLady()
         else:
             Display().write("You ask around, but nobody has heard anything about any assassins.")
 
@@ -76,8 +76,7 @@ class Attack(Action):
 
     def execute(self, character):
         if character.person.attack >= character.attack:
-            Display().write(character.person.pronouns.subj[0].upper() +
-                            character.person.pronouns.subj[1:] + " kill" +
+            Display().write(character.person.pronouns.subj.capitalize() + " kill" +
                             character.person.pronouns.tense + " you.")
             character.die()
         else:
@@ -95,6 +94,17 @@ class LickTheGround(Action):
         pass
 
 
+class KillYourselfInFrustration(Action):
+    """
+    """
+
+    def __init__(self):
+        self.name = "Kill yourself in frustration."
+
+    def execute(self, character):
+        character.die()
+
+
 # B slot actions
 
 
@@ -106,7 +116,8 @@ class BuyADrink(Action):
         self.name = "Buy a drink."
 
     def execute(self, character):
-        pass
+        Display().write("The blind bartender grumbles as he passes you a drink.")
+        character.person = persons.BlindBartender()
 
 
 class BoastOfYourBravery(Action):
@@ -117,7 +128,8 @@ class BoastOfYourBravery(Action):
         self.name = "Boast of your bravery."
 
     def execute(self, character):
-        Display().write(character.person.pronouns[0] + " is not impressed.")
+        Display().write(character.person.pronouns.subj.capitalize() + 
+                        " is not impressed.")
 
 
 class LookForACat(Action):
