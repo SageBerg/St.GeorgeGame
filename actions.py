@@ -153,7 +153,8 @@ class LeaveInAPuff(Action):
         self.name = "Leave in a puff."
 
     def execute(self, character):
-        character.moveTo(random.choice(places.Place.__subclasses__())())
+        options = places.Place.instances - set([character.place])
+        character.moveTo(random.sample(options, 1)[0])
 
 
 # D slot actions

@@ -12,6 +12,8 @@ class Place(object):
     """
     """
 
+    instances = set()
+
     def __init__(self, name):
         self.name = name
         self.connections = set()
@@ -19,6 +21,7 @@ class Place(object):
                         "b": Raffle(),
                         "c": Raffle(),
                         "d": Raffle()}
+        Place.instances.add(self)
 
     def __str__(self):
         return self.name
