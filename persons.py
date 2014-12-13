@@ -5,9 +5,10 @@ Sage Berg
 Created: 7 Dec 2014
 """
 
+import abc
+
 import actions
 from action_bag import ActionBag
-import abc
 
 
 class Person(object):
@@ -39,8 +40,7 @@ class PrettyLady(Person):
                         "b": ActionBag(),
                         "c": ActionBag(),
                         "d": ActionBag()}
-        for i in range(10):
-            self.options["a"].add(actions.Attack(self))  
+        self.options["a"].add(actions.Attack(self), weight=10)
         self.options["b"].add(actions.BoastOfYourBravery())
         #self.options["b"].add(BuyHerADrink)
         #self.options["c"].add(TalkAboutCats)
