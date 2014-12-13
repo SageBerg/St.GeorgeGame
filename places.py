@@ -5,7 +5,6 @@ Sage Berg
 Created: 7 Dec 2014
 """
 
-from actions import *  # TODO should the actions go in here
 import abc
 
 from action_bag import ActionBag
@@ -38,6 +37,7 @@ class Tavern(Place):
                         "b": ActionBag(),
                         "c": ActionBag(),
                         "d": ActionBag()}
+
 
 class TheStreets(Place):
     """

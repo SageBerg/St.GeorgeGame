@@ -8,7 +8,7 @@ Created: 7 Dec 2014
 from random import randint, choice
 import abc
 
-from persons import *
+from persons import PrettyLady
 from display import Display
 
 
@@ -61,7 +61,7 @@ class AskAboutAssassins(Action):
             character.die()
         elif roll == 6 or roll == 7 or roll < 10:
             Display().write("During your search, you strike up a conversation with a pretty lady.")
-            character.person = PrettyLady(Attack, BoastOfYourBravery)
+            character.person = PrettyLady()
         else:
             Display().write("You ask around, but nobody has heard anything about any assassins.")
 
@@ -75,15 +75,14 @@ class Attack(Action):
 
     def execute(self, character):
         if character.person.attack >= character.attack:
-            Display().write(character.person.pronouns[0][0].upper() + \
-                            character.person.pronouns[0][1:] + " kill" + \
+            Display().write(character.person.pronouns[0][0].upper() +
+                            character.person.pronouns[0][1:] + " kill" +
                             character.person.pronouns[2] + " you.")
             character.die()
         else:
-            Display().write("You kill " + \
-                            character.person.pronouns[1])
+            Display().write("You kill " + character.person.pronouns[1])
 
-         
+
 class LickTheGround(Action):
     """
     """
@@ -117,7 +116,7 @@ class BoastOfYourBravery(Action):
         self.name = "Boast of your bravery."
 
     def execute(self, character):
-        Display().write(character.person.pronouns[0] + " is not impressed.") 
+        Display().write(character.person.pronouns[0] + " is not impressed.")
 
 
 class LookForACat(Action):

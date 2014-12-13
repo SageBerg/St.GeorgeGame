@@ -5,13 +5,14 @@ Sage Berg
 Created: 7 Dec 2014
 """
 
+import abc
 from collections import namedtuple
 
-from actions import *
+import actions
 from action_bag import ActionBag
-import abc
 
 PRONOUNS = namedtuple("subject", "object", "tense")
+
 
 class Person(object):
     """
@@ -33,7 +34,7 @@ class Person(object):
 
 class PrettyLady(Person):
 
-    def __init__(self, Attack, BoastOfYourBravery):
+    def __init__(self):
         self.name = "pretty lady"
         self.attack = 1
         self.pronouns = PRONOUNS("she", "her", "s")
@@ -41,8 +42,7 @@ class PrettyLady(Person):
                         "b": ActionBag(),
                         "c": ActionBag(),
                         "d": ActionBag()}
-        for i in range(10):
-            self.options["a"].add(Attack(self))  
-        self.options["b"].add(BoastOfYourBravery())
+        self.options["a"].add(actions.Attack(self), weight=10)
+        self.options["b"].add(actions.BoastOfYourBravery())
         #self.options["b"].add(BuyHerADrink)
         #self.options["c"].add(TalkAboutCats)

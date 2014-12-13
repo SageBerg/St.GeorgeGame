@@ -5,7 +5,6 @@ Sage Berg
 Created: 9 Dec 2014
 """
 
-
 from action_bag import ActionBag
 from actions import LickTheGround, LookForACat, LeaveInAPuff, SingASong
 from display import Display
