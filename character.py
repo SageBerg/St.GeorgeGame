@@ -81,6 +81,7 @@ class Character(object):
             if not options:
                 break
             at = random.sample(options, 1)[0]
+            speed -= 1
         self.moveTo(at)
 
     def moveTo(self, place):
