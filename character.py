@@ -81,7 +81,10 @@ class Character(object):
             if not options:
                 break
             at = random.sample(options, 1)[0]
-        self.place = at
+        self.moveTo(at)
+
+    def moveTo(self, place):
+        self.place = place
         Display().write('You find yourself in ' + str(self.place) + '.')
 
     def choose_action(self):

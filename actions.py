@@ -5,9 +5,10 @@ Sage Berg
 Created: 7 Dec 2014
 """
 
-from random import randint
+import random
 import abc
 
+import places
 from persons import PrettyLady
 from display import Display
 
@@ -55,7 +56,7 @@ class AskAboutAssassins(Action):
         self.name = "Ask about assassins."
 
     def execute(self, character):
-        roll = randint(0, 9)
+        roll = random.randint(0, 9)
         if roll < 0:
             Display().write("The first person you ask about assassins turns out to be an assassin. She assassinates you.")
             character.die()
@@ -152,7 +153,7 @@ class LeaveInAPuff(Action):
         self.name = "Leave in a puff."
 
     def execute(self, character):
-        pass
+        character.moveTo(random.choice(places.Place.__subclasses__())())
 
 
 # D slot actions
