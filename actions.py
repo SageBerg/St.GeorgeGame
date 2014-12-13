@@ -61,7 +61,7 @@ class AskAboutAssassins(Action):
             character.die()
         elif roll == 6 or roll == 7 or roll < 10:
             Display().write("During your search, you strike up a conversation with a pretty lady.")
-            character.person = PrettyLady(Attack, BoastOfYourBravery)
+            character.person = PrettyLady()
         else:
             Display().write("You ask around, but nobody has heard anything about any assassins.")
 

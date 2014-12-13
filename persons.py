@@ -5,7 +5,7 @@ Sage Berg
 Created: 7 Dec 2014
 """
 
-from actions import *
+import actions
 from action_bag import ActionBag
 import abc
 
@@ -30,7 +30,7 @@ class Person(object):
 
 class PrettyLady(Person):
 
-    def __init__(self, Attack, BoastOfYourBravery):
+    def __init__(self):
         self.name = "pretty lady"
         self.attack = 1
         self.pronouns = ("she", "her", "s")  # the s is to append to
@@ -40,7 +40,7 @@ class PrettyLady(Person):
                         "c": ActionBag(),
                         "d": ActionBag()}
         for i in range(10):
-            self.options["a"].add(Attack(self))  
-        self.options["b"].add(BoastOfYourBravery())
+            self.options["a"].add(actions.Attack(self))  
+        self.options["b"].add(actions.BoastOfYourBravery())
         #self.options["b"].add(BuyHerADrink)
         #self.options["c"].add(TalkAboutCats)
