@@ -26,11 +26,6 @@ class Person(object):
         self.attack = attack
         self.pronoun = pronoun
 
-    @abc.abstractmethod
-    def options(self):
-        "returns an options_bag"
-        pass
-
 
 class PrettyLady(Person):
 
@@ -45,4 +40,19 @@ class PrettyLady(Person):
         self.options["a"].add(actions.Attack(self), weight=10)
         self.options["b"].add(actions.BoastOfYourBravery(), weight=5)
         #self.options["b"].add(BuyHerADrink)
+        #self.options["c"].add(TalkAboutCats)
+
+
+class BlindBartender(Person):
+
+    def __init__(self):
+        self.name = "the blind bartender"
+        self.attack = 1 
+        self.pronouns = Pronouns("he", "him", "s")
+        self.options = {"a": Raffle(),
+                        "b": Raffle(),
+                        "c": Raffle(),
+                        "d": Raffle()}
+        self.options["a"].add(actions.Attack(self), weight=10)
+        self.options["b"].add(actions.BoastOfYourBravery(), weight=1)
         #self.options["c"].add(TalkAboutCats)
