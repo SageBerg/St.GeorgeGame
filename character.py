@@ -43,6 +43,12 @@ class Character(object):
                         "c": self.bags["c"].get(),
                         "d": self.bags["d"].get()}
 
+    def buy(self, item):
+        """
+        buy an item
+        """
+        pass
+    
     def die(self):
         """
         Kill the character.
@@ -55,6 +61,14 @@ class Character(object):
         """
         Selects actions from the options available.
         """
+        self.bags = {"a": Raffle(),
+                     "b": Raffle(),
+                     "c": Raffle(),
+                     "d": Raffle()}
+        self.bags["a"].add(LickTheGround())
+        self.bags["b"].add(LookForACat())
+        self.bags["c"].add(LeaveInAPuff())
+        self.bags["d"].add(SingASong())
         for char in self.bags:
             if self.place:
                 self.bags[char].merge(self.place.options[char])
