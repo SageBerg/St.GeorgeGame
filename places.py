@@ -7,7 +7,7 @@ Created: 7 Dec 2014
 
 import abc
 
-from action_bag import ActionBag
+from raffle import Raffle
 
 
 class Place(object):
@@ -33,10 +33,10 @@ class Tavern(Place):
     def __init__(self):
         self.name = "the tavern"
         self.connections = [TheStreets]
-        self.options = {"a": ActionBag(),
-                        "b": ActionBag(),
-                        "c": ActionBag(),
-                        "d": ActionBag()}
+        self.options = {"a": Raffle(),
+                        "b": Raffle(),
+                        "c": Raffle(),
+                        "d": Raffle()}
 
 
 class TheStreets(Place):
@@ -46,7 +46,7 @@ class TheStreets(Place):
     def __init__(self):
         self.name = "the streets"
         self.connections = list()
-        self.options = {"a": ActionBag(),
-                        "b": ActionBag(),
-                        "c": ActionBag(),
-                        "d": ActionBag()}
+        self.options = {"a": Raffle(),
+                        "b": Raffle(),
+                        "c": Raffle(),
+                        "d": Raffle()}

@@ -5,7 +5,7 @@ Sage Berg
 Created: 9 Dec 2014
 """
 
-from action_bag import ActionBag
+from raffle import Raffle
 from actions import LickTheGround, LookForACat, LeaveInAPuff, SingASong
 from display import Display
 
@@ -27,10 +27,10 @@ class Character(object):
         self.person = None
         self.prev_act = None
 
-        self.bags = {"a": ActionBag(),
-                     "b": ActionBag(),
-                     "c": ActionBag(),
-                     "d": ActionBag()}
+        self.bags = {"a": Raffle(),
+                     "b": Raffle(),
+                     "c": Raffle(),
+                     "d": Raffle()}
         self.bags["a"].add(LickTheGround())
         self.bags["b"].add(LookForACat())
         self.bags["c"].add(LeaveInAPuff())

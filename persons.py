@@ -9,7 +9,7 @@ import abc
 from collections import namedtuple
 
 import actions
-from action_bag import ActionBag
+from raffle import Raffle 
 
 Pronouns = namedtuple("Pronouns", ["subj", "obj", "tense"])
 
@@ -38,11 +38,11 @@ class PrettyLady(Person):
         self.name = "pretty lady"
         self.attack = 1
         self.pronouns = Pronouns("she", "her", "s")
-        self.options = {"a": ActionBag(),
-                        "b": ActionBag(),
-                        "c": ActionBag(),
-                        "d": ActionBag()}
+        self.options = {"a": Raffle(),
+                        "b": Raffle(),
+                        "c": Raffle(),
+                        "d": Raffle()}
         self.options["a"].add(actions.Attack(self), weight=10)
-        self.options["b"].add(actions.BoastOfYourBravery())
+        self.options["b"].add(actions.BoastOfYourBravery(), weight=5)
         #self.options["b"].add(BuyHerADrink)
         #self.options["c"].add(TalkAboutCats)
