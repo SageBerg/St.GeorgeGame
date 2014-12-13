@@ -5,10 +5,13 @@ Sage Berg
 Created: 7 Dec 2014
 """
 
+from collections import namedtuple
+
 from actions import *
 from action_bag import ActionBag
 import abc
 
+PRONOUNS = namedtuple("subject", "object", "tense")
 
 class Person(object):
     """
@@ -33,8 +36,7 @@ class PrettyLady(Person):
     def __init__(self, Attack, BoastOfYourBravery):
         self.name = "pretty lady"
         self.attack = 1
-        self.pronouns = ("she", "her", "s")  # the s is to append to
-                                             # verbs in output
+        self.pronouns = PRONOUNS("she", "her", "s")
         self.options = {"a": ActionBag(),
                         "b": ActionBag(),
                         "c": ActionBag(),
