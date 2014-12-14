@@ -9,6 +9,7 @@ import abc
 from collections import namedtuple
 
 import actions
+import weapons
 from raffle import Raffle 
 
 Pronouns = namedtuple("Pronouns", ["subj", "obj", "tense"])
@@ -56,3 +57,19 @@ class BlindBartender(Person):
         self.options["a"].add(actions.Attack(self), weight=10)
         self.options["b"].add(actions.BoastOfYourBravery(), weight=1)
         #self.options["c"].add(TalkAboutCats)
+
+
+class WealthyMerchant(Person):
+    
+    def __init__(self):
+        self.name = "the wealthy merchant"
+        self.attack = 7
+        self.pronouns = Pronouns("he", "him", "s")
+        self.options = {"a": Raffle(),
+                        "b": Raffle(),
+                        "c": Raffle(),
+                        "d": Raffle()}
+        self.options["a"].add(actions.Attack(self), weight=10)
+        self.options["b"].add(actions.BoastOfYourBravery(), weight=1)
+        self.options["b"].add(actions.Buy(weapons.weapons), weight=10)
+

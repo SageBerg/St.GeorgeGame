@@ -96,6 +96,18 @@ class LickTheGround(Action):
         pass
 
 
+class LookForWeapons(Action):
+    """
+    """
+    
+    def __init__(self):
+        self.name = "Look for weapons"
+
+    def execute(self, character):
+        Display().write("You find yourself talking to a wealthy war merchant.")
+        character.person = persons.WealthyMerchant()
+
+
 class KillYourselfInFrustration(Action):
     """
     """
@@ -108,6 +120,21 @@ class KillYourselfInFrustration(Action):
 
 
 # B slot actions
+
+
+class Buy(Action):
+    """
+    """
+
+    def __init__(self, weapons):
+        self.weapon = random.choice(weapons)
+        self.name = "Buy a " + self.weapon.name
+
+    def execute(self, character):
+        Display().write("You now have a " + self.weapon.name)
+        if character.attack < self.weapon.attack:
+            character.weapon = self.weapon
+            character.attack = self.weapon.attack
 
 
 class BuyADrink(Action):
