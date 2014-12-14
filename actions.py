@@ -37,8 +37,6 @@ class Action(object):
 
 
 class copy_paste(Action):
-    """
-    """
 
     def __init__(self):
         self.name = ""
@@ -51,8 +49,6 @@ class copy_paste(Action):
 
 
 class AskAboutAssassins(Action):
-    """
-    """
 
     def __init__(self):
         self.name = "Ask about assassins."
@@ -70,8 +66,6 @@ class AskAboutAssassins(Action):
 
 
 class Attack(Action):
-    """
-    """
 
     def __init__(self, person):
         self.name = "Attack " + person.pronouns.obj + "."
@@ -86,8 +80,6 @@ class Attack(Action):
 
 
 class LickTheGround(Action):
-    """
-    """
 
     def __init__(self):
         self.name = "Lick the ground."
@@ -97,8 +89,6 @@ class LickTheGround(Action):
 
 
 class LookForWeapons(Action):
-    """
-    """
     
     def __init__(self):
         self.name = "Look for weapons"
@@ -109,8 +99,6 @@ class LookForWeapons(Action):
 
 
 class KillYourselfInFrustration(Action):
-    """
-    """
 
     def __init__(self):
         self.name = "Kill yourself in frustration."
@@ -123,8 +111,6 @@ class KillYourselfInFrustration(Action):
 
 
 class Buy(Action):
-    """
-    """
 
     def __init__(self, weapons):
         self.weapon = random.choice(weapons)
@@ -138,8 +124,6 @@ class Buy(Action):
 
 
 class BuyADrink(Action):
-    """
-    """
 
     def __init__(self):
         self.name = "Buy a drink."
@@ -150,8 +134,6 @@ class BuyADrink(Action):
 
 
 class BoastOfYourBravery(Action):
-    """
-    """
 
     def __init__(self):
         self.name = "Boast of your bravery."
@@ -162,8 +144,6 @@ class BoastOfYourBravery(Action):
 
 
 class LookForACat(Action):
-    """
-    """
 
     def __init__(self):
         self.name = "Look for a cat."
@@ -176,8 +156,6 @@ class LookForACat(Action):
 
 
 class LeaveInAHuff(Action):
-    """
-    """
 
     def __init__(self):
         self.name = "Leave in a huff."
@@ -187,8 +165,6 @@ class LeaveInAHuff(Action):
 
 
 class LeaveInAPuff(Action):
-    """
-    """
 
     def __init__(self):
         self.name = "Leave in a puff."
@@ -202,8 +178,6 @@ class LeaveInAPuff(Action):
 
 
 class SingASong(Action):
-    """
-    """
 
     def __init__(self):
         self.name = "Sing a song."

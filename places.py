@@ -8,9 +8,8 @@ Created: 7 Dec 2014
 from raffle import Raffle
 import actions
 
+
 class Place(object):
-    """
-    """
 
     instances = set()
 

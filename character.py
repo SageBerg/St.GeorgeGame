@@ -12,8 +12,6 @@ from actions import LickTheGround, LookForACat, LeaveInAPuff, SingASong
 from display import Display
 import money
 
-import places
-
 
 class Character(object):
     """
@@ -56,12 +54,6 @@ class Character(object):
         else:
             Display().write("You still have {0}.".format(money.to_str(amount)))
 
-    def buy(self, item):
-        """
-        buy an item
-        """
-        pass
-   
     def die(self):
         """
         Kill the character.
