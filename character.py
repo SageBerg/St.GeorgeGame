@@ -12,6 +12,8 @@ from actions import LickTheGround, LookForACat, LeaveInAPuff, SingASong
 from display import Display
 import money
 
+import places
+
 
 class Character(object):
     """
@@ -59,7 +61,7 @@ class Character(object):
         buy an item
         """
         pass
-
+   
     def die(self):
         """
         Kill the character.
@@ -95,6 +97,12 @@ class Character(object):
                         "d": self.bags["d"].get()}
         for letter in "abcd":
             self.actions[letter] = self.bags[letter].get()
+        # TODO remove test code:
+        """
+        if self.place.name == "the streets":
+            self.move_to(places.market)
+            self.generate_actions()
+        """
 
     def move(self, speed=1):
         """
