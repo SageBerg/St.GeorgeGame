@@ -167,7 +167,7 @@ class LeaveInAPuff(Action):
 
     def execute(self, character):
         options = places.Place.instances - set([character.place])
-        character.moveTo(random.sample(options, 1)[0])
+        character.move_to(random.sample(options, 1)[0])
 
 
 # D slot actions

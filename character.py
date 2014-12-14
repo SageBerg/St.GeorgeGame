@@ -96,9 +96,9 @@ class Character(object):
                 break
             at = random.sample(options, 1)[0]
             speed -= 1
-        self.moveTo(at)
+        self.move_to(at)
 
-    def moveTo(self, place):
+    def move_to(self, place):
         self.place = place
         Display().write('You find yourself in ' + str(self.place) + '.')
 
