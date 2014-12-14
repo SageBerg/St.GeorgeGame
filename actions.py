@@ -185,7 +185,7 @@ class SingASong(Action):
     def execute(self, character):
         def a_crowd_gathers():
             Display().write("A Crowd gathers to hear your music and throws you"
-                            " a small fortune fortune in coins.")
+                            " a small fortune in coins.")
             character.get_money(money.small_fortune)
 
         def the_locals_kill_you():
