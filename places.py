@@ -6,7 +6,7 @@ Created: 7 Dec 2014
 """
 
 from raffle import Raffle
-
+import actions
 
 class Place(object):
     """
@@ -90,3 +90,7 @@ woods.connections.add(cave)
 woods.connections.add(countryside)
 woods.connections.add(docks)
 woods.connections.add(lord_carlos_manor)
+
+# actions
+
+market.options["a"].add(actions.LookForWeapons(), weight=10)
