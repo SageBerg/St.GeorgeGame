@@ -10,6 +10,7 @@ import random
 from raffle import Raffle
 from actions import LickTheGround, LookForACat, LeaveInAPuff, SingASong
 from display import Display
+import money
 
 
 class Character(object):
@@ -21,7 +22,7 @@ class Character(object):
     def __init__(self):
         self.best_weapon = ""
         self.attack = 0
-        self.money = ""
+        self.money = money.none
         self.alive = True
         self.alone = True  # character has not found true love
 
@@ -43,12 +44,22 @@ class Character(object):
                         "c": self.bags["c"].get(),
                         "d": self.bags["d"].get()}
 
+    def get_money(self, amount):
+        if amount > self.money:
+            self.money = amount
+            Display().write("You now have {0}.".format(money.to_str(amount)))
+        elif self.money == money.pittance:
+            Display().write("You still only have {0}.".format(
+                money.to_str(amount)))
+        else:
+            Display().write("You still have {0}.".format(money.to_str(amount)))
+
     def buy(self, item):
         """
         buy an item
         """
         pass
-    
+
     def die(self):
         """
         Kill the character.

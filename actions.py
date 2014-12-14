@@ -12,6 +12,7 @@ import places
 import persons
 from display import Display
 from raffle import Raffle
+import money
 
 
 class Action(object):
@@ -184,6 +185,7 @@ class SingASong(Action):
         def a_crowd_gathers():
             Display().write("A Crowd gathers to hear your music and throws you"
                             " a small fortune fortune in coins.")
+            character.get_money(money.small_fortune)
 
         def the_locals_kill_you():
             Display().write("The locals hate your voice and soon mob you.")
