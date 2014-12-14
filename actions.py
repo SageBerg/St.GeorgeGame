@@ -11,6 +11,7 @@ import abc
 import places
 import persons
 from display import Display
+from raffle import Raffle
 
 
 class Action(object):
@@ -128,7 +129,7 @@ class BoastOfYourBravery(Action):
         self.name = "Boast of your bravery."
 
     def execute(self, character):
-        Display().write(character.person.pronouns.subj.capitalize() + 
+        Display().write(character.person.pronouns.subj.capitalize() +
                         " is not impressed.")
 
 
@@ -180,4 +181,16 @@ class SingASong(Action):
         self.name = "Sing a song."
 
     def execute(self, character):
-        pass
+        def a_crowd_gathers():
+            Display().write("A Crowd gathers to hear your music and throws you"
+                            " a small fortune fortune in coins.")
+
+        def the_locals_kill_you():
+            Display().write("The locals hate your voice and soon mob you.")
+            character.die()
+
+        outcomes = Raffle()
+        outcomes.add(a_crowd_gathers, weight=2)
+        outcomes.add(the_locals_kill_you, weight=1)
+        outcome = outcomes.get()
+        outcome()
