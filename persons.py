@@ -28,6 +28,21 @@ class Person(object):
         self.pronoun = pronoun
 
 
+class BlindBartender(Person):
+
+    def __init__(self):
+        self.name = "the blind bartender"
+        self.attack = 1
+        self.pronouns = Pronouns("he", "him", "s")
+        self.options = {"a": Raffle(),
+                        "b": Raffle(),
+                        "c": Raffle(),
+                        "d": Raffle()}
+        self.options["a"].add(actions.Attack(self), weight=10)
+        self.options["b"].add(actions.BoastOfYourBravery(), weight=1)
+        #self.options["c"].add(TalkAboutCats)
+
+
 class PrettyLady(Person):
 
     def __init__(self):
@@ -44,19 +59,18 @@ class PrettyLady(Person):
         #self.options["c"].add(TalkAboutCats)
 
 
-class BlindBartender(Person):
+class StGeorge(Person):
 
     def __init__(self):
-        self.name = "the blind bartender"
-        self.attack = 1
+        self.name = "St. George"
+        self.attack = 100
         self.pronouns = Pronouns("he", "him", "s")
         self.options = {"a": Raffle(),
                         "b": Raffle(),
                         "c": Raffle(),
                         "d": Raffle()}
         self.options["a"].add(actions.Attack(self), weight=10)
-        self.options["b"].add(actions.BoastOfYourBravery(), weight=1)
-        #self.options["c"].add(TalkAboutCats)
+        #self.options["b"].add(actions.BegForMoney(), weight=10)
 
 
 class WealthyMerchant(Person):
