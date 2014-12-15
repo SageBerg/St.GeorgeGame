@@ -86,6 +86,7 @@ class Character(object):
                         "b": self.bags["b"].get(),
                         "c": self.bags["c"].get(),
                         "d": self.bags["d"].get()}
+        self.prev_act = None  # Might need to move this
         for letter in "abcd":
             self.actions[letter] = self.bags[letter].get()
 
