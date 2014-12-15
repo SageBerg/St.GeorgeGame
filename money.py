@@ -1,3 +1,10 @@
+"""
+St. George Game
+money.py
+Skyler Berg
+Created: 13 Dec 2014
+"""
+
 none = 0
 pittance = 1
 small_fortune = 2
