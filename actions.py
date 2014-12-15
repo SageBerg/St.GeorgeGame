@@ -72,7 +72,7 @@ class AskAboutAssassins(Action):
 
         def no_one_cares():
             Display().write("You ask around, but nobody has heard anything about any assassins.")
-            self.options["a"].add(KillYourselfInFrustration(), weight=50)
+            self.options["a"].add(KillYourselfInFrustration(), weight=5)
             character.prev_act = self 
 
         outcomes = Raffle()
@@ -189,7 +189,7 @@ class KillYourselfInFrustration(Action):
             character.die()
             return
         deaths = ["You perform the ritual of the seppuku.",
-                  "You set yourself on fire and burn to a crisp", 
+                  "You set yourself on fire and burn to a crisp.",
                   ]
         Display().write(random.choice(deaths))
         character.die()
@@ -300,7 +300,7 @@ class SingASong(Action):
 
     def execute(self, character):
         def a_crowd_gathers():
-            Display().write("A Crowd gathers to hear your music and throws you"
+            Display().write("A crowd gathers to hear your music and throws you"
                             " a small fortune in coins.")
             character.get_money(money.small_fortune)
 
@@ -308,8 +308,16 @@ class SingASong(Action):
             Display().write("The locals hate your voice and soon mob you.")
             character.die()
 
+        def no_one_cares():
+            Display().write("You sing your favorite song. No one cares.")
+            self.options["a"].add(KillYourselfInFrustration(), weight=5)
+            character.prev_act = self 
+        
+
         outcomes = Raffle()
-        outcomes.add(a_crowd_gathers, weight=2)
-        outcomes.add(the_locals_kill_you, weight=1)
+        if character.place in places.Place.populated:
+            outcomes.add(a_crowd_gathers, weight=2)
+            outcomes.add(the_locals_kill_you, weight=1)
+        outcomes.add(no_one_cares, weight=1)
         outcome = outcomes.get()
         outcome()
