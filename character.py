@@ -79,9 +79,8 @@ class Character(object):
                 self.bags[char].merge(self.place.options[char])
             if self.person:
                 self.bags[char].merge(self.person.options[char])
-            #TODO actions will need an options method
-            #if self.prev_act:
-            #    self.bags[char].merge(self.prev_act.options[char])
+            if self.prev_act:
+                self.bags[char].merge(self.prev_act.options[char])
 
         self.actions = {"a": self.bags["a"].get(),
                         "b": self.bags["b"].get(),
@@ -89,12 +88,6 @@ class Character(object):
                         "d": self.bags["d"].get()}
         for letter in "abcd":
             self.actions[letter] = self.bags[letter].get()
-        # TODO remove test code:
-        """
-        if self.place.name == "the streets":
-            self.move_to(places.market)
-            self.generate_actions()
-        """
 
     def move(self, speed=1):
         """
@@ -109,9 +102,10 @@ class Character(object):
             speed -= 1
         self.move_to(at)
 
-    def move_to(self, place):
+    def move_to(self, place, suppress_message=False):
         self.place = place
-        Display().write('You find yourself in ' + str(self.place) + '.')
+        if not suppress_message:
+            Display().write('You find yourself in ' + str(self.place) + '.')
 
     def choose_action(self):
         """
