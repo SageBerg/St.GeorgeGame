@@ -323,6 +323,7 @@ class FleeTheScene(Action):
 class RunLikeTheDevil(Action):
 
     def __init__(self):
+        super().__init__()
         self.name = "Run like the Devil."
         self.options = {"a": Raffle(),
                         "b": Raffle(),
@@ -333,17 +334,23 @@ class RunLikeTheDevil(Action):
         def escape():
             Display().write("The Devil is very fast, so you manage to get "
                             "away.")
-
+            character.threatened = False
+            character.person = None
+            character.move(2) 
+            
         def get_caught():
             Display().write("You run like the Devil, but " +
                             character.person.pronouns.subj +
-                            " also runs like the Devil and "
-                            "catches you.")
-            Attack(self.person)
+                            " also run" + character.person.pronouns.tense +
+                            " like the Devil and "
+                            "overtake" + character.person.pronouns.tense +
+                            " you.")
+            Attack(character.person)
+            character.move(1) 
 
         outcomes = Raffle()
         outcomes.add(escape, weight=9)
-        outcomes.add(get_caught, weight=1)
+        outcomes.add(get_caught, weight=100) #FIX
         outcome = outcomes.get()
         outcome()
 
@@ -370,11 +377,11 @@ class SingASong(Action):
             character.die()
 
         def assassins_notice_you():
-            Display().write("While you're singing on top of a table, "
+            Display().write("While you're singing, "
                             "some men in black cloaks start to edge their "
                             "way toward you.")
             character.person = persons.assassins
-            character.theatened = True
+            character.threatened = True
 
         def no_one_cares():
             Display().write("You sing your favorite song. No one cares.")
