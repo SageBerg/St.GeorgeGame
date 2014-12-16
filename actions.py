@@ -33,7 +33,7 @@ class Action(object):
         return self.name
 
     @abc.abstractmethod
-    def exectute(self, character):
+    def execute(self, character):
         """
         returns nothing, edits character attributes
         """
@@ -67,6 +67,8 @@ class AskAboutAssassins(Action):
             Display().write("You ask around, but nobody has heard anything"
                             " about any assassins.")
             self.options["a"].add(KillYourselfInFrustration(), weight=5)
+            self.options["c"].add(LeaveInAHuff(), weight=5)
+            self.options["d"].add(SingASong(about="assassins"), weight=5)
             character.prev_act = self
 
         self.outcomes.add(assassinated, weight=3)
@@ -394,9 +396,13 @@ class RunLikeTheDevil(Action):
 
 class SingASong(Action):
 
-    def __init__(self):
+    def __init__(self, about=None):
         super().__init__()
-        self.name = "Sing a song."
+        self.about = about
+        if about:
+            self.name = "Sing a song about {0}.".format(about)
+        else:
+            self.name = "Sing a song."
 
     def execute(self, character):
         import persons
@@ -425,6 +431,8 @@ class SingASong(Action):
             self.outcomes.add(assassins_notice_you, weight=3)
             self.outcomes.add(a_crowd_gathers, weight=2)
             self.outcomes.add(the_locals_kill_you, weight=1)
+        if self.about == "assassins":
+            self.outcomes.add(assassins_notice_you, weight=5)
         self.outcomes.add(no_one_cares, weight=1)
         outcome = self.outcomes.get()
         outcome()
