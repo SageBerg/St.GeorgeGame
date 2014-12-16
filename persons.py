@@ -28,6 +28,20 @@ class Person(object):
         self.pronoun = pronoun
 
 
+class Assassins(Person):
+
+    def __init__(self):
+        self.name = "assassins"
+        self.attack = 6 
+        self.pronouns = Pronouns("they", "them", "")
+        self.options = {"a": Raffle(),
+                        "b": Raffle(),
+                        "c": Raffle(),
+                        "d": Raffle()}
+        self.options["a"].add(actions.Attack(self), weight=10)
+        self.options["b"].add(actions.BoastOfYourBravery(), weight=1)
+
+
 class BlindBartender(Person):
 
     def __init__(self):

@@ -50,7 +50,8 @@ class Character(object):
         """
         self.reset_action_bags()
         if self.threatened:
-            self.bags["c"].add(actions.RunLikeTheDevil, weight=10)
+            print("you are in danger!!!!")
+            self.bags["c"].add(actions.RunLikeTheDevil(), weight=10)
             #self.bags["c"].add(actions.LeaveInAHuff, weight=3)
             #self.bags["c"].add(actions.WaddleLikeGod, weight=1)
 

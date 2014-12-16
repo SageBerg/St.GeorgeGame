@@ -96,6 +96,7 @@ class Attack(Action):
         else:
             Display().write("You kill " + character.person.pronouns.obj + ".")
             character.person = None
+            character.threatened = False
             self.options["b"].add(BoastOfYourBravery(), 5)
             self.options["c"].add(FleeTheScene(), 5)
 
@@ -352,13 +353,20 @@ class SingASong(Action):
             Display().write("The locals hate your voice and soon mob you.")
             character.die()
 
+        def assassins_notice_you():
+            Display().write("While you're singing on top of a table, " 
+                            "some men in black cloaks start to edge their "
+                            "way toward you.")
+            character.person = persons.Assassins()
+            character.theatened = True
+            
         def no_one_cares():
             Display().write("You sing your favorite song. No one cares.")
             self.options["a"].add(KillYourselfInFrustration(), weight=5)
-            character.prev_act = self
 
         outcomes = Raffle()
         if character.place in places.Place.populated:
+            outcomes.add(assassins_notice_you, weight=10)  # TODO fix weight
             outcomes.add(a_crowd_gathers, weight=2)
             outcomes.add(the_locals_kill_you, weight=1)
         outcomes.add(no_one_cares, weight=1)
