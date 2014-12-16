@@ -26,7 +26,7 @@ class Place(object):
                         "c": Raffle(),
                         "d": Raffle()}
         Place.instances.add(self)
-        if populated: 
+        if populated:
             Place.populated.add(self)
 
     def __str__(self):
@@ -102,5 +102,6 @@ woods.connections.add(lord_carlos_manor)
 market.options["a"].add(actions.LookForWeapons(), weight=10)
 ocean.options["a"].add(actions.GoDivingForPearls(), weight=10)
 streets.options["a"].add(actions.LookForStGeorge(), weight=2)
+market.options["a"].add(actions.LookForAWeapon(), weight=10)
 tavern.options["b"].add(actions.BuyADrink(), weight=2)
 tavern.options["b"].add(actions.AskAboutAssassins(), weight=1)
