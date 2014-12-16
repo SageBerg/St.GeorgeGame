@@ -20,6 +20,7 @@ class Character(object):
     """
 
     def __init__(self):
+        self.items = set()
         self.best_weapon = ""
         self.attack = 0
         self.money = money.none
@@ -53,7 +54,9 @@ class Character(object):
             self.bags["c"].add(actions.RunLikeTheDevil(), weight=10)
             #self.bags["c"].add(actions.LeaveInAHuff, weight=3)
             #self.bags["c"].add(actions.WaddleLikeGod, weight=1)
-
+        if self.place:
+            for _ in range(3):
+                self.bags["c"].add(actions.GoTo(self.place))
         for char in self.bags:
             if self.place:
                 self.bags[char].merge(self.place.options[char])
