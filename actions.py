@@ -285,20 +285,17 @@ class BegForMoney(Action):
 
         def pittance():
             Display().write(character.person.name + " gives you a pittance.")
-            if character.money < 1:
-                character.money = money.pittance
+            character.get_money(money.pittance)
 
         def small_fortune():
             Display().write(character.person.name + " gives you a small "
                             "fortune.")
-            if character.money < 2:
-                character.money = money.small_fortune
+            character.get_money(money.small_fortune)
 
         def large_fortune():
             Display().write(character.person.name + " gives you a large "
                             "fortune.")
-            if character.money < 3:
-                character.money = money.large_fortune
+            character.get_money(money.large_fortune)
 
         if character.place != places.church:
             self.outcomes.add(forgot_wallet, weight=1)
