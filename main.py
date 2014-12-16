@@ -26,6 +26,7 @@ def main():
         action = character.choose_action()
         display.enable()
         action.execute(character)
+        character.prev_act = action
         character.generate_actions()
 
 if __name__ == "__main__":
