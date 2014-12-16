@@ -180,17 +180,29 @@ class LickTheGround(Action):
         outcome()
 
 
-class LookForWeapons(Action):
+class LookForAWeapon(Action):
 
     def __init__(self):
         super().__init__()
-        self.name = "Look for weapons."
+        self.name = "Look for a weapon."
 
     def execute(self, character):
         import persons
 
-        Display().write("You find yourself talking to a wealthy war merchant.")
-        character.person = persons.wealthy_merchant
+        def wealthy_merchant():
+            Display().write("You find yourself talking to a wealthy war "
+                            "merchant.")
+            character.person = persons.wealthy_merchant
+
+        def assassinated():
+            Display().write("You find one in your back as an assassin walks "
+                            "away smoothly.")
+            character.die()
+
+        self.outcomes.add(wealthy_merchant, 4)
+        self.outcomes.add(assassinated, 1)
+        outcome = self.outcomes.get()
+        outcome()
 
 
 class LookForStGeorge(Action):
