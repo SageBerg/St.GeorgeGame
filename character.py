@@ -106,6 +106,13 @@ class Character(object):
         else:
             Display().write("You still have {0}.".format(money.to_str(amount)))
 
+    def get_item(self, item):
+        if item[0] in "AEIOU":
+            Display().write("You now have an " + item + ".")
+        else:
+            Display().write("You now have a " + item + ".")
+        self.items.add(item)
+
     def die(self):
         """
         Kill the character.

@@ -120,7 +120,7 @@ class GoDivingForPearls(Action):
         def find_pearl():
             Display().write("You soon find a pearl in an oyster. You now "
                             "have a pearl.")
-            character.items.add("pearl")
+            character.get_item("Pearl")
 
         def saved_by_merfolk():
             Display().write("You exhaust yourself trying to find pearls and "
