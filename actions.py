@@ -53,11 +53,8 @@ class Action(object):
 class AskAboutAssassins(Action):
 
     def __init__(self):
+        super().__init__()
         self.name = "Ask about assassins."
-        self.options = {"a": Raffle(),
-                        "b": Raffle(),
-                        "c": Raffle(),
-                        "d": Raffle()}
 
     def execute(self, character):
         def assassinated():
@@ -87,11 +84,8 @@ class AskAboutAssassins(Action):
 class Attack(Action):
 
     def __init__(self, person):
+        super().__init__()
         self.name = "Attack " + person.pronouns.obj + "."
-        self.options = {"a": Raffle(),
-                        "b": Raffle(),
-                        "c": Raffle(),
-                        "d": Raffle()}
 
     def execute(self, character):
         if character.person.attack >= character.attack:
@@ -109,11 +103,8 @@ class Attack(Action):
 class LickTheGround(Action):
 
     def __init__(self):
+        super().__init__()
         self.name = "Lick the ground."
-        self.options = {"a": Raffle(),
-                        "b": Raffle(),
-                        "c": Raffle(),
-                        "d": Raffle()}
 
     def execute(self, character):
         pass
@@ -122,11 +113,8 @@ class LickTheGround(Action):
 class LookForWeapons(Action):
 
     def __init__(self):
+        super().__init__()
         self.name = "Look for weapons."
-        self.options = {"a": Raffle(),
-                        "b": Raffle(),
-                        "c": Raffle(),
-                        "d": Raffle()}
 
     def execute(self, character):
         Display().write("You find yourself talking to a wealthy war merchant.")
@@ -136,11 +124,8 @@ class LookForWeapons(Action):
 class LookForStGeorge(Action):
 
     def __init__(self):
+        super().__init__()
         self.name = "Look for St. George"
-        self.options = {"a": Raffle(),
-                        "b": Raffle(),
-                        "c": Raffle(),
-                        "d": Raffle()}
 
     def execute(self, character):
         def lost():
@@ -181,11 +166,8 @@ class LookForStGeorge(Action):
 class KillYourselfInFrustration(Action):
 
     def __init__(self):
+        super().__init__()
         self.name = "Kill yourself in frustration."
-        self.options = {"a": Raffle(),
-                        "b": Raffle(),
-                        "c": Raffle(),
-                        "d": Raffle()}
 
     def execute(self, character):
         if character.place == places.docks:
@@ -206,11 +188,8 @@ class KillYourselfInFrustration(Action):
 class BegForMoney(Action):
 
     def __init__(self):
+        super().__init__()
         self.name = "Beg for money."
-        self.options = {"a": Raffle(),
-                        "b": Raffle(),
-                        "c": Raffle(),
-                        "d": Raffle()}
 
     def execute(self, character):
         def forgot_wallet():
@@ -247,12 +226,9 @@ class BegForMoney(Action):
 class Buy(Action):
 
     def __init__(self, weapons):
+        super().__init__()
         self.weapon = random.choice(weapons)
         self.name = "Buy a " + self.weapon.name
-        self.options = {"a": Raffle(),
-                        "b": Raffle(),
-                        "c": Raffle(),
-                        "d": Raffle()}
 
     def execute(self, character):
         Display().write("You now have a " + self.weapon.name + ".")
@@ -264,11 +240,8 @@ class Buy(Action):
 class BuyADrink(Action):
 
     def __init__(self):
+        super().__init__()
         self.name = "Buy a drink."
-        self.options = {"a": Raffle(),
-                        "b": Raffle(),
-                        "c": Raffle(),
-                        "d": Raffle()}
 
     def execute(self, character):
         Display().write("The blind bartender grumbles as he passes you a "
@@ -279,11 +252,8 @@ class BuyADrink(Action):
 class BoastOfYourBravery(Action):
 
     def __init__(self):
+        super().__init__()
         self.name = "Boast of your bravery."
-        self.options = {"a": Raffle(),
-                        "b": Raffle(),
-                        "c": Raffle(),
-                        "d": Raffle()}
 
     def execute(self, character):
         Display().write(character.person.pronouns.subj.capitalize() +
@@ -293,11 +263,8 @@ class BoastOfYourBravery(Action):
 class LookForACat(Action):
 
     def __init__(self):
+        super().__init__()
         self.name = "Look for a cat."
-        self.options = {"a": Raffle(),
-                        "b": Raffle(),
-                        "c": Raffle(),
-                        "d": Raffle()}
 
     def execute(self, character):
         pass
@@ -309,11 +276,8 @@ class LookForACat(Action):
 class LeaveInAHuff(Action):
 
     def __init__(self):
+        super().__init__()
         self.name = "Leave in a huff."
-        self.options = {"a": Raffle(),
-                        "b": Raffle(),
-                        "c": Raffle(),
-                        "d": Raffle()}
 
     def execute(self, character):
         character.move(speed=1)
@@ -322,11 +286,8 @@ class LeaveInAHuff(Action):
 class LeaveInAPuff(Action):
 
     def __init__(self):
+        super().__init__()
         self.name = "Leave in a puff."
-        self.options = {"a": Raffle(),
-                        "b": Raffle(),
-                        "c": Raffle(),
-                        "d": Raffle()}
 
     def execute(self, character):
         options = places.Place.instances - set([character.place])
@@ -351,11 +312,8 @@ class FleeTheScene(Action):
 class SingASong(Action):
 
     def __init__(self):
+        super().__init__()
         self.name = "Sing a song."
-        self.options = {"a": Raffle(),
-                        "b": Raffle(),
-                        "c": Raffle(),
-                        "d": Raffle()}
 
     def execute(self, character):
         def a_crowd_gathers():
