@@ -100,6 +100,7 @@ woods.connections.add(lord_carlos_manor)
 # actions
 
 market.options["a"].add(actions.LookForWeapons(), weight=10)
+ocean.options["a"].add(actions.GoDivingForPearls(), weight=10)
+streets.options["a"].add(actions.LookForStGeorge(), weight=2)
 tavern.options["b"].add(actions.BuyADrink(), weight=2)
 tavern.options["b"].add(actions.AskAboutAssassins(), weight=1)
-streets.options["a"].add(actions.LookForStGeorge(), weight=2)
