@@ -306,6 +306,33 @@ class FleeTheScene(Action):
         character.person = None
 
 
+class RunLikeTheDevil(Action):
+
+    def __init__(self):
+        self.name = "Run like the Devil."
+        self.options = {"a": Raffle(),
+                        "b": Raffle(),
+                        "c": Raffle(),
+                        "d": Raffle()}
+
+    def execute(self, character):
+        def escape():
+            Display().write("The Devil is very fast, so you manage to get "
+                            "away.")
+        def get_caught():
+            Display().write("You run like the Devil, but " + 
+                            character.person.pronouns.subj + 
+                            " also runs like the Devil and "
+                            "catches you.")
+            Attack(self.person)
+
+        outcomes = Raffle()
+        outcomes.add(escape, weight=9)
+        outcomes.add(get_caught, weight=1)
+        outcome = outcomes.get()
+        outcome()
+
+
 # D slot actions
 
 
