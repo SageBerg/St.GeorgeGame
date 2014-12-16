@@ -100,6 +100,43 @@ class Attack(Action):
             self.options["c"].add(FleeTheScene(), 5)
 
 
+class GoDivingForPearls(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Go diving for pearls."
+    
+    def execute(self, character):
+        def eaten_by_shark():
+            Display().write("Lord Arthur's pet shark eats you.")
+            character.die()
+
+        def find_pearl_death():
+            Display().write("You soon pry open an oyster and find a large "
+                            "pearl. It's so dazzling you drown while "
+                            "gazing at it.")
+            character.die()
+
+        def find_pearl():
+            Display().write("You soon find a pearl in an oyster. You now "
+                            "have a pearl.")
+
+        def saved_by_merfolk():
+            Display().write("You exhaust yourself trying to find pearls and "
+                            "start to drown. Just when you think it's all "
+                            "over, a beautiful mermaid grabs you and hoists "
+                            "you onto some rocks.")
+            character.place = places.mermaid_rock
+            #character.person = persons.mermaid() 
+
+        self.outcomes.add(eaten_by_shark, weight=3)
+        self.outcomes.add(saved_by_merfolk, weight=1)
+        self.outcomes.add(find_pearl_death, weight=3)
+        self.outcomes.add(find_pearl, weight=1)
+        outcome = self.outcomes.get()
+        outcome()
+
+
 class LickTheGround(Action):
 
     def __init__(self):
@@ -428,7 +465,7 @@ class SingASong(Action):
             self.options["a"].add(KillYourselfInFrustration(), weight=5)
 
         if character.place in places.Place.populated:
-            self.outcomes.add(assassins_notice_you, weight=3)
+            self.outcomes.add(assassins_notice_you, weight=3) 
             self.outcomes.add(a_crowd_gathers, weight=2)
             self.outcomes.add(the_locals_kill_you, weight=1)
         if self.about == "assassins":
