@@ -163,7 +163,7 @@ class LickTheGround(Action):
             character.person = persons.guards
             self.options["a"].add(Attack(character.person), 10)
             self.options["b"].add(TellThemYouAreNotALunatic(excuse="hungry"),
-                                  10)
+                                  100)
 
         def drown_in_ocean():
             Display().write("You drown while swimming toward the ocean floor "
@@ -358,7 +358,32 @@ class LookForACat(Action):
         self.name = "Look for a cat."
 
     def execute(self, character):
-        pass
+        import persons
+
+        def dark_alley():
+            Display().write("You follow a cat throw the streets but "
+                            "eventually lose track of it.")
+            character.move_to(places.dark_alley)
+
+        def get_a_cat():
+            Display().write("You after days of searching, you manage to find "
+                            "a cat.")
+            Display().write("You now have a cat.")
+            # TODO give the player a cat
+
+        def the_guards_catch_you():
+            Display().write("The local guards notice you searching for a cat "
+                            "and conclude that you must be a lunatic.")
+            character.person = persons.guards
+            self.options["a"].add(Attack(character.person), 10)
+            self.options["b"].add(TellThemYouAreNotALunatic(excuse="lonely"),
+                                  100)
+
+        self.outcomes.add(dark_alley, 1)
+        self.outcomes.add(get_a_cat, 1)
+        self.outcomes.add(the_guards_catch_you, 1)
+        outcome = self.outcomes.get()
+        outcome()
 
 
 class TellThemYouAreNotALunatic(Action):
@@ -367,7 +392,7 @@ class TellThemYouAreNotALunatic(Action):
         super().__init__()
         self.excuse = excuse
         self.name = "Tell them you are not a lunatic, " + \
-            "you are just {0}.".format(excuse)
+            "you're just {0}.".format(excuse)
 
     def execute(self, character):
         Display().write("'A {0} lunatic,' they say.".format(self.excuse))
