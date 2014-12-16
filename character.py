@@ -7,10 +7,10 @@ Created: 9 Dec 2014
 
 import random
 
-from raffle import Raffle
-from actions import LickTheGround, LookForACat, LeaveInAPuff, SingASong
+import actions
 from display import Display
 import money
+from raffle import Raffle
 
 
 class Character(object):
@@ -30,50 +30,24 @@ class Character(object):
         self.person = None
         self.prev_act = None
 
+        self.reset_action_bags()
+        self.generate_actions()
+
+    def reset_action_bags(self):
         self.bags = {"a": Raffle(),
                      "b": Raffle(),
                      "c": Raffle(),
                      "d": Raffle()}
-        self.bags["a"].add(LickTheGround())
-        self.bags["b"].add(LookForACat())
-        self.bags["c"].add(LeaveInAPuff())
-        self.bags["d"].add(SingASong())
-
-        self.actions = {"a": self.bags["a"].get(),
-                        "b": self.bags["b"].get(),
-                        "c": self.bags["c"].get(),
-                        "d": self.bags["d"].get()}
-
-    def get_money(self, amount):
-        if amount > self.money:
-            self.money = amount
-            Display().write("You now have {0}.".format(money.to_str(amount)))
-        elif self.money == money.pittance:
-            Display().write("You still only have {0}.".format(
-                money.to_str(amount)))
-        else:
-            Display().write("You still have {0}.".format(money.to_str(amount)))
-
-    def die(self):
-        """
-        Kill the character.
-        """
-        Display().write("You are dead.")
-        Display().disable()
-        self.alive = False
+        self.bags["a"].add(actions.LickTheGround())
+        self.bags["b"].add(actions.LookForACat())
+        self.bags["c"].add(actions.LeaveInAPuff())
+        self.bags["d"].add(actions.SingASong())
 
     def generate_actions(self):
         """
         Selects actions from the options available.
         """
-        self.bags = {"a": Raffle(),
-                     "b": Raffle(),
-                     "c": Raffle(),
-                     "d": Raffle()}
-        self.bags["a"].add(LickTheGround())
-        self.bags["b"].add(LookForACat())
-        self.bags["c"].add(LeaveInAPuff())
-        self.bags["d"].add(SingASong())
+        self.reset_action_bags()
         for char in self.bags:
             if self.place:
                 self.bags[char].merge(self.place.options[char])
@@ -89,24 +63,6 @@ class Character(object):
         self.prev_act = None  # Might need to move this
         for letter in "abcd":
             self.actions[letter] = self.bags[letter].get()
-
-    def move(self, speed=1):
-        """
-        """
-        visited = set([self.place])  # We don't go in circles
-        at = self.place
-        while speed:
-            options = at.connections - visited
-            if not options:
-                break
-            at = random.sample(options, 1)[0]
-            speed -= 1
-        self.move_to(at)
-
-    def move_to(self, place, suppress_message=False):
-        self.place = place
-        if not suppress_message:
-            Display().write('You find yourself in ' + str(self.place) + '.')
 
     def choose_action(self):
         """
@@ -130,3 +86,37 @@ class Character(object):
             else:
                 go_to_next = True
         return self.actions[choice]
+
+    def get_money(self, amount):
+        if amount > self.money:
+            self.money = amount
+            Display().write("You now have {0}.".format(money.to_str(amount)))
+        elif self.money == money.pittance:
+            Display().write("You still only have {0}.".format(
+                money.to_str(amount)))
+        else:
+            Display().write("You still have {0}.".format(money.to_str(amount)))
+
+    def die(self):
+        """
+        Kill the character.
+        """
+        Display().write("You are dead.")
+        Display().disable()
+        self.alive = False
+
+    def move(self, speed=1):
+        visited = set([self.place])  # We don't go in circles
+        at = self.place
+        while speed:
+            options = at.connections - visited
+            if not options:
+                break
+            at = random.sample(options, 1)[0]
+            speed -= 1
+        self.move_to(at)
+
+    def move_to(self, place, suppress_message=False):
+        self.place = place
+        if not suppress_message:
+            Display().write('You find yourself in ' + str(self.place) + '.')
