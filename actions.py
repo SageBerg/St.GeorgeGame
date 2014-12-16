@@ -198,7 +198,7 @@ class LookForAWeapon(Action):
             character.person = persons.wealthy_merchant
 
         def assassinated():
-            Display().write("You find one in your back as an assassin walks "
+            Display().write("You find one... in your back as an assassin walks "
                             "away smoothly.")
             character.die()
 
@@ -260,6 +260,19 @@ class KillYourselfInFrustration(Action):
         if character.place == places.docks:
             Display().write("You walk into the ocean and are suddenly "
                             "inspired to write a novel. You drown.")
+            character.die()
+            return
+        if character.place == places.streets or \
+           character.place == places.market  or \
+           character.place == places.church and random.randint(1,3) == 3:
+            Display().write("You throw yourself off a rooftop, but St. "
+                            "George catches you and gives you sack of coins.")
+            character.get_money(money.large_fortune) 
+            character.person = StGeorege()
+            return
+        if character.place == places.docks:
+            Display().write("You see Lord Arthur on the docks and ask him to "
+                            "kill you with his jeweled cutlass. He gladly obliges.")
             character.die()
             return
         deaths = ["You perform the ritual of the seppuku.",
