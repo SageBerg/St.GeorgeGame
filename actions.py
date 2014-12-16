@@ -76,8 +76,9 @@ class AskAboutAssassins(Action):
 
         outcomes = Raffle()
         outcomes.add(assassinated, weight=3)
-        outcomes.add(pretty_lady, weight=1)
         outcomes.add(no_one_cares, weight=100)
+        if persons.pretty_lady.alive:
+            outcomes.add(pretty_lady, weight=1)
         outcome = outcomes.get()
         outcome()
 
@@ -96,6 +97,7 @@ class Attack(Action):
             character.die()
         else:
             Display().write("You kill " + character.person.pronouns.obj + ".")
+            character.person.alive = False
             character.person = None
             character.threatened = False
             self.options["b"].add(BoastOfYourBravery(), 5)
@@ -162,9 +164,10 @@ class LookForStGeorge(Action):
         outcomes = Raffle()
         outcomes.add(lost, weight=3)
         outcomes.add(trip_over_a_cat, weight=1)
-        outcomes.add(find_st_george_at_church, weight=10)
-        outcomes.add(find_st_george_at_market, weight=5)
-        outcomes.add(find_st_george_at_church, weight=5)
+        if persons.st_george.alive:
+            outcomes.add(find_st_george_at_church, weight=10)
+            outcomes.add(find_st_george_at_market, weight=5)
+            outcomes.add(find_st_george_at_church, weight=5)
         outcome = outcomes.get()
         outcome()
 
@@ -252,9 +255,12 @@ class BuyADrink(Action):
     def execute(self, character):
         import persons
 
-        Display().write("The blind bartender grumbles as he passes you a "
-                        "drink.")
-        character.person = persons.blind_bartender
+        if persons.blind_bartender.alive:
+            Display().write("The blind bartender grumbles as he passes you a "
+                            "drink.")
+            character.person = persons.blind_bartender
+        else:
+            Display().write("No one is selling drinks.")
 
 
 class BoastOfYourBravery(Action):
