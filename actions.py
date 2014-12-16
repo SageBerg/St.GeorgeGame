@@ -125,10 +125,18 @@ class LickTheGround(Action):
             self.options["b"].add(TellThemYouAreNotALunatic(excuse="hungry"),
                                   10)
 
+        def drown_in_ocean():
+            Display().write("You drown while swimming toward the ocean floor "
+                            "with your tongue extended.")
+            character.die()
+
         self.outcomes.add(you_dislike_the_taste, 5)
         self.outcomes.add(get_infected_and_die, 1)
         if character.place in places.Place.populated:
             self.outcomes.add(the_guards_catch_you, 5)
+        if character.place == places.ocean:
+            self.outcomes = Raffle()  # There is only one outcome
+            self.outcomes.add(drown_in_ocean, 10000)
         outcome = self.outcomes.get()
         outcome()
 
