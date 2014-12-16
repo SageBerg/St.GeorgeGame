@@ -28,6 +28,7 @@ class Person(object):
 
 assassins = Person("assassins", 6, Pronouns("they", "them", ""))
 blind_bartender = Person("the blind bartender", 1, Pronouns("he", "him", "s"))
+guards = Person("the guards", 1, Pronouns("they", "them", ""))
 pretty_lady = Person("pretty lady", 1, Pronouns("she", "her", "s"))
 st_george = Person("St. George", 100, Pronouns("he", "him", "s"))
 wealthy_merchant = Person("the wealthy merchant", 7,

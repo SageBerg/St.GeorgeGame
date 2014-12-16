@@ -105,7 +105,32 @@ class LickTheGround(Action):
         self.name = "Lick the ground."
 
     def execute(self, character):
-        pass
+        import persons
+
+        def get_infected_and_die():
+            Display().write("You get an infection and spend three weeks "
+                            "fighting it.")
+            character.die()
+
+        def you_dislike_the_taste():
+            Display().write("You find the flavor of the ground to be "
+                            "distastful.")
+            self.options["a"].add(KillYourselfInFrustration(), 10)
+
+        def the_guards_catch_you():
+            Display().write("The local guards see you licking the ground and "
+                            "accuse you of being a lunatic.")
+            character.person = persons.guards
+            self.options["a"].add(Attack(character.person), 10)
+            self.options["b"].add(TellThemYouAreNotALunatic(excuse="hungry"),
+                                  10)
+
+        self.outcomes.add(you_dislike_the_taste, 5)
+        self.outcomes.add(get_infected_and_die, 1)
+        if character.place in places.Place.populated:
+            self.outcomes.add(the_guards_catch_you, 5)
+        outcome = self.outcomes.get()
+        outcome()
 
 
 class LookForWeapons(Action):
@@ -276,6 +301,20 @@ class LookForACat(Action):
         pass
 
 
+class TellThemYouAreNotALunatic(Action):
+
+    def __init__(self, excuse):
+        super().__init__()
+        self.excuse = excuse
+        self.name = "Tell them you are not a lunatic, " + \
+            "you are just {0}.".format(excuse)
+
+    def execute(self, character):
+        Display().write("'A {0} lunatic,' they say.".format(self.excuse))
+        Display().write("They throw you in prison with the other lunatics.")
+        character.move_to(places.prison)
+
+
 # C slot actions
 
 
@@ -375,7 +414,7 @@ class SingASong(Action):
             self.options["a"].add(KillYourselfInFrustration(), weight=5)
 
         if character.place in places.Place.populated:
-            self.outcomes.add(assassins_notice_you, weight=10)  # TODO fix weight
+            self.outcomes.add(assassins_notice_you, weight=3)
             self.outcomes.add(a_crowd_gathers, weight=2)
             self.outcomes.add(the_locals_kill_you, weight=1)
         self.outcomes.add(no_one_cares, weight=1)
