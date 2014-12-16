@@ -61,17 +61,20 @@ class AskAboutAssassins(Action):
 
     def execute(self, character):
         def assassinated():
-            Display().write("The first person you ask about assassins turns out to be an assassin. She assassinates you.")
+            Display().write("The first person you ask about assassins turns"
+                            " out to be an assassin. She assassinates you.")
             character.die()
 
         def pretty_lady():
-            Display().write("During your search, you strike up a conversation with a pretty lady.")
+            Display().write("During your search, you strike up a conversation"
+                            "with a pretty lady.")
             character.person = persons.PrettyLady()
 
         def no_one_cares():
-            Display().write("You ask around, but nobody has heard anything about any assassins.")
+            Display().write("You ask around, but nobody has heard anything"
+                            " about any assassins.")
             self.options["a"].add(KillYourselfInFrustration(), weight=5)
-            character.prev_act = self 
+            character.prev_act = self
 
         outcomes = Raffle()
         outcomes.add(assassinated, weight=3)
@@ -79,7 +82,7 @@ class AskAboutAssassins(Action):
         outcomes.add(no_one_cares, weight=100)
         outcome = outcomes.get()
         outcome()
-            
+
 
 class Attack(Action):
 
@@ -92,12 +95,16 @@ class Attack(Action):
 
     def execute(self, character):
         if character.person.attack >= character.attack:
-            Display().write(character.person.pronouns.subj.capitalize() + " kill" +
-                            character.person.pronouns.tense + " you.")
+            Display().write(character.person.pronouns.subj.capitalize() +
+                            " kill" + character.person.pronouns.tense +
+                            " you.")
             character.die()
         else:
             Display().write("You kill " + character.person.pronouns.obj + ".")
             character.person = None
+            self.options["b"].add(BoastOfYourBravery(), 5)
+            self.options["c"].add(FleeTheScene(), 5)
+
 
 class LickTheGround(Action):
 
@@ -113,7 +120,7 @@ class LickTheGround(Action):
 
 
 class LookForWeapons(Action):
-    
+
     def __init__(self):
         self.name = "Look for weapons."
         self.options = {"a": Raffle(),
@@ -127,7 +134,7 @@ class LookForWeapons(Action):
 
 
 class LookForStGeorge(Action):
-    
+
     def __init__(self):
         self.name = "Look for St. George"
         self.options = {"a": Raffle(),
@@ -140,7 +147,7 @@ class LookForStGeorge(Action):
             Display().write("While looking for St. George, you get lost in "
                             "your thoughts and realize you stopped paying "
                             "attention to where you were going.")
-            LeaveInAHuff().execute(character)     
+            LeaveInAHuff().execute(character)
 
         def find_st_george_at_church():
             Display().write("You find St. George at the church.")
@@ -156,7 +163,7 @@ class LookForStGeorge(Action):
             Display().write("You find St. George in the streets.")
             character.move_to(places.streets, suppress_message=True)
             character.person = persons.StGeorge()
-             
+
         def trip_over_a_cat():
             Display().write("You trip over a cat and break your neck.")
             character.die()
@@ -182,8 +189,8 @@ class KillYourselfInFrustration(Action):
 
     def execute(self, character):
         if character.place == places.docks:
-            Display().write("You walk into the ocean and are suddenly " 
-                            "inspired to write a novel. You drown.") 
+            Display().write("You walk into the ocean and are suddenly "
+                            "inspired to write a novel. You drown.")
             character.die()
             return
         deaths = ["You perform the ritual of the seppuku.",
@@ -209,6 +216,7 @@ class BegForMoney(Action):
         def forgot_wallet():
             Display().write("St. George tells you he has lost his "
                             "wallet in the church.")
+
         def pittance():
             Display().write(character.person.name + " gives you a pittance.")
             if character.money < 1:
@@ -228,7 +236,7 @@ class BegForMoney(Action):
 
         outcomes = Raffle()
         if character.place != places.church:
-            outcomes.add(forgot_wallet, weight=1) 
+            outcomes.add(forgot_wallet, weight=1)
         outcomes.add(pittance, weight=3)
         outcomes.add(small_fortune, weight=2)
         outcomes.add(large_fortune, weight=1)
@@ -325,6 +333,18 @@ class LeaveInAPuff(Action):
         character.move_to(random.sample(options, 1)[0])
         character.person = None
 
+
+class FleeTheScene(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Flee the scene."
+
+    def execute(self, character):
+        character.move(2)
+        character.person = None
+
+
 # D slot actions
 
 
@@ -350,8 +370,7 @@ class SingASong(Action):
         def no_one_cares():
             Display().write("You sing your favorite song. No one cares.")
             self.options["a"].add(KillYourselfInFrustration(), weight=5)
-            character.prev_act = self 
-        
+            character.prev_act = self
 
         outcomes = Raffle()
         if character.place in places.Place.populated:
