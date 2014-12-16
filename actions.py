@@ -24,6 +24,10 @@ class Action(object):
     @abc.abstractmethod
     def __init__(self):
         self.name = ""
+        self.options = {"a": Raffle(),
+                        "b": Raffle(),
+                        "c": Raffle(),
+                        "d": Raffle()}
 
     def __str__(self):
         return self.name
@@ -33,20 +37,14 @@ class Action(object):
         """
         returns nothing, edits character attributes
         """
-        return
 
+        def some_stuff():
+            pass
 
-class copy_paste(Action):
-
-    def __init__(self):
-        self.name = ""
-        self.options = {"a": Raffle(),
-                        "b": Raffle(),
-                        "c": Raffle(),
-                        "d": Raffle()}
-
-    def execute(self, character):
-        pass
+        outcomes = Raffle()
+        outcomes.add(some_stuff, weight=3)
+        outcome = outcomes.get()
+        outcome()
 
 
 # A slot actions
@@ -98,8 +96,8 @@ class Attack(Action):
                             character.person.pronouns.tense + " you.")
             character.die()
         else:
-            Display().write("You kill " + character.person.pronouns.obj)
-
+            Display().write("You kill " + character.person.pronouns.obj + ".")
+            character.person = None
 
 class LickTheGround(Action):
 
@@ -198,6 +196,46 @@ class KillYourselfInFrustration(Action):
 # B slot actions
 
 
+class BegForMoney(Action):
+
+    def __init__(self):
+        self.name = "Beg for money."
+        self.options = {"a": Raffle(),
+                        "b": Raffle(),
+                        "c": Raffle(),
+                        "d": Raffle()}
+
+    def execute(self, character):
+        def forgot_wallet():
+            Display().write("St. George tells you he has lost his "
+                            "wallet in the church.")
+        def pittance():
+            Display().write(character.person.name + " gives you a pittance.")
+            if character.money < 1:
+                character.money = money.pittance
+
+        def small_fortune():
+            Display().write(character.person.name + " gives you a small "
+                            "fortune.")
+            if character.money < 2:
+                character.money = money.small_fortune
+
+        def large_fortune():
+            Display().write(character.person.name + " gives you a large "
+                            "fortune.")
+            if character.money < 3:
+                character.money = money.large_fortune
+
+        outcomes = Raffle()
+        if character.place != places.church:
+            outcomes.add(forgot_wallet, weight=1) 
+        outcomes.add(pittance, weight=3)
+        outcomes.add(small_fortune, weight=2)
+        outcomes.add(large_fortune, weight=1)
+        outcome = outcomes.get()
+        outcome()
+
+
 class Buy(Action):
 
     def __init__(self, weapons):
@@ -209,7 +247,7 @@ class Buy(Action):
                         "d": Raffle()}
 
     def execute(self, character):
-        Display().write("You now have a " + self.weapon.name)
+        Display().write("You now have a " + self.weapon.name + ".")
         if character.attack < self.weapon.attack:
             character.weapon = self.weapon
             character.attack = self.weapon.attack
@@ -225,7 +263,8 @@ class BuyADrink(Action):
                         "d": Raffle()}
 
     def execute(self, character):
-        Display().write("The blind bartender grumbles as he passes you a drink.")
+        Display().write("The blind bartender grumbles as he passes you a "
+                        "drink.")
         character.person = persons.BlindBartender()
 
 
@@ -284,7 +323,7 @@ class LeaveInAPuff(Action):
     def execute(self, character):
         options = places.Place.instances - set([character.place])
         character.move_to(random.sample(options, 1)[0])
-
+        character.person = None
 
 # D slot actions
 

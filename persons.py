@@ -70,7 +70,7 @@ class StGeorge(Person):
                         "c": Raffle(),
                         "d": Raffle()}
         self.options["a"].add(actions.Attack(self), weight=10)
-        #self.options["b"].add(actions.BegForMoney(), weight=10)
+        self.options["b"].add(actions.BegForMoney(), weight=10)
 
 
 class WealthyMerchant(Person):
