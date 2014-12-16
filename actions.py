@@ -41,6 +41,11 @@ class Action(object):
         def some_stuff():
             pass
 
+    def run_outcome(self):
+        outcome = self.outcomes.get()
+        outcome()
+        self.outcomes = Raffle()
+
 # A slot actions
 
 
@@ -75,8 +80,7 @@ class AskAboutAssassins(Action):
         self.outcomes.add(no_one_cares, weight=100)
         if persons.pretty_lady.alive:
             self.outcomes.add(pretty_lady, weight=1)
-        outcome = self.outcomes.get()
-        outcome()
+        self.run_outcome()
 
 
 class Attack(Action):
@@ -105,7 +109,7 @@ class GoDivingForPearls(Action):
     def __init__(self):
         super().__init__()
         self.name = "Go diving for pearls."
-    
+
     def execute(self, character):
         def eaten_by_shark():
             Display().write("Lord Arthur's pet shark eats you.")
@@ -128,14 +132,13 @@ class GoDivingForPearls(Action):
                             "over, a beautiful mermaid grabs you and hoists "
                             "you onto some rocks.")
             character.place = places.mermaid_rock
-            #character.person = persons.mermaid() 
+            #character.person = persons.mermaid()
 
         self.outcomes.add(eaten_by_shark, weight=3)
         self.outcomes.add(saved_by_merfolk, weight=1)
         self.outcomes.add(find_pearl_death, weight=3)
         self.outcomes.add(find_pearl, weight=1)
-        outcome = self.outcomes.get()
-        outcome()
+        self.run_outcome()
 
 
 class LickTheGround(Action):
@@ -177,8 +180,7 @@ class LickTheGround(Action):
         if character.place == places.ocean:
             self.outcomes = Raffle()  # There is only one outcome
             self.outcomes.add(drown_in_ocean, 10000)
-        outcome = self.outcomes.get()
-        outcome()
+        self.run_outcome()
 
 
 class LookForAWeapon(Action):
@@ -202,8 +204,7 @@ class LookForAWeapon(Action):
 
         self.outcomes.add(wealthy_merchant, 4)
         self.outcomes.add(assassinated, 1)
-        outcome = self.outcomes.get()
-        outcome()
+        self.run_outcome()
 
 
 class LookForStGeorge(Action):
@@ -246,8 +247,7 @@ class LookForStGeorge(Action):
             self.outcomes.add(find_st_george_at_church, weight=10)
             self.outcomes.add(find_st_george_at_market, weight=5)
             self.outcomes.add(find_st_george_at_church, weight=5)
-        outcome = self.outcomes.get()
-        outcome()
+        self.run_outcome()
 
 
 class KillYourselfInFrustration(Action):
@@ -330,8 +330,7 @@ class BegForMoney(Action):
                 self.outcomes.add(large_fortune, 1)
         else:
             self.outcomes.add(deaf_ears, 1)
-        outcome = self.outcomes.get()
-        outcome()
+        self.run_outcome()
 
 
 class Buy(Action):
@@ -411,8 +410,7 @@ class LookForACat(Action):
         self.outcomes.add(dark_alley, 1)
         self.outcomes.add(get_a_cat, 1)
         self.outcomes.add(the_guards_catch_you, 1)
-        outcome = self.outcomes.get()
-        outcome()
+        self.run_outcome()
 
 
 class TellThemYouAreNotALunatic(Action):
@@ -504,8 +502,7 @@ class RunLikeTheDevil(Action):
 
         self.outcomes.add(escape, weight=9)
         self.outcomes.add(get_caught, weight=1)
-        outcome = self.outcomes.get()
-        outcome()
+        self.run_outcome()
 
 
 # D slot actions
@@ -545,11 +542,10 @@ class SingASong(Action):
             self.options["a"].add(KillYourselfInFrustration(), weight=5)
 
         if character.place in places.Place.populated:
-            self.outcomes.add(assassins_notice_you, weight=3) 
+            self.outcomes.add(assassins_notice_you, weight=3)
             self.outcomes.add(a_crowd_gathers, weight=2)
             self.outcomes.add(the_locals_kill_you, weight=1)
         if self.about == "assassins":
             self.outcomes.add(assassins_notice_you, weight=5)
         self.outcomes.add(no_one_cares, weight=1)
-        outcome = self.outcomes.get()
-        outcome()
+        self.run_outcome()

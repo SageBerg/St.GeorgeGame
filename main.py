@@ -40,5 +40,4 @@ def main():
         character.generate_actions()
 
 if __name__ == "__main__":
-    while True:  # the game automatically restarts
-        main()
+    main()

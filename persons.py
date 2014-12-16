@@ -21,6 +21,7 @@ class Person(object):
         self.attack = attack
         self.pronouns = pronouns
         self.alive = True
+        self.state = {}
         self.options = {"a": Raffle(),
                         "b": Raffle(),
                         "c": Raffle(),
