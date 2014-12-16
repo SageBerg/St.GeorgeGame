@@ -23,6 +23,7 @@ class Action(object):
     @abc.abstractmethod
     def __init__(self):
         self.name = ""
+        self.outcomes = Raffle()
         self.options = {"a": Raffle(),
                         "b": Raffle(),
                         "c": Raffle(),
@@ -39,12 +40,6 @@ class Action(object):
 
         def some_stuff():
             pass
-
-        outcomes = Raffle()
-        outcomes.add(some_stuff, weight=3)
-        outcome = outcomes.get()
-        outcome()
-
 
 # A slot actions
 
@@ -74,12 +69,11 @@ class AskAboutAssassins(Action):
             self.options["a"].add(KillYourselfInFrustration(), weight=5)
             character.prev_act = self
 
-        outcomes = Raffle()
-        outcomes.add(assassinated, weight=3)
-        outcomes.add(no_one_cares, weight=100)
+        self.outcomes.add(assassinated, weight=3)
+        self.outcomes.add(no_one_cares, weight=100)
         if persons.pretty_lady.alive:
-            outcomes.add(pretty_lady, weight=1)
-        outcome = outcomes.get()
+            self.outcomes.add(pretty_lady, weight=1)
+        outcome = self.outcomes.get()
         outcome()
 
 
@@ -161,14 +155,13 @@ class LookForStGeorge(Action):
             Display().write("You trip over a cat and break your neck.")
             character.die()
 
-        outcomes = Raffle()
-        outcomes.add(lost, weight=3)
-        outcomes.add(trip_over_a_cat, weight=1)
+        self.outcomes.add(lost, weight=3)
+        self.outcomes.add(trip_over_a_cat, weight=1)
         if persons.st_george.alive:
-            outcomes.add(find_st_george_at_church, weight=10)
-            outcomes.add(find_st_george_at_market, weight=5)
-            outcomes.add(find_st_george_at_church, weight=5)
-        outcome = outcomes.get()
+            self.outcomes.add(find_st_george_at_church, weight=10)
+            self.outcomes.add(find_st_george_at_market, weight=5)
+            self.outcomes.add(find_st_george_at_church, weight=5)
+        outcome = self.outcomes.get()
         outcome()
 
 
@@ -222,13 +215,12 @@ class BegForMoney(Action):
             if character.money < 3:
                 character.money = money.large_fortune
 
-        outcomes = Raffle()
         if character.place != places.church:
-            outcomes.add(forgot_wallet, weight=1)
-        outcomes.add(pittance, weight=3)
-        outcomes.add(small_fortune, weight=2)
-        outcomes.add(large_fortune, weight=1)
-        outcome = outcomes.get()
+            self.outcomes.add(forgot_wallet, weight=1)
+        self.outcomes.add(pittance, weight=3)
+        self.outcomes.add(small_fortune, weight=2)
+        self.outcomes.add(large_fortune, weight=1)
+        outcome = self.outcomes.get()
         outcome()
 
 
@@ -325,10 +317,6 @@ class RunLikeTheDevil(Action):
     def __init__(self):
         super().__init__()
         self.name = "Run like the Devil."
-        self.options = {"a": Raffle(),
-                        "b": Raffle(),
-                        "c": Raffle(),
-                        "d": Raffle()}
 
     def execute(self, character):
         def escape():
@@ -336,8 +324,8 @@ class RunLikeTheDevil(Action):
                             "away.")
             character.threatened = False
             character.person = None
-            character.move(2) 
-            
+            character.move(2)
+
         def get_caught():
             Display().write("You run like the Devil, but " +
                             character.person.pronouns.subj +
@@ -346,12 +334,11 @@ class RunLikeTheDevil(Action):
                             "overtake" + character.person.pronouns.tense +
                             " you.")
             Attack(character.person)
-            character.move(1) 
+            character.move(1)
 
-        outcomes = Raffle()
-        outcomes.add(escape, weight=9)
-        outcomes.add(get_caught, weight=100) #FIX
-        outcome = outcomes.get()
+        self.outcomes.add(escape, weight=9)
+        self.outcomes.add(get_caught, weight=1)
+        outcome = self.outcomes.get()
         outcome()
 
 
@@ -387,11 +374,10 @@ class SingASong(Action):
             Display().write("You sing your favorite song. No one cares.")
             self.options["a"].add(KillYourselfInFrustration(), weight=5)
 
-        outcomes = Raffle()
         if character.place in places.Place.populated:
-            outcomes.add(assassins_notice_you, weight=10)  # TODO fix weight
-            outcomes.add(a_crowd_gathers, weight=2)
-            outcomes.add(the_locals_kill_you, weight=1)
-        outcomes.add(no_one_cares, weight=1)
-        outcome = outcomes.get()
+            self.outcomes.add(assassins_notice_you, weight=10)  # TODO fix weight
+            self.outcomes.add(a_crowd_gathers, weight=2)
+            self.outcomes.add(the_locals_kill_you, weight=1)
+        self.outcomes.add(no_one_cares, weight=1)
+        outcome = self.outcomes.get()
         outcome()
