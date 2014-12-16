@@ -8,12 +8,13 @@ Created: 5 Dec 2014
 import places
 from character import Character
 from display import Display
-from actions import AskAboutAssassins, BuyADrink, LeaveInAHuff, SingASong
+from actions import Attack, AskAboutAssassins, BuyADrink, LeaveInAHuff, SingASong
 
 
 def main():
     display = Display()
     display.enable()
+    threat_level = 0
     character = Character()
     character.place = places.tavern
     character.actions["a"] = AskAboutAssassins()
@@ -23,6 +24,15 @@ def main():
     display.write("\n---The St. George Game---\n")
     display.write("You are in a tavern. The local assassins hate you.")
     while character.alive and character.alone:
+        if character.threatened:
+            threat_level += 1
+            if threat_level > 1:
+                Display().write("A skuffle breaks out.")
+                Attack(character.person).execute(character) 
+                if not character.alive:
+                    break
+        else:
+            threat_level = 0
         action = character.choose_action()
         display.enable()
         action.execute(character)
