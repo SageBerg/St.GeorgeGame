@@ -9,7 +9,6 @@ import random
 import abc
 
 import places
-import persons
 from display import Display
 from raffle import Raffle
 import money
@@ -57,6 +56,8 @@ class AskAboutAssassins(Action):
         self.name = "Ask about assassins."
 
     def execute(self, character):
+        import persons
+
         def assassinated():
             Display().write("The first person you ask about assassins turns"
                             " out to be an assassin. She assassinates you.")
@@ -65,7 +66,7 @@ class AskAboutAssassins(Action):
         def pretty_lady():
             Display().write("During your search, you strike up a conversation"
                             "with a pretty lady.")
-            character.person = persons.PrettyLady()
+            character.person = persons.pretty_lady
 
         def no_one_cares():
             Display().write("You ask around, but nobody has heard anything"
@@ -118,8 +119,10 @@ class LookForWeapons(Action):
         self.name = "Look for weapons."
 
     def execute(self, character):
+        import persons
+
         Display().write("You find yourself talking to a wealthy war merchant.")
-        character.person = persons.WealthyMerchant()
+        character.person = persons.wealthy_merchant
 
 
 class LookForStGeorge(Action):
@@ -129,6 +132,8 @@ class LookForStGeorge(Action):
         self.name = "Look for St. George"
 
     def execute(self, character):
+        import persons
+
         def lost():
             Display().write("While looking for St. George, you get lost in "
                             "your thoughts and realize you stopped paying "
@@ -138,17 +143,17 @@ class LookForStGeorge(Action):
         def find_st_george_at_church():
             Display().write("You find St. George at the church.")
             character.move_to(places.church, suppress_message=True)
-            character.person = persons.StGeorge()
+            character.person = persons.st_george
 
         def find_st_george_at_market():
             Display().write("You find St. George in the market.")
             character.move_to(places.market, suppress_message=True)
-            character.person = persons.StGeorge()
+            character.person = persons.st_george
 
         def find_st_george_at_streets():
             Display().write("You find St. George in the streets.")
             character.move_to(places.streets, suppress_message=True)
-            character.person = persons.StGeorge()
+            character.person = persons.st_george
 
         def trip_over_a_cat():
             Display().write("You trip over a cat and break your neck.")
@@ -245,9 +250,11 @@ class BuyADrink(Action):
         self.name = "Buy a drink."
 
     def execute(self, character):
+        import persons
+
         Display().write("The blind bartender grumbles as he passes you a "
                         "drink.")
-        character.person = persons.BlindBartender()
+        character.person = persons.blind_bartender
 
 
 class BoastOfYourBravery(Action):
@@ -320,9 +327,10 @@ class RunLikeTheDevil(Action):
         def escape():
             Display().write("The Devil is very fast, so you manage to get "
                             "away.")
+
         def get_caught():
-            Display().write("You run like the Devil, but " + 
-                            character.person.pronouns.subj + 
+            Display().write("You run like the Devil, but " +
+                            character.person.pronouns.subj +
                             " also runs like the Devil and "
                             "catches you.")
             Attack(self.person)
@@ -344,6 +352,8 @@ class SingASong(Action):
         self.name = "Sing a song."
 
     def execute(self, character):
+        import persons
+
         def a_crowd_gathers():
             Display().write("A crowd gathers to hear your music and throws you"
                             " a small fortune in coins.")
@@ -354,12 +364,12 @@ class SingASong(Action):
             character.die()
 
         def assassins_notice_you():
-            Display().write("While you're singing on top of a table, " 
+            Display().write("While you're singing on top of a table, "
                             "some men in black cloaks start to edge their "
                             "way toward you.")
-            character.person = persons.Assassins()
+            character.person = persons.assassins
             character.theatened = True
-            
+
         def no_one_cares():
             Display().write("You sing your favorite song. No one cares.")
             self.options["a"].add(KillYourselfInFrustration(), weight=5)

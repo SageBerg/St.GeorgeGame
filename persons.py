@@ -5,7 +5,6 @@ Sage Berg
 Created: 7 Dec 2014
 """
 
-import abc
 from collections import namedtuple
 
 import actions
@@ -16,87 +15,35 @@ Pronouns = namedtuple("Pronouns", ["subj", "obj", "tense"])
 
 
 class Person(object):
-    """
-    abstract class
-    """
-    __metaclass__ = abc.ABCMeta
 
-    @abc.abstractmethod
-    def __init__(self, name, attack, pronoun):
+    def __init__(self, name, attack, pronouns):
         self.name = name
         self.attack = attack
-        self.pronoun = pronoun
-
-
-class Assassins(Person):
-
-    def __init__(self):
-        self.name = "assassins"
-        self.attack = 6 
-        self.pronouns = Pronouns("they", "them", "")
+        self.pronouns = pronouns
         self.options = {"a": Raffle(),
                         "b": Raffle(),
                         "c": Raffle(),
                         "d": Raffle()}
-        self.options["a"].add(actions.Attack(self), weight=10)
-        self.options["b"].add(actions.BoastOfYourBravery(), weight=1)
 
+assassins = Person("assassins", 6, Pronouns("they", "them", ""))
+blind_bartender = Person("the blind bartender", 1, Pronouns("he", "him", "s"))
+pretty_lady = Person("pretty lady", 1, Pronouns("she", "her", "s"))
+st_george = Person("St. George", 100, Pronouns("he", "him", "s"))
+wealthy_merchant = Person("the wealthy merchant", 7,
+                          Pronouns("he", "him", "s"))
 
-class BlindBartender(Person):
+assassins.options["a"].add(actions.Attack(assassins), weight=10)
+assassins.options["b"].add(actions.BoastOfYourBravery(), weight=1)
 
-    def __init__(self):
-        self.name = "the blind bartender"
-        self.attack = 1
-        self.pronouns = Pronouns("he", "him", "s")
-        self.options = {"a": Raffle(),
-                        "b": Raffle(),
-                        "c": Raffle(),
-                        "d": Raffle()}
-        self.options["a"].add(actions.Attack(self), weight=10)
-        self.options["b"].add(actions.BoastOfYourBravery(), weight=1)
-        #self.options["c"].add(TalkAboutCats)
+blind_bartender.options["a"].add(actions.Attack(blind_bartender), weight=10)
+blind_bartender.options["b"].add(actions.BoastOfYourBravery(), weight=1)
 
+pretty_lady.options["a"].add(actions.Attack(pretty_lady), weight=10)
+pretty_lady.options["b"].add(actions.BoastOfYourBravery(), weight=5)
 
-class PrettyLady(Person):
+st_george.options["a"].add(actions.Attack(st_george), weight=10)
+st_george.options["b"].add(actions.BegForMoney(), weight=10)
 
-    def __init__(self):
-        self.name = "pretty lady"
-        self.attack = 1
-        self.pronouns = Pronouns("she", "her", "s")
-        self.options = {"a": Raffle(),
-                        "b": Raffle(),
-                        "c": Raffle(),
-                        "d": Raffle()}
-        self.options["a"].add(actions.Attack(self), weight=10)
-        self.options["b"].add(actions.BoastOfYourBravery(), weight=5)
-        #self.options["b"].add(BuyHerADrink)
-        #self.options["c"].add(TalkAboutCats)
-
-
-class StGeorge(Person):
-
-    def __init__(self):
-        self.name = "St. George"
-        self.attack = 100
-        self.pronouns = Pronouns("he", "him", "s")
-        self.options = {"a": Raffle(),
-                        "b": Raffle(),
-                        "c": Raffle(),
-                        "d": Raffle()}
-        self.options["a"].add(actions.Attack(self), weight=10)
-        self.options["b"].add(actions.BegForMoney(), weight=10)
-
-
-class WealthyMerchant(Person):
-
-    def __init__(self):
-        self.name = "the wealthy merchant"
-        self.attack = 7
-        self.pronouns = Pronouns("he", "him", "s")
-        self.options = {"a": Raffle(),
-                        "b": Raffle(),
-                        "c": Raffle(),
-                        "d": Raffle()}
-        self.options["a"].add(actions.Attack(self), weight=10)
-        self.options["b"].add(actions.BoastOfYourBravery(), weight=1)
-        self.options["b"].add(actions.Buy(weapons.weapons), weight=10)
+wealthy_merchant.options["a"].add(actions.Attack(wealthy_merchant), weight=10)
+wealthy_merchant.options["b"].add(actions.BoastOfYourBravery(), weight=1)
+wealthy_merchant.options["b"].add(actions.Buy(weapons.weapons), weight=10)
