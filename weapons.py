@@ -10,11 +10,11 @@ from collections import namedtuple
 Weapon = namedtuple("Weapon", ["name", "attack", "price"])
 
 weapons = [
-Weapon("pitchfork", 1, "pittance"),
-Weapon("dagger", 2, "pittance"),
-Weapon("cutlass", 3, "pittance"),
-Weapon("hammer", 4, "pittance"),
-Weapon("long pitchfork", 5, "pittance"),
-Weapon("poisoned dagger", 6, "small fortune"),
-Weapon("jeweled cutlass", 7, "large fortune"),
-Weapon("dagger", 8, "small fortune") ]
+Weapon("pitchfork", 1, 1),
+Weapon("dagger", 2, 1),
+Weapon("cutlass", 3, 1),
+Weapon("hammer", 4, 1),
+Weapon("long pitchfork", 5, 1),
+Weapon("poisoned dagger", 6, 2),
+Weapon("jeweled cutlass", 7, 3),
+Weapon("dagger", 8, 2) ]

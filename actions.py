@@ -314,10 +314,14 @@ class Buy(Action):
         self.name = "Buy a " + self.weapon.name
 
     def execute(self, character):
-        Display().write("You now have a " + self.weapon.name + ".")
-        if character.attack < self.weapon.attack:
-            character.weapon = self.weapon
-            character.attack = self.weapon.attack
+        if character.money >= self.weapon.price:
+            Display().write("You now have a " + self.weapon.name + ".")
+            if character.attack < self.weapon.attack:
+                character.weapon = self.weapon
+                character.attack = self.weapon.attack
+        else:
+            Display().write("You can't afford this weapon.")
+            self.options["a"].add(KillYourselfInFrustration(), 5)
 
 
 class BuyADrink(Action):
