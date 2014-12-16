@@ -118,6 +118,7 @@ class GoDivingForPearls(Action):
         def find_pearl():
             Display().write("You soon find a pearl in an oyster. You now "
                             "have a pearl.")
+            character.items.add("pearl")
 
         def saved_by_merfolk():
             Display().write("You exhaust yourself trying to find pearls and "
@@ -394,6 +395,19 @@ class FleeTheScene(Action):
     def execute(self, character):
         character.move(2)
         character.person = None
+
+
+class GoTo(Action):
+
+    def __init__(self, place):
+        super().__init__()
+        self.dest = random.sample(place.connections, 1)[0]
+        self.name = "Go to " + str(self.dest) + "."
+
+    def execute(self, character):
+        Display().write("You are now in " + str(self.dest) + ".")
+        character.place = self.dest
+        character.person = None  # Might need a refactor
 
 
 class RunLikeTheDevil(Action):
