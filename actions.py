@@ -361,7 +361,7 @@ class LookForACat(Action):
         import persons
 
         def dark_alley():
-            Display().write("You follow a cat throw the streets but "
+            Display().write("You follow a cat through the streets but "
                             "eventually lose track of it.")
             character.move_to(places.dark_alley)
 
