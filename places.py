@@ -124,6 +124,7 @@ ocean.options["a"].add(actions.GoDivingForPearls(), weight=10)
 streets.options["a"].add(actions.LookForStGeorge(), weight=2)
 tavern.options["b"].add(actions.BuyADrink(), weight=2)
 tavern.options["b"].add(actions.AskAboutAssassins(), weight=1)
+dark_alley.options["d"].add(actions.LookThroughSomeTrash(), weight=5)
 
 for place in burnable:
     place.options["d"].add(actions.BurnThePlaceToTheGround(place), weight=5)

@@ -626,3 +626,41 @@ class BurnThePlaceToTheGround(Action):
             self.outcomes.add(destroy_place, weight=2)
         self.outcomes.add(burn_yourself_up, weight=1)
         self.run_outcome()
+
+
+class LookThroughSomeTrash(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Look through some trash."
+
+    def execute(self, character):
+
+        def assassin_takes_it_out():
+            Display().write("You attempt to look through the trash, but an "
+                            "assassin takes it out.")
+            character.die()
+
+        def find_a_cat():
+            Display().write("While you are searching through the trash you "
+                            "find an somewhat agreeable cat.")
+            character.get_item(items.Cat())
+
+        def guards_catch_you():
+            Display().write("The local guards see you searching through the "
+                            "trash and accuse you of being a lunatic.")
+            character.get_item(items.Cat())
+            self.options["b"].add(TellThemYouAreNotALunatic(excuse="curious"),
+                                  100)
+
+        def nothing_useful():
+            Display().write("You do not find anything useful in the trash.")
+            self.options["a"].add(KillYourselfInFrustration(), 5)
+            self.options["c"].add(LeaveInAHuff(), 5)
+            self.options["d"].add(SingASong(about="trash"), 5)
+
+        self.outcomes.add(assassin_takes_it_out, weight=2)
+        self.outcomes.add(find_a_cat, weight=1)
+        self.outcomes.add(guards_catch_you, weight=1)
+        self.outcomes.add(nothing_useful, weight=1)
+        self.run_outcome()
