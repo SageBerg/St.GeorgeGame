@@ -654,6 +654,7 @@ class LookThroughSomeTrash(Action):
         self.name = "Look through some trash."
 
     def execute(self, character):
+        import persons
 
         def assassin_takes_it_out():
             Display().write("You attempt to look through the trash, but an "
@@ -669,6 +670,8 @@ class LookThroughSomeTrash(Action):
             Display().write("The local guards see you searching through the "
                             "trash and accuse you of being a lunatic.")
             character.get_item(items.Cat())
+            character.person = persons.guards
+            self.options["a"].add(Attack(character.person), 10)
             self.options["b"].add(TellThemYouAreNotALunatic(excuse="curious"),
                                   100)
 
