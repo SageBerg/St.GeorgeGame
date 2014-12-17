@@ -12,9 +12,11 @@ import actions
 
 
 def main():
+    """
+    runs program
+    """
     display = Display()
     display.enable()
-    threat_level = 0
     character = Character()
     character.place = places.tavern
     character.actions["a"] = actions.AskAboutAssassins()
@@ -24,18 +26,17 @@ def main():
     display.write("\n---The St. George Game---\n")
     display.write("You are in a tavern. The local assassins hate you.")
     while character.alive and character.alone:
-        if character.threatened:
-            threat_level += 1
-            if threat_level > 1:
-                Display().write("A skuffle breaks out.")
-                actions.Attack(character.person).execute(character)
-                if not character.alive:
-                    break
-        else:
-            threat_level = 0
         action = character.choose_action()
         display.enable()
-        action.execute(character)
+        if not character.threatened or action.combat_action:
+            action.execute(character)
+        else:
+            Display().write(character.person.pronouns.subj.capitalize() +
+                            " attack" +
+                            character.person.pronouns.tense + " you.")
+            actions.Attack(character.person).execute(character)
+            if not character.alive:
+                break
         character.prev_act = action
         for item in character.items:
             item.contribute(character)

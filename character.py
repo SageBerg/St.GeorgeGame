@@ -55,7 +55,7 @@ class Character(object):
             self.bags["c"].add(actions.RunLikeTheDevil(), weight=10)
             #self.bags["c"].add(actions.LeaveInAHuff, weight=3)
             #self.bags["c"].add(actions.WaddleLikeGod, weight=1)
-        if self.place:
+        if self.place and not self.threatened:
             for _ in range(3):
                 self.bags["c"].add(actions.GoTo(self.place))
         for char in self.bags:
@@ -128,7 +128,7 @@ class Character(object):
         Display().disable()
         self.alive = False
 
-    def move(self, speed=1):
+    def move(self, speed=1):  # TODO speed unused
         visited = set([self.place])  # We don't go in circles
         at = self.place
         while speed:

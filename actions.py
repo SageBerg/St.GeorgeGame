@@ -24,6 +24,7 @@ class Action(object):
     @abc.abstractmethod
     def __init__(self):
         self.name = ""
+        self.combat_action = False 
         self.outcomes = Raffle()
         self.options = {"a": Raffle(),
                         "b": Raffle(),
@@ -89,6 +90,7 @@ class Attack(Action):
     def __init__(self, person):
         super().__init__()
         self.name = "Attack " + person.pronouns.obj + "."
+        self.combat_action = True 
 
     def execute(self, character):
         if character.person.attack >= character.attack:
@@ -458,11 +460,13 @@ class LeaveInAPuff(Action):
     def __init__(self):
         super().__init__()
         self.name = "Leave in a puff."
+        self.combat_action = True
 
     def execute(self, character):
         options = places.Place.instances - set([character.place])
         character.move_to(random.sample(options, 1)[0])
         character.person = None
+        character.threatened = False
 
 
 class FleeTheScene(Action):
@@ -494,6 +498,7 @@ class RunLikeTheDevil(Action):
     def __init__(self):
         super().__init__()
         self.name = "Run like the Devil."
+        self.combat_action = True
 
     def execute(self, character):
         def escape():
@@ -555,7 +560,7 @@ class SingASong(Action):
             self.options["a"].add(KillYourselfInFrustration(), weight=5)
 
         if character.place in places.populated:
-            self.outcomes.add(assassins_notice_you, weight=3)
+            self.outcomes.add(assassins_notice_you, weight=300)  # TODO fix weight
             self.outcomes.add(a_crowd_gathers, weight=2)
             self.outcomes.add(the_locals_kill_you, weight=1)
         if self.about == "assassins":
