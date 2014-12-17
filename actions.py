@@ -723,7 +723,6 @@ class LookThroughSomeTrash(Action):
         def guards_catch_you():
             Display().write("The local guards see you searching through the "
                             "trash and accuse you of being a lunatic.")
-            character.get_item(items.Cat())
             character.person = persons.guards
             self.options["a"].add(Attack(character.person), 10)
             self.options["b"].add(TellThemYouAreNotALunatic(excuse="curious"),
