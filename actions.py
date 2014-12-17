@@ -437,7 +437,10 @@ class TellThemYouAreNotALunatic(Action):
             "you're just {0}.".format(excuse)
 
     def execute(self, character):
-        Display().write("'A {0} lunatic,' they say.".format(self.excuse))
+        if self.excuse[0] in "aeiou":
+            Display().write("'An {0} lunatic,' they say.".format(self.excuse))
+        else:
+            Display().write("'A {0} lunatic,' they say.".format(self.excuse))
         Display().write("They throw you in prison with the other lunatics.")
         character.move_to(places.prison)
 
@@ -488,9 +491,25 @@ class GoTo(Action):
         self.name = "Go to " + str(self.dest) + "."
 
     def execute(self, character):
-        Display().write("You are now in " + str(self.dest) + ".")
-        character.place = self.dest
-        character.person = None  # Might need a refactor
+        import persons
+
+        def stopped_by_guards():
+            Display().write("On your way out of {0} you run headlong into "
+                            "some some guards and they say you must be a "
+                            "lunatic.".format(character.place))
+            character.person = persons.guards
+            self.options["a"].add(Attack(character.person), 10)
+            self.options["b"].add(
+                TellThemYouAreNotALunatic(excuse="oblivious"), 100)
+
+        def get_there():
+            character.move_to(self.dest)
+            character.person = None  # Might need a refactor
+
+        if character.place in places.populated:
+            self.outcomes.add(stopped_by_guards, 3)
+        self.outcomes.add(get_there, 3)
+        self.run_outcome()
 
 
 class RunLikeTheDevil(Action):
