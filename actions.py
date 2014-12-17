@@ -448,6 +448,48 @@ class TellThemYouAreNotALunatic(Action):
 # C slot actions
 
 
+class LookForTheWizard(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Look for the wizard."
+
+    def execute(self, character):
+        def find_death():
+            Display().write("You find him. He turns you into a frog and steps "
+                            "on you.")
+            character.die()
+
+        def assassinated():
+            Display().write("You look for the wizard, but the assassins are "
+                            "looking for you. They find you.")
+            character.die()
+
+        def find_wizard_1():
+            Display().write("You find the wizard in the market. He is telling "
+                            "a woman how he cursed the icicles in the arctic.")
+            character.move_to(places.market)
+            #character.person = persons.TheWizard
+       
+        def find_wizard_2():
+            Display().write("You find the wizard in the market. He is telling "
+                            "a woman about a mesmerizing pearl.")
+            character.move_to(places.market)
+            #character.person = persons.TheWizard
+
+        def find_st_george():
+            Display().write("You can't find the wizard, but you find St. George"
+                            "He warns you the wizard is a little testy.")
+            character.person = persons.StGeorge
+
+        self.outcomes.add(assassinated, 1)
+        self.outcomes.add(find_death, 3)
+        self.outcomes.add(find_wizard_1, 2)
+        self.outcomes.add(find_wizard_2, 2)
+        self.outcomes.add(assassinated, 1)
+        self.run_outcome()
+
+
 class LeaveInAHuff(Action):
 
     def __init__(self):
@@ -455,7 +497,17 @@ class LeaveInAHuff(Action):
         self.name = "Leave in a huff."
 
     def execute(self, character):
-        character.move(speed=1)
+        def leave():
+            character.move(speed=1)
+
+        def assassinated():
+            Display().write("The huffy manner in which you left causes some "
+                            "assassins to notice you. They assassinate you.")
+            character.die()
+
+        self.outcomes.add(assassinated, 1)
+        self.outcomes.add(leave, 4)
+        self.run_outcome()
 
 
 class LeaveInAPuff(Action):
@@ -579,7 +631,7 @@ class SingASong(Action):
             self.options["a"].add(KillYourselfInFrustration(), weight=5)
 
         if character.place in places.populated:
-            self.outcomes.add(assassins_notice_you, weight=300)  # TODO fix weight
+            self.outcomes.add(assassins_notice_you, weight=3)
             self.outcomes.add(a_crowd_gathers, weight=2)
             self.outcomes.add(the_locals_kill_you, weight=1)
         if self.about == "assassins":
