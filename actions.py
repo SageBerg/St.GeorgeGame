@@ -584,15 +584,40 @@ class SwingYourCat(Action):
             character.items.remove("cat")
 
         def the_guards_catch_you():
-            Display().write("The local guards notice you swinging your cat around "
-                            "and conclude that you must be a lunatic.")
+            Display().write("The local guards notice you swinging your cat "
+                            "around and conclude that you must be a lunatic.")
             character.person = persons.guards
             self.options["a"].add(Attack(character.person), 10)
             self.options["b"].add(TellThemYouAreNotALunatic(excuse="angry"),
                                   100)
-        
+
         if character.place in places.Place.populated:
             self.outcomes.add(hit_assassin, weight=7)
             self.outcomes.add(the_guards_catch_you, weight=3)
         self.outcomes.add(cat_runs_away, weight=3)
+        self.run_outcome()
+
+
+class BurnThePlaceToTheGround(Action):
+
+    def __init__(self, place):
+        super().__init__()
+        self.place = place
+        self.name = "Burn {0} to the ground.".format(place.name)
+
+    def execute(self, character):
+
+        def destroy_place():
+            self.place.name = "the smoldering remains of " + self.place.name
+            character.move_to(self.place)
+            places.Place.burnable.remove(self.place)
+
+        def burn_yourself_up():
+            Display().write("You accidentally set yourself on fire and "
+                            "promptly burn to the ground.")
+            character.die()
+
+        if self.place in places.Place.burnable:
+            self.outcomes.add(destroy_place, weight=2)
+        self.outcomes.add(burn_yourself_up, weight=1)
         self.run_outcome()

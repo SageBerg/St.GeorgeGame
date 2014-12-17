@@ -13,8 +13,9 @@ class Place(object):
 
     instances = set()
     populated = set()
+    burnable = set()
 
-    def __init__(self, name, populated):
+    def __init__(self, name, populated=False, burnable=False):
         """
         args: name: string
               populated: boolean
@@ -28,30 +29,32 @@ class Place(object):
         Place.instances.add(self)
         if populated:
             Place.populated.add(self)
+        if burnable:
+            Place.burnable.add(self)
 
     def __str__(self):
         return self.name
 
 
-artic = Place("the artic", False)
-cave = Place("a dark cave", False)
-church = Place("the church", False)
-countryside = Place("the countryside", False)
-dark_alley = Place("a dark alley", False)
-docks = Place("the docks", True)
-lord_bartholomews_manor = Place("lord Bartholomew's manor", True)
-lord_carlos_manor = Place("lord Carlos' manor", False)
-market = Place("the market", True)
-mermaid_rock = Place("the mermaid rock", False)
-ocean = Place("the ocean", False)
-pirate_ship = Place("a pirate ship", False)
-prison = Place("prison", False)
-streets = Place("the streets", True)
-tavern = Place("the tavern", True)
-tower = Place("the tower", False)
-upstairs = Place("the upstairs of the tavern", False)
-wizards_lab = Place("the wizard's lab", False)
-woods = Place("the woods", False)
+artic = Place("the artic")
+cave = Place("a dark cave")
+church = Place("the church", burnable=True)
+countryside = Place("the countryside")
+dark_alley = Place("a dark alley")
+docks = Place("the docks", populated=True, burnable=True)
+lord_bartholomews_manor = Place("lord Bartholomew's manor", populated=True, burnable=True)
+lord_carlos_manor = Place("lord Carlos' manor", burnable=True)
+market = Place("the market", populated=True, burnable=True)
+mermaid_rock = Place("the mermaid rock")
+ocean = Place("the ocean")
+pirate_ship = Place("a pirate ship")
+prison = Place("prison", burnable=True)
+streets = Place("the streets", populated=True)
+tavern = Place("the tavern", populated=True, burnable=True)
+tower = Place("the tower", burnable=True)
+upstairs = Place("the upstairs of the tavern")
+wizards_lab = Place("the wizard's lab", burnable=True)
+woods = Place("the woods", burnable=True)
 
 # Connections
 
@@ -102,6 +105,8 @@ woods.connections.add(lord_carlos_manor)
 market.options["a"].add(actions.LookForAWeapon(), weight=10)
 ocean.options["a"].add(actions.GoDivingForPearls(), weight=10)
 streets.options["a"].add(actions.LookForStGeorge(), weight=2)
-market.options["a"].add(actions.LookForAWeapon(), weight=10)
 tavern.options["b"].add(actions.BuyADrink(), weight=2)
 tavern.options["b"].add(actions.AskAboutAssassins(), weight=1)
+
+for place in Place.burnable:
+    place.options["d"].add(actions.BurnThePlaceToTheGround(place), weight=5)
