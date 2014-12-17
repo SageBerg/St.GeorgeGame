@@ -455,6 +455,8 @@ class LookForTheWizard(Action):
         self.name = "Look for the wizard."
 
     def execute(self, character):
+        import persons
+
         def find_death():
             Display().write("You find him. He turns you into a frog and steps "
                             "on you.")
@@ -469,17 +471,17 @@ class LookForTheWizard(Action):
             Display().write("You find the wizard in the market. He is telling "
                             "a woman how he cursed the icicles in the arctic.")
             character.move_to(places.market)
-            #character.person = persons.TheWizard
-       
+            # character.person = persons.TheWizard
+
         def find_wizard_2():
             Display().write("You find the wizard in the market. He is telling "
                             "a woman about a mesmerizing pearl.")
             character.move_to(places.market)
-            #character.person = persons.TheWizard
+            # character.person = persons.TheWizard
 
         def find_st_george():
-            Display().write("You can't find the wizard, but you find St. George"
-                            "He warns you the wizard is a little testy.")
+            Display().write("You can't find the wizard, but you find St. "
+                            "George. He says the wizard is a little testy.")
             character.person = persons.StGeorge
 
         self.outcomes.add(assassinated, 1)
@@ -547,7 +549,7 @@ class GoTo(Action):
 
         def stopped_by_guards():
             Display().write("On your way out of {0} you run headlong into "
-                            "some some guards and they say you must be a "
+                            "some guards and they say you must be a "
                             "lunatic.".format(character.place))
             character.person = persons.guards
             self.options["a"].add(Attack(character.person), 10)
