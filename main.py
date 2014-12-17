@@ -8,7 +8,7 @@ Created: 5 Dec 2014
 import places
 from character import Character
 from display import Display
-from actions import Attack, AskAboutAssassins, BuyADrink, LeaveInAHuff, SingASong
+import actions
 
 
 def main():
@@ -17,10 +17,10 @@ def main():
     threat_level = 0
     character = Character()
     character.place = places.tavern
-    character.actions["a"] = AskAboutAssassins()
-    character.actions["b"] = BuyADrink()
-    character.actions["c"] = LeaveInAHuff()
-    character.actions["d"] = SingASong()
+    character.actions["a"] = actions.AskAboutAssassins()
+    character.actions["b"] = actions.BuyADrink()
+    character.actions["c"] = actions.LeaveInAHuff()
+    character.actions["d"] = actions.SingASong()
     display.write("\n---The St. George Game---\n")
     display.write("You are in a tavern. The local assassins hate you.")
     while character.alive and character.alone:
@@ -28,7 +28,7 @@ def main():
             threat_level += 1
             if threat_level > 1:
                 Display().write("A skuffle breaks out.")
-                Attack(character.person).execute(character) 
+                actions.Attack(character.person).execute(character)
                 if not character.alive:
                     break
         else:
@@ -37,6 +37,8 @@ def main():
         display.enable()
         action.execute(character)
         character.prev_act = action
+        for item in character.items:
+            item.contribute(character)
         character.generate_actions()
 
 if __name__ == "__main__":

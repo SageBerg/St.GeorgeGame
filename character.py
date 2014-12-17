@@ -11,6 +11,7 @@ import actions
 from display import Display
 import money
 from raffle import Raffle
+import items
 
 
 class Character(object):
@@ -20,8 +21,7 @@ class Character(object):
     """
 
     def __init__(self):
-        self.items = set() # TODO don't start with cat
-        self.items.add("cat")
+        self.items = set()
         self.best_weapon = ""
         self.attack = 0
         self.money = money.none
@@ -55,8 +55,6 @@ class Character(object):
             self.bags["c"].add(actions.RunLikeTheDevil(), weight=10)
             #self.bags["c"].add(actions.LeaveInAHuff, weight=3)
             #self.bags["c"].add(actions.WaddleLikeGod, weight=1)
-        if "cat" in self.items:
-            self.bags["d"].add(actions.SwingYourCat(), weight=1)
         if self.place:
             for _ in range(3):
                 self.bags["c"].add(actions.GoTo(self.place))
@@ -67,6 +65,8 @@ class Character(object):
                 self.bags[char].merge(self.person.options[char])
             if self.prev_act:
                 self.bags[char].merge(self.prev_act.options[char])
+            for item in self.items:
+                self.bags[char].merge(item.options[char])
 
         self.actions = {"a": self.bags["a"].get(),
                         "b": self.bags["b"].get(),
@@ -110,11 +110,15 @@ class Character(object):
             Display().write("You still have {0}.".format(money.to_str(amount)))
 
     def get_item(self, item):
-        if item[0] in "AEIOU":
-            Display().write("You now have an " + item + ".")
+        if str(item)[0] in "AEIOUaeiou":
+            Display().write("You now have an " + str(item) + ".")
         else:
-            Display().write("You now have a " + item + ".")
+            Display().write("You now have a " + str(item) + ".")
         self.items.add(item)
+
+    def remove_item(self, item):
+        Display().write("You no longer have a " + str(item) + ".")
+        self.items.remove(item)
 
     def die(self):
         """

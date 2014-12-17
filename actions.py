@@ -12,6 +12,7 @@ import places
 from display import Display
 from raffle import Raffle
 import money
+import items
 
 
 class Action(object):
@@ -124,7 +125,7 @@ class GoDivingForPearls(Action):
         def find_pearl():
             Display().write("You soon find a pearl in an oyster. You now "
                             "have a pearl.")
-            character.get_item("Pearl")
+            character.get_item(items.Pearl())
 
         def saved_by_merfolk():
             Display().write("You exhaust yourself trying to find pearls and "
@@ -409,8 +410,7 @@ class LookForACat(Action):
         def get_a_cat():
             Display().write("You after days of searching, you manage to find "
                             "a cat.")
-            Display().write("You now have a cat.")
-            character.items.add("cat")
+            character.get_item(items.Cat())
 
         def the_guards_catch_you():
             Display().write("The local guards notice you searching for a cat "
@@ -566,8 +566,9 @@ class SingASong(Action):
 
 class SwingYourCat(Action):
 
-    def __init__(self, about=None):
+    def __init__(self, cat):
         super().__init__()
+        self.cat = cat
         self.name = "Swing your cat."
 
     def execute(self, character):
@@ -580,8 +581,7 @@ class SwingYourCat(Action):
 
         def cat_runs_away():
             Display().write("Your cat manages to escape.")
-            Display().write("You now do not have a cat.")
-            character.items.remove("cat")
+            character.remove_item(self.cat)
 
         def the_guards_catch_you():
             Display().write("The local guards notice you swinging your cat "
