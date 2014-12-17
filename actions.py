@@ -410,7 +410,7 @@ class LookForACat(Action):
             Display().write("You after days of searching, you manage to find "
                             "a cat.")
             Display().write("You now have a cat.")
-            # TODO give the player a cat
+            character.items.add("cat")
 
         def the_guards_catch_you():
             Display().write("The local guards notice you searching for a cat "
@@ -561,4 +561,38 @@ class SingASong(Action):
         if self.about == "assassins":
             self.outcomes.add(assassins_notice_you, weight=5)
         self.outcomes.add(no_one_cares, weight=1)
+        self.run_outcome()
+
+
+class SwingYourCat(Action):
+
+    def __init__(self, about=None):
+        super().__init__()
+        self.name = "Swing your cat."
+
+    def execute(self, character):
+        import persons
+
+        def hit_assassin():
+            Display().write("You hit an assassin with your cat.")
+            character.person = persons.assassin
+            character.threatened = True
+
+        def cat_runs_away():
+            Display().write("Your cat manages to escape.")
+            Display().write("You now do not have a cat.")
+            character.items.remove("cat")
+
+        def the_guards_catch_you():
+            Display().write("The local guards notice you swinging your cat around "
+                            "and conclude that you must be a lunatic.")
+            character.person = persons.guards
+            self.options["a"].add(Attack(character.person), 10)
+            self.options["b"].add(TellThemYouAreNotALunatic(excuse="angry"),
+                                  100)
+        
+        if character.place in places.Place.populated:
+            self.outcomes.add(hit_assassin, weight=7)
+            self.outcomes.add(the_guards_catch_you, weight=3)
+        self.outcomes.add(cat_runs_away, weight=3)
         self.run_outcome()
