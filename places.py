@@ -12,10 +12,8 @@ import actions
 class Place(object):
 
     instances = set()
-    populated = set()
-    burnable = set()
 
-    def __init__(self, name, populated=False, burnable=False):
+    def __init__(self, name):
         """
         args: name: string
               populated: boolean
@@ -27,10 +25,6 @@ class Place(object):
                         "c": Raffle(),
                         "d": Raffle()}
         Place.instances.add(self)
-        if populated:
-            Place.populated.add(self)
-        if burnable:
-            Place.burnable.add(self)
 
     def __str__(self):
         return self.name
@@ -38,23 +32,46 @@ class Place(object):
 
 artic = Place("the artic")
 cave = Place("a dark cave")
-church = Place("the church", burnable=True)
+church = Place("the church")
 countryside = Place("the countryside")
 dark_alley = Place("a dark alley")
-docks = Place("the docks", populated=True, burnable=True)
-lord_bartholomews_manor = Place("lord Bartholomew's manor", populated=True, burnable=True)
-lord_carlos_manor = Place("lord Carlos' manor", burnable=True)
-market = Place("the market", populated=True, burnable=True)
+docks = Place("the docks")
+lord_bartholomews_manor = Place("lord Bartholomew's manor")
+lord_carlos_manor = Place("lord Carlos' manor")
+market = Place("the market")
 mermaid_rock = Place("the mermaid rock")
 ocean = Place("the ocean")
 pirate_ship = Place("a pirate ship")
-prison = Place("prison", burnable=True)
-streets = Place("the streets", populated=True)
-tavern = Place("the tavern", populated=True, burnable=True)
-tower = Place("the tower", burnable=True)
+prison = Place("prison")
+streets = Place("the streets")
+tavern = Place("the tavern")
+tower = Place("the tower")
 upstairs = Place("the upstairs of the tavern")
-wizards_lab = Place("the wizard's lab", burnable=True)
-woods = Place("the woods", burnable=True)
+wizards_lab = Place("the wizard's lab")
+woods = Place("the woods")
+
+# sets of locations
+
+populated = set([
+    docks,
+    lord_bartholomews_manor,
+    lord_carlos_manor,
+    market,
+    streets,
+    tavern])
+
+burnable = set([
+    church,
+    docks,
+    lord_bartholomews_manor,
+    lord_carlos_manor,
+    market,
+    prison,
+    tavern,
+    tower,
+    wizards_lab,
+    woods])
+
 
 # Connections
 
@@ -108,5 +125,5 @@ streets.options["a"].add(actions.LookForStGeorge(), weight=2)
 tavern.options["b"].add(actions.BuyADrink(), weight=2)
 tavern.options["b"].add(actions.AskAboutAssassins(), weight=1)
 
-for place in Place.burnable:
+for place in burnable:
     place.options["d"].add(actions.BurnThePlaceToTheGround(place), weight=5)

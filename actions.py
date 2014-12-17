@@ -175,7 +175,7 @@ class LickTheGround(Action):
 
         self.outcomes.add(you_dislike_the_taste, 5)
         self.outcomes.add(get_infected_and_die, 1)
-        if character.place in places.Place.populated:
+        if character.place in places.populated:
             self.outcomes.add(the_guards_catch_you, 5)
         if character.place == places.ocean:
             self.outcomes = Raffle()  # There is only one outcome
@@ -554,7 +554,7 @@ class SingASong(Action):
             Display().write("You sing your favorite song. No one cares.")
             self.options["a"].add(KillYourselfInFrustration(), weight=5)
 
-        if character.place in places.Place.populated:
+        if character.place in places.populated:
             self.outcomes.add(assassins_notice_you, weight=3)
             self.outcomes.add(a_crowd_gathers, weight=2)
             self.outcomes.add(the_locals_kill_you, weight=1)
@@ -591,7 +591,7 @@ class SwingYourCat(Action):
             self.options["b"].add(TellThemYouAreNotALunatic(excuse="angry"),
                                   100)
 
-        if character.place in places.Place.populated:
+        if character.place in places.populated:
             self.outcomes.add(hit_assassin, weight=7)
             self.outcomes.add(the_guards_catch_you, weight=3)
         self.outcomes.add(cat_runs_away, weight=3)
@@ -610,14 +610,14 @@ class BurnThePlaceToTheGround(Action):
         def destroy_place():
             self.place.name = "the smoldering remains of " + self.place.name
             character.move_to(self.place)
-            places.Place.burnable.remove(self.place)
+            places.burnable.remove(self.place)
 
         def burn_yourself_up():
             Display().write("You accidentally set yourself on fire and "
                             "promptly burn to the ground.")
             character.die()
 
-        if self.place in places.Place.burnable:
+        if self.place in places.burnable:
             self.outcomes.add(destroy_place, weight=2)
         self.outcomes.add(burn_yourself_up, weight=1)
         self.run_outcome()
