@@ -20,6 +20,7 @@ class Place(object):
         """
         self.name = name
         self.connections = set()
+        self.locked = False
         self.options = {"a": Raffle(),
                         "b": Raffle(),
                         "c": Raffle(),
@@ -66,7 +67,6 @@ burnable = set([
     lord_bartholomews_manor,
     lord_carlos_manor,
     market,
-    prison,
     tavern,
     tower,
     wizards_lab,
@@ -76,7 +76,6 @@ burnable = set([
 # Connections
 
 artic.connections.add(ocean)
-cave.connections.add(woods)
 church.connections.add(market)
 church.connections.add(streets)
 countryside.connections.add(docks)
@@ -84,9 +83,8 @@ countryside.connections.add(lord_bartholomews_manor)
 countryside.connections.add(streets)
 countryside.connections.add(woods)
 dark_alley.connections.add(streets)
-docks.connections.add(pirate_ship)
 docks.connections.add(streets)
-docks.connections.add(woods)
+docks.connections.add(countryside)
 lord_bartholomews_manor.connections.add(countryside)
 lord_carlos_manor.connections.add(woods)
 market.connections.add(church)
@@ -97,24 +95,18 @@ ocean.connections.add(artic)
 ocean.connections.add(docks)
 ocean.connections.add(mermaid_rock)
 ocean.connections.add(pirate_ship)
-pirate_ship.connections.add(docks)
-pirate_ship.connections.add(ocean)
-prison.connections.add(streets)
 streets.connections.add(church)
 streets.connections.add(countryside)
 streets.connections.add(dark_alley)
 streets.connections.add(docks)
 streets.connections.add(market)
-streets.connections.add(prison)
 streets.connections.add(tavern)
 streets.connections.add(tower)
 tavern.connections.add(streets)
 tower.connections.add(streets)
 upstairs.connections.add(tavern)
 wizards_lab.connections.add(market)
-woods.connections.add(cave)
 woods.connections.add(countryside)
-woods.connections.add(docks)
 woods.connections.add(lord_carlos_manor)
 
 # actions
@@ -131,3 +123,7 @@ dark_alley.options["d"].add(actions.LookThroughSomeTrash(), weight=5)
 
 for place in burnable:
     place.options["d"].add(actions.BurnThePlaceToTheGround(place), weight=2)
+
+cave.locked = True
+prison.locked = True
+pirate_ship.locked = True
