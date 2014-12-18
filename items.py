@@ -2,7 +2,7 @@
 St. George Game
 actions.py
 Skyler Berg
-Created: 7 Dec 2014
+Created: 16 Dec 2014
 """
 
 import abc
