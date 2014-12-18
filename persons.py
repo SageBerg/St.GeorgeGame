@@ -35,9 +35,10 @@ pretty_lady = Person("pretty lady", 1, Pronouns("she", "her", "s"))
 st_george = Person("St. George", 100, Pronouns("he", "him", "s"))
 wealthy_merchant = Person("the wealthy merchant", 7,
                           Pronouns("he", "him", "s"))
+wizard = Person("the wizard", 7, Pronouns("he", "him", "s"))
 
 assassin.options["a"].add(actions.Attack(assassin), weight=10)
-#assassin.options["d"].add(actions.Apologize(), weight=10)
+assassin.options["d"].add(actions.Apologize(), weight=100)
 
 assassins.options["a"].add(actions.Attack(assassins), weight=10)
 assassins.options["b"].add(actions.BoastOfYourBravery(), weight=1)
@@ -54,3 +55,8 @@ st_george.options["b"].add(actions.BegForMoney(), weight=10)
 wealthy_merchant.options["a"].add(actions.Attack(wealthy_merchant), weight=10)
 wealthy_merchant.options["b"].add(actions.BoastOfYourBravery(), weight=1)
 wealthy_merchant.options["b"].add(actions.Buy(weapons.weapons), weight=10)
+
+wizard.options["a"].add(actions.Attack(wizard), weight=10)
+wizard.options["b"].add(actions.BoastOfYourBravery, weight=2)
+#wizard.options["b"].add(actions.BuyAPotion, weight=3)
+wizard.options["d"].add(actions.SingASong, weight=2)
