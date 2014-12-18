@@ -79,9 +79,39 @@ class AskAboutAssassins(Action):
             character.prev_act = self
 
         self.outcomes.add(assassinated, weight=3)
-        self.outcomes.add(no_one_cares, weight=100)
+        self.outcomes.add(no_one_cares, weight=1)
         if persons.pretty_lady.alive:
             self.outcomes.add(pretty_lady, weight=1)
+        self.run_outcome()
+
+
+class Apologize(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Apologize."
+        self.combat_action = True
+
+    def execute(self, character):
+
+        def assassinated():
+            Display().write("\"I'm afraid 'sorry' won't cut it.\" His knife "
+                            "does.")
+            character.die()
+
+        def not_sorry_yet():
+            Display().write("\"Oh, you're not sorry yet,\" he says as he steps "
+                            "toward you.")
+            self.options["c"].add(WaddleLikeGod(),5)
+
+        def good_samaritan():
+            Display().write("A bystander notices the assassin threatening you. "
+                            "\"The man said he was sorry, isn't that enough?\" "
+                            "he says. \"No,\" the assassin replys.")
+
+        self.outcomes.add(assassinated, weight=3)
+        self.outcomes.add(not_sorry_yet, weight=2)
+        self.outcomes.add(good_samaritan, weight=1)
         self.run_outcome()
 
 
@@ -170,7 +200,6 @@ class LickTheGround(Action):
             self.options["a"].add(Attack(character.person), 10)
             self.options["b"].add(TellThemYouAreNotALunatic(excuse="hungry"),
                                   100)
-
         def drown_in_ocean():
             Display().write("You drown while swimming toward the ocean floor "
                             "with your tongue extended.")
@@ -471,13 +500,13 @@ class LookForTheWizard(Action):
             Display().write("You find the wizard in the market. He is telling "
                             "a woman how he cursed the icicles in the arctic.")
             character.move_to(places.market)
-            # character.person = persons.TheWizard
+            character.person = persons.wizard
 
         def find_wizard_2():
             Display().write("You find the wizard in the market. He is telling "
                             "a woman about a mesmerizing pearl.")
             character.move_to(places.market)
-            # character.person = persons.TheWizard
+            character.person = persons.wizard
 
         def find_st_george():
             Display().write("You can't find the wizard, but you find St. "
@@ -508,7 +537,7 @@ class LeaveInAHuff(Action):
             character.die()
 
         self.outcomes.add(assassinated, 1)
-        self.outcomes.add(leave, 4)
+        self.outcomes.add(leave, 9)
         self.run_outcome()
 
 
@@ -588,11 +617,40 @@ class RunLikeTheDevil(Action):
                             " like the Devil and "
                             "overtake" + character.person.pronouns.tense +
                             " you.")
-            Attack(character.person)
+            Attack(character.person).execute(character)
             character.move(1)
 
         self.outcomes.add(escape, weight=9)
         self.outcomes.add(get_caught, weight=1)
+        self.run_outcome()
+
+
+class WaddleLikeGod(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Waddle like God."
+        self.combat_action = True
+
+    def execute(self, character):
+        def waddle():
+            Display().write("God is very slow, so you don't manage to get "
+                            "away.")
+            Attack(character.person).execute(character)
+
+        def waddle_waddle():
+            Display().write("You waddle like God, but " +
+                            character.person.pronouns.subj +
+                            " also waddle" + character.person.pronouns.tense +
+                            " like God and fail to"
+                            " overtake" + character.person.pronouns.tense +
+                            " you. You slowly get away.")
+            character.threatened = False
+            character.person = None
+            character.move(1)
+
+        self.outcomes.add(waddle, weight=9)
+        self.outcomes.add(waddle_waddle, weight=1)
         self.run_outcome()
 
 
@@ -632,10 +690,17 @@ class SingASong(Action):
             Display().write("You sing your favorite song. No one cares.")
             self.options["a"].add(KillYourselfInFrustration(), weight=5)
 
+        def song_angers_wizard():
+            Display().write("The wizard complains that you are singing off "
+                            "key. He turns you into a frog and steps on you.")
+            character.die()
+
         if character.place in places.populated:
             self.outcomes.add(assassins_notice_you, weight=3)
             self.outcomes.add(a_crowd_gathers, weight=2)
             self.outcomes.add(the_locals_kill_you, weight=1)
+        if character.person == persons.wizard:
+            self.outcomes.add(song_angers_wizard, weight=20)
         if self.about == "assassins":
             self.outcomes.add(assassins_notice_you, weight=5)
         self.outcomes.add(no_one_cares, weight=1)
@@ -684,6 +749,7 @@ class BurnThePlaceToTheGround(Action):
         self.name = "Burn {0} to the ground.".format(place.name)
 
     def execute(self, character):
+        import persons
 
         def destroy_place():
             self.place.name = "the smoldering remains of " + self.place.name
@@ -694,7 +760,21 @@ class BurnThePlaceToTheGround(Action):
             Display().write("You accidentally set yourself on fire and "
                             "promptly burn to the ground.")
             character.die()
+        
+        def killed_by_st_george():
+            Display().write("St. George sees you attempting arson and kills "
+                            "you.")
+            character.die()
 
+        def killed_by_wizard():
+            Display().write("The wizard sees you attempting arson and turns "
+                            "you into a frog. He steps on you.")
+            character.die()
+             
+        if character.person == persons.st_george:
+            self.outcomes.add(killed_by_st_george, weight=30)
+        if character.person == persons.wizard:
+            self.outcomes.add(killed_by_wizard, weight=20)
         if self.place in places.burnable:
             self.outcomes.add(destroy_place, weight=2)
         self.outcomes.add(burn_yourself_up, weight=1)
