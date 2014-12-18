@@ -130,4 +130,4 @@ tavern.options["b"].add(actions.AskAboutAssassins(), weight=1)
 dark_alley.options["d"].add(actions.LookThroughSomeTrash(), weight=5)
 
 for place in burnable:
-    place.options["d"].add(actions.BurnThePlaceToTheGround(place), weight=5)
+    place.options["d"].add(actions.BurnThePlaceToTheGround(place), weight=2)
