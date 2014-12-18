@@ -89,7 +89,7 @@ class Apologize(Action):
 
     def __init__(self):
         super().__init__()
-        self.name = "Apologize."
+        self.name = "Tell him you're sorry."
         self.combat_action = True
 
     def execute(self, character):
@@ -102,7 +102,7 @@ class Apologize(Action):
         def not_sorry_yet():
             Display().write("\"Oh, you're not sorry yet,\" he says as he steps "
                             "toward you.")
-            self.options["c"].add(WaddleLikeGod(),5)
+            self.options["c"].add(WaddleLikeGod(), 5)
 
         def good_samaritan():
             Display().write("A bystander notices the assassin threatening you. "
@@ -379,6 +379,42 @@ class BegForMoney(Action):
         self.run_outcome()
 
 
+class BideYourTime(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Bide your time."
+
+    def execute(self, character):
+        import persons
+
+        def die_of_age():
+            Display().write("You die of old age.")
+            character.die()
+
+        def go_insane():
+            Display().write("As the days drag on, you go insane.")
+
+        def notice_a_pattern():
+            Display().write("You notice the warden carries the keys when he "
+                            "inspects the cells. He inspects the cells with "
+                            "an entourage of guards most weekends, but he "
+                            "does it alone on holidays.")
+            #self.options["a"].add(LaughAboutWarden(), 5)
+            #self.options["b"].add(TryToTakeKeys(), 5)
+            #self.options["d"].add(WaitForAHoliday(), 5)
+
+        def fat_woman():
+            Display().write("As the days pass, you find yourself more and more "
+                            "attracted to the fat woman who brings you food.")
+
+        self.outcomes.add(die_of_age, 1)
+        self.outcomes.add(go_insane, 3)
+        self.outcomes.add(notice_a_pattern, 2)
+        self.outcomes.add(fat_woman, 3)
+        self.run_outcome()
+
+
 class Buy(Action):
 
     def __init__(self, weapons):
@@ -482,6 +518,47 @@ class TellThemYouAreNotALunatic(Action):
 
 
 # C slot actions
+
+
+class FlirtWithFatLady(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Flirt with the fat lady who feeds you."
+
+    def execute(self, character):
+        import persons
+
+        def ignored_hoots():
+            Display().write("She ignores your hoots.")
+
+        def ignored_whistling():
+            Display().write("She ignores your whistling.")
+
+        def she_looks():
+            Display().write("She ignores you when you say \"Hello,\" but "
+                            "you catch her glancing at you throughout the day.")
+
+        def she_smiles():
+            Display().write("She smiles, but doesn't reply to the love "
+                            "poem you recite to her.")
+
+        def she_wears_sexy_clothes():
+            Display().write("She ignores you, but wears a low-cut blouse "
+                            "the next day.")
+
+        def she_slips_you_food():
+            Display().write("She ignores you, but gives you more food "
+                            "the next day.")
+
+        self.outcomes.add(ignored_hoots, 1)
+        self.outcomes.add(ignored_whistling, 1)
+        self.outcomes.add(she_looks, 1)
+        self.outcomes.add(she_smiles, 1)
+        self.outcomes.add(she_slips_you_food, 1)
+        self.outcomes.add(she_wears_sexy_clothes, 1)
+        self.run_outcome()
+
 
 class GoToSleep(Action):
 
