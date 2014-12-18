@@ -64,6 +64,7 @@ class Character(object):
         if self.person != persons.wizard and (self.place == places.streets or \
            self.place == places.market):
             self.bags["c"].add(actions.LookForTheWizard(), weight=2)
+        # TODO may need to add similar loop (above) for St. George
         for char in self.bags:
             if self.place:
                 self.bags[char].merge(self.place.options[char])
@@ -73,12 +74,21 @@ class Character(object):
                 self.bags[char].merge(self.prev_act.options[char])
             for item in self.items:
                 self.bags[char].merge(item.options[char])
-
+        if random.randint(0, 99) == 0 and self.place and self.place in \
+           places.burnable:
+            self.bags["a"].add(actions.SetThePlaceOnFire(self.place),
+                               weight=666)
+            self.bags["b"].add(actions.LightUpThePlace(self.place),
+                               weight=666)
+            self.bags["c"].add(actions.BurnThePlaceToACrisp(self.place),
+                               weight=666)
+            self.bags["d"].add(actions.BurnThePlaceToTheGround(self.place),
+                               weight=666)
         self.actions = {"a": self.bags["a"].get(),
                         "b": self.bags["b"].get(),
                         "c": self.bags["c"].get(),
                         "d": self.bags["d"].get()}
-        self.prev_act = None  # Might need to move this
+        self.prev_act = None  # TODO Might need to move this
         for letter in "abcd":
             self.actions[letter] = self.bags[letter].get()
 

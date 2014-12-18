@@ -781,6 +781,30 @@ class BurnThePlaceToTheGround(Action):
         self.run_outcome()
 
 
+class BurnThePlaceToACrisp(BurnThePlaceToTheGround):
+
+    def __init__(self, place):
+        super().__init__(place)
+        self.place = place
+        self.name = "Burn {0} to a crisp.".format(place.name)
+
+
+class LightUpThePlace(BurnThePlaceToTheGround):
+
+    def __init__(self, place):
+        super().__init__(place)
+        self.place = place
+        self.name = "Light up {0}.".format(place.name)
+
+
+class SetThePlaceOnFire(BurnThePlaceToTheGround):
+
+    def __init__(self, place):
+        super().__init__(place)
+        self.place = place
+        self.name = "Set {0} on fire.".format(place.name)
+
+
 class LookThroughSomeTrash(Action):
 
     def __init__(self):
