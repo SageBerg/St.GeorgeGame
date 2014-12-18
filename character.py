@@ -7,12 +7,13 @@ Created: 9 Dec 2014
 
 import random
 
-import actions
 from display import Display
-import money
 from raffle import Raffle
+import actions
 import items
-
+import money
+import persons
+import places
 
 class Character(object):
     """
@@ -51,6 +52,8 @@ class Character(object):
         Selects actions from the options available.
         """
         self.reset_action_bags()
+        if self.person:
+            self.bags["a"].add(actions.Attack(self.person), weight=10)
         if self.threatened:
             self.bags["c"].add(actions.RunLikeTheDevil(), weight=9)
             self.bags["c"].add(actions.LeaveInAHuff(), weight=3)
@@ -58,6 +61,9 @@ class Character(object):
         if self.place and not self.threatened:
             for _ in range(3):
                 self.bags["c"].add(actions.GoTo(self.place))
+        if self.person != persons.wizard and (self.place == places.streets or \
+           self.place == places.market):
+            self.bags["c"].add(actions.LookForTheWizard(), weight=2)
         for char in self.bags:
             if self.place:
                 self.bags[char].merge(self.place.options[char])
