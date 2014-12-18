@@ -43,7 +43,9 @@ class Character(object):
                      "c": Raffle(),
                      "d": Raffle()}
         self.bags["a"].add(actions.LickTheGround())
-        self.bags["b"].add(actions.LookForACat())
+        if self.place and not self.place.locked:  # because looking for a 
+            self.bags["b"].add(actions.LookForACat()) # cat could let you escape
+        self.bags["c"].add(actions.GoToSleep(), 2)
         self.bags["c"].add(actions.LeaveInAPuff())
         self.bags["d"].add(actions.SingASong())
 
@@ -58,7 +60,7 @@ class Character(object):
             self.bags["c"].add(actions.RunLikeTheDevil(), weight=9)
             self.bags["c"].add(actions.LeaveInAHuff(), weight=3)
             self.bags["c"].add(actions.WaddleLikeGod(), weight=1)
-        if self.place and not self.threatened:
+        if self.place and not self.threatened and not self.place.locked:
             for _ in range(3):
                 self.bags["c"].add(actions.GoTo(self.place))
         if self.person != persons.wizard and (self.place == places.streets or \
