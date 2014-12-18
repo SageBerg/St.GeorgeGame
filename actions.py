@@ -133,8 +133,9 @@ class Attack(Action):
             character.person.alive = False
             character.person = None
             character.threatened = False
+            if not character.place.locked:
+                self.options["c"].add(FleeTheScene(), 5)
             self.options["b"].add(BoastOfYourBravery(), 5)
-            self.options["c"].add(FleeTheScene(), 5)
 
 
 class GoDivingForPearls(Action):
@@ -348,13 +349,13 @@ class BegForMoney(Action):
             character.person.state["given money"] = True
 
         def crushed_by_iron_hammer():
-            Display().write("St. George becomes irrated by your begging and "
-                            "crushes you with his iron hammer.")
-            character.die()
+              Display().write("St. George becomes irrated by your begging and "
+                              "crushes you with his iron hammer.")
+              character.die()
 
         def smite():
             Display().write("St. George smites you with his saintly wraith "
-                            "for being ungrateful.")
+                              "for being ungrateful.")
             character.die()
 
         def deaf_ears():
@@ -420,8 +421,11 @@ class BoastOfYourBravery(Action):
         self.name = "Boast of your bravery."
 
     def execute(self, character):
-        Display().write(character.person.pronouns.subj.capitalize() +
-                        " is not impressed.")
+        if not character.person:
+            Display().write("You impress yourself.")
+        else:
+            Display().write(character.person.pronouns.subj.capitalize() +
+                            " is not impressed.")
 
 
 class LookForACat(Action):
@@ -447,12 +451,11 @@ class LookForACat(Action):
             Display().write("The local guards notice you searching for a cat "
                             "and conclude that you must be a lunatic.")
             character.person = persons.guards
-            self.options["a"].add(Attack(character.person), 10)
             self.options["b"].add(TellThemYouAreNotALunatic(excuse="lonely"),
                                   100)
 
-        self.outcomes.add(dark_alley, 1)
-        self.outcomes.add(get_a_cat, 1)
+        self.outcomes.add(dark_alley, 3)
+        self.outcomes.add(get_a_cat, 3)
         self.outcomes.add(the_guards_catch_you, 1)
         self.run_outcome()
 
@@ -466,15 +469,96 @@ class TellThemYouAreNotALunatic(Action):
             "you're just {0}.".format(excuse)
 
     def execute(self, character):
+        import persons
+
         if self.excuse[0] in "aeiou":
             Display().write("'An {0} lunatic,' they say.".format(self.excuse))
         else:
             Display().write("'A {0} lunatic,' they say.".format(self.excuse))
         Display().write("They throw you in prison with the other lunatics.")
         character.move_to(places.prison)
+        character.person = persons.other_lunatics
+        self.options["a"].add(KillYourselfInFrustration(), 5)
 
 
 # C slot actions
+
+class GoToSleep(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Go to sleep."
+
+    def execute(self, character):
+        import persons
+
+        def prison_death_by_assassin():
+            Display().write("You wake up just in time to see "
+                            "an assassin slip a weasal between the bars of "
+                            "your cell. The weasel kills you.")
+            character.die()
+
+        def cat_wakes_you():
+            Display().write("You are pleasantly awakened by a cat rubbing "
+                            "itself against you.")
+            character.get_item(items.Cat())
+
+        def awake_in_new_place():
+            Display().write("You wake up some hours later.")
+            character.move(2)
+
+        def stabbed():
+            Display().write("You are rudely awakened by an assassin's dagger.")
+            character.die()
+
+        def wake_up_rested():
+            Display().write("You wake up well-rested some hours later.")
+
+        def nice_dream():
+            Display().write("You have a wonderful dream that you married a "
+                            "nymph and took her to bed in Lord Carlos' "
+                            "manor.")
+
+        def fire_dream():
+            Display().write("You dream of fire.")
+
+        def nightmare():
+            Display().write("You have a nightmare about weasels.")
+
+        def robbed():
+            Display().write("You wake up robbed of all your worldly "
+                            "possessions.")
+            character.items = set()
+
+        def pittance():
+            Display().write("You wake up with a few coins on your cloak.")
+            character.get_money(money.pittance)
+
+        def drown():
+            Display().write("You drown in your sleep.") 
+            character.die()
+
+        def dead():
+            Display().write("You wake up dead.")
+            character.die()
+
+        if character.place == places.prison:
+            self.outcomes.add(prison_death_by_assassin, 3)
+        if character.place == places.ocean:
+            self.outcomes.add(drown, 100)
+        if not character.place.locked:
+            self.outcomes.add(awake_in_new_place, 3)
+        if character.place in places.populated and not character.place.locked:
+            self.outcomes.add(cat_wakes_you, 2)
+            self.outcomes.add(stabbed, 2)
+            self.outcomes.add(robbed, 2)
+            self.outcomes.add(pittance, 2)
+        self.outcomes.add(wake_up_rested, 2)
+        self.outcomes.add(nightmare, 2) 
+        self.outcomes.add(fire_dream, 1)
+        self.outcomes.add(nice_dream, 2)
+        self.outcomes.add(dead, 1)
+        self.run_outcome()
 
 
 class LookForTheWizard(Action):
