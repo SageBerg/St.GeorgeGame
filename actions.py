@@ -509,6 +509,18 @@ class LookForACat(Action):
     def execute(self, character):
         import persons
 
+        def fruitless():
+            Display().write("Your efforts to find a cat are fruitless.")
+
+        def chase_a_cat():
+            Display().write("You see something out of the corner of your eye "
+                            "that looks like a cat. You chase it to no avail.")
+            character.move(1)
+
+        def it_kills_you():
+            Display().write("You find a ferocious cat. It kills you.")
+            character.die()
+
         def dark_alley():
             Display().write("You follow a cat through the streets but "
                             "eventually lose track of it.")
@@ -530,7 +542,10 @@ class LookForACat(Action):
             Display().write("You find Lord Arthur's freakish cat. The cat has "
                             "eight more tails than a normal cat.")
 
-        self.outcomes.add(get_a_cat, 3)
+        self.outcomes.add(get_a_cat, 4)
+        self.outcomes.add(fruitless, 2)
+        self.outcomes.add(chase_a_cat, 2)
+        self.outcomes.add(it_kills_you, 1)
         if character.place in places.populated and not character.place.locked:
             self.outcomes.add(dark_alley, 3)
             self.outcomes.add(the_guards_catch_you, 1)
