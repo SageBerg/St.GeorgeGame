@@ -656,15 +656,18 @@ class GoToSleep(Action):
                             "an assassin slip a weasal between the bars of "
                             "your cell. The weasel kills you.")
             character.die()
+            character.person = None
 
         def cat_wakes_you():
             Display().write("You are pleasantly awakened by a cat rubbing "
                             "itself against you.")
             character.get_item(items.Cat())
+            character.person = None
 
         def awake_in_new_place():
             Display().write("You wake up some hours later.")
             character.move(2)
+            character.person = None
 
         def stabbed():
             Display().write("You are rudely awakened by an assassin's dagger.")
@@ -672,29 +675,35 @@ class GoToSleep(Action):
 
         def wake_up_rested():
             Display().write("You wake up well-rested some hours later.")
+            character.person = None
 
         def nice_dream():
             Display().write("You have a wonderful dream that you married a "
                             "nymph and took her to bed in Lord Carlos' "
                             "manor.")
+            character.person = None
 
         def fire_dream():
             Display().write("You dream of fire.")
             self.options["b"].add(SingASong(about="fire"), 3)
+            character.person = None
 
         def nightmare():
             Display().write("You have a nightmare about weasels.")
             self.options["b"].add(SingASong(about="weasels"), 3)
+            character.person = None
 
         def robbed():
             Display().write("You wake up robbed of all your worldly "
                             "possessions.")
             character.items = set()
+            character.person = None
 
         def pittance():
             Display().write("You wake up with a few coins on your cloak.")
             character.get_money(money.pittance)
             self.options["d"].add(SingASong(about="money"), 5)
+            character.person = None
 
         def drown():
             Display().write("You drown in your sleep.")
