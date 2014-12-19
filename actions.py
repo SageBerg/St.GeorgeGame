@@ -467,6 +467,7 @@ class Buy(Action):
         else:
             Display().write("You can't afford this weapon.")
             self.options["a"].add(KillYourselfInFrustration(), 5)
+            self.options["d"].add(SingASong(about="poverty"), 5)
 
 
 class BuyADrink(Action):
@@ -516,6 +517,7 @@ class LookForACat(Action):
             Display().write("You see something out of the corner of your eye "
                             "that looks like a cat. You chase it to no avail.")
             character.move(1)
+            self.options["d"].add(SingASong(about="cats"), 5)
 
         def it_kills_you():
             Display().write("You find a ferocious cat. It kills you.")
@@ -525,6 +527,7 @@ class LookForACat(Action):
             Display().write("You follow a cat through the streets but "
                             "eventually lose track of it.")
             character.move_to(places.dark_alley)
+            self.options["d"].add(SingASong(about="cats"), 5)
 
         def get_a_cat():
             Display().write("You after days of searching, you manage to find "
@@ -656,9 +659,11 @@ class GoToSleep(Action):
 
         def fire_dream():
             Display().write("You dream of fire.")
+            self.options["b"].add(SingASong(about="fire"), 3)
 
         def nightmare():
             Display().write("You have a nightmare about weasels.")
+            self.options["b"].add(SingASong(about="weasels"), 3)
 
         def robbed():
             Display().write("You wake up robbed of all your worldly "
@@ -668,9 +673,10 @@ class GoToSleep(Action):
         def pittance():
             Display().write("You wake up with a few coins on your cloak.")
             character.get_money(money.pittance)
+            self.options["d"].add(SingASong(about="money"), 5)
 
         def drown():
-            Display().write("You drown in your sleep.") 
+            Display().write("You drown in your sleep.")
             character.die()
 
         def dead():
@@ -1018,7 +1024,7 @@ class BurnThePlaceToTheGround(Action):
             Display().write("You accidentally set yourself on fire and "
                             "promptly burn to the ground.")
             character.die()
-        
+
         def killed_by_st_george():
             Display().write("St. George sees you attempting arson and kills "
                             "you.")
@@ -1028,7 +1034,7 @@ class BurnThePlaceToTheGround(Action):
             Display().write("The wizard sees you attempting arson and turns "
                             "you into a frog. He steps on you.")
             character.die()
-             
+
         if character.person == persons.st_george:
             self.outcomes.add(killed_by_st_george, weight=30)
         if character.person == persons.wizard:
