@@ -24,7 +24,7 @@ class Action(object):
     @abc.abstractmethod
     def __init__(self):
         self.name = ""
-        self.combat_action = False 
+        self.combat_action = False
         self.outcomes = Raffle()
         self.options = {"a": Raffle(),
                         "b": Raffle(),
@@ -121,7 +121,7 @@ class Attack(Action):
     def __init__(self, person):
         super().__init__()
         self.name = "Attack " + person.pronouns.obj + "."
-        self.combat_action = True 
+        self.combat_action = True
 
     def execute(self, character):
         if character.person.attack >= character.attack:
@@ -202,6 +202,7 @@ class LickTheGround(Action):
             self.options["a"].add(Attack(character.person), 10)
             self.options["b"].add(TellThemYouAreNotALunatic(excuse="hungry"),
                                   100)
+
         def drown_in_ocean():
             Display().write("You drown while swimming toward the ocean floor "
                             "with your tongue extended.")
@@ -326,28 +327,41 @@ class KillYourselfInFrustration(Action):
         self.name = "Kill yourself in frustration."
 
     def execute(self, character):
-        if character.place == places.docks:
+        import persons
+
+        def the_awakening():
             Display().write("You walk into the ocean and are suddenly "
                             "inspired to write a novel. You drown.")
             character.die()
-            return
-        if character.place == places.streets or \
-           character.place == places.market  or \
-           character.place == places.church and random.randint(1,3) == 3:
+
+        def st_george_saves_you():
             Display().write("You throw yourself off a rooftop, but St. "
                             "George catches you and gives you sack of coins.")
-            character.get_money(money.large_fortune) 
-            character.person = StGeorege()
-            return
-        if character.place == places.docks:
-            Display().write("You see Lord Arthur on the docks and ask him to "
-                            "kill you with his jeweled cutlass. He gladly obliges.")
+            character.get_money(money.large_fortune)
+            character.person = persons.StGeorege()
+
+        def lord_arthur_kills_you():
+            Display().write("You see Lord Arthur and ask him to kill you with "
+                            "his jeweled cutlass. He gladly obliges.")
             character.die()
-            return
-        deaths = ["You perform the ritual of the seppuku.",
-                  "You set yourself on fire and burn to a crisp.",
-                  ]
-        Display().write(random.choice(deaths))
+
+        def seppuku():
+            Display().write("You perform the ritual of the seppuku.")
+            character.die()
+
+        def burn_to_a_crisp():
+            Display().write("You set yourself on fire and burn to a crisp.")
+            character.die()
+
+        if character.place in [places.docks, places.pirate_ship]:
+            self.outcomes.add(lord_arthur_kills_you, weight=3)
+        if character.place in places.populated:
+            self.outcomes.add(st_george_saves_you, weight=3)
+        if character.place == places.docks:
+            self.outcomes.add(the_awakening, weight=7)
+        self.outcomes.add(seppuku, weight=3)
+        self.outcomes.add(burn_to_a_crisp, weight=3)
+
         character.die()
 
 
