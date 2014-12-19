@@ -52,6 +52,6 @@ st_george.options["b"].add(actions.BegForMoney(), weight=10)
 wealthy_merchant.options["b"].add(actions.BoastOfYourBravery(), weight=1)
 wealthy_merchant.options["b"].add(actions.Buy(weapons.weapons), weight=10)
 
-wizard.options["b"].add(actions.BoastOfYourBravery, weight=2)
+wizard.options["b"].add(actions.BoastOfYourBravery(), weight=2)
 #wizard.options["b"].add(actions.BuyAPotion, weight=3)
-wizard.options["d"].add(actions.SingASong, weight=2)
+wizard.options["d"].add(actions.SingASong(), weight=2)
