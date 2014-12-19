@@ -48,6 +48,7 @@ class Action(object):
         outcome()
         self.outcomes = Raffle()
 
+
 # A slot actions
 
 
@@ -237,6 +238,41 @@ class LookForAWeapon(Action):
 
         self.outcomes.add(wealthy_merchant, 4)
         self.outcomes.add(assassinated, 1)
+        self.run_outcome()
+
+
+class LookForMushrooms(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Look for mushrooms."
+
+    def execute(self, character):
+
+        def gross_mushroom():
+            Display().write("You find a yellow mushroom.")
+            #self.options["a"].add(actions.eat(items.yellow_mushroom), 10)
+            #self.options["d"].add(actions.pick(items.yellow_mushroom), 2)
+
+        def psych_mushroom():
+            Display().write("You find a many-colored mushroom.")
+            #self.options["a"].add(actions.eat(items.psych_mushroom), 10)
+            #self.options["d"].add(actions.pick(items.psych_mushroom), 2)
+
+        def wonderland_mushroom():
+            Display().write("You find a white mushroom.")
+            #self.options["a"].add(actions.eat(items.white_mushroom), 10)
+            #self.options["d"].add(actions.pick(items.white_mushroom), 2)
+
+        def poison_mushroom():
+            Display().write("You find a black mushroom.")
+            #self.options["a"].add(actions.eat(items.black_mushroom), 10)
+            #self.options["d"].add(actions.pick(items.black_mushroom), 2)
+
+        self.outcomes.add(gross_mushroom, 1)
+        self.outcomes.add(psych_mushroom, 1)
+        self.outcomes.add(wonderland_mushroom, 1)
+        self.outcomes.add(poison_mushroom, 1)
         self.run_outcome()
 
 
