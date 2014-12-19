@@ -795,13 +795,46 @@ class GoTo(Action):
             self.options["b"].add(
                 TellThemYouAreNotALunatic(excuse="oblivious"), 100)
 
+        def absent_minded():
+            Display().write("You absent mindedly leave {0}".format(
+                character.place))
+            character.move(1)
+            character.person = None  # Might need a refactor
+
         def get_there():
             character.move_to(self.dest)
             character.person = None  # Might need a refactor
 
+        def overhear(message):
+            Display().write("As you leave {0} you overhear {1}.".format(
+                character.place, message))
+            character.move_to(self.dest)
+            character.person = None  # Might need a refactor
+
+        def assassin_follows():
+            Display().write("As you are entering {0}, you notice an assassin "
+                            "following you.".format(self.dest))
+            character.move_to(self.dest)
+            character.person = persons.assassin
+            character.threatened = True
+
         if character.place in places.populated:
+            self.outcomes.add(lambda: overhear(
+                "someone say that the town's well has been poisoned"), 1)
+            self.outcomes.add(lambda: overhear(
+                "someone talking about how nice St. George was to them"), 1)
+            self.outcomes.add(lambda: overhear(
+                "a woman talk about how hear baby was eaten by a werewolf"), 1)
+            self.outcomes.add(lambda: overhear(
+                "a man talking being a pirate on Lord Arthur's ship"), 1)
+            self.outcomes.add(lambda: overhear(
+                "a woman asking around about assassins"), 1)
+            self.outcomes.add(lambda: overhear(
+                "some men planning a trip to the woods to look for nymphs"), 1)
             self.outcomes.add(stopped_by_guards, 3)
+            self.outcomes.add(assassin_follows, 2)
         self.outcomes.add(get_there, 3)
+        self.outcomes.add(absent_minded, 3)
         self.run_outcome()
 
 
