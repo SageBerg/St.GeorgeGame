@@ -490,9 +490,16 @@ class LookForACat(Action):
             self.options["b"].add(TellThemYouAreNotALunatic(excuse="lonely"),
                                   100)
 
-        self.outcomes.add(dark_alley, 3)
+        def lord_arthurs_cat():
+            Display().write("You find Lord Arthur's freakish cat. The cat has "
+                            "eight more tails than a normal cat.")
+
         self.outcomes.add(get_a_cat, 3)
-        self.outcomes.add(the_guards_catch_you, 1)
+        if character.place in places.populated and not character.place.locked:
+            self.outcomes.add(dark_alley, 3)
+            self.outcomes.add(the_guards_catch_you, 1)
+        if character.place == places.pirate_ship:
+            self.outcomes.add(lord_arthurs_cat, 10)
         self.run_outcome()
 
 

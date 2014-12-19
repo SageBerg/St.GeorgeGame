@@ -44,8 +44,7 @@ class Character(object):
                      "c": Raffle(),
                      "d": Raffle()}
         self.bags["a"].add(actions.LickTheGround())
-        if self.place and not self.place.locked:  # because looking for a
-            self.bags["b"].add(actions.LookForACat())  # cat could let you escape
+        self.bags["b"].add(actions.LookForACat())
         self.bags["c"].add(actions.GoToSleep(), 2)
         self.bags["c"].add(actions.LeaveInAPuff())
         self.bags["d"].add(actions.SingASong())
