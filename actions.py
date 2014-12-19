@@ -208,13 +208,20 @@ class LickTheGround(Action):
                             "with your tongue extended.")
             character.die()
 
+        def woods_smell():
+            Display().write("As you lean down to lick the ground, you realize "
+                            "it smells oddly familiar.")
+
         self.outcomes.add(you_dislike_the_taste, 5)
         self.outcomes.add(get_infected_and_die, 1)
         if character.place in places.populated:
             self.outcomes.add(the_guards_catch_you, 5)
+        if character.place == places.woods:
+            self.outcomes.add(woods_smell, 3)
         if character.place == places.ocean:
             self.outcomes = Raffle()  # There is only one outcome
             self.outcomes.add(drown_in_ocean, 10000)
+
         self.run_outcome()
 
 
