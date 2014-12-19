@@ -9,11 +9,12 @@ import random
 
 from display import Display
 from raffle import Raffle
+from cheats import Cheat
 import actions
-import items
 import money
 import persons
 import places
+
 
 class Character(object):
     """
@@ -43,8 +44,8 @@ class Character(object):
                      "c": Raffle(),
                      "d": Raffle()}
         self.bags["a"].add(actions.LickTheGround())
-        if self.place and not self.place.locked:  # because looking for a 
-            self.bags["b"].add(actions.LookForACat()) # cat could let you escape
+        if self.place and not self.place.locked:  # because looking for a
+            self.bags["b"].add(actions.LookForACat())  # cat could let you escape
         self.bags["c"].add(actions.GoToSleep(), 2)
         self.bags["c"].add(actions.LeaveInAPuff())
         self.bags["d"].add(actions.SingASong())
@@ -108,9 +109,10 @@ class Character(object):
         print()
         go_to_next = False
         while not go_to_next:
-            if choice not in "abcd" or \
-               len(choice) > 1 or \
-               len(choice) == 0:
+            if choice not in set("abcd"):
+                # Check for cheats
+                if choice.split(" ")[0] == "cheat":
+                    return Cheat(" ".join(choice.split(" ")[1:]))
                 print("Enter a, b, c, or d")
                 choice = input()
             else:
