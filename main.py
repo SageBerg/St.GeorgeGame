@@ -29,12 +29,12 @@ def main():
         action = character.choose_action()
         display.enable()
         if not character.threatened or action.combat_action:
-            action.execute(character)
+            action.clean_execute(character)
         else:
             Display().write(character.person.pronouns.subj.capitalize() +
                             " attack" +
                             character.person.pronouns.tense + " you.")
-            actions.Attack(character.person).execute(character)
+            actions.Attack(character.person).clean_execute(character)
             if not character.alive:
                 break
         character.prev_act = action

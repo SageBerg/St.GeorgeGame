@@ -34,6 +34,14 @@ class Action(object):
     def __str__(self):
         return self.name
 
+    def clean_execute(self, character):
+        self.options = {"a": Raffle(),
+                        "b": Raffle(),
+                        "c": Raffle(),
+                        "d": Raffle()}
+        self.execute(character)
+        self.run_outcome()        
+
     @abc.abstractmethod
     def execute(self, character):
         """
@@ -45,7 +53,8 @@ class Action(object):
 
     def run_outcome(self):
         outcome = self.outcomes.get()
-        outcome()
+        if outcome:
+            outcome()
         self.outcomes = Raffle()
 
 
@@ -83,7 +92,7 @@ class AskAboutAssassins(Action):
         self.outcomes.add(no_one_cares, weight=1)
         if persons.pretty_lady.alive:
             self.outcomes.add(pretty_lady, weight=1)
-        self.run_outcome()
+        #
 
 
 class Apologize(Action):
@@ -113,7 +122,7 @@ class Apologize(Action):
         self.outcomes.add(assassinated, weight=3)
         self.outcomes.add(not_sorry_yet, weight=2)
         self.outcomes.add(good_samaritan, weight=1)
-        self.run_outcome()
+        
 
 
 class Attack(Action):
@@ -173,7 +182,7 @@ class GoDivingForPearls(Action):
         self.outcomes.add(saved_by_merfolk, weight=1)
         self.outcomes.add(find_pearl_death, weight=3)
         self.outcomes.add(find_pearl, weight=1)
-        self.run_outcome()
+        
 
 
 class LickTheGround(Action):
@@ -222,7 +231,7 @@ class LickTheGround(Action):
             self.outcomes = Raffle()  # There is only one outcome
             self.outcomes.add(drown_in_ocean, 10000)
 
-        self.run_outcome()
+        
 
 
 class LookForAWeapon(Action):
@@ -246,7 +255,7 @@ class LookForAWeapon(Action):
 
         self.outcomes.add(wealthy_merchant, 4)
         self.outcomes.add(assassinated, 1)
-        self.run_outcome()
+        
 
 
 class LookForMushrooms(Action):
@@ -281,7 +290,7 @@ class LookForMushrooms(Action):
         self.outcomes.add(psych_mushroom, 1)
         self.outcomes.add(wonderland_mushroom, 1)
         self.outcomes.add(poison_mushroom, 1)
-        self.run_outcome()
+        
 
 
 class LookForStGeorge(Action):
@@ -297,7 +306,7 @@ class LookForStGeorge(Action):
             Display().write("While looking for St. George, you get lost in "
                             "your thoughts and realize you stopped paying "
                             "attention to where you were going.")
-            LeaveInAHuff().execute(character)
+            LeaveInAHuff().clean_execute(character)
 
         def find_st_george_at_church():
             Display().write("You find St. George at the church.")
@@ -324,7 +333,7 @@ class LookForStGeorge(Action):
             self.outcomes.add(find_st_george_at_church, weight=10)
             self.outcomes.add(find_st_george_at_market, weight=5)
             self.outcomes.add(find_st_george_at_church, weight=5)
-        self.run_outcome()
+        
 
 
 class KillYourselfInFrustration(Action):
@@ -433,7 +442,7 @@ class BegForMoney(Action):
                 self.outcomes.add(large_fortune, 1)
         else:
             self.outcomes.add(deaf_ears, 1)
-        self.run_outcome()
+        
 
 
 class BideYourTime(Action):
@@ -469,7 +478,7 @@ class BideYourTime(Action):
         self.outcomes.add(go_insane, 3)
         self.outcomes.add(notice_a_pattern, 2)
         self.outcomes.add(fat_woman, 3)
-        self.run_outcome()
+        
 
 
 class Buy(Action):
@@ -518,7 +527,7 @@ class BuyADrink(Action):
         else:
             self.outcomes.add(no_one_is_selling, 3)
         self.outcomes.add(assassin_hits_on_you, 1)
-        self.run_outcome()
+        
 
 
 class BoastOfYourBravery(Action):
@@ -588,7 +597,7 @@ class LookForACat(Action):
             self.outcomes.add(the_guards_catch_you, 1)
         if character.place == places.pirate_ship:
             self.outcomes.add(lord_arthurs_cat, 10)
-        self.run_outcome()
+        
 
 
 class TellThemYouAreNotALunatic(Action):
@@ -661,7 +670,7 @@ class ChowDown(Action):
                 self.outcomes.add(trip_out, 1)
             else:
                 self.outcomes.add(trip_in, 1)
-        self.run_outcome()
+        
 
 
 class FlirtWithFatLady(Action):
@@ -701,7 +710,7 @@ class FlirtWithFatLady(Action):
         self.outcomes.add(she_smiles, 1)
         self.outcomes.add(she_slips_you_food, 1)
         self.outcomes.add(she_wears_sexy_clothes, 1)
-        self.run_outcome()
+        
 
 
 class GoToSleep(Action):
@@ -791,7 +800,7 @@ class GoToSleep(Action):
         self.outcomes.add(fire_dream, 1)
         self.outcomes.add(nice_dream, 2)
         self.outcomes.add(dead, 1)
-        self.run_outcome()
+        
 
 
 class LookForTheWizard(Action):
@@ -841,7 +850,7 @@ class LookForTheWizard(Action):
         self.outcomes.add(find_wizard_2, 2)
         self.outcomes.add(find_wizard_by_well, 1)
         self.outcomes.add(assassinated, 1)
-        self.run_outcome()
+        
 
 
 class LeaveInAHuff(Action):
@@ -861,7 +870,6 @@ class LeaveInAHuff(Action):
 
         self.outcomes.add(assassinated, 1)
         self.outcomes.add(leave, 9)
-        self.run_outcome()
 
 
 class LeaveInAPuff(Action):
@@ -948,7 +956,7 @@ class GoTo(Action):
             self.outcomes.add(assassin_follows, 2)
         self.outcomes.add(get_there, 3)
         self.outcomes.add(absent_minded, 3)
-        self.run_outcome()
+        
 
 
 class RunLikeTheDevil(Action):
@@ -973,12 +981,12 @@ class RunLikeTheDevil(Action):
                             " like the Devil and "
                             "overtake" + character.person.pronouns.tense +
                             " you.")
-            Attack(character.person).execute(character)
+            Attack(character.person).clean_execute(character)
             character.move(1)
 
         self.outcomes.add(escape, weight=9)
         self.outcomes.add(get_caught, weight=1)
-        self.run_outcome()
+        
 
 
 class WaddleLikeGod(Action):
@@ -992,7 +1000,7 @@ class WaddleLikeGod(Action):
         def waddle():
             Display().write("God is very slow, so you don't manage to get "
                             "away.")
-            Attack(character.person).execute(character)
+            Attack(character.person).clean_execute(character)
 
         def waddle_waddle():
             Display().write("You waddle like God, but " +
@@ -1007,7 +1015,7 @@ class WaddleLikeGod(Action):
 
         self.outcomes.add(waddle, weight=9)
         self.outcomes.add(waddle_waddle, weight=1)
-        self.run_outcome()
+        
 
 
 # D slot actions
@@ -1060,7 +1068,7 @@ class SingASong(Action):
         if self.about == "assassins":
             self.outcomes.add(assassins_notice_you, weight=5)
         self.outcomes.add(no_one_cares, weight=1)
-        self.run_outcome()
+        
 
 
 class SwingYourCat(Action):
@@ -1094,7 +1102,7 @@ class SwingYourCat(Action):
             self.outcomes.add(hit_assassin, weight=7)
             self.outcomes.add(the_guards_catch_you, weight=3)
         self.outcomes.add(cat_runs_away, weight=3)
-        self.run_outcome()
+        
 
 
 class BurnThePlaceToTheGround(Action):
@@ -1134,7 +1142,7 @@ class BurnThePlaceToTheGround(Action):
         if self.place in places.burnable:
             self.outcomes.add(destroy_place, weight=2)
         self.outcomes.add(burn_yourself_up, weight=1)
-        self.run_outcome()
+        
 
 
 class BurnThePlaceToACrisp(BurnThePlaceToTheGround):
@@ -1198,4 +1206,4 @@ class LookThroughSomeTrash(Action):
         self.outcomes.add(find_a_cat, weight=1)
         self.outcomes.add(guards_catch_you, weight=1)
         self.outcomes.add(nothing_useful, weight=1)
-        self.run_outcome()
+        
