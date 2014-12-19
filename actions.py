@@ -500,12 +500,25 @@ class BuyADrink(Action):
     def execute(self, character):
         import persons
 
-        if persons.blind_bartender.alive:
+        def get_a_drink():
             Display().write("The blind bartender grumbles as he passes you a "
                             "drink.")
             character.person = persons.blind_bartender
-        else:
+
+        def assassin_hits_on_you():
+            Display().write("An assassin walks up and starts hitting on "
+                            "you... very hard.")
+            character.die()
+
+        def no_one_is_selling():
             Display().write("No one is selling drinks.")
+
+        if persons.blind_bartender.alive:
+            self.outcomes.add(get_a_drink, 3)
+        else:
+            self.outcomes.add(no_one_is_selling, 3)
+        self.outcomes.add(assassin_hits_on_you, 1)
+        self.run_outcome()
 
 
 class BoastOfYourBravery(Action):
