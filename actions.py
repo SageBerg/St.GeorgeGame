@@ -259,22 +259,22 @@ class LookForMushrooms(Action):
 
         def gross_mushroom():
             Display().write("You find a yellow mushroom.")
-            #self.options["a"].add(actions.eat(items.yellow_mushroom), 10)
+            self.options["a"].add(ChowDown(items.YellowMushroom()), 10)
             #self.options["d"].add(actions.pick(items.yellow_mushroom), 2)
 
         def psych_mushroom():
             Display().write("You find a many-colored mushroom.")
-            #self.options["a"].add(actions.eat(items.psych_mushroom), 10)
+            self.options["a"].add(ChowDown(items.ManyColoredMushroom()), 10)
             #self.options["d"].add(actions.pick(items.psych_mushroom), 2)
 
         def wonderland_mushroom():
             Display().write("You find a white mushroom.")
-            #self.options["a"].add(actions.eat(items.white_mushroom), 10)
+            self.options["a"].add(ChowDown(items.WhiteMushroom()), 10)
             #self.options["d"].add(actions.pick(items.white_mushroom), 2)
 
         def poison_mushroom():
             Display().write("You find a black mushroom.")
-            #self.options["a"].add(actions.eat(items.black_mushroom), 10)
+            self.options["a"].add(ChowDown(items.BlackMushroom()), 10)
             #self.options["d"].add(actions.pick(items.black_mushroom), 2)
 
         self.outcomes.add(gross_mushroom, 1)
@@ -613,6 +613,55 @@ class TellThemYouAreNotALunatic(Action):
 
 
 # C slot actions
+
+
+class ChowDown(Action):
+
+    def __init__(self, food):
+        super().__init__()
+        self.food = food
+        self.name = "Chow down on the " + str(food) + "."
+
+    def execute(self, character):
+
+        def trip_out():
+            pass
+
+        def trip_in():
+            Display().write("You feel normal again.")
+
+        def gross():
+            Display().write("You find the mushroom distasteful.")
+
+        def large():
+            Display().write("You grow larger.")
+            character.attack += 1 
+
+        def white_death():
+            Display().write("You grow taller.")
+            character.die()
+
+        def poison():
+            Display().write("The mushroom tastes bittersweet.")
+            character.die()
+        
+        if isinstance(self.food, items.YellowMushroom):
+            print("yellow")
+            self.outcomes.add(gross, 1)
+        if isinstance(self.food, items.WhiteMushroom):
+            print("white")
+            self.outcomes.add(large, 2)
+            self.outcomes.add(white_death, 1)
+        if isinstance(self.food, items.BlackMushroom):
+            print("black")
+            self.outcomes.add(poison, 1)
+        if isinstance(self.food, items.ManyColoredMushroom):
+            print("many colors")
+            if not character.trip:
+                self.outcomes.add(trip_out, 1)
+            else:
+                self.outcomes.add(trip_in, 1)
+        self.run_outcome()
 
 
 class FlirtWithFatLady(Action):

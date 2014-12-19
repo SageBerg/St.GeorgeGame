@@ -122,7 +122,7 @@ streets.options["c"].add(actions.LookForTheWizard(), weight=1)
 tavern.options["b"].add(actions.BuyADrink(), weight=2)
 tavern.options["b"].add(actions.AskAboutAssassins(), weight=1)
 dark_alley.options["d"].add(actions.LookThroughSomeTrash(), weight=5)
-woods.options["c"].add(actions.LookForMushrooms(), weight=7)
+woods.options["c"].add(actions.LookForMushrooms(), weight=12)
 
 for place in burnable:
     place.options["d"].add(actions.BurnThePlaceToTheGround(place), weight=2)

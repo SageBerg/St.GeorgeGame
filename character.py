@@ -28,6 +28,7 @@ class Character(object):
         self.attack = 0
         self.money = money.none
         self.threatened = False
+        self.trip = False
         self.alive = True
         self.alone = True  # character has not found true love
 

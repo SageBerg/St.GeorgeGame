@@ -37,6 +37,50 @@ class Item(object):
         pass
 
 
+class ManyColoredMushroom(Item):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "many-colored mushroom"
+        self.options["d"].add(actions.ChowDown(self), 1)
+
+    def contribute(self, character):
+        pass
+
+
+class BlackMushroom(Item):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "black mushroom"
+        self.options["d"].add(actions.ChowDown(self), 1)
+
+    def contribute(self, character):
+        pass
+
+
+class WhiteMushroom(Item):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "white mushroom"
+        self.options["d"].add(actions.ChowDown(self), 1)
+
+    def contribute(self, character):
+        pass
+
+
+class YellowMushroom(Item):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "yellow mushroom"
+        self.options["d"].add(actions.ChowDown(self), 1)
+
+    def contribute(self, character):
+        pass
+
+
 class Cat(Item):
 
     def __init__(self):
