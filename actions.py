@@ -674,7 +674,7 @@ class GoToSleep(Action):
             self.outcomes.add(robbed, 2)
             self.outcomes.add(pittance, 2)
         self.outcomes.add(wake_up_rested, 2)
-        self.outcomes.add(nightmare, 2) 
+        self.outcomes.add(nightmare, 2)
         self.outcomes.add(fire_dream, 1)
         self.outcomes.add(nice_dream, 2)
         self.outcomes.add(dead, 1)
@@ -712,15 +712,21 @@ class LookForTheWizard(Action):
             character.move_to(places.market)
             character.person = persons.wizard
 
+        def find_wizard_by_well():
+            Display().write("You see the wizard emptying a flask into a well "
+                            "in the market.")
+            character.move_to(places.market)
+            character.person = persons.wizard
+
         def find_st_george():
             Display().write("You can't find the wizard, but you find St. "
                             "George. He says the wizard is a little testy.")
             character.person = persons.StGeorge
 
-        self.outcomes.add(assassinated, 1)
         self.outcomes.add(find_death, 3)
         self.outcomes.add(find_wizard_1, 2)
         self.outcomes.add(find_wizard_2, 2)
+        self.outcomes.add(find_wizard_by_well, 1)
         self.outcomes.add(assassinated, 1)
         self.run_outcome()
 
