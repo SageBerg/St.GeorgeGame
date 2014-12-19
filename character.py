@@ -129,15 +129,32 @@ class Character(object):
             Display().write("You still have {0}.".format(money.to_str(amount)))
 
     def get_item(self, item):
-        if str(item)[0] in "AEIOUaeiou":
+        if self.has_item(type(item)):
+            Display().write("You now have another " + str(item) + ".")
+        elif str(item)[0] in "AEIOUaeiou":
             Display().write("You now have an " + str(item) + ".")
         else:
             Display().write("You now have a " + str(item) + ".")
         self.items.add(item)
 
     def remove_item(self, item):
-        Display().write("You no longer have a " + str(item) + ".")
         self.items.remove(item)
+        if self.has_item(type(item)):
+            Display().write("You now have one less " + str(item) + ".")
+        else:
+            Display().write("You no longer have a " + str(item) + ".")
+
+    def has_item(self, item_class):
+        if self.item_count(item_class):
+            return True
+        return False
+
+    def item_count(self, item_class):
+        count = 0
+        for item in self.items:
+            if isinstance(item, item_class):
+                count += 1
+        return count
 
     def die(self):
         """
