@@ -181,7 +181,6 @@ class GoDivingForPearls(Action):
         self.outcomes.add(saved_by_merfolk, weight=1)
         self.outcomes.add(find_pearl_death, weight=3)
         self.outcomes.add(find_pearl, weight=1)
-        
 
 
 class LickTheGround(Action):
@@ -200,7 +199,7 @@ class LickTheGround(Action):
 
         def you_dislike_the_taste():
             Display().write("You find the flavor of the ground to be "
-                            "distastful.")
+                            "distasteful.")
             self.options["a"].add(KillYourselfInFrustration(), 10)
 
         def the_guards_catch_you():
@@ -219,6 +218,10 @@ class LickTheGround(Action):
         def woods_smell():
             Display().write("As you lean down to lick the ground, you realize "
                             "it smells oddly familiar.")
+        def cursed_ice():
+            #Display().write("You get your tongue stuck to an icicle.")
+            self.options["a"].add(KillYourselfInFrustration(), 10)
+            places.arctic.locked = True
 
         self.outcomes.add(you_dislike_the_taste, 5)
         self.outcomes.add(get_infected_and_die, 1)
@@ -226,6 +229,8 @@ class LickTheGround(Action):
             self.outcomes.add(the_guards_catch_you, 5)
         if character.place == places.woods:
             self.outcomes.add(woods_smell, 3)
+        if character.place == places.arctic:
+            self.outcomes.add(cursed_ice, 100)
         if character.place == places.ocean:
             self.outcomes = Raffle()  # There is only one outcome
             self.outcomes.add(drown_in_ocean, 10000)
@@ -578,9 +583,9 @@ class LookForACat(Action):
             Display().write("You find Lord Arthur's freakish cat. The cat has "
                             "eight more tails than a normal cat.")
 
-        self.outcomes.add(get_a_cat, 4)
-        self.outcomes.add(fruitless, 2)
-        self.outcomes.add(chase_a_cat, 2)
+        self.outcomes.add(get_a_cat, 7)
+        self.outcomes.add(fruitless, 3)
+        self.outcomes.add(chase_a_cat, 3)
         self.outcomes.add(it_kills_you, 1)
         if character.place in places.populated and not character.place.locked:
             self.outcomes.add(dark_alley, 3)

@@ -45,7 +45,9 @@ class Character(object):
                      "c": Raffle(),
                      "d": Raffle()}
         self.bags["a"].add(actions.LickTheGround())
-        self.bags["b"].add(actions.LookForACat())
+        if self.place and not self.place.locked:
+            self.bags["b"].add(actions.LookForACat())
+        #self.bags["b"].add(actions.Jest())
         self.bags["c"].add(actions.GoToSleep(), 2)
         self.bags["c"].add(actions.LeaveInAPuff())
         self.bags["d"].add(actions.SingASong())
@@ -67,6 +69,8 @@ class Character(object):
         if self.person != persons.wizard and (self.place == places.streets or \
            self.place == places.market):
             self.bags["c"].add(actions.LookForTheWizard(), weight=2)
+        if self.place == places.arctic and self.place.locked:
+            Display().write("Your tongue is stuck to an icicle.")
         # TODO may need to add similar loop (above) for St. George
         for char in self.bags:
             if self.place:

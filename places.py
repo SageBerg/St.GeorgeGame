@@ -31,7 +31,7 @@ class Place(object):
         return self.name
 
 
-artic = Place("the artic")
+arctic = Place("the arctic")
 cave = Place("a dark cave")
 church = Place("the church")
 countryside = Place("the countryside")
@@ -75,7 +75,7 @@ burnable = set([
 
 # Connections
 
-artic.connections.add(ocean)
+arctic.connections.add(ocean)
 church.connections.add(market)
 church.connections.add(streets)
 countryside.connections.add(docks)
@@ -91,7 +91,7 @@ market.connections.add(church)
 market.connections.add(streets)
 market.connections.add(wizards_lab)
 mermaid_rock.connections.add(ocean)
-ocean.connections.add(artic)
+ocean.connections.add(arctic)
 ocean.connections.add(docks)
 ocean.connections.add(mermaid_rock)
 ocean.connections.add(pirate_ship)
