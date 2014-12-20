@@ -41,6 +41,8 @@ def main():
         for item in character.items:
             item.contribute(character)
         character.generate_actions()
+    if not character.alone:
+        Display().write("You both live happily ever after.")
 
 if __name__ == "__main__":
     main()
