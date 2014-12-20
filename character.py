@@ -178,5 +178,8 @@ class Character(object):
 
     def move_to(self, place, suppress_message=False):
         self.place = place
+        self.person = None  # WARNING: move then add people
+                            # so move doesn't overwrite
+                            # character.person immediately
         if not suppress_message:
             Display().write('You find yourself in ' + str(self.place) + '.')
