@@ -1,5 +1,6 @@
 import actions
 import places
+import persons
 
 
 class Cheat(actions.Action):
@@ -17,3 +18,5 @@ class Cheat(actions.Action):
             for place in places.Place.instances:
                 if place.name == place_name:
                     character.move_to(place)
+        if words[0] == "Felicity" and words[1] == "wow":
+            persons.fat_lady.attracted += 20
