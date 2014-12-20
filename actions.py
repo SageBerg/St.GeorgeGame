@@ -92,7 +92,6 @@ class AskAboutAssassins(Action):
         self.outcomes.add(no_one_cares, weight=1)
         if persons.pretty_lady.alive:
             self.outcomes.add(pretty_lady, weight=1)
-        #
 
 
 class Apologize(Action):
@@ -231,8 +230,6 @@ class LickTheGround(Action):
             self.outcomes = Raffle()  # There is only one outcome
             self.outcomes.add(drown_in_ocean, 10000)
 
-        
-
 
 class LookForAWeapon(Action):
 
@@ -255,7 +252,6 @@ class LookForAWeapon(Action):
 
         self.outcomes.add(wealthy_merchant, 4)
         self.outcomes.add(assassinated, 1)
-        
 
 
 class LookForMushrooms(Action):
@@ -290,7 +286,6 @@ class LookForMushrooms(Action):
         self.outcomes.add(psych_mushroom, 1)
         self.outcomes.add(wonderland_mushroom, 1)
         self.outcomes.add(poison_mushroom, 1)
-        
 
 
 class LookForStGeorge(Action):
@@ -333,7 +328,6 @@ class LookForStGeorge(Action):
             self.outcomes.add(find_st_george_at_church, weight=10)
             self.outcomes.add(find_st_george_at_market, weight=5)
             self.outcomes.add(find_st_george_at_church, weight=5)
-        
 
 
 class KillYourselfInFrustration(Action):
@@ -377,8 +371,6 @@ class KillYourselfInFrustration(Action):
             self.outcomes.add(the_awakening, weight=7)
         self.outcomes.add(seppuku, weight=3)
         self.outcomes.add(burn_to_a_crisp, weight=3)
-
-        character.die()
 
 
 # B slot actions
@@ -442,7 +434,6 @@ class BegForMoney(Action):
                 self.outcomes.add(large_fortune, 1)
         else:
             self.outcomes.add(deaf_ears, 1)
-        
 
 
 class BideYourTime(Action):
@@ -477,8 +468,8 @@ class BideYourTime(Action):
         self.outcomes.add(die_of_age, 1)
         self.outcomes.add(go_insane, 3)
         self.outcomes.add(notice_a_pattern, 2)
-        self.outcomes.add(fat_woman, 3)
-        
+        if persons.fat_lady.attracted > -1 and persons.fat_lady.attracted < 3: 
+            self.outcomes.add(fat_woman, 3)
 
 
 class Buy(Action):
@@ -527,7 +518,6 @@ class BuyADrink(Action):
         else:
             self.outcomes.add(no_one_is_selling, 3)
         self.outcomes.add(assassin_hits_on_you, 1)
-        
 
 
 class BoastOfYourBravery(Action):
@@ -597,7 +587,6 @@ class LookForACat(Action):
             self.outcomes.add(the_guards_catch_you, 1)
         if character.place == places.pirate_ship:
             self.outcomes.add(lord_arthurs_cat, 10)
-        
 
 
 class TellThemYouAreNotALunatic(Action):
@@ -655,22 +644,17 @@ class ChowDown(Action):
             character.die()
         
         if isinstance(self.food, items.YellowMushroom):
-            print("yellow")
             self.outcomes.add(gross, 1)
         if isinstance(self.food, items.WhiteMushroom):
-            print("white")
             self.outcomes.add(large, 2)
             self.outcomes.add(white_death, 1)
         if isinstance(self.food, items.BlackMushroom):
-            print("black")
             self.outcomes.add(poison, 1)
         if isinstance(self.food, items.ManyColoredMushroom):
-            print("many colors")
             if not character.trip:
                 self.outcomes.add(trip_out, 1)
             else:
                 self.outcomes.add(trip_in, 1)
-        
 
 
 class FlirtWithFatLady(Action):
@@ -684,9 +668,11 @@ class FlirtWithFatLady(Action):
 
         def ignored_hoots():
             Display().write("She ignores your hoots.")
+            persons.fat_lady.attracted -= 3 
 
         def ignored_whistling():
             Display().write("She ignores your whistling.")
+            persons.fat_lady.attracted -= 2 
 
         def she_looks():
             Display().write("She ignores you when you say \"Hello,\" but "
@@ -704,13 +690,71 @@ class FlirtWithFatLady(Action):
             Display().write("She ignores you, but gives you more food "
                             "the next day.")
 
-        self.outcomes.add(ignored_hoots, 1)
-        self.outcomes.add(ignored_whistling, 1)
-        self.outcomes.add(she_looks, 1)
-        self.outcomes.add(she_smiles, 1)
-        self.outcomes.add(she_slips_you_food, 1)
-        self.outcomes.add(she_wears_sexy_clothes, 1)
-        
+        won_over = persons.meet_felicity()
+        if won_over:
+            places.prison.options["c"] = Raffle()
+            places.prison.options["c"].add(FlirtWithFelicity(), weight=40)
+        else:
+            self.outcomes.add(ignored_hoots, 1)
+            self.outcomes.add(ignored_whistling, 1)
+            self.outcomes.add(she_looks, 1)
+            self.outcomes.add(she_smiles, 1)
+            self.outcomes.add(she_slips_you_food, 1)
+            self.outcomes.add(she_wears_sexy_clothes, 1)
+        persons.fat_lady.attracted += 2 
+
+
+class FlirtWithFelicity(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Flirt with Felicity."
+
+    def execute(self, character):
+        import persons
+
+        def blows_kisses():
+            Display().write("Felicity blows you kisses.")
+
+        def kiss():
+            Display().write("Felicity leans in close and kisses your cheek.")
+
+        def talks():
+            Display().write("Felicity talks with you for hours. She only "
+                            "stops when the warden barks at her to get "
+                            "back to work.")
+
+        def helps():
+            Display().write("Felicity tells you she asked the warden to "
+                            "let you out, but he has a strict \"No lunatics "
+                            "on the streets\" policy.")
+
+        def lonely():
+            Display().write("Felicity says she thinks about you a lot.")
+
+        def laughs():
+            Display().write("Felicity laughs at all your jests, even the bad "
+                            "ones.")
+
+        def fat_in_dress():
+            Display().write("Felicity asks if she looks fat in her new dress. "
+                            "You say \"Yes.\" She doesn't speak to you for "
+                            "several days.")
+            persons.fat_lady.attracted -= 3
+
+        won_over = persons.felicity_loves_you()
+        if won_over:
+            places.prison.options["c"] = Raffle()
+            places.prison.options["a"].add(SayYouLoveHer(), weight=777)
+        else:
+            self.outcomes.add(blows_kisses, 1)
+            self.outcomes.add(kiss, 1)
+            self.outcomes.add(talks, 1)
+            self.outcomes.add(helps, 1)
+            self.outcomes.add(lonely, 1)
+            self.outcomes.add(laughs, 1)
+            self.outcomes.add(fat_in_dress, 1)
+        persons.fat_lady.attracted += 2
 
 
 class GoToSleep(Action):
@@ -800,7 +844,6 @@ class GoToSleep(Action):
         self.outcomes.add(fire_dream, 1)
         self.outcomes.add(nice_dream, 2)
         self.outcomes.add(dead, 1)
-        
 
 
 class LookForTheWizard(Action):
@@ -850,7 +893,6 @@ class LookForTheWizard(Action):
         self.outcomes.add(find_wizard_2, 2)
         self.outcomes.add(find_wizard_by_well, 1)
         self.outcomes.add(assassinated, 1)
-        
 
 
 class LeaveInAHuff(Action):
@@ -882,7 +924,6 @@ class LeaveInAPuff(Action):
     def execute(self, character):
         options = places.Place.instances - set([character.place])
         character.move_to(random.sample(options, 1)[0])
-        character.person = None
         character.threatened = False
 
 
@@ -941,22 +982,21 @@ class GoTo(Action):
 
         if character.place in places.populated:
             self.outcomes.add(lambda: overhear(
-                "someone say that the town's well has been poisoned"), 1)
+                "someone say that the town's well has been poisoned."), 1)
             self.outcomes.add(lambda: overhear(
-                "someone talking about how nice St. George was to them"), 1)
+                "someone talking about how nice St. George was to them."), 1)
             self.outcomes.add(lambda: overhear(
-                "a woman talk about how hear baby was eaten by a werewolf"), 1)
+                "a woman talks about how hear baby was eaten by a werewolf."), 1)
             self.outcomes.add(lambda: overhear(
-                "a man talking being a pirate on Lord Arthur's ship"), 1)
+                "a man talking being a pirate on Lord Arthur's ship."), 1)
             self.outcomes.add(lambda: overhear(
-                "a woman asking around about assassins"), 1)
+                "a woman asking around about assassins."), 1)
             self.outcomes.add(lambda: overhear(
-                "some men planning a trip to the woods to look for nymphs"), 1)
+                "some men are planning a trip to the woods to look for nymphs."), 1)
             self.outcomes.add(stopped_by_guards, 3)
             self.outcomes.add(assassin_follows, 2)
         self.outcomes.add(get_there, 3)
         self.outcomes.add(absent_minded, 3)
-        
 
 
 class RunLikeTheDevil(Action):
@@ -967,6 +1007,8 @@ class RunLikeTheDevil(Action):
         self.combat_action = True
 
     def execute(self, character):
+        import persons
+
         def escape():
             Display().write("The Devil is very fast, so you manage to get "
                             "away.")
@@ -984,9 +1026,17 @@ class RunLikeTheDevil(Action):
             Attack(character.person).clean_execute(character)
             character.move(1)
 
+        def flake_out_on_Felicity():
+            Display().write("The Devil is very fast and not very fat, so you "
+                            "manage to get away unmarried.")
+            persons.fat_lady.attracted = -666
+            character.move(2)
+        
+        if character.person == persons.fat_lady and \
+           persons.fat_lady.attracted > 9:
+            self.outcomes.add(flake_out_on_Felicity, weight=666)
         self.outcomes.add(escape, weight=9)
         self.outcomes.add(get_caught, weight=1)
-        
 
 
 class WaddleLikeGod(Action):
@@ -1015,7 +1065,6 @@ class WaddleLikeGod(Action):
 
         self.outcomes.add(waddle, weight=9)
         self.outcomes.add(waddle_waddle, weight=1)
-        
 
 
 # D slot actions
@@ -1068,7 +1117,6 @@ class SingASong(Action):
         if self.about == "assassins":
             self.outcomes.add(assassins_notice_you, weight=5)
         self.outcomes.add(no_one_cares, weight=1)
-        
 
 
 class SwingYourCat(Action):
@@ -1102,7 +1150,6 @@ class SwingYourCat(Action):
             self.outcomes.add(hit_assassin, weight=7)
             self.outcomes.add(the_guards_catch_you, weight=3)
         self.outcomes.add(cat_runs_away, weight=3)
-        
 
 
 class BurnThePlaceToTheGround(Action):
@@ -1142,7 +1189,6 @@ class BurnThePlaceToTheGround(Action):
         if self.place in places.burnable:
             self.outcomes.add(destroy_place, weight=2)
         self.outcomes.add(burn_yourself_up, weight=1)
-        
 
 
 class BurnThePlaceToACrisp(BurnThePlaceToTheGround):
@@ -1206,4 +1252,46 @@ class LookThroughSomeTrash(Action):
         self.outcomes.add(find_a_cat, weight=1)
         self.outcomes.add(guards_catch_you, weight=1)
         self.outcomes.add(nothing_useful, weight=1)
-        
+
+
+class SayYouLoveHer(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Say you love her too."
+
+    def execute(self, character):
+        import persons
+
+        def assassinated():
+            Display().write("\"What a shame,\" an assassin says as he steps "
+                            "into the room. He shoots you with a crossbow.")
+            character.die()
+
+        def plotting():
+            Display().write("Felicty is overjoyed and secretly lets you out "
+                            "of prison that night. \"Let's get married!\" she "
+                            "says.")
+            character.move_to(places.streets)
+            character.person = persons.fat_lady
+            self.options["a"].add(MarryFelicity(), weight=777)
+            self.options["c"].add(RunLikeTheDevil(), weight=666)
+        self.outcomes.add(assassinated, weight=1)
+        self.outcomes.add(plotting, weight=9)
+
+
+class MarryFelicity(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Marry Felicity."
+
+    def execute(self, character):
+        import persons
+
+        def happily_ever_after():
+            Display().write("St. George secretly performs a wedding for you "
+                            "and Felicity.")
+            character.alone = False
+
+        self.outcomes.add(happily_ever_after, weight=9)
