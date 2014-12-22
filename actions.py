@@ -61,6 +61,24 @@ class Action(object):
         self.outcomes = Raffle()
 
 
+class vim18yy(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "."
+
+    def execute(self, character):
+        import persons
+
+        self.outcomes.add(Outcome(character,
+
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+
+        ), weight=1)
+
+
 # A slot actions
 
 
@@ -73,53 +91,48 @@ class AskAboutAssassins(Action):
     def execute(self, character):
         import persons
 
-        self.outcomes.add(Outcome(character, 
-        msg="The first person you ask about assassins turns " +
+        self.outcomes.add(Outcome(character,
+            "The first person you ask about assassins turns "
             "out to be an assassin. She assassinates you.",
-        die=True
+            die=True
         ), weight=3)
 
-        self.outcomes.add(Outcome(character, 
-        msg="You ask around, but nobody has heard anything " 
+        self.outcomes.add(Outcome(character,
+            "You ask around, but nobody has heard anything "
             "about any assassins.",
-        fail=True
+            fail=True
         ), weight=1)
 
-        self.outcomes.add(Outcome(character, 
-        msg="During your search, you strike up a conversation "
+        self.outcomes.add(Outcome(character,
+            "During your search, you strike up a conversation "
             "with a pretty lady.",
-        new_person=persons.pretty_lady
-        ), weight=1000)
+            new_person=persons.pretty_lady
+        ), weight=1)
 
 
 class Apologize(Action):
-
     def __init__(self):
         super().__init__()
         self.name = "Tell him you're sorry."
         self.combat_action = True
 
     def execute(self, character):
+        import persons
 
-        def assassinated():
-            Display().write("\"I'm afraid 'sorry' won't cut it.\" His knife "
-                            "does.")
-            character.die()
+        self.outcomes.add(Outcome(character,
+            "\"I'm afraid 'sorry' won't cut it.\" His knife does",
+            die=True,
+        ), weight=3)
 
-        def not_sorry_yet():
-            Display().write("\"Oh, you're not sorry yet,\" he says as he steps "
-                            "toward you.")
-            self.options["c"].add(WaddleLikeGod(), 5)
+        self.outcomes.add(Outcome(character,
+            "\"Oh, you're not sorry yet,\" he says as he steps toward you.",
+        ), weight=2)
 
-        def good_samaritan():
-            Display().write("A bystander notices the assassin threatening you. "
-                            "\"The man said he was sorry, isn't that enough?\" "
-                            "he says. \"No,\" the assassin replys.")
-
-        self.outcomes.add(assassinated, weight=3)
-        self.outcomes.add(not_sorry_yet, weight=2)
-        self.outcomes.add(good_samaritan, weight=1)
-        
+        self.outcomes.add(Outcome(character,
+            "A bystander notices the assassin threatening you. "
+            "\"The man said he was sorry, isn't that enough?\" "
+            "he says. \"No,\" the assassin replys.",
+        ), weight=1)
 
 
 class Attack(Action):
