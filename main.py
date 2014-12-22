@@ -32,15 +32,14 @@ def add_person_actions(choices, character):
 
 
 def add_place_actions(choices, character):
-    if character.place and not character.place.locked:
+    if not character.place.locked:
         choices.add(actions.LookForACat(), "b")
-    if character.place and not character.threatened and not character.place.locked:
+    if not character.threatened and not character.place.locked:
         for _ in range(3):
             choices.add(actions.GoTo(character.place), "c")
     if character.place == places.arctic and character.place.locked:
         Display().write("Your tongue is stuck to an icicle.")
-    if random.randint(0, 99) == 0 and character.place and character.place in \
-       places.burnable:
+    if not random.randint(0, 99) and character.place in places.burnable:
         choices.add(actions.SetThePlaceOnFire(character.place), "a",  666)
         choices.add(actions.LightUpThePlace(character.place), "b", 666)
         choices.add(actions.BurnThePlaceToACrisp(character.place), "c",  666)
