@@ -568,7 +568,7 @@ class LookForACat(Action):
             self.options["d"].add(SingASong(about="cats"), 5)
 
         def get_a_cat():
-            Display().write("You after days of searching, you manage to find "
+            Display().write("After days of searching, you manage to find "
                             "a cat.")
             character.get_item(items.Cat())
 
