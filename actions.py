@@ -304,9 +304,8 @@ class LookForStGeorge(Action):
 
         def lost():
             Display().write("While looking for St. George, you get lost in "
-                            "your thoughts and realize you stopped paying "
-                            "attention to where you were going.")
-            LeaveInAHuff().clean_execute(character)
+                            "your thoughts.")
+            character.move(1)
 
         def find_st_george_at_church():
             Display().write("You find St. George at the church.")
