@@ -908,7 +908,7 @@ class LeaveInAHuff(Action):
 
     def execute(self, character):
         def leave():
-            character.move(speed=1)
+            character.move(distance=1)
 
         def assassinated():
             Display().write("The huffy manner in which you left causes some "

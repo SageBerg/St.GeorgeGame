@@ -169,15 +169,15 @@ class Character(object):
         Display().disable()
         self.alive = False
 
-    def move(self, speed=1):  # TODO speed unused
+    def move(self, distance=1):
         visited = set([self.place])  # We don't go in circles
         at = self.place
-        while speed:
+        while distance:
             options = at.connections - visited
             if not options:
                 break
             at = random.sample(options, 1)[0]
-            speed -= 1
+            distance -= 1
         self.move_to(at)
 
     def move_to(self, place, suppress_message=False):
