@@ -131,7 +131,7 @@ class Apologize(Action):
         self.outcomes.add(Outcome(character,
             "A bystander notices the assassin threatening you. "
             "\"The man said he was sorry, isn't that enough?\" "
-            "he says. \"No,\" the assassin replys.",
+            "he says. \"No,\" the assassin replies.",
         ), weight=1)
 
 
@@ -423,8 +423,8 @@ class BegForMoney(Action):
             character.person.state["given money"] = True
 
         def crushed_by_iron_hammer():
-              Display().write("St. George becomes irrated by your begging and "
-                              "crushes you with his iron hammer.")
+              Display().write("St. George becomes irritated by your begging "
+                              "and crushes you with his iron hammer.")
               character.die()
 
         def smite():
@@ -786,7 +786,7 @@ class GoToSleep(Action):
 
         def prison_death_by_assassin():
             Display().write("You wake up just in time to see "
-                            "an assassin slip a weasal between the bars of "
+                            "an assassin slip a weasel between the bars of "
                             "your cell. The weasel kills you.")
             character.die()
             character.person = None
@@ -1287,7 +1287,7 @@ class SayYouLoveHer(Action):
             character.die()
 
         def plotting():
-            Display().write("Felicty is overjoyed and secretly lets you out "
+            Display().write("Felicity is overjoyed and secretly lets you out "
                             "of prison that night. \"Let's get married!\" she "
                             "says.")
             character.move_to(places.streets)
