@@ -9,24 +9,26 @@ import places
 from character import Character
 from display import Display
 import actions
+from multiple_choice import MultipleChoice
 
 
 def main():
     """
     runs program
     """
-    display = Display()
-    display.enable()
     character = Character()
     character.place = places.tavern
-    character.actions["a"] = actions.AskAboutAssassins()
-    character.actions["b"] = actions.BuyADrink()
-    character.actions["c"] = actions.LeaveInAHuff()
-    character.actions["d"] = actions.SingASong()
+    choices = MultipleChoice()
+    choices.actions["a"] = actions.AskAboutAssassins()
+    choices.actions["b"] = actions.BuyADrink()
+    choices.actions["c"] = actions.LeaveInAHuff()
+    choices.actions["d"] = actions.SingASong()
+    display = Display()
+    display.enable()
     display.write("\n---The St. George Game---\n")
     display.write("You are in a tavern. The local assassins hate you.")
     while character.alive and character.alone:
-        action = character.choose_action()
+        action = choices.choose_action()
         display.enable()
         if not character.threatened or action.combat_action:
             action.clean_execute(character)
@@ -40,9 +42,25 @@ def main():
         character.prev_act = action
         for item in character.items:
             item.contribute(character)
-        character.generate_actions()
+        choices.generate_actions(character)
     if not character.alone:
         Display().write("You both live happily ever after.")
 
 if __name__ == "__main__":
     main()
+
+
+# Set up the initial state
+# Display the initial message
+# Display the initial options
+
+# Choose an action
+# Get an outcome
+# Display results of the outcomes
+# Outcome changes game state
+# if-else on action
+# if-else on outcome
+# if-else on person
+# if-else on place
+# if-else on items
+# if-else on character
