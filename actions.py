@@ -353,7 +353,7 @@ class KillYourselfInFrustration(Action):
             Display().write("You throw yourself off a rooftop, but St. "
                             "George catches you and gives you sack of coins.")
             character.get_money(money.large_fortune)
-            character.person = persons.StGeorege()
+            character.person = persons.st_georege
 
         def lord_arthur_kills_you():
             Display().write("You see Lord Arthur and ask him to kill you with "
