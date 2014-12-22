@@ -187,3 +187,12 @@ class Character(object):
                             # character.person immediately
         if not suppress_message:
             Display().write('You find yourself in ' + str(self.place) + '.')
+
+    def win(self):
+        """
+        Win the game. 
+        """
+        Display().write("You win!")
+        Display().disable()
+        self.alon = False
+
