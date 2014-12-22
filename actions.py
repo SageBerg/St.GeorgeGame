@@ -13,6 +13,7 @@ from display import Display
 from raffle import Raffle
 import money
 import items
+from outcome import Outcome
 
 
 class Action(object):
@@ -52,8 +53,10 @@ class Action(object):
             pass
 
     def run_outcome(self):
-        outcome = self.outcomes.get()
-        if outcome:
+        outcome = self.outcomes.get()  # outcome may be function or instance
+        if isinstance(outcome, Outcome):
+            outcome.execute()
+        elif outcome:
             outcome()
         self.outcomes = Raffle()
 
@@ -70,28 +73,23 @@ class AskAboutAssassins(Action):
     def execute(self, character):
         import persons
 
-        def assassinated():
-            Display().write("The first person you ask about assassins turns"
-                            " out to be an assassin. She assassinates you.")
-            character.die()
+        self.outcomes.add(Outcome(character, 
+        msg="The first person you ask about assassins turns " +
+            "out to be an assassin. She assassinates you.",
+        die=True
+        ), weight=3)
 
-        def pretty_lady():
-            Display().write("During your search, you strike up a conversation "
-                            "with a pretty lady.")
-            character.person = persons.pretty_lady
+        self.outcomes.add(Outcome(character, 
+        msg="You ask around, but nobody has heard anything " 
+            "about any assassins.",
+        fail=True
+        ), weight=1)
 
-        def no_one_cares():
-            Display().write("You ask around, but nobody has heard anything"
-                            " about any assassins.")
-            self.options["a"].add(KillYourselfInFrustration(), weight=5)
-            self.options["c"].add(LeaveInAHuff(), weight=5)
-            self.options["d"].add(SingASong(about="assassins"), weight=5)
-            character.prev_act = self
-
-        self.outcomes.add(assassinated, weight=3)
-        self.outcomes.add(no_one_cares, weight=1)
-        if persons.pretty_lady.alive:
-            self.outcomes.add(pretty_lady, weight=1)
+        self.outcomes.add(Outcome(character, 
+        msg="During your search, you strike up a conversation "
+            "with a pretty lady.",
+        new_person=persons.pretty_lady
+        ), weight=1000)
 
 
 class Apologize(Action):
