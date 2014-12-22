@@ -987,17 +987,17 @@ class GoTo(Action):
 
         if character.place in places.populated:
             self.outcomes.add(lambda: overhear(
-                "someone say that the town's well has been poisoned."), 1)
+                "someone say that the town's well has been poisoned"), 1)
             self.outcomes.add(lambda: overhear(
-                "someone talking about how nice St. George was to them."), 1)
+                "someone talking about how nice St. George was to them"), 1)
             self.outcomes.add(lambda: overhear(
-                "a woman talks about how hear baby was eaten by a werewolf."), 1)
+                "a woman talks about how hear baby was eaten by a werewolf"), 1)
             self.outcomes.add(lambda: overhear(
-                "a man talking being a pirate on Lord Arthur's ship."), 1)
+                "a man talking being a pirate on Lord Arthur's ship"), 1)
             self.outcomes.add(lambda: overhear(
-                "a woman asking around about assassins."), 1)
+                "a woman asking around about assassins"), 1)
             self.outcomes.add(lambda: overhear(
-                "some men are planning a trip to the woods to look for nymphs."), 1)
+                "some men are planning a trip to the woods to look for nymphs"), 1)
             self.outcomes.add(stopped_by_guards, 3)
             self.outcomes.add(assassin_follows, 2)
         self.outcomes.add(get_there, 3)
