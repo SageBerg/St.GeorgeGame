@@ -76,7 +76,7 @@ class AskAboutAssassins(Action):
             character.die()
 
         def pretty_lady():
-            Display().write("During your search, you strike up a conversation"
+            Display().write("During your search, you strike up a conversation "
                             "with a pretty lady.")
             character.person = persons.pretty_lady
 
