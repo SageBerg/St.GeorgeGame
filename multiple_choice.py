@@ -1,11 +1,5 @@
-import random
-
-from display import Display
 from raffle import Raffle
 from cheats import Cheat
-import actions
-import places
-import persons
 
 
 class MultipleChoice(object):
@@ -19,33 +13,14 @@ class MultipleChoice(object):
                      "b": Raffle(),
                      "c": Raffle(),
                      "d": Raffle()}
-        self.bags["a"].add(actions.LickTheGround())
-        if not character or not character.place or not character.place.locked:
-            self.bags["b"].add(actions.LookForACat())
-        self.bags["c"].add(actions.GoToSleep(), 2)
-        self.bags["c"].add(actions.LeaveInAPuff())
-        self.bags["d"].add(actions.SingASong())
+
+    def add(self, action, slot, weight=1):
+        self.bags[slot].add(action, weight)
 
     def generate_actions(self, character):
         """
         Selects actions from the options available.
         """
-        self.reset_action_bags(character)
-        if character.person:
-            self.bags["a"].add(actions.Attack(character.person), weight=10)
-        if character.threatened:
-            self.bags["c"].add(actions.RunLikeTheDevil(), weight=9)
-            self.bags["c"].add(actions.LeaveInAHuff(), weight=3)
-            self.bags["c"].add(actions.WaddleLikeGod(), weight=1)
-        if character.place and not character.threatened and not character.place.locked:
-            for _ in range(3):
-                self.bags["c"].add(actions.GoTo(character.place))
-        if character.person != persons.wizard and (character.place == places.streets or
-           character.place == places.market):
-            self.bags["c"].add(actions.LookForTheWizard(), weight=2)
-        if character.place == places.arctic and character.place.locked:
-            Display().write("Your tongue is stuck to an icicle.")
-        # TODO may need to add similar loop (above) for St. George
         for char in self.bags:
             if character.place:
                 self.bags[char].merge(character.place.options[char])
@@ -55,23 +30,14 @@ class MultipleChoice(object):
                 self.bags[char].merge(character.prev_act.options[char])
             for item in character.items:
                 self.bags[char].merge(item.options[char])
-        if random.randint(0, 99) == 0 and character.place and character.place in \
-           places.burnable:
-            self.bags["a"].add(actions.SetThePlaceOnFire(character.place),
-                               weight=666)
-            self.bags["b"].add(actions.LightUpThePlace(character.place),
-                               weight=666)
-            self.bags["c"].add(actions.BurnThePlaceToACrisp(character.place),
-                               weight=666)
-            self.bags["d"].add(actions.BurnThePlaceToTheGround(character.place),
-                               weight=666)
         self.actions = {"a": self.bags["a"].get(),
                         "b": self.bags["b"].get(),
                         "c": self.bags["c"].get(),
                         "d": self.bags["d"].get()}
-        self.prev_act = None  # TODO Might need to move this
+        character.prev_act = None  # TODO Might need to move this
         for letter in "abcd":
             self.actions[letter] = self.bags[letter].get()
+        self.reset_action_bags(character)
 
     def choose_action(self):
         """
