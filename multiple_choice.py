@@ -22,8 +22,6 @@ class MultipleChoice(object):
         Selects actions from the options available.
         """
         for char in self.bags:
-            if character.person:
-                self.bags[char].merge(character.person.options[char])
             if character.prev_act:
                 self.bags[char].merge(character.prev_act.options[char])
             for item in character.items:

@@ -7,10 +7,8 @@ Created: 7 Dec 2014
 
 from collections import namedtuple
 
-import actions
-import weapons
 from raffle import Raffle
-from display import Display 
+from display import Display
 
 Pronouns = namedtuple("Pronouns", ["subj", "obj", "tense"])
 
@@ -42,33 +40,16 @@ wealthy_merchant = Person("the wealthy merchant", 7,
                           Pronouns("he", "him", "s"))
 wizard = Person("the wizard", 7, Pronouns("he", "him", "s"))
 
-assassin.options["d"].add(actions.Apologize(), weight=10)
-
-assassins.options["b"].add(actions.BoastOfYourBravery(), weight=1)
-
-blind_bartender.options["b"].add(actions.BoastOfYourBravery(), weight=1)
-
-pretty_lady.options["b"].add(actions.BoastOfYourBravery(), weight=5)
-
-st_george.options["b"].add(actions.BegForMoney(), weight=10)
-st_george.options["d"].add(actions.SingASong(about="St. George"), weight=3)
-
-wealthy_merchant.options["b"].add(actions.BoastOfYourBravery(), weight=1)
-wealthy_merchant.options["b"].add(actions.Buy(weapons.weapons), weight=10)
-wealthy_merchant.options["d"].add(actions.SingASong(about="weapons"), weight=3)
-
-wizard.options["b"].add(actions.BoastOfYourBravery(), weight=2)
-#wizard.options["b"].add(actions.BuyAPotion, weight=3)
-wizard.options["d"].add(actions.SingASong(), weight=2)
 
 def meet_felicity():
     if fat_lady.attracted > 2:
         Display().write("You strike up a conversation and learn that her name "
                         "is Felicity.")
         fat_lady.name = "Felicity"
-        fat_lady.pronouns = Pronouns("Felicity", "Felicity", "s") 
+        fat_lady.pronouns = Pronouns("Felicity", "Felicity", "s")
         return True  # used in actions.FlirtWithFatLady
     return False
+
 
 def felicity_loves_you():
     if fat_lady.attracted > 10:

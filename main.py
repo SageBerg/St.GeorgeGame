@@ -26,6 +26,28 @@ def add_outcome_actions(choices, character):
 def add_person_actions(choices, character):
     if character.person:
         choices.add(actions.Attack(character.person), "a", 10)
+    if character.person == persons.assassin:
+        choices.add(actions.Apologize(), "d", 10)
+    if character.person == persons.assassins:
+        choices.add(actions.BoastOfYourBravery(), "b", 1)
+    if character.person == persons.blind_bartender:
+        choices.add(actions.BoastOfYourBravery(), "b", 1)
+    if character.person == persons.pretty_lady:
+        choices.add(actions.BoastOfYourBravery(), "b", 5)
+    if character.person == persons.st_george:
+        choices.add(actions.BegForMoney(), "b", 10)
+    if character.person == persons.st_george:
+        choices.add(actions.SingASong(about="St. George"), "d", 3)
+    if character.person == persons.wealthy_merchant:
+        choices.add(actions.BoastOfYourBravery(), "b", 1)
+    if character.person == persons.wealthy_merchant:
+        choices.add(actions.Buy(weapons.weapons), "b", 10)
+    if character.person == persons.wealthy_merchant:
+        choices.add(actions.SingASong(about="weapons"), "d", 3)
+    if character.person == persons.wizard:
+        choices.add(actions.BoastOfYourBravery(), "b", 2)
+    if character.person == persons.wizard:
+        choices.add(actions.SingASong(), "d", 2)
     if character.person != persons.wizard and \
             character.place in [places.streets, places.market]:
         choices.add(actions.LookForTheWizard(), "c", 2)
