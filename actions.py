@@ -143,19 +143,18 @@ class Attack(Action):
         self.combat_action = True
 
     def execute(self, character):
+
         if character.person.attack >= character.attack:
-            Display().write(character.person.pronouns.subj.capitalize() +
-                            " kill" + character.person.pronouns.tense +
-                            " you.")
-            character.die()
+            self.outcomes.add(Outcome(character,
+                character.person.name.capitalize() + " kill" + 
+                character.person.pronouns.tense + " you.",
+                die=True,
+            ), weight=1)
         else:
-            Display().write("You kill " + character.person.pronouns.obj + ".")
-            character.person.alive = False
-            character.person = None
-            character.threatened = False
-            if not character.place.locked:
-                self.options["c"].add(FleeTheScene(), 5)
-            self.options["b"].add(BoastOfYourBravery(), 5)
+            self.outcomes.add(Outcome(character,
+                "You kill " + character.person.name + ".",
+                kill=True,
+            ), weight=1)
 
 
 class GoDivingForPearls(Action):
@@ -165,33 +164,36 @@ class GoDivingForPearls(Action):
         self.name = "Go diving for pearls."
 
     def execute(self, character):
-        def eaten_by_shark():
-            Display().write("Lord Arthur's pet shark eats you.")
-            character.die()
+        import persons
 
-        def find_pearl_death():
-            Display().write("You soon pry open an oyster and find a large "
-                            "pearl. It's so dazzling you drown while "
-                            "gazing at it.")
-            character.die()
+        self.outcomes.add(Outcome(character,
+            "Lord Arthur's pet shark eats you.",
+            die=True,
+        ), weight=3)
 
-        def find_pearl():
-            Display().write("You soon find a pearl in an oyster. You now "
-                            "have a pearl.")
-            character.get_item(items.Pearl())
+        self.outcomes.add(Outcome(character,
+            "You soon find a pearl in an oyster.",
+            get_item=items.Pearl(),
+        ), weight=1)
 
-        def saved_by_merfolk():
-            Display().write("You exhaust yourself trying to find pearls and "
-                            "start to drown. Just when you think it's all "
-                            "over, a beautiful mermaid grabs you and hoists "
-                            "you onto some rocks.")
-            character.place = places.mermaid_rock
-            #character.person = persons.mermaid()
+        self.outcomes.add(Outcome(character,
+            "You soon pry open an oyster and find beautiful pearl. "
+            "It's so dazzling you drown while gazing at it.",
+            die=True,
+        ), weight=2)
 
-        self.outcomes.add(eaten_by_shark, weight=3)
-        self.outcomes.add(saved_by_merfolk, weight=1)
-        self.outcomes.add(find_pearl_death, weight=3)
-        self.outcomes.add(find_pearl, weight=1)
+        self.outcomes.add(Outcome(character,
+            "You soon pry open an oyster and find beautiful pearl. "
+            "It's so dazzling you drown while gazing at it.",
+            get_item=items.Pearl(),
+        ), weight=2)
+
+        self.outcomes.add(Outcome(character,
+            "You exhaust yourself trying to find pearls and start to drown. "
+            "A beautiful mermaid grabs you and hoists you to safety.",
+            move_to=places.mermaid_rock,
+            new_person=persons.mermaid,
+        ), weight=1)
 
 
 class LickTheGround(Action):
@@ -203,48 +205,41 @@ class LickTheGround(Action):
     def execute(self, character):
         import persons
 
-        def get_infected_and_die():
-            Display().write("You get an infection and spend three weeks "
-                            "fighting it.")
-            character.die()
+        self.outcomes.add(Outcome(character,
+            "You catch an infection and spend three weeks fighting it.",
+            die=True,
+        ), weight=1)
 
-        def you_dislike_the_taste():
-            Display().write("You find the flavor of the ground to be "
-                            "distasteful.")
-            self.options["a"].add(KillYourselfInFrustration(), 10)
+        self.outcomes.add(Outcome(character,
+            "You find the flavor of the ground distasteful.",
+            fail=True,
+        ), weight=3)
 
-        def the_guards_catch_you():
-            Display().write("The local guards see you licking the ground and "
-                            "accuse you of being a lunatic.")
-            character.person = persons.guards
-            self.options["a"].add(Attack(character.person), 10)
-            self.options["b"].add(TellThemYouAreNotALunatic(excuse="hungry"),
-                                  100)
-
-        def drown_in_ocean():
-            Display().write("You drown while swimming toward the ocean floor "
-                            "with your tongue extended.")
-            character.die()
-
-        def woods_smell():
-            Display().write("As you lean down to lick the ground, you realize "
-                            "it smells oddly familiar.")
-        def cursed_ice():
-            #Display().write("You get your tongue stuck to an icicle.")
-            self.options["a"].add(KillYourselfInFrustration(), 10)
-            places.arctic.locked = True
-
-        self.outcomes.add(you_dislike_the_taste, 5)
-        self.outcomes.add(get_infected_and_die, 1)
         if character.place in places.populated:
-            self.outcomes.add(the_guards_catch_you, 5)
-        if character.place == places.woods:
-            self.outcomes.add(woods_smell, 3)
-        if character.place == places.arctic:
-            self.outcomes.add(cursed_ice, 100)
+            self.outcomes.add(Outcome(character,
+                "The local guards see you licking the ground and accuse you of "
+                "being a lunatic.",
+                new_person=persons.guards,
+            ), weight=3)
+
         if character.place == places.ocean:
-            self.outcomes = Raffle()  # There is only one outcome
-            self.outcomes.add(drown_in_ocean, 10000)
+            self.outcomes.add(Outcome(character,
+                "You drown while swimming toward the ocean floor with your "
+                "tonge extended.",
+                die=True,
+            ), weight=10000)
+
+        if character.place == places.woods:
+            self.outcomes.add(Outcome(character,
+                "As you lick the ground, you notice it smells oddly familiar.",
+            ), weight=10)
+
+        if character.place == places.arctic:
+            self.outcomes.add(Outcome(character,
+                "You get your tongue stuck to an icicle.",
+                fail=True,
+                lock=True,
+            ), weight=10)
 
 
 class LookForAWeapon(Action):
@@ -256,94 +251,83 @@ class LookForAWeapon(Action):
     def execute(self, character):
         import persons
 
-        def wealthy_merchant():
-            Display().write("You find yourself talking to a wealthy war "
-                            "merchant.")
-            character.person = persons.wealthy_merchant
+        self.outcomes.add(Outcome(character,
+            "You find yourself talking to a wealthy war merchant.",
+            new_person=person.wealthy_merchant,
+        ), weight=4)
 
-        def assassinated():
-            Display().write("You find one... in your back as an assassin walks "
-                            "away smoothly.")
-            character.die()
-
-        self.outcomes.add(wealthy_merchant, 4)
-        self.outcomes.add(assassinated, 1)
+        self.outcomes.add(Outcome(character,
+            "You find one... in your back as an assasin walks away smoothly.",
+            die=True,
+        ), weight=1)
 
 
-class LookForMushrooms(Action):
+class GoMushroomPicking(Action):
 
     def __init__(self):
         super().__init__()
-        self.name = "Look for mushrooms."
+        self.name = "Go mushroom picking."
 
     def execute(self, character):
 
-        def gross_mushroom():
-            Display().write("You find a yellow mushroom.")
-            self.options["a"].add(ChowDown(items.YellowMushroom()), 10)
-            #self.options["d"].add(actions.pick(items.yellow_mushroom), 2)
+        self.outcomes.add(Outcome(character,
+            "You find a yellow mushroom.",
+            get_item=items.YellowMushroom(),
+        ), weight=1)
 
-        def psych_mushroom():
-            Display().write("You find a many-colored mushroom.")
-            self.options["a"].add(ChowDown(items.ManyColoredMushroom()), 10)
-            #self.options["d"].add(actions.pick(items.psych_mushroom), 2)
+        self.outcomes.add(Outcome(character,
+            "You find a white mushroom.",
+            get_item=items.WhiteMushroom(),
+        ), weight=1)
 
-        def wonderland_mushroom():
-            Display().write("You find a white mushroom.")
-            self.options["a"].add(ChowDown(items.WhiteMushroom()), 10)
-            #self.options["d"].add(actions.pick(items.white_mushroom), 2)
+        self.outcomes.add(Outcome(character,
+            "You find a black mushroom.",
+            get_item=items.BlackMushroom(),
+        ), weight=1)
 
-        def poison_mushroom():
-            Display().write("You find a black mushroom.")
-            self.options["a"].add(ChowDown(items.BlackMushroom()), 10)
-            #self.options["d"].add(actions.pick(items.black_mushroom), 2)
-
-        self.outcomes.add(gross_mushroom, 1)
-        self.outcomes.add(psych_mushroom, 1)
-        self.outcomes.add(wonderland_mushroom, 1)
-        self.outcomes.add(poison_mushroom, 1)
+        self.outcomes.add(Outcome(character,
+            "You find a many-colored mushroom.",
+            get_item=items.ManyColoredMushroom(),
+        ), weight=1)
 
 
 class LookForStGeorge(Action):
 
     def __init__(self):
         super().__init__()
-        self.name = "Look for St. George"
+        self.name = "Look for St. George."
 
     def execute(self, character):
         import persons
 
-        def lost():
-            Display().write("While looking for St. George, you get lost in "
-                            "your thoughts and realize you stopped paying "
-                            "attention to where you were going.")
-            LeaveInAHuff().clean_execute(character)
+        self.outcomes.add(Outcome(character,
+            "You forget what you were doing.",
+            move=1,
+        ), weight=3)
 
-        def find_st_george_at_church():
-            Display().write("You find St. George at the church.")
-            character.move_to(places.church, suppress_message=True)
-            character.person = persons.st_george
+        self.outcomes.add(Outcome(character,
+            "You trip over a cat and break your neck.",
+            die=True
+        ), weight=1)
 
-        def find_st_george_at_market():
-            Display().write("You find St. George in the market.")
-            character.move_to(places.market, suppress_message=True)
-            character.person = persons.st_george
-
-        def find_st_george_at_streets():
-            Display().write("You find St. George in the streets.")
-            character.move_to(places.streets, suppress_message=True)
-            character.person = persons.st_george
-
-        def trip_over_a_cat():
-            Display().write("You trip over a cat and break your neck.")
-            character.die()
-
-        self.outcomes.add(lost, weight=3)
-        self.outcomes.add(trip_over_a_cat, weight=1)
         if persons.st_george.alive:
-            self.outcomes.add(find_st_george_at_church, weight=10)
-            self.outcomes.add(find_st_george_at_market, weight=5)
-            self.outcomes.add(find_st_george_at_church, weight=5)
+            self.outcomes.add(Outcome(character,
+                "You find St. George at the chuch.",
+                move_to=places.church,
+                new_person=persons.st_george,
+            ), weight=10)
+
+            self.outcomes.add(Outcome(character,
+                "You find St. George in the streets.",
+                move_to=places.streets,
+                new_person=persons.st_george,
+            ), weight=5)
+
+            self.outcomes.add(Outcome(character,
+                "You find St. George in the market.",
+                move_to=places.market,
+                new_person=persons.st_george,
+            ), weight=3)
 
 
 class KillYourselfInFrustration(Action):
@@ -355,38 +339,37 @@ class KillYourselfInFrustration(Action):
     def execute(self, character):
         import persons
 
-        def the_awakening():
-            Display().write("You walk into the ocean and are suddenly "
-                            "inspired to write a novel. You drown.")
-            character.die()
+        if character.place in [places.docks, places.mermaid_rock]:
+            self.outcomes.add(Outcome(character,
+                "You walk into the ocean and are suddenly inspired to write "
+                "a novel. You drown.",
+                die=True,
+            ), weight=5)
 
-        def st_george_saves_you():
-            Display().write("You throw yourself off a rooftop, but St. "
-                            "George catches you and gives you sack of coins.")
-            character.get_money(money.large_fortune)
-            character.person = persons.st_georege
+        if character.place in [places.streets, places.market, places.church]:
+            self.outcomes.add(Outcome(character,
+                "You throw yourself off a rooftop, but St. George catches "
+                "you and gives you a large fortune.",
+                get_money=money.large_fortune,
+                new_person=persons.st_george,
+            ), weight=2)
 
-        def lord_arthur_kills_you():
-            Display().write("You see Lord Arthur and ask him to kill you with "
-                            "his jeweled cutlass. He gladly obliges.")
-            character.die()
+        if character.place in [places.docks]:
+            self.outcomes.add(Outcome(character,
+                "You find Lord Arthur and ask him to kill you with his "
+                "jeweled cutlass. He gladly obliges.",
+                die=True,
+            ), weight=5)
 
-        def seppuku():
-            Display().write("You perform the ritual of the seppuku.")
-            character.die()
+        self.outcomes.add(Outcome(character,
+            "You perform the ritual of seppuku.",
+            die=True,
+        ), weight=3)
 
-        def burn_to_a_crisp():
-            Display().write("You set yourself on fire and burn to a crisp.")
-            character.die()
-
-        if character.place in [places.docks, places.pirate_ship]:
-            self.outcomes.add(lord_arthur_kills_you, weight=3)
-        if character.place in places.populated:
-            self.outcomes.add(st_george_saves_you, weight=3)
-        if character.place == places.docks:
-            self.outcomes.add(the_awakening, weight=7)
-        self.outcomes.add(seppuku, weight=3)
-        self.outcomes.add(burn_to_a_crisp, weight=3)
+        self.outcomes.add(Outcome(character,
+            "You set yourself on fire and burn to a crisp.",
+            die=True,
+        ), weight=3)
 
 
 # B slot actions
