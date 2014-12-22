@@ -27,14 +27,14 @@ class Person(object):
                         "d": Raffle()}
         self.attracted = 0
 
-assassin = Person("assassin", 6, Pronouns("the asassin", "the asassin", "s"))
-assassins = Person("assassins", 6, Pronouns("they", "them", ""))
+assassin = Person("the assassin", 6, Pronouns("the asassin", "the asassin", "s"))
+assassins = Person("the assassins", 6, Pronouns("they", "them", ""))
 blind_bartender = Person("the blind bartender", 1, Pronouns("he", "him", "s"))
 fat_lady = Person("the fat lady", 4, Pronouns("she", "her", "s"))
 guards = Person("the guards", 1, Pronouns("they", "the guards", ""))
 other_lunatics = Person("the other lunatics", -1,
                         Pronouns("they", "the other lunatics", ""))
-pretty_lady = Person("pretty lady", 1, Pronouns("she", "her", "s"))
+pretty_lady = Person("the pretty lady", 1, Pronouns("she", "her", "s"))
 st_george = Person("St. George", 100, Pronouns("he", "him", "s"))
 wealthy_merchant = Person("the wealthy merchant", 7,
                           Pronouns("he", "him", "s"))
