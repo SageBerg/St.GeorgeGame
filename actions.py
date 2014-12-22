@@ -628,7 +628,8 @@ class ChowDown(Action):
     def execute(self, character):
 
         def trip_out():
-            pass
+            Display().write("Your perception of the world begins to change.")
+            # TODO Implement tripping for the character
 
         def trip_in():
             Display().write("You feel normal again.")
