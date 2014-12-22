@@ -34,6 +34,28 @@ def add_person_actions(choices, character):
 def add_place_actions(choices, character):
     if not character.place.locked:
         choices.add(actions.LookForACat(), "b")
+    if character.place == places.docks:
+        choices.add(actions.LookForTheWizard(), "c", 2)
+    if character.place == places.market:
+        choices.add(actions.LookForAWeapon(), "a", 10)
+        choices.add(actions.LookForTheWizard(), "c", 4)
+    if character.place == places.ocean:
+        choices.add(actions.GoDivingForPearls(), "a", 10)
+    if character.place == places.prison:
+        choices.add(actions.BideYourTime(), "b", 10)
+        choices.add(actions.FlirtWithFatLady(), "c", 10)
+    if character.place == places.streets:
+        choices.add(actions.LookForStGeorge(), "a", 2)
+        choices.add(actions.LookForTheWizard(), "c", 1)
+    if character.place == places.tavern:
+        choices.add(actions.BuyADrink(), "b", 2)
+        choices.add(actions.AskAboutAssassins(), "b", 1)
+    if character.place == places.dark_alley:
+        choices.add(actions.LookThroughSomeTrash(), "d", 5)
+    if character.place == places.woods:
+        choices.add(actions.LookForMushrooms(), "c", 12)
+    if character.place in places.burnable:
+        choices.add(actions.BurnThePlaceToTheGround(character.place), "d", 2)
     if not character.threatened and not character.place.locked:
         for _ in range(3):
             choices.add(actions.GoTo(character.place), "c")

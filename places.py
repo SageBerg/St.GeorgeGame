@@ -5,9 +5,6 @@ Sage Berg
 Created: 7 Dec 2014
 """
 
-from raffle import Raffle
-import actions
-
 
 class Place(object):
 
@@ -21,10 +18,6 @@ class Place(object):
         self.name = name
         self.connections = set()
         self.locked = False
-        self.options = {"a": Raffle(),
-                        "b": Raffle(),
-                        "c": Raffle(),
-                        "d": Raffle()}
         Place.instances.add(self)
 
     def __str__(self):
@@ -108,24 +101,6 @@ upstairs.connections.add(tavern)
 wizards_lab.connections.add(market)
 woods.connections.add(countryside)
 woods.connections.add(lord_carlos_manor)
-
-# actions
-
-docks.options["c"].add(actions.LookForTheWizard(), weight=2)
-market.options["a"].add(actions.LookForAWeapon(), weight=10)
-market.options["c"].add(actions.LookForTheWizard(), weight=4)
-ocean.options["a"].add(actions.GoDivingForPearls(), weight=10)
-prison.options["b"].add(actions.BideYourTime(), weight=10)
-prison.options["c"].add(actions.FlirtWithFatLady(), weight=10)
-streets.options["a"].add(actions.LookForStGeorge(), weight=2)
-streets.options["c"].add(actions.LookForTheWizard(), weight=1)
-tavern.options["b"].add(actions.BuyADrink(), weight=2)
-tavern.options["b"].add(actions.AskAboutAssassins(), weight=1)
-dark_alley.options["d"].add(actions.LookThroughSomeTrash(), weight=5)
-woods.options["c"].add(actions.LookForMushrooms(), weight=12)
-
-for place in burnable:
-    place.options["d"].add(actions.BurnThePlaceToTheGround(place), weight=2)
 
 cave.locked = True
 prison.locked = True
