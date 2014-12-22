@@ -641,7 +641,8 @@ class ChowDown(Action):
             character.attack += 1 
 
         def white_death():
-            Display().write("You grow taller.")
+            Display().write("You shrink to the size of a peanut. A weasel "
+                            "soon comes along and eats you.")
             character.die()
 
         def poison():
