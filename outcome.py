@@ -11,6 +11,7 @@ class Outcome(object):
     
     def __init__(self, 
                  character, 
+                 msg,
 
                  burn_place=False,
                  die=False, 
@@ -19,7 +20,6 @@ class Outcome(object):
                  get_money=False, 
                  move=False, 
                  move_to = False,
-                 msg="", 
                  new_person=False,
                  win=False, 
                  ):
@@ -45,8 +45,9 @@ class Outcome(object):
                                    + self.burn_place.name
         if self.new_person:
             self.character.person = self.new_person
-        if self.msg:
-            Display().write(self.msg)
+
+        Display().write(self.msg)
+
         if self.move:
             self.character.move(self.move)
         if self.move_to:
@@ -54,6 +55,6 @@ class Outcome(object):
         if self.die:
             self.character.die() 
         if self.get_item:
-            self.charcter.get_item(self.get_item)
+            self.character.get_item(self.get_item)
         if self.win:
             self.character.win()
