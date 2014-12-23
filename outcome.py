@@ -16,6 +16,7 @@ class Outcome(object):
                  msg,
 
                  add_item=False,
+                 remove_item=False,
                  new_weapon=False,
                  beg=False,
                  burn_place=False,
@@ -28,10 +29,12 @@ class Outcome(object):
                  move_to=False,
                  new_person=False,
                  win=False,
+                 threat=False,
                  topic=None
                  ):
         self.add_item = add_item
-        self.new_weapon = add_weapon
+        self.remove_item = remove_item
+        self.new_weapon = new_weapon
         self.beg = beg
         self.burn_place = burn_place
         self.character = character
@@ -45,6 +48,7 @@ class Outcome(object):
         self.msg = msg
         self.new_person = new_person
         self.win = win
+        self.threat = threat
         self.topic = topic
 
     def execute(self):
@@ -53,9 +57,9 @@ class Outcome(object):
               printed first)
         """
         if self.add_weapon and self.character.attack < self.new_weapon.attack:
-            character.weapon = self.new_weapon
-            character.attack = self.new_weapon.attack
-            Display().write("You now have a " + self.new_weapon.name + ".")  
+            self.character.weapon = self.new_weapon
+            self.character.attack = self.new_weapon.attack
+            Display().write("You now have a " + self.new_weapon.name + ".")
         if self.beg:
             self.character.person.state["given money"] = True
         if self.lock:
@@ -82,7 +86,11 @@ class Outcome(object):
             self.character.die()
         if self.add_item:
             self.character.add_item(self.add_item)
+        if self.remove_item:
+            self.character.removed_item(self.remove_item)
         if self.get_money:
             self.character.get_money(self.get_money)
         if self.win:
             self.character.win()
+        if self.threat:
+            self.character.threatened = True
