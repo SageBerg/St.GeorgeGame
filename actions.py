@@ -62,24 +62,6 @@ class Action(object):
         self.outcomes = Raffle()
 
 
-class vim18yy(Action):
-
-    def __init__(self):
-        super().__init__()
-        self.name = "."
-
-    def execute(self, character):
-        import persons
-
-        self.outcomes.add(Outcome(character,
-
-        ), weight=1)
-
-        self.outcomes.add(Outcome(character,
-
-        ), weight=1)
-
-
 # A slot actions
 
 
@@ -446,31 +428,30 @@ class BideYourTime(Action):
     def execute(self, character):
         import persons
 
-        def die_of_age():
-            Display().write("You die of old age.")
-            character.die()
+        self.outcomes.add(Outcome(character,
+            "You die of old age.",
+            die=True,
+        ), weight=1)
 
-        def go_insane():
-            Display().write("As the days drag on, you go insane.")
+        self.outcomes.add(Outcome(character,
+            "As the days drag on, you go insane.",
+        ), weight=3)
 
-        def notice_a_pattern():
-            Display().write("You notice the warden carries the keys when he "
-                            "inspects the cells. He inspects the cells with "
-                            "an entourage of guards most weekends, but he "
-                            "does it alone on holidays.")
+        self.outcomes.add(Outcome(character,
+            "You notice the warden carries the keys when he "
+            "inspects the cells. He inspects the cells with "
+            "an entourage of guards most weekends, but he "
+            "does it alone on holidays.",
+        ), weight=2)
             #self.options["a"].add(LaughAboutWarden(), 5)
             #self.options["b"].add(TryToTakeKeys(), 5)
             #self.options["d"].add(WaitForAHoliday(), 5)
 
-        def fat_woman():
-            Display().write("As the days pass, you find yourself more and more "
-                            "attracted to the fat woman who brings you food.")
-
-        self.outcomes.add(die_of_age, 1)
-        self.outcomes.add(go_insane, 3)
-        self.outcomes.add(notice_a_pattern, 2)
-        if persons.fat_lady.attracted > -1 and persons.fat_lady.attracted < 3: 
-            self.outcomes.add(fat_woman, 3)
+        if persons.fat_lady.attracted > -1 and persons.fat_lady.attracted < 3:
+            self.outcomes.add(Outcome(character,
+                "As the days pass, you find yourself more and more "
+                "attracted to the fat woman who brings you food.",
+            ), weight=3)
 
 
 class Buy(Action):
@@ -481,15 +462,18 @@ class Buy(Action):
         self.name = "Buy a " + self.weapon.name
 
     def execute(self, character):
+
         if character.money >= self.weapon.price:
-            Display().write("You now have a " + self.weapon.name + ".")
-            if character.attack < self.weapon.attack:
-                character.weapon = self.weapon
-                character.attack = self.weapon.attack
+            self.outcomes.add(Outcome(character,
+                "",
+                add_weapon=self.weapon,
+            ), weight=3)
         else:
-            Display().write("You can't afford this weapon.")
-            self.options["a"].add(KillYourselfInFrustration(), 5)
-            self.options["d"].add(SingASong(about="poverty"), 5)
+            self.outcomes.add(Outcome(character,
+                "You can't afford this weapon.",
+                fail=True,
+                topic="poverty",
+            ), weight=3)
 
 
 class BuyADrink(Action):
@@ -501,24 +485,22 @@ class BuyADrink(Action):
     def execute(self, character):
         import persons
 
-        def get_a_drink():
-            Display().write("The blind bartender grumbles as he passes you a "
-                            "drink.")
-            character.person = persons.blind_bartender
-
-        def assassin_hits_on_you():
-            Display().write("An assassin walks up and starts hitting on "
-                            "you... very hard.")
-            character.die()
-
-        def no_one_is_selling():
-            Display().write("No one is selling drinks.")
-
         if persons.blind_bartender.alive:
-            self.outcomes.add(get_a_drink, 3)
+            self.outcomes.add(Outcome(character,
+                "The blind bartender grumbles as he passes you a drink.",
+                new_person=persons.blind_bartender,
+            ), weight=3)
+
+            self.outcomes.add(Outcome(character,
+                "An assassin walks up and starts hitting on you... very hard.",
+                die=True,
+            ), weight=2)
+
         else:
-            self.outcomes.add(no_one_is_selling, 3)
-        self.outcomes.add(assassin_hits_on_you, 1)
+            self.outcomes.add(Outcome(character,
+                "No one is selling.",
+                fail=True,
+            ), weight=1)
 
 
 class BoastOfYourBravery(Action):
@@ -529,10 +511,15 @@ class BoastOfYourBravery(Action):
 
     def execute(self, character):
         if not character.person:
-            Display().write("You impress yourself.")
+            self.outcomes.add(Outcome(character,
+                "You impress yourself.",
+            ), weight=1)
         else:
-            Display().write(character.person.pronouns.subj.capitalize() +
-                            " is not impressed.")
+            self.outcomes.add(Outcome(character,
+                character.person.pronouns.subj.capitalize() +
+                " is not impressed.",
+                fail=True,
+            ), weight=1)
 
 
 class LookForACat(Action):
@@ -544,50 +531,47 @@ class LookForACat(Action):
     def execute(self, character):
         import persons
 
-        def fruitless():
-            Display().write("Your efforts to find a cat are fruitless.")
-
-        def chase_a_cat():
-            Display().write("You see something out of the corner of your eye "
-                            "that looks like a cat. You chase it to no avail.")
-            character.move(1)
-            self.options["d"].add(SingASong(about="cats"), 5)
-
-        def it_kills_you():
-            Display().write("You find a ferocious cat. It kills you.")
-            character.die()
-
-        def dark_alley():
-            Display().write("You follow a cat through the streets but "
-                            "eventually lose track of it.")
-            character.move_to(places.dark_alley)
-            self.options["d"].add(SingASong(about="cats"), 5)
-
-        def get_a_cat():
-            Display().write("After days of searching, you manage to find "
-                            "a cat.")
-            character.add_item(items.Cat())
-
-        def the_guards_catch_you():
-            Display().write("The local guards notice you searching for a cat "
-                            "and conclude that you must be a lunatic.")
-            character.person = persons.guards
-            self.options["b"].add(TellThemYouAreNotALunatic(excuse="lonely"),
-                                  100)
-
-        def lord_arthurs_cat():
-            Display().write("You find Lord Arthur's freakish cat. The cat has "
-                            "eight more tails than a normal cat.")
-
-        self.outcomes.add(get_a_cat, 7)
-        self.outcomes.add(fruitless, 3)
-        self.outcomes.add(chase_a_cat, 3)
-        self.outcomes.add(it_kills_you, 1)
         if character.place in places.populated and not character.place.locked:
-            self.outcomes.add(dark_alley, 3)
-            self.outcomes.add(the_guards_catch_you, 1)
+            self.outcomes.add(Outcome(character,
+                "You follow a cat through the streets but "
+                "eventually lose track of it.",
+                move_to=places.dark_alley,
+            ), weight=3)
+
+            self.outcomes.add(Outcome(character,
+                "The local guards notice you searching for a cat "
+                "and conclude that you must be a lunatic.",
+                new_person=persons.guards,
+                topic="lonely",
+            ), weight=3)
+
+        self.outcomes.add(Outcome(character,
+            "After days of searching, you manage to find a cat.",
+            add_item=items.Cat(),
+        ), weight=7)
+
+        self.outcomes.add(Outcome(character,
+            "Your efforts to find a cat are fruitless.",
+            fail=True,
+        ), weight=3)
+
+        self.outcomes.add(Outcome(character,
+            "You see something out of the corner of your eye that looks like "
+            "a cat. You chase it to no avail.",
+            fail=True,
+            topic="cats",
+        ), weight=3)
+
+        self.outcomes.add(Outcome(character,
+            "You find a ferocious cat. It kills you.",
+            die=True,
+        ), weight=1)
+
         if character.place == places.pirate_ship:
-            self.outcomes.add(lord_arthurs_cat, 10)
+            self.outcomes.add(Outcome(character,
+                "You find Lord Arthur's freakish cat. The cat has "
+                "eight more tails than a normal cat.",
+            ), weight=1)
 
 
 class TellThemYouAreNotALunatic(Action):
@@ -602,13 +586,19 @@ class TellThemYouAreNotALunatic(Action):
         import persons
 
         if self.excuse[0] in "aeiou":
-            Display().write("'An {0} lunatic,' they say.".format(self.excuse))
+            self.outcomes.add(Outcome(character,
+                "\"An {0} lunatic,\" they say.".format(self.excuse),
+                fail=True,
+                move_to=places.prison,
+                new_person=persons.other_lunatics,
+            ), weight=1)
         else:
-            Display().write("'A {0} lunatic,' they say.".format(self.excuse))
-        Display().write("They throw you in prison with the other lunatics.")
-        character.move_to(places.prison)
-        character.person = persons.other_lunatics
-        self.options["a"].add(KillYourselfInFrustration(), 5)
+            self.outcomes.add(Outcome(character,
+                "\"An {0} lunatic,\" they say.".format(self.excuse),
+                fail=True,
+                move_to=places.prison,
+                new_person=persons.other_lunatics,
+            ), weight=1)
 
 
 # C slot actions
@@ -623,41 +613,39 @@ class ChowDown(Action):
 
     def execute(self, character):
 
-        def trip_out():
-            Display().write("Your perception of the world begins to change.")
-            # TODO Implement tripping for the character
-
-        def trip_in():
-            Display().write("You feel normal again.")
-
-        def gross():
-            Display().write("You find the mushroom distasteful.")
-
-        def large():
-            Display().write("You grow larger.")
-            character.attack += 1 
-
-        def white_death():
-            Display().write("You shrink to the size of a peanut. A weasel "
-                            "soon comes along and eats you.")
-            character.die()
-
-        def poison():
-            Display().write("The mushroom tastes bittersweet.")
-            character.die()
-        
-        if isinstance(self.food, items.YellowMushroom):
-            self.outcomes.add(gross, 1)
-        if isinstance(self.food, items.WhiteMushroom):
-            self.outcomes.add(large, 2)
-            self.outcomes.add(white_death, 1)
-        if isinstance(self.food, items.BlackMushroom):
-            self.outcomes.add(poison, 1)
         if isinstance(self.food, items.ManyColoredMushroom):
+            # TODO implement trip
             if not character.trip:
-                self.outcomes.add(trip_out, 1)
+                self.outcomes.add(Outcome(character,
+                    "Your perception of the world begins to change.",
+                ), weight=1)
             else:
-                self.outcomes.add(trip_in, 1)
+                self.outcomes.add(Outcome(character,
+                    "You feel normal again.",
+                ), weight=1)
+
+        if isinstance(self.food, items.YellowMushroom):
+            self.outcomes.add(Outcome(character,
+                "You find the mushroom distasteful.",
+            ), weight=1)
+
+        if isinstance(self.food, items.BlackMushroom):
+            self.outcomes.add(Outcome(character,
+                "The mushroom tastes bittersweet.",
+                die=True,
+            ), weight=1)
+
+        if isinstance(self.food, items.WhiteMushroom):
+            character.attack += 1  # TODO don't do this here
+            self.outcomes.add(Outcome(character,
+                "You grow larger.",
+            ), weight=2)
+
+            self.outcomes.add(Outcome(character,
+                "You shrink to the size of a peanut. A weasel "
+                "soon comes along and eats you.",
+                die=True,
+            ), weight=1)
 
 
 class FlirtWithFatLady(Action):
@@ -669,42 +657,51 @@ class FlirtWithFatLady(Action):
     def execute(self, character):
         import persons
 
-        def ignored_hoots():
-            Display().write("She ignores your hoots.")
-            persons.fat_lady.attracted -= 3 
+        self.outcomes.add(Outcome(character,
+            "She ignores your hoots.",
+            flirt=(persons.fat_lady, -1),
+        ), weight=1)
 
-        def ignored_whistling():
-            Display().write("She ignores your whistling.")
-            persons.fat_lady.attracted -= 2 
+        self.outcomes.add(Outcome(character,
+            "She ignores your whistling.",
+        ), weight=1)
 
-        def she_looks():
-            Display().write("She ignores you when you say \"Hello,\" but "
-                            "you catch her glancing at you throughout the day.")
+        self.outcomes.add(Outcome(character,
+            "She ignores you when you say \"Hello,\" but "
+            "you catch her glancing at you throughout the day.",
+            flirt=(persons.fat_lady, 2),
+        ), weight=1)
 
-        def she_smiles():
-            Display().write("She smiles, but doesn't reply to the love "
-                            "poem you recite to her.")
+        self.outcomes.add(Outcome(character,
+            "She smiles, but doesn't reply to the love "
+            "poem you recite to her.",
+            flirt=(persons.fat_lady, 2),
+        ), weight=1)
 
-        def she_wears_sexy_clothes():
-            Display().write("She ignores you, but wears a low-cut blouse "
-                            "the next day.")
+        self.outcomes.add(Outcome(character,
+            "She ignores you, but wears a low-cut blouse the next day.",
+            flirt=(persons.fat_lady, 2),
+        ), weight=1)
 
-        def she_slips_you_food():
-            Display().write("She ignores you, but gives you more food "
-                            "the next day.")
+        self.outcomes.add(Outcome(character,
+            "She ignores you, but gives you more food the next day.",
+            flirt=(persons.fat_lady, 2),
+        ), weight=1)
 
-        won_over = persons.meet_felicity()
+        def meet_felicity():
+            if persons.fat_lady.attracted > 2:
+                Display().write("You strike up a conversation and learn that "
+                                "her name is Felicity.")
+                persons.fat_lady.name = "Felicity"
+                persons.fat_lady.pronouns = \
+                    persons.Pronouns("Felicity", "Felicity", "s")
+                return True
+            return False
+
+        won_over = meet_felicity()
         if won_over:
             places.prison.options["c"] = Raffle()
             places.prison.options["c"].add(FlirtWithFelicity(), weight=40)
-        else:
-            self.outcomes.add(ignored_hoots, 1)
-            self.outcomes.add(ignored_whistling, 1)
-            self.outcomes.add(she_looks, 1)
-            self.outcomes.add(she_smiles, 1)
-            self.outcomes.add(she_slips_you_food, 1)
-            self.outcomes.add(she_wears_sexy_clothes, 1)
-        persons.fat_lady.attracted += 2 
 
 
 class FlirtWithFelicity(Action):
@@ -716,48 +713,57 @@ class FlirtWithFelicity(Action):
     def execute(self, character):
         import persons
 
-        def blows_kisses():
-            Display().write("Felicity blows you kisses.")
+        self.outcomes.add(Outcome(character,
+            "Felicity blows you kisses.",
+            flirt=(persons.fat_lady, 2),
+        ), weight=1)
 
-        def kiss():
-            Display().write("Felicity leans in close and kisses your cheek.")
 
-        def talks():
-            Display().write("Felicity talks with you for hours. She only "
-                            "stops when the warden barks at her to get "
-                            "back to work.")
+        self.outcomes.add(Outcome(character,
+            "Felicity leans in close and kisses your cheek.",
+            flirt=(persons.fat_lady, 2),
+        ), weight=1)
 
-        def helps():
-            Display().write("Felicity tells you she asked the warden to "
-                            "let you out, but he has a strict \"No lunatics "
-                            "on the streets\" policy.")
+        self.outcomes.add(Outcome(character,
+            "Felicity talks with you for hours. She only "
+            "stops when the warden barks at her to get "
+            "back to work.",
+            flirt=(persons.fat_lady, 2),
+        ), weight=1)
 
-        def lonely():
-            Display().write("Felicity says she thinks about you a lot.")
+        self.outcomes.add(Outcome(character,
+            "Felicity tells you she asked the warden to "
+            "let you out, but he has a strict \"No lunatics "
+            "on the streets\" policy.",
+            flirt=(persons.fat_lady, 2),
+        ), weight=1)
 
-        def laughs():
-            Display().write("Felicity laughs at all your jests, even the bad "
-                            "ones.")
+        self.outcomes.add(Outcome(character,
+            "Felicity says she thinks about you a lot.",
+            flirt=(persons.fat_lady, 2),
+        ), weight=1)
 
-        def fat_in_dress():
-            Display().write("Felicity asks if she looks fat in her new dress. "
-                            "You say \"Yes.\" She doesn't speak to you for "
-                            "several days.")
-            persons.fat_lady.attracted -= 3
+        self.outcomes.add(Outcome(character,
+            "Felicity laughs at all your jests, even the bad ones.",
+            flirt=(persons.fat_lady, 2),
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "Felicity asks if she looks fat in her new dress. "
+            "You say \"Yes.\" She doesn't speak to you for several days.",
+            flirt=(persons.fat_lady, -1),
+        ), weight=1)
 
         won_over = persons.felicity_loves_you()
         if won_over:
             places.prison.options["c"] = Raffle()
             places.prison.options["a"].add(SayYouLoveHer(), weight=777)
-        else:
-            self.outcomes.add(blows_kisses, 1)
-            self.outcomes.add(kiss, 1)
-            self.outcomes.add(talks, 1)
-            self.outcomes.add(helps, 1)
-            self.outcomes.add(lonely, 1)
-            self.outcomes.add(laughs, 1)
-            self.outcomes.add(fat_in_dress, 1)
-        persons.fat_lady.attracted += 2
+
+        def felicity_loves_you():
+            if fat_lady.attracted > 10:
+                Display().write("Felicity whispers that she loves you.")
+                return True
+            return False
 
 
 class GoToSleep(Action):
