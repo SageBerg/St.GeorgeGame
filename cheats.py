@@ -12,6 +12,7 @@ class Cheat(actions.Action):
     def __init__(self, code):
         super().__init__()
         self.code = code
+        self.combat_action = True
 
     def cheat(self, character):
         words = self.code.split(" ")
@@ -24,6 +25,12 @@ class Cheat(actions.Action):
             persons.fat_lady.attracted += 20
         if words[0] == "get" and words[1] == "mushroom":
             character.add_item(items.YellowMushroom())
+        if words[0] == "do":
+            action_name = " ".join(words[1:])
+            for action_class in actions.Action.__subclasses__():
+                if action_class.__name__ == action_name:
+                    action = action_class()
+                    action.clean_execute(character)
 
     def execute(self, character):
        self.outcomes.add(Outcome(character,
