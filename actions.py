@@ -150,7 +150,7 @@ class GoDivingForPearls(Action):
         self.outcomes.add(Outcome(character,
             "Lord Arthur's pet shark eats you.",
             die=True,
-        ), weight=3)
+        ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You soon find a pearl in an oyster.",
@@ -158,16 +158,15 @@ class GoDivingForPearls(Action):
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
-            "You soon pry open an oyster and find beautiful pearl. "
-            "It's so dazzling you drown while gazing at it.",
+            "You drown on a fool's errand",
             die=True,
         ), weight=2)
 
         self.outcomes.add(Outcome(character,
             "You soon pry open an oyster and find beautiful pearl. "
             "It's so dazzling you drown while gazing at it.",
-            add_item=items.Pearl(),
-        ), weight=2)
+            die=True,
+        ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You exhaust yourself trying to find pearls and start to drown. "
@@ -316,7 +315,10 @@ class KillYourselfInFrustration(Action):
 
     def execute(self, character):
 
-        if character.place in [places.docks, places.mermaid_rock]:
+        if character.place in [
+                places.docks,
+                places.mermaid_rock,
+                places.arctic]:
             self.outcomes.add(Outcome(character,
                 "You walk into the ocean and are suddenly inspired to write "
                 "a novel. You drown.",
@@ -343,10 +345,16 @@ class KillYourselfInFrustration(Action):
             die=True,
         ), weight=3)
 
-        self.outcomes.add(Outcome(character,
-            "You set yourself on fire and burn to a crisp.",
-            die=True,
-        ), weight=3)
+        if character.place != places.ocean:
+            self.outcomes.add(Outcome(character,
+                "You set yourself on fire and burn to a crisp.",
+                die=True,
+            ), weight=3)
+        else:
+            self.outcomes.add(Outcome(character,
+                "You drown trying to set yourself on fire.",
+                die=True,
+            ), weight=3)
 
 
 class KillEverybodyInAFitOfRage(Action):
@@ -644,6 +652,81 @@ class TellThemYouAreNotALunatic(Action):
                 move_to=places.prison,
                 new_person=persons.other_lunatics,
             ), weight=1)
+
+
+class LookForSeaTurtles(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Look for sea turtles."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "You don't see one. You also drown because you are in the ocean.",
+            die=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "Your efforts to find a sea turtle are fruitless.",
+            fail=True,
+        ), weight=2)
+
+        self.outcomes.add(Outcome(character,
+            "You find a sea turtle and follow it to shore.",
+            move_to=places.woods,
+            topic="sea turtles"
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You can't find a sea turtle. Everywhere looks the same.",
+            fail=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You find a shark instead. It minds its own business."
+        ), weight=1)
+
+
+class LookForMermaids(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Look for mermaids."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "You are taken out by a storm during your search.",
+            die=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "After days of searching, you are not sure mermaids exist.",
+            fail=True,
+        ), weight=2)
+
+        self.outcomes.add(Outcome(character,
+            "You find a sea turtle instead.",
+            fail=True
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You are not sure where to look.",
+            fail=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You find a mermaid and she leads you back to her rock.",
+            move_to=places.mermaid_rock,
+            new_person=persons.mermaid
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You find a wooden mermaid figurehead on the front of Lord "
+            "Arthur's ship. The crew hoists you abroad.",
+            move_to=places.pirate_ship
+        ), weight=1)
 
 
 # C slot actions
@@ -1158,6 +1241,100 @@ class WaddleLikeGod(Action):
         ), weight=1)
 
 
+class Swim(Action):
+    def __init__(self):
+        super().__init__()
+        self.name = "Swim."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "You manage to stay afloat."
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You keep your head up."
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You see a ship in the distance. You are unable to reach it.",
+            fail=True
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You make very little progress.",
+            fail=True
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You die of dehydration.",
+            die=True
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You are in way over your head.",
+            die=True
+        ), weight=1)
+
+
+class KeepSwimming(Swim):
+    def __init__(self):
+        super().__init__()
+        self.name = "Keep swimming."
+
+    def execute(self, character):
+        super().execute(character)
+
+        self.outcomes.add(Outcome(character,
+            "You die of exhaustion.",
+            die=True
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You are picked up by Lord Arthur's pirate ship.",
+            move_to=places.pirate_ship,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You find a mermaid sitting on a rock.",
+            move_to=places.mermaid_rock,
+            new_person=person.mermaid
+        ), weight=1)
+
+        if character.has_item(items.Cat):
+            self.outcomes.add(Outcome(character,
+                "Your cat dies.",
+                remove_item=character.get_item(items.Cat),
+                fail=True
+            ), weight=1)
+
+
+class JustKeepSwimming(KeepSwimming):
+    def __init__(self):
+        super().__init__()
+        self.name = "Just keep swimming."
+
+    def execute(self, character):
+        super().execute(character)
+
+        self.outcomes.add(Outcome(character,
+            "You die of exhaustion.",
+            die=True
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You finally find land.",
+            move_to=places.docks
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "As you swim, you notice the water getting colder. You eventually "
+            "find land",
+            move_to=places.arctic,
+            fail=True
+        ), weight=1)
+
+
 # D slot actions
 
 
@@ -1350,3 +1527,24 @@ class LookThroughSomeTrash(Action):
             "You find a mirror in the trash. You see nothing of value.",
             fail=True
         ), weight=1)
+
+
+class Drown(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Drown."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "You drown.",
+            die=True
+        ), weight=1)
+
+
+class Sink(Drown):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Sink."

@@ -105,3 +105,4 @@ woods.connections.add(lord_carlos_manor)
 cave.locked = True
 prison.locked = True
 pirate_ship.locked = True
+ocean.locked = True

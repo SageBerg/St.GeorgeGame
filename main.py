@@ -19,6 +19,15 @@ from multiple_choice import MultipleChoice
 
 
 def add_action_actions(choices, character):
+    if type(character.prev_act) == actions.Swim and \
+       character.place == places.ocean:
+        choices.add(actions.KeepSwimming(), "c", 10000)
+    if type(character.prev_act) ==  actions.KeepSwimming and \
+       character.place == places.ocean:
+        choices.add(actions.JustKeepSwimming(), "c", 10000)
+    if type(character.prev_act) == actions.JustKeepSwimming and \
+       character.place == places.ocean:
+        choices.add(actions.JustKeepSwimming(), "c", 10000)
     if isinstance(character.prev_act, actions.SayYouLoveHer) and \
        character.person == persons.fat_lady:
         choices.add(actions.MarryFelicity(), "a", 777)
@@ -71,7 +80,7 @@ def add_person_actions(choices, character):
     if character.person == persons.wizard:
         choices.add(actions.SingASong(), "d", 2)
     if character.person != persons.wizard and \
-            character.place in [places.streets, places.market]:
+       character.place in [places.streets, places.market]:
         choices.add(actions.LookForTheWizard(), "c", 2)
 
 
@@ -85,6 +94,11 @@ def add_place_actions(choices, character):
         choices.add(actions.LookForTheWizard(), "c", 4)
     if character.place == places.ocean:
         choices.add(actions.GoDivingForPearls(), "a", 10)
+        choices.add(actions.LookForMermaids(), "b", 3)
+        choices.add(actions.LookForSeaTurtles(), "b", 3)
+        choices.add(actions.Swim(), "c", 10)
+        choices.add(actions.Drown(), "d", 3)
+        choices.add(actions.Sink(), "d", 3)
     if character.place == places.prison:
         choices.add(actions.BideYourTime(), "b", 10)
         choices.add(actions.FlirtWith(persons.fat_lady), "c", 10)

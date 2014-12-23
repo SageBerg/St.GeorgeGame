@@ -32,7 +32,7 @@ assassins = Person("the assassins", 6, Pronouns("they", "them", ""))
 blind_bartender = Person("the blind bartender", 1, Pronouns("he", "him", "s"))
 fat_lady = Person("the fat lady", 4, Pronouns("she", "her", "s"))
 guards = Person("the guards", 1, Pronouns("they", "the guards", ""))
-mermaid = Person("the mermaid", 3, Pronouns("she", "her", "s"))
+mermaid = Person("the mermaid", 3, Pronouns("the mermaid", "the mermaid", "s"))
 other_lunatics = Person("the other lunatics", -1,
                         Pronouns("they", "the other lunatics", ""))
 pretty_lady = Person("the pretty lady", 1, Pronouns("she", "her", "s"))

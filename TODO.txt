@@ -23,6 +23,7 @@ actions:
   Look for Lord Carlos' daughter    
     Ask her name    
       She becomes irate and assassinates you
+  Dance a jig
 
   scratched with poison dagger
 
