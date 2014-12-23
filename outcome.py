@@ -15,11 +15,12 @@ class Outcome(object):
                  character,
                  msg,
 
+                 add_item=False,
+                 new_weapon=False,
                  beg=False,
                  burn_place=False,
                  die=False,
                  fail=False,
-                 add_item=False,
                  get_money=False,
                  kill=False,
                  lock=False,
@@ -29,12 +30,13 @@ class Outcome(object):
                  win=False,
                  topic=None
                  ):
+        self.add_item = add_item
+        self.new_weapon = add_weapon
         self.beg = beg
         self.burn_place = burn_place
         self.character = character
         self.die = die
         self.fail = fail
-        self.add_item = add_item
         self.get_money = get_money
         self.kill = kill
         self.lock = lock
@@ -50,6 +52,10 @@ class Outcome(object):
         NOTE: order of conditions must be logical (based on what should be
               printed first)
         """
+        if self.add_weapon and self.character.attack < self.new_weapon.attack:
+            character.weapon = self.new_weapon
+            character.attack = self.new_weapon.attack
+            Display().write("You now have a " + self.new_weapon.name + ".")  
         if self.beg:
             self.character.person.state["given money"] = True
         if self.lock:
