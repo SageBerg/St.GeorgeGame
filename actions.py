@@ -13,6 +13,7 @@ from display import Display
 from raffle import Raffle
 import money
 import items
+import persons
 from outcome import Outcome
 
 
@@ -71,7 +72,6 @@ class AskAboutAssassins(Action):
         self.name = "Ask about assassins."
 
     def execute(self, character):
-        import persons
 
         self.outcomes.add(Outcome(character,
             "The first person you ask about assassins turns "
@@ -99,7 +99,6 @@ class Apologize(Action):
         self.combat_action = True
 
     def execute(self, character):
-        import persons
 
         self.outcomes.add(Outcome(character,
             "\"I'm afraid 'sorry' won't cut it.\" His knife does",
@@ -146,7 +145,6 @@ class GoDivingForPearls(Action):
         self.name = "Go diving for pearls."
 
     def execute(self, character):
-        import persons
 
         self.outcomes.add(Outcome(character,
             "Lord Arthur's pet shark eats you.",
@@ -185,7 +183,6 @@ class LickTheGround(Action):
         self.name = "Lick the ground."
 
     def execute(self, character):
-        import persons
 
         self.outcomes.add(Outcome(character,
             "You catch an infection and spend three weeks fighting it.",
@@ -231,7 +228,6 @@ class LookForAWeapon(Action):
         self.name = "Look for a weapon."
 
     def execute(self, character):
-        import persons
 
         self.outcomes.add(Outcome(character,
             "You find yourself talking to a wealthy war merchant.",
@@ -280,7 +276,6 @@ class LookForStGeorge(Action):
         self.name = "Look for St. George."
 
     def execute(self, character):
-        import persons
 
         self.outcomes.add(Outcome(character,
             "You forget what you were doing.",
@@ -319,7 +314,6 @@ class KillYourselfInFrustration(Action):
         self.name = "Kill yourself in frustration."
 
     def execute(self, character):
-        import persons
 
         if character.place in [places.docks, places.mermaid_rock]:
             self.outcomes.add(Outcome(character,
@@ -364,7 +358,6 @@ class BegForMoney(Action):
         self.name = "Beg for money."
 
     def execute(self, character):
-        import persons
 
         if character.place != places.church and \
            character.person == persons.st_george:
@@ -425,7 +418,6 @@ class BideYourTime(Action):
         self.name = "Bide your time."
 
     def execute(self, character):
-        import persons
 
         self.outcomes.add(Outcome(character,
             "You die of old age.",
@@ -482,7 +474,6 @@ class BuyADrink(Action):
         self.name = "Buy a drink."
 
     def execute(self, character):
-        import persons
 
         if persons.blind_bartender.alive:
             self.outcomes.add(Outcome(character,
@@ -528,7 +519,6 @@ class LookForACat(Action):
         self.name = "Look for a cat."
 
     def execute(self, character):
-        import persons
 
         if character.place in places.populated and not character.place.locked:
             self.outcomes.add(Outcome(character,
@@ -582,7 +572,6 @@ class TellThemYouAreNotALunatic(Action):
             "you're just {0}.".format(excuse)
 
     def execute(self, character):
-        import persons
 
         if self.excuse[0] in "aeiou":
             self.outcomes.add(Outcome(character,
@@ -654,7 +643,6 @@ class FlirtWithFatLady(Action):
         self.name = "Flirt with the fat lady who feeds you."
 
     def execute(self, character):
-        import persons
 
         self.outcomes.add(Outcome(character,
             "She ignores your hoots.",
@@ -710,7 +698,6 @@ class FlirtWithFelicity(Action):
         self.name = "Flirt with Felicity."
 
     def execute(self, character):
-        import persons
 
         self.outcomes.add(Outcome(character,
             "Felicity blows you kisses.",
@@ -772,86 +759,81 @@ class GoToSleep(Action):
         self.name = "Go to sleep."
 
     def execute(self, character):
-        import persons
 
-        def prison_death_by_assassin():
-            Display().write("You wake up just in time to see "
-                            "an assassin slip a weasel between the bars of "
-                            "your cell. The weasel kills you.")
-            character.die()
-            character.person = None
+        self.outcomes.add(Outcome(character,
+            "You wake up dead.",
+            die=1
+        ), weight=1)
 
-        def cat_wakes_you():
-            Display().write("You are pleasantly awakened by a cat rubbing "
-                            "itself against you.")
-            character.add_item(items.Cat())
-            character.person = None
+        self.outcomes.add(Outcome(character,
+            "You have a nightmare about weasels.",
+            topic="weasels",
+            new_person=None
+        ), weight=2)
 
-        def awake_in_new_place():
-            Display().write("You wake up some hours later.")
-            character.move(2)
-            character.person = None
+        self.outcomes.add(Outcome(character,
+            "You dream of fire.",
+            topic="fire",
+            new_person=None
+        ), weight=1)
 
-        def stabbed():
-            Display().write("You are rudely awakened by an assassin's dagger.")
-            character.die()
+        self.outcomes.add(Outcome(character,
+            "You have a wonderful dream that you married a nymph and took her "
+            "to bed in Lord Carlos' manor.",
+            new_person=None
+        ), weight=2)
 
-        def wake_up_rested():
-            Display().write("You wake up well-rested some hours later.")
-            character.person = None
-
-        def nice_dream():
-            Display().write("You have a wonderful dream that you married a "
-                            "nymph and took her to bed in Lord Carlos' "
-                            "manor.")
-            character.person = None
-
-        def fire_dream():
-            Display().write("You dream of fire.")
-            self.options["b"].add(SingASong(about="fire"), 3)
-            character.person = None
-
-        def nightmare():
-            Display().write("You have a nightmare about weasels.")
-            self.options["b"].add(SingASong(about="weasels"), 3)
-            character.person = None
-
-        def robbed():
-            Display().write("You wake up robbed of all your worldly "
-                            "possessions.")
-            character.items = set()
-            character.person = None
-
-        def pittance():
-            Display().write("You wake up with a few coins on your cloak.")
-            character.get_money(money.pittance)
-            self.options["d"].add(SingASong(about="money"), 5)
-            character.person = None
-
-        def drown():
-            Display().write("You drown in your sleep.")
-            character.die()
-
-        def dead():
-            Display().write("You wake up dead.")
-            character.die()
+        self.outcomes.add(Outcome(character,
+            "You wake up well-rested some hours later.",
+            new_person=None
+        ), weight=2)
 
         if character.place == places.prison:
-            self.outcomes.add(prison_death_by_assassin, 3)
+            self.outcomes.add(Outcome(character,
+                "You wake up just in time to see an assassin slip a weasel "
+                "between the bars of your cell. The weasel kills you.",
+                die=True
+            ), weight=3)
+
         if character.place == places.ocean:
-            self.outcomes.add(drown, 100)
+            self.outcomes.add(Outcome(character,
+                "You drown in your sleep.",
+                die=True
+            ), weight=100)
+
         if not character.place.locked:
-            self.outcomes.add(awake_in_new_place, 3)
+            self.outcomes.add(Outcome(character,
+                "You wake up some hours later.",
+                move=2,
+                new_person=None
+            ), weight=3)
+
         if character.place in places.populated and not character.place.locked:
-            self.outcomes.add(cat_wakes_you, 2)
-            self.outcomes.add(stabbed, 2)
-            self.outcomes.add(robbed, 2)
-            self.outcomes.add(pittance, 2)
-        self.outcomes.add(wake_up_rested, 2)
-        self.outcomes.add(nightmare, 2)
-        self.outcomes.add(fire_dream, 1)
-        self.outcomes.add(nice_dream, 2)
-        self.outcomes.add(dead, 1)
+
+            self.outcomes.add(Outcome(character,
+                "You are pleasantly awakened by a cat rubbing itself against "
+                "you.",
+                add_item=items.Cat(),
+                new_person=None
+            ), weight=2)
+
+            # TODO character.items = set()
+            self.outcomes.add(Outcome(character,
+                "You wake up robbed of all your worldly possessions.",
+                new_person=None
+            ), weight=2)
+
+            self.outcomes.add(Outcome(character,
+                "You are rudely awakened by an assassin's dagger.",
+                die=True
+            ), weight=2)
+
+            self.outcomes.add(Outcome(character,
+                "You wake up robbed of all your worldly possessions.",
+                get_money=money.pittance,
+                topic="money",
+                new_person=None
+            ), weight=2)
 
 
 class LookForTheWizard(Action):
@@ -861,46 +843,43 @@ class LookForTheWizard(Action):
         self.name = "Look for the wizard."
 
     def execute(self, character):
-        import persons
 
-        def find_death():
-            Display().write("You find him. He turns you into a frog and steps "
-                            "on you.")
-            character.die()
+        self.outcomes.add(Outcome(character,
+            "You find him. He turns you into a frog and steps on you.",
+            die=1
+        ), weight=3)
 
-        def assassinated():
-            Display().write("You look for the wizard, but the assassins are "
-                            "looking for you. They find you.")
-            character.die()
+        self.outcomes.add(Outcome(character,
+            "You look for the wizard, but the assassins are looking for you. "
+            "They find you.",
+            die=1
+        ), weight=1)
 
-        def find_wizard_1():
-            Display().write("You find the wizard in the market. He is telling "
-                            "a woman how he cursed the icicles in the arctic.")
-            character.move_to(places.market)
-            character.person = persons.wizard
+        self.outcomes.add(Outcome(character,
+            "You find the wizard in the market. He is telling a woman how he "
+            "cursed the icicles in the arctic.",
+            move_to=places.market,
+            new_person=persons.wizard
+        ), weight=2)
 
-        def find_wizard_2():
-            Display().write("You find the wizard in the market. He is telling "
-                            "a woman about a mesmerizing pearl.")
-            character.move_to(places.market)
-            character.person = persons.wizard
+        self.outcomes.add(Outcome(character,
+            "You find the wizard in the market. He is telling a woman about "
+            "a mesmerizing pearl.",
+            move_to=places.market,
+            new_person=persons.wizard
+        ), weight=2)
 
-        def find_wizard_by_well():
-            Display().write("You see the wizard emptying a flask into a well "
-                            "in the market.")
-            character.move_to(places.market)
-            character.person = persons.wizard
+        self.outcomes.add(Outcome(character,
+            "You see the wizard emptying a flask into a well in the market.",
+            move_to=places.market,
+            new_person=persons.wizard
+        ), weight=1)
 
-        def find_st_george():
-            Display().write("You can't find the wizard, but you find St. "
-                            "George. He says the wizard is a little testy.")
-            character.person = persons.st_george
-
-        self.outcomes.add(find_death, 3)
-        self.outcomes.add(find_wizard_1, 2)
-        self.outcomes.add(find_wizard_2, 2)
-        self.outcomes.add(find_wizard_by_well, 1)
-        self.outcomes.add(assassinated, 1)
+        self.outcomes.add(Outcome(character,
+            "You can't find the wizard, but you find St. George. He says the "
+            "wizard is a little testy.",
+            new_person=persons.st_george
+        ), weight=1)
 
 
 class LeaveInAHuff(Action):
@@ -910,16 +889,20 @@ class LeaveInAHuff(Action):
         self.name = "Leave in a huff."
 
     def execute(self, character):
-        def leave():
-            character.move(distance=1)
 
-        def assassinated():
-            Display().write("The huffy manner in which you left causes some "
-                            "assassins to notice you. They assassinate you.")
-            character.die()
+        self.outcomes.add(Outcome(character,
+            None,
+            move=1,
+            new_person=None,
+            unthreat=False
+        ), weight=9)
 
-        self.outcomes.add(assassinated, 1)
-        self.outcomes.add(leave, 9)
+        if character.place in places.populated:
+            self.outcomes.add(Outcome(character,
+                "The huffy manner in which you left causes some assassins to "
+                "notice you. They assassinate you.",
+                die=True
+            ), weight=1)
 
 
 class LeaveInAPuff(Action):
@@ -931,8 +914,14 @@ class LeaveInAPuff(Action):
 
     def execute(self, character):
         options = places.Place.instances - set([character.place])
-        character.move_to(random.sample(options, 1)[0])
-        character.threatened = False
+        place = random.sample(options, 1)[0]
+
+        self.outcomes.add(Outcome(character,
+            None,
+            move_to=place,
+            new_person=None,
+            unthreat=False
+        ), weight=3)
 
 
 class FleeTheScene(Action):
@@ -942,8 +931,11 @@ class FleeTheScene(Action):
         self.name = "Flee the scene."
 
     def execute(self, character):
-        character.move(2)
-        character.person = None
+        self.outcomes.add(Outcome(character,
+            None,
+            move=2,
+            new_person=None
+        ), weight=3)
 
 
 class GoTo(Action):
@@ -954,57 +946,80 @@ class GoTo(Action):
         self.name = "Go to " + str(self.dest) + "."
 
     def execute(self, character):
-        import persons
 
-        def stopped_by_guards():
-            Display().write("On your way out of {0} you run headlong into "
-                            "some guards and they say you must be a "
-                            "lunatic.".format(character.place))
-            character.person = persons.guards
-            self.options["a"].add(Attack(character.person), 10)
-            self.options["b"].add(
-                TellThemYouAreNotALunatic(excuse="oblivious"), 100)
+        self.outcomes.add(Outcome(character,
+            "You absent mindedly leave {0}".format(character.place),
+            move=1,
+            new_person=None
+        ), weight=3)
 
-        def absent_minded():
-            Display().write("You absent mindedly leave {0}".format(
-                character.place))
-            character.move(1)
-            character.person = None  # Might need a refactor
-
-        def get_there():
-            character.move_to(self.dest)
-            character.person = None  # Might need a refactor
-
-        def overhear(message):
-            Display().write("As you leave {0} you overhear {1}.".format(
-                character.place, message))
-            character.move_to(self.dest)
-            character.person = None  # Might need a refactor
-
-        def assassin_follows():
-            Display().write("As you are entering {0}, you notice an assassin "
-                            "following you.".format(self.dest))
-            character.move_to(self.dest)
-            character.person = persons.assassin
-            character.threatened = True
+        self.outcomes.add(Outcome(character,
+            None,
+            move_to=self.dest,
+            new_person=None
+        ), weight=3)
 
         if character.place in places.populated:
-            self.outcomes.add(lambda: overhear(
-                "someone say that the town's well has been poisoned"), 1)
-            self.outcomes.add(lambda: overhear(
-                "someone talking about how nice St. George was to them"), 1)
-            self.outcomes.add(lambda: overhear(
-                "a woman talks about how hear baby was eaten by a werewolf"), 1)
-            self.outcomes.add(lambda: overhear(
-                "a man talking being a pirate on Lord Arthur's ship"), 1)
-            self.outcomes.add(lambda: overhear(
-                "a woman asking around about assassins"), 1)
-            self.outcomes.add(lambda: overhear(
-                "some men are planning a trip to the woods to look for nymphs"), 1)
-            self.outcomes.add(stopped_by_guards, 3)
-            self.outcomes.add(assassin_follows, 2)
-        self.outcomes.add(get_there, 3)
-        self.outcomes.add(absent_minded, 3)
+
+            self.outcomes.add(Outcome(character,
+                "On your way out of {0} you run headlong into some guards and "
+                "they say you must be a lunatic.".format(character.place),
+                new_person=persons.guards,
+                topic="oblivious"
+            ), weight=3)
+
+            self.outcomes.add(Outcome(character,
+                "As you are entering {0}, you notice an assassin following "
+                "you.".format(self.dest),
+                move_to=self.dest,
+                threat=True,
+                new_person=persons.assassin
+            ), weight=2)
+
+            overhear_template = "As you leave " + character.place.name + \
+                " you overhear {0}."
+
+            self.outcomes.add(Outcome(character,
+                overhear_template.format("someone say that the town's well "
+                    "has been poisoned"),
+                move_to=self.dest,
+                new_person=None
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                overhear_template.format("someone talking about how nice St. "
+                    "George was to them"),
+                move_to=self.dest,
+                new_person=None
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                overhear_template.format("a woman talks about how hear baby "
+                    "was eaten by a werewolf"),
+                move_to=self.dest,
+                new_person=None
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                overhear_template.format("a man talking being a pirate on "
+                    "Lord Arthur's ship"),
+                move_to=self.dest,
+                new_person=None
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                overhear_template.format("a woman asking around about "
+                    "assassins"),
+                move_to=self.dest,
+                new_person=None
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                overhear_template.format("some men are planning a trip to "
+                    "the woods to look for nymphs"),
+                move_to=self.dest,
+                new_person=None
+            ), weight=1)
 
 
 class RunLikeTheDevil(Action):
@@ -1015,36 +1030,29 @@ class RunLikeTheDevil(Action):
         self.combat_action = True
 
     def execute(self, character):
-        import persons
 
-        def escape():
-            Display().write("The Devil is very fast, so you manage to get "
-                            "away.")
-            character.threatened = False
-            character.person = None
-            character.move(2)
+        self.outcomes.add(Outcome(character,
+            "The Devil is very fast, so you manage to get away.",
+            new_person=None,
+            unthreat=True,
+            move=2
+        ), weight=9)
 
-        def get_caught():
-            Display().write("You run like the Devil, but " +
-                            character.person.pronouns.subj +
-                            " also run" + character.person.pronouns.tense +
-                            " like the Devil and "
-                            "overtake" + character.person.pronouns.tense +
-                            " you.")
-            Attack(character.person).clean_execute(character)
-            character.move(1)
+        self.outcomes.add(Outcome(character,
+            "You run like the Devil, but " + character.person.pronouns.subj +
+            " also run" + character.person.pronouns.tense + " like the Devil "
+            "and overtake" + character.person.pronouns.tense + " you.",
+            die=True
+        ), weight=1)
 
-        def flake_out_on_Felicity():
-            Display().write("The Devil is very fast and not very fat, so you "
-                            "manage to get away unmarried.")
-            persons.fat_lady.attracted = -666
-            character.move(2)
-        
         if character.person == persons.fat_lady and \
            persons.fat_lady.attracted > 9:
-            self.outcomes.add(flake_out_on_Felicity, weight=666)
-        self.outcomes.add(escape, weight=9)
-        self.outcomes.add(get_caught, weight=1)
+            self.outcomes.add(Outcome(character,
+                "The Devil is very fast and not very fat, so you manage to get "
+                "away unmarried.",
+                move=2,
+                flirt=(-666, persons.fat_lady)
+            ), weight=666)
 
 
 class WaddleLikeGod(Action):
@@ -1055,76 +1063,73 @@ class WaddleLikeGod(Action):
         self.combat_action = True
 
     def execute(self, character):
-        def waddle():
-            Display().write("God is very slow, so you don't manage to get "
-                            "away.")
-            Attack(character.person).clean_execute(character)
 
-        def waddle_waddle():
-            Display().write("You waddle like God, but " +
-                            character.person.pronouns.subj +
-                            " also waddle" + character.person.pronouns.tense +
-                            " like God and fail to"
-                            " overtake" + character.person.pronouns.tense +
-                            " you. You slowly get away.")
-            character.threatened = False
-            character.person = None
-            character.move(1)
+        self.outcomes.add(Outcome(character,
+            "God is very slow, so you don't manage to get away.",
+            die=True
+        ), weight=9)
 
-        self.outcomes.add(waddle, weight=9)
-        self.outcomes.add(waddle_waddle, weight=1)
-
+        self.outcomes.add(Outcome(character,
+            "You waddle like God, but " + character.person.pronouns.subj +
+            " also waddle" + character.person.pronouns.tense + " like God and "
+            "fail to overtake" + character.person.pronouns.tense + " you. You "
+            "slowly get away.",
+            unthreat=True,
+            new_person=None,
+            move=1
+        ), weight=1)
 
 # D slot actions
 
 
 class SingASong(Action):
 
-    def __init__(self, about=None):
+    def __init__(self, topic=None):
         super().__init__()
-        self.about = about
-        if about:
-            self.name = "Sing a song about {0}.".format(about)
+        self.topic = topic
+        if topic:
+            self.name = "Sing a song about {0}.".format(topic)
         else:
             self.name = "Sing a song."
 
     def execute(self, character):
-        import persons
-
-        def a_crowd_gathers():
-            Display().write("A crowd gathers to hear your music and throws you"
-                            " a small fortune in coins.")
-            character.get_money(money.small_fortune)
-
-        def the_locals_kill_you():
-            Display().write("The locals hate your voice and soon mob you.")
-            character.die()
-
-        def assassins_notice_you():
-            Display().write("While you're singing, "
-                            "some men in black cloaks start to edge their "
-                            "way toward you.")
-            character.person = persons.assassins
-            character.threatened = True
-
-        def no_one_cares():
-            Display().write("You sing your favorite song. No one cares.")
-            self.options["a"].add(KillYourselfInFrustration(), weight=5)
-
-        def song_angers_wizard():
-            Display().write("The wizard complains that you are singing off "
-                            "key. He turns you into a frog and steps on you.")
-            character.die()
 
         if character.place in places.populated:
-            self.outcomes.add(assassins_notice_you, weight=3)
-            self.outcomes.add(a_crowd_gathers, weight=2)
-            self.outcomes.add(the_locals_kill_you, weight=1)
+            self.outcomes.add(Outcome(character,
+                "A crowd gathers to hear your music and throws you a small "
+                "fortune in coins.",
+                get_money=money.small_fortune
+            ), weight=2)
+
+            self.outcomes.add(Outcome(character,
+                "The locals hate your voice and soon mob you.",
+                die=True
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "While you're singing, some men in black cloaks start to edge "
+                "their way toward you.",
+                new_person=persons.assassins,
+                threat=True
+            ), weight=3)
+
+        if self.topic == "assassins":
+            self.outcomes.add(Outcome(character,
+                "An assassin notices you singing about assassins and "
+                "assassinates you",
+                die=True
+            ), weight=5)
+
         if character.person == persons.wizard:
-            self.outcomes.add(song_angers_wizard, weight=20)
-        if self.about == "assassins":
-            self.outcomes.add(assassins_notice_you, weight=5)
-        self.outcomes.add(no_one_cares, weight=1)
+            self.outcomes.add(Outcome(character,
+                "The wizard complains that you are singing off key. He turns you "
+                "into a frog and steps on you.",
+                die=True
+            ), weight=20)
+
+        self.outcomes.add(Outcome(character,
+            "You sing your favorite song. No one cares.",
+        ), weight=1)
 
 
 class SwingYourCat(Action):
@@ -1135,29 +1140,26 @@ class SwingYourCat(Action):
         self.name = "Swing your cat."
 
     def execute(self, character):
-        import persons
 
-        def hit_assassin():
-            Display().write("You hit an assassin with your cat.")
-            character.person = persons.assassin
-            character.threatened = True
-
-        def cat_runs_away():
-            Display().write("Your cat manages to escape.")
-            character.remove_item(self.cat)
-
-        def the_guards_catch_you():
-            Display().write("The local guards notice you swinging your cat "
-                            "around and conclude that you must be a lunatic.")
-            character.person = persons.guards
-            self.options["a"].add(Attack(character.person), 10)
-            self.options["b"].add(TellThemYouAreNotALunatic(excuse="angry"),
-                                  100)
+        self.outcomes.add(Outcome(character,
+            "You hit an assassin with your cat.",
+            new_person=persons.assassin,
+            threat=True,
+            die=True
+        ), weight=3)
 
         if character.place in places.populated:
-            self.outcomes.add(hit_assassin, weight=7)
-            self.outcomes.add(the_guards_catch_you, weight=3)
-        self.outcomes.add(cat_runs_away, weight=3)
+            self.outcomes.add(Outcome(character,
+                "Your cat manages to escape.",
+                remove_item=self.cat
+            ), weight=7)
+
+            self.outcomes.add(Outcome(character,
+                "The local guards notice you swinging your cat around and conclude "
+                "that you must be a lunatic.",
+                new_person=persons.guards,
+                topic="angry"
+            ), weight=3)
 
 
 class BurnThePlaceToTheGround(Action):
@@ -1168,35 +1170,33 @@ class BurnThePlaceToTheGround(Action):
         self.name = "Burn {0} to the ground.".format(place.name)
 
     def execute(self, character):
-        import persons
 
-        def destroy_place():
-            self.place.name = "the smoldering remains of " + self.place.name
-            character.move_to(self.place)
-            places.burnable.remove(self.place)
+        self.outcomes.add(Outcome(character,
+            "You accidentally set yourself on fire and promptly burn to the "
+            "ground.",
+            die=True
+        ), weight=1)
 
-        def burn_yourself_up():
-            Display().write("You accidentally set yourself on fire and "
-                            "promptly burn to the ground.")
-            character.die()
+        if self.place in places.burnable:
+            self.outcomes.add(Outcome(character,
+                None,
+                burn_place=self.place,
+                move_to=self.place
+            ), weight=2)
 
-        def killed_by_st_george():
-            Display().write("St. George sees you attempting arson and kills "
-                            "you.")
-            character.die()
-
-        def killed_by_wizard():
-            Display().write("The wizard sees you attempting arson and turns "
-                            "you into a frog. He steps on you.")
-            character.die()
 
         if character.person == persons.st_george:
-            self.outcomes.add(killed_by_st_george, weight=30)
-        if character.person == persons.wizard:
-            self.outcomes.add(killed_by_wizard, weight=20)
-        if self.place in places.burnable:
-            self.outcomes.add(destroy_place, weight=2)
-        self.outcomes.add(burn_yourself_up, weight=1)
+            self.outcomes.add(Outcome(character,
+                "St. George sees you attempting arson and kills you.",
+                die=True
+            ), weight=30)
+
+        if character.person == persons.st_george:
+            self.outcomes.add(Outcome(character,
+                "The wizard sees you attempting arson and turns you into a "
+                "frog. He steps on you.",
+                die=True
+            ), weight=20)
 
 
 class BurnThePlaceToACrisp(BurnThePlaceToTheGround):
@@ -1230,36 +1230,32 @@ class LookThroughSomeTrash(Action):
         self.name = "Look through some trash."
 
     def execute(self, character):
-        import persons
 
-        def assassin_takes_it_out():
-            Display().write("You attempt to look through the trash, but an "
-                            "assassin takes it out.")
-            character.die()
+        self.outcomes.add(Outcome(character,
+            "You attempt to look through the trash, but an assassin takes it "
+            "out.",
+            die=True
+        ), weight=2)
 
-        def find_a_cat():
-            Display().write("While you are searching through the trash you "
-                            "find an somewhat agreeable cat.")
-            character.add_item(items.Cat())
+        self.outcomes.add(Outcome(character,
+            "While you are searching through the trash you find an somewhat "
+            "agreeable cat.",
+            add_item=items.Cat()
+        ), weight=1)
 
-        def guards_catch_you():
-            Display().write("The local guards see you searching through the "
-                            "trash and accuse you of being a lunatic.")
-            character.person = persons.guards
-            self.options["a"].add(Attack(character.person), 10)
-            self.options["b"].add(TellThemYouAreNotALunatic(excuse="curious"),
-                                  100)
+        self.outcomes.add(Outcome(character,
+            "The local guards see you searching through the trash and accuse "
+            "you of being a lunatic.",
+            add_item=items.Cat(),
+            new_person=persons.guards,
+            topic="curious"
+        ), weight=1)
 
-        def nothing_useful():
-            Display().write("You do not find anything useful in the trash.")
-            self.options["a"].add(KillYourselfInFrustration(), 5)
-            self.options["c"].add(LeaveInAHuff(), 5)
-            self.options["d"].add(SingASong(about="trash"), 5)
-
-        self.outcomes.add(assassin_takes_it_out, weight=2)
-        self.outcomes.add(find_a_cat, weight=1)
-        self.outcomes.add(guards_catch_you, weight=1)
-        self.outcomes.add(nothing_useful, weight=1)
+        self.outcomes.add(Outcome(character,
+            "You do not find anything useful in the trash.",
+            fail=True,
+            topic="trash"
+        ), weight=1)
 
 
 class SayYouLoveHer(Action):
@@ -1269,23 +1265,21 @@ class SayYouLoveHer(Action):
         self.name = "Say you love her too."
 
     def execute(self, character):
-        import persons
 
-        def assassinated():
-            Display().write("\"What a shame,\" an assassin says as he steps "
-                            "into the room. He shoots you with a crossbow.")
-            character.die()
+        self.outcomes.add(Outcome(character,
+            "\"What a shame,\" an assassin says as he steps into the room. He "
+            "shoots you with a crossbow.",
+            die=True
+        ), weight=1)
 
-        def plotting():
-            Display().write("Felicity is overjoyed and secretly lets you out "
-                            "of prison that night. \"Let's get married!\" she "
-                            "says.")
-            character.move_to(places.streets)
-            character.person = persons.fat_lady
-            self.options["a"].add(MarryFelicity(), weight=777)
-            self.options["c"].add(RunLikeTheDevil(), weight=666)
-        self.outcomes.add(assassinated, weight=1)
-        self.outcomes.add(plotting, weight=9)
+        self.outcomes.add(Outcome(character,
+            "Felicity is overjoyed and secretly lets you out of prison that "
+            "night. \"Let's get married!\" she says.",
+            move_to=places.streets,
+            new_person=persons.fat_lady
+            #self.options["a"].add(MarryFelicity(), weight=777)
+            #self.options["c"].add(RunLikeTheDevil(), weight=666)
+        ), weight=9)
 
 
 class MarryFelicity(Action):
@@ -1295,11 +1289,8 @@ class MarryFelicity(Action):
         self.name = "Marry Felicity."
 
     def execute(self, character):
-        import persons
 
-        def happily_ever_after():
-            Display().write("St. George secretly performs a wedding for you "
-                            "and Felicity.")
-            character.alone = False
-
-        self.outcomes.add(happily_ever_after, weight=9)
+        self.outcomes.add(Outcome(character,
+            "St. George secretly performs a wedding for you and Felicity.",
+            win=True
+        ), weight=9)

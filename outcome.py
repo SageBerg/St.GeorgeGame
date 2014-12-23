@@ -60,7 +60,7 @@ class Outcome(object):
         NOTE: order of conditions must be logical (based on what should be
               printed first)
         """
-        if self.add_weapon and self.character.attack < self.new_weapon.attack:
+        if self.new_weapon and self.character.attack < self.new_weapon.attack:
             self.character.weapon = self.new_weapon
             self.character.attack = self.new_weapon.attack
             Display().write("You now have a " + self.new_weapon.name + ".")
