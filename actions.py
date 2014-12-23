@@ -384,55 +384,56 @@ class BegForMoney(Action):
     def execute(self, character):
         import persons
 
-        def forgot_wallet():
-            Display().write("St. George tells you he has lost his "
-                            "wallet in the church.")
+        if character.place != places.church and \
+           character.person == persons.st_george:
+            self.outcomes.add(Outcome(character,
+                "St. George tells you he has lost his wallet in the church.",
+            ), weight=1)
 
-        def pittance():
-            Display().write(character.person.name + " gives you a pittance.")
-            character.get_money(money.pittance)
-            character.person.state["given money"] = True
-
-        def small_fortune():
-            Display().write(character.person.name + " gives you a small "
-                            "fortune.")
-            character.get_money(money.small_fortune)
-            character.person.state["given money"] = True
-
-        def large_fortune():
-            Display().write(character.person.name + " gives you a large "
-                            "fortune.")
-            character.get_money(money.large_fortune)
-            character.person.state["given money"] = True
-
-        def crushed_by_iron_hammer():
-              Display().write("St. George becomes irritated by your begging "
-                              "and crushes you with his iron hammer.")
-              character.die()
-
-        def smite():
-            Display().write("St. George smites you with his saintly wraith "
-                              "for being ungrateful.")
-            character.die()
-
-        def deaf_ears():
-            Display().write("Your begging falls on deaf ears.")
-            self.options["a"].add(KillYourselfInFrustration(), 10)
-            self.options["c"].add(LeaveInAHuff(), 10)
-            self.options["d"].add(SingASong(about="money"), 10)
 
         if character.person == persons.st_george:
-            if character.person.state.get("given money", False):
-                self.outcomes.add(crushed_by_iron_hammer, 1)
-                self.outcomes.add(smite, 1)
+            if persons.st_george.state.get("given money", False):
+                self.outcomes.add(Outcome(character,
+                    "St. George becomes irritated by your begging "
+                    "and crushes you with his iron hammer.",
+                ), weight=1)
+
+                self.outcomes.add(Outcome(character,
+                    "St. George smites you with his saintly wraith "
+                    "for being ungrateful.",
+                ), weight=1)
+
             else:
-                if character.place != places.church:
-                    self.outcomes.add(forgot_wallet, 1)
-                self.outcomes.add(pittance, 3)
-                self.outcomes.add(small_fortune, 2)
-                self.outcomes.add(large_fortune, 1)
+                self.outcomes.add(Outcome(character,
+                    character.person.name + " give" +
+                    character.person.pronouns.tense +
+                    " you a pittance.",
+                    beg=True,
+                    get_money=money.pittance,
+                ), weight=3)
+
+                self.outcomes.add(Outcome(character,
+                    character.person.name + " give" +
+                    character.person.pronouns.tense +
+                    " you a small fortune.",
+                    beg=True,
+                    get_money=money.small_fortune,
+                ), weight=2)
+
+                self.outcomes.add(Outcome(character,
+                    character.person.name + " give" +
+                    character.person.pronouns.tense +
+                    " you a large fortune.",
+                    beg=True,
+                    get_money=money.large_fortune,
+                ), weight=1)
         else:
-            self.outcomes.add(deaf_ears, 1)
+            self.outcomes.add(Outcome(character,
+                "Your begging falls on deaf ears.",
+                fail=True,
+                beg=True,
+                topic="money",
+            ), weight=1)
 
 
 class BideYourTime(Action):

@@ -14,6 +14,7 @@ class Outcome(object):
                  character,
                  msg,
 
+                 beg=False,
                  burn_place=False,
                  die=False,
                  fail=False,
@@ -27,6 +28,7 @@ class Outcome(object):
                  win=False,
                  topic=None
                  ):
+        self.beg = beg
         self.burn_place = burn_place
         self.character = character
         self.die = die
@@ -47,6 +49,8 @@ class Outcome(object):
         NOTE: order of conditions must be logical (based on what should be
               printed first)
         """
+        if self.beg:
+            self.character.person.state["given money"] = True
         if self.lock:
             self.character.place.locked = True
         if self.burn_place:
