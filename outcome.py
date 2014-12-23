@@ -6,6 +6,7 @@ Created: 21 Dec 2014
 """
 
 from display import Display
+import places
 
 
 class Outcome(object):
@@ -56,10 +57,12 @@ class Outcome(object):
         if self.burn_place:
             self.burn_place.name = "the smoldering remains of " \
                                    + self.burn_place.name
+            places.burnable.remove(self.burn_place)
         if self.new_person:
             self.character.person = self.new_person
 
-        Display().write(self.msg)
+        if self.msg:
+            Display().write(self.msg)
 
         if self.kill:
             self.character.person.alive = False
