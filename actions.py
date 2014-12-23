@@ -72,7 +72,6 @@ class AskAboutAssassins(Action):
         self.name = "Ask about assassins."
 
     def execute(self, character):
-        import persons
 
         self.outcomes.add(Outcome(character,
             "The first person you ask about assassins turns "
@@ -100,7 +99,6 @@ class Apologize(Action):
         self.combat_action = True
 
     def execute(self, character):
-        import persons
 
         self.outcomes.add(Outcome(character,
             "\"I'm afraid 'sorry' won't cut it.\" His knife does",
@@ -147,7 +145,6 @@ class GoDivingForPearls(Action):
         self.name = "Go diving for pearls."
 
     def execute(self, character):
-        import persons
 
         self.outcomes.add(Outcome(character,
             "Lord Arthur's pet shark eats you.",
@@ -186,7 +183,6 @@ class LickTheGround(Action):
         self.name = "Lick the ground."
 
     def execute(self, character):
-        import persons
 
         self.outcomes.add(Outcome(character,
             "You catch an infection and spend three weeks fighting it.",
@@ -232,7 +228,6 @@ class LookForAWeapon(Action):
         self.name = "Look for a weapon."
 
     def execute(self, character):
-        import persons
 
         self.outcomes.add(Outcome(character,
             "You find yourself talking to a wealthy war merchant.",
@@ -281,7 +276,6 @@ class LookForStGeorge(Action):
         self.name = "Look for St. George."
 
     def execute(self, character):
-        import persons
 
         self.outcomes.add(Outcome(character,
             "You forget what you were doing.",
@@ -320,7 +314,6 @@ class KillYourselfInFrustration(Action):
         self.name = "Kill yourself in frustration."
 
     def execute(self, character):
-        import persons
 
         if character.place in [places.docks, places.mermaid_rock]:
             self.outcomes.add(Outcome(character,
@@ -365,7 +358,6 @@ class BegForMoney(Action):
         self.name = "Beg for money."
 
     def execute(self, character):
-        import persons
 
         if character.place != places.church and \
            character.person == persons.st_george:
@@ -426,7 +418,6 @@ class BideYourTime(Action):
         self.name = "Bide your time."
 
     def execute(self, character):
-        import persons
 
         self.outcomes.add(Outcome(character,
             "You die of old age.",
@@ -483,7 +474,6 @@ class BuyADrink(Action):
         self.name = "Buy a drink."
 
     def execute(self, character):
-        import persons
 
         if persons.blind_bartender.alive:
             self.outcomes.add(Outcome(character,
@@ -529,7 +519,6 @@ class LookForACat(Action):
         self.name = "Look for a cat."
 
     def execute(self, character):
-        import persons
 
         if character.place in places.populated and not character.place.locked:
             self.outcomes.add(Outcome(character,
@@ -583,7 +572,6 @@ class TellThemYouAreNotALunatic(Action):
             "you're just {0}.".format(excuse)
 
     def execute(self, character):
-        import persons
 
         if self.excuse[0] in "aeiou":
             self.outcomes.add(Outcome(character,
@@ -655,7 +643,6 @@ class FlirtWithFatLady(Action):
         self.name = "Flirt with the fat lady who feeds you."
 
     def execute(self, character):
-        import persons
 
         self.outcomes.add(Outcome(character,
             "She ignores your hoots.",
@@ -711,7 +698,6 @@ class FlirtWithFelicity(Action):
         self.name = "Flirt with Felicity."
 
     def execute(self, character):
-        import persons
 
         self.outcomes.add(Outcome(character,
             "Felicity blows you kisses.",
