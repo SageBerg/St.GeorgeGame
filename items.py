@@ -57,6 +57,13 @@ class Cat(Item):
         self.name = "cat"
 
 
+class Frog(Item):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "frog"
+
+
 class Pearl(Item):
 
     def __init__(self):
