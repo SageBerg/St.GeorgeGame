@@ -18,11 +18,15 @@ from multiple_choice import MultipleChoice
 
 
 def add_action_actions(choices, character):
-    pass
+    if isinstance(character.prev_act, actions.SayYouLoveHer) and \
+       character.person == persons.fat_lady:
+        choices.add(actions.MarryFelicity(), "a", 777)
+        choices.add(actions.RunLikeTheDevil(), "c", 666)
 
 
-def add_outcome_actions(choices, character):
-    pass
+def add_outcome_actions(choices, character, outcome):
+    if outcome.love_confessor is not None:
+        choices.add(actions.SayYouLoveHer(outcome.love_confessor), "a", 1000)
 
 
 def add_person_actions(choices, character):
@@ -67,7 +71,7 @@ def add_place_actions(choices, character):
         choices.add(actions.GoDivingForPearls(), "a", 10)
     if character.place == places.prison:
         choices.add(actions.BideYourTime(), "b", 10)
-        choices.add(actions.FlirtWithFatLady(), "c", 10)
+        choices.add(actions.FlirtWith(persons.fat_lady), "c", 10)
     if character.place == places.streets:
         choices.add(actions.LookForStGeorge(), "a", 2)
         choices.add(actions.LookForTheWizard(), "c", 1)
@@ -124,14 +128,14 @@ def add_default_actions(choices):
     choices.add(actions.SingASong(), "d")
 
 
-def add_actions(choices, character):
-        add_action_actions(choices, character)
-        add_outcome_actions(choices, character)
-        add_person_actions(choices, character)
-        add_place_actions(choices, character)
-        add_item_actions(choices, character)
-        add_character_actions(choices, character)
-        add_default_actions(choices)
+def add_actions(choices, character, outcome):
+    add_action_actions(choices, character)
+    add_outcome_actions(choices, character, outcome)
+    add_person_actions(choices, character)
+    add_place_actions(choices, character)
+    add_item_actions(choices, character)
+    add_character_actions(choices, character)
+    add_default_actions(choices)
 
 
 def main():
@@ -166,16 +170,16 @@ def main():
         action = choices.choose_action()
         display.enable()
         if not character.threatened or action.combat_action:
-            action.clean_execute(character)
+            outcome = action.clean_execute(character)
         else:
             Display().write(character.person.pronouns.subj.capitalize() +
                             " attack" +
                             character.person.pronouns.tense + " you.")
-            actions.Attack(character.person).clean_execute(character)
+            outcome = actions.Attack(character.person).clean_execute(character)
             if not character.alive:
                 break
         character.prev_act = action
-        add_actions(choices, character)
+        add_actions(choices, character, outcome)
         choices.generate_actions(character)
     if not character.alone:
         Display().write("You both live happily ever after.")

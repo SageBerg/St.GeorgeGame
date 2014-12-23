@@ -32,7 +32,9 @@ class Outcome(object):
                  threat=False,
                  unthreat=False,
                  flirt=None,  # USAGE: (person, int)
-                 topic=None
+                 love_confessor=None,  # USAGE: person
+                 topic=None,
+                 funcs=()
                  ):
         self.add_item = add_item
         self.remove_item = remove_item
@@ -53,7 +55,9 @@ class Outcome(object):
         self.threat = threat
         self.unthreat = unthreat
         self.flirt = flirt
+        self.love_confessor = love_confessor
         self.topic = topic
+        self.funcs = funcs
 
     def execute(self):
         """
@@ -72,8 +76,6 @@ class Outcome(object):
             self.burn_place.name = "the smoldering remains of " \
                                    + self.burn_place.name
             places.burnable.remove(self.burn_place)
-        if self.new_person:
-            self.character.person = self.new_person
 
         if self.msg:
             Display().write(self.msg)
@@ -86,6 +88,8 @@ class Outcome(object):
             self.character.move(self.move)
         if self.move_to:
             self.character.move_to(self.move_to)
+        if self.new_person:
+            self.character.person = self.new_person
         if self.die:
             self.character.die()
         if self.add_item:
@@ -102,3 +106,5 @@ class Outcome(object):
             self.character.threatened = False
         if self.flirt:
             self.flirt[0].attracted += self.flirt[1]
+        for func in self.funcs:
+            func()

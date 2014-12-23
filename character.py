@@ -103,9 +103,8 @@ class Character(object):
 
     def win(self):
         """
-        Win the game. 
+        Win the game.
         """
         Display().write("You win!")
         Display().disable()
-        self.alon = False
-
+        self.alone = False

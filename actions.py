@@ -42,7 +42,7 @@ class Action(object):
                         "c": Raffle(),
                         "d": Raffle()}
         self.execute(character)
-        self.run_outcome()        
+        return self.run_outcome()
 
     @abc.abstractmethod
     def execute(self, character):
@@ -60,6 +60,7 @@ class Action(object):
         elif outcome:
             outcome()
         self.outcomes = Raffle()
+        return outcome
 
 
 # A slot actions
@@ -636,120 +637,114 @@ class ChowDown(Action):
             ), weight=1)
 
 
-class FlirtWithFatLady(Action):
+class FlirtWith(Action):
 
-    def __init__(self):
+    def __init__(self, person):
         super().__init__()
-        self.name = "Flirt with the fat lady who feeds you."
+        self.person = person
+        self.name = "Flirt with {0}.".format(person.name)
 
     def execute(self, character):
 
-        self.outcomes.add(Outcome(character,
-            "She ignores your hoots.",
-            flirt=(persons.fat_lady, -1),
-        ), weight=1)
+        if self.person == persons.fat_lady and \
+           persons.fat_lady.name != "Felicity":
+            self.outcomes.add(Outcome(character,
+                "She ignores your hoots.",
+                flirt=(persons.fat_lady, -1),
+            ), weight=1)
 
-        self.outcomes.add(Outcome(character,
-            "She ignores your whistling.",
-        ), weight=1)
+            self.outcomes.add(Outcome(character,
+                "She ignores your whistling.",
+            ), weight=1)
 
-        self.outcomes.add(Outcome(character,
-            "She ignores you when you say \"Hello,\" but "
-            "you catch her glancing at you throughout the day.",
-            flirt=(persons.fat_lady, 2),
-        ), weight=1)
+            self.outcomes.add(Outcome(character,
+                "She ignores you when you say \"Hello,\" but "
+                "you catch her glancing at you throughout the day.",
+                flirt=(persons.fat_lady, 2),
+            ), weight=1)
 
-        self.outcomes.add(Outcome(character,
-            "She smiles, but doesn't reply to the love "
-            "poem you recite to her.",
-            flirt=(persons.fat_lady, 2),
-        ), weight=1)
+            self.outcomes.add(Outcome(character,
+                "She smiles, but doesn't reply to the love "
+                "poem you recite to her.",
+                flirt=(persons.fat_lady, 2),
+            ), weight=1)
 
-        self.outcomes.add(Outcome(character,
-            "She ignores you, but wears a low-cut blouse the next day.",
-            flirt=(persons.fat_lady, 2),
-        ), weight=1)
+            self.outcomes.add(Outcome(character,
+                "She ignores you, but wears a low-cut blouse the next day.",
+                flirt=(persons.fat_lady, 2),
+            ), weight=1)
 
-        self.outcomes.add(Outcome(character,
-            "She ignores you, but gives you more food the next day.",
-            flirt=(persons.fat_lady, 2),
-        ), weight=1)
+            self.outcomes.add(Outcome(character,
+                "She ignores you, but gives you more food the next day.",
+                flirt=(persons.fat_lady, 2),
+            ), weight=1)
 
-        def meet_felicity():
-            if persons.fat_lady.attracted > 2:
-                Display().write("You strike up a conversation and learn that "
-                                "her name is Felicity.")
-                persons.fat_lady.name = "Felicity"
-                persons.fat_lady.pronouns = \
-                    persons.Pronouns("Felicity", "Felicity", "s")
-                return True
-            return False
+            self.outcomes.add(Outcome(character,
+                "She ignores you, but gives you more food the next day.",
+                flirt=(persons.fat_lady, 2),
+            ), weight=1)
 
-        won_over = meet_felicity()
-        if won_over:
-            places.prison.options["c"] = Raffle()
-            places.prison.options["c"].add(FlirtWithFelicity(), weight=40)
+            if persons.fat_lady.attracted > 3:
+                def change_name():
+                    persons.fat_lady.name = "Felicity"
+                def change_pronouns():
+                    persons.fat_lady.pronouns = \
+                        persons.Pronouns("Felicity", "Felicity", "s")
+                self.outcomes.add(Outcome(character,
+                    "You strike up a conversation and learn that her name is "
+                    "Felicity.",
+                    flirt=(persons.fat_lady, 2),
+                    funcs=[change_name, change_pronouns]
+                ), weight=100)
+        elif self.person == persons.fat_lady:  # We know her name
 
+            self.outcomes.add(Outcome(character,
+                "Felicity blows you kisses.",
+                flirt=(persons.fat_lady, 2),
+            ), weight=1)
 
-class FlirtWithFelicity(Action):
+            self.outcomes.add(Outcome(character,
+                "Felicity leans in close and kisses your cheek.",
+                flirt=(persons.fat_lady, 2),
+            ), weight=1)
 
-    def __init__(self):
-        super().__init__()
-        self.name = "Flirt with Felicity."
+            self.outcomes.add(Outcome(character,
+                "Felicity talks with you for hours. She only "
+                "stops when the warden barks at her to get "
+                "back to work.",
+                flirt=(persons.fat_lady, 2),
+            ), weight=1)
 
-    def execute(self, character):
+            self.outcomes.add(Outcome(character,
+                "Felicity tells you she asked the warden to "
+                "let you out, but he has a strict \"No lunatics "
+                "on the streets\" policy.",
+                flirt=(persons.fat_lady, 2),
+            ), weight=1)
 
-        self.outcomes.add(Outcome(character,
-            "Felicity blows you kisses.",
-            flirt=(persons.fat_lady, 2),
-        ), weight=1)
+            self.outcomes.add(Outcome(character,
+                "Felicity says she thinks about you a lot.",
+                flirt=(persons.fat_lady, 2),
+            ), weight=1)
 
+            self.outcomes.add(Outcome(character,
+                "Felicity laughs at all your jests, even the bad ones.",
+                flirt=(persons.fat_lady, 2),
+            ), weight=1)
 
-        self.outcomes.add(Outcome(character,
-            "Felicity leans in close and kisses your cheek.",
-            flirt=(persons.fat_lady, 2),
-        ), weight=1)
+            self.outcomes.add(Outcome(character,
+                "Felicity asks if she looks fat in her new dress. "
+                "You say \"Yes.\" She doesn't speak to you for several days.",
+                flirt=(persons.fat_lady, -1),
+            ), weight=1)
 
-        self.outcomes.add(Outcome(character,
-            "Felicity talks with you for hours. She only "
-            "stops when the warden barks at her to get "
-            "back to work.",
-            flirt=(persons.fat_lady, 2),
-        ), weight=1)
+            if persons.fat_lady.attracted > 10:
+                self.outcomes.add(Outcome(character,
+                    "Felicity whispers that she loves you.",
+                    love_confessor=persons.fat_lady
+                ), weight=100)
 
-        self.outcomes.add(Outcome(character,
-            "Felicity tells you she asked the warden to "
-            "let you out, but he has a strict \"No lunatics "
-            "on the streets\" policy.",
-            flirt=(persons.fat_lady, 2),
-        ), weight=1)
-
-        self.outcomes.add(Outcome(character,
-            "Felicity says she thinks about you a lot.",
-            flirt=(persons.fat_lady, 2),
-        ), weight=1)
-
-        self.outcomes.add(Outcome(character,
-            "Felicity laughs at all your jests, even the bad ones.",
-            flirt=(persons.fat_lady, 2),
-        ), weight=1)
-
-        self.outcomes.add(Outcome(character,
-            "Felicity asks if she looks fat in her new dress. "
-            "You say \"Yes.\" She doesn't speak to you for several days.",
-            flirt=(persons.fat_lady, -1),
-        ), weight=1)
-
-        won_over = persons.felicity_loves_you()
-        if won_over:
-            places.prison.options["c"] = Raffle()
-            places.prison.options["a"].add(SayYouLoveHer(), weight=777)
-
-        def felicity_loves_you():
-            if fat_lady.attracted > 10:
-                Display().write("Felicity whispers that she loves you.")
-                return True
-            return False
+                # places.prison.options["a"].add(SayYouLoveHer(), weight=777)
 
 
 class GoToSleep(Action):
@@ -1260,26 +1255,26 @@ class LookThroughSomeTrash(Action):
 
 class SayYouLoveHer(Action):
 
-    def __init__(self):
+    def __init__(self, person):
         super().__init__()
         self.name = "Say you love her too."
+        self.person = person
 
     def execute(self, character):
 
-        self.outcomes.add(Outcome(character,
-            "\"What a shame,\" an assassin says as he steps into the room. He "
-            "shoots you with a crossbow.",
-            die=True
-        ), weight=1)
+        if self.person == persons.fat_lady:
+            self.outcomes.add(Outcome(character,
+                "\"What a shame,\" an assassin says as he steps into the room. "
+                "He shoots you with a crossbow.",
+                die=True
+            ), weight=1)
 
-        self.outcomes.add(Outcome(character,
-            "Felicity is overjoyed and secretly lets you out of prison that "
-            "night. \"Let's get married!\" she says.",
-            move_to=places.streets,
-            new_person=persons.fat_lady
-            #self.options["a"].add(MarryFelicity(), weight=777)
-            #self.options["c"].add(RunLikeTheDevil(), weight=666)
-        ), weight=9)
+            self.outcomes.add(Outcome(character,
+                "Felicity is overjoyed and secretly lets you out of prison "
+                "that night. \"Let's get married!\" she says.",
+                move_to=places.streets,
+                new_person=persons.fat_lady
+            ), weight=9)
 
 
 class MarryFelicity(Action):
