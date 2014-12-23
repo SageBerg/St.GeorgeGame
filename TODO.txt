@@ -50,10 +50,6 @@ outcomes:
   Your right hand man decides to make a move and seize power
   You live happily ever, but the journey has just begun for your right-hand man
   scratched with poison dagger
-  wizard wants to eat the yellow mushroom
-  your cat notices an assassin approaching, you do not
-  wizard gives you a frog
-  Odyssius is not impressed
 
 potion:
   cat -> tail growth
