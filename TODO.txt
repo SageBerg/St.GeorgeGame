@@ -41,8 +41,6 @@ actions:
   Look for Lord Carlos' daughter    
     Ask her name    
       She becomes irate and assassinates you
-  Look through the trash
-    You find a mirror, you see nothing of value.
 
 outcomes:
   You thought you would live happily ever after, but someone steals your wife, you are now playing as a previous character.

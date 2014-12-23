@@ -27,6 +27,16 @@ def add_action_actions(choices, character):
 def add_outcome_actions(choices, character, outcome):
     if outcome.love_confessor is not None:
         choices.add(actions.SayYouLoveHer(outcome.love_confessor), "a", 1000)
+    if outcome.fail:
+        choices.add(actions.KillYourselfInFrustration(), "a", 5)
+        if not character.place.locked:
+            choices.add(actions.LeaveInAHuff(), "c", 5)
+    if outcome.topic:
+        if outcome.new_person == persons.guards:
+            choices.add(actions.TellThemYouAreNotALunatic(
+                topic=outcome.topic), "b", 10)
+        else:
+            choices.add(actions.SingASong(topic=outcome.topic), "d", 10)
 
 
 def add_person_actions(choices, character):

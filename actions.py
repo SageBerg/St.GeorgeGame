@@ -604,24 +604,24 @@ class LookForACat(Action):
 
 class TellThemYouAreNotALunatic(Action):
 
-    def __init__(self, excuse):
+    def __init__(self, topic):
         super().__init__()
-        self.excuse = excuse
+        self.topic = topic
         self.name = "Tell them you are not a lunatic, " + \
-            "you're just {0}.".format(excuse)
+            "you're just {0}.".format(topic)
 
     def execute(self, character):
 
-        if self.excuse[0] in "aeiou":
+        if self.topic[0] in "aeiou":
             self.outcomes.add(Outcome(character,
-                "\"An {0} lunatic,\" they say.".format(self.excuse),
+                "\"An {0} lunatic,\" they say.".format(self.topic),
                 fail=True,
                 move_to=places.prison,
                 new_person=persons.other_lunatics,
             ), weight=1)
         else:
             self.outcomes.add(Outcome(character,
-                "\"An {0} lunatic,\" they say.".format(self.excuse),
+                "\"An {0} lunatic,\" they say.".format(self.topic),
                 fail=True,
                 move_to=places.prison,
                 new_person=persons.other_lunatics,
