@@ -7,9 +7,10 @@ Created: 21 Dec 2014
 
 from display import Display
 
+
 class Outcome(object):
-    
-    def __init__(self, 
+
+    def __init__(self,
                  character,
                  msg,
 
@@ -24,6 +25,7 @@ class Outcome(object):
                  move_to=False,
                  new_person=False,
                  win=False,
+                 topic=None
                  ):
         self.burn_place = burn_place
         self.character = character
@@ -38,6 +40,7 @@ class Outcome(object):
         self.msg = msg
         self.new_person = new_person
         self.win = win
+        self.topic = topic
 
     def execute(self):
         """
