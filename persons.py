@@ -40,20 +40,3 @@ st_george = Person("St. George", 100, Pronouns("he", "him", "s"))
 wealthy_merchant = Person("the wealthy merchant", 7,
                           Pronouns("he", "him", "s"))
 wizard = Person("the wizard", 7, Pronouns("he", "him", "s"))
-
-
-# TODO move these to actions.py:
-def meet_felicity():
-    if fat_lady.attracted > 2:
-        Display().write("You strike up a conversation and learn that her name "
-                        "is Felicity.")
-        fat_lady.name = "Felicity"
-        fat_lady.pronouns = Pronouns("Felicity", "Felicity", "s")
-        return True  # used in actions.FlirtWithFatLady
-    return False
-
-def felicity_loves_you():
-    if fat_lady.attracted > 10:
-        Display().write("Felicity whispers that she loves you.")
-        return True  # used in actions.FlirtWithFelicity
-    return False
