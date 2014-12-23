@@ -24,8 +24,6 @@ class MultipleChoice(object):
         for char in self.bags:
             if character.prev_act:
                 self.bags[char].merge(character.prev_act.options[char])
-            for item in character.items:
-                self.bags[char].merge(item.options[char])
         self.actions = {"a": self.bags["a"].get(),
                         "b": self.bags["b"].get(),
                         "c": self.bags["c"].get(),

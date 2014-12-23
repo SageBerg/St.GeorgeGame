@@ -12,6 +12,8 @@ from character import Character
 from display import Display
 import actions
 import persons
+import items
+import weapons
 from multiple_choice import MultipleChoice
 
 
@@ -91,7 +93,21 @@ def add_place_actions(choices, character):
 
 
 def add_item_actions(choices, character):
-    pass
+    if character.has_item(items.ManyColoredMushroom):
+        item = character.get_item(items.ManyColoredMushroom)
+        choices.add(actions.ChowDown(item), "d", 1)
+    if character.has_item(items.BlackMushroom):
+        item = character.get_item(items.BlackMushroom)
+        choices.add(actions.ChowDown(item), "d", 1)
+    if character.has_item(items.WhiteMushroom):
+        item = character.get_item(items.WhiteMushroom)
+        choices.add(actions.ChowDown(item), "d", 1)
+    if character.has_item(items.YellowMushroom):
+        item = character.get_item(items.YellowMushroom)
+        choices.add(actions.ChowDown(item), "d", 1)
+    if character.has_item(items.Cat):
+        item = character.get_item(items.Cat)
+        choices.add(actions.SwingYourCat(item), "d", 1)
 
 
 def add_character_actions(choices, character):
@@ -159,8 +175,6 @@ def main():
             if not character.alive:
                 break
         character.prev_act = action
-        for item in character.items:
-            item.contribute(character)
         add_actions(choices, character)
         choices.generate_actions(character)
     if not character.alone:
