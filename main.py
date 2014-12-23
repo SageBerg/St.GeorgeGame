@@ -43,13 +43,13 @@ def add_person_actions(choices, character):
     if character.person == persons.st_george:
         choices.add(actions.BegForMoney(), "b", 10)
     if character.person == persons.st_george:
-        choices.add(actions.SingASong(about="St. George"), "d", 3)
+        choices.add(actions.SingASong(topic="St. George"), "d", 3)
     if character.person == persons.wealthy_merchant:
         choices.add(actions.BoastOfYourBravery(), "b", 1)
     if character.person == persons.wealthy_merchant:
         choices.add(actions.Buy(weapons.weapons), "b", 10)
     if character.person == persons.wealthy_merchant:
-        choices.add(actions.SingASong(about="weapons"), "d", 3)
+        choices.add(actions.SingASong(topic="weapons"), "d", 3)
     if character.person == persons.wizard:
         choices.add(actions.BoastOfYourBravery(), "b", 2)
     if character.person == persons.wizard:
@@ -72,16 +72,18 @@ def add_place_actions(choices, character):
     if character.place == places.prison:
         choices.add(actions.BideYourTime(), "b", 10)
         choices.add(actions.FlirtWith(persons.fat_lady), "c", 10)
-    if character.place == places.streets:
-        choices.add(actions.LookForStGeorge(), "a", 2)
+    if character.place == places.streets and character.person != persons.wizard:
         choices.add(actions.LookForTheWizard(), "c", 1)
+    if character.place == places.streets and \
+       character.person != persons.st_george:
+        choices.add(actions.LookForStGeorge(), "a", 2)
     if character.place == places.tavern:
         choices.add(actions.BuyADrink(), "b", 2)
         choices.add(actions.AskAboutAssassins(), "b", 1)
     if character.place == places.dark_alley:
         choices.add(actions.LookThroughSomeTrash(), "d", 5)
     if character.place == places.woods:
-        choices.add(actions.LookForMushrooms(), "c", 12)
+        choices.add(actions.GoMushroomPicking(), "c", 12)
     if character.place in places.burnable:
         choices.add(actions.BurnThePlaceToTheGround(character.place), "d", 2)
     if not character.threatened and not character.place.locked:
