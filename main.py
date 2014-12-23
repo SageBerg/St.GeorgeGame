@@ -11,6 +11,7 @@ import places
 from character import Character
 from display import Display
 import actions
+import frog_actions
 import persons
 import items
 import weapons
@@ -145,14 +146,24 @@ def add_default_actions(choices):
     choices.add(actions.SingASong(), "d")
 
 
+def add_frog_actions(choices, character):
+    choices.add(frog_actions.Croak(), "a")
+    choices.add(frog_actions.Ribbit(), "b")
+    choices.add(frog_actions.Hop(), "c")
+    choices.add(frog_actions.EatAFly(), "d")
+
+
 def add_actions(choices, character, outcome):
-    add_action_actions(choices, character)
-    add_outcome_actions(choices, character, outcome)
-    add_person_actions(choices, character)
-    add_place_actions(choices, character)
-    add_item_actions(choices, character)
-    add_character_actions(choices, character)
-    add_default_actions(choices)
+    if character.is_frog:
+        add_frog_actions(choices, character)
+    else:
+        add_action_actions(choices, character)
+        add_outcome_actions(choices, character, outcome)
+        add_person_actions(choices, character)
+        add_place_actions(choices, character)
+        add_item_actions(choices, character)
+        add_character_actions(choices, character)
+        add_default_actions(choices)
 
 
 def main():

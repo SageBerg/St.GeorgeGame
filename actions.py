@@ -906,6 +906,12 @@ class LookForTheWizard(Action):
         self.outcomes.add(Outcome(character,
             "You find him. He turns you into a frog and steps on you.",
             die=1
+        ), weight=2)
+
+        self.outcomes.add(Outcome(character,
+            "You find him. He turns you into a frog and tries to step on you "
+            "but you manage to hop away.",
+            funcs=[character.frogify],
         ), weight=3)
 
         self.outcomes.add(Outcome(character,

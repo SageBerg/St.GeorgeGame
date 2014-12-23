@@ -24,6 +24,7 @@ class Character(object):
         self.money = money.none
         self.threatened = False
         self.trip = False
+        self.is_frog = False
         self.alive = True
         self.alone = True  # character has not found true love
 
@@ -99,7 +100,15 @@ class Character(object):
                             # so move doesn't overwrite
                             # character.person immediately
         if not suppress_message:
-            Display().write('You find yourself in ' + str(self.place) + '.')
+            Display().write("You find yourself in " + str(self.place) + ".")
+
+    def frogify(self):
+        self.is_frog = True
+        Display().write("You are now a frog.")
+
+    def defrogify(self):
+        self.is_frog = False
+        Display().write("You are now yourself again.")
 
     def win(self):
         """
