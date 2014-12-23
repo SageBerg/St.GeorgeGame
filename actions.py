@@ -968,7 +968,7 @@ class LeaveInAPuff(Action):
             None,
             move_to=place,
             new_person=None,
-            unthreat=False
+            unthreat=True
         ), weight=3)
 
 
