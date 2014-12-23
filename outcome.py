@@ -30,6 +30,8 @@ class Outcome(object):
                  new_person=False,
                  win=False,
                  threat=False,
+                 unthreat=False,
+                 flirt=None,
                  topic=None
                  ):
         self.add_item = add_item
@@ -49,6 +51,8 @@ class Outcome(object):
         self.new_person = new_person
         self.win = win
         self.threat = threat
+        self.unthreat = unthreat
+        self.flirt = flirt
         self.topic = topic
 
     def execute(self):
@@ -94,3 +98,7 @@ class Outcome(object):
             self.character.win()
         if self.threat:
             self.character.threatened = True
+        if self.unthreat:
+            self.character.threatened = False
+        if self.flirt:
+            self.character.person.attracted += self.flirt
