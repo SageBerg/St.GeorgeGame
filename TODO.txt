@@ -4,21 +4,12 @@ actions:
     as you play Lord Carlos tells you of his villinous plan
       Tell Lord X about Lord Carlos' villinous plan
         you tell them how he was going to assassinate you
-  forment revolution
-    gain follower
-    gain right-hand-man
-    gain left-hand-man
   admire your jewels
     the guads catch you with your pants down
     you see an assassin approaching in the reflection of your ruby
   flaunt your wealth
-    gain henchmen
     pretty lady
     some haters kill you
-    you now have a right-hand man
-    you now have a follower
-    you now have an entourage
-    you now have a sidekick
   look for assassins
     you don't find one
     you don't find one, he finds you
@@ -27,26 +18,12 @@ actions:
     tail growth
     growth 
   give the wizard the potion and run
-  kill everybody in a fit of rage
-    you manage to kill your entourage, but can't find any other low hanging fruit
-    you start with yourself
-  start revolution 
-    the revolution has begun (does nothing)
-  wage war
-    you now have a kingdom
-    you win the war and become a tyrant, the local peasants hate you
-    you win the battle but lose the war
   Repay your debts
     No amount of money can make up for what you've done
   Look for Lord Carlos' daughter    
     Ask her name    
       She becomes irate and assassinates you
 
-outcomes:
-  You thought you would live happily ever after, but someone steals your wife, you are now playing as a previous character.
-  You trained your right-hand man well, you are now playing as your right-hand man
-  Your right hand man decides to make a move and seize power
-  You live happily ever, but the journey has just begun for your right-hand man
   scratched with poison dagger
 
 potion:
@@ -62,3 +39,28 @@ BUG:
 
 feature:
   guards show up when you kill someone
+
+followers:
+  forment revolution
+    gain follower
+    gain right-hand-man
+    gain left-hand-man
+  wage war
+    you now have a kingdom
+    you win the war and become a tyrant, the local peasants hate you
+    you win the battle but lose the war
+  flaunt your wealth
+    gain henchmen
+    you now have a right-hand man
+    you now have a follower
+    you now have an entourage
+    you now have a sidekick
+  start revolution 
+    the revolution has begun (does nothing)
+  kill everybody in a fit of rage
+    you manage to kill your entourage, but can't find any other low hanging fruit
+  outcomes:
+    You thought you would live happily ever after, but someone steals your wife, you are now playing as a previous character.
+    You trained your right-hand man well, you are now playing as your right-hand man
+    Your right hand man decides to make a move and seize power
+    You live happily ever, but the journey has just begun for your right-hand man

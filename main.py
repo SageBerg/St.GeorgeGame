@@ -29,6 +29,11 @@ def add_outcome_actions(choices, character, outcome):
         choices.add(actions.SayYouLoveHer(outcome.love_confessor), "a", 1000)
     if outcome.fail:
         choices.add(actions.KillYourselfInFrustration(), "a", 5)
+        if character.place in places.populated:
+            choices.add(actions.KillEverybodyInAFitOfRage(), "a", 5)
+        if character.place in places.burnable:
+            choices.add(actions.BurnThePlaceToTheGround(
+                character.place), "d", 3)
         if not character.place.locked:
             choices.add(actions.LeaveInAHuff(), "c", 5)
     if outcome.topic:

@@ -349,6 +349,24 @@ class KillYourselfInFrustration(Action):
         ), weight=3)
 
 
+class KillEverybodyInAFitOfRage(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Kill everybody in a fit of rage."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "You start with yourself.",
+            die=True
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You make no exceptions.",
+            die=True
+        ), weight=1)
+
 class SayYouLoveHer(Action):
 
     def __init__(self, person):
@@ -1193,6 +1211,7 @@ class SingASong(Action):
 
         self.outcomes.add(Outcome(character,
             "You sing your favorite song. No one cares.",
+            fail=True
         ), weight=1)
 
 
