@@ -1320,3 +1320,8 @@ class LookThroughSomeTrash(Action):
             fail=True,
             topic="trash"
         ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You find a mirror in the trash. You see nothing of value.",
+            fail=True
+        ), weight=1)
