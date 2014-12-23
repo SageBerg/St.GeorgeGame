@@ -31,7 +31,7 @@ class Outcome(object):
                  win=False,
                  threat=False,
                  unthreat=False,
-                 flirt=None,
+                 flirt=None,  # USAGE: (person, int)
                  topic=None
                  ):
         self.add_item = add_item
@@ -101,4 +101,4 @@ class Outcome(object):
         if self.unthreat:
             self.character.threatened = False
         if self.flirt:
-            self.character.person.attracted += self.flirt
+            self.flirt[0].attracted += self.flirt[1]
