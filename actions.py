@@ -232,7 +232,7 @@ class LookForAWeapon(Action):
 
         self.outcomes.add(Outcome(character,
             "You find yourself talking to a wealthy war merchant.",
-            new_person=person.wealthy_merchant,
+            new_person=persons.wealthy_merchant,
         ), weight=4)
 
         self.outcomes.add(Outcome(character,
@@ -347,6 +347,44 @@ class KillYourselfInFrustration(Action):
             "You set yourself on fire and burn to a crisp.",
             die=True,
         ), weight=3)
+
+
+class SayYouLoveHer(Action):
+
+    def __init__(self, person):
+        super().__init__()
+        self.name = "Say you love her too."
+        self.person = person
+
+    def execute(self, character):
+
+        if self.person == persons.fat_lady:
+            self.outcomes.add(Outcome(character,
+                "\"What a shame,\" an assassin says as he steps into the room. "
+                "He shoots you with a crossbow.",
+                die=True
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "Felicity is overjoyed and secretly lets you out of prison "
+                "that night. \"Let's get married!\" she says.",
+                move_to=places.streets,
+                new_person=persons.fat_lady
+            ), weight=9)
+
+
+class MarryFelicity(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Marry Felicity."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "St. George secretly performs a wedding for you and Felicity.",
+            win=True
+        ), weight=9)
 
 
 # B slot actions
@@ -839,10 +877,25 @@ class LookForTheWizard(Action):
 
     def execute(self, character):
 
+        if character.has_item(items.YellowMushroom):
+            self.outcomes.add(Outcome(character,
+                "When you find him, he can smell that you have a yellow "
+                "mushroom. He asks if he can have it.",
+                move_to=places.market,
+                new_person=persons.wizard
+            ), weight=30)
+
         self.outcomes.add(Outcome(character,
             "You find him. He turns you into a frog and steps on you.",
             die=1
         ), weight=3)
+
+        self.outcomes.add(Outcome(character,
+            "When you find him. He gives you a frog.",
+            add_item=items.Frog(),
+            move_to=places.market,
+            new_person=persons.wizard
+        ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You look for the wizard, but the assassins are looking for you. "
@@ -971,6 +1024,12 @@ class GoTo(Action):
                 new_person=persons.assassin
             ), weight=2)
 
+            if character.has_item(items.Cat):
+                self.outcomes.add(Outcome(character,
+                    "Your cat notices an assassin approaching. You do not.",
+                    die=True,
+                ), weight=1)
+
             overhear_template = "As you leave " + character.place.name + \
                 " you overhear {0}."
 
@@ -1074,6 +1133,7 @@ class WaddleLikeGod(Action):
             move=1
         ), weight=1)
 
+
 # D slot actions
 
 
@@ -1089,6 +1149,14 @@ class SingASong(Action):
 
     def execute(self, character):
 
+        if character.place == places.mermaid_rock:
+            self.outcomes.add(Outcome(character,
+                "As you sing, a ship sails by. The crew has wax in their "
+                "ears and the captain is tied to the mast. He is not "
+                "impressed.",
+                fail=True,
+            ), weight=100)
+
         if character.place in places.populated:
             self.outcomes.add(Outcome(character,
                 "A crowd gathers to hear your music and throws you a small "
@@ -1101,12 +1169,13 @@ class SingASong(Action):
                 die=True
             ), weight=1)
 
-            self.outcomes.add(Outcome(character,
-                "While you're singing, some men in black cloaks start to edge "
-                "their way toward you.",
-                new_person=persons.assassins,
-                threat=True
-            ), weight=3)
+            if not character.person:
+                self.outcomes.add(Outcome(character,
+                    "While you're singing, some men in black cloaks start to "
+                    "edge their way toward you.",
+                    new_person=persons.assassins,
+                    threat=True
+                ), weight=3)
 
         if self.topic == "assassins":
             self.outcomes.add(Outcome(character,
@@ -1117,8 +1186,8 @@ class SingASong(Action):
 
         if character.person == persons.wizard:
             self.outcomes.add(Outcome(character,
-                "The wizard complains that you are singing off key. He turns you "
-                "into a frog and steps on you.",
+                "The wizard complains that you are singing off key. He turns "
+                "you into a frog and steps on you.",
                 die=True
             ), weight=20)
 
@@ -1251,41 +1320,3 @@ class LookThroughSomeTrash(Action):
             fail=True,
             topic="trash"
         ), weight=1)
-
-
-class SayYouLoveHer(Action):
-
-    def __init__(self, person):
-        super().__init__()
-        self.name = "Say you love her too."
-        self.person = person
-
-    def execute(self, character):
-
-        if self.person == persons.fat_lady:
-            self.outcomes.add(Outcome(character,
-                "\"What a shame,\" an assassin says as he steps into the room. "
-                "He shoots you with a crossbow.",
-                die=True
-            ), weight=1)
-
-            self.outcomes.add(Outcome(character,
-                "Felicity is overjoyed and secretly lets you out of prison "
-                "that night. \"Let's get married!\" she says.",
-                move_to=places.streets,
-                new_person=persons.fat_lady
-            ), weight=9)
-
-
-class MarryFelicity(Action):
-
-    def __init__(self):
-        super().__init__()
-        self.name = "Marry Felicity."
-
-    def execute(self, character):
-
-        self.outcomes.add(Outcome(character,
-            "St. George secretly performs a wedding for you and Felicity.",
-            win=True
-        ), weight=9)
