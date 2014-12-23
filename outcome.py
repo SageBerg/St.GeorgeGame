@@ -16,7 +16,7 @@ class Outcome(object):
                  burn_place=False,
                  die=False,
                  fail=False,
-                 get_item=False,
+                 add_item=False,
                  get_money=False,
                  kill=False,
                  lock=False,
@@ -29,7 +29,7 @@ class Outcome(object):
         self.character = character
         self.die = die
         self.fail = fail
-        self.get_item = get_item
+        self.add_item = add_item
         self.get_money = get_money
         self.kill = kill
         self.lock = lock
@@ -64,8 +64,8 @@ class Outcome(object):
             self.character.move_to(self.move_to)
         if self.die:
             self.character.die()
-        if self.get_item:
-            self.character.get_item(self.get_item)
+        if self.add_item:
+            self.character.add_item(self.add_item)
         if self.get_money:
             self.character.get_money(self.get_money)
         if self.win:

@@ -41,7 +41,7 @@ class Character(object):
         else:
             Display().write("You still have {0}.".format(money.to_str(amount)))
 
-    def get_item(self, item):
+    def add_item(self, item):
         if self.has_item(type(item)):
             Display().write("You now have another " + str(item) + ".")
         elif str(item)[0] in "AEIOUaeiou":
@@ -49,6 +49,11 @@ class Character(object):
         else:
             Display().write("You now have a " + str(item) + ".")
         self.items.add(item)
+
+    def get_item(self, item_class):
+        for item in self.items:
+            if isinstance(item, item_class):
+                return item
 
     def remove_item(self, item):
         self.items.remove(item)

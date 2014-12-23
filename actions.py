@@ -173,7 +173,7 @@ class GoDivingForPearls(Action):
 
         self.outcomes.add(Outcome(character,
             "You soon find a pearl in an oyster.",
-            get_item=items.Pearl(),
+            add_item=items.Pearl(),
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
@@ -185,7 +185,7 @@ class GoDivingForPearls(Action):
         self.outcomes.add(Outcome(character,
             "You soon pry open an oyster and find beautiful pearl. "
             "It's so dazzling you drown while gazing at it.",
-            get_item=items.Pearl(),
+            add_item=items.Pearl(),
         ), weight=2)
 
         self.outcomes.add(Outcome(character,
@@ -272,22 +272,22 @@ class GoMushroomPicking(Action):
 
         self.outcomes.add(Outcome(character,
             "You find a yellow mushroom.",
-            get_item=items.YellowMushroom(),
+            add_item=items.YellowMushroom(),
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You find a white mushroom.",
-            get_item=items.WhiteMushroom(),
+            add_item=items.WhiteMushroom(),
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You find a black mushroom.",
-            get_item=items.BlackMushroom(),
+            add_item=items.BlackMushroom(),
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You find a many-colored mushroom.",
-            get_item=items.ManyColoredMushroom(),
+            add_item=items.ManyColoredMushroom(),
         ), weight=1)
 
 
@@ -564,7 +564,7 @@ class LookForACat(Action):
         def get_a_cat():
             Display().write("After days of searching, you manage to find "
                             "a cat.")
-            character.get_item(items.Cat())
+            character.add_item(items.Cat())
 
         def the_guards_catch_you():
             Display().write("The local guards notice you searching for a cat "
@@ -777,7 +777,7 @@ class GoToSleep(Action):
         def cat_wakes_you():
             Display().write("You are pleasantly awakened by a cat rubbing "
                             "itself against you.")
-            character.get_item(items.Cat())
+            character.add_item(items.Cat())
             character.person = None
 
         def awake_in_new_place():
@@ -1233,7 +1233,7 @@ class LookThroughSomeTrash(Action):
         def find_a_cat():
             Display().write("While you are searching through the trash you "
                             "find an somewhat agreeable cat.")
-            character.get_item(items.Cat())
+            character.add_item(items.Cat())
 
         def guards_catch_you():
             Display().write("The local guards see you searching through the "
