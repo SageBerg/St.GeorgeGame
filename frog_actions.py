@@ -59,7 +59,7 @@ class Hop(Action):
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
-            "An assassin stabs you in midair.",
+            "An assassin stabs you midair.",
             die=True
         ), weight=1)
 
