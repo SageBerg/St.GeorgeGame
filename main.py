@@ -72,7 +72,7 @@ def add_person_actions(choices, character):
     if character.person == persons.wealthy_merchant:
         choices.add(actions.BoastOfYourBravery(), "b", 1)
     if character.person == persons.wealthy_merchant:
-        choices.add(actions.Buy(weapons.weapons), "b", 10)
+        choices.add(actions.Buy(weapons.weapons), "b", 30)
     if character.person == persons.wealthy_merchant:
         choices.add(actions.SingASong(topic="weapons"), "d", 3)
     if character.person == persons.wizard:
@@ -85,12 +85,14 @@ def add_person_actions(choices, character):
 
 
 def add_place_actions(choices, character):
-    if not character.place.locked:
+    if not character.place.locked and character.place in places.populated:
         choices.add(actions.LookForACat(), "b")
     if character.place == places.docks:
         choices.add(actions.LookForTheWizard(), "c", 2)
-    if character.place == places.market:
+    if character.place == places.market and \
+        character.person != persons.wealthy_merchant:
         choices.add(actions.LookForAWeapon(), "a", 10)
+    if character.place == places.market and character.person != persons.wizard:
         choices.add(actions.LookForTheWizard(), "c", 4)
     if character.place == places.ocean:
         choices.add(actions.GoDivingForPearls(), "a", 10)
@@ -102,7 +104,8 @@ def add_place_actions(choices, character):
     if character.place == places.prison:
         choices.add(actions.BideYourTime(), "b", 10)
         choices.add(actions.FlirtWith(persons.fat_lady), "c", 10)
-    if character.place == places.streets and character.person != persons.wizard:
+    if character.place == places.streets and \
+       character.person != persons.wizard:
         choices.add(actions.LookForTheWizard(), "c", 1)
     if character.place == places.streets and \
        character.person != persons.st_george:
@@ -122,9 +125,9 @@ def add_place_actions(choices, character):
     if character.place == places.arctic and character.place.locked:
         Display().write("Your tongue is stuck to an icicle.")
     if not random.randint(0, 99) and character.place in places.burnable:
-        choices.add(actions.SetThePlaceOnFire(character.place), "a",  666)
+        choices.add(actions.SetThePlaceOnFire(character.place), "a", 666)
         choices.add(actions.LightUpThePlace(character.place), "b", 666)
-        choices.add(actions.BurnThePlaceToACrisp(character.place), "c",  666)
+        choices.add(actions.BurnThePlaceToACrisp(character.place), "c", 666)
         choices.add(actions.BurnThePlaceToTheGround(character.place), "d", 666)
 
 

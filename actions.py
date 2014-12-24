@@ -232,7 +232,7 @@ class LookForAWeapon(Action):
         self.outcomes.add(Outcome(character,
             "You find yourself talking to a wealthy war merchant.",
             new_person=persons.wealthy_merchant,
-        ), weight=4)
+        ), weight=9)
 
         self.outcomes.add(Outcome(character,
             "You find one... in your back as an assasin walks away smoothly.",
@@ -522,7 +522,7 @@ class Buy(Action):
         if character.money >= self.weapon.price:
             self.outcomes.add(Outcome(character,
                 "",
-                add_weapon=self.weapon,
+                new_weapon=self.weapon,
             ), weight=3)
         else:
             self.outcomes.add(Outcome(character,
@@ -726,7 +726,7 @@ class TellThemYouAreNotALunatic(Action):
             ), weight=1)
         else:
             self.outcomes.add(Outcome(character,
-                "\"An {0} lunatic,\" they say.".format(self.topic),
+                "\"A {0} lunatic,\" they say.".format(self.topic),
                 fail=True,
                 move_to=places.prison,
                 new_person=persons.other_lunatics,
@@ -1291,7 +1291,7 @@ class RunLikeTheDevil(Action):
                 "The Devil is very fast and not very fat, so you manage to get "
                 "away unmarried.",
                 move=2,
-                flirt=(-666, persons.fat_lady)
+                flirt=(persons.fat_lady, -666)
             ), weight=666)
 
 
@@ -1490,18 +1490,18 @@ class SwingYourCat(Action):
             "You hit an assassin with your cat.",
             new_person=persons.assassin,
             threat=True,
-            die=True
         ), weight=3)
 
+        self.outcomes.add(Outcome(character,
+            "Your cat manages to escape.",
+            remove_item=self.cat
+        ), weight=2)
+
         if character.place in places.populated:
-            self.outcomes.add(Outcome(character,
-                "Your cat manages to escape.",
-                remove_item=self.cat
-            ), weight=7)
 
             self.outcomes.add(Outcome(character,
-                "The local guards notice you swinging your cat around and conclude "
-                "that you must be a lunatic.",
+                "The local guards notice you swinging your cat around and "
+                "conclude that you must be a lunatic.",
                 new_person=persons.guards,
                 topic="angry"
             ), weight=3)
@@ -1527,7 +1527,7 @@ class BurnThePlaceToTheGround(Action):
                 None,
                 burn_place=self.place,
                 move_to=self.place
-            ), weight=2)
+            ), weight=4)
 
 
         if character.person == persons.st_george:

@@ -95,7 +95,7 @@ class Outcome(object):
         if self.add_item:
             self.character.add_item(self.add_item)
         if self.remove_item:
-            self.character.removed_item(self.remove_item)
+            self.character.remove_item(self.remove_item)
         if self.get_money:
             self.character.get_money(self.get_money)
         if self.win:
