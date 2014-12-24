@@ -26,8 +26,10 @@ actions:
     Ask her name    
       She becomes irate and assassinates you
   Dance a jig
-
+fireproof cloak in wizard's lab
   scratched with poison dagger
+
+Hop like the devil -> the devil doesn't hop, he runs
 
 potion:
   cat -> tail growth

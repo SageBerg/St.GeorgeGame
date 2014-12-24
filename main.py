@@ -43,7 +43,7 @@ def add_outcome_actions(choices, character, outcome):
             choices.add(actions.KillEverybodyInAFitOfRage(), "a", 5)
         if character.place in places.burnable:
             choices.add(actions.BurnThePlaceToTheGround(
-                character.place), "d", 3)
+                character.place), "b", 3)
         if not character.place.locked:
             choices.add(actions.LeaveInAHuff(), "c", 5)
     if outcome.topic:
@@ -118,7 +118,7 @@ def add_place_actions(choices, character):
     if character.place == places.woods:
         choices.add(actions.GoMushroomPicking(), "c", 12)
     if character.place in places.burnable:
-        choices.add(actions.BurnThePlaceToTheGround(character.place), "d", 2)
+        choices.add(actions.BurnThePlaceToTheGround(character.place), "b", 2)
     if not character.threatened and not character.place.locked:
         for _ in range(3):
             choices.add(actions.GoTo(character.place), "c")
@@ -126,9 +126,9 @@ def add_place_actions(choices, character):
         Display().write("Your tongue is stuck to an icicle.")
     if not random.randint(0, 99) and character.place in places.burnable:
         choices.add(actions.SetThePlaceOnFire(character.place), "a", 666)
-        choices.add(actions.LightUpThePlace(character.place), "b", 666)
+        choices.add(actions.BurnThePlaceToTheGround(character.place), "b", 666)
         choices.add(actions.BurnThePlaceToACrisp(character.place), "c", 666)
-        choices.add(actions.BurnThePlaceToTheGround(character.place), "d", 666)
+        choices.add(actions.LightUpThePlace(character.place), "d", 666)
 
 
 def add_item_actions(choices, character):
@@ -162,6 +162,7 @@ def add_default_actions(choices):
     choices.add(actions.GoToSleep(), "c", 2)
     choices.add(actions.LeaveInAPuff(), "c")
     choices.add(actions.SingASong(), "d")
+    choices.add(actions.DanceAJig(), "d")
 
 
 def add_frog_actions(choices, character):
