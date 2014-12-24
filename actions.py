@@ -581,6 +581,7 @@ class BuyADrink(Action):
     def execute(self, character):
 
         if persons.blind_bartender.alive:
+
             self.outcomes.add(Outcome(character,
                 "The blind bartender grumbles as he passes you a drink.",
                 new_person=persons.blind_bartender,
@@ -589,6 +590,18 @@ class BuyADrink(Action):
             self.outcomes.add(Outcome(character,
                 "An assassin walks up and starts hitting on you... very hard.",
                 die=True,
+            ), weight=2)
+
+            self.outcomes.add(Outcome(character,
+                "As you drink, you hear a countryman, talking about how great "
+                "Lord Bartholomew is.",
+                topic='Lord Bartholomew'
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "A man in a black cloak sits next to you and orders a drink.",
+                new_person=persons.assassin,
+                topic="assassins"
             ), weight=2)
 
         else:
@@ -1703,15 +1716,15 @@ class DanceAJig(Action):
         ), weight=5)
 
         self.outcomes.add(Outcome(character,
-            "You step in a puddle and get you britches wet.",
+            "You step in a puddle and get your britches wet.",
             fail=True,
         ), weight=3)
 
         self.outcomes.add(Outcome(character,
             "You break your ankle and fall to the ground. You catch yourself "
             "but you break your wrist and hit your head on the ground and "
-            "you neck.",
-            fail=True,
+            "your neck.",
+            die=True,
         ), weight=1)
 
         if character.place == places.woods:
