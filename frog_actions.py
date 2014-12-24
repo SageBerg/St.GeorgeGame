@@ -1,14 +1,15 @@
 from actions import Action
 from outcome import Outcome
 
+
 class Croak(Action):
-    
+
     def __init__(self):
         super().__init__()
         self.name = "Croak."
 
     def execute(self, character):
-        
+
         self.outcomes.add(Outcome(character,
             "You croak",
             die=True,
@@ -16,41 +17,67 @@ class Croak(Action):
 
 
 class Ribbit(Action):
-    
+
     def __init__(self):
         super().__init__()
         self.name = "Ribbit."
 
     def execute(self, character):
-        
+
         self.outcomes.add(Outcome(character,
             "A woman notices you and kisses you, hoping your'll turn into a "
             "prince. Instead she gets you. She is not impressed.",
-            funcs=[character.defrogify], 
+            funcs=[character.defrogify],
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "Someone steps on you to stop you from making any more noise.",
+            die=True
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "A loose weasal hears your ribbit and eats you.",
+            die=True
         ), weight=1)
 
 
 class Hop(Action):
-    
+
     def __init__(self):
         super().__init__()
         self.name = "Hop."
 
     def execute(self, character):
-        
+
         self.outcomes.add(Outcome(character,
             "You hop.",
         ), weight=1)
 
+        self.outcomes.add(Outcome(character,
+            "You hop for a long while.",
+            move=1
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "An assassin stabs you in midair.",
+            die=True
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "Jump into a lady's purse, find a small fortune. Too bad you "
+            "can't take it with you. \n You eventually manage to hope out.",
+            move=2
+        ), weight=1)
+
 
 class EatAFly(Action):
-    
+
     def __init__(self):
         super().__init__()
         self.name = "Eat a fly."
 
     def execute(self, character):
-        
+
         self.outcomes.add(Outcome(character,
             "You grow stronger.",
         ), weight=1)
