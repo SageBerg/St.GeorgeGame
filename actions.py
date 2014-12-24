@@ -102,7 +102,7 @@ class Apologize(Action):
     def execute(self, character):
 
         self.outcomes.add(Outcome(character,
-            "\"I'm afraid 'sorry' won't cut it.\" His knife does",
+            "\"I'm afraid 'sorry' won't cut it.\" His knife does.",
             die=True,
         ), weight=3)
 
@@ -631,7 +631,7 @@ class BoastOfYourBravery(Action):
                 self.outcomes.add(Outcome(character,
                     "The blind bartender starts pretending to be deaf.",
                     fail=True,
-                ), weight=1)
+                ), weight=3)
 
             if character.person == persons.st_george:
 
@@ -1679,6 +1679,96 @@ class LookThroughSomeTrash(Action):
             "You find a mirror in the trash. You see nothing of value.",
             fail=True
         ), weight=1)
+
+class DanceAJig(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Dance a jig."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "You get sweaty.",
+        ), weight=9)
+
+        self.outcomes.add(Outcome(character,
+            "You have a grand old time.",
+        ), weight=5)
+
+        self.outcomes.add(Outcome(character,
+            "You step in a puddle and get you britches wet.",
+            fail=True,
+        ), weight=3)
+
+        self.outcomes.add(Outcome(character,
+            "You break your ankle and fall to the ground. You catch yourself "
+            "but you break your wrist and hit your head on the ground and "
+            "you neck.",
+            fail=True,
+        ), weight=1)
+
+        if character.place == places.woods:
+            fae = random.choice(["fairaes", "sprites",
+                                 "pixies", "dryads",
+                                 "nymphs", "spirits"])
+            self.outcomes.add(Outcome(character,
+                "Some {0} dance with you and then fade away.".format(fae),
+            ), weight=20)
+
+        if character.place in places.populated:
+            self.outcomes.add(Outcome(character,
+                "Some local peasants are entertained by your antics and toss "
+                "you some coins.",
+                get_money=money.pittance
+            ), weight=10)
+
+            self.outcomes.add(Outcome(character,
+                "Many peasants start dancing with you and begin singing about "
+                "Lord Bartholomew.",
+            ), weight=15)
+
+        if character.place == places.countryside:
+            self.outcomes.add(Outcome(character,
+                "Many peasants start dancing with you and begin singing an "
+                "ode to Lord Bartholomew.",
+            ), weight=25)
+
+        if character.person == persons.mermaid:
+            self.outcomes.add(Outcome(character,
+                "She laughs and claps and seems completely in awe of your "
+                "legs.",
+                flirt=(persons.mermaid, 30),
+            ), weight=1)
+
+        if character.person == persons.guards:
+            self.outcomes.add(Outcome(character,
+                "\"We got a dancer,\" one of them says. They throw you in "
+                "prison.",
+                move_to=places.prison,
+                new_person=persons.other_lunatics,
+            ), weight=100)
+
+            self.outcomes.add(Outcome(character,
+                "\"Eh, he's all right,\" one of them says. The guards "
+                "go on their way.",
+                topic="guards",
+            ), weight=100)
+
+        if character.place == places.arctic:
+            self.outcomes.add(Outcome(character,
+                "You get sweaty. The sweat freezes on you. "
+                "You freeze to death.",
+                die=True,
+            ), weight=30)
+
+        if character.place == places.tavern or \
+           character.place == places.lord_carlos_manor:
+            self.outcomes.add(Outcome(character,
+                "Some assassins immediately notice you dancing and assassinate "
+                "you.",
+                die=True,
+            ), weight=15)
 
 
 class Drown(Action):
