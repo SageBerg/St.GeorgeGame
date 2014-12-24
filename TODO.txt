@@ -25,9 +25,8 @@ actions:
   Look for Lord Carlos' daughter    
     Ask her name    
       She becomes irate and assassinates you
-  Dance a jig
 fireproof cloak in wizard's lab
-  scratched with poison dagger
+scratched with poison dagger
 play dead
 Lord Carlos says that he forgives you, but that his men never fail
 The fly was on a manycolored mushroom, you start tripping
