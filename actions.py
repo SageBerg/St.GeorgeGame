@@ -1438,6 +1438,13 @@ class SingASong(Action):
             ), weight=100)
 
         if character.place in places.populated:
+
+            self.outcomes.add(Outcome(character,
+                "Your singing is too load for you to hear the footsteps of an "
+                "assassin over. He assassinates you.",
+                die=True
+            ), weight=1)
+
             self.outcomes.add(Outcome(character,
                 "A crowd gathers to hear your music and throws you a small "
                 "fortune in coins.",
@@ -1471,10 +1478,36 @@ class SingASong(Action):
                 die=True
             ), weight=20)
 
+        if not character.place.locked:
+
+            self.outcomes.add(Outcome(character,
+                "You wander aimlessly as you work your way through an epic "
+                "ballad.",
+                move=1
+            ), weight=1)
+
+        if self.topic is None:
+
+            self.outcomes.add(Outcome(character,
+                "You sing a song about Lord Arthur, captain of the pirates.",
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "You sing a song about Lord Bartholomew, leader of the "
+                "peasants.",
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "You sing a song about Lord Carlos, ruler of the assassins.",
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "You sing a song about Lord Daniels, head of the guard.",
+            ), weight=1)
+
         self.outcomes.add(Outcome(character,
             "You sing your favorite song. No one cares.",
-            fail=True
-        ), weight=1)
+        ), weight=2)
 
 
 class SwingYourCat(Action):
