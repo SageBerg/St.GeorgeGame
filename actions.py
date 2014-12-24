@@ -879,11 +879,13 @@ class ChowDown(Action):
                 self.outcomes.add(Outcome(character,
                     "Your perception of the world begins to change.",
                     remove_item=character.get_item(items.ManyColoredMushroom),
+                    funcs=[character.start_tripping],
                 ), weight=1)
             else:
                 self.outcomes.add(Outcome(character,
                     "You feel normal again.",
                     remove_item=character.get_item(items.ManyColoredMushroom),
+                    funcs=[character.stop_tripping],
                 ), weight=1)
 
         if isinstance(self.food, items.YellowMushroom):
@@ -1436,7 +1438,7 @@ class KeepSwimming(Swim):
         self.outcomes.add(Outcome(character,
             "You find a mermaid sitting on a rock.",
             move_to=places.mermaid_rock,
-            new_person=person.mermaid
+            new_person=persons.mermaid
         ), weight=1)
 
         if character.has_item(items.Cat):
@@ -1737,6 +1739,7 @@ class DanceAJig(Action):
 
             self.outcomes.add(Outcome(character,
                 "Some goblins dance with you and then kill you."
+                die=True,
             ), weight=3)
 
         if character.place in places.populated:

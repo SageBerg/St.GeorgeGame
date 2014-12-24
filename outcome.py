@@ -5,6 +5,8 @@ Sage Berg
 Created: 21 Dec 2014
 """
 
+import random
+
 from display import Display
 import places
 
@@ -49,7 +51,12 @@ class Outcome(object):
         self.lock = lock
         self.move = move
         self.move_to = move_to
-        self.msg = msg
+        if msg and self.character.trip:
+            msg = msg.split(" ")
+            random.shuffle(msg)
+            self.msg = " ".join(msg)
+        else:
+            self.msg = msg 
         self.new_person = new_person
         self.win = win
         self.threat = threat

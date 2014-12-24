@@ -110,6 +110,12 @@ class Character(object):
         self.is_frog = False
         Display().write("You are now yourself again.")
 
+    def start_tripping(self):
+        self.trip = True
+
+    def stop_tripping(self):
+        self.trip = False 
+
     def win(self):
         """
         Win the game.
