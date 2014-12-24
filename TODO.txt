@@ -28,6 +28,10 @@ actions:
   Dance a jig
 fireproof cloak in wizard's lab
   scratched with poison dagger
+play dead
+Lord Carlos says that he forgives you, but that his men never fail
+The fly was on a manycolored mushroom, you start tripping
+enter the void
 
 Hop like the devil -> the devil doesn't hop, he runs
 
