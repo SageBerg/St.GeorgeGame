@@ -1,4 +1,6 @@
 actions:
+  wizard brings penguins to the arctic
+  Lord Arthur sends you on a mission to find him a pet sea turtle
   throw a fit
   challenge them to a game of chess 
     as you play Lord Carlos tells you of his villinous plan

@@ -566,15 +566,94 @@ class BoastOfYourBravery(Action):
 
     def execute(self, character):
         if not character.person:
+
             self.outcomes.add(Outcome(character,
                 "You impress yourself.",
             ), weight=1)
+
         else:
+
             self.outcomes.add(Outcome(character,
-                character.person.pronouns.subj.capitalize() +
-                " is not impressed.",
+                 character.person.pronouns.subj.capitalize() +
+                 " is not impressed.",
+                 fail=True
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "As you boast of your exploits, {0} walks away.".format(
+                    character.person.name),
+                new_person=None,
                 fail=True,
             ), weight=1)
+
+            if character.person == persons.blind_bartender:
+
+                self.outcomes.add(Outcome(character,
+                    "The blind bartender starts pretending to be deaf.",
+                    fail=True,
+                ), weight=1)
+
+            if character.person == persons.st_george:
+
+                self.outcomes.add(Outcome(character,
+                    "St. George warns you of the dangers of hubris.",
+                ), weight=1)
+
+                self.outcomes.add(Outcome(character,
+                    "You tell St. George about the time you burnt a house "
+                    "down and hey slays you for your wicked ways.",
+                    die=True
+                ), weight=1)
+
+                self.outcomes.add(Outcome(character,
+                    "St. George lauds your noble deeds and rewards you.",
+                    get_money=money.large_fortune
+                ), weight=1)
+
+                self.outcomes.add(Outcome(character,
+                    "St. George becomes irate when you claim to have slain a "
+                    "dragon. He obliterates you.",
+                    die=True
+                ), weight=1)
+
+            if character.person == persons.pretty_lady:
+
+                self.outcomes.add(Outcome(character,
+                    "Her eyes glaze over as you struggle to remember times "
+                    "you were brave.",
+                    fail=True,
+                ), weight=1)
+
+                self.outcomes.add(Outcome(character,
+                    "She sees through your lies.",
+                    fail=True,
+                ), weight=1)
+
+                self.outcomes.add(Outcome(character,
+                    "She seems interested in your stories.",
+                ), weight=1)
+
+            if character.person == persons.fat_lady:
+
+                self.outcomes.add(Outcome(character,
+                    "She points out several inconsistencies in your story.",
+                    flirt=-1,
+                    fail=True
+                ), weight=1)
+
+                self.outcomes.add(Outcome(character,
+                    "She seems to buy it.",
+                    flirt=1
+                ), weight=1)
+
+            if character.person == persons.guards:
+
+                self.outcomes.add(Outcome(character,
+                    "You tell the guards that you are brave.\n 'A brave "
+                    "lunatic,' they say and they throw you in prison.",
+                    new_person=persons.other_lunatics,
+                    move_to=places.prison
+                ), weight=1)
 
 
 class LookForACat(Action):
