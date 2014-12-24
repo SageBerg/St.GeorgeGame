@@ -865,20 +865,24 @@ class ChowDown(Action):
             if not character.trip:
                 self.outcomes.add(Outcome(character,
                     "Your perception of the world begins to change.",
+                    remove_item=character.get_item(items.ManyColoredMushroom),
                 ), weight=1)
             else:
                 self.outcomes.add(Outcome(character,
                     "You feel normal again.",
+                    remove_item=character.get_item(items.ManyColoredMushroom),
                 ), weight=1)
 
         if isinstance(self.food, items.YellowMushroom):
             self.outcomes.add(Outcome(character,
                 "You find the mushroom distasteful.",
+                remove_item=character.get_item(items.YellowMushroom),
             ), weight=1)
 
         if isinstance(self.food, items.BlackMushroom):
             self.outcomes.add(Outcome(character,
                 "The mushroom tastes bittersweet.",
+                remove_item=character.get_item(items.BlackMushroom),
                 die=True,
             ), weight=1)
 
@@ -886,11 +890,13 @@ class ChowDown(Action):
             character.attack += 1  # TODO don't do this here
             self.outcomes.add(Outcome(character,
                 "You grow larger.",
+                remove_item=character.get_item(items.WhiteMushroom),
             ), weight=2)
 
             self.outcomes.add(Outcome(character,
                 "You shrink to the size of a peanut. A weasel "
                 "soon comes along and eats you.",
+                remove_item=character.get_item(items.WhiteMushroom),
                 die=True,
             ), weight=1)
 
@@ -1715,6 +1721,10 @@ class DanceAJig(Action):
             self.outcomes.add(Outcome(character,
                 "Some {0} dance with you and then fade away.".format(fae),
             ), weight=20)
+
+            self.outcomes.add(Outcome(character,
+                "Some goblins dance with you and then kill you."
+            ), weight=3)
 
         if character.place in places.populated:
             self.outcomes.add(Outcome(character,
