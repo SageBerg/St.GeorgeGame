@@ -416,6 +416,46 @@ class MarryFelicity(Action):
 # B slot actions
 
 
+class SeekAHigherPower(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Seek a higher power."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "Your prayers go unanswered.",
+            fail=True
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "Your prayers are answered.",
+            get_money=money.small_fortune
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "Your prayers aren't answered, but the assassins' are.",
+            die=True
+        ), weight=1)
+
+        if character.place == places.tavern:
+
+            self.outcomes.add(Outcome(character,
+                "You find no higher power, but you do find a small sack of "
+                "jewels someone left on a counter.",
+                add_item=items.Jewels(),
+                topic='jewels'
+            ), weight=1)
+
+        if character.place in [places.market, places.church, places.streets]:
+
+            self.outcomes.add(Outcome(character,
+                "You find St. George.",
+                new_person=persons.st_george
+            ), weight=1)
+
+
 class BegForMoney(Action):
 
     def __init__(self):
