@@ -67,3 +67,54 @@ followers:
     You trained your right-hand man well, you are now playing as your right-hand man
     Your right hand man decides to make a move and seize power
     You live happily ever, but the journey has just begun for your right-hand man
+
+
+Jon:
+
+New Game Goal: Kill St. George (Many holes to jump through)
+-Top Tier Weapon
+-Assassin Training (Side option of romancing assassin)
+-Experience (Assassinating at least one lord)
+
+Throwing your cat:
+-Cat is instant kill weapon (low chance)
+-You throw it into possible love interest who is scarred for life
+from what you've done.
+-Guards think you're a lunatic.
+-Somebody catches it.
+-Assassin throws it back at you, killing you.
+
+Romancing the Assassin:
+-She hits on you after you buy a drink (Not very hard)
+-Flirt is an option (She reveals she's an assassin)
+-Option to try and coerce her.
+-Ask her to run away from the assassins and marry you (you might die); Ask her to help you join the assassins.
+
+Romancing pretty lady:
+-Make suggestive options, all result with death because she's an off-duty assassin.
+-Give her a cat, she falls in love with you.
+-Take her on a date (Dodge assassins)
+-Ask her to marry you.
+
+Romancing the Nymph Queen:
+-You have to assassinate Lord Bartholemew to gain an audience with her.
+-You have to have a love potion to have her fall in love with you
+
+Joining the Assassins:
+-You gain Assassin Training
+-You can now attempt to kill Lords without automatic failure
+
+Creating a Love Potion:
+-Go to the wizard with the following ingredients;
+-=cave item
+-=pearl
+-=Some mushroom
+
+Victory Conditions:
+-Find True Love
+-Kill all 4 lords
+-Kill St. George
+-Burn everything to the ground (you are satisfied with the way everything has been burned)
+
+Buying a drink:
+-The drink is poisoned. You die.

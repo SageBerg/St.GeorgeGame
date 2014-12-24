@@ -204,14 +204,14 @@ class LickTheGround(Action):
         if character.place == places.ocean:
             self.outcomes.add(Outcome(character,
                 "You drown while swimming toward the ocean floor with your "
-                "tonge extended.",
+                "tongue extended.",
                 die=True,
             ), weight=10000)
 
         if character.place == places.woods:
             self.outcomes.add(Outcome(character,
                 "As you lick the ground, you notice it smells oddly familiar.",
-            ), weight=10)
+            ), weight=3)
 
         if character.place == places.arctic:
             self.outcomes.add(Outcome(character,
