@@ -15,7 +15,7 @@ import money
 import items
 import persons
 from outcome import Outcome
-import weapons
+from weapons import weapons
 
 
 class Action(object):
@@ -2201,6 +2201,7 @@ class DoSomeFarmWork(Action):
 
         self.outcomes.add(Outcome(character,
             "You spend a season bailing hay.",
+            get_money=money.pittance,
             new_weapon=weapons[0]
         ), weight=1)
 
@@ -2213,6 +2214,7 @@ class DoSomeFarmWork(Action):
         self.outcomes.add(Outcome(character,
             "You spend a season slaughtering hogs. You find a shiny foreign "
             "coin in one of the hogs.",
+            get_money=money.pittance,
             add_item=items.ForeignCoin()
         ), weight=1)
 
