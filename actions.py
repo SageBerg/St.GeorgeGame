@@ -809,6 +809,49 @@ class TellThemYouAreNotALunatic(Action):
                 new_person=persons.other_lunatics,
             ), weight=1)
 
+class TipACow(Action):
+
+    def __init__(self, topic):
+        super().__init__()
+        self.topic = topic
+        self.name = "Tip a cow."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "You are dissapointed to find out that cows can get back up "
+            "easily.",
+            fail=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "Some peasants see you trying to tip a cow and laugh at you.",
+            fail=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You can't find any cows. Only sheep.",
+            fail=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You pull a cow on top of yourself and it crushes you.",
+            die=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You're not strong enough to push the cow over, but you notice a "
+            "pearl in the field.",
+            add_item=items.Pearl(),
+            topic="pearls and cows",
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "Some peasants mistake you for a cow theif and form a lynch mob.",
+            threat=True,
+            new_person=persons.mob,
+        ), weight=1)
+
 
 class LookForSeaTurtles(Action):
 
@@ -1583,11 +1626,11 @@ class SingASong(Action):
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
-                "You sing a song about Lord Carlos, ruler of the assassins.",
+                "You sing a song about Lord Carlos, kingpin of the assassins.",
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
-                "You sing a song about Lord Daniels, head of the guard.",
+                "You sing a song about Lord Daniel, head of the guard.",
             ), weight=1)
 
         self.outcomes.add(Outcome(character,
@@ -1725,6 +1768,12 @@ class LookThroughSomeTrash(Action):
             fail=True
         ), weight=1)
 
+        self.outcomes.add(Outcome(character,
+            "You find a bad smell.",
+            fail=True
+        ), weight=1)
+
+
 class DanceAJig(Action):
 
     def __init__(self):
@@ -1733,25 +1782,41 @@ class DanceAJig(Action):
 
     def execute(self, character):
 
-        self.outcomes.add(Outcome(character,
-            "You get sweaty.",
-        ), weight=9)
+        if character.places != places.ocean:
+            self.outcomes.add(Outcome(character,
+                "You get sweaty.",
+            ), weight=9)
 
-        self.outcomes.add(Outcome(character,
-            "You have a grand old time.",
-        ), weight=5)
+            self.outcomes.add(Outcome(character,
+                "You have a grand old time.",
+            ), weight=5)
 
-        self.outcomes.add(Outcome(character,
-            "You step in a puddle and get your britches wet.",
-            fail=True,
-        ), weight=3)
+            self.outcomes.add(Outcome(character,
+                "You step in a puddle and get your britches wet.",
+                fail=True,
+            ), weight=3)
 
-        self.outcomes.add(Outcome(character,
-            "You break your ankle and fall to the ground. You catch yourself "
-            "but you break your wrist and hit your head on the ground and "
-            "your neck.",
-            die=True,
-        ), weight=1)
+            self.outcomes.add(Outcome(character,
+                "You break your ankle and fall to the ground. You catch "
+                "yourself but break your wrist, hit your head on the "
+                "ground and your neck.",
+                die=True,
+            ), weight=1)
+        else:
+            self.outcomes.add(Outcome(character,
+                "You drown trying to dance.",
+                die=True,
+            ), weight=5)
+
+            self.outcomes.add(Outcome(character,
+                "You swim a jig",
+                topic="jigs",
+            ), weight=2)
+
+            self.outcomes.add(Outcome(character,
+                "You can't dance a jig, you're in the ocean.",
+                fail=True,
+            ), weight=2)
 
         if character.place == places.woods:
             fae = random.choice(["fairaes", "sprites",
