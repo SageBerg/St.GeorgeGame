@@ -1618,6 +1618,7 @@ class WanderTheCountryside(Action):
         self.outcomes.add(Outcome(character,
             "You find a mob of peasant children about to perform a cat "
             "burning.",
+            actions=[(SaveTheCat(), "d", 30)],
             new_person=None,
         ), weight=1)
 
@@ -2125,6 +2126,26 @@ class Sink(Drown):
     def __init__(self):
         super().__init__()
         self.name = "Sink."
+
+
+class SaveTheCat(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Save the cat."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "You escape with the cat.",
+            add_item=items.Cat(),
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You escape with the cat, but the cat escapes you. \n"
+            "You almost got a cat",
+            fail=True,
+        ), weight=1)
 
 
 class SaveTheWitch(Action):
