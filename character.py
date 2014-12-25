@@ -61,6 +61,8 @@ class Character(object):
         self.items.remove(item)
         if self.has_item(type(item)):
             Display().write("You now have one less " + str(item) + ".")
+        elif str(item)[0] in "AEIOUaeiou":
+            Display().write("You no longer have an " + str(item) + ".")
         else:
             Display().write("You no longer have a " + str(item) + ".")
 
