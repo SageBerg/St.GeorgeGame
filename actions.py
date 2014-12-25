@@ -416,17 +416,27 @@ class MarryFelicity(Action):
 # B slot actions
 
 
-class SeekAHigherPower(Action):
+class PrayToAHigherPower(Action):
 
     def __init__(self):
         super().__init__()
-        self.name = "Seek a higher power."
+        self.name = "Pray to a higher power."
 
     def execute(self, character):
 
         self.outcomes.add(Outcome(character,
             "Your prayers go unanswered.",
             fail=True
+        ), weight=2)
+
+        self.outcomes.add(Outcome(character,
+            "God speaks to you and shows you the way.",
+            topic="arson"
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "God tells you to marry the nymph queen.",
+            topic="nymphs"
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
@@ -435,23 +445,37 @@ class SeekAHigherPower(Action):
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
+            "Your prayers for a beautiful wife are answered but she soon "
+            "leaves you.",
+            fail=True,
+            topic="divorce"
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
             "Your prayers aren't answered, but the assassins' are.",
             die=True
         ), weight=1)
 
+        if character.place in places.burnable:
+
+            self.outcomes.add(Outcome(character,
+                "Your prayers are answered.",
+                burn_place=character.place
+            ), weight=1)
+
         if character.place == places.tavern:
 
             self.outcomes.add(Outcome(character,
-                "You find no higher power, but you do find a small sack of "
+                "God does nothing for you, but you do find a small sack of "
                 "jewels someone left on a counter.",
                 add_item=items.Jewels(),
                 topic='jewels'
             ), weight=1)
 
-        if character.place in [places.market, places.church, places.streets]:
+        if character.place in places.town:
 
             self.outcomes.add(Outcome(character,
-                "You find St. George.",
+                "St. George joins you in prayer.",
                 new_person=persons.st_george
             ), weight=1)
 

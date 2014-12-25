@@ -158,7 +158,7 @@ def add_character_actions(choices, character):
 
 def add_default_actions(choices):
     choices.add(actions.LickTheGround(), "a")
-    choices.add(actions.SeekAHigherPower(), "b")
+    choices.add(actions.PrayToAHigherPower(), "b")
     choices.add(actions.GoToSleep(), "c", 2)
     choices.add(actions.LeaveInAPuff(), "c")
     choices.add(actions.SingASong(), "d")
