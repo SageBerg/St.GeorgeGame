@@ -537,13 +537,13 @@ class ClimbIntoTheCrowsNest(Action):
 
         self.outcomes.add(Outcome(character,
             "A crow in the crow's nest caws louding in your face, startling "
-            "you. You fall off the mast in surprise and land on the deck.",
+            "you. You fall off the mast and land on the deck.",
             die=True
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "A crow in the crow's nest caws louding in your face, startling "
-            "you. You fall off the mast in surprise and land in the water.",
+            "you. You fall off the mast and land in the water.",
             fail=True,
             move_to=places.ocean
         ), weight=1)
@@ -1845,7 +1845,7 @@ class WalkThePlank(Action):
 
     def __init__(self):
         super().__init__()
-        self.name = "Walk the plank"
+        self.name = "Walk the plank."
 
     def execute(self, character):
 
