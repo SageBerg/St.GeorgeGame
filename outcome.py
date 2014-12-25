@@ -18,7 +18,7 @@ class Outcome(object):
                  msg,
 
                  add_item=False,  # USAGE: items.Item()
-                 remove_item=False,
+                 remove_item=False,  # USAGE: character.get_item(items.Item)
                  remove_all_items=False,
                  new_weapon=False,
                  beg=False,
