@@ -36,6 +36,8 @@ class Outcome(object):
                  unthreat=False,
                  flirt=None,  # USAGE: (person, int)
                  love_confessor=None,  # USAGE: person
+                 add_employer=None,
+                 remove_employer=None,
                  topic=None,
                  funcs=(),
                  actions=()  # USAGE: [(Action action(), srt slot, int weight)]
@@ -67,8 +69,10 @@ class Outcome(object):
         self.flirt = flirt
         self.love_confessor = love_confessor
         self.topic = topic
+        self.add_employer = add_employer
+        self.remove_employer = remove_employer
         self.funcs = funcs
-        self.actions = actions 
+        self.actions = actions
 
     def execute(self):
         """
@@ -118,6 +122,10 @@ class Outcome(object):
             self.character.threatened = True
         if self.unthreat:
             self.character.threatened = False
+        if self.add_employer:
+            self.character.add_employer(self.add_employer)
+        if self.remove_employer:
+            self.character.remove_employer(self.remove_employer)
         if self.flirt:
             self.flirt[0].attracted += self.flirt[1]
         for func in self.funcs:

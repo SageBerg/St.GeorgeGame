@@ -31,6 +31,7 @@ class Character(object):
         self.place = None
         self.person = None
         self.prev_act = None
+        self.employers = set()
 
     def get_money(self, amount):
         if amount > self.money:
@@ -123,7 +124,7 @@ class Character(object):
         self.trip = True
 
     def stop_tripping(self):
-        self.trip = False 
+        self.trip = False
 
     def win(self):
         """
@@ -132,3 +133,14 @@ class Character(object):
         Display().write("You win!")
         Display().disable()
         self.alone = False
+
+    def add_employer(self, employer):
+        self.employers.add(employer)
+
+    def remove_employer(self, employer):
+        self.employers.remove(employer)
+
+    def is_employed_by(self, employer):
+        if employer in self.employers:
+            return True
+        return False

@@ -505,6 +505,108 @@ class MarryFelicity(Action):
 # B slot actions
 
 
+class ClimbIntoTheCrowsNest(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Climb into the crow's nest."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "You are able to help guide the ship to land.",
+            move_to=places.woods
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You are able to help guide the ship to the docks.",
+            move_to=places.docks
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You drop your bag on your way up the mast. A pirate takes it.",
+            remove_all_items=True,
+            fail=True,
+            topic="treachery"
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You fall off the mast on the way up mast.",
+            die=True
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "A crow in the crow's nest caws louding in your face, startling "
+            "you. You fall off the mast in surprise and land on the deck.",
+            die=True
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "A crow in the crow's nest caws louding in your face, startling "
+            "you. You fall off the mast in surprise and land in the water.",
+            fail=True,
+            move_to=places.ocean
+        ), weight=1)
+
+
+class RaiseASail(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Raise a sail."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "Lord Arthur has you killed for raising the wrong sail.",
+            die=True
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You help the ship return to the docks quicker.",
+            move_to=places.docks
+        ), weight=1)
+
+        if not character.is_employed_by(persons.lord_arthur):
+
+            self.outcomes.add(Outcome(character,
+                "Lord Arthur is impressed by your initiative and makes you a "
+                "member of the crew.",
+                add_employer=persons.lord_arthur,
+            ), weight=1)
+
+
+class ScrubTheDeck(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Scrub the deck."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "You dislocate your shoulder scrubbing and Lord Arthur has no "
+            "further use for you. He has you thrown off the ship.",
+            die=True
+        ), weight=1)
+
+        if character.is_employed_by(persons.lord_arthur):
+
+            self.outcomes.add(Outcome(character,
+                "Lord Arthur yells at you to scrub harder.",
+                new_person=persons.lord_arthur,
+            ), weight=1)
+
+        else:
+
+            self.outcomes.add(Outcome(character,
+                "Lord Arthur is impressed by your initiative and makes you a "
+                "member of the crew.",
+                new_person=persons.lord_arthur,
+                add_employer=persons.lord_arthur,
+            ), weight=1)
+
+
 class PlayDead(Action):
 
     def __init__(self):
@@ -2147,6 +2249,63 @@ class SaveTheCat(Action):
             "You almost got a cat",
             fail=True,
         ), weight=1)
+
+
+class YellAPiratePhrase(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.phrase = random.choice(
+            ["Shiver me timbers",
+             "Dead men tell no tales",
+             "Arr Matey",
+             "Avast",
+             "Aye Aye",
+             "Send 'em to Dave Jone's locker",
+             "Thare she blows",
+             "Yo ho ho",
+             "Hoist the Jolly Roger",
+             "Walk the plank",
+             "Pass the rum",
+             "All hands on deck",
+             "Land ho",
+             "X marks the spot",
+             "Ahoy"])
+        self.name = "Yell \"{0}!\"".format(self.phrase)
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "Lord Arthur has you thrown off the ship.",
+            move_to=places.ocean,
+            fail=True
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "Lord Arthur tells you that no true pirate says \"{0}.\"".format(
+                self.phrase),
+            new_person=persons.lord_arthur,
+            fail=True
+        ), weight=1)
+
+        if character.is_employed_by(persons.lord_arthur):
+
+            self.outcomes.add(Outcome(character,
+                "Lord Arthur tells you that you are no longer a member of the "
+                "crew.",
+                remove_employer=persons.lord_arthur,
+                fail=True
+            ), weight=1)
+
+        else:
+
+            self.outcomes.add(Outcome(character,
+                "Lord Arthur is impressed by your enthusiasm and makes you a "
+                "member of the crew.",
+                new_person=persons.lord_arthur,
+                add_employer=persons.lord_arthur,
+                topic="piracy",
+            ), weight=1)
 
 
 class SaveTheWitch(Action):
