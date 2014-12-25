@@ -1176,6 +1176,49 @@ class LookForMermaids(Action):
 # C slot actions
 
 
+class ChopDownATree(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Chop down a tree."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "The tree falls on you.",
+            die=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "A nymph notices you chopping down the tree. She hexes you."
+            "You throw yourself in a pond and drown.",
+            die=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "The tree makes a loud noise as it falls.",
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "A tree falls in the forst. You hear it.",
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "The tree starts to bleed and you collect its blood.",
+            add_item=items.BottleOfSap()
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You get your ax stuck in the tree and can't get it out.",
+            remove_item=character.get_item(items.Ax),
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You enjoy chopping down the tree so much that you chop down "
+            "many more and build yourself a cabin.",
+        ), weight=1)
+
+
 class ChowDown(Action):
 
     def __init__(self, food):
