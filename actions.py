@@ -415,6 +415,39 @@ class MarryFelicity(Action):
 
 # B slot actions
 
+class PlayDead(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Play dead."
+        self.combat_action = True
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "You soon are.",
+            die=True
+        ), weight=2)
+
+        self.outcomes.add(Outcome(character,
+            "You are too pathetic for {0} to kill.".format(
+                character.person.pronouns.subj),
+            unthreat=True,
+            new_person=None,
+            fail=True
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You go the extra mile to make it realistic.",
+            die=True
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "Just to be sure, {0} kill you.".format(
+                character.person.pronouns.subj),
+            die=True
+        ), weight=1)
+
 
 class PrayToAHigherPower(Action):
 
@@ -433,7 +466,7 @@ class PrayToAHigherPower(Action):
             self.outcomes.add(Outcome(character,
                 "God decides to test you.",
                 remove_all_items=True
-            ), weight=2)  # TODO change odds
+            ), weight=2)
 
         self.outcomes.add(Outcome(character,
             "God speaks to you and shows you the way.",
@@ -955,7 +988,6 @@ class ChowDown(Action):
     def execute(self, character):
 
         if isinstance(self.food, items.ManyColoredMushroom):
-            # TODO implement trip
             if not character.trip:
                 self.outcomes.add(Outcome(character,
                     "Your perception of the world begins to change.",
@@ -1582,7 +1614,7 @@ class SingASong(Action):
         if character.place in places.populated:
 
             self.outcomes.add(Outcome(character,
-                "Your singing is too load for you to hear the footsteps of an "
+                "Your singing is too loud for you to hear the footsteps of an "
                 "assassin over. He assassinates you.",
                 die=True
             ), weight=1)

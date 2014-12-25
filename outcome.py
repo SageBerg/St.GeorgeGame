@@ -98,7 +98,7 @@ class Outcome(object):
             self.character.move(self.move)
         if self.move_to:
             self.character.move_to(self.move_to)
-        if self.new_person:
+        if self.new_person is None or self.new_person:
             self.character.person = self.new_person
         if self.die:
             self.character.die()

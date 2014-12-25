@@ -153,8 +153,9 @@ def add_item_actions(choices, character):
 
 def add_character_actions(choices, character):
     if character.threatened:
+        choices.add(actions.PlayDead(), "b", 10)
         choices.add(actions.RunLikeTheDevil(), "c", 18)
-        choices.add(actions.LeaveInAHuff(), "c", 6)
+        choices.add(actions.LeaveInAHuff(), "c", 2)
         choices.add(actions.WaddleLikeGod(), "c", 2)
 
 
