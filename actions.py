@@ -503,6 +503,7 @@ class MarryFelicity(Action):
 
 # B slot actions
 
+
 class PlayDead(Action):
 
     def __init__(self):
@@ -868,7 +869,8 @@ class LookForACat(Action):
 
     def execute(self, character):
 
-        if character.place in places.burnable and character.place in places.town:
+        if character.place in places.burnable and \
+           character.place in places.town:
 
             self.outcomes.add(Outcome(character,
                 "You knock a lantern over as you chase a cat.",
@@ -1593,11 +1595,11 @@ class WaddleLikeGod(Action):
         ), weight=1)
 
 
-class WonderTheCountryside(Action):
+class WanderTheCountryside(Action):
 
     def __init__(self):
         super().__init__()
-        self.name = "Wonder the countryside."
+        self.name = "Wander the countryside."
 
     def execute(self, character):
 
@@ -1609,6 +1611,7 @@ class WonderTheCountryside(Action):
 
         self.outcomes.add(Outcome(character,
             "You find a mob of peasants about to perform a witch burning.",
+            actions=[(SaveTheWitch(), "d", 30)],
             new_person=None,
         ), weight=1)
 
@@ -1632,12 +1635,12 @@ class WonderTheCountryside(Action):
         self.outcomes.add(Outcome(character,
             "You find a simple peasant.",
             new_person=persons.simple_peasant,
-        ), weight=1)  
+        ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You find a peasant lass.",
             new_person=persons.peasant_lass,
-        ), weight=100)# TODO fix weight
+        ), weight=1)
 
 
 class Swim(Action):
@@ -2122,3 +2125,33 @@ class Sink(Drown):
     def __init__(self):
         super().__init__()
         self.name = "Sink."
+
+
+class SaveTheWitch(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Save the witch."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "You have trouble untying her and the peasants kill you for "
+            "meddling.",
+            die=True
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You escape with her. She thanks you and gives you "
+            "a deep-cave newt before you part ways.",
+            add_item=items.DeepCaveNewt(),
+            move_to=places.woods,
+            topic=random.choice(["heroism", "newts", "witches"]),
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "In your rush to save the witch, you trip over a rock. "
+            "You wake up near the smoldering remains of the witch's "
+            "pyre.",
+            fail=True,
+        ), weight=1)
