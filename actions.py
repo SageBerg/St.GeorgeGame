@@ -1738,7 +1738,7 @@ class DanceAJig(Action):
             ), weight=20)
 
             self.outcomes.add(Outcome(character,
-                "Some goblins dance with you and then kill you."
+                "Some goblins dance with you and then kill you.",
                 die=True,
             ), weight=3)
 
