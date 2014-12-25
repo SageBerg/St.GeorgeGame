@@ -1460,6 +1460,13 @@ class GoTo(Action):
             new_person=None
         ), weight=3)
 
+        if self.place == places.dark_alley:
+
+            self.outcomes.add(Outcome(character,
+                "You go into a dark alley. You do not come out.",
+                die=True
+            ), weight=3)
+
         if character.place in places.populated:
 
             self.outcomes.add(Outcome(character,
