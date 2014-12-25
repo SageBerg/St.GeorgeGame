@@ -124,7 +124,7 @@ def add_place_actions(choices, character):
             choices.add(actions.GoTo(character.place), "c")
     if character.place == places.arctic and character.place.locked:
         Display().write("Your tongue is stuck to an icicle.")
-    if not random.randint(0, 99) and character.place in places.burnable:
+    if not random.randint(0, 249) and character.place in places.burnable:
         choices.add(actions.SetThePlaceOnFire(character.place), "a", 666)
         choices.add(actions.BurnThePlaceToTheGround(character.place), "b", 666)
         choices.add(actions.BurnThePlaceToACrisp(character.place), "c", 666)
@@ -151,9 +151,9 @@ def add_item_actions(choices, character):
 
 def add_character_actions(choices, character):
     if character.threatened:
-        choices.add(actions.RunLikeTheDevil(), "c", 9)
-        choices.add(actions.LeaveInAHuff(), "c", 3)
-        choices.add(actions.WaddleLikeGod(), "c", 1)
+        choices.add(actions.RunLikeTheDevil(), "c", 18)
+        choices.add(actions.LeaveInAHuff(), "c", 6)
+        choices.add(actions.WaddleLikeGod(), "c", 2)
 
 
 def add_default_actions(choices):
