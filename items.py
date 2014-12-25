@@ -64,6 +64,13 @@ class Frog(Item):
         self.name = "frog"
 
 
+class DeepCaveNewt(Item):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "deep-cave newt"
+
+
 class Pearl(Item):
 
     def __init__(self):
