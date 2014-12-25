@@ -1172,9 +1172,9 @@ class GoToSleep(Action):
                 new_person=None
             ), weight=2)
 
-            # TODO character.items = set()
             self.outcomes.add(Outcome(character,
                 "You wake up robbed of all your worldly possessions.",
+                remove_all_items=True,
                 new_person=None
             ), weight=2)
 
@@ -1184,7 +1184,7 @@ class GoToSleep(Action):
             ), weight=2)
 
             self.outcomes.add(Outcome(character,
-                "You wake up robbed of all your worldly possessions.",
+                "You wake up with some coins on your cloak.",
                 get_money=money.pittance,
                 topic="money",
                 new_person=None
