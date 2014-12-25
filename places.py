@@ -65,6 +65,42 @@ burnable = set([
     wizards_lab,
     woods])
 
+burned = set()
+
+outside = set([
+    arctic,
+    cave,
+    countryside,
+    dark_alley,
+    docks,
+    market,
+    mermaid_rock,
+    ocean,
+    pirate_ship,
+    streets,
+    woods])
+
+inside = set([
+    church,
+    lord_bartholomews_manor,
+    lord_carlos_manor,
+    prison,
+    tavern,
+    tower,
+    upstairs,
+    wizards_lab])
+
+town = set([
+    church,
+    dark_alley,
+    docks,
+    market,
+    prison,
+    streets,
+    tavern,
+    tower,
+    upstairs,
+    wizards_lab])
 
 # Connections
 

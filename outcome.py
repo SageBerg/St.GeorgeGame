@@ -56,7 +56,7 @@ class Outcome(object):
             random.shuffle(msg)
             self.msg = " ".join(msg)
         else:
-            self.msg = msg 
+            self.msg = msg
         self.new_person = new_person
         self.win = win
         self.threat = threat
@@ -83,6 +83,7 @@ class Outcome(object):
             self.burn_place.name = "the smoldering remains of " \
                                    + self.burn_place.name
             places.burnable.remove(self.burn_place)
+            places.burned.add(self.burn_place)
 
         if self.msg:
             Display().write(self.msg)
