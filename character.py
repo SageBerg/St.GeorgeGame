@@ -63,6 +63,15 @@ class Character(object):
         else:
             Display().write("You no longer have a " + str(item) + ".")
 
+    def remove_all_items(self):
+        for item in set(self.items):
+            self.remove_item(item)
+
+    def has_any_items(self):
+        if len(self.items):
+            return True
+        return False
+
     def has_item(self, item_class):
         if self.item_count(item_class):
             return True

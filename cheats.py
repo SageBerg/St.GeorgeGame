@@ -23,8 +23,8 @@ class Cheat(actions.Action):
                     character.move_to(place)
         if words[0] == "Felicity" and words[1] == "wow":
             persons.fat_lady.attracted += 20
-        if words[0] == "get" and words[1] == "mushroom":
-            character.add_item(items.YellowMushroom())
+        if words[0] == "get":
+            character.add_item(items.__dict__[words[1]]())
         if words[0] == "do":
             action_name = " ".join(words[1:])
             for action_class in actions.Action.__subclasses__():

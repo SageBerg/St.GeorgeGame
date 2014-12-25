@@ -19,6 +19,7 @@ class Outcome(object):
 
                  add_item=False,
                  remove_item=False,
+                 remove_all_items=False,
                  new_weapon=False,
                  beg=False,
                  burn_place=False,
@@ -40,6 +41,7 @@ class Outcome(object):
                  ):
         self.add_item = add_item
         self.remove_item = remove_item
+        self.remove_all_items = remove_all_items
         self.new_weapon = new_weapon
         self.beg = beg
         self.burn_place = burn_place
@@ -71,6 +73,9 @@ class Outcome(object):
         NOTE: order of conditions must be logical (based on what should be
               printed first)
         """
+        if self.msg:
+            Display().write(self.msg)
+
         if self.new_weapon and self.character.attack < self.new_weapon.attack:
             self.character.weapon = self.new_weapon
             self.character.attack = self.new_weapon.attack
@@ -84,9 +89,6 @@ class Outcome(object):
                                    + self.burn_place.name
             places.burnable.remove(self.burn_place)
             places.burned.add(self.burn_place)
-
-        if self.msg:
-            Display().write(self.msg)
 
         if self.kill:
             self.character.person.alive = False
@@ -104,6 +106,8 @@ class Outcome(object):
             self.character.add_item(self.add_item)
         if self.remove_item:
             self.character.remove_item(self.remove_item)
+        if self.remove_all_items:
+            self.character.remove_all_items()
         if self.get_money:
             self.character.get_money(self.get_money)
         if self.win:

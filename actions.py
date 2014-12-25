@@ -429,6 +429,12 @@ class PrayToAHigherPower(Action):
             fail=True
         ), weight=2)
 
+        if character.has_any_items():
+            self.outcomes.add(Outcome(character,
+                "God decides to test you.",
+                remove_all_items=True
+            ), weight=2)  # TODO change odds
+
         self.outcomes.add(Outcome(character,
             "God speaks to you and shows you the way.",
             topic="arson"
@@ -741,7 +747,15 @@ class LookForACat(Action):
 
     def execute(self, character):
 
+        if character.place in places.burnable and character.place in places.town:
+
+            self.outcomes.add(Outcome(character,
+                "You knock a lantern over as you chase a cat.",
+                burn_place=character.place
+            ), weight=2)
+
         if character.place in places.populated and not character.place.locked:
+
             self.outcomes.add(Outcome(character,
                 "You follow a cat through the streets but "
                 "eventually lose track of it.",
