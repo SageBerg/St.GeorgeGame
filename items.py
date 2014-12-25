@@ -83,3 +83,9 @@ class Jewels(Item):
     def __init__(self):
         super().__init__()
         self.name = "bag of jewels"
+
+class ForeignCoin(Item):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "shiny foreign coin"
