@@ -1588,6 +1588,31 @@ class JustKeepSwimming(KeepSwimming):
         ), weight=1)
 
 
+class WalkThePlank(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Walk the plank"
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "You walk across one of the planks on the deck.",
+            topic="walking the plank",
+        ), weight=2)
+
+        self.outcomes.add(Outcome(character,
+            "You fall into the ocean.",
+            move_to=places.ocean
+        ), weight=3)
+
+        self.outcomes.add(Outcome(character,
+            "Lord Arthur's pet shark emerges from the depths and snatches you "
+            "as you fall.",
+            die=True
+        ), weight=1)
+
+
 # D slot actions
 
 

@@ -115,6 +115,8 @@ def add_place_actions(choices, character):
     if character.place == places.tavern:
         choices.add(actions.BuyADrink(), "b", 2)
         choices.add(actions.AskAboutAssassins(), "b", 1)
+    if character.place == places.pirate_ship:
+        choices.add(actions.WalkThePlank(), "c", 5)
     if character.place == places.dark_alley:
         choices.add(actions.LookThroughSomeTrash(), "d", 5)
     if character.place == places.woods:
