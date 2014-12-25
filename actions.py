@@ -289,7 +289,7 @@ class LookForStGeorge(Action):
 
         if persons.st_george.alive:
             self.outcomes.add(Outcome(character,
-                "You find St. George at the chuch.",
+                "You find St. George at the church.",
                 move_to=places.church,
                 new_person=persons.st_george,
             ), weight=10)
