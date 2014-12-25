@@ -505,6 +505,149 @@ class MarryFelicity(Action):
 # B slot actions
 
 
+class Think(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Think."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "You come up with four brilliant ideas.",
+            actions=[(LickTheGround(), "a", 10)]
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "All you can think is \"Think. Think. Think.\".",
+            fail=True
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You come up with a plan B in case things go south.",
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "Since you're a man, you think about sex."
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You spend some time reevalutating your life and conclude "
+            "that you need to stay the course.",
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You get lost in your thoughts.",
+        ), weight=1)
+
+        if character.place != places.tavern:
+            self.outcomes.add(Outcome(character,
+                "You think about a pretty lady you saw in the tavern.",
+                topic="marriage"
+            ), weight=1)
+
+        if character.place == places.wizards_lab or \
+           character.place == places.lord_carlos_manor:
+            self.outcomes.add(Outcome(character,
+                "You think you probably shouldn't be here.",
+            ), weight=8)
+
+        if character.place == places.tavern or \
+           character.place == places.dark_alley or \
+           character.place == places.lord_carlos_manor:
+            self.outcomes.add(Outcome(character,
+                "You think about how painful it would be to get stabbed."
+                "You soon find out.",
+                die=True
+            ), weight=4)
+
+        if character.place == places.docks or \
+           character.place == places.ocean or \
+           character.place == places.pirate_ship or \
+           character.place == places.mermaid_rock:
+            self.outcomes.add(Outcome(character,
+                "You think the ocean is really big.",
+            ), weight=8)
+
+            self.outcomes.add(Outcome(character,
+                "You think the bad smell might be coming from you.",
+            ), weight=2)
+
+        if character.place == places.tower:
+            self.outcomes.add(Outcome(character,
+                "You think you can survive the jump from the top of the "
+                "tower.",
+                die=True
+            ), weight=5)
+
+            self.outcomes.add(Outcome(character,
+                "While you're thinking, a guard hands you an ax and tells "
+                "you to chop some firewood for the cooks.",
+                add_item=items.Ax()
+            ), weight=5)
+
+        if character.place == places.countryside:
+            self.outcomes.add(Outcome(character,
+                "You think about Lord Bartholomew.",
+                topic="Lord Bartholomew"
+            ), weight=3)
+
+            self.outcomes.add(Outcome(character,
+                "You wonder if any peasant women would ."
+                "go for a man like you.",
+                topic="peasants"
+            ), weight=2)
+
+        if character.place == places.woods:
+            self.outcomes.add(Outcome(character,
+                "You think about fire.",
+                topic="fire"
+            ), weight=3)
+
+        if character.place == places.church:
+            self.outcomes.add(Outcome(character,
+                "You wonder what life is all about and feel smug "
+                "for being so philosophical.",
+                topic="yourself"
+            ), weight=3)
+
+        if character.place == places.arctic:
+            self.outcomes.add(Outcome(character,
+                "You think about ice.",
+                topic="ice"
+            ), weight=3)
+
+            self.outcomes.add(Outcome(character,
+                "You can't think about much besides how cold you are.",
+                topic="misery"
+            ), weight=4)
+
+        if character.place == places.cave:
+            self.outcomes.add(Outcome(character,
+                "You think about the darkness that is crushing in on you from "
+                "all sides.",
+            ), weight=3)
+
+            self.outcomes.add(Outcome(character,
+                "You think about death."
+            ), weight=3)
+
+            self.outcomes.add(Outcome(character,
+                "You think about suffocation."
+            ), weight=3)
+
+        if character.person:
+            self.outcomes.add(Outcome(character,
+                "You zone out while " + 
+                character.person.name + " talk" + 
+                character.person.pronouns.tense + ".",
+            ), weight=3)
+
+            self.outcomes.add(Outcome(character,
+                "You space out."
+            ), weight=2)
+
+
 class ClimbIntoTheCrowsNest(Action):
 
     def __init__(self):
@@ -1505,21 +1648,21 @@ class LookForTheWizard(Action):
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
-            "You find the wizard in the market. He is telling a woman how he "
+            "You find the wizard. He is telling a woman how he "
             "cursed the icicles in the arctic.",
             move_to=places.market,
             new_person=persons.wizard
         ), weight=2)
 
         self.outcomes.add(Outcome(character,
-            "You find the wizard in the market. He is telling a woman about "
+            "You find the wizard. He is telling a woman about "
             "a mesmerizing pearl.",
             move_to=places.market,
             new_person=persons.wizard
         ), weight=2)
 
         self.outcomes.add(Outcome(character,
-            "You see the wizard emptying a flask into a well in the market.",
+            "You see the wizard emptying a flask into a well.",
             move_to=places.market,
             new_person=persons.wizard
         ), weight=1)

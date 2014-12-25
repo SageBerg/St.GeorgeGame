@@ -131,6 +131,8 @@ def add_place_actions(choices, character):
     if character.place == places.dark_alley:
         choices.add(actions.LookThroughSomeTrash(), "d", 5)
     if character.place == places.woods:
+        if character.has_item(items.Ax):
+            choices.add(actions.ChopDownATree(), "a", 12)
         choices.add(actions.GoMushroomPicking(), "c", 12)
     if character.place in places.burnable:
         choices.add(actions.BurnThePlaceToTheGround(character.place), "b", 2)
@@ -176,6 +178,7 @@ def add_character_actions(choices, character):
 
 
 def add_default_actions(choices):
+    choices.add(actions.Think(), "a", 2)
     choices.add(actions.LickTheGround(), "a")
     choices.add(actions.PrayToAHigherPower(), "b")
     choices.add(actions.GoToSleep(), "c", 2)
