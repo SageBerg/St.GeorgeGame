@@ -6,9 +6,6 @@ actions:
     as you play Lord Carlos tells you of his villinous plan
       Tell Lord X about Lord Carlos' villinous plan
         you tell them how he was going to assassinate you
-  admire your jewels
-    the guads catch you with your pants down
-    you see an assassin approaching in the reflection of your ruby
   flaunt your wealth
     pretty lady
     some haters kill you

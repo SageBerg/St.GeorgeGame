@@ -156,6 +156,9 @@ def add_item_actions(choices, character):
     if character.has_item(items.Cat):
         item = character.get_item(items.Cat)
         choices.add(actions.SwingYourCat(item), "d", 1)
+    if character.has_item(items.Jewels):
+        item = character.get_item(items.Jewels)
+        choices.add(actions.AdmireYourJewels(item), "a", 1)
 
 
 def add_character_actions(choices, character):

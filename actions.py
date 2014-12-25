@@ -136,8 +136,52 @@ class AskDirections(Action):
                 "mushroom.",
             ), weight=1)
 
+class AdmireYourJewels(Action):
+
+    def __init__(self, jewels):
+
+        super().__init__()
+        self.name = "Admire your jewels."
+        self.jewels = jewels
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "You decide that your jewels outclass everything else you have."
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You decide to store your jewels in your stomach for safe "
+            "keeping.",
+            remove_item=self.jewels,
+            topic="mules"
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You find a pearl in your bag of jewels",
+            add_item=items.Pearl(),
+            topic="pearls"
+        ), weight=1)
+
+        if character.place in places.populated:
+
+            self.outcomes.add(Outcome(character,
+                "You notice the reflection of a dagger in a particularly "
+                "large ruby.",
+                die=True,
+            ), weight=1)
+
+        if character.place in places.town:
+
+            self.outcomes.add(Outcome(character,
+                "The guards catch you with your pants down. They conclude you "
+                "must be a lunatic",
+                new_person=persons.guards,
+                topic='curious'
+            ), weight=2)
 
 class Apologize(Action):
+
     def __init__(self):
         super().__init__()
         self.name = "Tell him you're sorry."
