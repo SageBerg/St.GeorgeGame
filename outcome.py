@@ -17,7 +17,7 @@ class Outcome(object):
                  character,
                  msg,
 
-                 add_item=False,
+                 add_item=False,  # USAGE: items.Item()
                  remove_item=False,
                  remove_all_items=False,
                  new_weapon=False,
@@ -37,7 +37,8 @@ class Outcome(object):
                  flirt=None,  # USAGE: (person, int)
                  love_confessor=None,  # USAGE: person
                  topic=None,
-                 funcs=()
+                 funcs=(),
+                 actions=()  # USAGE: [(Action action(), srt slot, int weight)]
                  ):
         self.add_item = add_item
         self.remove_item = remove_item
@@ -67,6 +68,7 @@ class Outcome(object):
         self.love_confessor = love_confessor
         self.topic = topic
         self.funcs = funcs
+        self.actions = actions 
 
     def execute(self):
         """
