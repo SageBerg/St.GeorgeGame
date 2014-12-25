@@ -93,6 +93,50 @@ class AskAboutAssassins(Action):
         ), weight=1)
 
 
+class AskDirections(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Ask directions."
+
+    def execute(self, character):
+
+        if character.person == persons.simple_peasant:
+            self.outcomes.add(Outcome(character,
+                "He tells you there are four directions, north, south, "
+                "east, and west.",
+                fail=True
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "He tells you the only direction worth going is to Lord "
+                "Bartholomew's house.",
+                fail=True
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "He says the town is yonder.",
+            ), weight=1)
+
+        if character.person == persons.peasant_lass:
+            self.outcomes.add(Outcome(character,
+                "She says Lord Carlos' manor is in the woods.",
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "She says Lord Bartholomew's manor is nearby.",
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "She says there's good mushroom picking in woods.",
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "She babbles incoherently while eating a many-colored "
+                "mushroom.",
+            ), weight=1)
+
+
 class Apologize(Action):
     def __init__(self):
         super().__init__()
@@ -868,27 +912,32 @@ class TipACow(Action):
         self.outcomes.add(Outcome(character,
             "You are dissapointed to find out that cows can get back up "
             "easily.",
+            new_person=None,
             fail=True,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "Some peasants see you trying to tip a cow and laugh at you.",
+            new_person=None,
             fail=True,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You can't find any cows. Only sheep.",
+            new_person=None,
             fail=True,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You pull a cow on top of yourself and it crushes you.",
+            new_person=None,
             die=True,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You're not strong enough to push the cow over, but you notice a "
             "pearl in the field.",
+            new_person=None,
             add_item=items.Pearl(),
             topic="pearls and cows",
         ), weight=1)
@@ -1468,7 +1517,6 @@ class RunLikeTheDevil(Action):
                 flirt=(persons.fat_lady, -666)
             ), weight=666)
 
-
 class WaddleLikeGod(Action):
 
     def __init__(self):
@@ -1492,6 +1540,53 @@ class WaddleLikeGod(Action):
             new_person=None,
             move=1
         ), weight=1)
+
+
+class WonderTheCountryside(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Wonder the countryside."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "Not all those who wonder are lost. You are.",
+            fail=True,
+            new_person=None,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You find a mob of peasants about to perform a witch burning.",
+            new_person=None,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You find a mob of peasant children about to perform a cat "
+            "burning.",
+            new_person=None,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "All of the peasants you meet talk about Lord Bartholomew like "
+            "he's God's gift to the world.",
+            new_person=None,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You find a mob of peasants burning Lord Daniel in effigy.",
+            new_person=None,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You find a simple peasant.",
+            new_person=persons.simple_peasant,
+        ), weight=1)  
+
+        self.outcomes.add(Outcome(character,
+            "You find a peasant lass.",
+            new_person=persons.peasant_lass,
+        ), weight=100)# TODO fix weight
 
 
 class Swim(Action):

@@ -82,9 +82,14 @@ def add_person_actions(choices, character):
     if character.person != persons.wizard and \
        character.place in [places.streets, places.market]:
         choices.add(actions.LookForTheWizard(), "c", 2)
+    if character.person == persons.peasant_lass or \
+       character.person == persons.simple_peasant:
+        choices.add(actions.AskDirections(), "a", 30)
 
 
 def add_place_actions(choices, character):
+    if character.place == places.countryside:
+        choices.add(actions.WonderTheCountryside(), "c", 10)
     if not character.place.locked and character.place in places.populated:
         choices.add(actions.LookForACat(), "b")
     if character.place == places.docks:
