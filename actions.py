@@ -809,11 +809,11 @@ class TellThemYouAreNotALunatic(Action):
                 new_person=persons.other_lunatics,
             ), weight=1)
 
+
 class TipACow(Action):
 
-    def __init__(self, topic):
+    def __init__(self):
         super().__init__()
-        self.topic = topic
         self.name = "Tip a cow."
 
     def execute(self, character):
@@ -1782,7 +1782,7 @@ class DanceAJig(Action):
 
     def execute(self, character):
 
-        if character.places != places.ocean:
+        if character.place != places.ocean:
             self.outcomes.add(Outcome(character,
                 "You get sweaty.",
             ), weight=9)

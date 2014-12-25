@@ -94,6 +94,8 @@ def add_place_actions(choices, character):
         choices.add(actions.LookForAWeapon(), "a", 10)
     if character.place == places.market and character.person != persons.wizard:
         choices.add(actions.LookForTheWizard(), "c", 4)
+    if character.place == places.countryside:
+        choices.add(actions.TipACow(), "b", 10)
     if character.place == places.ocean:
         choices.add(actions.GoDivingForPearls(), "a", 10)
         choices.add(actions.LookForMermaids(), "b", 3)
