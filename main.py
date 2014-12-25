@@ -90,8 +90,6 @@ def add_person_actions(choices, character):
 
 
 def add_place_actions(choices, character):
-    if character.place == places.countryside:
-        choices.add(actions.WanderTheCountryside(), "c", 30)
     if not character.place.locked and character.place in places.populated:
         choices.add(actions.LookForACat(), "b")
     if character.place == places.docks:
@@ -103,6 +101,8 @@ def add_place_actions(choices, character):
         choices.add(actions.LookForTheWizard(), "c", 4)
     if character.place == places.countryside:
         choices.add(actions.TipACow(), "b", 10)
+        choices.add(actions.WanderTheCountryside(), "c", 30)
+        choices.add(actions.DoSomeFarmWork(), "d", 10)
     if character.place == places.ocean:
         choices.add(actions.GoDivingForPearls(), "a", 10)
         choices.add(actions.LookForMermaids(), "b", 3)

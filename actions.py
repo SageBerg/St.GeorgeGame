@@ -15,6 +15,7 @@ import money
 import items
 import persons
 from outcome import Outcome
+import weapons
 
 
 class Action(object):
@@ -2175,4 +2176,54 @@ class SaveTheWitch(Action):
             "You wake up near the smoldering remains of the witch's "
             "pyre.",
             fail=True,
+        ), weight=1)
+
+
+class DoSomeFarmWork(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Do some farmwork."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "You spend a season picking apples.",
+            get_money=money.pittance,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You spend a season milking cows for a farmer woman. "
+            "She keeps trying to marry you to her attractive "
+            "daughter, but her daughter is having none of it.",
+            get_money=money.pittance,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You spend a season bailing hay.",
+            new_weapon=weapons[0]
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You spend a season harvesting wheat. You enjoy the change of "
+            "pace.",
+            get_money=money.pittance,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You spend a season slaughtering hogs. You find a shiny foreign "
+            "coin in one of the hogs.",
+            add_item=items.ForeignCoin()
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You find work, but the assassins find you.",
+            die=True
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "During your duties, you get kicked by a mule. You somehow don't "
+            "die.",
+            get_money=money.pittance,
+            topic="mules"
         ), weight=1)
