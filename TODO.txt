@@ -30,6 +30,29 @@ The fly was on a manycolored mushroom, you start tripping
 enter the void
 
 Hop like the devil -> the devil doesn't hop, he runs
+Success
+  Thump yourself on the chest 
+    hit self too hard
+  Celebrate at the tavern
+    black out
+      married to Lord Carlos' daughter
+
+Do it
+Look for void dust
+  The void is very clean
+  The void is very dirty
+
+Trash the place
+And stay out!
+
+Plan B, C, D, E
+Concoct and elaborate scheme
+  Enact your elaborate scheme
+
+your cabin
+see you a boar, it minds its own business
+  provoke it
+
 
 potion:
   cat -> tail growth
