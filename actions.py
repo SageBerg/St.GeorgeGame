@@ -32,7 +32,8 @@ class Action(object):
         self.options = {"a": Raffle(),
                         "b": Raffle(),
                         "c": Raffle(),
-                        "d": Raffle()}
+                        "d": Raffle(),
+                        "e": Raffle()}
 
     def __str__(self):
         return self.name
@@ -41,7 +42,8 @@ class Action(object):
         self.options = {"a": Raffle(),
                         "b": Raffle(),
                         "c": Raffle(),
-                        "d": Raffle()}
+                        "d": Raffle(),
+                        "e": Raffle()}
         self.execute(character)
         return self.run_outcome()
 
@@ -137,6 +139,7 @@ class AskDirections(Action):
                 "mushroom.",
             ), weight=1)
 
+
 class AdmireYourJewels(Action):
 
     def __init__(self, jewels):
@@ -181,6 +184,7 @@ class AdmireYourJewels(Action):
                 topic='curious'
             ), weight=2)
 
+
 class Apologize(Action):
 
     def __init__(self):
@@ -197,6 +201,7 @@ class Apologize(Action):
 
         self.outcomes.add(Outcome(character,
             "\"Oh, you're not sorry yet,\" he says as he steps toward you.",
+            threat=True,
         ), weight=2)
 
         self.outcomes.add(Outcome(character,
@@ -217,7 +222,7 @@ class Attack(Action):
 
         if character.person.attack >= character.attack:
             self.outcomes.add(Outcome(character,
-                character.person.name.capitalize() + " kill" + 
+                character.person.name.capitalize() + " kill" +
                 character.person.pronouns.tense + " you.",
                 die=True,
             ), weight=1)
@@ -326,6 +331,24 @@ class LookForAWeapon(Action):
         self.outcomes.add(Outcome(character,
             "You find one... in your back as an assasin walks away smoothly.",
             die=True,
+        ), weight=1)
+
+
+class LookForVoidDust(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Look for void dust."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "The void is very clean. You can't find any.",
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You void is very dirty. You soon find some.",
+            add_item=items.BottleOfVoidDust()
         ), weight=1)
 
 
@@ -991,7 +1014,7 @@ class BuyADrink(Action):
             ), weight=2)
 
             self.outcomes.add(Outcome(character,
-                "As you drink, you hear a countryman, talking about how great "
+                "As you drink, you hear a peasant talking about how great "
                 "Lord Bartholomew is.",
                 topic='Lord Bartholomew'
             ), weight=1)
@@ -1319,6 +1342,70 @@ class LookForMermaids(Action):
 # C slot actions
 
 
+class CelebrateYourSuccess(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Celebrate your success."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "You can't think of a better way to celebrate than twittling "
+            "your thumbs.",
+            fail=True,
+        ), weight=1)
+
+        if character.place in places.town:
+
+            self.outcomes.add(Outcome(character,
+                "You go see a play in the market.",
+                move_to=places.market,
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "You go to a brothel and admire the decorations.",
+                move_to=places.streets,
+            ), weight=1)
+
+        if character.place in places.populated and \
+           character.money != money.none:
+
+            self.outcomes.add(Outcome(character,
+                "You wander around throwing all of your money in the air.",
+                funcs=[character.lose_all_money],
+            ), weight=1)
+
+        if character.place == places.tavern:
+
+            self.outcomes.add(Outcome(character,
+                "You drink until you black out.",
+                die=True,
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "You drink until you black out. You wake up weary and "
+                "penniless.",
+                move_to=places.dark_alley,
+                funcs=[character.lose_all_money]
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "You drink until you black out. "
+                "Lord Arthur wakes you yelling that you need to get on with "
+                "your duties.",
+                move_to=places.pirate_ship,
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "You drink until you black out. "
+                "You wake up in bed next to a peasant woman. "
+                "Once the hangover wears off, you "
+                "both live happily ever after.",
+                win=True,
+            ), weight=1)
+
+
 class ChopDownATree(Action):
 
     def __init__(self):
@@ -1591,6 +1678,7 @@ class GoToSleep(Action):
             self.outcomes.add(Outcome(character,
                 "You wake up robbed of all your worldly possessions.",
                 remove_all_items=True,
+                funcs=[character.lose_all_money],
                 new_person=None
             ), weight=2)
 
@@ -2079,7 +2167,7 @@ class SingASong(Action):
 
             self.outcomes.add(Outcome(character,
                 "Your singing is too loud for you to hear the footsteps of an "
-                "assassin over. He assassinates you.",
+                "assassin. He assassinates you.",
                 die=True
             ), weight=1)
 
@@ -2301,17 +2389,18 @@ class DanceAJig(Action):
                 "You have a grand old time.",
             ), weight=5)
 
-            self.outcomes.add(Outcome(character,
-                "You step in a puddle and get your britches wet.",
-                fail=True,
-            ), weight=3)
+            if character.place != places.void:
+                self.outcomes.add(Outcome(character,
+                    "You step in a puddle and get your britches wet.",
+                    fail=True,
+                ), weight=3)
 
-            self.outcomes.add(Outcome(character,
-                "You break your ankle and fall to the ground. You catch "
-                "yourself but break your wrist, hit your head on the "
-                "ground and your neck.",
-                die=True,
-            ), weight=1)
+                self.outcomes.add(Outcome(character,
+                    "You break your ankle and fall to the ground. You catch "
+                    "yourself but break your wrist, hit your head on the "
+                    "ground and your neck.",
+                    die=True,
+                ), weight=1)
         else:
             self.outcomes.add(Outcome(character,
                 "You drown trying to dance.",
@@ -2573,4 +2662,81 @@ class DoSomeFarmWork(Action):
             "die.",
             get_money=money.pittance,
             topic="mules"
+        ), weight=1)
+
+
+class DoSomeGambling(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Do some gambling."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "You win.",
+            get_money=random.choice([money.pittance, money.small_fortune]),
+            succeed=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You lose.",
+            funcs=[character.lose_all_money],
+            fail=True,
+        ), weight=1)
+
+        if character.place == places.tavern:
+            self.outcomes.add(Outcome(character,
+                "You get cleaned out by a pretty lady.",
+                funcs=[character.lose_all_money],
+                fail=True,
+            ), weight=1)
+
+        if character.place == places.tavern or \
+           character.place == places.lord_carlos_manor:
+            self.outcomes.add(Outcome(character,
+                "It was gambling to stay here. The assassins find you.",
+                die=True,
+            ), weight=1)
+
+        if character.place == places.docks:
+
+            self.outcomes.add(Outcome(character,
+                "You play some dice with Lord Arthur. He whips you soundly. "
+                "However, you win and earn a small fortune.",
+                get_money=money.small_fortune,
+                succeed=True,
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "You play some dice with Lord Arthur. He whips you soundly.",
+                funcs=[character.lose_all_money],
+                fail=True,
+            ), weight=2)
+
+
+# E slot actions
+
+
+class EnterTheVoid(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Enter the void."
+
+    def execute(self, character):
+        character.place=places.void  # TODO this is a hack
+
+        self.outcomes.add(Outcome(character,
+            "You enter the void.",
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "There's no air in the void.",
+            die=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You get lost in limbo forever.",
+            win=True,
         ), weight=1)
