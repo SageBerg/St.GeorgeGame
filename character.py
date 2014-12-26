@@ -43,6 +43,13 @@ class Character(object):
         else:
             Display().write("You still have {0}.".format(money.to_str(amount)))
 
+    def lose_all_money(self):
+        if self.money != money.none:
+            self.money = money.none
+            Display().write("You now have no money.")
+        else:
+            Display().write("You still have no money.")
+
     def add_item(self, item):
         if self.has_item(type(item)):
             Display().write("You now have another " + str(item) + ".")
@@ -132,7 +139,8 @@ class Character(object):
         """
         Win the game.
         """
-        Display().write("You win!")
+        if self.place.name != "the void": 
+            Display().write("You win!")
         Display().disable()
         self.alone = False
 
