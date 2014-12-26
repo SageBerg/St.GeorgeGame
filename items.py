@@ -104,3 +104,10 @@ class BottleOfSap(Item):
     def __init__(self):
         super().__init__()
         self.name = "bottle of sap"
+
+
+class BottleOfVoidDust(Item):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "bottle of void dust"
