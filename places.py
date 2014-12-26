@@ -18,7 +18,8 @@ class Place(object):
         self.name = name
         self.connections = set()
         self.locked = False
-        Place.instances.add(self)
+        if self.name != "the void":
+            Place.instances.add(self)
 
     def __str__(self):
         return self.name
@@ -41,6 +42,7 @@ streets = Place("the streets")
 tavern = Place("the tavern")
 tower = Place("the tower")
 upstairs = Place("the upstairs of the tavern")
+void = Place("the void")
 wizards_lab = Place("the wizard's lab")
 woods = Place("the woods")
 
@@ -142,3 +144,4 @@ cave.locked = True
 prison.locked = True
 pirate_ship.locked = True
 ocean.locked = True
+void.locked = True

@@ -48,6 +48,9 @@ def add_outcome_actions(choices, character, outcome):
                 character.place), "b", 3)
         if not character.place.locked:
             choices.add(actions.LeaveInAHuff(), "c", 5)
+    if outcome.succeed:
+        choices.add(actions.CelebrateYourSuccess(), "c", 5)
+        #choices.add(actions.ThumpYourselfOnTheChest(), "d", 2)
     if outcome.topic:
         if outcome.new_person == persons.guards:
             choices.add(actions.TellThemYouAreNotALunatic(
@@ -94,6 +97,7 @@ def add_place_actions(choices, character):
         choices.add(actions.LookForACat(), "b")
     if character.place == places.docks:
         choices.add(actions.LookForTheWizard(), "c", 2)
+        choices.add(actions.DoSomeGambling(), "d", 1)
     if character.place == places.market and \
         character.person != persons.wealthy_merchant:
         choices.add(actions.LookForAWeapon(), "a", 10)
@@ -120,14 +124,16 @@ def add_place_actions(choices, character):
        character.person != persons.st_george:
         choices.add(actions.LookForStGeorge(), "a", 2)
     if character.place == places.tavern:
+        choices.add(actions.AskAboutAssassins(), "a", 1)
         choices.add(actions.BuyADrink(), "b", 2)
-        choices.add(actions.AskAboutAssassins(), "b", 1)
+        choices.add(actions.DoSomeGambling(), "d", 1)
     if character.place == places.pirate_ship:
         choices.add(actions.WalkThePlank(), "c", 10)
         choices.add(actions.ClimbIntoTheCrowsNest(), "b", 5)
         choices.add(actions.ScrubTheDeck(), "b", 5)
         choices.add(actions.RaiseASail(), "b", 5)
         choices.add(actions.YellAPiratePhrase(), "d", 10)
+        choices.add(actions.DoSomeGambling(), "d", 1)
     if character.place == places.dark_alley:
         choices.add(actions.LookThroughSomeTrash(), "d", 5)
     if character.place == places.woods:
@@ -146,7 +152,9 @@ def add_place_actions(choices, character):
         choices.add(actions.BurnThePlaceToTheGround(character.place), "b", 666)
         choices.add(actions.BurnThePlaceToACrisp(character.place), "c", 666)
         choices.add(actions.LightUpThePlace(character.place), "d", 666)
-
+    if character.place == places.void:
+        choices.add(actions.LookForVoidDust(), "a", 1)
+        
 
 def add_item_actions(choices, character):
     if character.has_item(items.ManyColoredMushroom):
@@ -185,6 +193,7 @@ def add_default_actions(choices):
     choices.add(actions.LeaveInAPuff(), "c")
     choices.add(actions.SingASong(), "d")
     choices.add(actions.DanceAJig(), "d")
+    choices.add(actions.EnterTheVoid(), "e")
 
 
 def add_frog_actions(choices, character):
@@ -231,6 +240,7 @@ def main():
     choices.actions["b"] = actions.BuyADrink()
     choices.actions["c"] = actions.LeaveInAHuff()
     choices.actions["d"] = actions.SingASong()
+    choices.actions["e"] = actions.EnterTheVoid()
     display = Display()
     display.enable()
     display.write("\n---The St. George Game---\n")

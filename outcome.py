@@ -40,7 +40,8 @@ class Outcome(object):
                  remove_employer=None,
                  topic=None,
                  funcs=(),
-                 actions=()  # USAGE: [(Action action(), srt slot, int weight)]
+                 actions=(),  # USAGE: [(Action action(), srt slot, int weight)]
+                 succeed=False
                  ):
         self.add_item = add_item
         self.remove_item = remove_item
@@ -51,6 +52,7 @@ class Outcome(object):
         self.character = character
         self.die = die
         self.fail = fail
+        self.succeed = succeed
         self.get_money = get_money
         self.kill = kill
         self.lock = lock
