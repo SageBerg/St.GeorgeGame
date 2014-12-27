@@ -270,6 +270,7 @@ class GoDivingForPearls(Action):
         self.outcomes.add(Outcome(character,
             "You soon find a pearl in an oyster.",
             add_item=items.Pearl(),
+            succeed=True,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
@@ -370,7 +371,8 @@ class LookForVoidDust(Action):
 
         self.outcomes.add(Outcome(character,
             "You void is very dirty. You soon find some.",
-            add_item=items.BottleOfVoidDust()
+            add_item=items.BottleOfVoidDust(),
+            succeed=True,
         ), weight=1)
 
 
@@ -400,6 +402,7 @@ class GoMushroomPicking(Action):
         self.outcomes.add(Outcome(character,
             "You find a many-colored mushroom.",
             add_item=items.ManyColoredMushroom(),
+            succeed=True,
         ), weight=1)
 
 
@@ -509,6 +512,7 @@ class KillEverybodyInAFitOfRage(Action):
             die=True
         ), weight=1)
 
+
 class SayYouLoveHer(Action):
 
     def __init__(self, person):
@@ -545,6 +549,45 @@ class MarryFelicity(Action):
             "St. George secretly performs a wedding for you and Felicity.",
             win=True
         ), weight=9)
+
+
+class ThumpYourselfOnTheChest(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Thump yourself on the chest."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "You feel quite manly.",
+        ), weight=9)
+
+        self.outcomes.add(Outcome(character,
+            "You thump yourself a bit too hard.",
+            die=True,
+        ), weight=1)
+
+        if character.place in places.populated or \
+           character.place == places.countryside:
+            self.outcomes.add(Outcome(character,
+                "A peasant woman sees you thump your chest and seems impressed. "
+                "Unfortunately her husband is not. He ushers her away.",
+                fail=True,
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "Some peasants laugh at you for acting like a gorilla.",
+                fail=True,
+            ), weight=9)
+
+        if character.person == persons.wizard:
+            self.outcomes.add(Outcome(character,
+                "The wizard says, \"If you like behaving like a gorilla so "
+                "much why not be a gorilla?\" He tries to turn you into a "
+                "gorilla, but his spell only makes you walk like a gorilla.",
+                grow_stronger=2,
+            ), weight=20)
 
 
 # B slot actions
@@ -703,11 +746,13 @@ class ClimbIntoTheCrowsNest(Action):
 
         self.outcomes.add(Outcome(character,
             "You are able to help guide the ship to land.",
+            succeed=True,
             move_to=places.woods
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You are able to help guide the ship to the docks.",
+            succeed=True,
             move_to=places.docks
         ), weight=1)
 
@@ -752,6 +797,7 @@ class RaiseASail(Action):
 
         self.outcomes.add(Outcome(character,
             "You help the ship return to the docks quicker.",
+            succeed=True,
             move_to=places.docks
         ), weight=1)
 
@@ -823,8 +869,9 @@ class PlayDead(Action):
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
-            "Just to be sure, {0} kill you.".format(
-                character.person.pronouns.subj),
+            "Just to be sure, {0} kill{1} you.".format(
+                character.person.pronouns.subj, 
+                character.person.pronouns.tense),
             die=True
         ), weight=1)
 
@@ -1028,7 +1075,12 @@ class BuyADrink(Action):
             self.outcomes.add(Outcome(character,
                 "The blind bartender grumbles as he passes you a drink.",
                 new_person=persons.blind_bartender,
-            ), weight=3)
+            ), weight=4)
+
+            self.outcomes.add(Outcome(character,
+                "The drink is poisoned.",
+                die=True,
+            ), weight=1)
 
             self.outcomes.add(Outcome(character,
                 "An assassin walks up and starts hitting on you... very hard.",
@@ -1039,7 +1091,7 @@ class BuyADrink(Action):
                 "As you drink, you hear a peasant talking about how great "
                 "Lord Bartholomew is.",
                 topic='Lord Bartholomew'
-            ), weight=1)
+            ), weight=2)
 
             self.outcomes.add(Outcome(character,
                 "A man in a black cloak sits next to you and orders a drink.",
@@ -1065,6 +1117,7 @@ class BoastOfYourBravery(Action):
 
             self.outcomes.add(Outcome(character,
                 "You impress yourself.",
+                succeed=True,
             ), weight=1)
 
         else:
@@ -1162,6 +1215,7 @@ class LookForACat(Action):
 
         self.outcomes.add(Outcome(character,
             "After days of searching, you manage to find a cat.",
+            succeed=True,
             add_item=items.Cat(),
         ), weight=14)
 
@@ -1308,7 +1362,8 @@ class LookForSeaTurtles(Action):
         self.outcomes.add(Outcome(character,
             "You find a sea turtle and follow it to shore.",
             move_to=places.woods,
-            topic="sea turtles"
+            topic="sea turtles",
+            succeed=True,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
@@ -1443,8 +1498,8 @@ class ChopDownATree(Action):
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
-            "A nymph notices you chopping down the tree. She hexes you."
-            "You throw yourself in a pond and drown.",
+            "A nymph hexes you. "
+            "Throwing yourself in a pond suddenly seems like a good idea.",
             die=True,
         ), weight=1)
 
@@ -1458,8 +1513,9 @@ class ChopDownATree(Action):
 
         self.outcomes.add(Outcome(character,
             "The tree starts to bleed and you collect its blood.",
-            add_item=items.BottleOfSap()
-        ), weight=1)
+            add_item=items.BottleOfSap(),
+            succeed=True,
+        ), weight=100)
 
         self.outcomes.add(Outcome(character,
             "You get your ax stuck in the tree and can't get it out.",
@@ -1469,6 +1525,7 @@ class ChopDownATree(Action):
         self.outcomes.add(Outcome(character,
             "You enjoy chopping down the tree so much that you chop down "
             "many more and build yourself a cabin.",
+            succeed=True,
         ), weight=1)
 
 
@@ -1509,10 +1566,10 @@ class ChowDown(Action):
             ), weight=1)
 
         if isinstance(self.food, items.WhiteMushroom):
-            character.attack += 1  # TODO don't do this here
             self.outcomes.add(Outcome(character,
                 "You grow larger.",
                 remove_item=character.get_item(items.WhiteMushroom),
+                grow_stronger=1,
             ), weight=2)
 
             self.outcomes.add(Outcome(character,
@@ -1952,7 +2009,8 @@ class RunLikeTheDevil(Action):
             "The Devil is very fast, so you manage to get away.",
             new_person=None,
             unthreat=True,
-            move=2
+            move=2,
+            succeed=True,
         ), weight=9)
 
         self.outcomes.add(Outcome(character,
@@ -2310,6 +2368,7 @@ class BurnThePlaceToTheGround(Action):
             self.outcomes.add(Outcome(character,
                 None,
                 burn_place=self.place,
+                succeed=True,
                 move_to=self.place
             ), weight=4)
 
@@ -2395,6 +2454,12 @@ class LookThroughSomeTrash(Action):
         self.outcomes.add(Outcome(character,
             "You find a bad smell.",
             fail=True
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You find an old ax.",
+            succeed=True,
+            add_item=items.Ax()
         ), weight=1)
 
 
@@ -2542,6 +2607,7 @@ class SaveTheCat(Action):
 
         self.outcomes.add(Outcome(character,
             "You escape with the cat.",
+            succeed=True,
             add_item=items.Cat(),
         ), weight=1)
 

@@ -49,8 +49,8 @@ def add_outcome_actions(choices, character, outcome):
         if not character.place.locked:
             choices.add(actions.LeaveInAHuff(), "c", 5)
     if outcome.succeed:
+        choices.add(actions.ThumpYourselfOnTheChest(), "a", 5)
         choices.add(actions.CelebrateYourSuccess(), "c", 5)
-        #choices.add(actions.ThumpYourselfOnTheChest(), "d", 2)
     if outcome.topic:
         if outcome.new_person == persons.guards:
             choices.add(actions.TellThemYouAreNotALunatic(
