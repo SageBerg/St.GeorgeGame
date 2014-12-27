@@ -72,18 +72,15 @@ def add_person_actions(choices, character):
         choices.add(actions.BoastOfYourBravery(), "b", 5)
     if character.person == persons.st_george:
         choices.add(actions.BegForMoney(), "b", 10)
-    if character.person == persons.st_george:
         choices.add(actions.SingASong(topic="St. George"), "d", 3)
     if character.person == persons.wealthy_merchant:
         choices.add(actions.BoastOfYourBravery(), "b", 1)
-    if character.person == persons.wealthy_merchant:
         choices.add(actions.Buy(weapons.weapons), "b", 30)
-    if character.person == persons.wealthy_merchant:
         choices.add(actions.SingASong(topic="weapons"), "d", 3)
     if character.person == persons.wizard:
         choices.add(actions.BoastOfYourBravery(), "b", 2)
-    if character.person == persons.wizard:
         choices.add(actions.SingASong(), "d", 2)
+        choices.add(actions.SingASong(topic="magic"), "d", 3)
     if character.person != persons.wizard and \
        character.place in [places.streets, places.market]:
         choices.add(actions.LookForTheWizard(), "c", 2)
@@ -123,6 +120,10 @@ def add_place_actions(choices, character):
     if character.place == places.streets and \
        character.person != persons.st_george:
         choices.add(actions.LookForStGeorge(), "a", 2)
+    if character.place == places.lord_carlos_manor:
+        choices.add(actions.AskAboutAssassins(), "d", 10)  # TODO fix weight
+        choices.add(actions.Disguise(), "b", 10)
+        choices.add(actions.SneakAround(), "d", 20)  # TODO fix weight
     if character.place == places.tavern:
         choices.add(actions.AskAboutAssassins(), "a", 1)
         choices.add(actions.BuyADrink(), "b", 2)
@@ -134,6 +135,7 @@ def add_place_actions(choices, character):
         choices.add(actions.RaiseASail(), "b", 5)
         choices.add(actions.YellAPiratePhrase(), "d", 10)
         choices.add(actions.DoSomeGambling(), "d", 1)
+    
     if character.place == places.dark_alley:
         choices.add(actions.LookThroughSomeTrash(), "d", 5)
     if character.place == places.woods:
@@ -184,6 +186,7 @@ def add_character_actions(choices, character):
         choices.add(actions.RunLikeTheDevil(), "c", 18)
         choices.add(actions.LeaveInAHuff(), "c", 2)
         choices.add(actions.WaddleLikeGod(), "c", 2)
+        choices.add(actions.Panic(), "d", 100)  # TODO fix weight
 
 
 def add_default_actions(choices):
@@ -222,8 +225,8 @@ def combat(character):
     takes in a character, returns outcome of fight
     """
 
-    Display().write(character.person.pronouns.subj.capitalize() +
-                    " attack" +
+    Display().write(character.person.pronouns.subj[0].upper() +
+                    character.person.pronouns.subj[1:] +" attack" +
                     character.person.pronouns.tense + " you.")
     return actions.Attack(character.person).clean_execute(character)
 
