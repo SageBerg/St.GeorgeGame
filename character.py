@@ -33,6 +33,10 @@ class Character(object):
         self.prev_act = None
         self.employers = set()
 
+    def grow_stronger(self, amount):
+        Display().write("You grow stronger.")
+        self.attack += amount
+
     def get_money(self, amount):
         if amount > self.money:
             self.money = amount
