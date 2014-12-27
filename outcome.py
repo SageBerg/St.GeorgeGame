@@ -21,6 +21,7 @@ class Outcome(object):
                  remove_item=False,  # USAGE: character.get_item(items.Item)
                  remove_all_items=False,
                  new_weapon=False,
+                 grow_stronger=False,
                  beg=False,
                  burn_place=False,
                  die=False,
@@ -47,6 +48,7 @@ class Outcome(object):
         self.remove_item = remove_item
         self.remove_all_items = remove_all_items
         self.new_weapon = new_weapon
+        self.grow_stronger = grow_stronger
         self.beg = beg
         self.burn_place = burn_place
         self.character = character
@@ -130,5 +132,7 @@ class Outcome(object):
             self.character.remove_employer(self.remove_employer)
         if self.flirt:
             self.flirt[0].attracted += self.flirt[1]
+        if self.grow_stronger:
+            self.character.grow_stronger(self.grow_stronger)
         for func in self.funcs:
             func()
