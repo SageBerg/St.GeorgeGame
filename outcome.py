@@ -20,7 +20,7 @@ class Outcome(object):
                  add_item=False,  # USAGE: items.Item()
                  remove_item=False,  # USAGE: character.get_item(items.Item)
                  remove_all_items=False,
-                 new_weapon=False,
+                 new_weapon=False,  # USAGE: weapons[x]
                  grow_stronger=False,
                  beg=False,
                  burn_place=False,
