@@ -228,6 +228,7 @@ class Arrest(Action):
             character.person.pronouns.tense + " you and throw you in "
             "prison with the other lunatics.",
             unthreat=True,
+            new_person=None,
             fail=True,
         ), weight=1)
 
