@@ -95,6 +95,13 @@ class AskAboutAssassins(Action):
             new_person=persons.pretty_lady
         ), weight=1)
 
+        if character.place == places.lord_carlos_manor:
+            self.outcomes.add(Outcome(character,
+                "You ask a servant about assassins. She asks you to wait where "
+                "you are.",
+                actions=[(RunLikeTheDevil(), "c", 40)],
+            ), weight=10)  # TODO add DoIt
+
 
 class AskDirections(Action):
 
@@ -244,7 +251,8 @@ class Attack(Action):
 
         if character.person.attack >= character.attack:
             self.outcomes.add(Outcome(character,
-                character.person.name.capitalize() + " kill" +
+                character.person.name[0].upper() +
+                character.person.name[1:] + " kill" +
                 character.person.pronouns.tense + " you.",
                 die=True,
             ), weight=1)
@@ -592,6 +600,99 @@ class ThumpYourselfOnTheChest(Action):
 
 
 # B slot actions
+
+
+class Disguise(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.fake_name = random.choice(["St. George.",
+                                        "Lord Arthur.",
+                                        "Lord Bartholomew.",
+                                        "Lord Daniel."])
+        self.name = "Tell the next person you meet that you are " + \
+                    "{0}".format(self.fake_name)
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "You soon have an audience with Lord Carlos. He recognizes you "
+            "when you are admitted to his study.",
+            new_person=persons.lord_carlos,
+            threat=True,
+        ), weight=100)
+
+        self.outcomes.add(Outcome(character,
+            "No one is buying it. You are soon assassinated.",
+            die=True
+        ), weight=1)
+
+
+class BurnThePlaceToTheGround(Action):
+
+    def __init__(self, place):
+        super().__init__()
+        self.place = place
+        self.name = "Burn {0} to the ground.".format(place.name)
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "You accidentally set yourself on fire and promptly burn to the "
+            "ground.",
+            die=True
+        ), weight=1)
+
+        if self.place in places.burnable:
+            self.outcomes.add(Outcome(character,
+                None,
+                burn_place=self.place,
+                succeed=True,
+                move_to=self.place
+            ), weight=4)
+
+        if character.place == places.lord_carlos_manor:
+            self.outcomes.add(Outcome(character,
+                "You get assassinated while looking for kindling.",
+                die=True
+            ), weight=40)
+
+        if character.person == persons.st_george:
+            self.outcomes.add(Outcome(character,
+                "St. George sees you attempting arson and kills you.",
+                die=True
+            ), weight=30)
+
+        if character.person == persons.st_george:
+            self.outcomes.add(Outcome(character,
+                "The wizard sees you attempting arson and turns you into a "
+                "frog. He steps on you.",
+                die=True
+            ), weight=20)
+
+
+class BurnThePlaceToACrisp(BurnThePlaceToTheGround):
+
+    def __init__(self, place):
+        super().__init__(place)
+        self.place = place
+        self.name = "Burn {0} to a crisp.".format(place.name)
+
+
+class LightUpThePlace(BurnThePlaceToTheGround):
+
+    def __init__(self, place):
+        super().__init__(place)
+        self.place = place
+        self.name = "Light up {0}.".format(place.name)
+
+
+class SetThePlaceOnFire(BurnThePlaceToTheGround):
+
+    def __init__(self, place):
+        super().__init__(place)
+        self.place = place
+        self.name = "Set {0} on fire.".format(place.name)
 
 
 class Think(Action):
@@ -2226,6 +2327,27 @@ class WalkThePlank(Action):
 # D slot actions
 
 
+class Panic(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Panic!"
+        self.combat_action = True
+
+    def execute(self, character):
+        options = places.Place.instances - set([character.place])
+        place = random.sample(options, 1)[0]
+
+        self.outcomes.add(Outcome(character,
+            "You don't remember what you did, but you seem to have gotten "
+            "away.",
+            move_to=place,
+            new_person=None,
+            unthreat=True,
+            succeed=True
+        ), weight=1)
+
+
 class SingASong(Action):
 
     def __init__(self, topic=None):
@@ -2271,7 +2393,7 @@ class SingASong(Action):
                     "edge their way toward you.",
                     new_person=persons.assassins,
                     threat=True
-                ), weight=3)
+                ), weight=3000)  # TODO fix weight
 
         if self.topic == "assassins":
             self.outcomes.add(Outcome(character,
@@ -2282,7 +2404,7 @@ class SingASong(Action):
 
         if character.person == persons.wizard:
             self.outcomes.add(Outcome(character,
-                "The wizard complains that you are singing off key. He turns "
+                "The wizard complains that you are singing off-key. He turns "
                 "you into a frog and steps on you.",
                 die=True
             ), weight=20)
@@ -2348,68 +2470,6 @@ class SwingYourCat(Action):
                 threat=True,
                 topic="angry"
             ), weight=3)
-
-
-class BurnThePlaceToTheGround(Action):
-
-    def __init__(self, place):
-        super().__init__()
-        self.place = place
-        self.name = "Burn {0} to the ground.".format(place.name)
-
-    def execute(self, character):
-
-        self.outcomes.add(Outcome(character,
-            "You accidentally set yourself on fire and promptly burn to the "
-            "ground.",
-            die=True
-        ), weight=1)
-
-        if self.place in places.burnable:
-            self.outcomes.add(Outcome(character,
-                None,
-                burn_place=self.place,
-                succeed=True,
-                move_to=self.place
-            ), weight=4)
-
-
-        if character.person == persons.st_george:
-            self.outcomes.add(Outcome(character,
-                "St. George sees you attempting arson and kills you.",
-                die=True
-            ), weight=30)
-
-        if character.person == persons.st_george:
-            self.outcomes.add(Outcome(character,
-                "The wizard sees you attempting arson and turns you into a "
-                "frog. He steps on you.",
-                die=True
-            ), weight=20)
-
-
-class BurnThePlaceToACrisp(BurnThePlaceToTheGround):
-
-    def __init__(self, place):
-        super().__init__(place)
-        self.place = place
-        self.name = "Burn {0} to a crisp.".format(place.name)
-
-
-class LightUpThePlace(BurnThePlaceToTheGround):
-
-    def __init__(self, place):
-        super().__init__(place)
-        self.place = place
-        self.name = "Light up {0}.".format(place.name)
-
-
-class SetThePlaceOnFire(BurnThePlaceToTheGround):
-
-    def __init__(self, place):
-        super().__init__(place)
-        self.place = place
-        self.name = "Set {0} on fire.".format(place.name)
 
 
 class LookThroughSomeTrash(Action):
@@ -2806,6 +2866,70 @@ class DoSomeGambling(Action):
                 funcs=[character.lose_all_money],
                 fail=True,
             ), weight=2)
+
+
+class SneakAround(Action):
+    """
+    Only use in Lord Carlos' manor
+    """
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Sneak around."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "One of the assassin guards noticies you tiptoeing around in "
+            "board daylight. He assassinates you.",
+            die=True
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "Your smell gives you away. You are soon assassinated.",
+            die=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You get the hiccups. You are soon assassinated.",
+            die=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You are sneaking through the stables when a man too fat to "
+            "avoid bumps into you. You are soon assassinated.",
+            die=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "Lord Carlos jumps down from some rafters and assassinates you.",
+            die=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You find a poisoned dagger in a glass case.",
+            new_weapon=weapons[5],
+            succeed=True
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You manage to sneak into Lord Carlos' "
+            "daugher's bedroom. She is {0}".format(random.choice(
+            ["reading at her desk.", "sharpening a dagger.",
+             "petting her cat.", "putting on jewelry.",
+             "painting a picture of you getting assassinated.",])),
+            #new_person=persons.carlos_daughter,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You manage to sneak into Lord Carlos' "
+            "study. He is {0}".format(random.choice(
+            ["writing a letter.", "reading a book.",
+             "looking straight at you.", "eating a steak.",
+             "training a weasel.", "pacing around."])),
+            new_person=persons.lord_carlos,
+            threat=True,
+        ), weight=1)
 
 
 # E slot actions
