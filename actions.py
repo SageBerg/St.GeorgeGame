@@ -181,6 +181,7 @@ class AdmireYourJewels(Action):
                 "The guards catch you with your pants down. They conclude you "
                 "must be a lunatic",
                 new_person=persons.guards,
+                threat=True,
                 topic='curious'
             ), weight=2)
 
@@ -208,6 +209,26 @@ class Apologize(Action):
             "A bystander notices the assassin threatening you. "
             "\"The man said he was sorry, isn't that enough?\" "
             "he says. \"No,\" the assassin replies.",
+            threat=True,
+        ), weight=1)
+
+
+class Arrest(Action):
+
+    def __init__(self, person):
+        super().__init__()
+        self.name = "Arrest " + person.pronouns.obj + "."
+        self.combat_action = True
+
+    def execute(self, character):
+        character.place = places.prison  # TODO might not want this hack
+
+        self.outcomes.add(Outcome(character,
+            character.person.name.capitalize() + " arrest" +
+            character.person.pronouns.tense + " you and throw you in "
+            "prison with the other lunatics.",
+            unthreat=True,
+            fail=True,
         ), weight=1)
 
 
@@ -293,6 +314,7 @@ class LickTheGround(Action):
                 "The local guards see you licking the ground and accuse you of "
                 "being a lunatic.",
                 new_person=persons.guards,
+                threat=True,
             ), weight=3)
 
         if character.place == places.ocean:
@@ -1138,13 +1160,35 @@ class LookForACat(Action):
 
     def execute(self, character):
 
+        self.outcomes.add(Outcome(character,
+            "After days of searching, you manage to find a cat.",
+            add_item=items.Cat(),
+        ), weight=14)
+
+        self.outcomes.add(Outcome(character,
+            "Your efforts to find a cat are fruitless.",
+            fail=True,
+        ), weight=6)
+
+        self.outcomes.add(Outcome(character,
+            "You see something out of the corner of your eye that looks like "
+            "a cat. You chase it to no avail.",
+            fail=True,
+            topic="cats",
+        ), weight=6)
+
+        self.outcomes.add(Outcome(character,
+            "You find a ferocious cat. It kills you.",
+            die=True,
+        ), weight=1)
+
         if character.place in places.burnable and \
            character.place in places.town:
 
             self.outcomes.add(Outcome(character,
                 "You knock a lantern over as you chase a cat.",
                 burn_place=character.place
-            ), weight=2)
+            ), weight=4)
 
         if character.place in places.populated and not character.place.locked:
 
@@ -1152,42 +1196,21 @@ class LookForACat(Action):
                 "You follow a cat through the streets but "
                 "eventually lose track of it.",
                 move_to=places.dark_alley,
-            ), weight=3)
+            ), weight=6)
 
             self.outcomes.add(Outcome(character,
                 "The local guards notice you searching for a cat "
                 "and conclude that you must be a lunatic.",
                 new_person=persons.guards,
+                threat=True,
                 topic="lonely",
-            ), weight=3)
-
-        self.outcomes.add(Outcome(character,
-            "After days of searching, you manage to find a cat.",
-            add_item=items.Cat(),
-        ), weight=7)
-
-        self.outcomes.add(Outcome(character,
-            "Your efforts to find a cat are fruitless.",
-            fail=True,
-        ), weight=3)
-
-        self.outcomes.add(Outcome(character,
-            "You see something out of the corner of your eye that looks like "
-            "a cat. You chase it to no avail.",
-            fail=True,
-            topic="cats",
-        ), weight=3)
-
-        self.outcomes.add(Outcome(character,
-            "You find a ferocious cat. It kills you.",
-            die=True,
-        ), weight=1)
+            ), weight=6)
 
         if character.place == places.pirate_ship:
             self.outcomes.add(Outcome(character,
                 "You find Lord Arthur's freakish cat. The cat has "
                 "eight more tails than a normal cat.",
-            ), weight=1)
+            ), weight=20)
 
 
 class TellThemYouAreNotALunatic(Action):
@@ -1852,6 +1875,7 @@ class GoTo(Action):
                 "On your way out of {0} you run headlong into some guards and "
                 "they say you must be a lunatic.".format(character.place),
                 new_person=persons.guards,
+                threat=True,
                 topic="oblivious"
             ), weight=3)
 
@@ -2262,6 +2286,7 @@ class SwingYourCat(Action):
                 "The local guards notice you swinging your cat around and "
                 "conclude that you must be a lunatic.",
                 new_person=persons.guards,
+                threat=True,
                 topic="angry"
             ), weight=3)
 
@@ -2352,6 +2377,7 @@ class LookThroughSomeTrash(Action):
             "you of being a lunatic.",
             add_item=items.Cat(),
             new_person=persons.guards,
+            threat=True,
             topic="curious"
         ), weight=1)
 
@@ -2455,7 +2481,7 @@ class DanceAJig(Action):
                 flirt=(persons.mermaid, 30),
             ), weight=1)
 
-        if character.person == persons.guards:
+        if character.person == persons.guards:  # TODO these two may not happen
             self.outcomes.add(Outcome(character,
                 "\"We got a dancer,\" one of them says. They throw you in "
                 "prison.",

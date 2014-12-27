@@ -15,9 +15,10 @@ Pronouns = namedtuple("Pronouns", ["subj", "obj", "tense"])
 
 class Person(object):
 
-    def __init__(self, name, attack, pronouns):
+    def __init__(self, name, attack, pronouns, arrester=False):
         self.name = name
         self.attack = attack
+        self.arrester = arrester
         self.pronouns = pronouns
         self.alive = True
         self.state = {}
@@ -33,7 +34,8 @@ assassins = Person("the assassins", 6,
                    Pronouns("the assassins", "the assassins", ""))
 blind_bartender = Person("the blind bartender", 1, Pronouns("he", "him", "s"))
 fat_lady = Person("the fat lady who feeds you", 4, Pronouns("she", "her", "s"))
-guards = Person("the guards", 1, Pronouns("they", "the guards", ""))
+guards = Person("the guards", 1, Pronouns("they", "the guards", ""), 
+                arrester=True)
 mermaid = Person("the mermaid", 3, Pronouns("the mermaid", "the mermaid", "s"))
 mob = Person("the angry mob", 9,
              Pronouns("the angry mob", "the angry mob", "s"))

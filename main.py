@@ -179,7 +179,8 @@ def add_item_actions(choices, character):
 
 def add_character_actions(choices, character):
     if character.threatened:
-        choices.add(actions.PlayDead(), "b", 10)
+        if not character.person.arrester:
+            choices.add(actions.PlayDead(), "b", 10)
         choices.add(actions.RunLikeTheDevil(), "c", 18)
         choices.add(actions.LeaveInAHuff(), "c", 2)
         choices.add(actions.WaddleLikeGod(), "c", 2)
@@ -216,6 +217,17 @@ def add_actions(choices, character, outcome):
         add_default_actions(choices)
 
 
+def combat(character):
+    """
+    takes in a character, returns outcome of fight
+    """
+
+    Display().write(character.person.pronouns.subj.capitalize() +
+                    " attack" +
+                    character.person.pronouns.tense + " you.")
+    return actions.Attack(character.person).clean_execute(character)
+
+
 def main():
     """
     The goal is to have the main function operate as follows:
@@ -250,11 +262,10 @@ def main():
         display.enable()
         if not character.threatened or action.combat_action:
             outcome = action.clean_execute(character)
+        elif character.person.arrester:
+            outcome = actions.Arrest(character.person).clean_execute(character)
         else:
-            Display().write(character.person.pronouns.subj.capitalize() +
-                            " attack" +
-                            character.person.pronouns.tense + " you.")
-            outcome = actions.Attack(character.person).clean_execute(character)
+            outcome = combat(character)
             if not character.alive:
                 break
         character.prev_act = action
