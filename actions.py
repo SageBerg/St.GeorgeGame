@@ -377,6 +377,7 @@ class Attack(Action):
         else:
             self.outcomes.add(Outcome(character,
                 "You kill " + character.person.name + ".",
+                unthreat=True,
                 kill=True,
             ), weight=1)
 
@@ -2957,7 +2958,7 @@ class SingASong(Action):
 
         if character.place == places.church:
             self.outcomes.add(Outcome(character,
-                "A priestess finds your lyrics {0} and has you throw out of "
+                "A priestess finds your lyrics {0} and has you thrown out of "
                 "the church.".format(random.choice(
                     ["blasphemous", "crude", "idiotic", "offensive",
                      "mildly offensive", "uncreative"])),
@@ -3610,12 +3611,15 @@ class EnterTheVoid(Action):
     def __init__(self):
         super().__init__()
         self.name = "Enter the void."
+        self.combat_action = True
 
     def execute(self, character):
         character.place=places.void  # TODO this is a hack
 
         self.outcomes.add(Outcome(character,
             "You enter the void.",
+            unthreat=True,
+            new_person=None,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,

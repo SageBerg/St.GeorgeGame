@@ -239,7 +239,7 @@ def add_item_actions(choices, character):
 
 
 def add_character_actions(choices, character):
-    if character.threatened:
+    if character.threatened and character.person:
         if not character.person.arrester:
             choices.add(actions.PlayDead(), "b", 10)
             choices.add(actions.Panic(), "d", 100)  # TODO fix weight
