@@ -15,6 +15,7 @@ import frog_actions
 import persons
 import items
 import weapons
+import money
 from multiple_choice import MultipleChoice
 
 
@@ -93,26 +94,72 @@ def add_person_actions(choices, character):
 def add_place_actions(choices, character):
     if not character.place.locked and character.place in places.town:
         choices.add(actions.LookForACat(), "b")
-    if character.place == places.docks:
-        choices.add(actions.GoFishing(), "a", 2)
-        choices.add(actions.LookForTheWizard(), "c", 2)
-        choices.add(actions.DoSomeGambling(), "d", 1)
+    if not character.threatened and not character.place.locked:
+        for _ in range(3):
+            choices.add(actions.GoTo(character.place), "c")
+
+    if character.place == places.arctic and character.place.locked:
+        Display().write("Your tongue is stuck to an icicle.")
+
+    if character.place in places.burnable:
+        choices.add(actions.BurnThePlaceToTheGround(character.place), "b", 2)
+    if not random.randint(0, 249) and character.place in places.burnable:
+        choices.add(actions.SetThePlaceOnFire(character.place), "a", 666)
+        choices.add(actions.BurnThePlaceToTheGround(character.place), "b", 666)
+        choices.add(actions.BurnThePlaceToACrisp(character.place), "c", 666)
+        choices.add(actions.LightUpThePlace(character.place), "d", 666)
+
     if character.place == places.arctic:
         choices.add(actions.GoFishing(), "a", 2)
         choices.add(actions.BuildAnIgloo(), "b", 20)
         choices.add(actions.ClubASeal(), "c", 20)
-    if character.place == places.wizards_lab:
-        choices.add(actions.SnoopAround(), "d", 20)
-    if character.place == places.market and \
-        character.person != persons.wealthy_merchant:
-        choices.add(actions.LookForAWeapon(), "a", 10)
-    if character.place == places.market and character.person != persons.wizard:
-        choices.add(actions.LookForTheWizard(), "c", 4)
+        #choices.add(actions.FreezeToDeath(), "d", 2)
+    #if character.place == places.cave:
+        #choices.add(actions.TryToFindAWayOut(), "c", 10)
+    if character.place == places.church:
+        choices.add(actions.LookForStGeorge(), "a", 20)
+        #choices.add(actions.Tithe(), "b", 2)
+        #choices.add(actions.TellAPriest(), "c", 2)
+        choices.add(actions.SingASong(), "d", 2)
     if character.place == places.countryside:
         choices.add(actions.PickSomeFlowers(), "a", 10)
         choices.add(actions.TipACow(), "b", 10)
         choices.add(actions.WanderTheCountryside(), "c", 30)
         choices.add(actions.DoSomeFarmWork(), "d", 10)
+    if character.place == places.dark_alley:
+        #choices.add(actions.LookForAssassins(), "a", 5)
+        #choices.add(actions.LookForBlackMarketItems(), "b", 5)
+        #choices.add(actions.Hide(), "c", 5)
+        choices.add(actions.LookThroughSomeTrash(), "d", 5)
+    if character.place == places.docks:
+        choices.add(actions.GoFishing(), "a", 2)
+        #choices.add(actions.LookForWorkAsASailor(), "b", 2)
+        choices.add(actions.LookForTheWizard(), "c", 2)
+        choices.add(actions.DoSomeGambling(), "d", 1)
+    #if character.place == places.lord_bartholomews_manor:
+        #if persons.lord_bartholomew.alive:
+            #choices.add(actions.AskForAnAudienceWithLordBartholomew(s), "a", 10)
+            #choices.add(actions.ToStraightToLordBartholomew(), "c", 2)
+    if character.place == places.lord_carlos_manor:
+        choices.add(actions.AskAboutAssassins(), "a", 10)
+        choices.add(actions.Disguise(), "b", 10)
+        #if persons.lord_carlos.alive:
+            #choices.add(actions.GoStraightToLordCarlos(), "c", 10)
+        choices.add(actions.SneakAround(), "d", 20)
+    if character.place == places.market:
+        if character.person != persons.wealthy_merchant:
+            choices.add(actions.LookForAWeapon(), "a", 10)
+        #choices.add(actions.GoShopping(), "b", 10)
+        if character.person != persons.wizard:
+            choices.add(actions.LookForTheWizard(), "c", 4)
+        #choices.add(actions.WatchAPlay(), "d", 5)
+    if character.place == places.mermaid_rock:
+        choices.add(actions.GoFishing(), "a", 2)
+        if character.person != persons.mermaid:
+            choices.add(actions.LookForMermaids(), "b", 2)
+        else:
+            choices.add(actions.FlirtWith(persons.mermaid), "d", 2)
+        choices.add(actions.SingASong(), "d", 2)
     if character.place == places.ocean:
         choices.add(actions.GoDivingForPearls(), "a", 10)
         choices.add(actions.LookForMermaids(), "b", 3)
@@ -120,23 +167,6 @@ def add_place_actions(choices, character):
         choices.add(actions.Swim(), "c", 10)
         choices.add(actions.Drown(), "d", 3)
         choices.add(actions.Sink(), "d", 3)
-    if character.place == places.prison:
-        choices.add(actions.BideYourTime(), "b", 10)
-        choices.add(actions.FlirtWith(persons.fat_lady), "c", 10)
-    if character.place == places.streets and \
-       character.person != persons.wizard:
-        choices.add(actions.LookForTheWizard(), "c", 1)
-    if character.place == places.streets and \
-       character.person != persons.st_george:
-        choices.add(actions.LookForStGeorge(), "a", 2)
-    if character.place == places.lord_carlos_manor:
-        choices.add(actions.AskAboutAssassins(), "d", 10)
-        choices.add(actions.Disguise(), "b", 10)
-        choices.add(actions.SneakAround(), "d", 20)
-    if character.place == places.tavern:
-        choices.add(actions.AskAboutAssassins(), "a", 1)
-        choices.add(actions.BuyADrink(), "b", 2)
-        choices.add(actions.DoSomeGambling(), "d", 1)
     if character.place == places.pirate_ship:
         choices.add(actions.GoFishing(), "a", 2)
         choices.add(actions.WalkThePlank(), "c", 10)
@@ -145,28 +175,41 @@ def add_place_actions(choices, character):
         choices.add(actions.RaiseASail(), "b", 5)
         choices.add(actions.YellAPiratePhrase(), "d", 10)
         choices.add(actions.DoSomeGambling(), "d", 1)
-    if character.place == places.dark_alley:
-        choices.add(actions.LookThroughSomeTrash(), "d", 5)
-    if character.place == places.woods:
-        choices.add(actions.PickSomeFlowers(), "a", 10)
-        if character.has_item(items.Ax):
-            choices.add(actions.ChopDownATree(), "a", 20)
-        choices.add(actions.GoMushroomPicking(), "c", 12)
-    if character.place in places.burnable:
-        choices.add(actions.BurnThePlaceToTheGround(character.place), "b", 2)
-    if not character.threatened and not character.place.locked:
-        for _ in range(3):
-            choices.add(actions.GoTo(character.place), "c")
-    if character.place == places.arctic and character.place.locked:
-        Display().write("Your tongue is stuck to an icicle.")
-    if not random.randint(0, 249) and character.place in places.burnable:
-        choices.add(actions.SetThePlaceOnFire(character.place), "a", 666)
-        choices.add(actions.BurnThePlaceToTheGround(character.place), "b", 666)
-        choices.add(actions.BurnThePlaceToACrisp(character.place), "c", 666)
-        choices.add(actions.LightUpThePlace(character.place), "d", 666)
+    if character.place == places.prison:
+        choices.add(actions.BideYourTime(), "b", 10)
+        choices.add(actions.FlirtWith(persons.fat_lady), "c", 10)
+    if character.place == places.streets and \
+       character.person != persons.wizard:
+        if character.person != persons.st_george:
+            choices.add(actions.LookForStGeorge(), "a", 2)
+        #choices.add(actions.GawkAtWomen(), "b", 10)
+        choices.add(actions.LookForTheWizard(), "c", 1)
+        #if character.money == money.small_fortune or \
+        #   character.money == money.large_fortune:
+            #choices.add(actions.FlauntYourWealth(), "d", 2)
+    if character.place == places.tavern:
+        choices.add(actions.AskAboutAssassins(), "a", 1)
+        choices.add(actions.BuyADrink(), "b", 2)
+        #choices.add(actions.LookForLadies(), "c", 2)
+        choices.add(actions.DoSomeGambling(), "d", 1)
+    #if character.place == places.tower:
+        #choices.add(actions.AskForAnAudienceWithLordDaniel(), "a", 1)
+        #choices.add(actions.ComplainAboutUnfairImprisonment(), "c", 1)
+        #choices.add(actions.TrainWithTheGuards(), "d", 1)
     if character.place == places.void:
         choices.add(actions.LookForVoidDust(), "a", 1)
-        
+    if character.place == places.wizards_lab:
+        #choices.add(actions.ReadASpellBook(), "b", 5)
+        #choices.add(actions.BrewAPotion(), "b", 5)
+        #choices.add(actions.TrashThePlace(), "c", 2)
+        choices.add(actions.SnoopAround(), "d", 20)
+    if character.place == places.woods:
+        if character.has_item(items.Ax):
+            choices.add(actions.ChopDownATree(), "a", 20)
+        choices.add(actions.PickSomeFlowers(), "a", 10)
+        #choices.add(actions.LookForWitches(), "b", 10)
+        choices.add(actions.GoMushroomPicking(), "c", 12)
+        #choices.add(actions.LookForNymphs(), "d", 10)
 
 def add_item_actions(choices, character):
     if character.has_item(items.ManyColoredMushroom):
