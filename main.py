@@ -111,24 +111,29 @@ def add_place_actions(choices, character):
 
     if character.place == places.arctic:
         choices.add(actions.GoFishing(), "a", 2)
+        if character.has_item(items.SealCarcass):
+            choices.add(actions.BarterWithEskimos(), "b", 2)
         choices.add(actions.BuildAnIgloo(), "b", 20)
         choices.add(actions.ClubASeal(), "c", 20)
-        #choices.add(actions.FreezeToDeath(), "d", 2)
-    #if character.place == places.cave:
-        #choices.add(actions.TryToFindAWayOut(), "c", 10)
+        choices.add(actions.FreezeToDeath(), "d", 2)
+    if character.place == places.cave:
+        choices.add(actions.LookForAWayOut(), "c", 10)
     if character.place == places.church:
         if character.person != persons.st_george:
             choices.add(actions.LookForStGeorge(), "a", 20)
-        #choices.add(actions.Tithe(), "b", 2)
-        #choices.add(actions.TellAPriest(), "c", 2)
-        choices.add(actions.SingASong(), "d", 2)
+        if character.money != money.none:
+            choices.add(actions.Tithe(), "b", 10)
+        choices.add(actions.TellAPriest("that God doesn't exist"), "c", 1)
+        choices.add(actions.TellAPriest("that he's fat"), "c", 1)
+        choices.add(actions.TellAPriest("that you are the chosen one"), "c", 1)
+        choices.add(actions.SingASong("God"), "d", 2)
     if character.place == places.countryside:
         choices.add(actions.PickSomeFlowers(), "a", 10)
         choices.add(actions.TipACow(), "b", 10)
         choices.add(actions.WanderTheCountryside(), "c", 30)
         choices.add(actions.DoSomeFarmWork(), "d", 10)
     if character.place == places.dark_alley:
-        #choices.add(actions.LookForAssassins(), "a", 5)
+        choices.add(actions.LookForAssassins(), "a", 5)
         #choices.add(actions.LookForBlackMarketItems(), "b", 5)
         #choices.add(actions.Hide(), "c", 5)
         choices.add(actions.LookThroughSomeTrash(), "d", 5)
