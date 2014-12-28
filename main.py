@@ -94,9 +94,12 @@ def add_place_actions(choices, character):
     if not character.place.locked and character.place in places.town:
         choices.add(actions.LookForACat(), "b")
     if character.place == places.docks:
+        choices.add(actions.GoFishing(), "a", 2)
         choices.add(actions.LookForTheWizard(), "c", 2)
         choices.add(actions.DoSomeGambling(), "d", 1)
     if character.place == places.arctic:
+        choices.add(actions.GoFishing(), "a", 2)
+        choices.add(actions.BuildAnIgloo(), "b", 20)
         choices.add(actions.ClubASeal(), "c", 20)
     if character.place == places.wizards_lab:
         choices.add(actions.SnoopAround(), "d", 20)
@@ -106,6 +109,7 @@ def add_place_actions(choices, character):
     if character.place == places.market and character.person != persons.wizard:
         choices.add(actions.LookForTheWizard(), "c", 4)
     if character.place == places.countryside:
+        choices.add(actions.PickSomeFlowers(), "a", 10)
         choices.add(actions.TipACow(), "b", 10)
         choices.add(actions.WanderTheCountryside(), "c", 30)
         choices.add(actions.DoSomeFarmWork(), "d", 10)
@@ -134,18 +138,19 @@ def add_place_actions(choices, character):
         choices.add(actions.BuyADrink(), "b", 2)
         choices.add(actions.DoSomeGambling(), "d", 1)
     if character.place == places.pirate_ship:
+        choices.add(actions.GoFishing(), "a", 2)
         choices.add(actions.WalkThePlank(), "c", 10)
         choices.add(actions.ClimbIntoTheCrowsNest(), "b", 5)
         choices.add(actions.ScrubTheDeck(), "b", 5)
         choices.add(actions.RaiseASail(), "b", 5)
         choices.add(actions.YellAPiratePhrase(), "d", 10)
         choices.add(actions.DoSomeGambling(), "d", 1)
-    
     if character.place == places.dark_alley:
         choices.add(actions.LookThroughSomeTrash(), "d", 5)
     if character.place == places.woods:
+        choices.add(actions.PickSomeFlowers(), "a", 10)
         if character.has_item(items.Ax):
-            choices.add(actions.ChopDownATree(), "a", 12)
+            choices.add(actions.ChopDownATree(), "a", 20)
         choices.add(actions.GoMushroomPicking(), "c", 12)
     if character.place in places.burnable:
         choices.add(actions.BurnThePlaceToTheGround(character.place), "b", 2)

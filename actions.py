@@ -69,6 +69,68 @@ class Action(object):
 # A slot actions
 
 
+class PickSomeFlowers(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Pick some flowers."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "{0}".format(random.choice([
+            "You find many pretty flowers.",
+            "You peasant girl picks flowers with you. She tells you she "
+            "wants to be like Lord Bartholomew when she grows up.",
+            "You spend all day looking for flowers, but it was worth it.",
+            "You get stung by a bee, but you still find many pretty flowers.",
+            ])),
+            add_item=items.BouquetOfFlowers(),
+            succeed=True,
+        ), weight=4)
+
+        self.outcomes.add(Outcome(character,
+            "You can't find any flowers. Only grass.",
+            fail=True,
+        ), weight=1)
+
+
+class GoFishing(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Go fishing."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "You don't catch any fish.",
+            fail=True,
+        ), weight=10)
+
+        self.outcomes.add(Outcome(character,
+            "You fish up an ax.",
+            add_item=items.Ax(),
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You fish up a pitchfork.",
+            new_weapon=weapons[0],
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You catch a fish.",
+            add_item=items.Fish(),
+            succeed=True,
+        ), weight=10)
+
+        if character.place == places.docks:
+            self.outcomes.add(Outcome(character,
+                "You don't catch any fish, but the assassins catch you.",
+                die=True,
+            ), weight=1)
+
+
 class TakeIt(Action):
 
     def __init__(self, wronged_party, item):
@@ -345,7 +407,9 @@ class LickTheGround(Action):
     def execute(self, character):
 
         self.outcomes.add(Outcome(character,
-            "You catch an infection and spend three weeks fighting it.",
+            "You catch an infection and spend {0} weeks fighting "
+            "it.".format(random.choice(["two", "three", "four",
+                                        "five", "six"])),
             die=True,
         ), weight=1)
 
@@ -615,8 +679,9 @@ class ThumpYourselfOnTheChest(Action):
         if character.place in places.populated or \
            character.place == places.countryside:
             self.outcomes.add(Outcome(character,
-                "A peasant woman sees you thump your chest and seems impressed. "
-                "Unfortunately her husband is not. He ushers her away.",
+                "A peasant woman sees you thump your chest and seems "
+                "impressed. Unfortunately her husband is not. He ushers her "
+                "away.",
                 fail=True,
             ), weight=1)
 
@@ -635,6 +700,46 @@ class ThumpYourselfOnTheChest(Action):
 
 
 # B slot actions
+
+
+class BuildAnIgloo(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Build an igloo."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "While building your igloo, you slip on some ice and die.",
+            die=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You can't figure out how to build an igloo.",
+            fail=True,
+        ), weight=1)
+
+        if not character.has_item(items.SealCarcass) and \
+           not character.has_item(items.Fish):
+            self.outcomes.add(Outcome(character,
+                "Your igloo protects you from the elements, "
+                "but not from your hunger.",
+                die=True,
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "You get bored and hungry inside your igloo.",
+            ), weight=1)
+
+        else:
+            self.outcomes.add(Outcome(character,
+                "You survive in your igloo until winter by eating your seal. "
+                "The winter ice sheet allows you to get back to land.",
+                move_to=places.woods,
+                remove_item=character.get_item(items.SealCarcass),
+                succeed=True,
+            ), weight=50)
 
 
 class Disguise(Action):
@@ -834,7 +939,7 @@ class Think(Action):
             ), weight=3)
 
             self.outcomes.add(Outcome(character,
-                "You wonder if any peasant women would ."
+                "You wonder if any peasant women would "
                 "go for a man like you.",
                 topic="peasants"
             ), weight=2)
@@ -1374,6 +1479,13 @@ class LookForACat(Action):
 
     def execute(self, character):
 
+        if character.has_item(items.Fish):
+            self.outcomes.add(Outcome(character,
+                "A cat smells your fish and approaches you.",
+                succeed=True,
+                add_item=items.Cat(),
+            ), weight=20)
+
         self.outcomes.add(Outcome(character,
             "After days of searching, you manage to find a cat.",
             succeed=True,
@@ -1606,7 +1718,7 @@ class ClubASeal(Action):
             "to club a seal.",
             add_item=items.SealCarcass(),
             succeed=True,
-        ), weight=1)
+        ), weight=100)  # TODO fix
 
         self.outcomes.add(Outcome(character,
             "You manage "
