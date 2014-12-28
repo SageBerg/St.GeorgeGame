@@ -70,6 +70,7 @@ def add_person_actions(choices, character):
         choices.add(actions.BoastOfYourBravery(), "b", 1)
     if character.person == persons.pretty_lady:
         choices.add(actions.BoastOfYourBravery(), "b", 5)
+        choices.add(actions.FlirtWith(persons.pretty_lady), "c", 1000) # TODO fix
     if character.person == persons.st_george:
         choices.add(actions.BegForMoney(), "b", 10)
         choices.add(actions.SingASong(topic="St. George"), "d", 3)
@@ -90,11 +91,15 @@ def add_person_actions(choices, character):
 
 
 def add_place_actions(choices, character):
-    if not character.place.locked and character.place in places.populated:
+    if not character.place.locked and character.place in places.town:
         choices.add(actions.LookForACat(), "b")
     if character.place == places.docks:
         choices.add(actions.LookForTheWizard(), "c", 2)
         choices.add(actions.DoSomeGambling(), "d", 1)
+    if character.place == places.arctic:
+        choices.add(actions.ClubASeal(), "c", 20)
+    if character.place == places.wizards_lab:
+        choices.add(actions.SnoopAround(), "d", 20)
     if character.place == places.market and \
         character.person != persons.wealthy_merchant:
         choices.add(actions.LookForAWeapon(), "a", 10)
@@ -121,9 +126,9 @@ def add_place_actions(choices, character):
        character.person != persons.st_george:
         choices.add(actions.LookForStGeorge(), "a", 2)
     if character.place == places.lord_carlos_manor:
-        choices.add(actions.AskAboutAssassins(), "d", 10)  # TODO fix weight
+        choices.add(actions.AskAboutAssassins(), "d", 10)
         choices.add(actions.Disguise(), "b", 10)
-        choices.add(actions.SneakAround(), "d", 20)  # TODO fix weight
+        choices.add(actions.SneakAround(), "d", 20)
     if character.place == places.tavern:
         choices.add(actions.AskAboutAssassins(), "a", 1)
         choices.add(actions.BuyADrink(), "b", 2)
@@ -183,10 +188,10 @@ def add_character_actions(choices, character):
     if character.threatened:
         if not character.person.arrester:
             choices.add(actions.PlayDead(), "b", 10)
+            choices.add(actions.Panic(), "d", 100)  # TODO fix weight
         choices.add(actions.RunLikeTheDevil(), "c", 18)
         choices.add(actions.LeaveInAHuff(), "c", 2)
         choices.add(actions.WaddleLikeGod(), "c", 2)
-        choices.add(actions.Panic(), "d", 100)  # TODO fix weight
 
 
 def add_default_actions(choices):
