@@ -40,7 +40,7 @@ class Outcome(object):
                  add_employer=None,
                  remove_employer=None,
                  topic=None,
-                 funcs=(),
+                 funcs=(), # USAGE [action]
                  actions=(),  # USAGE: [(Action action(), srt slot, int weight)]
                  succeed=False
                  ):
@@ -89,7 +89,11 @@ class Outcome(object):
         if self.new_weapon and self.character.attack < self.new_weapon.attack:
             self.character.weapon = self.new_weapon
             self.character.attack = self.new_weapon.attack
-            Display().write("You now have a " + self.new_weapon.name + ".")
+            if self.new_weapon.name[0] in "aeiou":
+                Display().write("You now have an " +
+                                self.new_weapon.name + ".")
+            else:
+                Display().write("You now have a " + self.new_weapon.name + ".")
         if self.beg:
             self.character.person.state["given money"] = True
         if self.lock:
