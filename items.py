@@ -22,6 +22,20 @@ class Item(object):
         return self.name
 
 
+class BouquetOfFlowers(Item):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "bouquet of flowers"
+
+
+class Fish(Item):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "fish"
+
+
 class SealCarcass(Item):
 
     def __init__(self):
