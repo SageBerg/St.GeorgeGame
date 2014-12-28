@@ -69,6 +69,41 @@ class Action(object):
 # A slot actions
 
 
+class TakeIt(Action):
+
+    def __init__(self, wronged_party, item):
+        super().__init__()
+        self.wronged_party = wronged_party
+        self.item = item
+        self.name = "Take it."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            None,
+            add_item=self.item(),
+        ), weight=3)
+
+        if self.wronged_party.alive:
+            self.outcomes.add(Outcome(character,
+                self.wronged_party.name[0].upper() +
+                self.wronged_party.name[1:] + " notice" +
+                self.wronged_party.pronouns.tense + " you taking it and kill" +
+                self.wronged_party.pronouns.tense + " you.",
+                die=True,
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                self.wronged_party.name[0].upper() +
+                self.wronged_party.name[1:] + " notice" +
+                self.wronged_party.pronouns.tense + " you taking it and " +
+                "become" +
+                self.wronged_party.pronouns.tense + " wroth with you.",
+                new_person=self.wronged_party,
+                threat=True,
+            ), weight=1)
+
+
 class AskAboutAssassins(Action):
 
     def __init__(self):
@@ -93,7 +128,7 @@ class AskAboutAssassins(Action):
             "During your search, you strike up a conversation "
             "with a pretty lady.",
             new_person=persons.pretty_lady
-        ), weight=1)
+        ), weight=100) # TODO fix
 
         if character.place == places.lord_carlos_manor:
             self.outcomes.add(Outcome(character,
@@ -637,11 +672,21 @@ class BurnThePlaceToTheGround(Action):
 
     def execute(self, character):
 
-        self.outcomes.add(Outcome(character,
-            "You accidentally set yourself on fire and promptly burn to the "
-            "ground.",
-            die=True
-        ), weight=1)
+        if not character.has_item(items.FireProofCloak):
+            self.outcomes.add(Outcome(character,
+                "You accidentally set yourself on fire and promptly burn to "
+                "the ground.",
+                die=True
+            ), weight=1)
+        else:
+            if self.place in places.burnable:
+                self.outcomes.add(Outcome(character,
+                    "You almost perish in the blaze, but your "
+                    "fancy red cloak is fireproof.",
+                    burn_place=self.place,
+                    succeed=True,
+                    move_to=self.place
+                ), weight=1)
 
         if self.place in places.burnable:
             self.outcomes.add(Outcome(character,
@@ -659,7 +704,7 @@ class BurnThePlaceToTheGround(Action):
 
         if character.person == persons.st_george:
             self.outcomes.add(Outcome(character,
-                "St. George sees you attempting arson and kills you.",
+                "St. George sees you attempting arson and smites you.",
                 die=True
             ), weight=30)
 
@@ -730,9 +775,15 @@ class Think(Action):
             "You get lost in your thoughts.",
         ), weight=1)
 
-        if character.place != places.tavern:
+        if character.place != places.tavern and \
+            persons.pretty_lady.name != "Olga":
             self.outcomes.add(Outcome(character,
                 "You think about a pretty lady you saw in the tavern.",
+                topic="marriage"
+            ), weight=1)
+        elif persons.pretty_lady.name == "Olga":
+            self.outcomes.add(Outcome(character,
+                "You think about Olga.",
                 topic="marriage"
             ), weight=1)
 
@@ -957,13 +1008,21 @@ class PlayDead(Action):
             die=True
         ), weight=2)
 
-        self.outcomes.add(Outcome(character,
-            "You are too pathetic for {0} to kill.".format(
-                character.person.pronouns.subj),
-            unthreat=True,
-            new_person=None,
-            fail=True
-        ), weight=1)
+        if character.person != persons.lord_carlos:
+            self.outcomes.add(Outcome(character,
+                "You are too pathetic for {0} to kill.".format(
+                    character.person.pronouns.subj),
+                unthreat=True,
+                new_person=None,
+                fail=True
+            ), weight=1)
+        else:
+            self.outcomes.add(Outcome(character,
+                "Your patheticness does not soften Lord Carlos' {0} "
+                "heart.".format(random.choice(["stony", "icy", "cold",
+                                               "evil", "bitter", "cruel",])),
+                die=True,
+            ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You go the extra mile to make it realistic.",
@@ -972,7 +1031,7 @@ class PlayDead(Action):
 
         self.outcomes.add(Outcome(character,
             "Just to be sure, {0} kill{1} you.".format(
-                character.person.pronouns.subj, 
+                character.person.pronouns.subj,
                 character.person.pronouns.tense),
             die=True
         ), weight=1)
@@ -1522,6 +1581,44 @@ class LookForMermaids(Action):
 # C slot actions
 
 
+class ClubASeal(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Club a seal."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "After a few days of waiting at a hole in the ice, you freeze "
+            "do death.",
+            die=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "The local polar bears aren't happy with you on their turf. "
+            "You are soon mauled.",
+            die=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "After a few days of waiting at a hole in the ice, you manage "
+            "to club a seal.",
+            add_item=items.SealCarcass(),
+            succeed=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You manage "
+            "to club a seal, but it swims away.",
+            fail=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "While waiting for a seal, you are very cold.",
+        ), weight=1)
+
+
 class CelebrateYourSuccess(Action):
 
     def __init__(self):
@@ -1554,6 +1651,16 @@ class CelebrateYourSuccess(Action):
             self.outcomes.add(Outcome(character,
                 "You wander around throwing all of your money in the air.",
                 funcs=[character.lose_all_money],
+            ), weight=1)
+
+        if character.place == places.arctic:
+
+            self.outcomes.add(Outcome(character,
+                "You make a snow woman.",
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "You make a snow angel.",
             ), weight=1)
 
         if character.place == places.tavern:
@@ -1693,6 +1800,7 @@ class FlirtWith(Action):
 
         if self.person == persons.fat_lady and \
            persons.fat_lady.name != "Felicity":
+
             self.outcomes.add(Outcome(character,
                 "She ignores your hoots.",
                 flirt=(persons.fat_lady, -1),
@@ -1740,7 +1848,8 @@ class FlirtWith(Action):
                     "Felicity.",
                     flirt=(persons.fat_lady, 2),
                     funcs=[change_name, change_pronouns]
-                ), weight=100)
+                ), weight=1000)
+
         elif self.person == persons.fat_lady:  # We know her name
 
             self.outcomes.add(Outcome(character,
@@ -1789,7 +1898,97 @@ class FlirtWith(Action):
                     love_confessor=persons.fat_lady
                 ), weight=100)
 
-                # places.prison.options["a"].add(SayYouLoveHer(), weight=777)
+        if self.person == persons.pretty_lady and \
+           persons.pretty_lady.name != "Olga":
+
+            self.outcomes.add(Outcome(character,
+                "When you sqeeze her butt, she stabs you in the heart with a "
+                "poisoned dagger.",
+                die=True,
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "You play a game of darts together. You get upset when you "
+                "lose.",
+                flirt=(persons.pretty_lady, -1),
+                fail=True,
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "You chat her up for a while and find out that you both like "
+                "cats. She says her cat loves being petted.",
+                flirt=(persons.pretty_lady, 2),
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "You say the flower in her hair looks goes well with "
+                "her eyes. She says you can smell her flower if you like.",
+                flirt=(persons.pretty_lady, 2),
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "She sits on your lap when you buy her a drink.",
+                flirt=(persons.pretty_lady, 2),
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "You both laugh about how bad the ale is. The blind bartender "
+                "is not pleased.",
+                flirt=(persons.pretty_lady, 2),
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "You have a meal together.",
+                flirt=(persons.pretty_lady, 2),
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "She plays with your hair while you talk about your exploits.",
+                flirt=(persons.pretty_lady, 2),
+            ), weight=1)
+
+            if persons.pretty_lady.attracted > 3:
+                def change_name():
+                    persons.pretty_lady.name = "Olga"
+                def change_pronouns():
+                    persons.pretty_lady.pronouns = \
+                        persons.Pronouns("Olga", "Olga", "s")
+                self.outcomes.add(Outcome(character,
+                    "She says her name is Olga. You also tell your name.",
+                    flirt=(persons.pretty_lady, 2),
+                    funcs=[change_name, change_pronouns]
+                ), weight=1000)
+
+        elif self.person == persons.pretty_lady and \
+             character.place == places.tavern:  # We know her name
+
+            self.outcomes.add(Outcome(character,
+                "You follow Olga to her room, "
+                "where she shows you some paintings she's borrowing "
+                "from Lord Carlos.",
+                new_person=persons.pretty_lady,
+                move_to=places.upstairs,
+                flirt=(persons.pretty_lady, 2),
+            ), weight=1)
+
+        elif self.person == persons.pretty_lady and \
+             character.place == places.upstairs:
+
+            self.outcomes.add(Outcome(character,
+                "You make passionate love together.",
+                succeed=True,
+                flirt=(persons.pretty_lady, 2),
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "Olga whispers that she's been stalking you.",
+                flirt=(persons.pretty_lady, 1),
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "Olga turns out to be an assassin. She assassinates you.",
+                flirt=(persons.pretty_lady, 2),
+            ), weight=1)
 
 
 class GoToSleep(Action):
@@ -2347,6 +2546,16 @@ class Panic(Action):
             succeed=True
         ), weight=1)
 
+        self.outcomes.add(Outcome(character,
+            "Panicking doesn't help.",
+            die=True,
+        ), weight=4)
+
+        self.outcomes.add(Outcome(character,
+            "Panicking doesn't save you.",
+            die=True,
+        ), weight=5)
+
 
 class SingASong(Action):
 
@@ -2360,13 +2569,40 @@ class SingASong(Action):
 
     def execute(self, character):
 
+        if character.place == places.upstairs and \
+           character.person == persons.pretty_lady:
+            self.outcomes.add(Outcome(character,
+                "You sing a romantic ballad. Olga is impressed.",
+                flirt=(persons.pretty_lady, 2),
+            ), weight=20)
+
+            self.outcomes.add(Outcome(character,
+                "Olga interrupts your song by kissing you.",
+                flirt=(persons.pretty_lady, 2),
+            ), weight=20)
+
         if character.place == places.mermaid_rock:
             self.outcomes.add(Outcome(character,
                 "As you sing, a ship sails by. The crew has wax in their "
                 "ears and the captain is tied to the mast. He is not "
                 "impressed.",
                 fail=True,
-            ), weight=100)
+            ), weight=10)
+
+            if character.person == persons.mermaid:
+                self.outcomes.add(Outcome(character,
+                    "The mermaid enjoys your singing and sings with you.",
+                    flirt=(persons.mermaid, 2),
+                ), weight=20)
+
+                self.outcomes.add(Outcome(character,
+                    "The mermaid is displeased with your choice of lyrics and "
+                    "pushes you into the ocean.",
+                    move_to=places.ocean,
+                    flirt=(persons.mermaid, -1),
+                    fail=True,
+                ), weight=10)
+
 
         if character.place in places.populated:
 
@@ -2393,7 +2629,7 @@ class SingASong(Action):
                     "edge their way toward you.",
                     new_person=persons.assassins,
                     threat=True
-                ), weight=3000)  # TODO fix weight
+                ), weight=3)
 
         if self.topic == "assassins":
             self.outcomes.add(Outcome(character,
@@ -2929,6 +3165,34 @@ class SneakAround(Action):
              "training a weasel.", "pacing around."])),
             new_person=persons.lord_carlos,
             threat=True,
+        ), weight=1)
+
+
+class SnoopAround(Action):
+    """
+    Only use in Wizard's lab
+    """
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Snoop around."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "The Wizard finds you and conks you on the head with his staff.",
+            move_to=places.arctic,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You accidentally knock over a bottle of roiling black vapor.",
+            die=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You find a fancy red cloak.",
+            actions=[(TakeIt(persons.wizard, items.FireProofCloak), "a", 100)],
+            topic="cloaks",
         ), weight=1)
 
 
