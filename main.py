@@ -117,7 +117,8 @@ def add_place_actions(choices, character):
     #if character.place == places.cave:
         #choices.add(actions.TryToFindAWayOut(), "c", 10)
     if character.place == places.church:
-        choices.add(actions.LookForStGeorge(), "a", 20)
+        if character.person != persons.st_george:
+            choices.add(actions.LookForStGeorge(), "a", 20)
         #choices.add(actions.Tithe(), "b", 2)
         #choices.add(actions.TellAPriest(), "c", 2)
         choices.add(actions.SingASong(), "d", 2)

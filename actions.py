@@ -720,8 +720,7 @@ class BuildAnIgloo(Action):
             fail=True,
         ), weight=1)
 
-        if not character.has_item(items.SealCarcass) and \
-           not character.has_item(items.Fish):
+        if not character.has_item(items.SealCarcass):
             self.outcomes.add(Outcome(character,
                 "Your igloo protects you from the elements, "
                 "but not from your hunger.",
@@ -902,7 +901,7 @@ class Think(Action):
            character.place == places.dark_alley or \
            character.place == places.lord_carlos_manor:
             self.outcomes.add(Outcome(character,
-                "You think about how painful it would be to get stabbed."
+                "You think about how painful it would be to get stabbed. "
                 "You soon find out.",
                 die=True
             ), weight=4)
