@@ -22,6 +22,20 @@ class Item(object):
         return self.name
 
 
+class SealCarcass(Item):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "seal carcass"
+
+
+class FireProofCloak(Item):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "fancy red cloak"
+
+
 class ManyColoredMushroom(Item):
 
     def __init__(self):
