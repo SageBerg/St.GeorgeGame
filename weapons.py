@@ -17,4 +17,4 @@ Weapon("hammer", 4, 1),
 Weapon("long pitchfork", 5, 1),
 Weapon("poisoned dagger", 6, 2),
 Weapon("jeweled cutlass", 7, 3),
-Weapon("dagger", 8, 2) ]
+Weapon("iron hammer", 8, 2) ]
