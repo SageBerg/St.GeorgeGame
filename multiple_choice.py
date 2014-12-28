@@ -71,7 +71,8 @@ class MultipleChoice(object):
                 if not e_off:
                     go_to_next = True
                 else:
-                    print("e is not a valid option")
+                    print("Enter a, b, c, or d.")
+                    choice = input()
             else:
                 go_to_next = True
         return self.actions[choice]
