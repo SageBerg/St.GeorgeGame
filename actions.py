@@ -69,6 +69,27 @@ class Action(object):
 # A slot actions
 
 
+class LookForAssassins(Action):
+    """
+    Note: only use in dark alley
+    """
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Look for assassins."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "You don't see any.",
+            die=True,
+        ), weight=2)
+
+        self.outcomes.add(Outcome(character,
+            "The dark alley appears to be safe.",
+        ), weight=1)
+
+
 class PickSomeFlowers(Action):
 
     def __init__(self):
@@ -591,14 +612,30 @@ class KillYourselfInFrustration(Action):
         ), weight=3)
 
         if character.place != places.ocean:
-            self.outcomes.add(Outcome(character,
-                "You set yourself on fire and burn to a crisp.",
-                die=True,
-            ), weight=3)
+            if not character.has_item(items.FireProofCloak):
+                self.outcomes.add(Outcome(character,
+                    "You set yourself on fire and burn to a crisp.",
+                    die=True,
+                ), weight=3)
+            else:
+                self.outcomes.add(Outcome(character,
+                    "You try to set yourself on fire, but your fancy red "
+                    "cloak is fireproof.",
+                    fail=True,
+                ), weight=3)
         else:
             self.outcomes.add(Outcome(character,
                 "You drown trying to set yourself on fire.",
                 die=True,
+            ), weight=3)
+
+        if character.place == places.countryside or \
+           character.place == places.lord_bartholomews_manor or \
+           character.place == places.streets:
+            self.outcomes.add(Outcome(character,
+                "You are about to impail yourself on a fence post when a "
+                "small boy walks by. By the time he leaves, your stupidity "
+                "is no longer compailing you to kill yourself.",
             ), weight=3)
 
 
@@ -622,6 +659,9 @@ class KillEverybodyInAFitOfRage(Action):
 
 
 class SayYouLoveHer(Action):
+    """
+    NOTE: right now this is only for Felicity
+    """
 
     def __init__(self, person):
         super().__init__()
@@ -700,6 +740,80 @@ class ThumpYourselfOnTheChest(Action):
 
 
 # B slot actions
+
+
+class Tithe(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Tithe."
+
+    def execute(self, character):
+
+        if character.money == money.pittance:
+            character.lose_all_money()
+
+        self.outcomes.add(Outcome(character,
+            "You feel {0}.".format(random.choice(
+                ["like your sins will be forgiven", "holier",
+                 "holy", "like a good person"])),
+            succeed=True,
+        ), weight=4)
+
+        self.outcomes.add(Outcome(character,
+            "You feel {0}.".format(random.choice(
+                ["like you've been cheated", "like you wasted your money",
+                 "like the church will waste the money", "unfulfilled"])),
+            fail=True,
+        ), weight=4)
+
+        self.outcomes.add(Outcome(character,
+            "A priestess blesses you.",
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "It was a good time to make peace with God. Lord Carlos steps "
+            "out from behind a pillar and assassinates you.",
+            die=True,
+        ), weight=1)
+
+        if character.attack > 7:
+            self.outcomes.add(Outcome(character,
+                "St. George sees that you are a righteous man and gives you an "
+                "iron hammer to help you do God's work.",
+                new_weapon=weapons[7],
+                new_person=persons.st_george,
+            ), weight=1)
+
+
+class BarterWithEskimos(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Barter with the Eskimos."
+
+    def execute(self, character):
+
+        if not character.has_any_items:
+            self.outcomes.add(Outcome(character,
+                "You have nothing they want.",
+                fail=True,
+            ), weight=10000)
+
+        if character.has_item(items.SealCarcass):
+            self.outcomes.add(Outcome(character,
+                "You trade your seal for passage back to land.",
+                move_to=places.woods,
+                topic="Eskimos",
+            ), weight=9)
+
+        self.outcomes.add(Outcome(character,
+            "The Eskimos drive a hard bargain, but take you back to land in "
+            "one of their kayaks.",
+            funcs=[character.remove_all_items],
+            move_to=places.woods,
+            topic="Eskimos",
+        ), weight=1)
 
 
 class BuildAnIgloo(Action):
@@ -971,7 +1085,12 @@ class Think(Action):
             self.outcomes.add(Outcome(character,
                 "You think about the darkness that is crushing in on you from "
                 "all sides.",
+            ), weight=9)
+
+            self.outcomes.add(Outcome(character,
+                "You think you hear bats, but you also think you might be crazy.",
             ), weight=3)
+
 
             self.outcomes.add(Outcome(character,
                 "You think about death."
@@ -1692,6 +1811,78 @@ class LookForMermaids(Action):
 # C slot actions
 
 
+class TellAPriest(Action):
+
+    def __init__(self, idea):
+        super().__init__()
+        self.idea = idea 
+        self.name = "Tell a priest " + self.idea + "."
+
+    def execute(self, character):
+
+        if self.idea == "that God doesn't exist":
+            self.outcomes.add(Outcome(character,
+                "The priest thinks for a moment and realizes you're "
+                "right. \"What a fool I've been,\" he says. \"I'll go and "
+                "become a peasant.\"",
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "The priest thinks for a moment and realizes you're "
+                "right. \"What a fool I've been,\" he says. \"I'm going to "
+                "go and find a wife.\"",
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "God smites you for your {0}.".format(random.choice([
+                    "arrogance", "foolishness", "rudeness", "balsphemy",
+                    "tactlessness", "faithlessness"])),
+                die=True,
+            ), weight=2)
+
+        if self.idea == "that he's fat":
+            self.outcomes.add(Outcome(character,
+                "He runs off crying.",
+                succeed=True,
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "\"Only God can judge me,\" he says.",
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "\"Food is my only indulgence,\" he says proudly.",
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "St. George overhears your comment and agrees with you, "
+                "but throws you out of the church for rudeness.",
+                move_to=places.streets,
+            ), weight=1)
+
+        if self.idea == "that you are the chosen one":
+            self.outcomes.add(Outcome(character,
+                "The priest finds your arguments so pitiful that he gives "
+                "you a pittance and sends you on your way.",
+                get_money=money.pittance,
+                move_to=places.streets,
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "He says he has his doubts.",
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "\"I would know it when I see it,\" he says.",
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "St. George overhears your comment and turns you, "
+                "over to the guards on charges of lunacy.",
+                move_to=places.prison,
+            ), weight=1)
+
+
 class ClubASeal(Action):
 
     def __init__(self):
@@ -1717,7 +1908,7 @@ class ClubASeal(Action):
             "to club a seal.",
             add_item=items.SealCarcass(),
             succeed=True,
-        ), weight=100)  # TODO fix
+        ), weight=2)
 
         self.outcomes.add(Outcome(character,
             "You manage "
@@ -2267,7 +2458,7 @@ class LeaveInAHuff(Action):
             move=1,
             new_person=None,
             unthreat=False
-        ), weight=9)
+        ), weight=29)
 
         if character.place in places.populated:
             self.outcomes.add(Outcome(character,
@@ -2637,6 +2828,90 @@ class WalkThePlank(Action):
 # D slot actions
 
 
+class LookForAWayOut(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Look for a way out."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "You fumble around in the darkness.",
+            fail=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You think you're going around in cicles.",
+            fail=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You can't see anything, so you only manage to bump your head "
+            "on a rock.",
+            fail=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You slip on a slippery slope and fall to your death.",
+            die=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You don't find a way out, but you find a deep-cave newt.",
+            add_item=items.DeepCaveNewt(),
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You find your way out of the cave.",
+            move_to=places.woods,
+            succeed=True,
+        ), weight=1)
+
+
+class FreezeToDeath(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Freeze to death."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "It's easy.",
+            die=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You get sleepy.",
+            die=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You do.",
+            die=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You freeze to death.",
+            die=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You get mauled by a polar bear before you get a chance to "
+            "freeze to death.",
+            die=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "Some eskimos save you from the cold and take you back to land "
+            "in a Kayak. They also give you a fish.",
+            add_item=items.Fish(),
+            move_to=places.countryside,
+            succeed=True,
+        ), weight=2)
+
+
 class Panic(Action):
 
     def __init__(self):
@@ -2680,6 +2955,16 @@ class SingASong(Action):
 
     def execute(self, character):
 
+        if character.place == places.church:
+            self.outcomes.add(Outcome(character,
+                "A priestess finds your lyrics {0} and has you throw out of "
+                "the church.".format(random.choice(
+                    ["blasphemous", "crude", "idiotic", "offensive",
+                     "mildly offensive", "uncreative"])),
+                fail=True,
+                move_to=places.streets,
+            ), weight=10)
+
         if character.place == places.upstairs and \
            character.person == persons.pretty_lady:
             self.outcomes.add(Outcome(character,
@@ -2713,7 +2998,6 @@ class SingASong(Action):
                     flirt=(persons.mermaid, -1),
                     fail=True,
                 ), weight=10)
-
 
         if character.place in places.populated:
 
@@ -2974,6 +3258,17 @@ class DanceAJig(Action):
                 "You freeze to death.",
                 die=True,
             ), weight=30)
+
+        if character.place == places.cave:
+            self.outcomes.add(Outcome(character,
+                "Dancing fails to cheer you up.",
+                fail=True,
+            ), weight=10)
+
+            self.outcomes.add(Outcome(character,
+                "You slip on a rock and fall to your death.",
+                die=True,
+            ), weight=15)
 
         if character.place == places.tavern or \
            character.place == places.lord_carlos_manor:
