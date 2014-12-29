@@ -68,6 +68,7 @@ burnable = set([
     woods])
 
 burned = set()
+trashed = set()
 
 outside = set([
     arctic,
