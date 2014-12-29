@@ -12,6 +12,7 @@ from character import Character
 from display import Display
 import actions
 import frog_actions
+import monstrosity_actions
 import persons
 import items
 import weapons
@@ -210,13 +211,14 @@ def add_place_actions(choices, character):
     #if character.place == places.tower:
         #choices.add(actions.AskForAnAudienceWithLordDaniel(), "a", 1)
         #choices.add(actions.ComplainAboutUnfairImprisonment(), "c", 1)
-        choices.add(actions.TrainWithTheGuards(), "d", 1)
+        #choices.add(actions.TrainWithTheGuards(), "d", 1)
     if character.place == places.void:
         choices.add(actions.LookForVoidDust(), "a", 1)
     if character.place == places.wizards_lab:
-        #choices.add(actions.ReadASpellBook(), "b", 5)
+        choices.add(actions.ReadASpellBook(), "a", 5)
         #choices.add(actions.BrewAPotion(), "b", 5)
-        choices.add(actions.TrashThePlace(), "c", 200)  # FIX
+        if places.wizards_lab not in places.trashed:
+            choices.add(actions.TrashThePlace(), "c", 2)
         choices.add(actions.SnoopAround(), "d", 20)
     if character.place == places.woods:
         if character.has_item(items.Ax):
@@ -259,9 +261,9 @@ def add_character_actions(choices, character):
 
 def add_default_actions(choices, character):
     choices.add(actions.Think(), "a",)
-    choices.add(actions.LickTheGround(character.place), "a", 10)
+    choices.add(actions.LickTheGround(character.place), "a")
     choices.add(actions.PrayToAHigherPower(), "b")
-    choices.add(actions.GoToSleep(), "c", 2)
+    choices.add(actions.GoToSleep(), "c")
     choices.add(actions.LeaveInAPuff(), "c")
     choices.add(actions.SingASong(), "d")
     choices.add(actions.DanceAJig(), "d")
@@ -275,9 +277,18 @@ def add_frog_actions(choices, character):
     choices.add(frog_actions.EatAFly(), "d")
 
 
+def add_monstrosity_actions(choices, character):
+    choices.add(monstrosity_actions.AnnihilateEverything(), "a")
+    choices.add(monstrosity_actions.TerrorizeTheKingdom(), "b")
+    choices.add(monstrosity_actions.GoOnARampage(), "c")
+    choices.add(monstrosity_actions.DestroyAllHumanCivilizations(), "d")
+
+
 def add_actions(choices, character, outcome):
     if character.is_frog:
         add_frog_actions(choices, character)
+    if character.is_monstrosity:
+        add_monstrosity_actions(choices, character)
     else:
         add_action_actions(choices, character)
         add_outcome_actions(choices, character, outcome)
