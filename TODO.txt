@@ -20,6 +20,7 @@ actions:
     Ask her name    
       She becomes irate and assassinates you
   grovel (Lord Carlos)
+  Make lick the deck take into account the cleaning
 
 Hop like the devil -> the devil doesn't hop, he runs
 
@@ -41,7 +42,7 @@ Do it
 And stay out!
 
 Plan B, C, D, E
-Concoct and elaborate scheme
+Concoct an elaborate scheme
   Enact your elaborate scheme
 
 your cabin

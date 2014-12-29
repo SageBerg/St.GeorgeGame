@@ -154,7 +154,7 @@ def add_place_actions(choices, character):
     #if character.place == places.lord_bartholomews_manor:
         #if persons.lord_bartholomew.alive:
             #choices.add(actions.AskForAnAudienceWithLordBartholomew(s), "a", 10)
-            #choices.add(actions.ToStraightToLordBartholomew(), "c", 2)
+            #choices.add(actions.GoStraightToLordBartholomew(), "c", 2)
     if character.place == places.lord_carlos_manor:
         choices.add(actions.AskAboutAssassins(), "a", 10)
         choices.add(actions.Disguise(), "b", 10)
@@ -185,7 +185,7 @@ def add_place_actions(choices, character):
     if character.place == places.pirate_ship:
         choices.add(actions.GoFishing(), "a", 2)
         choices.add(actions.SuckUpTo(persons.lord_arthur), "a", 3)
-        if character.lost_peg_leg:
+        if character.has_item(items.PegLeg):
             choices.add(actions.ClimbUpTheTopSails(), "c", 10)
         choices.add(actions.WalkThePlank(), "c", 10)
         choices.add(actions.ClimbIntoTheCrowsNest(), "b", 5)
@@ -259,6 +259,8 @@ def add_character_actions(choices, character):
         choices.add(actions.RunLikeTheDevil(), "c", 18)
         choices.add(actions.LeaveInAHuff(), "c", 2)
         choices.add(actions.WaddleLikeGod(), "c", 2)
+    if character.lost_peg_leg:
+        choices.add(actions.Yell("I lost my leg"), "d", 1)
 
 
 def add_default_actions(choices, character):

@@ -205,6 +205,54 @@ class TellThemYouAreALunatic(Action):
         ), weight=1)
 
 
+class Swashbuckle(Action):
+    """
+    Note: only use when attacking merchant ship
+    """
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Swashbuckle."
+
+    def execute(self, character):
+
+        #if character.has_item(items.cutlass) or \
+           #character.has_item(items.jeweled_cutlass):
+
+        self.outcomes.add(Outcome(character,
+            "You kill several innocent merchants. Lord Arthur is pleased "
+            "and gives you a large share of the plunder.",
+            get_money=money.large_fortune
+        ), weight=1)
+
+        #else:
+
+        self.outcomes.add(Outcome(character,
+            "You find it difficult to swashbuckle without a cutless and "
+            "are soon killed.",
+            die=True
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You manage to hold your own. Afterwards Lord Arthur divies "
+            "up the booty.",
+            add_item=items.Jewels()
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "A cabin boy stabs you in the back during the fight.",
+            die=True
+        ), weight=1)
+
+        if not character.has_item(items.PegLeg):
+
+            self.outcomes.add(Outcome(character,
+                "You lose your leg in the battle, but Lord Arthur gives you a peg "
+                "leg as a replacement.",
+                add_item=items.PegLeg()
+            ), weight=1)
+
+
 class LookForAssassins(Action):
     """
     Note: only use in dark alley
@@ -937,6 +985,35 @@ class GawkAtWomen(Action):
             ), weight=1)
 
 
+class SwingOnARope(Action):
+    """
+    Note: only use when attacking merchant ship
+    """
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Swing on a Rope."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "You fall into the ocean and no one bothers to save you.",
+            move_to=places.ocean,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You manage to knock a merchant off a rope. Lord Arthur rewards "
+            "your bravery after the battle is over.",
+            succeed=True,
+            add_items=items.Fish()
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "A merchant cuts you down.",
+            die=True
+        ), weight=1)
+
+
 class Tithe(Action):
 
     def __init__(self):
@@ -1316,6 +1393,16 @@ class ClimbIntoTheCrowsNest(Action):
     def execute(self, character):
 
         self.outcomes.add(Outcome(character,
+            "You spot a merchant ship. Lord Arthur calls all hands to raid "
+            "the ship.",
+            actions=[
+                (Swashbuckle(), "a", 1000),
+                (SwingOnARope(), "b", 1000),
+                (FireACanon(), "c", 1000),
+                (HideUnderTheDeck(), "d", 1000)]
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
             "You are able to help guide the ship to land.",
             succeed=True,
             move_to=places.woods
@@ -1372,6 +1459,20 @@ class RaiseASail(Action):
             move_to=places.docks
         ), weight=1)
 
+        self.outcomes.add(Outcome(character,
+            "Lord Arthur yells at you to scrub the deck."
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "As you are raising a sail you see a merchant ship. Lord Arthur "
+            "calls all hands to raid the ship.",
+            actions=[
+                (Swashbuckle(), "a", 1000),
+                (SwingOnARope(), "b", 1000),
+                (FireACanon(), "c", 1000),
+                (HideUnderTheDeck(), "d", 1000)]
+        ), weight=1)
+
         if not character.is_employed_by(persons.lord_arthur):
 
             self.outcomes.add(Outcome(character,
@@ -1388,6 +1489,20 @@ class ScrubTheDeck(Action):
         self.name = "Scrub the deck."
 
     def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "As you are scrubing the deck you hear Lord Arthur calling all "
+            "hands to raid an approaching merchant ship.",
+            actions=[
+                (Swashbuckle(), "a", 1000),
+                (SwingOnARope(), "b", 1000),
+                (FireACanon(), "c", 1000),
+                (HideUnderTheDeck(), "d", 1000)]
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "Lord Arthur yells at you to raise a sail."
+        ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You dislocate your shoulder scrubbing and Lord Arthur has no "
@@ -2132,6 +2247,36 @@ class TellAPriest(Action):
                 "over to the guards on charges of lunacy.",
                 move_to=places.prison,
             ), weight=1)
+
+
+class FireACanon(Action):
+    """
+    Note: only use when attacking merchant ship
+    """
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Fire a cannon."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "You manage to knock the merchant ship's mast down. It falls on you.",
+            die=True
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You sink the merchant ship, plunder and all. Lord Arthur is not pleased.",
+            fail=True,
+            new_person=persons.lord_arthur
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You fumble around with the cannon, but Lord Arthur is convinced "
+            "the you contributed to his victory and he gives you a bag of "
+            "jewels.",
+            add_item=items.Jewels()
+        ), weight=1)
 
 
 class ClubASeal(Action):
@@ -3873,6 +4018,31 @@ class SneakAround(Action):
              "training a weasel.", "pacing around."])),
             new_person=persons.lord_carlos,
             threat=True,
+        ), weight=1)
+
+
+class HideUnderTheDeck(Action):
+    """
+    Note: only use when attacking merchant ship
+    """
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Hide under the deck."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "You miss all of the action."
+        ), weight=2)
+
+        self.outcomes.add(Outcome(character,
+            "You fight an epic battle against one of the rats on the lower decks."
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "Lord Arthur has you killed when he hears of your cowardice.",
+            die=True
         ), weight=1)
 
 
