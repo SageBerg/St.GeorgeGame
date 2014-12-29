@@ -108,6 +108,7 @@ class Outcome(object):
         if self.trash_place:
             self.trash_place.name = "the trashed remains of " \
                                    + self.trash_place.name
+            places.trashed.add(self.trash_place)
 
         if self.kill:
             self.character.person.alive = False
