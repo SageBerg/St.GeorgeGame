@@ -2572,7 +2572,7 @@ class GoTo(Action):
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
-                overhear_template.format("a woman talks about how hear baby "
+                overhear_template.format("a woman talks about how her baby "
                     "was eaten by a werewolf"),
                 move_to=self.dest,
                 new_person=None
