@@ -21,7 +21,7 @@ class Character(object):
         self.items = set()
         self.best_weapon = ""
         self.attack = 0
-        self.money = money.none
+        self.money = money.large_fortune  # TODO start with money.none
         self.threatened = False
         self.trip = False
         self.is_frog = False

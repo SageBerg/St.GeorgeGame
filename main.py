@@ -199,9 +199,9 @@ def add_place_actions(choices, character):
             choices.add(actions.LookForStGeorge(), "a", 2)
         choices.add(actions.GawkAtWomen(), "b", 1)
         choices.add(actions.LookForTheWizard(), "c", 1)
-        #if character.money == money.small_fortune or \
-        #   character.money == money.large_fortune:
-            #choices.add(actions.FlauntYourWealth(), "d", 2)
+        if character.money == money.small_fortune or \
+           character.money == money.large_fortune:
+            choices.add(actions.FlauntYourWealth(), "d", 2)
     if character.place == places.tavern:
         choices.add(actions.AskAboutAssassins(), "a", 1)
         choices.add(actions.BuyADrink(), "b", 2)
@@ -210,13 +210,13 @@ def add_place_actions(choices, character):
     #if character.place == places.tower:
         #choices.add(actions.AskForAnAudienceWithLordDaniel(), "a", 1)
         #choices.add(actions.ComplainAboutUnfairImprisonment(), "c", 1)
-        #choices.add(actions.TrainWithTheGuards(), "d", 1)
+        choices.add(actions.TrainWithTheGuards(), "d", 1)
     if character.place == places.void:
         choices.add(actions.LookForVoidDust(), "a", 1)
     if character.place == places.wizards_lab:
         #choices.add(actions.ReadASpellBook(), "b", 5)
         #choices.add(actions.BrewAPotion(), "b", 5)
-        #choices.add(actions.TrashThePlace(), "c", 2)
+        choices.add(actions.TrashThePlace(), "c", 200)  # FIX
         choices.add(actions.SnoopAround(), "d", 20)
     if character.place == places.woods:
         if character.has_item(items.Ax):
@@ -251,14 +251,14 @@ def add_character_actions(choices, character):
     if character.threatened and character.person:
         if not character.person.arrester:
             choices.add(actions.PlayDead(), "b", 10)
-            choices.add(actions.Panic(), "d", 100)  # TODO fix weight
+            choices.add(actions.Panic(), "d", 1)
         choices.add(actions.RunLikeTheDevil(), "c", 18)
         choices.add(actions.LeaveInAHuff(), "c", 2)
         choices.add(actions.WaddleLikeGod(), "c", 2)
 
 
 def add_default_actions(choices):
-    choices.add(actions.Think(), "a", 2)
+    choices.add(actions.Think(), "a",)
     choices.add(actions.LickTheGround(), "a")
     choices.add(actions.PrayToAHigherPower(), "b")
     choices.add(actions.GoToSleep(), "c", 2)

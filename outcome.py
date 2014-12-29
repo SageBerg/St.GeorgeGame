@@ -24,6 +24,7 @@ class Outcome(object):
                  grow_stronger=False,
                  beg=False,
                  burn_place=False,
+                 trash_place=False,
                  die=False,
                  fail=False,
                  get_money=False,
@@ -51,6 +52,7 @@ class Outcome(object):
         self.grow_stronger = grow_stronger
         self.beg = beg
         self.burn_place = burn_place
+        self.trash_place = trash_place
         self.character = character
         self.die = die
         self.fail = fail
@@ -103,6 +105,9 @@ class Outcome(object):
                                    + self.burn_place.name
             places.burnable.remove(self.burn_place)
             places.burned.add(self.burn_place)
+        if self.trash_place:
+            self.trash_place.name = "the trashed remains of " \
+                                   + self.trash_place.name
 
         if self.kill:
             self.character.person.alive = False

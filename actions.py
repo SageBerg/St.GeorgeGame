@@ -134,6 +134,19 @@ class SuckUpTo(Action):
             ), weight=1)
 
 
+class TellThemYouAreALunatic(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Tell them you are a lunatic."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "\"A rich lunatic,\" they say before moving along."
+        ), weight=1)
+
+
 class LookForAssassins(Action):
     """
     Note: only use in dark alley
@@ -2941,7 +2954,93 @@ class WalkThePlank(Action):
         ), weight=1)
 
 
+class TrashThePlace(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Trash the place."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            None,
+            trash_place=character.place,
+            succeed=True,
+            move_to=character.place
+        ), weight=4)
+
+        self.outcomes.add(Outcome(character,
+            "You find a fancy red cloak in the wreckage",
+            add_item=items.FireProofCloak(),
+            trash_place=character.place,
+            succeed=True,
+            move_to=character.place
+        ), weight=1)
+
+        if not character.has_item(items.FireProofCloak):
+            self.outcomes.add(Outcome(character,
+                "One of the potions you break blows up the lab.",
+                die=True,
+            ), weight=2)
+        else:
+            self.outcomes.add(Outcome(character,
+                "One of the potions you break blows up the lab, but "
+                "Your fancy red cloak protects you from annihilation.",
+            ), weight=2)
+
+        self.outcomes.add(Outcome(character,
+            "You snap a staff in half, but a dark spirit escapes from the "
+            "staff.",
+            die=True,
+        ), weight=2)
+
+        if character.person == persons.wizard:
+            self.outcomes.add(Outcome(character,
+                "The wizard incinerates you.",
+                die=True,
+            ), weight=20)
+
+        if character.place == places.wizards_lab and \
+           character.person != persons.wizard:
+            self.outcomes.add(Outcome(character,
+                "The wizard walks in and starts yelling obscenities.",
+                new_person=persons.wizard,
+                threat=True,
+            ), weight=1)
+
+
 # D slot actions
+
+
+class FlauntYourWealth(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Flaunt your wealth."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "The local peasants mob you. They take your money and your life.",
+            die=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "The guards notice you and conclude you must be rich.",
+            new_person=persons.guards,
+            actions=[(TellThemYouAreALunatic(), "a", 10000)],
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "St. George notices you and warns you of the dangers of "
+            "flamboyance.",
+            new_person=persons.st_george,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "Some truely wealthy people see you and sneer.",
+            fail=True,
+        ), weight=1)
 
 
 class LookForAWayOut(Action):
