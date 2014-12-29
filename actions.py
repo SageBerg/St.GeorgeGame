@@ -69,6 +69,22 @@ class Action(object):
 # A slot actions
 
 
+class Yell(Action):
+
+    def __init__(self, exclamation):
+        super().__init__()
+        self.exclamation = exclamation
+        self.name = "Yell \"{0}!\"".format(exclamation)
+
+    def execute(self, character):
+
+        if self.exclamation == "I lost my leg":
+            self.outcomes.add(Outcome(character,
+                "No one cares.",
+                fail=True,
+            ), weight=1)
+
+
 class ReadASpellBook(Action):
 
     def __init__(self):
@@ -1990,6 +2006,62 @@ class LookForMermaids(Action):
 # C slot actions
 
 
+class LookForAWayOut(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Look for a way out."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "You fumble around in the darkness.",
+            fail=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You think you're going around in cicles.",
+            fail=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You can't see anything, so you only manage to bump your head "
+            "on a rock.",
+            fail=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You slip on a slippery slope and fall to your death.",
+            die=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You don't find a way out, but you find a deep-cave newt.",
+            add_item=items.DeepCaveNewt(),
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You find your way out of the cave.",
+            move_to=places.woods,
+            succeed=True,
+        ), weight=1)
+
+
+class ClimbUpTheTopSails(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Climb up the top sails."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "Your peg leg falls into the ocean while you work on the sails.",
+            remove_item=character.get_item(items.PegLeg),
+            funcs=[character.depegify],
+        ), weight=1)
+
+
 class TellAPriest(Action):
 
     def __init__(self, idea):
@@ -3096,47 +3168,6 @@ class FlauntYourWealth(Action):
         self.outcomes.add(Outcome(character,
             "Some truely wealthy people see you and sneer.",
             fail=True,
-        ), weight=1)
-
-
-class LookForAWayOut(Action):
-
-    def __init__(self):
-        super().__init__()
-        self.name = "Look for a way out."
-
-    def execute(self, character):
-
-        self.outcomes.add(Outcome(character,
-            "You fumble around in the darkness.",
-            fail=True,
-        ), weight=1)
-
-        self.outcomes.add(Outcome(character,
-            "You think you're going around in cicles.",
-            fail=True,
-        ), weight=1)
-
-        self.outcomes.add(Outcome(character,
-            "You can't see anything, so you only manage to bump your head "
-            "on a rock.",
-            fail=True,
-        ), weight=1)
-
-        self.outcomes.add(Outcome(character,
-            "You slip on a slippery slope and fall to your death.",
-            die=True,
-        ), weight=1)
-
-        self.outcomes.add(Outcome(character,
-            "You don't find a way out, but you find a deep-cave newt.",
-            add_item=items.DeepCaveNewt(),
-        ), weight=1)
-
-        self.outcomes.add(Outcome(character,
-            "You find your way out of the cave.",
-            move_to=places.woods,
-            succeed=True,
         ), weight=1)
 
 

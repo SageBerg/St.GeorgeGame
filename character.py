@@ -26,6 +26,7 @@ class Character(object):
         self.trip = False
         self.is_frog = False
         self.is_monstrosity = False
+        self.lost_peg_leg = False
         self.alive = True
         self.alone = True  # character has not found true love
 
@@ -125,6 +126,9 @@ class Character(object):
                             # character.person immediately
         if not suppress_message:
             Display().write("You find yourself in " + str(self.place) + ".")
+
+    def depegify(self):
+        self.lost_peg_leg = True
 
     def monstrosify(self):
         self.is_monstrosity = True

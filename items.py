@@ -22,11 +22,18 @@ class Item(object):
         return self.name
 
 
+class PegLeg(Item):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "peg leg"
+
+
 class FourLeafClover(Item):
 
     def __init__(self):
         super().__init__()
-        self.name = "four leaf clover"
+        self.name = "four-leaf clover"
 
 
 class BouquetOfFlowers(Item):
