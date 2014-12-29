@@ -31,6 +31,19 @@ Hop like the devil -> the devil doesn't hop, he runs
   Thump yourself on the chest 
     hit self too hard
 
+You find a dead horse
+  beat it
+
+Climb up the top sail
+  You lose your leg
+
+Yell "I lost my leg!"
+
+Cart
+  Go faster
+    Ethical delimma
+    Go even faster 
+
 Do it
 
 Trash the place
