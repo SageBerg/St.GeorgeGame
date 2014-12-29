@@ -1,15 +1,11 @@
 actions:
   wizard brings penguins to the arctic
-  Lord Arthur sends you on a mission to find him a pet sea turtle
   throw a fit
   throw throw your cat 
   challenge them to a game of chess 
     as you play Lord Carlos tells you of his villinous plan
       Tell Lord X about Lord Carlos' villinous plan
         you tell them how he was going to assassinate you
-  flaunt your wealth
-    pretty lady
-    some haters kill you
   look for assassins
     you don't find one
     you don't find one, he finds you
@@ -24,12 +20,8 @@ actions:
     Ask her name    
       She becomes irate and assassinates you
   grovel (Lord Carlos)
-fireproof cloak in wizard's lab
-The fly was on a manycolored mushroom, you start tripping
 
 Hop like the devil -> the devil doesn't hop, he runs
-  Thump yourself on the chest 
-    hit self too hard
 
 You find a dead horse
   beat it

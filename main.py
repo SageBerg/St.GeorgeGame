@@ -83,6 +83,14 @@ def add_person_actions(choices, character):
         choices.add(actions.BoastOfYourBravery(), "b", 2)
         choices.add(actions.SingASong(), "d", 2)
         choices.add(actions.SingASong(topic="magic"), "d", 3)
+    if character.person == persons.lord_arthur:
+        choices.add(actions.SuckUpTo(persons.lord_arthur), "a", 5)
+    if character.person == persons.lord_bartholomew:
+        choices.add(actions.SuckUpTo(persons.lord_bartholomew), "a", 5)
+    if character.person == persons.lord_carlos:
+        choices.add(actions.SuckUpTo(persons.lord_carlos), "a", 5)
+    if character.person == persons.lord_daniel:
+        choices.add(actions.SuckUpTo(persons.lord_daniel), "a", 5)
     if character.person != persons.wizard and \
        character.place in [places.streets, places.market]:
         choices.add(actions.LookForTheWizard(), "c", 2)
@@ -175,6 +183,7 @@ def add_place_actions(choices, character):
         choices.add(actions.Sink(), "d", 3)
     if character.place == places.pirate_ship:
         choices.add(actions.GoFishing(), "a", 2)
+        choices.add(actions.SuckUpTo(persons.lord_arthur), "a", 3)
         choices.add(actions.WalkThePlank(), "c", 10)
         choices.add(actions.ClimbIntoTheCrowsNest(), "b", 5)
         choices.add(actions.ScrubTheDeck(), "b", 5)

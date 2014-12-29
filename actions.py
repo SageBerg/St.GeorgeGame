@@ -69,6 +69,71 @@ class Action(object):
 # A slot actions
 
 
+class SuckUpTo(Action):
+
+    def __init__(self, person):
+        super().__init__()
+        self.person = person
+        self.name = "Suck up to {0}.".format(person)
+
+    def execute(self, character):
+
+        if self.person == persons.lord_arthur:
+
+            self.outcomes.add(Outcome(character,
+                "Lord Arthur sends you on a mission to find him a pet sea "
+                "turtle.",
+                move_to=places.ocean,
+            ), weight=1)
+
+        if self.person == persons.lord_bartholomew:
+
+            self.outcomes.add(Outcome(character,
+                "Lord Bartholomew wishes you well and sends you on your way.",
+                move_to=places.countryside
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "Lord Bartholomew takes a liking to you and gives you a long "
+                "pitchfork.",
+                new_weapon=weapons.long_pitchfork
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "Lord Bartholomew tells you to take more pride in yourself.",
+                success=True
+            ), weight=1)
+
+        if self.person == persons.lord_carlos:
+
+            self.outcomes.add(Outcome(character,
+                "He tells you that your are forgiven, but his men never fail."
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "He has you thrown out the window.",
+                move_to=places.woods
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "Lord Carlos is having none of it. He kills you.",
+                die=True
+            ), weight=1)
+
+        if self.person == persons.lord_daniel:
+
+            self.outcomes.add(Outcome(character,
+                "Lord Daniel sends you away.",
+                move_to=places.streets
+            ), weight=1)
+
+
+            self.outcomes.add(Outcome(character,
+                "Lord Daniel questions your sanity.",
+                fail=True
+            ), weight=1)
+
+
 class LookForAssassins(Action):
     """
     Note: only use in dark alley
