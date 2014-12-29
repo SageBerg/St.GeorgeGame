@@ -25,6 +25,7 @@ class Character(object):
         self.threatened = False
         self.trip = False
         self.is_frog = False
+        self.is_monstrosity = False
         self.alive = True
         self.alone = True  # character has not found true love
 
@@ -124,6 +125,10 @@ class Character(object):
                             # character.person immediately
         if not suppress_message:
             Display().write("You find yourself in " + str(self.place) + ".")
+
+    def monstrosify(self):
+        self.is_monstrosity = True
+        Display().write("You are now a towering monstrosity.")
 
     def frogify(self):
         self.is_frog = True
