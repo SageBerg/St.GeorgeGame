@@ -251,15 +251,15 @@ def add_character_actions(choices, character):
     if character.threatened and character.person:
         if not character.person.arrester:
             choices.add(actions.PlayDead(), "b", 10)
-            choices.add(actions.Panic(), "d", 100)  # TODO fix weight
+            choices.add(actions.Panic(), "d", 1)
         choices.add(actions.RunLikeTheDevil(), "c", 18)
         choices.add(actions.LeaveInAHuff(), "c", 2)
         choices.add(actions.WaddleLikeGod(), "c", 2)
 
 
-def add_default_actions(choices):
+def add_default_actions(choices, character):
     choices.add(actions.Think(), "a", 2)
-    choices.add(actions.LickTheGround(), "a")
+    choices.add(actions.LickTheGround(character.place), "a", 10)
     choices.add(actions.PrayToAHigherPower(), "b")
     choices.add(actions.GoToSleep(), "c", 2)
     choices.add(actions.LeaveInAPuff(), "c")
@@ -285,7 +285,7 @@ def add_actions(choices, character, outcome):
         add_place_actions(choices, character)
         add_item_actions(choices, character)
         add_character_actions(choices, character)
-        add_default_actions(choices)
+        add_default_actions(choices, character)
 
 
 def combat(character):

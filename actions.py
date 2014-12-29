@@ -492,9 +492,16 @@ class GoDivingForPearls(Action):
 
 class LickTheGround(Action):
 
-    def __init__(self):
+    def __init__(self, place):
         super().__init__()
-        self.name = "Lick the ground."
+        self.place = place
+        if place in places.inside:
+            self.ground = "floor"
+        elif place == places.pirate_ship:
+            self.ground = "deck"
+        else:
+            self.ground = "ground"
+        self.name = "Lick the {0}.".format(self.ground)
 
     def execute(self, character):
 
@@ -506,14 +513,14 @@ class LickTheGround(Action):
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
-            "You find the flavor of the ground distasteful.",
+            "You find the flavor of the {0} distasteful.".format(self.ground),
             fail=True,
         ), weight=3)
 
         if character.place in places.populated:
             self.outcomes.add(Outcome(character,
-                "The local guards see you licking the ground and accuse you of "
-                "being a lunatic.",
+                "The local guards see you licking the {0} and accuse you of "
+                "being a lunatic.".format(self.ground),
                 new_person=persons.guards,
                 threat=True,
             ), weight=3)
@@ -1078,7 +1085,7 @@ class Think(Action):
 
         self.outcomes.add(Outcome(character,
             "You come up with four brilliant ideas.",
-            actions=[(LickTheGround(), "a", 10)]
+            actions=[(LickTheGround(character.place), "a", 10)]
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
