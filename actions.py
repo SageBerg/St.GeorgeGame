@@ -69,6 +69,48 @@ class Action(object):
 # A slot actions
 
 
+class ReadASpellBook(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Read a spell book."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "You open a book of curses. It's cursed.",
+            die=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You find it arcane and boring.",
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You learn a spell to set things on fire, but it requires a "
+            "focused mind.",
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "The wizard's handwriting is terrible.",
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You find a four-clover in the pages of the spell book.",
+            add_item=items.FourLeafClover(),
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "The first book you open appears to be the wizard's diary. "
+            "{0}.".format(random.choice([
+                "It is full of details about how he is too chicken to "
+                "ask out a woman he often sees in the market.",
+                "He appears to be obsessed with void dust, but can't "
+                "figure out how to get any.",
+                "It's mostly math proofs."])),
+        ), weight=1)
+
+
 class SuckUpTo(Action):
 
     def __init__(self, person):
@@ -537,6 +579,13 @@ class LickTheGround(Action):
                 new_person=persons.guards,
                 threat=True,
             ), weight=3)
+
+        if character.place == places.wizards_lab:
+            self.outcomes.add(Outcome(character,
+                "You lick some spilled potion off the floor and start "
+                "growing at a monsterous rate.",
+                funcs=[character.monstrosify],
+            ), weight=20)
 
         if character.place == places.ocean:
             self.outcomes.add(Outcome(character,
