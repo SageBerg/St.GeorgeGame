@@ -115,6 +115,11 @@ class PickSomeFlowers(Action):
             fail=True,
         ), weight=1)
 
+        self.outcomes.add(Outcome(character,
+            "You can't find any flowers. Only grass.",
+            fail=True,
+        ), weight=1)
+
 
 class GoFishing(Action):
 
@@ -741,6 +746,45 @@ class ThumpYourselfOnTheChest(Action):
 
 
 # B slot actions
+
+
+class GawkAtWomen(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "{0} at women.".format(random.choice(
+            ["Gawk", "Leer", "Stare"]))
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "A fair woman notices you and hastens away.",
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "A woman becomes annoyed with you and throws salt in your eyes.",
+            fail=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You are too distracted by all the women to notice the "
+            "assassins closing in on you.",
+            die=True,
+        ), weight=1)
+
+        if self.name == "Gawk at women.":
+            self.outcomes.add(Outcome(character,
+                "You stop gawking when you realize it wasn't a woman.",
+                fail=True,
+                topic="androgyny",
+            ), weight=1)
+
+        if self.name == "Stare at women.":
+            self.outcomes.add(Outcome(character,
+                "An equally creepy woman stairs back at you before "
+                "dissappearing into a dark alley.",
+                actions=[(GoTo(places.dark_alley), "c", 5)],
+            ), weight=1)
 
 
 class Tithe(Action):
@@ -2272,6 +2316,12 @@ class FlirtWith(Action):
                 new_person=persons.pretty_lady,
                 move_to=places.upstairs,
                 flirt=(persons.pretty_lady, 2),
+            ), weight=3)
+
+            self.outcomes.add(Outcome(character,
+                "You follow her to her room upstairs. Lots of passionate "
+                "stabbing ensues.",
+                die=True,
             ), weight=1)
 
         elif self.person == persons.pretty_lady and \
@@ -2290,7 +2340,7 @@ class FlirtWith(Action):
 
             self.outcomes.add(Outcome(character,
                 "Olga turns out to be an assassin. She assassinates you.",
-                flirt=(persons.pretty_lady, 2),
+                die=True,
             ), weight=1)
 
 

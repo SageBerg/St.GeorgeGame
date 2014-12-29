@@ -155,7 +155,7 @@ def add_place_actions(choices, character):
     if character.place == places.market:
         if character.person != persons.wealthy_merchant:
             choices.add(actions.LookForAWeapon(), "a", 10)
-        #choices.add(actions.GoShopping(), "b", 10)
+        #choices.add(actions.Buy(), "b", 10)
         if character.person != persons.wizard:
             choices.add(actions.LookForTheWizard(), "c", 4)
         #choices.add(actions.WatchAPlay(), "d", 5)
@@ -188,7 +188,7 @@ def add_place_actions(choices, character):
        character.person != persons.wizard:
         if character.person != persons.st_george:
             choices.add(actions.LookForStGeorge(), "a", 2)
-        #choices.add(actions.GawkAtWomen(), "b", 10)
+        choices.add(actions.GawkAtWomen(), "b", 1)
         choices.add(actions.LookForTheWizard(), "c", 1)
         #if character.money == money.small_fortune or \
         #   character.money == money.large_fortune:
