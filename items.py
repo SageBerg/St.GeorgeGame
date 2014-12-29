@@ -22,6 +22,13 @@ class Item(object):
         return self.name
 
 
+class FourLeafClover(Item):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "four leaf clover"
+
+
 class BouquetOfFlowers(Item):
 
     def __init__(self):
