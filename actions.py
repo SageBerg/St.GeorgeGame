@@ -39,10 +39,10 @@ class Action(object):
         returns nothing, edits character attributes
         """
 
-    def clean_execute(self, character):
+    def get_outcome(self, character):
         self.execute(character)
         outcome = self.outcomes.get()  # outcome may be function or instance
-        self.outcomes = Raffle()
+        # self.outcomes = Raffle()
         return outcome
 
     def __str__(self):

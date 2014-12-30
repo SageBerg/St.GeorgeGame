@@ -30,7 +30,7 @@ class Cheat(actions.Action):
             for action_class in actions.Action.__subclasses__():
                 if action_class.__name__ == action_name:
                     action = action_class()
-                    action.clean_execute(character)
+                    action.get_outcome(character)
 
     def execute(self, character):
        self.outcomes.add(Outcome(character,

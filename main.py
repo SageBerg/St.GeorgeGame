@@ -315,7 +315,7 @@ def combat(character):
     print(character.person.pronouns.subj[0].upper() +
                     character.person.pronouns.subj[1:] +" attack" +
                     character.person.pronouns.tense + " you.")
-    return actions.Attack(character.person).clean_execute(character)
+    return actions.Attack(character.person).get_outcome(character)
 
 
 def main():
@@ -348,9 +348,9 @@ def main():
     while character.alive and character.alone:
         action = choices.choose_action()
         if not character.threatened or action.combat_action:
-            outcome = action.clean_execute(character)
+            outcome = action.get_outcome(character)
         elif character.person.arrester:
-            outcome = actions.Arrest(character.person).clean_execute(character)
+            outcome = actions.Arrest(character.person).get_outcome(character)
         else:
             outcome = combat(character)
             if not character.alive:
