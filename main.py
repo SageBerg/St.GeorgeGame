@@ -347,7 +347,6 @@ def main():
     print("You are in a tavern. The local assassins hate you.")
     while character.alive and character.alone:
         action = choices.choose_action()
-        display.enable()
         if not character.threatened or action.combat_action:
             outcome = action.clean_execute(character)
         elif character.person.arrester:
