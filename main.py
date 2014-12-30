@@ -226,7 +226,7 @@ def add_place_actions(choices, character):
         if character.has_item(items.Ax):
             choices.add(actions.ChopDownATree(), "a", 20)
         choices.add(actions.PickSomeFlowers(), "a", 10)
-        #choices.add(actions.LookForWitches(), "b", 10)
+        choices.add(actions.LookForWitches(), "b", 100)  # FIXME
         choices.add(actions.GoMushroomPicking(), "c", 12)
         #choices.add(actions.LookForNymphs(), "d", 10)
 

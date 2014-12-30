@@ -51,6 +51,7 @@ st_george = Person("St. George", 100,
                    Pronouns("St. George", "St. George", "s"))
 wealthy_merchant = Person("the merchant", 7,
                           Pronouns("the merchant", "the merchant", "s"))
+witch = Person("the witch", 7, Pronouns("the witch", "the witch", "s"))
 wizard = Person("the wizard", 7, Pronouns("the wizard", "the wizard", "s"))
 lord_arthur = Person("Lord Arthur", 6,
                      Pronouns("Lord Arthur", "Lord Arthur", "s"))

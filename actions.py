@@ -946,6 +946,25 @@ class ThumpYourselfOnTheChest(Action):
 # B slot actions
 
 
+class LookForWitches(Action):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Look for witches"
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "You find a witch deep in the woods.",
+            new_person=persons.witch,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You can't find any witches. Only trees.",
+            fail=True,
+        ), weight=1)
+
+
 class GawkAtWomen(Action):
 
     def __init__(self):
