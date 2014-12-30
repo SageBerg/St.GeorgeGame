@@ -185,7 +185,7 @@ def add_place_actions(choices, character):
     if character.place == places.pirate_ship:
         choices.add(actions.GoFishing(), "a", 2)
         choices.add(actions.SuckUpTo(persons.lord_arthur), "a", 3)
-        if character.has_item(items.PegLeg):
+        if character.has_item(items.SailorPeg):
             choices.add(actions.ClimbUpTheTopSails(), "c", 10)
         choices.add(actions.WalkThePlank(), "c", 10)
         choices.add(actions.ClimbIntoTheCrowsNest(), "b", 5)

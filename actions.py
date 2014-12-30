@@ -244,12 +244,12 @@ class Swashbuckle(Action):
             die=True
         ), weight=1)
 
-        if not character.has_item(items.PegLeg):
+        if not character.has_item(items.SailorPeg):
 
             self.outcomes.add(Outcome(character,
                 "You lose your leg in the battle, but Lord Arthur gives you a peg "
                 "leg as a replacement.",
-                add_item=items.PegLeg()
+                add_item=items.SailorPeg()
             ), weight=1)
 
 
@@ -2172,7 +2172,7 @@ class ClimbUpTheTopSails(Action):
 
         self.outcomes.add(Outcome(character,
             "Your peg leg falls into the ocean while you work on the sails.",
-            remove_item=character.get_item(items.PegLeg),
+            remove_item=character.get_item(items.SailorPeg),
             funcs=[character.depegify],
         ), weight=1)
 
