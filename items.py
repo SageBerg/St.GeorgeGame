@@ -22,11 +22,32 @@ class Item(object):
         return self.name
 
 
-class PegLeg(Item):
+class StrengthPotion(Item):
 
     def __init__(self):
         super().__init__()
-        self.name = "peg leg"
+        self.name = "potion of strength"
+
+
+class TailPotion(Item):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "potion of tail growth"
+
+
+class LovePotion(Item):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "love potion"
+
+
+class SailorPeg(Item):
+
+    def __init__(self):
+        super().__init__()
+        self.name = "sailor peg"
 
 
 class FourLeafClover(Item):
