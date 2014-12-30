@@ -9,7 +9,6 @@ import random
 
 import places
 from character import Character
-from display import Display
 import actions
 import frog_actions
 import monstrosity_actions
@@ -113,7 +112,7 @@ def add_place_actions(choices, character):
             choices.add(actions.GoTo(character.place))
 
     if character.place == places.arctic and character.place.locked:
-        Display().write("Your tongue is stuck to an icicle.")
+        print("Your tongue is stuck to an icicle.")
 
     if character.place in places.burnable:
         choices.add(actions.BurnThePlaceToTheGround(character.place), 2)
@@ -313,7 +312,7 @@ def combat(character):
     takes in a character, returns outcome of fight
     """
 
-    Display().write(character.person.pronouns.subj[0].upper() +
+    print(character.person.pronouns.subj[0].upper() +
                     character.person.pronouns.subj[1:] +" attack" +
                     character.person.pronouns.tense + " you.")
     return actions.Attack(character.person).clean_execute(character)
@@ -344,10 +343,8 @@ def main():
     choices.actions["c"] = actions.LeaveInAHuff()
     choices.actions["d"] = actions.SingASong()
     choices.actions["e"] = actions.EnterTheVoid()
-    display = Display()
-    display.enable()
-    display.write("\n---The St. George Game---\n")
-    display.write("You are in a tavern. The local assassins hate you.")
+    print("\n---The St. George Game---\n")
+    print("You are in a tavern. The local assassins hate you.")
     while character.alive and character.alone:
         action = choices.choose_action()
         display.enable()
@@ -362,8 +359,6 @@ def main():
         character.prev_act = action
         add_actions(choices, character, outcome)
         choices.generate_actions(character)
-    if not character.alone:
-        Display().write("You both live happily ever after.")
 
 if __name__ == "__main__":
     main()

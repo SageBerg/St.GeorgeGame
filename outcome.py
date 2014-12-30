@@ -7,7 +7,6 @@ Created: 21 Dec 2014
 
 import random
 
-from display import Display
 import places
 
 
@@ -86,16 +85,15 @@ class Outcome(object):
               printed first)
         """
         if self.msg:
-            Display().write(self.msg)
+            print(self.msg)
 
         if self.new_weapon and self.character.attack < self.new_weapon.attack:
             self.character.weapon = self.new_weapon
             self.character.attack = self.new_weapon.attack
             if self.new_weapon.name[0] in "aeiou":
-                Display().write("You now have an " +
-                                self.new_weapon.name + ".")
+                print("You now have an " + self.new_weapon.name + ".")
             else:
-                Display().write("You now have a " + self.new_weapon.name + ".")
+                print("You now have a " + self.new_weapon.name + ".")
         if self.beg:
             self.character.person.state["given money"] = True
         if self.lock:

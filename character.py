@@ -7,7 +7,6 @@ Created: 9 Dec 2014
 
 import random
 
-from display import Display
 import money
 
 
@@ -36,33 +35,33 @@ class Character(object):
         self.employers = set()
 
     def grow_stronger(self, amount):
-        Display().write("You grow stronger.")
+        print("You grow stronger.")
         self.attack += amount
 
     def get_money(self, amount):
         if amount > self.money:
             self.money = amount
-            Display().write("You now have {0}.".format(money.to_str(amount)))
+            print("You now have {0}.".format(money.to_str(amount)))
         elif self.money == money.pittance:
-            Display().write("You still only have {0}.".format(
+            print("You still only have {0}.".format(
                 money.to_str(amount)))
         else:
-            Display().write("You still have {0}.".format(money.to_str(amount)))
+            print("You still have {0}.".format(money.to_str(amount)))
 
     def lose_all_money(self):
         if self.money != money.none:
             self.money = money.none
-            Display().write("You now have no money.")
+            print("You now have no money.")
         else:
-            Display().write("You still have no money.")
+            print("You still have no money.")
 
     def add_item(self, item):
         if self.has_item(type(item)):
-            Display().write("You now have another " + str(item) + ".")
+            print("You now have another " + str(item) + ".")
         elif str(item)[0] in "AEIOUaeiou":
-            Display().write("You now have an " + str(item) + ".")
+            print("You now have an " + str(item) + ".")
         else:
-            Display().write("You now have a " + str(item) + ".")
+            print("You now have a " + str(item) + ".")
         self.items.add(item)
 
     def get_item(self, item_class):
@@ -73,11 +72,11 @@ class Character(object):
     def remove_item(self, item):
         self.items.remove(item)
         if self.has_item(type(item)):
-            Display().write("You now have one less " + str(item) + ".")
+            print("You now have one less " + str(item) + ".")
         elif str(item)[0] in "AEIOUaeiou":
-            Display().write("You no longer have an " + str(item) + ".")
+            print("You no longer have an " + str(item) + ".")
         else:
-            Display().write("You no longer have a " + str(item) + ".")
+            print("You no longer have a " + str(item) + ".")
 
     def remove_all_items(self):
         for item in set(self.items):
@@ -104,8 +103,7 @@ class Character(object):
         """
         Kill the character.
         """
-        Display().write("You are dead.")
-        Display().disable()
+        print("You are dead.")
         self.alive = False
 
     def move(self, distance=1):
@@ -125,22 +123,22 @@ class Character(object):
                             # so move doesn't overwrite
                             # character.person immediately
         if not suppress_message:
-            Display().write("You find yourself in " + str(self.place) + ".")
+            print("You find yourself in " + str(self.place) + ".")
 
     def depegify(self):
         self.lost_peg_leg = True
 
     def monstrosify(self):
         self.is_monstrosity = True
-        Display().write("You are now a towering monstrosity.")
+        print("You are now a towering monstrosity.")
 
     def frogify(self):
         self.is_frog = True
-        Display().write("You are now a frog.")
+        print("You are now a frog.")
 
     def defrogify(self):
         self.is_frog = False
-        Display().write("You are now yourself again.")
+        print("You are now yourself again.")
 
     def start_tripping(self):
         self.trip = True
@@ -153,8 +151,7 @@ class Character(object):
         Win the game.
         """
         if self.place.name != "the void": 
-            Display().write("You win!")
-        Display().disable()
+            print("You win!")
         self.alone = False
 
     def add_employer(self, employer):

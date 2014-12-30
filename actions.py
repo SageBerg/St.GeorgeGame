@@ -9,7 +9,6 @@ import random
 import abc
 
 import places
-from display import Display
 from raffle import Raffle
 import money
 import items
