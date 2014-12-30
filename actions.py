@@ -1760,11 +1760,13 @@ class BegForMoney(Action):
                 self.outcomes.add(Outcome(character,
                     "St. George becomes irritated by your begging "
                     "and crushes you with his iron hammer.",
+                    die=True
                 ), weight=1)
 
                 self.outcomes.add(Outcome(character,
                     "St. George smites you with his saintly wraith "
                     "for being ungrateful.",
+                    die=True
                 ), weight=1)
 
             else:
