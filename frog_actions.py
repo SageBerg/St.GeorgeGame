@@ -4,6 +4,8 @@ from outcome import Outcome
 
 class Croak(Action):
 
+    slot = "a"
+
     def __init__(self):
         super().__init__()
         self.name = "Croak."
@@ -17,6 +19,8 @@ class Croak(Action):
 
 
 class Ribbit(Action):
+
+    slot = "b"
 
     def __init__(self):
         super().__init__()
@@ -42,6 +46,8 @@ class Ribbit(Action):
 
 
 class Hop(Action):
+
+    slot = "c"
 
     def __init__(self):
         super().__init__()
@@ -71,6 +77,8 @@ class Hop(Action):
 
 
 class EatAFly(Action):
+
+    slot = "d"
 
     def __init__(self):
         super().__init__()

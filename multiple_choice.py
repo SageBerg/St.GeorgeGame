@@ -24,8 +24,8 @@ class MultipleChoice(object):
                      "d": Raffle(),
                      "e": Raffle()}
 
-    def add(self, action, slot, weight=1):
-        self.bags[slot].add(action, weight)
+    def add(self, action, weight=1):
+        self.bags[type(action).slot].add(action, weight)
 
     def generate_actions(self, character):
         """

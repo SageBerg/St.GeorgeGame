@@ -11,6 +11,8 @@ from outcome import Outcome
 
 class AnnihilateEverything(Action):
 
+    slot = "a"
+
     def __init__(self):
         super().__init__()
         self.name = "Annihilate everything."
@@ -24,6 +26,8 @@ class AnnihilateEverything(Action):
 
 
 class TerrorizeTheKingdom(Action):
+
+    slot = "b"
 
     def __init__(self):
         super().__init__()
@@ -41,6 +45,8 @@ class TerrorizeTheKingdom(Action):
 
 class GoOnARampage(Action):
 
+    slot = "c"
+
     def __init__(self):
         super().__init__()
         self.name = "Go on a rampage."
@@ -55,6 +61,8 @@ class GoOnARampage(Action):
 
 
 class DestroyAllHumanCivilizations(Action):
+
+    slot = "d"
 
     def __init__(self):
         super().__init__()

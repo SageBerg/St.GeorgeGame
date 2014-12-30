@@ -42,7 +42,7 @@ class Outcome(object):
                  remove_employer=None,
                  topic=None,
                  funcs=(), # USAGE [action]
-                 actions=(),  # USAGE: [(Action action(), str slot, int weight)]
+                 actions=(),  # USAGE: [(Action action(), int weight)]
                  succeed=False
                  ):
         self.add_item = add_item

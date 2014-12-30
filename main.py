@@ -23,269 +23,269 @@ from multiple_choice import MultipleChoice
 def add_action_actions(choices, character):
     if type(character.prev_act) == actions.Swim and \
        character.place == places.ocean:
-        choices.add(actions.KeepSwimming(), "c", 10000)
+        choices.add(actions.KeepSwimming(), 10000)
     if type(character.prev_act) ==  actions.KeepSwimming and \
        character.place == places.ocean:
-        choices.add(actions.JustKeepSwimming(), "c", 10000)
+        choices.add(actions.JustKeepSwimming(), 10000)
     if type(character.prev_act) == actions.JustKeepSwimming and \
        character.place == places.ocean:
-        choices.add(actions.JustKeepSwimming(), "c", 10000)
+        choices.add(actions.JustKeepSwimming(), 10000)
     if isinstance(character.prev_act, actions.SayYouLoveHer) and \
        character.person == persons.fat_lady:
-        choices.add(actions.MarryFelicity(), "a", 777)
-        choices.add(actions.RunLikeTheDevil(), "c", 666)
+        choices.add(actions.MarryFelicity(), 777)
+        choices.add(actions.RunLikeTheDevil(), 666)
 
 
 def add_outcome_actions(choices, character, outcome):
-    for action, slot, weight in outcome.actions:
-        choices.add(action, slot, weight)
+    for action, weight in outcome.actions:
+        choices.add(action, weight)
     if outcome.love_confessor is not None:
-        choices.add(actions.SayYouLoveHer(outcome.love_confessor), "a", 1000)
+        choices.add(actions.SayYouLoveHer(outcome.love_confessor), 1000)
     if outcome.fail:
-        choices.add(actions.KillYourselfInFrustration(), "a", 5)
+        choices.add(actions.KillYourselfInFrustration(), 5)
         if character.place in places.populated:
-            choices.add(actions.KillEverybodyInAFitOfRage(), "a", 5)
+            choices.add(actions.KillEverybodyInAFitOfRage(), 5)
         if character.place in places.burnable:
             choices.add(actions.BurnThePlaceToTheGround(
-                character.place), "b", 3)
+                character.place), 3)
         if not character.place.locked:
-            choices.add(actions.LeaveInAHuff(), "c", 5)
+            choices.add(actions.LeaveInAHuff(), 5)
     if outcome.succeed:
-        choices.add(actions.ThumpYourselfOnTheChest(), "a", 5)
-        choices.add(actions.CelebrateYourSuccess(), "c", 5)
+        choices.add(actions.ThumpYourselfOnTheChest(), 5)
+        choices.add(actions.CelebrateYourSuccess(), 5)
     if outcome.topic:
         if outcome.new_person == persons.guards:
             choices.add(actions.TellThemYouAreNotALunatic(
-                topic=outcome.topic), "b", 10)
+                topic=outcome.topic), 10)
         else:
-            choices.add(actions.SingASong(topic=outcome.topic), "d", 10)
+            choices.add(actions.SingASong(topic=outcome.topic), 10)
 
 
 def add_person_actions(choices, character):
     if character.person:
-        choices.add(actions.Attack(character.person), "a", 10)
+        choices.add(actions.Attack(character.person), 10)
     if character.person == persons.assassin:
-        choices.add(actions.Apologize(), "d", 10)
+        choices.add(actions.Apologize(), 10)
     if character.person == persons.assassins:
-        choices.add(actions.BoastOfYourBravery(), "b", 1)
+        choices.add(actions.BoastOfYourBravery(), 1)
     if character.person == persons.blind_bartender:
-        choices.add(actions.BoastOfYourBravery(), "b", 1)
+        choices.add(actions.BoastOfYourBravery(), 1)
     if character.person == persons.pretty_lady:
-        choices.add(actions.BoastOfYourBravery(), "b", 5)
-        choices.add(actions.FlirtWith(persons.pretty_lady), "c", 1000) # TODO fix
+        choices.add(actions.BoastOfYourBravery(), 5)
+        choices.add(actions.FlirtWith(persons.pretty_lady), 1000) # TODO fix
     if character.person == persons.st_george:
-        choices.add(actions.BegForMoney(), "b", 10)
-        choices.add(actions.SingASong(topic="St. George"), "d", 3)
+        choices.add(actions.BegForMoney(), 10)
+        choices.add(actions.SingASong(topic="St. George"), 3)
     if character.person == persons.wealthy_merchant:
-        choices.add(actions.BoastOfYourBravery(), "b", 1)
-        choices.add(actions.Buy(weapons.weapons), "b", 30)
-        choices.add(actions.SingASong(topic="weapons"), "d", 3)
+        choices.add(actions.BoastOfYourBravery(), 1)
+        choices.add(actions.Buy(weapons.weapons), 30)
+        choices.add(actions.SingASong(topic="weapons"), 3)
     if character.person == persons.wizard:
-        choices.add(actions.BoastOfYourBravery(), "b", 2)
-        choices.add(actions.SingASong(), "d", 2)
-        choices.add(actions.SingASong(topic="magic"), "d", 3)
+        choices.add(actions.BoastOfYourBravery(), 2)
+        choices.add(actions.SingASong(), 2)
+        choices.add(actions.SingASong(topic="magic"), 3)
     if character.person == persons.lord_arthur:
-        choices.add(actions.SuckUpTo(persons.lord_arthur), "a", 5)
+        choices.add(actions.SuckUpTo(persons.lord_arthur), 5)
     if character.person == persons.lord_bartholomew:
-        choices.add(actions.SuckUpTo(persons.lord_bartholomew), "a", 5)
+        choices.add(actions.SuckUpTo(persons.lord_bartholomew), 5)
     if character.person == persons.lord_carlos:
-        choices.add(actions.SuckUpTo(persons.lord_carlos), "a", 5)
+        choices.add(actions.SuckUpTo(persons.lord_carlos), 5)
     if character.person == persons.lord_daniel:
-        choices.add(actions.SuckUpTo(persons.lord_daniel), "a", 5)
+        choices.add(actions.SuckUpTo(persons.lord_daniel), 5)
     if character.person != persons.wizard and \
        character.place in [places.streets, places.market]:
-        choices.add(actions.LookForTheWizard(), "c", 2)
+        choices.add(actions.LookForTheWizard(), 2)
     if character.person == persons.peasant_lass or \
        character.person == persons.simple_peasant:
-        choices.add(actions.AskDirections(), "a", 30)
+        choices.add(actions.AskDirections(), 30)
 
 
 def add_place_actions(choices, character):
     if not character.place.locked and character.place in places.town:
-        choices.add(actions.LookForACat(), "b")
+        choices.add(actions.LookForACat())
     if not character.threatened and not character.place.locked:
         for _ in range(3):
-            choices.add(actions.GoTo(character.place), "c")
+            choices.add(actions.GoTo(character.place))
 
     if character.place == places.arctic and character.place.locked:
         Display().write("Your tongue is stuck to an icicle.")
 
     if character.place in places.burnable:
-        choices.add(actions.BurnThePlaceToTheGround(character.place), "b", 2)
+        choices.add(actions.BurnThePlaceToTheGround(character.place), 2)
     if not random.randint(0, 249) and character.place in places.burnable:
-        choices.add(actions.SetThePlaceOnFire(character.place), "a", 666)
-        choices.add(actions.BurnThePlaceToTheGround(character.place), "b", 666)
-        choices.add(actions.BurnThePlaceToACrisp(character.place), "c", 666)
-        choices.add(actions.LightUpThePlace(character.place), "d", 666)
+        choices.add(actions.SetThePlaceOnFire(character.place), 666)
+        choices.add(actions.BurnThePlaceToTheGround(character.place), 666)
+        choices.add(actions.BurnThePlaceToACrisp(character.place), 666)
+        choices.add(actions.LightUpThePlace(character.place), 666)
 
     if character.place == places.arctic:
-        choices.add(actions.GoFishing(), "a", 2)
+        choices.add(actions.GoFishing(), 2)
         if character.has_item(items.SealCarcass):
-            choices.add(actions.BarterWithEskimos(), "b", 2)
-        choices.add(actions.BuildAnIgloo(), "b", 20)
-        choices.add(actions.ClubASeal(), "c", 20)
-        choices.add(actions.FreezeToDeath(), "d", 2)
+            choices.add(actions.BarterWithEskimos(), 2)
+        choices.add(actions.BuildAnIgloo(), 20)
+        choices.add(actions.ClubASeal(), 20)
+        choices.add(actions.FreezeToDeath(), 2)
     if character.place == places.cave:
-        choices.add(actions.LookForAWayOut(), "c", 10)
+        choices.add(actions.LookForAWayOut(), 10)
     if character.place == places.church:
         if character.person != persons.st_george:
-            choices.add(actions.LookForStGeorge(), "a", 20)
+            choices.add(actions.LookForStGeorge(), 20)
         if character.money != money.none:
-            choices.add(actions.Tithe(), "b", 10)
-        choices.add(actions.TellAPriest("that God doesn't exist"), "c", 1)
-        choices.add(actions.TellAPriest("that he's fat"), "c", 1)
-        choices.add(actions.TellAPriest("that you are the chosen one"), "c", 1)
-        choices.add(actions.SingASong("God"), "d", 2)
+            choices.add(actions.Tithe(), 10)
+        choices.add(actions.TellAPriest("that God doesn't exist"), 1)
+        choices.add(actions.TellAPriest("that he's fat"), 1)
+        choices.add(actions.TellAPriest("that you are the chosen one"), 1)
+        choices.add(actions.SingASong("God"), 2)
     if character.place == places.countryside:
-        choices.add(actions.PickSomeFlowers(), "a", 10)
-        choices.add(actions.TipACow(), "b", 10)
-        choices.add(actions.WanderTheCountryside(), "c", 30)
-        choices.add(actions.DoSomeFarmWork(), "d", 10)
+        choices.add(actions.PickSomeFlowers(), 10)
+        choices.add(actions.TipACow(), 10)
+        choices.add(actions.WanderTheCountryside(), 30)
+        choices.add(actions.DoSomeFarmWork(), 10)
     if character.place == places.dark_alley:
-        choices.add(actions.LookForAssassins(), "a", 5)
-        #choices.add(actions.LookForBlackMarketItems(), "b", 5)
-        #choices.add(actions.Hide(), "c", 5)
-        choices.add(actions.LookThroughSomeTrash(), "d", 5)
+        choices.add(actions.LookForAssassins(), 5)
+        #choices.add(actions.LookForBlackMarketItems(), 5)
+        #choices.add(actions.Hide(), 5)
+        choices.add(actions.LookThroughSomeTrash(), 5)
     if character.place == places.docks:
-        choices.add(actions.GoFishing(), "a", 2)
-        #choices.add(actions.LookForWorkAsASailor(), "b", 2)
-        choices.add(actions.LookForTheWizard(), "c", 2)
-        choices.add(actions.DoSomeGambling(), "d", 1)
+        choices.add(actions.GoFishing(), 2)
+        #choices.add(actions.LookForWorkAsASailor(), 2)
+        choices.add(actions.LookForTheWizard(), 2)
+        choices.add(actions.DoSomeGambling(), 1)
     #if character.place == places.lord_bartholomews_manor:
         #if persons.lord_bartholomew.alive:
-            #choices.add(actions.AskForAnAudienceWithLordBartholomew(s), "a", 10)
-            #choices.add(actions.GoStraightToLordBartholomew(), "c", 2)
+            #choices.add(actions.AskForAnAudienceWithLordBartholomew(s), 10)
+            #choices.add(actions.GoStraightToLordBartholomew(), 2)
     if character.place == places.lord_carlos_manor:
-        choices.add(actions.AskAboutAssassins(), "a", 10)
-        choices.add(actions.Disguise(), "b", 10)
+        choices.add(actions.AskAboutAssassins(), 10)
+        choices.add(actions.Disguise(), 10)
         #if persons.lord_carlos.alive:
-            #choices.add(actions.GoStraightToLordCarlos(), "c", 10)
-        choices.add(actions.SneakAround(), "d", 20)
+            #choices.add(actions.GoStraightToLordCarlos(), 10)
+        choices.add(actions.SneakAround(), 20)
     if character.place == places.market:
         if character.person != persons.wealthy_merchant:
-            choices.add(actions.LookForAWeapon(), "a", 10)
-        #choices.add(actions.Buy(), "b", 10)
+            choices.add(actions.LookForAWeapon(), 10)
+        #choices.add(actions.Buy(), 10)
         if character.person != persons.wizard:
-            choices.add(actions.LookForTheWizard(), "c", 4)
-        #choices.add(actions.WatchAPlay(), "d", 5)
+            choices.add(actions.LookForTheWizard(), 4)
+        #choices.add(actions.WatchAPlay(), 5)
     if character.place == places.mermaid_rock:
-        choices.add(actions.GoFishing(), "a", 2)
+        choices.add(actions.GoFishing(), 2)
         if character.person != persons.mermaid:
-            choices.add(actions.LookForMermaids(), "b", 2)
+            choices.add(actions.LookForMermaids(), 2)
         else:
-            choices.add(actions.FlirtWith(persons.mermaid), "d", 2)
-        choices.add(actions.SingASong(), "d", 2)
+            choices.add(actions.FlirtWith(persons.mermaid), 2)
+        choices.add(actions.SingASong(), 2)
     if character.place == places.ocean:
-        choices.add(actions.GoDivingForPearls(), "a", 10)
-        choices.add(actions.LookForMermaids(), "b", 3)
-        choices.add(actions.LookForSeaTurtles(), "b", 3)
-        choices.add(actions.Swim(), "c", 10)
-        choices.add(actions.Drown(), "d", 3)
-        choices.add(actions.Sink(), "d", 3)
+        choices.add(actions.GoDivingForPearls(), 10)
+        choices.add(actions.LookForMermaids(), 3)
+        choices.add(actions.LookForSeaTurtles(), 3)
+        choices.add(actions.Swim(), 10)
+        choices.add(actions.Drown(), 3)
+        choices.add(actions.Sink(), 3)
     if character.place == places.pirate_ship:
-        choices.add(actions.GoFishing(), "a", 2)
-        choices.add(actions.SuckUpTo(persons.lord_arthur), "a", 3)
+        choices.add(actions.GoFishing(), 2)
+        choices.add(actions.SuckUpTo(persons.lord_arthur), 3)
         if character.has_item(items.SailorPeg):
-            choices.add(actions.ClimbUpTheTopSails(), "c", 10)
-        choices.add(actions.WalkThePlank(), "c", 10)
-        choices.add(actions.ClimbIntoTheCrowsNest(), "b", 5)
-        choices.add(actions.ScrubTheDeck(), "b", 5)
-        choices.add(actions.RaiseASail(), "b", 5)
-        choices.add(actions.YellAPiratePhrase(), "d", 10)
-        choices.add(actions.DoSomeGambling(), "d", 1)
+            choices.add(actions.ClimbUpTheTopSails(), 10)
+        choices.add(actions.WalkThePlank(), 10)
+        choices.add(actions.ClimbIntoTheCrowsNest(), 5)
+        choices.add(actions.ScrubTheDeck(), 5)
+        choices.add(actions.RaiseASail(), 5)
+        choices.add(actions.YellAPiratePhrase(), 10)
+        choices.add(actions.DoSomeGambling(), 1)
     if character.place == places.prison:
-        choices.add(actions.BideYourTime(), "b", 10)
-        choices.add(actions.FlirtWith(persons.fat_lady), "c", 10)
+        choices.add(actions.BideYourTime(), 10)
+        choices.add(actions.FlirtWith(persons.fat_lady), 10)
     if character.place == places.streets and \
        character.person != persons.wizard:
         if character.person != persons.st_george:
-            choices.add(actions.LookForStGeorge(), "a", 2)
-        choices.add(actions.GawkAtWomen(), "b", 1)
-        choices.add(actions.LookForTheWizard(), "c", 1)
+            choices.add(actions.LookForStGeorge(), 2)
+        choices.add(actions.GawkAtWomen(), 1)
+        choices.add(actions.LookForTheWizard(), 1)
         if character.money == money.small_fortune or \
            character.money == money.large_fortune:
-            choices.add(actions.FlauntYourWealth(), "d", 2)
+            choices.add(actions.FlauntYourWealth(), 2)
     if character.place == places.tavern:
-        choices.add(actions.AskAboutAssassins(), "a", 1)
-        choices.add(actions.BuyADrink(), "b", 2)
-        #choices.add(actions.LookForLadies(), "c", 2)
-        choices.add(actions.DoSomeGambling(), "d", 1)
+        choices.add(actions.AskAboutAssassins(), 1)
+        choices.add(actions.BuyADrink(), 2)
+        #choices.add(actions.LookForLadies(), 2)
+        choices.add(actions.DoSomeGambling(), 1)
     #if character.place == places.tower:
-        #choices.add(actions.AskForAnAudienceWithLordDaniel(), "a", 1)
-        #choices.add(actions.ComplainAboutUnfairImprisonment(), "c", 1)
-        #choices.add(actions.TrainWithTheGuards(), "d", 1)
+        #choices.add(actions.AskForAnAudienceWithLordDaniel(), 1)
+        #choices.add(actions.ComplainAboutUnfairImprisonment(), 1)
+        #choices.add(actions.TrainWithTheGuards(), 1)
     if character.place == places.void:
-        choices.add(actions.LookForVoidDust(), "a", 1)
+        choices.add(actions.LookForVoidDust(), 1)
     if character.place == places.wizards_lab:
-        choices.add(actions.ReadASpellBook(), "a", 5)
-        #choices.add(actions.BrewAPotion(), "b", 5)
+        choices.add(actions.ReadASpellBook(), 5)
+        #choices.add(actions.BrewAPotion(), 5)
         if places.wizards_lab not in places.trashed:
-            choices.add(actions.TrashThePlace(), "c", 2)
-        choices.add(actions.SnoopAround(), "d", 20)
+            choices.add(actions.TrashThePlace(), 2)
+        choices.add(actions.SnoopAround(), 20)
     if character.place == places.woods:
         if character.has_item(items.Ax):
-            choices.add(actions.ChopDownATree(), "a", 20)
-        choices.add(actions.PickSomeFlowers(), "a", 10)
-        choices.add(actions.LookForWitches(), "b", 100)  # FIXME
-        choices.add(actions.GoMushroomPicking(), "c", 12)
-        #choices.add(actions.LookForNymphs(), "d", 10)
+            choices.add(actions.ChopDownATree(), 20)
+        choices.add(actions.PickSomeFlowers(), 10)
+        choices.add(actions.LookForWitches(), 100)  # FIXME
+        choices.add(actions.GoMushroomPicking(), 12)
+        #choices.add(actions.LookForNymphs(), 10)
 
 def add_item_actions(choices, character):
     if character.has_item(items.ManyColoredMushroom):
         item = character.get_item(items.ManyColoredMushroom)
-        choices.add(actions.ChowDown(item), "d", 1)
+        choices.add(actions.ChowDown(item), 1)
     if character.has_item(items.BlackMushroom):
         item = character.get_item(items.BlackMushroom)
-        choices.add(actions.ChowDown(item), "d", 1)
+        choices.add(actions.ChowDown(item), 1)
     if character.has_item(items.WhiteMushroom):
         item = character.get_item(items.WhiteMushroom)
-        choices.add(actions.ChowDown(item), "d", 1)
+        choices.add(actions.ChowDown(item), 1)
     if character.has_item(items.YellowMushroom):
         item = character.get_item(items.YellowMushroom)
-        choices.add(actions.ChowDown(item), "d", 1)
+        choices.add(actions.ChowDown(item), 1)
     if character.has_item(items.Cat):
         item = character.get_item(items.Cat)
-        choices.add(actions.SwingYourCat(item), "d", 1)
+        choices.add(actions.SwingYourCat(item), 1)
     if character.has_item(items.Jewels):
         item = character.get_item(items.Jewels)
-        choices.add(actions.AdmireYourJewels(item), "a", 1)
+        choices.add(actions.AdmireYourJewels(item), 1)
 
 
 def add_character_actions(choices, character):
     if character.threatened and character.person:
         if not character.person.arrester:
-            choices.add(actions.PlayDead(), "b", 10)
-            choices.add(actions.Panic(), "d", 1)
-        choices.add(actions.RunLikeTheDevil(), "c", 18)
-        choices.add(actions.LeaveInAHuff(), "c", 2)
-        choices.add(actions.WaddleLikeGod(), "c", 2)
+            choices.add(actions.PlayDead(), 10)
+            choices.add(actions.Panic(), 1)
+        choices.add(actions.RunLikeTheDevil(), 18)
+        choices.add(actions.LeaveInAHuff(), 2)
+        choices.add(actions.WaddleLikeGod(), 2)
     if character.lost_peg_leg:
-        choices.add(actions.Yell("I lost my leg"), "d", 1)
+        choices.add(actions.Yell("I lost my leg"), 1)
 
 
 def add_default_actions(choices, character):
-    choices.add(actions.Think(), "a",)
-    choices.add(actions.LickTheGround(character.place), "a")
-    choices.add(actions.PrayToAHigherPower(), "b")
-    choices.add(actions.GoToSleep(), "c")
-    choices.add(actions.LeaveInAPuff(), "c")
-    choices.add(actions.SingASong(), "d")
-    choices.add(actions.DanceAJig(), "d")
-    choices.add(actions.EnterTheVoid(), "e")
+    choices.add(actions.Think())
+    choices.add(actions.LickTheGround(character.place))
+    choices.add(actions.PrayToAHigherPower())
+    choices.add(actions.GoToSleep())
+    choices.add(actions.LeaveInAPuff())
+    choices.add(actions.SingASong())
+    choices.add(actions.DanceAJig())
+    choices.add(actions.EnterTheVoid())
 
 
 def add_frog_actions(choices, character):
-    choices.add(frog_actions.Croak(), "a")
-    choices.add(frog_actions.Ribbit(), "b")
-    choices.add(frog_actions.Hop(), "c")
-    choices.add(frog_actions.EatAFly(), "d")
+    choices.add(frog_actions.Croak())
+    choices.add(frog_actions.Ribbit())
+    choices.add(frog_actions.Hop())
+    choices.add(frog_actions.EatAFly())
 
 
 def add_monstrosity_actions(choices, character):
-    choices.add(monstrosity_actions.AnnihilateEverything(), "a")
-    choices.add(monstrosity_actions.TerrorizeTheKingdom(), "b")
-    choices.add(monstrosity_actions.GoOnARampage(), "c")
-    choices.add(monstrosity_actions.DestroyAllHumanCivilizations(), "d")
+    choices.add(monstrosity_actions.AnnihilateEverything())
+    choices.add(monstrosity_actions.TerrorizeTheKingdom())
+    choices.add(monstrosity_actions.GoOnARampage())
+    choices.add(monstrosity_actions.DestroyAllHumanCivilizations())
 
 
 def add_actions(choices, character, outcome):
