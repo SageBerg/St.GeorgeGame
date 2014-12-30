@@ -45,3 +45,12 @@ class Raffle(object):
         """
         for option, weight in other.options.items():
             self.add(option, weight)
+
+    def __len__(self):
+        """
+        Return the combined weight of all options in the Raffle.
+        """
+        total = 0
+        for _, weight in self.options.items():
+            total += weight
+        return total
