@@ -32,21 +32,11 @@ class Action(object):
         self.name = ""
         self.combat_action = False
         self.outcomes = Raffle()
-        self.options = {"a": Raffle(),
-                        "b": Raffle(),
-                        "c": Raffle(),
-                        "d": Raffle(),
-                        "e": Raffle()}
 
     def __str__(self):
         return self.name
 
     def clean_execute(self, character):
-        self.options = {"a": Raffle(),
-                        "b": Raffle(),
-                        "c": Raffle(),
-                        "d": Raffle(),
-                        "e": Raffle()}
         self.execute(character)
         return self.run_outcome()
 
