@@ -98,6 +98,11 @@ def add_person_actions(choices, character):
     if character.person == persons.peasant_lass or \
        character.person == persons.simple_peasant:
         choices.add(actions.AskDirections(), 30)
+    if character.person == persons.witch:
+        if character.has_item(items.BottleOfSap) and \
+           character.has_item(items.BouquetOfFlowers) and \
+           character.has_item(items.ManyColoredMushroom):
+            choices.add(actions.AskHerToBrew(items.LovePotion), 100)
 
 
 def add_place_actions(choices, character):
