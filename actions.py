@@ -52,6 +52,56 @@ class Action(object):
 # A slot actions
 
 
+class AskHerToBrew(Action):
+
+    slot = "a"
+
+    def __init__(self, potion):
+        super().__init__()
+        self.potion = potion
+        self.name = "Ask her to brew a {0}.".format(self.potion.name)
+
+    def execute(self, character):
+
+        # potential errors here if none of the if statements execute
+        # we'll have an empyt raffle
+
+        if self.potion.name == "love potion":
+            self.outcomes.add(Outcome(character,
+                "The witch puts your ingredients in her cauldron and brews "
+                "a large batch.",
+                add_item=self.potion,
+                funcs=[lambda: character.remove_item(
+                               character.get_item(items.BottleOfSap)),
+                       lambda: character.remove_item(
+                               character.get_item(items.BouquetOfFlowers)),
+                       lambda: character.remove_item(
+                               character.get_item(items.ManyColoredMushroom)),],
+            ), weight=1)
+
+        if self.potion.name == "potion of tail growth":
+            self.outcomes.add(Outcome(character,
+                "The witch puts your ingredients in her cauldron and brews "
+                "a large batch.",
+                add_item=self.potion,
+                funcs=[lambda: character.remove_item(
+                               character.get_item(items.Cat)),
+                       lambda: character.remove_item(
+                               character.get_item(items.Pearl)),],
+            ), weight=1)
+
+        if self.potion.name == "potion of strength":
+            self.outcomes.add(Outcome(character,
+                "The witch puts your ingredients in her cauldron and brews "
+                "a large batch.",
+                add_item=self.potion,
+                funcs=[lambda: character.remove_item(
+                               character.get_item(items.WhiteMushroom)),
+                       lambda: character.remove_item(
+                               character.get_item(items.DeepCaveNewt)),],
+            ), weight=1)
+
+
 class Think(Action):
 
     slot = "a"
@@ -1137,7 +1187,48 @@ class ThumpYourselfOnTheChest(Action):
 # B slot actions
 
 
+class SlurpDown(Action):
+
+    slot = "b"
+
+    def __init__(self, potion):
+        super().__init__()
+        self.potion = potion
+        self.name = "{0}".format(random.choice([
+            "Slurp down your ",
+            "Take a swig of your ",
+            "Down your ",
+            "Chug your ",])) + self.potion.name + "."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "Like homeopathy, the potion does nothing.",
+        ), weight=1)
+
+        if self.potion.name == "love potion":
+            self.outcomes.add(Outcome(character,
+                "You fall in love with yourself and give yourself a hug.",
+                remove_item=character.get_item(items.LovePotion),
+            ), weight=10000)
+
+        if self.potion.name == "potion of strength":
+            self.outcomes.add(Outcome(character,
+                None,
+                remove_item=character.get_item(items.StrengthPotion),
+                grow_stronger=4,
+            ), weight=10000)
+
+        if self.potion.name == "potion of tail growth":
+            self.outcomes.add(Outcome(character,
+                "You now have a tail.",
+                remove_item=character.get_item(items.TailPotion),
+            ), weight=10000)
+
+
 class LookForWitches(Action):
+
+    slot = "b"
 
     def __init__(self):
         super().__init__()
@@ -1150,10 +1241,16 @@ class LookForWitches(Action):
             new_person=persons.witch,
         ), weight=1)
 
-        self.outcomes.add(Outcome(character,
-            "You can't find any witches. Only trees.",
-            fail=True,
-        ), weight=1)
+        if character.place in places.burnable:
+            self.outcomes.add(Outcome(character,
+                "You can't find any witches. Only trees.",
+                fail=True,
+            ), weight=1)
+        else:
+            self.outcomes.add(Outcome(character,
+                "You can't find any witches. Only burnt trees.",
+                fail=True,
+            ), weight=1)
 
 
 class GawkAtWomen(Action):

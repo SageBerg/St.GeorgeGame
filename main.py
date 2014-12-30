@@ -101,7 +101,13 @@ def add_person_actions(choices, character):
         if character.has_item(items.BottleOfSap) and \
            character.has_item(items.BouquetOfFlowers) and \
            character.has_item(items.ManyColoredMushroom):
-            choices.add(actions.AskHerToBrew(items.LovePotion), 100)
+            choices.add(actions.AskHerToBrew(items.LovePotion()), 100)
+        if character.has_item(items.Cat) and \
+           character.has_item(items.Pearl):
+            choices.add(actions.AskHerToBrew(items.TailPotion()), 100)
+        if character.has_item(items.WhiteMushroom) and \
+           character.has_item(items.DeepCaveNewt):
+            choices.add(actions.AskHerToBrew(items.StrengthPotion()), 100)
 
 
 def add_place_actions(choices, character):
@@ -235,6 +241,15 @@ def add_place_actions(choices, character):
         #choices.add(actions.LookForNymphs(), 10)
 
 def add_item_actions(choices, character):
+    if character.has_item(items.LovePotion):
+        item = character.get_item(items.LovePotion)
+        choices.add(actions.SlurpDown(item), 100)  # FIXME
+    if character.has_item(items.TailPotion):
+        item = character.get_item(items.TailPotion)
+        choices.add(actions.SlurpDown(item), 100) # FIXME
+    if character.has_item(items.StrengthPotion):
+        item = character.get_item(items.StrengthPotion)
+        choices.add(actions.SlurpDown(item), 100)  # FIXME
     if character.has_item(items.ManyColoredMushroom):
         item = character.get_item(items.ManyColoredMushroom)
         choices.add(actions.ChowDown(item), 1)
