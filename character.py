@@ -8,6 +8,7 @@ Created: 9 Dec 2014
 import random
 
 import money
+import items  # TODO remove when done testing game
 
 
 class Character(object):
@@ -17,7 +18,8 @@ class Character(object):
     """
 
     def __init__(self):
-        self.items = set()
+        self.items = set([items.Cat(), items.BouquetOfFlowers(),
+                         items.ManyColoredMushroom(), items.Pearl()])
         self.best_weapon = ""
         self.attack = 0
         self.money = money.large_fortune  # TODO start with money.none
