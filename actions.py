@@ -33,27 +33,20 @@ class Action(object):
         self.combat_action = False
         self.outcomes = Raffle()
 
-    def __str__(self):
-        return self.name
-
-    def clean_execute(self, character):
-        self.execute(character)
-        return self.run_outcome()
-
     @abc.abstractmethod
     def execute(self, character):
         """
         returns nothing, edits character attributes
         """
 
-    def run_outcome(self):
+    def clean_execute(self, character):
+        self.execute(character)
         outcome = self.outcomes.get()  # outcome may be function or instance
-        if isinstance(outcome, Outcome):
-            outcome.execute()
-        elif outcome:
-            outcome()
         self.outcomes = Raffle()
         return outcome
+
+    def __str__(self):
+        return self.name
 
 
 # A slot actions

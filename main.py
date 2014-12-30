@@ -355,6 +355,7 @@ def main():
             outcome = combat(character)
             if not character.alive:
                 break
+        outcome.execute()
         character.prev_act = action
         add_actions(choices, character, outcome)
         choices.generate_actions(character)
