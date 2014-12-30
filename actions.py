@@ -1072,7 +1072,7 @@ class KillYourselfInFrustration(Action):
             self.outcomes.add(Outcome(character,
                 "You are about to impail yourself on a fence post when a "
                 "small boy walks by. By the time he leaves, your stupidity "
-                "is no longer compailing you to kill yourself.",
+                "is no longer compelling you to kill yourself.",
             ), weight=3)
 
 
@@ -1124,6 +1124,45 @@ class SayYouLoveHer(Action):
                 move_to=places.streets,
                 new_person=persons.fat_lady
             ), weight=9)
+
+
+class MarryOlga(Action):
+
+    slot = "a"
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Marry Olga."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "A bleary-eyed priestess performs a wedding for you and Olga in "
+            "alley behind the church. Olga asks the priestess if she would "
+            "like to come along for the honeymoon, but the priestess declines.",
+            win=True
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "Lord Arthur performs a wedding for you and Olga on the deck of "
+            "deck of his pirate ship. By the time the ceremony is over the "
+            "ship has sailed. You are now both members of the crew.",
+            win=True
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "The wizard performs a wedding for you and Olga in the market. "
+            "He turns you both into sheep after the vows, but it is much "
+            "safer being sheep.",
+            win=True
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "Lord Bartholomew performs a wedding for you and Olga in the "
+            "countryside, 20,000 people attend your wedding, but you suspect "
+            "they just wanted to see Lord Bartholomew.",
+            win=True
+        ), weight=1)
 
 
 class MarryFelicity(Action):
@@ -2830,10 +2869,10 @@ class FlirtWith(Action):
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
-                "You chat her up for a while and find out that you both like "
+                "You find out that you both like "
                 "cats. She says her cat loves being petted.",
                 flirt=(persons.pretty_lady, 2),
-            ), weight=1)
+            ), weight=100)  # FIXME
 
             self.outcomes.add(Outcome(character,
                 "You say the flower in her hair looks goes well with "
@@ -2858,7 +2897,7 @@ class FlirtWith(Action):
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
-                "She plays with your hair while you talk about your exploits.",
+                "She plays with your hair while you talk of your exploits.",
                 flirt=(persons.pretty_lady, 2),
             ), weight=1)
 
@@ -2872,7 +2911,7 @@ class FlirtWith(Action):
                     "She says her name is Olga. You also tell your name.",
                     flirt=(persons.pretty_lady, 2),
                     funcs=[change_name, change_pronouns]
-                ), weight=1000)
+                ), weight=10000)
 
         elif self.person == persons.pretty_lady and \
              character.place == places.tavern:  # We know her name
@@ -2884,7 +2923,7 @@ class FlirtWith(Action):
                 new_person=persons.pretty_lady,
                 move_to=places.upstairs,
                 flirt=(persons.pretty_lady, 2),
-            ), weight=3)
+            ), weight=300) # FIXME
 
             self.outcomes.add(Outcome(character,
                 "You follow her to her room upstairs. Lots of passionate "
@@ -2896,20 +2935,47 @@ class FlirtWith(Action):
              character.place == places.upstairs:
 
             self.outcomes.add(Outcome(character,
+                "{0}".format(random.choice([
                 "You make passionate love together.",
+                "You sleep together.",
+                "You do it.",
+                "Olga does lots of nice things to you.",
+                ])),
                 succeed=True,
+                flirt=(persons.pretty_lady, 2),
+            ), weight=400)  # FIXME
+
+            self.outcomes.add(Outcome(character,
+                "Olga whispers that she's been stalking you.",
                 flirt=(persons.pretty_lady, 2),
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
-                "Olga whispers that she's been stalking you.",
-                flirt=(persons.pretty_lady, 1),
+                "You both stay up late talking by candlelight.",
+                flirt=(persons.pretty_lady, 3),
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "Olga tells you her life story. Half of it seems made up.",
+                flirt=(persons.pretty_lady, 2),
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "You compliment her on her borrowed paintings. She is pleased.",
+                flirt=(persons.pretty_lady, 2),
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
                 "Olga turns out to be an assassin. She assassinates you.",
                 die=True,
             ), weight=1)
+
+            if persons.pretty_lady.attracted > 10:
+                self.outcomes.add(Outcome(character,
+                    "Olga grabs your hand. \"Life's too short, "
+                    "let's get married!\"",
+                    love_confessor=persons.pretty_lady
+                ), weight=1000)
 
 
 class GoToSleep(Action):
@@ -3261,9 +3327,29 @@ class RunLikeTheDevil(Action):
             self.outcomes.add(Outcome(character,
                 "The Devil is very fast and not very fat, so you manage to get "
                 "away unmarried.",
+                new_person=None,
                 move=2,
+                succeed=True,
                 flirt=(persons.fat_lady, -666)
             ), weight=666)
+
+        if character.person == persons.pretty_lady and \
+           persons.pretty_lady.attracted > 9:
+            self.outcomes.add(Outcome(character,
+                "The Devil is pretty fast but Olga is prettier and faster. "
+                "She strangles you to death.",
+                die=True,
+                flirt=(persons.pretty_lady, -666)
+            ), weight=666)
+
+            self.outcomes.add(Outcome(character,
+                "The Devil is very fast, so you manage to get away unmarried.",
+                new_person=None,
+                move=2,
+                succeed=True,
+                flirt=(persons.pretty_lady, -666)
+            ), weight=666)
+
 
 class WaddleLikeGod(Action):
 

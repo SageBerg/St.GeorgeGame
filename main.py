@@ -39,7 +39,11 @@ def add_outcome_actions(choices, character, outcome):
     for action, weight in outcome.actions:
         choices.add(action, weight)
     if outcome.love_confessor is not None:
-        choices.add(actions.SayYouLoveHer(outcome.love_confessor), 1000)
+        if character.person == persons.fat_lady:
+            choices.add(actions.SayYouLoveHer(outcome.love_confessor), 10000)
+        if character.person == persons.pretty_lady:
+            choices.add(actions.MarryOlga(), 10000)
+            choices.add(actions.RunLikeTheDevil(), 10000)
     if outcome.fail:
         choices.add(actions.KillYourselfInFrustration(), 5)
         if character.place in places.populated:
