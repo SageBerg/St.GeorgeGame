@@ -72,6 +72,6 @@ class DestroyAllHumanCivilizations(Action):
 
         self.outcomes.add(Outcome(character,
             "You throw out your arm destroying the first three civilizations "
-            "and an opporunistic hero slays you.",
+            "and an opportunistic hero slays you.",
             die=True,
         ), weight=1)
