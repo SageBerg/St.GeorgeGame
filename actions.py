@@ -237,7 +237,6 @@ class Think(Action):
                 "You think you hear bats, but you also think you might be crazy.",
             ), weight=3)
 
-
             self.outcomes.add(Outcome(character,
                 "You think about death."
             ), weight=3)
@@ -289,6 +288,21 @@ class ReadASpellBook(Action):
         self.outcomes.add(Outcome(character,
             "You open a book of curses. It's cursed.",
             die=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You learn that it takes sap, flowers, and a many-colored "
+            "mushroom to make a love potion.",
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You learn that it takes a cat and a pearl "
+            "mushroom to brew a potion of tail growth.",
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You learn that it takes a white mushoorm and deep-cave newt "
+            "to brew a potion of strength.",
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
@@ -496,6 +510,11 @@ class PickSomeFlowers(Action):
             add_item=items.BouquetOfFlowers(),
             succeed=True,
         ), weight=4)
+
+        self.outcomes.add(Outcome(character,
+            "You don't find any flowers, but you find a four-leaf clover.",
+            add_item=items.FourLeafClover,
+        ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You can't find any flowers. Only grass.",
@@ -2977,6 +2996,35 @@ class FlirtWith(Action):
                     love_confessor=persons.pretty_lady
                 ), weight=1000)
 
+        if self.person == persons.eve:
+            self.outcomes.add(Outcome(character,
+                "She ignores your inuendos, but lets you come to the river "
+                "with her so she can drown a bag of kittens.",
+                flirt=(persons.eve, 1),
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "She tells you to hide in a chest, because she thinks her "
+                "father is coming. She locks you in the chest and doesn't "
+                "let you out for a week.",
+                flirt=(persons.eve, 1),
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "She says she wants to make love to you in the woods, "
+                "but you lose track of her in the darkness. She doesn't "
+                "come back for you.",
+                move_to=places.woods,
+                fail=True,
+                flirt=(persons.eve, 1),
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "She asks you to prove your devotion to her by cleaning her "
+                "room. She seems pleased with your work.",
+                flirt=(persons.eve, 1),
+            ), weight=1)
+
 
 class GoToSleep(Action):
 
@@ -4361,8 +4409,8 @@ class SneakAround(Action):
             ["reading at her desk.", "sharpening a dagger.",
              "petting her cat.", "putting on jewelry.",
              "painting a picture of you getting assassinated.",])),
-            #new_person=persons.carlos_daughter,
-        ), weight=1)
+            new_person=persons.eve,
+        ), weight=1000)  # TODO fix weight 
 
         self.outcomes.add(Outcome(character,
             "You manage to sneak into Lord Carlos' "
