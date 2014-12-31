@@ -32,6 +32,8 @@ blind_bartender = Person("the blind bartender", 1,
                          Pronouns("the blind bartender",
                                   "the blind bartender", "s"))
 fat_lady = Person("the fat lady who feeds you", 4, Pronouns("she", "her", "s"))
+eve = Person("Lord Carlos' daughter", 4, 
+             Pronouns("Lord Carlos' daughter", "Lord Carlos' daughter", "s"))
 guards = Person("the guards", 4, Pronouns("the guards", "the guards", ""), 
                 arrester=True)
 mermaid = Person("the mermaid", 3, Pronouns("the mermaid", "the mermaid", "s"))
