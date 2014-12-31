@@ -242,7 +242,7 @@ class Think(Action):
             self.outcomes.add(Outcome(character,
                 "You zone out while " + 
                 character.person.name + " talk" + 
-                character.person.pronouns.tense + ".",
+                persons.get_tense(character.person) + ".",
             ), weight=3)
 
             self.outcomes.add(Outcome(character,
@@ -579,17 +579,17 @@ class TakeIt(Action):
             self.outcomes.add(Outcome(character,
                 self.wronged_party.name[0].upper() +
                 self.wronged_party.name[1:] + " notice" +
-                self.wronged_party.pronouns.tense + " you taking it and kill" +
-                self.wronged_party.pronouns.tense + " you.",
+                persons.get_tense(self.wronged_party) + " you taking it and kill" +
+                persons.get_tense(self.wronged_party) + " you.",
                 die=True,
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
                 self.wronged_party.name[0].upper() +
                 self.wronged_party.name[1:] + " notice" +
-                self.wronged_party.pronouns.tense + " you taking it and " +
+                persons.get_tense(self.wronged_party) + " you taking it and " +
                 "become" +
-                self.wronged_party.pronouns.tense + " wroth with you.",
+                persons.get_tense(self.wronged_party) + " wroth with you.",
                 new_person=self.wronged_party,
                 threat=True,
             ), weight=1)
@@ -760,7 +760,7 @@ class Arrest(Action):
 
     def __init__(self, person):
         super().__init__()
-        self.name = "Arrest " + person.pronouns.obj + "."
+        self.name = "Arrest " + person.name + "."
         self.combat_action = True
 
     def execute(self, character):
@@ -768,7 +768,7 @@ class Arrest(Action):
 
         self.outcomes.add(Outcome(character,
             character.person.name.capitalize() + " arrest" +
-            character.person.pronouns.tense + " you and throw you in "
+            persons.get_tense(character.person) + " you and throw you in "
             "prison with the other lunatics.",
             unthreat=True,
             new_person=None,
@@ -782,7 +782,7 @@ class Attack(Action):
 
     def __init__(self, person):
         super().__init__()
-        self.name = "Attack " + person.pronouns.obj + "."
+        self.name = "Attack " + person.name + "."
         self.combat_action = True
 
     def execute(self, character):
@@ -791,7 +791,7 @@ class Attack(Action):
             self.outcomes.add(Outcome(character,
                 character.person.name[0].upper() +
                 character.person.name[1:] + " kill" +
-                character.person.pronouns.tense + " you.",
+                persons.get_tense(character.person) + " you.",
                 die=True,
             ), weight=1)
         else:
@@ -1768,7 +1768,7 @@ class PlayDead(Action):
         if character.person != persons.lord_carlos:
             self.outcomes.add(Outcome(character,
                 "You are too pathetic for {0} to kill.".format(
-                    character.person.pronouns.subj),
+                    character.person.name),
                 unthreat=True,
                 new_person=None,
                 fail=True
@@ -1788,8 +1788,8 @@ class PlayDead(Action):
 
         self.outcomes.add(Outcome(character,
             "Just to be sure, {0} kill{1} you.".format(
-                character.person.pronouns.subj,
-                character.person.pronouns.tense),
+                character.person.name,
+                persons.get_tense(character.person)),
             die=True
         ), weight=1)
 
@@ -1900,7 +1900,7 @@ class BegForMoney(Action):
             else:
                 self.outcomes.add(Outcome(character,
                     character.person.name + " give" +
-                    character.person.pronouns.tense +
+                    persons.get_tense(character.person) +
                     " you a pittance.",
                     beg=True,
                     get_money=money.pittance,
@@ -1908,7 +1908,7 @@ class BegForMoney(Action):
 
                 self.outcomes.add(Outcome(character,
                     character.person.name + " give" +
-                    character.person.pronouns.tense +
+                    persons.get_tense(character.person) +
                     " you a small fortune.",
                     beg=True,
                     get_money=money.small_fortune,
@@ -1916,7 +1916,7 @@ class BegForMoney(Action):
 
                 self.outcomes.add(Outcome(character,
                     character.person.name + " give" +
-                    character.person.pronouns.tense +
+                    persons.get_tense(character.person) +
                     " you a large fortune.",
                     beg=True,
                     get_money=money.large_fortune,
@@ -2055,7 +2055,8 @@ class BoastOfYourBravery(Action):
         else:
 
             self.outcomes.add(Outcome(character,
-                 character.person.pronouns.subj.capitalize() +
+                 character.person.name[0].upper() +
+                 character.person.name[1:] +
                  " is not impressed.",
                  fail=True
             ), weight=1)
@@ -2804,14 +2805,11 @@ class FlirtWith(Action):
             if persons.fat_lady.attracted > 3:
                 def change_name():
                     persons.fat_lady.name = "Felicity"
-                def change_pronouns():
-                    persons.fat_lady.pronouns = \
-                        persons.Pronouns("Felicity", "Felicity", "s")
                 self.outcomes.add(Outcome(character,
                     "You strike up a conversation and learn that her name is "
                     "Felicity.",
                     flirt=(persons.fat_lady, 2),
-                    funcs=[change_name, change_pronouns]
+                    funcs=[change_name]
                 ), weight=1000)
 
         elif self.person == persons.fat_lady:  # We know her name
@@ -2914,13 +2912,10 @@ class FlirtWith(Action):
             if persons.pretty_lady.attracted > 3:
                 def change_name():
                     persons.pretty_lady.name = "Olga"
-                def change_pronouns():
-                    persons.pretty_lady.pronouns = \
-                        persons.Pronouns("Olga", "Olga", "s")
                 self.outcomes.add(Outcome(character,
                     "She says her name is Olga. You also tell your name.",
                     flirt=(persons.pretty_lady, 2),
-                    funcs=[change_name, change_pronouns]
+                    funcs=[change_name]
                 ), weight=10000)
 
         elif self.person == persons.pretty_lady and \
@@ -3355,9 +3350,9 @@ class RunLikeTheDevil(Action):
         ), weight=9)
 
         self.outcomes.add(Outcome(character,
-            "You run like the Devil, but " + character.person.pronouns.subj +
-            " also run" + character.person.pronouns.tense + " like the Devil "
-            "and overtake" + character.person.pronouns.tense + " you.",
+            "You run like the Devil, but " + character.person.name +
+            " also run" + persons.get_tense(character.person) + " like the Devil "
+            "and overtake" + persons.get_tense(character.person) + " you.",
             die=True
         ), weight=1)
 
@@ -3407,9 +3402,9 @@ class WaddleLikeGod(Action):
         ), weight=9)
 
         self.outcomes.add(Outcome(character,
-            "You waddle like God, but " + character.person.pronouns.subj +
-            " also waddle" + character.person.pronouns.tense + " like God and "
-            "fail to overtake" + character.person.pronouns.tense + " you. You "
+            "You waddle like God, but " + character.person.name +
+            " also waddle" + persons.get_tense(character.person) + " like God and "
+            "fail to overtake" + persons.get_tense(character.person) + " you. You "
             "slowly get away.",
             unthreat=True,
             new_person=None,

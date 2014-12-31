@@ -321,9 +321,9 @@ def combat(character):
     takes in a character, returns outcome of fight
     """
 
-    print(character.person.pronouns.subj[0].upper() +
-                    character.person.pronouns.subj[1:] +" attack" +
-                    character.person.pronouns.tense + " you.")
+    print(character.person.name[0].upper() +
+                    character.person.name[1:] + " attack" +
+                    persons.get_tense(character.person) + " you.")
     return actions.Attack(character.person).get_outcome(character)
 
 
