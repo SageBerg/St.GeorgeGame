@@ -1,21 +1,14 @@
 actions:
   wizard brings penguins to the arctic
-  throw a fit
   throw throw your cat 
   challenge them to a game of chess 
     as you play Lord Carlos tells you of his villinous plan
       Tell Lord X about Lord Carlos' villinous plan
         you tell them how he was going to assassinate you
-  look for assassins
-    you don't find one
-    you don't find one, he finds you
-  buy potions
-    poison
-    tail growth
-    growth 
   give the wizard the potion and run
   Repay your debts
     No amount of money can make up for what you've done
+    He takes your money but says "No amount of money can make up for what you've done"
   Look for Lord Carlos' daughter    
     Ask her name    
       She becomes irate and assassinates you
@@ -26,11 +19,6 @@ Hop like the devil -> the devil doesn't hop, he runs
 
 You find a dead horse
   beat it
-
-Climb up the top sail
-  You lose your leg
-
-Yell "I lost my leg!"
 
 Cart
   Go faster
@@ -45,15 +33,8 @@ Plan B, C, D, E
 Concoct an elaborate scheme
   Enact your elaborate scheme
 
-your cabin
 see you a boar, it minds its own business
   provoke it
-
-
-potion:
-  cat -> tail growth
-  black mushroom -> poison
-  white mushroom -> size
 
 BUG:
   losing a weapon does not reduce your attack
@@ -89,11 +70,6 @@ followers:
 
 Jon:
 
-New Game Goal: Kill St. George (Many holes to jump through)
--Top Tier Weapon
--Assassin Training (Side option of romancing assassin)
--Experience (Assassinating at least one lord)
-
 Throwing your cat:
 -Cat is instant kill weapon (low chance)
 -You throw it into possible love interest who is scarred for life
@@ -102,37 +78,10 @@ from what you've done.
 -Somebody catches it.
 -Assassin throws it back at you, killing you.
 
-Romancing the Assassin:
--She hits on you after you buy a drink (Not very hard)
--Flirt is an option (She reveals she's an assassin)
--Option to try and coerce her.
--Ask her to run away from the assassins and marry you (you might die); Ask her to help you join the assassins.
-
 Romancing pretty lady:
--Make suggestive options, all result with death because she's an off-duty assassin.
 -Give her a cat, she falls in love with you.
--Take her on a date (Dodge assassins)
--Ask her to marry you.
-
-Romancing the Nymph Queen:
--You have to assassinate Lord Bartholemew to gain an audience with her.
--You have to have a love potion to have her fall in love with you
-
-Joining the Assassins:
--You gain Assassin Training
--You can now attempt to kill Lords without automatic failure
-
-Creating a Love Potion:
--Go to the wizard with the following ingredients;
--=cave item
--=pearl
--=Some mushroom
 
 Victory Conditions:
 -Find True Love
 -Kill all 4 lords
--Kill St. George
 -Burn everything to the ground (you are satisfied with the way everything has been burned)
-
-Buying a drink:
--The drink is poisoned. You die.
