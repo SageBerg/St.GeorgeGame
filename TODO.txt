@@ -1,4 +1,5 @@
 actions:
+  skin your cat
   wizard brings penguins to the arctic
   throw throw your cat 
   challenge them to a game of chess 
