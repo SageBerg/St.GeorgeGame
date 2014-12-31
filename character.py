@@ -22,7 +22,8 @@ class Character(object):
             items.cat: 1,
             items.bouquet_of_flowers: 1,
             items.many_colored_mushroom: 1,
-            items.pearl: 1}
+            items.pearl: 1,
+            items.four_leaf_clover: 1}
         self.best_weapon = ""
         self.attack = 0
         self.money = money.large_fortune  # TODO start with money.none
