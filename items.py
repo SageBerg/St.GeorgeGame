@@ -5,172 +5,38 @@ Skyler Berg
 Created: 16 Dec 2014
 """
 
-import abc
-
 
 class Item(object):
     """
     abstract class
     """
-    __metaclass__ = abc.ABCMeta
 
-    @abc.abstractmethod
-    def __init__(self):
-        self.name = ""
+    def __init__(self, name):
+        self.name = name
 
     def __str__(self):
         return self.name
 
 
-class StrengthPotion(Item):
-
-    def __init__(self):
-        super().__init__()
-        self.name = "potion of strength"
-
-
-class TailPotion(Item):
-
-    def __init__(self):
-        super().__init__()
-        self.name = "potion of tail growth"
-
-
-class LovePotion(Item):
-
-    def __init__(self):
-        super().__init__()
-        self.name = "love potion"
-
-
-class SailorPeg(Item):
-
-    def __init__(self):
-        super().__init__()
-        self.name = "sailor peg"
-
-
-class FourLeafClover(Item):
-
-    def __init__(self):
-        super().__init__()
-        self.name = "four-leaf clover"
-
-
-class BouquetOfFlowers(Item):
-
-    def __init__(self):
-        super().__init__()
-        self.name = "bouquet of flowers"
-
-
-class Fish(Item):
-
-    def __init__(self):
-        super().__init__()
-        self.name = "fish"
-
-
-class SealCarcass(Item):
-
-    def __init__(self):
-        super().__init__()
-        self.name = "seal carcass"
-
-
-class FireProofCloak(Item):
-
-    def __init__(self):
-        super().__init__()
-        self.name = "fancy red cloak"
-
-
-class ManyColoredMushroom(Item):
-
-    def __init__(self):
-        super().__init__()
-        self.name = "many-colored mushroom"
-
-
-class BlackMushroom(Item):
-
-    def __init__(self):
-        super().__init__()
-        self.name = "black mushroom"
-
-
-class WhiteMushroom(Item):
-
-    def __init__(self):
-        super().__init__()
-        self.name = "white mushroom"
-
-
-class YellowMushroom(Item):
-
-    def __init__(self):
-        super().__init__()
-        self.name = "yellow mushroom"
-
-
-class Cat(Item):
-
-    def __init__(self):
-        super().__init__()
-        self.name = "cat"
-
-
-class Frog(Item):
-
-    def __init__(self):
-        super().__init__()
-        self.name = "frog"
-
-
-class DeepCaveNewt(Item):
-
-    def __init__(self):
-        super().__init__()
-        self.name = "deep-cave newt"
-
-
-class Pearl(Item):
-
-    def __init__(self):
-        super().__init__()
-        self.name = "pearl"
-
-
-class Jewels(Item):
-
-    def __init__(self):
-        super().__init__()
-        self.name = "bag of jewels"
-
-
-class ForeignCoin(Item):
-
-    def __init__(self):
-        super().__init__()
-        self.name = "shiny foreign coin"
-
-
-class Ax(Item):
-
-    def __init__(self):
-        super().__init__()
-        self.name = "ax"
-
-
-class BottleOfSap(Item):
-
-    def __init__(self):
-        super().__init__()
-        self.name = "bottle of sap"
-
-
-class BottleOfVoidDust(Item):
-
-    def __init__(self):
-        super().__init__()
-        self.name = "bottle of void dust"
+strength_potion = Item("potion of strength")
+tail_potion = Item("potion of tail growth")
+love_potion = Item("love potion")
+sailor_peg = Item("sailor peg")
+four_leaf_clover = Item("four-leaf clover")
+bouquet_of_flowers = Item("bouquet of flowers")
+fish = Item("fish")
+seal_carcass = Item("seal carcass")
+fire_proof_cloak = Item("fancy red cloak")
+many_colored_mushroom = Item("many-colored mushroom")
+black_mushroom = Item("black mushroom")
+white_mushroom = Item("white mushroom")
+yellow_mushroom = Item("yellow mushroom")
+cat = Item("cat")
+frog = Item("frog")
+deep_cave_newt = Item("deep-cave newt")
+pearl = Item("pearl")
+jewels = Item("bag of jewels")
+foreign_coin = Item("shiny foreign coin")
+ax = Item("ax")
+bottle_of_sap = Item("bottle of sap")
+bottle_of_void_dust = Item("bottle of void dust")

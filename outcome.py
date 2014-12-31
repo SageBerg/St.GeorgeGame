@@ -16,8 +16,8 @@ class Outcome(object):
                  character,
                  msg,
 
-                 add_item=False,  # USAGE: items.Item()
-                 remove_item=False,  # USAGE: character.get_item(items.Item)
+                 add_item=False,  # USAGE: items.item_name
+                 remove_item=False,  # USAGE: items.item_name
                  remove_all_items=False,
                  new_weapon=False,  # USAGE: weapons[x]
                  grow_stronger=False,

@@ -71,12 +71,9 @@ class AskHerToBrew(Action):
                 "The witch puts your ingredients in her cauldron and brews "
                 "a large batch.",
                 add_item=self.potion,
-                funcs=[lambda: character.remove_item(
-                               character.get_item(items.BottleOfSap)),
-                       lambda: character.remove_item(
-                               character.get_item(items.BouquetOfFlowers)),
-                       lambda: character.remove_item(
-                               character.get_item(items.ManyColoredMushroom)),],
+                funcs=[lambda: character.remove_item(items.bottle_of_sap),
+                       lambda: character.remove_item(items.bouquet_of_flowers),
+                       lambda: character.remove_item(items.many_colored_mushroom)]
             ), weight=1)
 
         if self.potion.name == "potion of tail growth":
@@ -84,10 +81,8 @@ class AskHerToBrew(Action):
                 "The witch puts your ingredients in her cauldron and brews "
                 "a large batch.",
                 add_item=self.potion,
-                funcs=[lambda: character.remove_item(
-                               character.get_item(items.Cat)),
-                       lambda: character.remove_item(
-                               character.get_item(items.Pearl)),],
+                funcs=[lambda: character.remove_item(items.cat),
+                       lambda: character.remove_item(items.pearl)]
             ), weight=1)
 
         if self.potion.name == "potion of strength":
@@ -95,10 +90,8 @@ class AskHerToBrew(Action):
                 "The witch puts your ingredients in her cauldron and brews "
                 "a large batch.",
                 add_item=self.potion,
-                funcs=[lambda: character.remove_item(
-                               character.get_item(items.WhiteMushroom)),
-                       lambda: character.remove_item(
-                               character.get_item(items.DeepCaveNewt)),],
+                funcs=[lambda: character.remove_item(items.white_mushroom),
+                       lambda: character.remove_item(items.deep_cave_newt)]
             ), weight=1)
 
 
@@ -188,7 +181,7 @@ class Think(Action):
             self.outcomes.add(Outcome(character,
                 "While you're thinking, a guard hands you an ax and tells "
                 "you to chop some firewood for the cooks.",
-                add_item=items.Ax()
+                add_item=items.ax
             ), weight=5)
 
         if character.place == places.countryside:
@@ -306,7 +299,7 @@ class ReadASpellBook(Action):
 
         self.outcomes.add(Outcome(character,
             "You find a four-clover in the pages of the spell book.",
-            add_item=items.FourLeafClover(),
+            add_item=items.four_leaf_clover,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
@@ -415,27 +408,27 @@ class Swashbuckle(Action):
 
     def execute(self, character):
 
-        #if character.has_item(items.cutlass) or \
-           #character.has_item(items.jeweled_cutlass):
+        if character.has_item(items.cutlass) or \
+           character.has_item(items.jeweled_cutlass):
 
-        self.outcomes.add(Outcome(character,
-            "You kill several innocent merchants. Lord Arthur is pleased "
-            "and gives you a large share of the plunder.",
-            get_money=money.large_fortune
-        ), weight=1)
+            self.outcomes.add(Outcome(character,
+                "You kill several innocent merchants. Lord Arthur is pleased "
+                "and gives you a large share of the plunder.",
+                get_money=money.large_fortune
+            ), weight=1)
 
-        #else:
+        else:
 
-        self.outcomes.add(Outcome(character,
-            "You find it difficult to swashbuckle without a cutless and "
-            "are soon killed.",
-            die=True
-        ), weight=1)
+            self.outcomes.add(Outcome(character,
+                "You find it difficult to swashbuckle without a cutless and "
+                "are soon killed.",
+                die=True
+            ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You manage to hold your own. Afterwards Lord Arthur divies "
             "up the booty.",
-            add_item=items.Jewels()
+            add_item=items.jewels
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
@@ -443,12 +436,12 @@ class Swashbuckle(Action):
             die=True
         ), weight=1)
 
-        if not character.has_item(items.SailorPeg):
+        if not character.has_item(items.sailor_peg):
 
             self.outcomes.add(Outcome(character,
                 "You lose your leg in the battle, but Lord Arthur gives you a peg "
                 "leg as a replacement.",
-                add_item=items.SailorPeg()
+                add_item=items.sailor_peg
             ), weight=1)
 
 
@@ -493,7 +486,7 @@ class PickSomeFlowers(Action):
             "You spend all day looking for flowers, but it was worth it.",
             "You get stung by a bee, but you still find many pretty flowers.",
             ])),
-            add_item=items.BouquetOfFlowers(),
+            add_item=items.bouquet_of_flowers,
             succeed=True,
         ), weight=4)
 
@@ -525,7 +518,7 @@ class GoFishing(Action):
 
         self.outcomes.add(Outcome(character,
             "You fish up an ax.",
-            add_item=items.Ax(),
+            add_item=items.ax,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
@@ -535,7 +528,7 @@ class GoFishing(Action):
 
         self.outcomes.add(Outcome(character,
             "You catch a fish.",
-            add_item=items.Fish(),
+            add_item=items.fish,
             succeed=True,
         ), weight=10)
 
@@ -690,7 +683,7 @@ class AdmireYourJewels(Action):
 
         self.outcomes.add(Outcome(character,
             "You find a pearl in your bag of jewels",
-            add_item=items.Pearl(),
+            add_item=items.pearl,
             topic="pearls"
         ), weight=1)
 
@@ -807,7 +800,7 @@ class GoDivingForPearls(Action):
 
         self.outcomes.add(Outcome(character,
             "You soon find a pearl in an oyster.",
-            add_item=items.Pearl(),
+            add_item=items.pearl,
             succeed=True,
         ), weight=1)
 
@@ -931,7 +924,7 @@ class LookForVoidDust(Action):
 
         self.outcomes.add(Outcome(character,
             "You void is very dirty. You soon find some.",
-            add_item=items.BottleOfVoidDust(),
+            add_item=items.bottle_of_void_dust,
             succeed=True,
         ), weight=1)
 
@@ -948,22 +941,22 @@ class GoMushroomPicking(Action):
 
         self.outcomes.add(Outcome(character,
             "You find a yellow mushroom.",
-            add_item=items.YellowMushroom(),
+            add_item=items.yellow_mushroom,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You find a white mushroom.",
-            add_item=items.WhiteMushroom(),
+            add_item=items.white_mushroom,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You find a black mushroom.",
-            add_item=items.BlackMushroom(),
+            add_item=items.black_mushroom,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You find a many-colored mushroom.",
-            add_item=items.ManyColoredMushroom(),
+            add_item=items.many_colored_mushroom,
             succeed=True,
         ), weight=1)
 
@@ -1049,7 +1042,7 @@ class KillYourselfInFrustration(Action):
         ), weight=3)
 
         if character.place != places.ocean:
-            if not character.has_item(items.FireProofCloak):
+            if not character.has_item(items.fire_proof_cloak):
                 self.outcomes.add(Outcome(character,
                     "You set yourself on fire and burn to a crisp.",
                     die=True,
@@ -1248,20 +1241,20 @@ class SlurpDown(Action):
         if self.potion.name == "love potion":
             self.outcomes.add(Outcome(character,
                 "You fall in love with yourself and give yourself a hug.",
-                remove_item=character.get_item(items.LovePotion),
+                remove_item=items.love_potion,
             ), weight=10000)
 
         if self.potion.name == "potion of strength":
             self.outcomes.add(Outcome(character,
                 None,
-                remove_item=character.get_item(items.StrengthPotion),
+                remove_item=items.strength_potion,
                 grow_stronger=4,
             ), weight=10000)
 
         if self.potion.name == "potion of tail growth":
             self.outcomes.add(Outcome(character,
                 "You now have a tail.",
-                remove_item=character.get_item(items.TailPotion),
+                remove_item=items.tail_potion,
             ), weight=10000)
 
 
@@ -1355,7 +1348,7 @@ class SwingOnARope(Action):
             "You manage to knock a merchant off a rope. Lord Arthur rewards "
             "your bravery after the battle is over.",
             succeed=True,
-            add_items=items.Fish()
+            add_items=items.fish
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
@@ -1426,7 +1419,7 @@ class BarterWithEskimos(Action):
                 fail=True,
             ), weight=10000)
 
-        if character.has_item(items.SealCarcass):
+        if character.has_item(items.seal_carcass):
             self.outcomes.add(Outcome(character,
                 "You trade your seal for passage back to land.",
                 move_to=places.woods,
@@ -1462,7 +1455,7 @@ class BuildAnIgloo(Action):
             fail=True,
         ), weight=1)
 
-        if not character.has_item(items.SealCarcass):
+        if not character.has_item(items.seal_carcass):
             self.outcomes.add(Outcome(character,
                 "Your igloo protects you from the elements, "
                 "but not from your hunger.",
@@ -1478,7 +1471,7 @@ class BuildAnIgloo(Action):
                 "You survive in your igloo until winter by eating your seal. "
                 "The winter ice sheet allows you to get back to land.",
                 move_to=places.woods,
-                remove_item=character.get_item(items.SealCarcass),
+                remove_item=items.seal_carcass,
                 succeed=True,
             ), weight=50)
 
@@ -1522,7 +1515,7 @@ class BurnThePlaceToTheGround(Action):
 
     def execute(self, character):
 
-        if not character.has_item(items.FireProofCloak):
+        if not character.has_item(items.fire_proof_cloak):
             self.outcomes.add(Outcome(character,
                 "You accidentally set yourself on fire and promptly burn to "
                 "the ground.",
@@ -1844,7 +1837,7 @@ class PrayToAHigherPower(Action):
             self.outcomes.add(Outcome(character,
                 "God does nothing for you, but you do find a small sack of "
                 "jewels someone left on a counter.",
-                add_item=items.Jewels(),
+                add_item=items.jewels,
                 topic='jewels'
             ), weight=1)
 
@@ -2137,17 +2130,17 @@ class LookForACat(Action):
 
     def execute(self, character):
 
-        if character.has_item(items.Fish):
+        if character.has_item(items.fish):
             self.outcomes.add(Outcome(character,
                 "A cat smells your fish and approaches you.",
                 succeed=True,
-                add_item=items.Cat(),
+                add_item=items.cat,
             ), weight=20)
 
         self.outcomes.add(Outcome(character,
             "After days of searching, you manage to find a cat.",
             succeed=True,
-            add_item=items.Cat(),
+            add_item=items.cat,
         ), weight=14)
 
         self.outcomes.add(Outcome(character,
@@ -2265,7 +2258,7 @@ class TipACow(Action):
             "You're not strong enough to push the cow over, but you notice a "
             "pearl in the field.",
             new_person=None,
-            add_item=items.Pearl(),
+            add_item=items.pearl,
             topic="pearls and cows",
         ), weight=1)
 
@@ -2392,7 +2385,7 @@ class LookForAWayOut(Action):
 
         self.outcomes.add(Outcome(character,
             "You don't find a way out, but you find a deep-cave newt.",
-            add_item=items.DeepCaveNewt(),
+            add_item=items.deep_cave_newt,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
@@ -2414,7 +2407,7 @@ class ClimbUpTheTopSails(Action):
 
         self.outcomes.add(Outcome(character,
             "Your peg leg falls into the ocean while you work on the sails.",
-            remove_item=character.get_item(items.SailorPeg),
+            remove_item=items.sailor_peg,
             funcs=[character.depegify],
         ), weight=1)
 
@@ -2521,7 +2514,7 @@ class FireACanon(Action):
             "You fumble around with the cannon, but Lord Arthur is convinced "
             "the you contributed to his victory and he gives you a bag of "
             "jewels.",
-            add_item=items.Jewels()
+            add_item=items.jewels
         ), weight=1)
 
 
@@ -2550,7 +2543,7 @@ class ClubASeal(Action):
         self.outcomes.add(Outcome(character,
             "After a few days of waiting at a hole in the ice, you manage "
             "to club a seal.",
-            add_item=items.SealCarcass(),
+            add_item=items.seal_carcass,
             succeed=True,
         ), weight=2)
 
@@ -2672,13 +2665,13 @@ class ChopDownATree(Action):
 
         self.outcomes.add(Outcome(character,
             "The tree starts to bleed and you collect its blood.",
-            add_item=items.BottleOfSap(),
+            add_item=items.bottle_of_sap,
             succeed=True,
         ), weight=100)
 
         self.outcomes.add(Outcome(character,
             "You get your ax stuck in the tree and can't get it out.",
-            remove_item=character.get_item(items.Ax),
+            remove_item=items.ax,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
@@ -2699,44 +2692,44 @@ class ChowDown(Action):
 
     def execute(self, character):
 
-        if isinstance(self.food, items.ManyColoredMushroom):
+        if self.food == items.many_colored_mushroom:
             if not character.trip:
                 self.outcomes.add(Outcome(character,
                     "Your perception of the world begins to change.",
-                    remove_item=character.get_item(items.ManyColoredMushroom),
+                    remove_item=items.many_colored_mushroom,
                     funcs=[character.start_tripping],
                 ), weight=1)
             else:
                 self.outcomes.add(Outcome(character,
                     "You feel normal again.",
-                    remove_item=character.get_item(items.ManyColoredMushroom),
+                    remove_item=items.many_colored_mushroom,
                     funcs=[character.stop_tripping],
                 ), weight=1)
 
-        if isinstance(self.food, items.YellowMushroom):
+        if self.food == items.yellow_mushroom:
             self.outcomes.add(Outcome(character,
                 "You find the mushroom distasteful.",
-                remove_item=character.get_item(items.YellowMushroom),
+                remove_item=items.yellow_mushroom,
             ), weight=1)
 
-        if isinstance(self.food, items.BlackMushroom):
+        if self.food == items.black_mushroom:
             self.outcomes.add(Outcome(character,
                 "The mushroom tastes bittersweet.",
-                remove_item=character.get_item(items.BlackMushroom),
+                remove_item=items.black_mushroom,
                 die=True,
             ), weight=1)
 
-        if isinstance(self.food, items.WhiteMushroom):
+        if self.food == items.white_mushroom:
             self.outcomes.add(Outcome(character,
                 "You grow larger.",
-                remove_item=character.get_item(items.WhiteMushroom),
+                remove_item=items.white_mushroom,
                 grow_stronger=1,
             ), weight=2)
 
             self.outcomes.add(Outcome(character,
                 "You shrink to the size of a peanut. A weasel "
                 "soon comes along and eats you.",
-                remove_item=character.get_item(items.WhiteMushroom),
+                remove_item=items.white_mushroom,
                 die=True,
             ), weight=1)
 
@@ -3041,7 +3034,7 @@ class GoToSleep(Action):
             self.outcomes.add(Outcome(character,
                 "You are pleasantly awakened by a cat rubbing itself against "
                 "you.",
-                add_item=items.Cat(),
+                add_item=items.cat,
                 new_person=None
             ), weight=2)
 
@@ -3075,7 +3068,7 @@ class LookForTheWizard(Action):
 
     def execute(self, character):
 
-        if character.has_item(items.YellowMushroom):
+        if character.has_item(items.yellow_mushroom):
             self.outcomes.add(Outcome(character,
                 "When you find him, he can smell that you have a yellow "
                 "mushroom. He asks if he can have it.",
@@ -3096,7 +3089,7 @@ class LookForTheWizard(Action):
 
         self.outcomes.add(Outcome(character,
             "When you find him. He gives you a frog.",
-            add_item=items.Frog(),
+            add_item=items.frog,
             move_to=places.market,
             new_person=persons.wizard
         ), weight=1)
@@ -3244,7 +3237,7 @@ class GoTo(Action):
                 new_person=persons.assassin
             ), weight=2)
 
-            if character.has_item(items.Cat):
+            if character.has_item(items.cat):
                 self.outcomes.add(Outcome(character,
                     "Your cat notices an assassin approaching. You do not.",
                     die=True,
@@ -3491,10 +3484,10 @@ class KeepSwimming(Swim):
             new_person=persons.mermaid
         ), weight=1)
 
-        if character.has_item(items.Cat):
+        if character.has_item(items.cat):
             self.outcomes.add(Outcome(character,
                 "Your cat dies.",
-                remove_item=character.get_item(items.Cat),
+                remove_item=items.cat,
                 fail=True
             ), weight=1)
 
@@ -3571,13 +3564,13 @@ class TrashThePlace(Action):
 
         self.outcomes.add(Outcome(character,
             "You find a fancy red cloak in the wreckage",
-            add_item=items.FireProofCloak(),
+            add_item=items.fire_proof_cloak,
             trash_place=character.place,
             succeed=True,
             move_to=character.place
         ), weight=1)
 
-        if not character.has_item(items.FireProofCloak):
+        if not character.has_item(items.fire_proof_cloak):
             self.outcomes.add(Outcome(character,
                 "One of the potions you break blows up the lab.",
                 die=True,
@@ -3684,7 +3677,7 @@ class FreezeToDeath(Action):
         self.outcomes.add(Outcome(character,
             "Some eskimos save you from the cold and take you back to land "
             "in a Kayak. They also give you a fish.",
-            add_item=items.Fish(),
+            add_item=items.fish,
             move_to=places.countryside,
             succeed=True,
         ), weight=2)
@@ -3906,13 +3899,13 @@ class LookThroughSomeTrash(Action):
         self.outcomes.add(Outcome(character,
             "While you are searching through the trash you find an somewhat "
             "agreeable cat.",
-            add_item=items.Cat()
+            add_item=items.cat
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "The local guards see you searching through the trash and accuse "
             "you of being a lunatic.",
-            add_item=items.Cat(),
+            add_item=items.cat,
             new_person=persons.guards,
             threat=True,
             topic="curious"
@@ -3937,7 +3930,7 @@ class LookThroughSomeTrash(Action):
         self.outcomes.add(Outcome(character,
             "You find an old ax.",
             succeed=True,
-            add_item=items.Ax()
+            add_item=items.ax
         ), weight=1)
 
 
@@ -4103,7 +4096,7 @@ class SaveTheCat(Action):
         self.outcomes.add(Outcome(character,
             "You escape with the cat.",
             succeed=True,
-            add_item=items.Cat(),
+            add_item=items.cat,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
@@ -4190,7 +4183,7 @@ class SaveTheWitch(Action):
         self.outcomes.add(Outcome(character,
             "You escape with her. She thanks you and gives you "
             "a deep-cave newt before you part ways.",
-            add_item=items.DeepCaveNewt(),
+            add_item=items.deep_cave_newt,
             move_to=places.woods,
             topic=random.choice(["heroism", "newts", "witches"]),
         ), weight=1)
@@ -4241,7 +4234,7 @@ class DoSomeFarmWork(Action):
             "You spend a season slaughtering hogs. You find a shiny foreign "
             "coin in one of the hogs.",
             get_money=money.pittance,
-            add_item=items.ForeignCoin()
+            add_item=items.foreign_coin
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
@@ -4427,7 +4420,7 @@ class SnoopAround(Action):
 
         self.outcomes.add(Outcome(character,
             "You find a fancy red cloak.",
-            actions=[(TakeIt(persons.wizard, items.FireProofCloak), 100)],
+            actions=[(TakeIt(persons.wizard, items.fire_proof_cloak), 100)],
             topic="cloaks",
         ), weight=1)
 

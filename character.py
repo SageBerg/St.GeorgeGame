@@ -18,8 +18,11 @@ class Character(object):
     """
 
     def __init__(self):
-        self.items = set([items.Cat(), items.BouquetOfFlowers(),
-                         items.ManyColoredMushroom(), items.Pearl()])
+        self.items = {
+            items.cat: 1,
+            items.bouquet_of_flowers: 1,
+            items.many_colored_mushroom: 1,
+            items.pearl: 1}
         self.best_weapon = ""
         self.attack = 0
         self.money = money.large_fortune  # TODO start with money.none
@@ -58,22 +61,20 @@ class Character(object):
             print("You still have no money.")
 
     def add_item(self, item):
-        if self.has_item(type(item)):
+        if self.has_item(item):
             print("You now have another " + str(item) + ".")
-        elif str(item)[0] in "AEIOUaeiou":
-            print("You now have an " + str(item) + ".")
+            self.items[item] += 1
         else:
-            print("You now have a " + str(item) + ".")
-        self.items.add(item)
-
-    def get_item(self, item_class):
-        for item in self.items:
-            if isinstance(item, item_class):
-                return item
+            if str(item)[0] in "AEIOUaeiou":
+                print("You now have an " + str(item) + ".")
+            else:
+                print("You now have a " + str(item) + ".")
+            self.items[item] = 1
 
     def remove_item(self, item):
-        self.items.remove(item)
-        if self.has_item(type(item)):
+        self.items[item] -= 1
+        assert(self.items[item] >= 0)
+        if self.items[item] > 0:
             print("You now have one less " + str(item) + ".")
         elif str(item)[0] in "AEIOUaeiou":
             print("You no longer have an " + str(item) + ".")
@@ -89,17 +90,13 @@ class Character(object):
             return True
         return False
 
-    def has_item(self, item_class):
-        if self.item_count(item_class):
+    def has_item(self, item):
+        if item in self.items and self.items[item]:
             return True
         return False
 
-    def item_count(self, item_class):
-        count = 0
-        for item in self.items:
-            if isinstance(item, item_class):
-                count += 1
-        return count
+    def item_count(self, item):
+        return self.items.get(item, 0)
 
     def die(self):
         """

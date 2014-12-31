@@ -102,16 +102,16 @@ def add_person_actions(choices, character):
        character.person == persons.simple_peasant:
         choices.add(actions.AskDirections(), 30)
     if character.person == persons.witch:
-        if character.has_item(items.BottleOfSap) and \
-           character.has_item(items.BouquetOfFlowers) and \
-           character.has_item(items.ManyColoredMushroom):
-            choices.add(actions.AskHerToBrew(items.LovePotion()), 100)
-        if character.has_item(items.Cat) and \
-           character.has_item(items.Pearl):
-            choices.add(actions.AskHerToBrew(items.TailPotion()), 100)
-        if character.has_item(items.WhiteMushroom) and \
-           character.has_item(items.DeepCaveNewt):
-            choices.add(actions.AskHerToBrew(items.StrengthPotion()), 100)
+        if character.has_item(items.bottle_of_sap) and \
+           character.has_item(items.bouquet_of_flowers) and \
+           character.has_item(items.many_colored_mushroom):
+            choices.add(actions.AskHerToBrew(items.love_potion), 100)
+        if character.has_item(items.cat) and \
+           character.has_item(items.pearl):
+            choices.add(actions.AskHerToBrew(items.tail_potion), 100)
+        if character.has_item(items.white_mushroom) and \
+           character.has_item(items.deep_cave_newt):
+            choices.add(actions.AskHerToBrew(items.strength_potion), 100)
 
 
 def add_place_actions(choices, character):
@@ -134,7 +134,7 @@ def add_place_actions(choices, character):
 
     if character.place == places.arctic:
         choices.add(actions.GoFishing(), 2)
-        if character.has_item(items.SealCarcass):
+        if character.has_item(items.seal_carcass):
             choices.add(actions.BarterWithEskimos(), 2)
         choices.add(actions.BuildAnIgloo(), 20)
         choices.add(actions.ClubASeal(), 20)
@@ -199,7 +199,7 @@ def add_place_actions(choices, character):
     if character.place == places.pirate_ship:
         choices.add(actions.GoFishing(), 2)
         choices.add(actions.SuckUpTo(persons.lord_arthur), 3)
-        if character.has_item(items.SailorPeg):
+        if character.has_item(items.sailor_peg):
             choices.add(actions.ClimbUpTheTopSails(), 10)
         choices.add(actions.WalkThePlank(), 10)
         choices.add(actions.ClimbIntoTheCrowsNest(), 5)
@@ -237,7 +237,7 @@ def add_place_actions(choices, character):
             choices.add(actions.TrashThePlace(), 2)
         choices.add(actions.SnoopAround(), 20)
     if character.place == places.woods:
-        if character.has_item(items.Ax):
+        if character.has_item(items.ax):
             choices.add(actions.ChopDownATree(), 20)
         choices.add(actions.PickSomeFlowers(), 10)
         choices.add(actions.LookForWitches(), 100)  # FIXME
@@ -245,33 +245,24 @@ def add_place_actions(choices, character):
         #choices.add(actions.LookForNymphs(), 10)
 
 def add_item_actions(choices, character):
-    if character.has_item(items.LovePotion):
-        item = character.get_item(items.LovePotion)
-        choices.add(actions.SlurpDown(item), 100)  # FIXME
-    if character.has_item(items.TailPotion):
-        item = character.get_item(items.TailPotion)
-        choices.add(actions.SlurpDown(item), 100) # FIXME
-    if character.has_item(items.StrengthPotion):
-        item = character.get_item(items.StrengthPotion)
-        choices.add(actions.SlurpDown(item), 100)  # FIXME
-    if character.has_item(items.ManyColoredMushroom):
-        item = character.get_item(items.ManyColoredMushroom)
-        choices.add(actions.ChowDown(item), 1)
-    if character.has_item(items.BlackMushroom):
-        item = character.get_item(items.BlackMushroom)
-        choices.add(actions.ChowDown(item), 1)
-    if character.has_item(items.WhiteMushroom):
-        item = character.get_item(items.WhiteMushroom)
-        choices.add(actions.ChowDown(item), 1)
-    if character.has_item(items.YellowMushroom):
-        item = character.get_item(items.YellowMushroom)
-        choices.add(actions.ChowDown(item), 1)
-    if character.has_item(items.Cat):
-        item = character.get_item(items.Cat)
-        choices.add(actions.SwingYourCat(item), 1)
-    if character.has_item(items.Jewels):
-        item = character.get_item(items.Jewels)
-        choices.add(actions.AdmireYourJewels(item), 1)
+    if character.has_item(items.love_potion):
+        choices.add(actions.SlurpDown(items.love_potion), 100)  # FIXME
+    if character.has_item(items.tail_potion):
+        choices.add(actions.SlurpDown(items.tail_potion), 100) # FIXME
+    if character.has_item(items.strength_potion):
+        choices.add(actions.SlurpDown(items.strength_potion), 100)  # FIXME
+    if character.has_item(items.many_colored_mushroom):
+        choices.add(actions.ChowDown(items.many_colored_mushroom), 1)
+    if character.has_item(items.black_mushroom):
+        choices.add(actions.ChowDown(items.black_mushroom), 1)
+    if character.has_item(items.white_mushroom):
+        choices.add(actions.ChowDown(items.white_mushroom), 1)
+    if character.has_item(items.yellow_mushroom):
+        choices.add(actions.ChowDown(items.yellow_mushroom), 1)
+    if character.has_item(items.cat):
+        choices.add(actions.SwingYourCat(items.cat), 1)
+    if character.has_item(items.jewels):
+        choices.add(actions.AdmireYourJewels(items.jewels), 1)
 
 
 def add_character_actions(choices, character):
