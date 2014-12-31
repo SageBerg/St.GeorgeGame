@@ -40,3 +40,9 @@ foreign_coin = Item("shiny foreign coin")
 ax = Item("ax")
 bottle_of_sap = Item("bottle of sap")
 bottle_of_void_dust = Item("bottle of void dust")
+
+buyable = [bouquet_of_flowers, fish, ax, pearl, sailor_peg]
+
+black_market = [deep_cave_newt, love_potion, black_mushroom, 
+                tail_potion, strength_potion, fire_proof_cloak, 
+                many_colored_mushroom, white_mushroom]
