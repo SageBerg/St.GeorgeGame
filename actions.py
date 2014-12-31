@@ -900,9 +900,7 @@ class LickTheGround(Action):
 
         if character.place == places.arctic:
             self.outcomes.add(Outcome(character,
-                "You get your tongue stuck to an icicle.",
-                fail=True,
-                lock=True,
+                "The ice is realy cold.",
             ), weight=10)
 
 
@@ -3799,6 +3797,56 @@ class SingASong(Action):
                 "Olga interrupts your song by kissing you.",
                 flirt=(persons.pretty_lady, 2),
             ), weight=20)
+
+        if character.place == places.lord_carlos_manor:
+            self.outcomes.add(Outcome(character,
+                "This is no place for merry-making. You are soon "
+                "assassinated.",
+                die=True,
+            ), weight=5)
+
+            self.outcomes.add(Outcome(character,
+                "Your singing alerts Lord Carlos' assassins to your "
+                "presence.",
+                die=True,
+            ), weight=10)
+
+        if character.place == places.mermaid_rock:
+            self.outcomes.add(Outcome(character,
+                "As you sing, a ship sails by. The crew has wax in their "
+                "ears and the captain is tied to the mast. He is not "
+                "impressed.",
+                fail=True,
+            ), weight=10)
+
+            if character.person == persons.mermaid:
+                self.outcomes.add(Outcome(character,
+                    "The mermaid enjoys your singing and sings with you.",
+                    flirt=(persons.mermaid, 2),
+                ), weight=20)
+
+                self.outcomes.add(Outcome(character,
+                    "The mermaid is displeased with your choice of lyrics and "
+                    "pushes you into the ocean.",
+                    move_to=places.ocean,
+                    flirt=(persons.mermaid, -1),
+                    fail=True,
+                ), weight=10)
+
+        if character.place in places.populated:
+
+            self.outcomes.add(Outcome(character,
+                "Your singing is too loud for you to hear the footsteps of an "
+                "assassin. He assassinates you.",
+                die=True
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "A crowd gathers to hear your music and throws you a small "
+                "fortune in coins.",
+                get_money=money.small_fortune
+            ), weight=2)
+
 
         if character.place == places.mermaid_rock:
             self.outcomes.add(Outcome(character,
