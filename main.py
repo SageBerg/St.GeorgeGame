@@ -73,6 +73,8 @@ def add_person_actions(choices, character):
         choices.add(actions.BoastOfYourBravery(), 1)
     if character.person == persons.blind_bartender:
         choices.add(actions.BoastOfYourBravery(), 1)
+    if character.person == persons.eve:
+        choices.add(actions.FlirtWith(persons.eve), 1000)  # TODO fix
     if character.person == persons.pretty_lady:
         choices.add(actions.BoastOfYourBravery(), 5)
         choices.add(actions.FlirtWith(persons.pretty_lady), 1000) # TODO fix
@@ -120,9 +122,6 @@ def add_place_actions(choices, character):
     if not character.threatened and not character.place.locked:
         for _ in range(3):
             choices.add(actions.GoTo(character.place))
-
-    if character.place == places.arctic and character.place.locked:
-        print("Your tongue is stuck to an icicle.")
 
     if character.place in places.burnable:
         choices.add(actions.BurnThePlaceToTheGround(character.place), 2)
