@@ -83,7 +83,7 @@ def add_person_actions(choices, character):
         choices.add(actions.SingASong(topic="St. George"), 3)
     if character.person == persons.wealthy_merchant:
         choices.add(actions.BoastOfYourBravery(), 1)
-        choices.add(actions.Buy(weapons.weapons), 30)
+        choices.add(actions.BuyWeapon(weapons.weapons), 30)
         choices.add(actions.SingASong(topic="weapons"), 3)
     if character.person == persons.wizard:
         choices.add(actions.BoastOfYourBravery(), 2)
@@ -156,8 +156,8 @@ def add_place_actions(choices, character):
         choices.add(actions.DoSomeFarmWork(), 10)
     if character.place == places.dark_alley:
         choices.add(actions.LookForAssassins(), 5)
-        #choices.add(actions.LookForBlackMarketItems(), 5)
-        #choices.add(actions.Hide(), 5)
+        choices.add(actions.BuyBlackMarketItem(items.black_market), 1)
+        choices.add(actions.Hide(), 5)
         choices.add(actions.LookThroughSomeTrash(), 5)
     if character.place == places.docks:
         choices.add(actions.GoFishing(), 2)
@@ -177,10 +177,10 @@ def add_place_actions(choices, character):
     if character.place == places.market:
         if character.person != persons.wealthy_merchant:
             choices.add(actions.LookForAWeapon(), 10)
-        #choices.add(actions.Buy(), 10)
+        choices.add(actions.BuyItem(items.buyable), 10)
         if character.person != persons.wizard:
             choices.add(actions.LookForTheWizard(), 4)
-        #choices.add(actions.WatchAPlay(), 5)
+        choices.add(actions.WatchAPlay(), 500) # fix
     if character.place == places.mermaid_rock:
         choices.add(actions.GoFishing(), 2)
         if character.person != persons.mermaid:
@@ -231,7 +231,6 @@ def add_place_actions(choices, character):
         choices.add(actions.LookForVoidDust(), 1)
     if character.place == places.wizards_lab:
         choices.add(actions.ReadASpellBook(), 5)
-        #choices.add(actions.BrewAPotion(), 5)
         if places.wizards_lab not in places.trashed:
             choices.add(actions.TrashThePlace(), 2)
         choices.add(actions.SnoopAround(), 20)
