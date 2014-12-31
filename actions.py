@@ -52,6 +52,47 @@ class Action(object):
 # A slot actions
 
 
+class TrainWithTheGuards(Action):
+
+    slot = "a"
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Train with the guards."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "The guards throw you out for not filling out proper "
+            "paperwork.",
+            move_to=places.streets,
+            fail=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You break your neck in a training accidently.",
+            clover=True,
+            die=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You get the badly beaten in wooden swrodplay.",
+            grow_stronger=1,
+        ), weight=1)
+        
+        if character.attack > 4:
+            self.outcomes.add(Outcome(character,
+                "You defeat the captain of the guards at wooden "
+                "swordplay. \"Not bad for a {0},\" he says"
+                ".".format(random.choice([
+                    "peasant",
+                    "lunatic",
+                    "simpleton",
+                    ])),
+                succeed=True,
+            ), weight=1)
+
+
 class AskHerToBrew(Action):
 
     slot = "a"
@@ -362,7 +403,7 @@ class SuckUpTo(Action):
 
             self.outcomes.add(Outcome(character,
                 "Lord Bartholomew tells you to take more pride in yourself.",
-                success=True
+                succeed=True
             ), weight=1)
 
         if self.person == persons.lord_carlos:
@@ -406,7 +447,8 @@ class TellThemYouAreALunatic(Action):
     def execute(self, character):
 
         self.outcomes.add(Outcome(character,
-            "\"A rich lunatic,\" they say before moving along."
+            "\"A rich lunatic,\" they say before moving along.",
+            new_person=None,
         ), weight=1)
 
 
@@ -3787,8 +3829,6 @@ class TrashThePlace(Action):
 
 # D slot actions
 
-# GiveFlowers Under construction:
-"""
 class GiveFlowers(Action):
 
     slot = "d"
@@ -3796,16 +3836,15 @@ class GiveFlowers(Action):
     def __init__(self, woman):
         super().__init__()
         self.woman = woman
-        self.name = "Give " + woman.name + " your bouquet of flower."
+        self.name = "Give " + woman.name + " your bouquet of flowers."
 
     def execute(self, character):
        
         self.outcomes.add(Outcome(character,
-            "You get away with an " + item.name + ".",
-            add_item=item,
-            
+            "She is quite pleased with your gift.",
+            remove_item=items.bouquet_of_flowers,     
+            flirt=(character.person, 3),
         ), weight=3)
-"""
 
 class Loot(Action):
 

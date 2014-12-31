@@ -223,10 +223,10 @@ def add_place_actions(choices, character):
         choices.add(actions.BuyADrink(), 2)
         #choices.add(actions.LookForLadies(), 2)
         choices.add(actions.DoSomeGambling(), 1)
-    #if character.place == places.tower:
+    if character.place == places.tower:
         #choices.add(actions.AskForAnAudienceWithLordDaniel(), 1)
         #choices.add(actions.ComplainAboutUnfairImprisonment(), 1)
-        #choices.add(actions.TrainWithTheGuards(), 1)
+        choices.add(actions.TrainWithTheGuards(), 100) #fix
     if character.place == places.void:
         choices.add(actions.LookForVoidDust(), 1)
     if character.place == places.wizards_lab:
@@ -261,7 +261,11 @@ def add_item_actions(choices, character):
         choices.add(actions.SwingYourCat(items.cat), 1)
     if character.has_item(items.jewels):
         choices.add(actions.AdmireYourJewels(items.jewels), 1)
-
+    if character.has_item(items.bouquet_of_flowers) and \
+       character.person == persons.eve or \
+       character.person == persons.fat_lady or \
+       character.person == persons.pretty_lady:
+        choices.add(actions.GiveFlowers(character.person), 20)
 
 def add_character_actions(choices, character):
     if character.threatened and character.person:
