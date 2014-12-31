@@ -280,6 +280,7 @@ class ReadASpellBook(Action):
 
         self.outcomes.add(Outcome(character,
             "You open a book of curses. It's cursed.",
+            clover=True,
             die=True,
         ), weight=1)
 
@@ -554,6 +555,7 @@ class GoFishing(Action):
         if character.place == places.docks:
             self.outcomes.add(Outcome(character,
                 "You don't catch any fish, but the assassins catch you.",
+                clover=True,
                 die=True,
             ), weight=1)
 
@@ -581,6 +583,7 @@ class TakeIt(Action):
                 self.wronged_party.name[1:] + " notice" +
                 persons.get_tense(self.wronged_party) + " you taking it and kill" +
                 persons.get_tense(self.wronged_party) + " you.",
+                clover=True,
                 die=True,
             ), weight=1)
 
@@ -608,6 +611,7 @@ class AskAboutAssassins(Action):
         self.outcomes.add(Outcome(character,
             "The first person you ask about assassins turns "
             "out to be an assassin. She assassinates you.",
+            clover=True,
             die=True
         ), weight=3)
 
@@ -628,7 +632,7 @@ class AskAboutAssassins(Action):
                 "You ask a servant about assassins. She asks you to wait where "
                 "you are.",
                 actions=[(RunLikeTheDevil(), 40)],
-            ), weight=10)  # TODO add DoIt
+            ), weight=10)
 
 
 class AskDirections(Action):
@@ -711,6 +715,7 @@ class AdmireYourJewels(Action):
             self.outcomes.add(Outcome(character,
                 "You notice the reflection of a dagger in a particularly "
                 "large ruby.",
+                clover=True,
                 die=True,
             ), weight=1)
 
@@ -863,6 +868,7 @@ class LickTheGround(Action):
             "You catch an infection and spend {0} weeks fighting "
             "it.".format(random.choice(["two", "three", "four",
                                         "five", "six"])),
+            clover=True,
             die=True,
         ), weight=1)
 
@@ -921,6 +927,7 @@ class LookForAWeapon(Action):
 
         self.outcomes.add(Outcome(character,
             "You find one... in your back as an assasin walks away smoothly.",
+            clover=True,
             die=True,
         ), weight=1)
 
@@ -995,6 +1002,7 @@ class LookForStGeorge(Action):
 
         self.outcomes.add(Outcome(character,
             "You trip over a cat and break your neck.",
+            clover=True,
             die=True
         ), weight=1)
 
@@ -1464,6 +1472,7 @@ class BuildAnIgloo(Action):
 
         self.outcomes.add(Outcome(character,
             "While building your igloo, you slip on some ice and die.",
+            clover=True,
             die=True,
         ), weight=1)
 
@@ -1576,7 +1585,19 @@ class BurnThePlaceToTheGround(Action):
             ), weight=20)
 
 
+class SetThePlaceOnFire(BurnThePlaceToTheGround):
+
+    slot = "a"
+
+    def __init__(self, place):
+        super().__init__(place)
+        self.place = place
+        self.name = "Set {0} ablaze.".format(place.name)
+
+
 class BurnThePlaceToACrisp(BurnThePlaceToTheGround):
+
+    slot = "c"
 
     def __init__(self, place):
         super().__init__(place)
@@ -1586,18 +1607,12 @@ class BurnThePlaceToACrisp(BurnThePlaceToTheGround):
 
 class LightUpThePlace(BurnThePlaceToTheGround):
 
+    slot = "d"
+
     def __init__(self, place):
         super().__init__(place)
         self.place = place
         self.name = "Light up {0}.".format(place.name)
-
-
-class SetThePlaceOnFire(BurnThePlaceToTheGround):
-
-    def __init__(self, place):
-        super().__init__(place)
-        self.place = place
-        self.name = "Set {0} on fire.".format(place.name)
 
 
 class ClimbIntoTheCrowsNest(Action):
@@ -1641,6 +1656,7 @@ class ClimbIntoTheCrowsNest(Action):
 
         self.outcomes.add(Outcome(character,
             "You fall off the mast on the way up mast.",
+            clover=True,
             die=True
         ), weight=1)
 
@@ -1670,6 +1686,7 @@ class RaiseASail(Action):
 
         self.outcomes.add(Outcome(character,
             "Lord Arthur has you killed for raising the wrong sail.",
+            clover=True,
             die=True
         ), weight=1)
 
@@ -1729,6 +1746,7 @@ class ScrubTheDeck(Action):
         self.outcomes.add(Outcome(character,
             "You dislocate your shoulder scrubbing and Lord Arthur has no "
             "further use for you. He has you thrown off the ship.",
+            clover=True,
             die=True
         ), weight=1)
 
@@ -1839,6 +1857,7 @@ class PrayToAHigherPower(Action):
 
         self.outcomes.add(Outcome(character,
             "Your prayers aren't answered, but the assassins' are.",
+            clover=True,
             die=True
         ), weight=1)
 
@@ -1942,6 +1961,7 @@ class BideYourTime(Action):
 
         self.outcomes.add(Outcome(character,
             "You die of old age.",
+            clover=True,
             die=True,
         ), weight=1)
 
@@ -1966,14 +1986,73 @@ class BideYourTime(Action):
             ), weight=3)
 
 
-class Buy(Action):
+class BuyBlackMarketItem(Action):
+
+    slot = "b"
+
+    def __init__(self, items):
+        super().__init__()
+        self.item = random.choice(items)
+        self.name = "Buy a " + self.item.name + "."
+
+    def execute(self, character):
+
+        if character.money > money.pittance:
+            self.outcomes.add(Outcome(character,
+                "You find a {0}.".format(random.choice([
+                    "black market peddler",
+                    "merchant witch",
+                    "monger of rare items",])),
+                add_item=self.item,
+            ), weight=3)
+        else:
+            self.outcomes.add(Outcome(character,
+                "You can't afford this item.",
+                fail=True,
+                topic="poverty",
+            ), weight=3)
+
+        self.outcomes.add(Outcome(character,
+            "You find an assassin posing as a black market peddler.",
+            die=True,
+        ), weight=1)
+
+
+class BuyItem(Action):
+
+    slot = "b"
+
+    def __init__(self, items):
+        super().__init__()
+        self.item = random.choice(items)
+        if self.item.name[0] in "aeiou":
+            self.name = "Buy an " + self.item.name + "."
+        else:
+            self.name = "Buy a " + self.item.name + "."
+
+    def execute(self, character):
+
+        if character.money != money.none:
+            self.outcomes.add(Outcome(character,
+                "",
+                add_item=self.item,
+            ), weight=3)
+        else:
+            self.outcomes.add(Outcome(character,
+                "You can't afford this item.",
+                fail=True,
+                topic="poverty",
+            ), weight=3)
+
+
+class BuyWeapon(Action):
 
     slot = "b"
 
     def __init__(self, weapons):
         super().__init__()
         self.weapon = random.choice(weapons)
-        self.name = "Buy a " + self.weapon.name
+        self.name = "Buy a " + self.weapon.name + "."
 
     def execute(self, character):
 
@@ -2175,6 +2254,7 @@ class LookForACat(Action):
 
         self.outcomes.add(Outcome(character,
             "You find a ferocious cat. It kills you.",
+            clover=True,
             die=True,
         ), weight=1)
 
@@ -2269,6 +2349,7 @@ class TipACow(Action):
         self.outcomes.add(Outcome(character,
             "You pull a cow on top of yourself and it crushes you.",
             new_person=None,
+            clover=True,
             die=True,
         ), weight=1)
 
@@ -2370,6 +2451,47 @@ class LookForMermaids(Action):
 # C slot actions
 
 
+class Hide(Action):
+
+    slot = "c"
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Hide."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "You hide from the assassins, but not from your own "
+            "dark thoughts.",
+            fail=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You hide for a couple of days, long enough "
+            "that you think the whole assassin thing has probably "
+            "blown over.",
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You try to hide in the sewer, but you end up "
+            "drowning in filth.",
+            die=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You try to hide in the sewer, but you are killed "
+            "by a rat.",
+            die=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You trip in the darkness and break your neck.",
+            clover=True,
+            die=True,
+        ), weight=1)
+
+
 class LookForAWayOut(Action):
 
     slot = "c"
@@ -2398,6 +2520,7 @@ class LookForAWayOut(Action):
 
         self.outcomes.add(Outcome(character,
             "You slip on a slippery slope and fall to your death.",
+            clover=True,
             die=True,
         ), weight=1)
 
@@ -2458,6 +2581,7 @@ class TellAPriest(Action):
                 "God smites you for your {0}.".format(random.choice([
                     "arrogance", "foolishness", "rudeness", "balsphemy",
                     "tactlessness", "faithlessness"])),
+                clover=True,
                 die=True,
             ), weight=2)
 
@@ -2519,6 +2643,7 @@ class FireACanon(Action):
 
         self.outcomes.add(Outcome(character,
             "You manage to knock the merchant ship's mast down. It falls on you.",
+            clover=True,
             die=True
         ), weight=1)
 
@@ -2555,6 +2680,7 @@ class ClubASeal(Action):
         self.outcomes.add(Outcome(character,
             "The local polar bears aren't happy with you on their turf. "
             "You are soon mauled.",
+            clover=True,
             die=True,
         ), weight=1)
 
@@ -2664,6 +2790,7 @@ class ChopDownATree(Action):
 
         self.outcomes.add(Outcome(character,
             "The tree falls on you.",
+            clover=True,
             die=True,
         ), weight=1)
 
@@ -2690,6 +2817,7 @@ class ChopDownATree(Action):
         self.outcomes.add(Outcome(character,
             "You get your ax stuck in the tree and can't get it out.",
             remove_item=items.ax,
+            fail=True,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
@@ -2933,6 +3061,7 @@ class FlirtWith(Action):
             self.outcomes.add(Outcome(character,
                 "You follow her to her room upstairs. Lots of passionate "
                 "stabbing ensues.",
+                clover=True,
                 die=True,
             ), weight=1)
 
@@ -2972,6 +3101,7 @@ class FlirtWith(Action):
 
             self.outcomes.add(Outcome(character,
                 "Olga turns out to be an assassin. She assassinates you.",
+                clover=True,
                 die=True,
             ), weight=1)
 
@@ -3024,6 +3154,7 @@ class GoToSleep(Action):
 
         self.outcomes.add(Outcome(character,
             "You wake up dead.",
+            clover=True,
             die=1
         ), weight=1)
 
@@ -3054,6 +3185,7 @@ class GoToSleep(Action):
             self.outcomes.add(Outcome(character,
                 "You wake up just in time to see an assassin slip a weasel "
                 "between the bars of your cell. The weasel kills you.",
+                clover=True,
                 die=True
             ), weight=3)
 
@@ -3088,6 +3220,7 @@ class GoToSleep(Action):
 
             self.outcomes.add(Outcome(character,
                 "You are rudely awakened by an assassin's dagger.",
+                clover=True,
                 die=True
             ), weight=2)
 
@@ -3297,13 +3430,6 @@ class GoTo(Action):
             self.outcomes.add(Outcome(character,
                 overhear_template.format("someone talking about how nice St. "
                     "George was to them"),
-                move_to=self.dest,
-                new_person=None
-            ), weight=1)
-
-            self.outcomes.add(Outcome(character,
-                overhear_template.format("a woman talks about how her baby "
-                    "was eaten by a werewolf"),
                 move_to=self.dest,
                 new_person=None
             ), weight=1)
@@ -3582,6 +3708,7 @@ class WalkThePlank(Action):
         self.outcomes.add(Outcome(character,
             "Lord Arthur's pet shark emerges from the depths and snatches you "
             "as you fall.",
+            clover=True,
             die=True
         ), weight=1)
 
@@ -3611,39 +3738,143 @@ class TrashThePlace(Action):
             move_to=character.place
         ), weight=1)
 
-        if not character.has_item(items.fire_proof_cloak):
+        if character.place == places.market:
             self.outcomes.add(Outcome(character,
-                "One of the potions you break blows up the lab.",
+                "You get trampled to death by a spooked horse.",
                 die=True,
-            ), weight=2)
-        else:
-            self.outcomes.add(Outcome(character,
-                "One of the potions you break blows up the lab, but "
-                "Your fancy red cloak protects you from annihilation.",
-            ), weight=2)
-
-        self.outcomes.add(Outcome(character,
-            "You snap a staff in half, but a dark spirit escapes from the "
-            "staff.",
-            die=True,
-        ), weight=2)
-
-        if character.person == persons.wizard:
-            self.outcomes.add(Outcome(character,
-                "The wizard incinerates you.",
-                die=True,
-            ), weight=20)
-
-        if character.place == places.wizards_lab and \
-           character.person != persons.wizard:
-            self.outcomes.add(Outcome(character,
-                "The wizard walks in and starts yelling obscenities.",
-                new_person=persons.wizard,
-                threat=True,
             ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "You are arrested on charges of lunacy and get "
+                "thrown in prison with the other lunatics.",
+                move_to=places.prison,
+                unthreat=True,
+                new_person=persons.other_lunatics,
+            ), weight=1)
+
+        if character.place == places.wizards_lab:
+            if not character.has_item(items.fire_proof_cloak):
+                self.outcomes.add(Outcome(character,
+                    "One of the potions you break blows up the lab.",
+                    die=True,
+                ), weight=2)
+            else:
+                self.outcomes.add(Outcome(character,
+                    "One of the potions you break blows up the lab, but "
+                    "Your fancy red cloak protects you from annihilation.",
+                ), weight=2)
+
+            self.outcomes.add(Outcome(character,
+                "You snap a staff in half, but a dark spirit escapes from the "
+                "staff.",
+                die=True,
+            ), weight=2)
+
+            if character.person == persons.wizard:
+                self.outcomes.add(Outcome(character,
+                    "The wizard incinerates you.",
+                    die=True,
+                ), weight=20)
+
+            if character.place == places.wizards_lab and \
+               character.person != persons.wizard:
+                self.outcomes.add(Outcome(character,
+                    "The wizard walks in and starts yelling obscenities.",
+                    new_person=persons.wizard,
+                    threat=True,
+                ), weight=1)
 
 
 # D slot actions
+
+# GiveFlowers Under construction:
+"""
+class GiveFlowers(Action):
+
+    slot = "d"
+
+    def __init__(self, woman):
+        super().__init__()
+        self.woman = woman
+        self.name = "Give " + woman.name + " your bouquet of flower."
+
+    def execute(self, character):
+       
+        self.outcomes.add(Outcome(character,
+            "You get away with an " + item.name + ".",
+            add_item=item,
+            
+        ), weight=3)
+"""
+
+class Loot(Action):
+
+    slot = "d"
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Loot."
+
+    def execute(self, character):
+       
+        item = random.choice(items.buyable)
+
+        if item.name[0] in "aeiou":
+            self.outcomes.add(Outcome(character,
+                "You get away with an " + item.name + ".",
+                add_item=item,
+                move=1,
+            ), weight=3)
+        else:
+            self.outcomes.add(Outcome(character,
+                "You get away with a " + item.name + ".",
+                add_item=item,
+                move=1,
+            ), weight=3)
+
+        self.outcomes.add(Outcome(character,
+            "You are killed by merchant defending her store.",
+            die=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You are arrested for attempting to steal an apple.",
+            move_to=places.prison,
+            unthreat=True,
+            new_person=None,
+        ), weight=1)
+
+
+class WatchAPlay(Action):
+
+    slot = "d"
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Watch a play."
+
+    def execute(self, character):
+        
+        self.outcomes.add(Outcome(character,
+            "The play saterizes Lord Daniel's policy on lunacy. The actors are arrested at the end of the play."
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "The play portrays Lord Bartholomew in a glorious light.",
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "The play is put on by some Lord Daniel's guards, the acting is "
+            "terrible and the play portrays Lord Bartholomew in a negative "
+            "light. The audience starts a riot.",
+            new_person=persons.guards,
+            actions=[
+                     (Attack(persons.guards), 10000),
+                     (BurnThePlaceToTheGround(places.market), 10000),
+                     (TrashThePlace(), 10000),
+                     (Loot(), 10000)
+                     ],
+        ), weight=1)
 
 
 class FlauntYourWealth(Action):
@@ -3881,6 +4112,7 @@ class SingASong(Action):
 
             self.outcomes.add(Outcome(character,
                 "The locals hate your voice and soon mob you.",
+                clover=True,
                 die=True
             ), weight=1)
 
@@ -4139,6 +4371,7 @@ class DanceAJig(Action):
 
             self.outcomes.add(Outcome(character,
                 "You slip on a rock and fall to your death.",
+                clover=True,
                 die=True,
             ), weight=15)
 
@@ -4506,6 +4739,7 @@ class SnoopAround(Action):
 
         self.outcomes.add(Outcome(character,
             "You accidentally knock over a bottle of roiling black vapor.",
+            clover=True,
             die=True,
         ), weight=1)
 
@@ -4539,6 +4773,7 @@ class EnterTheVoid(Action):
 
         self.outcomes.add(Outcome(character,
             "There's no air in the void.",
+            clover=True,
             die=True,
         ), weight=1)
 
