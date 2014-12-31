@@ -8,7 +8,7 @@ Created: 21 Dec 2014
 import random
 
 import places
-
+import items
 
 class Outcome(object):
 
@@ -20,6 +20,7 @@ class Outcome(object):
                  remove_item=False,  # USAGE: items.item_name
                  remove_all_items=False,
                  new_weapon=False,  # USAGE: weapons[x]
+                 clover=False,
                  grow_stronger=False,
                  beg=False,
                  burn_place=False,
@@ -49,6 +50,7 @@ class Outcome(object):
         self.remove_all_items = remove_all_items
         self.new_weapon = new_weapon
         self.grow_stronger = grow_stronger
+        self.clover = clover
         self.beg = beg
         self.burn_place = burn_place
         self.trash_place = trash_place
@@ -119,7 +121,12 @@ class Outcome(object):
         if self.new_person is None or self.new_person:
             self.character.person = self.new_person
         if self.die:
-            self.character.die()
+            if self.character.has_item(items.four_leaf_clover) and \
+               self.clover:
+                print("Or at least that's what would have happened "
+                      "if you didn't have a four-leaf clover.")
+            else:
+                self.character.die()
         if self.add_item:
             self.character.add_item(self.add_item)
         if self.remove_item:
