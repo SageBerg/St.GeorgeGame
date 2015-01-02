@@ -13,8 +13,8 @@ class Character(object):
     def __init__(self):
         self.items = {
             items.cat: 1,
-            items.bouquet_of_flowers: 1,
             items.many_colored_mushroom: 1,
+            items.love_potion: 1,
             items.pearl: 1,
             items.iron_hammer: 1,
             items.four_leaf_clover: 1}
@@ -25,6 +25,7 @@ class Character(object):
         self.is_frog = False
         self.is_monstrosity = False
         self.lost_peg_leg = False
+        self.lose = False
         self.alive = True
         self.alone = True  # character has not found true love
 

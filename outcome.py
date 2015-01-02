@@ -16,6 +16,7 @@ class Outcome(object):
                  beg=False,
                  burn_place=False,
                  trash_place=False,
+                 lose=False,
                  die=False,
                  fail=False,
                  get_money=False,
@@ -45,6 +46,7 @@ class Outcome(object):
         self.burn_place = burn_place
         self.trash_place = trash_place
         self.character = character
+        self.lose = lose
         self.die = die
         self.fail = fail
         self.succeed = succeed
@@ -110,6 +112,8 @@ class Outcome(object):
                       "happened if you didn't have a four-leaf clover.")
             else:
                 self.character.die()
+        if self.lose:
+            self.character.lose = True
         if self.add_item:
             self.character.add_item(self.add_item)
         if self.remove_item:
