@@ -75,6 +75,14 @@ def _add_person_actions(choices, character):
         choices.add(actions.BoastOfYourBravery(), 1)
         choices.add(actions.BuyWeapon(), 30)
         choices.add(actions.SingASong(topic="weapons"), 3)
+    if character.person == persons.nymph_queen and \
+       character.has_item(items.love_potion):
+        choices.add(actions.DouseHerWithYourLovePotion(persons.nymph_queen)
+                    , 1000)
+    if character.person == persons.eve and \
+       character.has_item(items.love_potion):
+        choices.add(actions.DouseHerWithYourLovePotion(persons.eve)
+                    , 1000)
     if character.person == persons.wizard:
         choices.add(actions.BoastOfYourBravery(), 2)
         choices.add(actions.SingASong(), 2)
@@ -211,8 +219,11 @@ def _add_place_actions(choices, character):
     if character.place == places.tavern:
         choices.add(actions.AskAboutAssassins(), 1)
         choices.add(actions.BuyADrink(), 2)
-        #choices.add(actions.LookForLadies(), 2)
         choices.add(actions.DoSomeGambling(), 1)
+        if character.has_item(items.love_potion) and \
+           character.person == persons.pretty_lady:
+            choices.add(actions.DrugHerWithYourLovePotion(persons.pretty_lady)
+                        , 100)
     if character.place == places.tower:
         #choices.add(actions.AskForAnAudienceWithLordDaniel(), 1)
         #choices.add(actions.ComplainAboutUnfairImprisonment(), 1)
@@ -230,7 +241,7 @@ def _add_place_actions(choices, character):
         choices.add(actions.PickSomeFlowers(), 10)
         choices.add(actions.LookForWitches(), 100)  # FIXME
         choices.add(actions.GoMushroomPicking(), 12)
-        #choices.add(actions.LookForNymphs(), 10)
+        choices.add(actions.LookForNymphs(), 100)  # FIXME
 
 
 def _add_item_actions(choices, character):
@@ -253,9 +264,9 @@ def _add_item_actions(choices, character):
     if character.has_item(items.jewels):
         choices.add(actions.AdmireYourJewels(items.jewels), 1)
     if character.has_item(items.bouquet_of_flowers) and \
-       character.person == persons.eve or \
+       (character.person == persons.eve or \
        character.person == persons.fat_lady or \
-       character.person == persons.pretty_lady:
+       character.person == persons.pretty_lady):
         choices.add(actions.GiveFlowers(character.person), 20)
 
 

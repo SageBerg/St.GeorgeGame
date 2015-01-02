@@ -1190,8 +1190,9 @@ class MarryOlga(Action):
 
         self.outcomes.add(Outcome(character,
             "A bleary-eyed priestess performs a wedding for you and Olga in "
-            "alley behind the church. Olga asks the priestess if she would "
-            "like to come along for the honeymoon, but the priestess declines.",
+            "an alley behind the church. Olga asks the priestess if she would "
+            "like to come along for the honeymoon, but the priestess "
+            "declines.",
             win=True
         ), weight=1)
 
@@ -2027,7 +2028,7 @@ class BuyBlackMarketItem(Action):
     def __init__(self, items):
         super().__init__()
         self.item = random.choice(items)
-        self.name = "Buy a " + self.item.name + "."
+        self.name = "Make a shady deal."
 
     def execute(self, character):
 
@@ -3227,6 +3228,12 @@ class GoToSleep(Action):
                 die=True
             ), weight=3)
 
+        if character.place == places.lord_carlos_manor:
+            self.outcomes.add(Outcome(character,
+                "You wake up in Lord Carlos' dungeon. You never leave.",
+                die=True
+            ), weight=100)
+
         if character.place == places.ocean:
             self.outcomes.add(Outcome(character,
                 "You drown in your sleep.",
@@ -3818,6 +3825,133 @@ class TrashThePlace(Action):
 
 # D slot actions
 
+
+class DouseHerWithYourLovePotion(Action):
+
+    slot = "d"
+
+    def __init__(self, lady):
+        super().__init__()
+        self.lady = lady
+        self.name = "Douse " + self.lady.name + " with your love potion."
+
+    def execute(self, character):
+
+        if character.person == persons.nymph_queen:
+            
+            self.outcomes.add(Outcome(character,
+                "You miss. The nymph queen laughs and turns you into a shrub.",
+                lose=True,
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "The nymph queen becomes madly in love with you. All of the "
+                "woodland creatures attend your wedding.",
+                win=True,
+            ), weight=1)
+
+
+class DrugHerWithYourLovePotion(Action):
+
+    slot = "d"
+
+    def __init__(self, lady):
+        super().__init__()
+        self.lady = lady
+        self.name = "Drug " + self.lady.name + " with your love potion."
+
+    def execute(self, character):
+
+        if character.person == persons.pretty_lady:
+
+            self.outcomes.add(Outcome(character,
+                "The pretty lady notices you slipping the potion into your "
+                "drink. She stabs you in the gut and leaves.",
+                die=True,
+            ), weight=1)
+
+            if persons.blind_bartender.alive:
+                self.outcomes.add(Outcome(character,
+                    "You distract her by pointing out a wart on the blind "
+                    "bartender's nose. After she takes a drink, she looks "
+                    "back at the blind bartender and falls in love with him.",
+                    new_person=None,
+                    fail=True,
+                    remove_item=items.love_potion,
+                ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "You manage to drug her. She becomes very flirty with you.",
+                flirt=(persons.pretty_lady, 10),
+                remove_item=items.love_potion,
+                succeed=True,
+            ), weight=1)
+                
+
+class LookForNymphs(Action):
+
+    slot = "d"
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Look for nymphs."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "You find the nymph queen {0}. Her beauty is "
+            "{1}.".format(random.choice(["watering flowers in a meadow",
+                                         "levitating above a pond",
+                                         "feeding a stag",
+                                         "teaching a goblin to read",
+                                         "tanning in a ray of sunshine",
+                                         "doing tai chi in a meadow"]),
+                          random.choice(["intoxicating", "dazzling",
+                                         "exhilarating", "overwhelming",
+                                         "only rivaled by her attractiveness."
+                                         ])),
+            new_person=persons.nymph_queen,
+        ), weight=1000) # TODO fix weight
+
+        self.outcomes.add(Outcome(character,
+            "You see some nymphs bathing in a waterfall, but they hex "
+            "you for gawking. You climb a ridge and throw yourself "
+            "to your death.",
+            clover=True,
+            die=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You see some nymphs but they fade away before you can get close.",
+            fail=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+        "You slip and tumble into a hole in the ground.",
+            move_to=places.cave,
+            fail=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "{0}.".format(random.choice(["You can't find any", 
+                           "Your efforts to find nymphs are fruitless",
+                       "You find an apple tree instead",
+                       "You don't see any nymphs. Only trees.",
+                      ])),
+        ), weight=4)
+
+        self.outcomes.add(Outcome(character,
+            "You find a witch instead.",
+            new_person=persons.witch,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You notice a man in a dark cloak stalking you.",
+                new_person=persons.assassin,
+                threat=True,
+            ), weight=1)
+
+
 class GiveFlowers(Action):
 
     slot = "d"
@@ -3830,10 +3964,11 @@ class GiveFlowers(Action):
     def execute(self, character):
 
         self.outcomes.add(Outcome(character,
-            "She is quite pleased with your gift.",
+            "She is pleased with your gift.",
             remove_item=items.bouquet_of_flowers,
             flirt=(character.person, 3),
         ), weight=3)
+
 
 class Loot(Action):
 
@@ -4802,5 +4937,5 @@ class EnterTheVoid(Action):
 
         self.outcomes.add(Outcome(character,
             "You get lost in limbo forever.",
-            die=True,
+            lose=True,
         ), weight=1)
