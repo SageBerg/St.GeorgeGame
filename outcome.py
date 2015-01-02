@@ -1,10 +1,3 @@
-"""
-St. George Game
-outcome.py
-Sage Berg
-Created: 21 Dec 2014
-"""
-
 import random
 
 import places

@@ -1,11 +1,3 @@
-"""
-St. Georege Game
-places.py
-Sage Berg
-Created: 7 Dec 2014
-"""
-
-
 class Place(object):
 
     instances = set()

@@ -1,10 +1,3 @@
-"""
-The St. Georege Game
-monstrosity_actions.py
-Sage Berg
-Created: 28 Dec 2014
-"""
-
 from actions import Action
 from outcome import Outcome
 

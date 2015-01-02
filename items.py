@@ -1,11 +1,3 @@
-"""
-St. George Game
-actions.py
-Skyler Berg
-Created: 16 Dec 2014
-"""
-
-
 class Item(object):
     """
     abstract class

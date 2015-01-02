@@ -1,10 +1,3 @@
-"""
-St. George Game
-actions.py
-Sage Berg
-Created: 7 Dec 2014
-"""
-
 import random
 import abc
 

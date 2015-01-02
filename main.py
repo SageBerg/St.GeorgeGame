@@ -1,10 +1,3 @@
-"""
-St. George Game
-main.py
-Sage Berg, Skyler Berg
-Created: 5 Dec 2014
-"""
-
 import places
 from character import Character
 import actions

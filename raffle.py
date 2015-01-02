@@ -1,10 +1,3 @@
-"""
-St. George Game
-raffle.py
-Sage Berg
-Created: 9 Dec 2014
-"""
-
 from random import randint
 
 

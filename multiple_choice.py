@@ -1,10 +1,3 @@
-"""
-St. George Game
-multiple_choice.py
-Sage Berg, Skyler Berg
-Created: 22 Dec 2014
-"""
-
 import random
 
 from raffle import Raffle

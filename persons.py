@@ -1,10 +1,3 @@
-"""
-St. George Game
-person.py
-Sage Berg
-Created: 7 Dec 2014
-"""
-
 class Person(object):
 
     def __init__(self, name, attack, group=False, arrester=False):
