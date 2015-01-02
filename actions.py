@@ -792,27 +792,6 @@ class Apologize(Action):
         ), weight=1)
 
 
-class Arrest(Action):
-
-    slot = "a"
-
-    def __init__(self, person):
-        super().__init__()
-        self.name = "Arrest " + person.name + "."
-        self.combat_action = True
-
-    def execute(self, character):
-
-        self.outcomes.add(Outcome(character,
-            character.person.name.capitalize() + " arrest" +
-            persons.get_tense(character.person) + " you and throw you in "
-            "prison with the other lunatics.",
-            move_to=places.prison,
-            new_person=persons.other_lunatics,
-            fail=True
-        ), weight=1)
-
-
 class Attack(Action):
 
     slot = "a"
@@ -826,12 +805,8 @@ class Attack(Action):
 
         if character.person.attack >= character.get_attack():
 
-            self.outcomes.add(Outcome(character,
-                character.person.name[0].upper() +
-                character.person.name[1:] + " kill" +
-                persons.get_tense(character.person) + " you.",
-                die=True,
-            ), weight=1)
+            self.outcomes.add(character.person.preferred_attack(character))
+
         else:
 
             self.outcomes.add(Outcome(character,

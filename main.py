@@ -1,7 +1,6 @@
 import places
 from character import Character
 import actions
-import persons
 import options
 from multiple_choice import MultipleChoice
 
@@ -10,9 +9,6 @@ def combat(character):
     """
     takes in a character, returns outcome of fight
     """
-
-    print(character.person.name[0].upper() + character.person.name[1:] +
-          " attack" + persons.get_tense(character.person) + " you.")
     return actions.Attack(character.person).get_outcome(character)
 
 
@@ -43,8 +39,6 @@ def main():
         action = choices.choose_action()
         if not character.threatened or action.combat_action:
             outcome = action.get_outcome(character)
-        elif character.person.arrester:
-            outcome = actions.Arrest(character.person).get_outcome(character)
         else:
             outcome = combat(character)
             if not character.alive:
