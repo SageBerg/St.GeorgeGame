@@ -309,7 +309,7 @@ def _add_monstrosity_actions(choices, character):
 def add_actions(choices, character, outcome):
     if character.is_frog:
         _add_frog_actions(choices, character)
-    if character.is_monstrosity:
+    elif character.is_monstrosity:
         _add_monstrosity_actions(choices, character)
     else:
         _add_action_actions(choices, character)
