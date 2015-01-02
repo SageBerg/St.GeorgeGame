@@ -1,7 +1,13 @@
+from __future__ import print_function
 import random
 
 from raffle import Raffle
 from cheats import Cheat
+
+try:  # Python 2 compatibility
+    input = raw_input
+except NameError:
+    pass
 
 
 class MultipleChoice(object):

@@ -49,7 +49,7 @@ class TrainWithTheGuards(Action):
     slot = "a"
 
     def __init__(self):
-        super().__init__()
+        super(TrainWithTheGuards, self).__init__()
         self.name = "Train with the guards."
 
     def execute(self, character):
@@ -90,7 +90,7 @@ class AskHerToBrew(Action):
     slot = "a"
 
     def __init__(self, potion):
-        super().__init__()
+        super(AskHerToBrew, self).__init__()
         self.potion = potion
         self.name = "Ask her to brew a {0}.".format(self.potion.name)
 
@@ -133,7 +133,7 @@ class Think(Action):
     slot = "a"
 
     def __init__(self):
-        super().__init__()
+        super(Think, self).__init__()
         self.name = "Think."
 
     def execute(self, character):
@@ -287,7 +287,7 @@ class Yell(Action):
     slot = "a"
 
     def __init__(self, exclamation):
-        super().__init__()
+        super(Yell, self).__init__()
         self.exclamation = exclamation
         self.name = "Yell \"{0}!\"".format(exclamation)
 
@@ -305,7 +305,7 @@ class ReadASpellBook(Action):
     slot = "a"
 
     def __init__(self):
-        super().__init__()
+        super(ReadASpellBook, self).__init__()
         self.name = "Read a spell book."
 
     def execute(self, character):
@@ -365,7 +365,7 @@ class SuckUpTo(Action):
     slot = "a"
 
     def __init__(self, person):
-        super().__init__()
+        super(SuckUpTo, self).__init__()
         self.person = person
         self.name = "Suck up to {0}.".format(person)
 
@@ -432,7 +432,7 @@ class TellThemYouAreALunatic(Action):
     slot = "a"
 
     def __init__(self):
-        super().__init__()
+        super(TellThemYouAreALunatic, self).__init__()
         self.name = "Tell them you are a lunatic."
 
     def execute(self, character):
@@ -451,7 +451,7 @@ class Swashbuckle(Action):
     slot = "a"
 
     def __init__(self):
-        super().__init__()
+        super(Swashbuckle, self).__init__()
         self.name = "Swashbuckle."
 
     def execute(self, character):
@@ -501,7 +501,7 @@ class LookForAssassins(Action):
     slot = "a"
 
     def __init__(self):
-        super().__init__()
+        super(LookForAssassins, self).__init__()
         self.name = "Look for assassins."
 
     def execute(self, character):
@@ -521,7 +521,7 @@ class PickSomeFlowers(Action):
     slot = "a"
 
     def __init__(self):
-        super().__init__()
+        super(PickSomeFlowers, self).__init__()
         self.name = "Pick some flowers."
 
     def execute(self, character):
@@ -559,7 +559,7 @@ class GoFishing(Action):
     slot = "a"
 
     def __init__(self):
-        super().__init__()
+        super(GoFishing, self).__init__()
         self.name = "Go fishing."
 
     def execute(self, character):
@@ -598,7 +598,7 @@ class TakeIt(Action):
     slot = "a"
 
     def __init__(self, wronged_party, item):
-        super().__init__()
+        super(TakeIt, self).__init__()
         self.wronged_party = wronged_party
         self.item = item
         self.name = "Take it."
@@ -636,7 +636,7 @@ class AskAboutAssassins(Action):
     slot = "a"
 
     def __init__(self):
-        super().__init__()
+        super(AskAboutAssassins, self).__init__()
         self.name = "Ask about assassins."
 
     def execute(self, character):
@@ -673,7 +673,7 @@ class AskDirections(Action):
     slot = "a"
 
     def __init__(self):
-        super().__init__()
+        super(AskDirections, self).__init__()
         self.name = "Ask directions."
 
     def execute(self, character):
@@ -720,7 +720,7 @@ class AdmireYourJewels(Action):
 
     def __init__(self, jewels):
 
-        super().__init__()
+        super(AdmireYourJewels, self).__init__()
         self.name = "Admire your jewels."
         self.jewels = jewels
 
@@ -768,7 +768,7 @@ class Apologize(Action):
     slot = "a"
 
     def __init__(self):
-        super().__init__()
+        super(Apologize, self).__init__()
         self.name = "Tell him you're sorry."
         self.combat_action = True
 
@@ -797,7 +797,7 @@ class Attack(Action):
     slot = "a"
 
     def __init__(self, person):
-        super().__init__()
+        super(Attack, self).__init__()
         self.name = "Attack " + person.name + "."
         self.combat_action = True
 
@@ -821,7 +821,7 @@ class GoDivingForPearls(Action):
     slot = "a"
 
     def __init__(self):
-        super().__init__()
+        super(GoDivingForPearls, self).__init__()
         self.name = "Go diving for pearls."
 
     def execute(self, character):
@@ -861,7 +861,7 @@ class LickTheGround(Action):
     slot = "a"
 
     def __init__(self, place):
-        super().__init__()
+        super(LickTheGround, self).__init__()
         self.place = place
         if place in places.inside:
             self.ground = "floor"
@@ -924,7 +924,7 @@ class LookForAWeapon(Action):
     slot = "a"
 
     def __init__(self):
-        super().__init__()
+        super(LookForAWeapon, self).__init__()
         self.name = "Look for a weapon."
 
     def execute(self, character):
@@ -946,7 +946,7 @@ class LookForVoidDust(Action):
     slot = "a"
 
     def __init__(self):
-        super().__init__()
+        super(LookForVoidDust, self).__init__()
         self.name = "Look for void dust."
 
     def execute(self, character):
@@ -967,7 +967,7 @@ class GoMushroomPicking(Action):
     slot = "a"
 
     def __init__(self):
-        super().__init__()
+        super(GoMushroomPicking, self).__init__()
         self.name = "Go mushroom picking."
 
     def execute(self, character):
@@ -999,7 +999,7 @@ class LookForStGeorge(Action):
     slot = "a"
 
     def __init__(self):
-        super().__init__()
+        super(LookForStGeorge, self).__init__()
         self.name = "Look for St. George."
 
     def execute(self, character):
@@ -1040,7 +1040,7 @@ class KillYourselfInFrustration(Action):
     slot = "a"
 
     def __init__(self):
-        super().__init__()
+        super(KillYourselfInFrustration, self).__init__()
         self.name = "Kill yourself in frustration."
 
     def execute(self, character):
@@ -1108,7 +1108,7 @@ class KillEverybodyInAFitOfRage(Action):
     slot = "a"
 
     def __init__(self):
-        super().__init__()
+        super(KillEverybodyInAFitOfRage, self).__init__()
         self.name = "Kill everybody in a fit of rage."
 
     def execute(self, character):
@@ -1132,7 +1132,7 @@ class SayYouLoveHer(Action):
     slot = "a"
 
     def __init__(self, person):
-        super().__init__()
+        super(SayYouLoveHer, self).__init__()
         self.name = "Say you love her too."
         self.person = person
 
@@ -1162,7 +1162,7 @@ class MarryOlga(Action):
     slot = "a"
 
     def __init__(self):
-        super().__init__()
+        super(MarryOlga, self).__init__()
         self.name = "Marry Olga."
 
     def execute(self, character):
@@ -1202,7 +1202,7 @@ class MarryFelicity(Action):
     slot = "a"
 
     def __init__(self):
-        super().__init__()
+        super(MarryFelicity, self).__init__()
         self.name = "Marry Felicity."
 
     def execute(self, character):
@@ -1218,7 +1218,7 @@ class ThumpYourselfOnTheChest(Action):
     slot = "a"
 
     def __init__(self):
-        super().__init__()
+        super(ThumpYourselfOnTheChest, self).__init__()
         self.name = "Thump yourself on the chest."
 
     def execute(self, character):
@@ -1263,7 +1263,7 @@ class SlurpDown(Action):
     slot = "b"
 
     def __init__(self, potion):
-        super().__init__()
+        super(SlurpDown, self).__init__()
         self.potion = potion
         self.name = "{0}".format(random.choice([
             "Slurp down your ",
@@ -1302,7 +1302,7 @@ class LookForWitches(Action):
     slot = "b"
 
     def __init__(self):
-        super().__init__()
+        super(LookForWitches, self).__init__()
         self.name = "Look for witches"
 
     def execute(self, character):
@@ -1329,7 +1329,7 @@ class GawkAtWomen(Action):
     slot = "b"
 
     def __init__(self):
-        super().__init__()
+        super(GawkAtWomen, self).__init__()
         self.name = "{0} at women.".format(random.choice(
             ["Gawk", "Leer", "Stare"]))
 
@@ -1373,7 +1373,7 @@ class SwingOnARope(Action):
     slot = "b"
 
     def __init__(self):
-        super().__init__()
+        super(SwingOnARope, self).__init__()
         self.name = "Swing on a Rope."
 
     def execute(self, character):
@@ -1401,7 +1401,7 @@ class Tithe(Action):
     slot = "b"
 
     def __init__(self):
-        super().__init__()
+        super(Tithe, self).__init__()
         self.name = "Tithe."
 
     def execute(self, character):
@@ -1447,7 +1447,7 @@ class BarterWithEskimos(Action):
     slot = "b"
 
     def __init__(self):
-        super().__init__()
+        super(BarterWithEskimos, self).__init__()
         self.name = "Barter with the Eskimos."
 
     def execute(self, character):
@@ -1479,7 +1479,7 @@ class BuildAnIgloo(Action):
     slot = "b"
 
     def __init__(self):
-        super().__init__()
+        super(BuildAnIgloo, self).__init__()
         self.name = "Build an igloo."
 
     def execute(self, character):
@@ -1521,7 +1521,7 @@ class Disguise(Action):
     slot = "b"
 
     def __init__(self):
-        super().__init__()
+        super(Disguise, self).__init__()
         self.fake_name = random.choice(["St. George.",
                                         "Lord Arthur.",
                                         "Lord Bartholomew.",
@@ -1549,7 +1549,7 @@ class BurnThePlaceToTheGround(Action):
     slot = "b"
 
     def __init__(self, place):
-        super().__init__()
+        super(BurnThePlaceToTheGround, self).__init__()
         self.place = place
         self.name = "Burn {0} to the ground.".format(place.name)
 
@@ -1604,7 +1604,7 @@ class SetThePlaceOnFire(BurnThePlaceToTheGround):
     slot = "a"
 
     def __init__(self, place):
-        super().__init__(place)
+        super(SetThePlaceOnFire, self).__init__(place)
         self.place = place
         self.name = "Set {0} ablaze.".format(place.name)
 
@@ -1614,7 +1614,7 @@ class BurnThePlaceToACrisp(BurnThePlaceToTheGround):
     slot = "c"
 
     def __init__(self, place):
-        super().__init__(place)
+        super(BurnThePlaceToACrisp, self).__init__(place)
         self.place = place
         self.name = "Burn {0} to a crisp.".format(place.name)
 
@@ -1624,7 +1624,7 @@ class LightUpThePlace(BurnThePlaceToTheGround):
     slot = "d"
 
     def __init__(self, place):
-        super().__init__(place)
+        super(LightUpThePlace, self).__init__(place)
         self.place = place
         self.name = "Light up {0}.".format(place.name)
 
@@ -1634,7 +1634,7 @@ class ClimbIntoTheCrowsNest(Action):
     slot = "b"
 
     def __init__(self):
-        super().__init__()
+        super(ClimbIntoTheCrowsNest, self).__init__()
         self.name = "Climb into the crow's nest."
 
     def execute(self, character):
@@ -1693,7 +1693,7 @@ class RaiseASail(Action):
     slot = "b"
 
     def __init__(self):
-        super().__init__()
+        super(RaiseASail, self).__init__()
         self.name = "Raise a sail."
 
     def execute(self, character):
@@ -1738,7 +1738,7 @@ class ScrubTheDeck(Action):
     slot = "b"
 
     def __init__(self):
-        super().__init__()
+        super(ScrubTheDeck, self).__init__()
         self.name = "Scrub the deck."
 
     def execute(self, character):
@@ -1786,7 +1786,7 @@ class PlayDead(Action):
     slot = "b"
 
     def __init__(self):
-        super().__init__()
+        super(PlayDead, self).__init__()
         self.name = "Play dead."
         self.combat_action = True
 
@@ -1831,7 +1831,7 @@ class PrayToAHigherPower(Action):
     slot = "b"
 
     def __init__(self):
-        super().__init__()
+        super(PrayToAHigherPower, self).__init__()
         self.name = "Pray to a higher power."
 
     def execute(self, character):
@@ -1904,7 +1904,7 @@ class BegForMoney(Action):
     slot = "b"
 
     def __init__(self):
-        super().__init__()
+        super(BegForMoney, self).__init__()
         self.name = "Beg for money."
 
     def execute(self, character):
@@ -1968,7 +1968,7 @@ class BideYourTime(Action):
     slot = "b"
 
     def __init__(self):
-        super().__init__()
+        super(BideYourTime, self).__init__()
         self.name = "Bide your time."
 
     def execute(self, character):
@@ -2005,7 +2005,7 @@ class BuyBlackMarketItem(Action):
     slot = "b"
 
     def __init__(self, items):
-        super().__init__()
+        super(BuyBlackMarketItem, self).__init__()
         self.item = random.choice(items)
         self.name = "Make a shady deal."
 
@@ -2037,7 +2037,7 @@ class BuyItem(Action):
     slot = "b"
 
     def __init__(self, items):
-        super().__init__()
+        super(BuyItem, self).__init__()
         self.item = random.choice(items)
         if self.item.name[0] in "aeiou":
             self.name = "Buy an " + self.item.name + "."
@@ -2064,7 +2064,7 @@ class BuyWeapon(Action):
     slot = "b"
 
     def __init__(self):
-        super().__init__()
+        super(BuyWeapon, self).__init__()
         self.weapon = random.choice(items.weapons)
         self.name = "Buy a " + str(self.weapon) + "."
 
@@ -2091,7 +2091,7 @@ class BuyADrink(Action):
     slot = "b"
 
     def __init__(self):
-        super().__init__()
+        super(BuyADrink, self).__init__()
         self.name = "Buy a drink."
 
     def execute(self, character):
@@ -2137,7 +2137,7 @@ class BoastOfYourBravery(Action):
     slot = "b"
 
     def __init__(self):
-        super().__init__()
+        super(BoastOfYourBravery, self).__init__()
         self.name = "Boast of your bravery."
 
     def execute(self, character):
@@ -2239,7 +2239,7 @@ class LookForACat(Action):
     slot = "b"
 
     def __init__(self):
-        super().__init__()
+        super(LookForACat, self).__init__()
         self.name = "Look for a cat."
 
     def execute(self, character):
@@ -2311,7 +2311,7 @@ class TellThemYouAreNotALunatic(Action):
     slot = "b"
 
     def __init__(self, topic):
-        super().__init__()
+        super(TellThemYouAreALunatic, self).__init__()
         self.topic = topic
         self.name = "Tell them you are not a lunatic, " + \
             "you're just {0}.".format(topic)
@@ -2339,7 +2339,7 @@ class TipACow(Action):
     slot = "b"
 
     def __init__(self):
-        super().__init__()
+        super(TipACow, self).__init__()
         self.name = "Tip a cow."
 
     def execute(self, character):
@@ -2390,7 +2390,7 @@ class LookForSeaTurtles(Action):
     slot = "b"
 
     def __init__(self):
-        super().__init__()
+        super(LookForSeaTurtles, self).__init__()
         self.name = "Look for sea turtles."
 
     def execute(self, character):
@@ -2427,7 +2427,7 @@ class LookForMermaids(Action):
     slot = "b"
 
     def __init__(self):
-        super().__init__()
+        super(LookForMermaids, self).__init__()
         self.name = "Look for mermaids."
 
     def execute(self, character):
@@ -2473,7 +2473,7 @@ class ComplainAboutUnfairImprisonment(Action):
     slot = "c"
 
     def __init__(self):
-        super().__init__()
+        super(ComplainAboutUnfairImprisonment, self).__init__()
         self.name = "Complain about unfair imprisonment."
 
     def execute(self, character):
@@ -2510,7 +2510,7 @@ class Hide(Action):
     slot = "c"
 
     def __init__(self):
-        super().__init__()
+        super(Hide, self).__init__()
         self.name = "Hide."
 
     def execute(self, character):
@@ -2551,7 +2551,7 @@ class LookForAWayOut(Action):
     slot = "c"
 
     def __init__(self):
-        super().__init__()
+        super(LookForAWayOut, self).__init__()
         self.name = "Look for a way out."
 
     def execute(self, character):
@@ -2595,7 +2595,7 @@ class ClimbUpTheTopSails(Action):
     slot = "c"
 
     def __init__(self):
-        super().__init__()
+        super(ClimbUpTheTopSails, self).__init__()
         self.name = "Climb up the top sails."
 
     def execute(self, character):
@@ -2612,7 +2612,7 @@ class TellAPriest(Action):
     slot = "c"
 
     def __init__(self, idea):
-        super().__init__()
+        super(TellAPriest, self).__init__()
         self.idea = idea
         self.name = "Tell a priest " + self.idea + "."
 
@@ -2691,7 +2691,7 @@ class FireACanon(Action):
     slot = "c"
 
     def __init__(self):
-        super().__init__()
+        super(FireACanon, self).__init__()
         self.name = "Fire a cannon."
 
     def execute(self, character):
@@ -2721,7 +2721,7 @@ class ClubASeal(Action):
     slot = "c"
 
     def __init__(self):
-        super().__init__()
+        super(ClubASeal, self).__init__()
         self.name = "Club a seal."
 
     def execute(self, character):
@@ -2762,7 +2762,7 @@ class CelebrateYourSuccess(Action):
     slot = "c"
 
     def __init__(self):
-        super().__init__()
+        super(CelebrateYourSuccess, self).__init__()
         self.name = "Celebrate your success."
 
     def execute(self, character):
@@ -2838,7 +2838,7 @@ class ChopDownATree(Action):
     slot = "c"
 
     def __init__(self):
-        super().__init__()
+        super(ChopDownATree, self).__init__()
         self.name = "Chop down a tree."
 
     def execute(self, character):
@@ -2887,7 +2887,7 @@ class ChowDown(Action):
     slot = "c"
 
     def __init__(self, food):
-        super().__init__()
+        super(ChowDown, self).__init__()
         self.food = food
         self.name = "Chow down on the " + str(food) + "."
 
@@ -2940,7 +2940,7 @@ class FlirtWith(Action):
     slot = "c"
 
     def __init__(self, person):
-        super().__init__()
+        super(FlirtWith, self).__init__()
         self.person = person
         self.name = "Flirt with {0}.".format(person.name)
 
@@ -3202,7 +3202,7 @@ class GoToSleep(Action):
     slot = "c"
 
     def __init__(self):
-        super().__init__()
+        super(GoToSleep, self).__init__()
         self.name = "Go to sleep."
 
     def execute(self, character):
@@ -3298,7 +3298,7 @@ class LookForTheWizard(Action):
     slot = "c"
 
     def __init__(self):
-        super().__init__()
+        super(LookForTheWizard, self).__init__()
         self.name = "Look for the wizard."
 
     def execute(self, character):
@@ -3367,7 +3367,7 @@ class LeaveInAHuff(Action):
     slot = "c"
 
     def __init__(self):
-        super().__init__()
+        super(LeaveInAHuff, self).__init__()
         self.name = "Leave in a huff."
 
     def execute(self, character):
@@ -3390,7 +3390,7 @@ class LeaveInAPuff(Action):
     slot = "c"
 
     def __init__(self):
-        super().__init__()
+        super(LeaveInAPuff, self).__init__()
         self.name = "Leave in a puff."
         self.combat_action = True
 
@@ -3409,7 +3409,7 @@ class FleeTheScene(Action):
     slot = "c"
 
     def __init__(self):
-        super().__init__()
+        super(FleeTheScene, self).__init__()
         self.name = "Flee the scene."
 
     def execute(self, character):
@@ -3425,7 +3425,7 @@ class GoTo(Action):
     slot = "c"
 
     def __init__(self, place):
-        super().__init__()
+        super(GoTo, self).__init__()
         self.dest = random.sample(place.connections, 1)[0]
         self.name = "Go to " + str(self.dest) + "."
 
@@ -3513,7 +3513,7 @@ class RunLikeTheDevil(Action):
     slot = "c"
 
     def __init__(self):
-        super().__init__()
+        super(RunLikeTheDevil, self).__init__()
         self.name = "Run like the Devil."
         self.combat_action = True
 
@@ -3566,7 +3566,7 @@ class WaddleLikeGod(Action):
     slot = "c"
 
     def __init__(self):
-        super().__init__()
+        super(WaddleLikeGod, self).__init__()
         self.name = "Waddle like God."
         self.combat_action = True
 
@@ -3591,7 +3591,7 @@ class WanderTheCountryside(Action):
     slot = "c"
 
     def __init__(self):
-        super().__init__()
+        super(WanderTheCountryside, self).__init__()
         self.name = "Wander the countryside."
 
     def execute(self, character):
@@ -3642,7 +3642,7 @@ class Swim(Action):
     slot = "c"
 
     def __init__(self):
-        super().__init__()
+        super(Swim, self).__init__()
         self.name = "Swim."
 
     def execute(self, character):
@@ -3690,11 +3690,11 @@ class KeepSwimming(Swim):
     slot = "c"
 
     def __init__(self):
-        super().__init__()
+        super(KeepSwimming, self).__init__()
         self.name = "Keep swimming."
 
     def execute(self, character):
-        super().execute(character)
+        super(KeepSwimming, self).execute(character)
 
         self.outcomes.add(Outcome(character,
             "You die of exhaustion.",
@@ -3727,11 +3727,11 @@ class JustKeepSwimming(KeepSwimming):
     slot = "c"
 
     def __init__(self):
-        super().__init__()
+        super(JustKeepSwimming, self).__init__()
         self.name = "Just keep swimming."
 
     def execute(self, character):
-        super().execute(character)
+        super(JustKeepSwimming, self).execute(character)
 
         self.outcomes.add(Outcome(character,
             "You die of exhaustion.",
@@ -3756,7 +3756,7 @@ class WalkThePlank(Action):
     slot = "c"
 
     def __init__(self):
-        super().__init__()
+        super(WalkThePlank, self).__init__()
         self.name = "Walk the plank."
 
     def execute(self, character):
@@ -3784,7 +3784,7 @@ class TrashThePlace(Action):
     slot = "c"
 
     def __init__(self):
-        super().__init__()
+        super(TrashThePlace, self).__init__()
         self.name = "Trash the place."
 
     def execute(self, character):
@@ -3858,7 +3858,7 @@ class ShowYourForeignCoin(Action):
     slot = "d"
 
     def __init__(self, person):
-        super().__init__()
+        super(ShowYourForeignCoin, self).__init__()
         self.person = person 
         self.name = "Show " + self.person.name + " your shiny foreign coin."
 
@@ -3877,7 +3877,7 @@ class DouseHerWithYourLovePotion(Action):
     slot = "d"
 
     def __init__(self, lady):
-        super().__init__()
+        super(DouseHerWithYourLovePotion, self).__init__()
         self.lady = lady
         self.name = "Douse " + self.lady.name + " with your love potion."
 
@@ -3902,7 +3902,7 @@ class DrugHerWithYourLovePotion(Action):
     slot = "d"
 
     def __init__(self, lady):
-        super().__init__()
+        super(DrugHerWithYourLovePotion, self).__init__()
         self.lady = lady
         self.name = "Drug " + self.lady.name + " with your love potion."
 
@@ -3939,7 +3939,7 @@ class LookForNymphs(Action):
     slot = "d"
 
     def __init__(self):
-        super().__init__()
+        super(LookForNymphs, self).__init__()
         self.name = "Look for nymphs."
 
     def execute(self, character):
@@ -4003,7 +4003,7 @@ class GiveFlowers(Action):
     slot = "d"
 
     def __init__(self, woman):
-        super().__init__()
+        super(GiveFlowers, self).__init__()
         self.woman = woman
         self.name = "Give " + woman.name + " your bouquet of flowers."
 
@@ -4021,7 +4021,7 @@ class Loot(Action):
     slot = "d"
 
     def __init__(self):
-        super().__init__()
+        super(Loot, self).__init__()
         self.name = "Loot."
 
     def execute(self, character):
@@ -4058,7 +4058,7 @@ class WatchAPlay(Action):
     slot = "d"
 
     def __init__(self):
-        super().__init__()
+        super(WatchAPlay, self).__init__()
         self.name = "Watch a play."
 
     def execute(self, character):
@@ -4090,7 +4090,7 @@ class FlauntYourWealth(Action):
     slot = "d"
 
     def __init__(self):
-        super().__init__()
+        super(FlauntYourWealth, self).__init__()
         self.name = "Flaunt your wealth."
 
     def execute(self, character):
@@ -4123,7 +4123,7 @@ class FreezeToDeath(Action):
     slot = "d"
 
     def __init__(self):
-        super().__init__()
+        super(FreezeToDeath, self).__init__()
         self.name = "Freeze to death."
 
     def execute(self, character):
@@ -4168,7 +4168,7 @@ class Panic(Action):
     slot = "d"
 
     def __init__(self):
-        super().__init__()
+        super(Panic, self).__init__()
         self.name = "Panic!"
         self.combat_action = True
 
@@ -4199,7 +4199,7 @@ class SingASong(Action):
     slot = "d"
 
     def __init__(self, topic=None):
-        super().__init__()
+        super(SingASong, self).__init__()
         self.topic = topic
         if topic:
             self.name = "Sing a song about {0}.".format(topic)
@@ -4381,7 +4381,7 @@ class SwingYourCat(Action):
     slot = "d"
 
     def __init__(self, cat):
-        super().__init__()
+        super(SwingYourCat, self).__init__()
         self.cat = cat
         self.name = "Swing your cat."
 
@@ -4414,7 +4414,7 @@ class LookThroughSomeTrash(Action):
     slot = "d"
 
     def __init__(self):
-        super().__init__()
+        super(LookThroughSomeTrash, self).__init__()
         self.name = "Look through some trash."
 
     def execute(self, character):
@@ -4468,7 +4468,7 @@ class DanceAJig(Action):
     slot = "d"
 
     def __init__(self):
-        super().__init__()
+        super(DanceAJig, self).__init__()
         self.name = "Dance a jig."
 
     def execute(self, character):
@@ -4595,7 +4595,7 @@ class Drown(Action):
     slot = "d"
 
     def __init__(self):
-        super().__init__()
+        super(Drown, self).__init__()
         self.name = "Drown."
 
     def execute(self, character):
@@ -4609,7 +4609,7 @@ class Drown(Action):
 class Sink(Drown):
 
     def __init__(self):
-        super().__init__()
+        super(Sink, self).__init__()
         self.name = "Sink."
 
 
@@ -4618,7 +4618,7 @@ class SaveTheCat(Action):
     slot = "d"
 
     def __init__(self):
-        super().__init__()
+        super(SaveTheCat, self).__init__()
         self.name = "Save the cat."
 
     def execute(self, character):
@@ -4641,7 +4641,7 @@ class YellAPiratePhrase(Action):
     slot = "d"
 
     def __init__(self):
-        super().__init__()
+        super(YellAPiratePhrase, self).__init__()
         self.phrase = random.choice(
             ["Shiver me timbers",
              "Dead men tell no tales",
@@ -4699,7 +4699,7 @@ class SaveTheWitch(Action):
     slot = "d"
 
     def __init__(self):
-        super().__init__()
+        super(SaveTheWitch, self).__init__()
         self.name = "Save the witch."
 
     def execute(self, character):
@@ -4731,7 +4731,7 @@ class DoSomeFarmWork(Action):
     slot = "d"
 
     def __init__(self):
-        super().__init__()
+        super(DoSomeFarmWork, self).__init__()
         self.name = "Do some farmwork."
 
     def execute(self, character):
@@ -4785,7 +4785,7 @@ class DoSomeGambling(Action):
     slot = "d"
 
     def __init__(self):
-        super().__init__()
+        super(DoSomeGambling, self).__init__()
         self.name = "Do some gambling."
 
     def execute(self, character):
@@ -4840,7 +4840,7 @@ class SneakAround(Action):
     slot = "d"
 
     def __init__(self):
-        super().__init__()
+        super(SneakAround, self).__init__()
         self.name = "Sneak around."
 
     def execute(self, character):
@@ -4906,7 +4906,7 @@ class HideUnderTheDeck(Action):
     slot = "d"
 
     def __init__(self):
-        super().__init__()
+        super(HideUnderTheDeck, self).__init__()
         self.name = "Hide under the deck."
 
     def execute(self, character):
@@ -4933,7 +4933,7 @@ class SnoopAround(Action):
     slot = "d"
 
     def __init__(self):
-        super().__init__()
+        super(SnoopAround, self).__init__()
         self.name = "Snoop around."
 
     def execute(self, character):
@@ -4964,7 +4964,7 @@ class EnterTheVoid(Action):
     slot = "e"
 
     def __init__(self):
-        super().__init__()
+        super(EnterTheVoid, self).__init__()
         self.name = "Enter the void."
         self.combat_action = True
 
