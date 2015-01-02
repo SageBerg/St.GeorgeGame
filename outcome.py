@@ -95,10 +95,6 @@ class Outcome(object):
                                    + self.trash_place.name
             places.trashed.add(self.trash_place)
 
-        if self.kill:
-            self.character.person.alive = False
-            self.character.person = None
-            self.character.threatend = False
         if self.move:
             self.character.move(self.move)
         if self.move_to:
@@ -138,3 +134,7 @@ class Outcome(object):
             self.character.grow_stronger(self.grow_stronger)
         for func in self.funcs:
             func()
+        if self.kill:
+            self.character.person.alive = False
+            self.character.person = None
+            self.character.threatend = False
