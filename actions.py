@@ -14,7 +14,6 @@ import money
 import items
 import persons
 from outcome import Outcome
-from weapons import weapons
 
 
 class Action(object):
@@ -79,8 +78,8 @@ class TrainWithTheGuards(Action):
             "You get the badly beaten in wooden swrodplay.",
             grow_stronger=1,
         ), weight=1)
-        
-        if character.attack > 4:
+
+        if character.get_attack() > 4:
             self.outcomes.add(Outcome(character,
                 "You defeat the captain of the guards at wooden "
                 "swordplay. \"Not bad for a {0},\" he says"
@@ -281,8 +280,7 @@ class Think(Action):
 
         if character.person:
             self.outcomes.add(Outcome(character,
-                "You zone out while " + 
-                character.person.name + " talk" + 
+                "You zone out while " + character.person.name + " talk" +
                 persons.get_tense(character.person) + ".",
             ), weight=3)
 
@@ -398,7 +396,7 @@ class SuckUpTo(Action):
             self.outcomes.add(Outcome(character,
                 "Lord Bartholomew takes a liking to you and gives you a long "
                 "pitchfork.",
-                new_weapon=weapons.long_pitchfork
+                add_item=items.long_pitchfork
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
@@ -453,11 +451,11 @@ class TellThemYouAreALunatic(Action):
 
 
 class Swashbuckle(Action):
-
-    slot = "a"
     """
     Note: only use when attacking merchant ship
     """
+
+    slot = "a"
 
     def __init__(self):
         super().__init__()
@@ -503,11 +501,11 @@ class Swashbuckle(Action):
 
 
 class LookForAssassins(Action):
-
-    slot = "a"
     """
     Note: only use in dark alley
     """
+
+    slot = "a"
 
     def __init__(self):
         super().__init__()
@@ -585,7 +583,7 @@ class GoFishing(Action):
 
         self.outcomes.add(Outcome(character,
             "You fish up a pitchfork.",
-            new_weapon=weapons[0],
+            add_items=items.pitchfork,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
@@ -834,7 +832,7 @@ class Attack(Action):
 
     def execute(self, character):
 
-        if character.person.attack >= character.attack:
+        if character.person.attack >= character.get_attack():
             self.outcomes.add(Outcome(character,
                 character.person.name[0].upper() +
                 character.person.name[1:] + " kill" +
@@ -1158,11 +1156,11 @@ class KillEverybodyInAFitOfRage(Action):
 
 
 class SayYouLoveHer(Action):
-
-    slot = "a"
     """
     NOTE: right now this is only for Felicity
     """
+
+    slot = "a"
 
     def __init__(self, person):
         super().__init__()
@@ -1394,11 +1392,11 @@ class GawkAtWomen(Action):
 
 
 class SwingOnARope(Action):
-
-    slot = "b"
     """
     Note: only use when attacking merchant ship
     """
+
+    slot = "b"
 
     def __init__(self):
         super().__init__()
@@ -1461,11 +1459,11 @@ class Tithe(Action):
             die=True,
         ), weight=1)
 
-        if character.attack > 7:
+        if character.get_attack() > 7:
             self.outcomes.add(Outcome(character,
                 "St. George sees that you are a righteous man and gives you an "
                 "iron hammer to help you do God's work.",
-                new_weapon=weapons[7],
+                add_item=items.iron_hammer,
                 new_person=persons.st_george,
             ), weight=1)
 
@@ -2091,19 +2089,22 @@ class BuyWeapon(Action):
 
     slot = "b"
 
-    def __init__(self, weapons):
+    def __init__(self):
         super().__init__()
-        self.weapon = random.choice(weapons)
-        self.name = "Buy a " + self.weapon.name + "."
+        self.weapon = random.choice(items.weapons)
+        self.name = "Buy a " + str(self.weapon) + "."
 
     def execute(self, character):
 
-        if character.money >= self.weapon.price:
+        if character.money >= items.get_weapon_price(self.weapon):
+
             self.outcomes.add(Outcome(character,
-                "",
-                new_weapon=self.weapon,
+                None,
+                add_item=self.weapon,
             ), weight=3)
+
         else:
+
             self.outcomes.add(Outcome(character,
                 "You can't afford this weapon.",
                 fail=True,
@@ -2601,7 +2602,7 @@ class TellAPriest(Action):
 
     def __init__(self, idea):
         super().__init__()
-        self.idea = idea 
+        self.idea = idea
         self.name = "Tell a priest " + self.idea + "."
 
     def execute(self, character):
@@ -2671,11 +2672,11 @@ class TellAPriest(Action):
 
 
 class FireACanon(Action):
-
-    slot = "c"
     """
     Note: only use when attacking merchant ship
     """
+
+    slot = "c"
 
     def __init__(self):
         super().__init__()
@@ -3634,6 +3635,7 @@ class WanderTheCountryside(Action):
 class Swim(Action):
 
     slot = "c"
+
     def __init__(self):
         super().__init__()
         self.name = "Swim."
@@ -3670,6 +3672,9 @@ class Swim(Action):
 
 
 class KeepSwimming(Swim):
+
+    slot = "c"
+
     def __init__(self):
         super().__init__()
         self.name = "Keep swimming."
@@ -3702,6 +3707,9 @@ class KeepSwimming(Swim):
 
 
 class JustKeepSwimming(KeepSwimming):
+
+    slot = "c"
+
     def __init__(self):
         super().__init__()
         self.name = "Just keep swimming."
@@ -3839,10 +3847,10 @@ class GiveFlowers(Action):
         self.name = "Give " + woman.name + " your bouquet of flowers."
 
     def execute(self, character):
-       
+
         self.outcomes.add(Outcome(character,
             "She is quite pleased with your gift.",
-            remove_item=items.bouquet_of_flowers,     
+            remove_item=items.bouquet_of_flowers,
             flirt=(character.person, 3),
         ), weight=3)
 
@@ -3855,7 +3863,7 @@ class Loot(Action):
         self.name = "Loot."
 
     def execute(self, character):
-       
+
         item = random.choice(items.buyable)
 
         if item.name[0] in "aeiou":
@@ -3893,7 +3901,7 @@ class WatchAPlay(Action):
         self.name = "Watch a play."
 
     def execute(self, character):
-        
+
         self.outcomes.add(Outcome(character,
             "The play saterizes Lord Daniel's policy on lunacy. The actors are arrested at the end of the play."
         ), weight=1)
@@ -4584,7 +4592,7 @@ class DoSomeFarmWork(Action):
         self.outcomes.add(Outcome(character,
             "You spend a season bailing hay.",
             get_money=money.pittance,
-            new_weapon=weapons[0]
+            add_item=pitchfork
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
@@ -4666,11 +4674,11 @@ class DoSomeGambling(Action):
 
 
 class SneakAround(Action):
-
-    slot = "d"
     """
     Only use in Lord Carlos' manor
     """
+
+    slot = "d"
 
     def __init__(self):
         super().__init__()
@@ -4707,7 +4715,7 @@ class SneakAround(Action):
 
         self.outcomes.add(Outcome(character,
             "You find a poisoned dagger in a glass case.",
-            new_weapon=weapons[5],
+            add_item=items.poison_daggar,
             succeed=True
         ), weight=1)
 
@@ -4718,7 +4726,7 @@ class SneakAround(Action):
              "petting her cat.", "putting on jewelry.",
              "painting a picture of you getting assassinated.",])),
             new_person=persons.eve,
-        ), weight=1000)  # TODO fix weight 
+        ), weight=1000)  # TODO fix weight
 
         self.outcomes.add(Outcome(character,
             "You manage to sneak into Lord Carlos' "
@@ -4732,11 +4740,11 @@ class SneakAround(Action):
 
 
 class HideUnderTheDeck(Action):
-
-    slot = "d"
     """
     Note: only use when attacking merchant ship
     """
+
+    slot = "d"
 
     def __init__(self):
         super().__init__()
@@ -4759,11 +4767,11 @@ class HideUnderTheDeck(Action):
 
 
 class SnoopAround(Action):
-
-    slot = "d"
     """
     Only use in Wizard's lab
     """
+
+    slot = "d"
 
     def __init__(self):
         super().__init__()

@@ -41,8 +41,49 @@ ax = Item("ax")
 bottle_of_sap = Item("bottle of sap")
 bottle_of_void_dust = Item("bottle of void dust")
 
+pitchfork = Item("pitchfork")
+dagger = Item("dagger")
+cutlass = Item("cutlass")
+hammer = Item("hammer")
+long_pitchfork = Item("long pitchfork")
+poisoned_dagger = Item("poisoned dagger")
+jeweled_cutlass = Item("jeweled cutlass")
+iron_hammer = Item("iron hammer")
+
 buyable = [bouquet_of_flowers, fish, ax, pearl, sailor_peg]
 
-black_market = [deep_cave_newt, love_potion, black_mushroom, 
-                tail_potion, strength_potion, fire_proof_cloak, 
+black_market = [deep_cave_newt, love_potion, black_mushroom,
+                tail_potion, strength_potion, fire_proof_cloak,
                 many_colored_mushroom, white_mushroom]
+
+weapons = [
+    pitchfork,
+    dagger,
+    cutlass,
+    hammer,
+    long_pitchfork,
+    poisoned_dagger,
+    jeweled_cutlass,
+    iron_hammer]
+
+def get_weapon_price(weapon):
+    """
+    This function is a temporary solution that should be removed when a more
+    general shopping solution is implemented.
+    """
+    if weapon == pitchfork:
+        return 1
+    if weapon == dagger:
+        return 1
+    if weapon == cutlass:
+        return 1
+    if weapon == hammer:
+        return 1
+    if weapon == long_pitchfork:
+        return 1
+    if weapon == poisoned_dagger:
+        return 2
+    if weapon == jeweled_cutlass:
+        return 3
+    if weapon == iron_hammer:
+        return 2

@@ -31,6 +31,14 @@ class Cheat(actions.Action):
                 if action_class.__name__ == action_name:
                     action = action_class()
                     action.get_outcome(character)
+        if words[0] == "character":
+            if words[1] == "attribute":
+                print(character.__dict__.get(words[2], "No such attribute."))
+            if words[1] == "method":
+                if hasattr(character, words[2]):
+                    print(getattr(character, words[2])())
+                else:
+                    print("No such method.")
 
     def execute(self, character):
        self.outcomes.add(Outcome(character,

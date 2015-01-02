@@ -23,8 +23,8 @@ class Character(object):
             items.bouquet_of_flowers: 1,
             items.many_colored_mushroom: 1,
             items.pearl: 1,
+            items.iron_hammer: 1,
             items.four_leaf_clover: 1}
-        self.best_weapon = ""
         self.attack = 0
         self.money = money.large_fortune  # TODO start with money.none
         self.threatened = False
@@ -164,3 +164,24 @@ class Character(object):
         if employer in self.employers:
             return True
         return False
+
+    def get_attack(self):
+        if self.has_item(items.iron_hammer):
+            weapon_bonus = 8
+        elif self.has_item(items.jeweled_cutlass):
+            weapon_bonus = 7
+        elif self.has_item(items.poisoned_dagger):
+            weapon_bonus = 6
+        elif self.has_item(items.long_pitchfork):
+            weapon_bonus = 5
+        elif self.has_item(items.hammer):
+            weapon_bonus = 4
+        elif self.has_item(items.cutlass):
+            weapon_bonus = 3
+        elif self.has_item(items.dagger):
+            weapon_bonus = 2
+        elif self.has_item(items.pitchfork):
+            weapon_bonus = 1
+        else:
+            weapon_bonus = 0
+        return weapon_bonus + self.attack

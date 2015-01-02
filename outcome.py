@@ -15,11 +15,9 @@ class Outcome(object):
     def __init__(self,
                  character,
                  msg,
-
                  add_item=False,  # USAGE: items.item_name
                  remove_item=False,  # USAGE: items.item_name
                  remove_all_items=False,
-                 new_weapon=False,  # USAGE: weapons[x]
                  clover=False,
                  grow_stronger=False,
                  beg=False,
@@ -48,7 +46,6 @@ class Outcome(object):
         self.add_item = add_item
         self.remove_item = remove_item
         self.remove_all_items = remove_all_items
-        self.new_weapon = new_weapon
         self.grow_stronger = grow_stronger
         self.clover = clover
         self.beg = beg
@@ -89,13 +86,6 @@ class Outcome(object):
         if self.msg:
             print(self.msg)
 
-        if self.new_weapon and self.character.attack < self.new_weapon.attack:
-            self.character.weapon = self.new_weapon
-            self.character.attack = self.new_weapon.attack
-            if self.new_weapon.name[0] in "aeiou":
-                print("You now have an " + self.new_weapon.name + ".")
-            else:
-                print("You now have a " + self.new_weapon.name + ".")
         if self.beg:
             self.character.person.state["given money"] = True
         if self.lock:

@@ -14,7 +14,6 @@ import frog_actions
 import monstrosity_actions
 import persons
 import items
-import weapons
 import money
 from multiple_choice import MultipleChoice
 
@@ -83,7 +82,7 @@ def add_person_actions(choices, character):
         choices.add(actions.SingASong(topic="St. George"), 3)
     if character.person == persons.wealthy_merchant:
         choices.add(actions.BoastOfYourBravery(), 1)
-        choices.add(actions.BuyWeapon(weapons.weapons), 30)
+        choices.add(actions.BuyWeapon(), 30)
         choices.add(actions.SingASong(topic="weapons"), 3)
     if character.person == persons.wizard:
         choices.add(actions.BoastOfYourBravery(), 2)
