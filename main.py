@@ -22,12 +22,6 @@ def main():
         Get an outcome
         Display results of the outcomes
         Outcome changes game state
-        Add actions from action
-        Add actions from outcome
-        Add actions from person
-        Add actions from place
-        Add actions from items
-        Add actions from character
     """
     character = Character()
     character.place = places.tavern
@@ -44,7 +38,6 @@ def main():
             if not character.alive:
                 break
         outcome.execute()
-        character.prev_act = action
         options.add_actions(choices, character, outcome)
         choices.generate_actions(character)
 

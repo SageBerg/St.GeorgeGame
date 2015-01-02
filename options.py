@@ -9,29 +9,13 @@ import items
 import money
 
 
-def _add_action_actions(choices, character):
-    if type(character.prev_act) == actions.Swim and \
-       character.place == places.ocean:
-        choices.add(actions.KeepSwimming(), 10000)
-    if type(character.prev_act) == actions.KeepSwimming and \
-       character.place == places.ocean:
-        choices.add(actions.JustKeepSwimming(), 10000)
-    if type(character.prev_act) == actions.JustKeepSwimming and \
-       character.place == places.ocean:
-        choices.add(actions.JustKeepSwimming(), 10000)
-    if isinstance(character.prev_act, actions.SayYouLoveHer) and \
-       character.person == persons.fat_lady:
-        choices.add(actions.MarryFelicity(), 777)
-        choices.add(actions.RunLikeTheDevil(), 666)
-
-
 def _add_outcome_actions(choices, character, outcome):
     for action, weight in outcome.actions:
         choices.add(action, weight)
     if outcome.love_confessor is not None:
-        if character.person == persons.fat_lady:
+        if outcome.love_confessor == persons.fat_lady:
             choices.add(actions.SayYouLoveHer(outcome.love_confessor), 10000)
-        if character.person == persons.pretty_lady:
+        if outcome.love_confessor == persons.pretty_lady:
             choices.add(actions.MarryOlga(), 10000)
             choices.add(actions.RunLikeTheDevil(), 10000)
     if outcome.fail:
@@ -311,7 +295,6 @@ def add_actions(choices, character, outcome):
     elif character.is_monstrosity:
         _add_monstrosity_actions(choices, character)
     else:
-        _add_action_actions(choices, character)
         _add_outcome_actions(choices, character, outcome)
         _add_person_actions(choices, character)
         _add_place_actions(choices, character)

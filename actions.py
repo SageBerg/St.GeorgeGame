@@ -1139,6 +1139,7 @@ class SayYouLoveHer(Action):
     def execute(self, character):
 
         if self.person == persons.fat_lady:
+
             self.outcomes.add(Outcome(character,
                 "\"What a shame,\" an assassin says as he steps into the room. "
                 "He shoots you with a crossbow.",
@@ -1149,7 +1150,10 @@ class SayYouLoveHer(Action):
                 "Felicity is overjoyed and secretly lets you out of prison "
                 "that night. \"Let's get married!\" she says.",
                 move_to=places.streets,
-                new_person=persons.fat_lady
+                new_person=persons.fat_lady,
+                actions=[
+                    (MarryFelicity(), 777),
+                    (RunLikeTheDevil(), 666)]
             ), weight=9)
 
 
@@ -3643,21 +3647,30 @@ class Swim(Action):
 
     def execute(self, character):
 
+        if type(self) == JustKeepSwimming or type(self) == KeepSwimming:
+            next_action = JustKeepSwimming()
+        else:
+            next_action = KeepSwimming()
+
         self.outcomes.add(Outcome(character,
-            "You manage to stay afloat."
+            "You manage to stay afloat.",
+            actions=[(next_action, 10000)]
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
-            "You keep your head up."
+            "You keep your head up.",
+            actions=[(next_action, 10000)]
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You see a ship in the distance. You are unable to reach it.",
+            actions=[(next_action, 10000)],
             fail=True
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You make very little progress.",
+            actions=[(next_action, 10000)],
             fail=True
         ), weight=1)
 
@@ -3700,8 +3713,10 @@ class KeepSwimming(Swim):
         ), weight=1)
 
         if character.has_item(items.cat):
+
             self.outcomes.add(Outcome(character,
                 "Your cat dies.",
+                actions=[(JustKeepSwimming(), 10000)],
                 remove_item=items.cat,
                 fail=True
             ), weight=1)

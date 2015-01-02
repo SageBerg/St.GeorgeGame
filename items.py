@@ -58,6 +58,7 @@ weapons = [
     jeweled_cutlass,
     iron_hammer]
 
+
 def get_weapon_price(weapon):
     """
     This function is a temporary solution that should be removed when a more

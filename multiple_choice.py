@@ -29,7 +29,6 @@ class MultipleChoice(object):
                         "c": self.bags["c"].get(),
                         "d": self.bags["d"].get(),
                         "e": self.bags["e"].get()}
-        character.prev_act = None  # TODO Might need to move this
         for letter in "abcde":
             self.actions[letter] = self.bags[letter].get()
         self.reset_action_bags(character)

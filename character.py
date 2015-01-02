@@ -27,10 +27,8 @@ class Character(object):
         self.lose = False
         self.alive = True
         self.alone = True  # character has not found true love
-
         self.place = None
         self.person = None
-        self.prev_act = None
         self.employers = set()
 
     def grow_stronger(self, amount):
