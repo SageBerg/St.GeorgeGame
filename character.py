@@ -16,7 +16,6 @@ class Character(object):
             items.many_colored_mushroom: 1,
             items.love_potion: 1,
             items.pearl: 1,
-            items.iron_hammer: 1,
             items.four_leaf_clover: 1}
         self.attack = 0
         self.money = money.large_fortune  # TODO start with money.none
@@ -78,7 +77,8 @@ class Character(object):
 
     def remove_all_items(self):
         for item in set(self.items):
-            self.remove_item(item)
+            if self.has_item(item):
+                self.remove_item(item)
 
     def has_any_items(self):
         if len(self.items):

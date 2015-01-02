@@ -40,9 +40,6 @@ Concoct an elaborate scheme
 see you a boar, it minds its own business
   provoke it
 
-BUG:
-  losing a weapon does not reduce your attack
-
 feature:
   guards show up when you kill someone
 
