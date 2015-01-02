@@ -44,6 +44,61 @@ class Action(object):
 # A slot actions
 
 
+class EnactYourElaborateScheme(Action):
+
+    slot = "a"
+
+    def __init__(self):
+        super(EnactYourElaborateScheme, self).__init__()
+        self.name = "Enact your elaborate scheme."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "You are just about to dump a cauldron of hot soup on Lord "
+            "Carlos when he looks up and notices you. You then dump the "
+            "hot soup on him and he dies.",
+            new_person=persons.lord_carlos,
+            kill=persons.lord_carlos,
+            move_to=places.lord_carlos_manor,
+        ), weight=1)
+
+
+class AskHerToTakeYouBackToLand(Action):
+
+    slot = "a"
+
+    def __init__(self):
+        super(AskHerToTakeYouBackToLand, self).__init__()
+        self.name = "Ask her to take you back to land."
+
+    def execute(self, character):
+
+        if character.place == places.mermaid_rock:
+            self.outcomes.add(Outcome(character,
+                "She doesn't know where your land is, but "
+                "she gives you a fish.",
+                add_item=items.fish,
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "\"You're on land, silly!\" she says.",
+                fail=True,
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "She takes you out to see, but gets bored and leaves you "
+                "there.",
+                move_to=places.ocean,
+                fail=True,
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "She does.",
+                move_to=places.docks,
+            ), weight=1)
+
+
 class TrainWithTheGuards(Action):
 
     slot = "a"
@@ -142,6 +197,11 @@ class Think(Action):
             "You come up with four brilliant ideas.",
             actions=[(LickTheGround(character.place), 10)]
         ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You concoct an elaborate scheme.",
+            actions=[(EnactYourElaborateScheme(), 10000)]
+        ), weight=1000)  # TODO fix weight
 
         self.outcomes.add(Outcome(character,
             "All you can think is \"Think. Think. Think.\".",
@@ -296,6 +356,30 @@ class Yell(Action):
         if self.exclamation == "I lost my leg":
             self.outcomes.add(Outcome(character,
                 "No one cares.",
+                fail=True,
+            ), weight=1)
+            
+            if character.person == persons.lord_arthur:
+                self.outcomes.add(Outcome(character,
+                    "Lord Arthur says he knows a town where you can "
+                    "find a wooden leg.",
+                ), weight=10000)
+
+        if self.exclamation == "There aren't penguins in the arctic":
+            self.outcomes.add(Outcome(character,
+                "The penguins don't care.",
+                fail=True,
+            ), weight=1)
+
+        if self.exclamation == "Don't leave without me":
+            self.outcomes.add(Outcome(character,
+                "The wizard ignores you and sails away before you can "
+                "get to the boat.",
+                fail=True,
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "The wizard leaves without you.",
                 fail=True,
             ), weight=1)
 
@@ -576,7 +660,7 @@ class GoFishing(Action):
 
         self.outcomes.add(Outcome(character,
             "You fish up a pitchfork.",
-            add_items=items.pitchfork,
+            add_item=items.pitchfork,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
@@ -2433,39 +2517,112 @@ class LookForMermaids(Action):
     def execute(self, character):
 
         self.outcomes.add(Outcome(character,
-            "You are taken out by a storm during your search.",
-            die=True,
+            "You find a wooden mermaid figurehead on the front of Lord "
+            "Arthur's ship. The crew hoists you abroad.",
+            move_to=places.pirate_ship
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
-            "After days of searching, you are not sure mermaids exist.",
-            fail=True,
-        ), weight=2)
+            "You are taken out by a storm during your search.",
+            die=True,
+        ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You find a sea turtle instead.",
             fail=True
         ), weight=1)
 
+        if character.place == places.mermaid_rock:
+            self.outcomes.add(Outcome(character,
+                "{0} {1}".format(random.choice([
+                    "You almost step on one",
+                    "You find one putting sea shells in her hair",
+                    "There are meraids everywhere, there's one next to you.",
+                    "After hours of climbing around on the rocks you find "
+                    "one.",
+                    ]), random.choice([
+                    "She spits water in your face and laughs.",
+                    "She trips you with her fish tail.",
+                    "She gives you some nasty tasting seaweed.",
+                    "She's beautiful, but smells terrible.",
+                    "She sings a song about Lord Arthur.",
+                    ])),
+                new_person=persons.mermaid
+            ), weight=3)
+
+            self.outcomes.add(Outcome(character,
+                "You don't find any mermaids, but you find a shiny foreign "
+                "coin.",
+                add_item=items.foreign_coin,
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "You don't find any mermaids, but you find a small fortune "
+                "in lost treasure.",
+                get_money=money.small_fortune,
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "You slip on a rock.",
+                clover=True,
+                die=True,
+            ), weight=1)
+
+        if character.place == places.ocean:
+            self.outcomes.add(Outcome(character,
+                "You find a mermaid and she leads you back to her rock.",
+                move_to=places.mermaid_rock,
+                new_person=persons.mermaid
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "You are not sure where to look.",
+                fail=True,
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "After days of searching, you are not sure mermaids exist.",
+                fail=True,
+            ), weight=2)
+
+
+# C slot actions
+
+
+class SunYourselfOnARock(Action):
+
+    slot = "c"
+
+    def __init__(self):
+        super(SunYourselfOnARock, self).__init__()
+        self.name = "Sun yourself on a rock."
+
+    def execute(self, character):
+
         self.outcomes.add(Outcome(character,
-            "You are not sure where to look.",
+            "You get sunburnt.",
             fail=True,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
-            "You find a mermaid and she leads you back to her rock.",
-            move_to=places.mermaid_rock,
-            new_person=persons.mermaid
+            "You get bronzed.",
+            succeed=True,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
-            "You find a wooden mermaid figurehead on the front of Lord "
-            "Arthur's ship. The crew hoists you abroad.",
-            move_to=places.pirate_ship
+            "A roc snatches you and carries you 2000 miles before feeding "
+            "you to its hatchlings.",
+            clover=True,
+            die=True,
         ), weight=1)
 
+        if character.person != persons.mermaid:
 
-# C slot actions
+            self.outcomes.add(Outcome(character,
+                "When you open your eyes you see a mermaid sunbathing next to "
+                "you.",
+                new_person=persons.mermaid,
+            ), weight=1)
 
 
 class ComplainAboutUnfairImprisonment(Action):
@@ -2496,7 +2653,8 @@ class ComplainAboutUnfairImprisonment(Action):
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
-            "A bureaurocrat says she'll let Lord Daniel know of your concerns.",
+            "A bureaurocrat says she'll let Lord Daniel know of your "
+            "concerns.",
             succeed=True,
         ), weight=1)
 
@@ -2773,6 +2931,22 @@ class CelebrateYourSuccess(Action):
             fail=True,
         ), weight=1)
 
+        self.outcomes.add(Outcome(character,
+            "You dance a jig.",
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You sing a song.",
+        ), weight=1)
+
+        if self.place in places.burnable:
+            self.outcomes.add(Outcome(character,
+                None,
+                burn_place=self.place,
+                succeed=True,
+                move_to=self.place
+            ), weight=1)
+
         if character.place in places.town:
 
             self.outcomes.add(Outcome(character,
@@ -2945,6 +3119,12 @@ class FlirtWith(Action):
         self.name = "Flirt with {0}.".format(person.name)
 
     def execute(self, character):
+
+        if self.person == persons.mermaid:
+            self.outcomes.add(Outcome(character,
+                "You run into the mermaid problem.",
+                fail=True,
+            ), weight=1000)
 
         if self.person == persons.fat_lady and \
            persons.fat_lady.name != "Felicity":
@@ -3883,6 +4063,21 @@ class DouseHerWithYourLovePotion(Action):
 
     def execute(self, character):
 
+        if character.person == persons.mermaid:
+
+            self.outcomes.add(Outcome(character,
+                "The mermaid falls madly in love with you. "
+                "You run into the mermaid problem, but {0}, "
+                "so you still live happily ever after"
+                ".".format(random.choice([
+                    "she has a mouth",
+                    "she has breasts",
+                    "she is fun to be around",
+                    "helps you adjust to life at sea",
+                    ])),
+                win=True,
+            ), weight=1)
+
         if character.person == persons.nymph_queen:
             
             self.outcomes.add(Outcome(character,
@@ -3891,7 +4086,7 @@ class DouseHerWithYourLovePotion(Action):
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
-                "The nymph queen becomes madly in love with you. All of the "
+                "The nymph queen falls madly in love with you. All of the "
                 "woodland creatures attend your wedding.",
                 win=True,
             ), weight=1)
@@ -4129,6 +4324,18 @@ class FreezeToDeath(Action):
     def execute(self, character):
 
         self.outcomes.add(Outcome(character,
+            "While you're trying to freeze to death, you notice some "
+            "penguins nearby.",
+            actions=[(Yell("There aren't penguins in the arctic"), 100)],
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "While you are waiting to freeze to death, you notice "
+            "the wizard dropping off a boatload of penguins.",
+            actions=[(Yell("Don't leave without me"), 10000)],
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
             "It's easy.",
             die=True,
         ), weight=1)
@@ -4282,8 +4489,8 @@ class SingASong(Action):
 
         if character.place == places.mermaid_rock:
             self.outcomes.add(Outcome(character,
-                "As you sing, a ship sails by. The crew has wax in their "
-                "ears and the captain is tied to the mast. He is not "
+                "As you sing, a ship sails by. The "
+                "captain is tied to the mast. He is not "
                 "impressed.",
                 fail=True,
             ), weight=10)

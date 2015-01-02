@@ -163,11 +163,17 @@ def _add_place_actions(choices, character):
             choices.add(actions.LookForTheWizard(), 4)
         choices.add(actions.WatchAPlay(), 500) # fix
     if character.place == places.mermaid_rock:
-        choices.add(actions.GoFishing(), 2)
-        if character.person != persons.mermaid:
-            choices.add(actions.LookForMermaids(), 2)
-        else:
+        if character.person == persons.mermaid:
+            choices.add(actions.AskHerToTakeYouBackToLand(), 2)
             choices.add(actions.FlirtWith(persons.mermaid), 2)
+            if character.has_item(items.love_potion):
+                choices.add(
+                    actions.DouseHerWithYourLovePotion(persons.mermaid), 2
+                           )
+        choices.add(actions.GoFishing(), 2)
+        choices.add(actions.SunYourselfOnARock(), 2)
+        if character.person != persons.mermaid:
+            choices.add(actions.LookForMermaids(), 5)
         choices.add(actions.SingASong(), 2)
     if character.place == places.ocean:
         choices.add(actions.GoDivingForPearls(), 10)
@@ -229,11 +235,11 @@ def _add_place_actions(choices, character):
 
 def _add_item_actions(choices, character):
     if character.has_item(items.love_potion):
-        choices.add(actions.SlurpDown(items.love_potion), 100)  # FIXME
+        choices.add(actions.SlurpDown(items.love_potion), 1)
     if character.has_item(items.tail_potion):
-        choices.add(actions.SlurpDown(items.tail_potion), 100)  # FIXME
+        choices.add(actions.SlurpDown(items.tail_potion), 2)
     if character.has_item(items.strength_potion):
-        choices.add(actions.SlurpDown(items.strength_potion), 100)  # FIXME
+        choices.add(actions.SlurpDown(items.strength_potion), 2)
     if character.has_item(items.many_colored_mushroom):
         choices.add(actions.ChowDown(items.many_colored_mushroom), 1)
     if character.has_item(items.black_mushroom):
