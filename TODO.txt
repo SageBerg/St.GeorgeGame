@@ -1,3 +1,6 @@
+Lose all items if you go to prison
+Make it to where you can't enter the void if you're already there
+
 actions:
   skin your cat
   wizard brings penguins to the arctic
