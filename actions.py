@@ -4802,12 +4802,11 @@ class EnterTheVoid(Action):
         self.combat_action = True
 
     def execute(self, character):
-        character.place=places.void  # TODO this is a hack
 
         self.outcomes.add(Outcome(character,
-            "You enter the void.",
+            None,
+            move_to=places.void,
             unthreat=True,
-            new_person=None,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
@@ -4818,5 +4817,5 @@ class EnterTheVoid(Action):
 
         self.outcomes.add(Outcome(character,
             "You get lost in limbo forever.",
-            win=True,
+            die=True,
         ), weight=1)

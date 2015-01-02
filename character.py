@@ -103,7 +103,8 @@ class Character(object):
         """
         Kill the character.
         """
-        print("You are dead.")
+        if self.place.name != "the void": 
+            print("You are dead.")
         self.alive = False
 
     def move(self, distance=1):
@@ -122,6 +123,7 @@ class Character(object):
         self.person = None  # WARNING: move then add people
                             # so move doesn't overwrite
                             # character.person immediately
+        self.threatened = False
         if not suppress_message:
             print("You find yourself in " + str(self.place) + ".")
 
@@ -150,8 +152,7 @@ class Character(object):
         """
         Win the game.
         """
-        if self.place.name != "the void": 
-            print("You win!")
+        print("You win!")
         self.alone = False
 
     def add_employer(self, employer):
