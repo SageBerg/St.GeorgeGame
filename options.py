@@ -159,7 +159,6 @@ def _add_place_actions(choices, character):
         choices.add(actions.LookThroughSomeTrash(), 5)
     if character.place == places.docks:
         choices.add(actions.GoFishing(), 2)
-        #choices.add(actions.LookForWorkAsASailor(), 2)
         choices.add(actions.LookForTheWizard(), 2)
         choices.add(actions.DoSomeGambling(), 1)
     #if character.place == places.lord_bartholomews_manor:
@@ -226,8 +225,8 @@ def _add_place_actions(choices, character):
                         , 100)
     if character.place == places.tower:
         #choices.add(actions.AskForAnAudienceWithLordDaniel(), 1)
-        #choices.add(actions.ComplainAboutUnfairImprisonment(), 1)
-        choices.add(actions.TrainWithTheGuards(), 100)  #fix
+        choices.add(actions.ComplainAboutUnfairImprisonment(), 100)  # FIXME
+        choices.add(actions.TrainWithTheGuards(), 100)  # FIXME
     if character.place == places.void:
         choices.add(actions.LookForVoidDust(), 1)
     if character.place == places.wizards_lab:

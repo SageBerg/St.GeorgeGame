@@ -55,7 +55,7 @@ class TrainWithTheGuards(Action):
     def execute(self, character):
 
         self.outcomes.add(Outcome(character,
-            "The guards throw you out for not filling out proper "
+            "The guards throw you out for not filling out the proper "
             "paperwork.",
             move_to=places.streets,
             fail=True,
@@ -2489,6 +2489,43 @@ class LookForMermaids(Action):
 # C slot actions
 
 
+class ComplainAboutUnfairImprisonment(Action):
+
+    slot = "c"
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Complain about unfair imprisonment."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "The guards say it's fair if Lord Daniel says it's fair.",
+            new_person=persons.guards,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "The guards argue with you for many hours about the finer points "
+            "of the justice system.",
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "The guards arrest you on charges of lunacy and throw you in "
+            "prison with the other lunatics.",
+            new_person=persons.other_lunatics,
+            move_to=places.prison,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "A bureaurocrat says she'll let Lord Daniel know of your concerns.",
+            succeed=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "A cook assures you that Lord Bartholomew will set things right.",
+        ), weight=1)
+
+
 class Hide(Action):
 
     slot = "c"
@@ -3824,6 +3861,25 @@ class TrashThePlace(Action):
 
 
 # D slot actions
+
+
+class ShowYourForeignCoin(Action):
+
+    slot = "d"
+
+    def __init__(self, person):
+        super().__init__()
+        self.person = person 
+        self.name = "Show " + self.person.name + " your shiny foreign coin."
+
+    def execute(self, character):
+
+        if character.person == persons.lord_bartholomew:
+
+            self.outcomes.add(Outcome(character,
+                "\"Damn, son. Where'd you find this?\"",
+                actions=[(SayWhereYouFoundIt, 10000)],
+            ), weight=1)
 
 
 class DouseHerWithYourLovePotion(Action):
