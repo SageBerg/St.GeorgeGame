@@ -815,7 +815,7 @@ class Arrest(Action):
             persons.get_tense(character.person) + " you and throw you in "
             "prison with the other lunatics.",
             move_to=places.prison,
-            new_person=persons.other_lunatics
+            new_person=persons.other_lunatics,
             fail=True
         ), weight=1)
 
