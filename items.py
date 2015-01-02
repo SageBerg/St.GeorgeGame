@@ -3,8 +3,11 @@ class Item(object):
     abstract class
     """
 
+    by_name = dict()
+
     def __init__(self, name):
         self.name = name
+        Item.by_name[name] = self
 
     def __str__(self):
         return self.name

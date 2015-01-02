@@ -1,6 +1,7 @@
 class Place(object):
 
     instances = set()
+    by_name = dict()
 
     def __init__(self, name):
         """
@@ -10,6 +11,7 @@ class Place(object):
         self.name = name
         self.connections = set()
         self.locked = False
+        Place.by_name[name] = self
         if self.name != "the void":
             Place.instances.add(self)
 

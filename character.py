@@ -95,7 +95,7 @@ class Character(object):
         """
         Kill the character.
         """
-        if self.place.name != "the void": 
+        if self.place.name != "the void":
             print("You are dead.")
         self.alive = False
 

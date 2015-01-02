@@ -5,6 +5,8 @@ import places
 
 class Person(object):
 
+    by_name = dict()
+
     def __init__(self, name, attack, group=False):
         self.name = name
         self.attack = attack
@@ -13,6 +15,7 @@ class Person(object):
         self.state = {}
         self.attracted = 0
         self.preferred_attack = self.kill
+        Person.by_name[name] = self
 
     def kill(self, character, verb="kill"):
         return outcome.Outcome(character,
