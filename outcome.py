@@ -113,8 +113,8 @@ class Outcome(object):
         if self.die:
             if self.character.has_item(items.four_leaf_clover) and \
                self.clover:
-                print("Or at least that's what would have happened "
-                      "if you didn't have a four-leaf clover.")
+                print("Or at least that's what you imagine would have "
+                      "happened if you didn't have a four-leaf clover.")
             else:
                 self.character.die()
         if self.add_item:

@@ -614,7 +614,7 @@ class TakeIt(Action):
 
         self.outcomes.add(Outcome(character,
             None,
-            add_item=self.item(),
+            add_item=self.item,
         ), weight=3)
 
         if self.wronged_party.alive:
@@ -3385,7 +3385,6 @@ class LeaveInAPuff(Action):
         self.outcomes.add(Outcome(character,
             None,
             move_to=place,
-            new_person=None,
             unthreat=True
         ), weight=3)
 
@@ -3466,36 +3465,31 @@ class GoTo(Action):
             self.outcomes.add(Outcome(character,
                 overhear_template.format("someone say that the town's well "
                     "has been poisoned"),
-                move_to=self.dest,
-                new_person=None
+                move_to=self.dest
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
                 overhear_template.format("someone talking about how nice St. "
                     "George was to them"),
-                move_to=self.dest,
-                new_person=None
+                move_to=self.dest
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
                 overhear_template.format("a man talking being a pirate on "
                     "Lord Arthur's ship"),
-                move_to=self.dest,
-                new_person=None
+                move_to=self.dest
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
                 overhear_template.format("a woman asking around about "
                     "assassins"),
-                move_to=self.dest,
-                new_person=None
+                move_to=self.dest
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
                 overhear_template.format("some men are planning a trip to "
                     "the woods to look for nymphs"),
-                move_to=self.dest,
-                new_person=None
+                move_to=self.dest
             ), weight=1)
 
 
@@ -3888,7 +3882,6 @@ class Loot(Action):
             "You are arrested for attempting to steal an apple.",
             move_to=places.prison,
             unthreat=True,
-            new_person=None,
         ), weight=1)
 
 
@@ -4019,7 +4012,6 @@ class Panic(Action):
             "You don't remember what you did, but you seem to have gotten "
             "away.",
             move_to=place,
-            new_person=None,
             unthreat=True,
             succeed=True
         ), weight=1)

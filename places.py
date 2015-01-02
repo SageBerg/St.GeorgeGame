@@ -48,7 +48,7 @@ woods = Place("the woods")
 
 # sets of locations
 
-populated = set([
+populated = frozenset([
     docks,
     lord_bartholomews_manor,
     lord_carlos_manor,
@@ -70,7 +70,7 @@ burnable = set([
 burned = set()
 trashed = set()
 
-outside = set([
+outside = frozenset([
     arctic,
     cave,
     countryside,
@@ -83,7 +83,7 @@ outside = set([
     streets,
     woods])
 
-inside = set([
+inside = frozenset([
     church,
     lord_bartholomews_manor,
     lord_carlos_manor,
@@ -93,7 +93,7 @@ inside = set([
     upstairs,
     wizards_lab])
 
-town = set([
+town = frozenset([
     church,
     dark_alley,
     docks,

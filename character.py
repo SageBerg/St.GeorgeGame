@@ -52,7 +52,7 @@ class Character(object):
             print("You still only have {0}.".format(
                 money.to_str(amount)))
         else:
-            print("You still have {0}.".format(money.to_str(amount)))
+            print("You still have {0}.".format(money.to_str(self.money)))
 
     def lose_all_money(self):
         if self.money != money.none:
