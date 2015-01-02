@@ -3,17 +3,15 @@ Make it to where you can't enter the void if you're already there
 
 actions:
   skin your cat
-  wizard brings penguins to the arctic
-  throw throw your cat 
+  throw your cat 
   challenge them to a game of chess 
     as you play Lord Carlos tells you of his villinous plan
       Tell Lord X about Lord Carlos' villinous plan
         you tell them how he was going to assassinate you
-  give the wizard the potion and run
+  give the wizard the mushroom and run
   Repay your debts
-    No amount of money can make up for what you've done
     He takes your money but says "No amount of money can make up for what you've done"
-  Look for Lord Carlos' daughter    
+  Carlos' daughter    
     Ask her name    
       She becomes irate and assassinates you
   grovel (Lord Carlos)
@@ -34,11 +32,6 @@ Do it
 And stay out!
 
 Plan B, C, D, E
-Concoct an elaborate scheme
-  Enact your elaborate scheme
-
-see you a boar, it minds its own business
-  provoke it
 
 feature:
   guards show up when you kill someone
