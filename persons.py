@@ -25,6 +25,7 @@ eve = Person("Lord Carlos' daughter", 4)
 guards = Person("the guards", 4, group=True, arrester=True)
 mermaid = Person("the mermaid", 3)
 mob = Person("the angry mob", 9)  # Mob is not a group; grammar hack
+nymph_queen = Person("the nymph queen", 10)
 other_lunatics = Person("the other lunatics", -1, group=True)
 peasant_lass = Person("the peasant lass", 7)
 pirate_wench = Person("the pirate wench", 2)
