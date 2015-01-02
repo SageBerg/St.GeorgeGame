@@ -809,15 +809,14 @@ class Arrest(Action):
         self.combat_action = True
 
     def execute(self, character):
-        character.place = places.prison  # TODO might not want this hack
 
         self.outcomes.add(Outcome(character,
             character.person.name.capitalize() + " arrest" +
             persons.get_tense(character.person) + " you and throw you in "
             "prison with the other lunatics.",
-            unthreat=True,
-            new_person=None,
-            fail=True,
+            move_to=places.prison,
+            new_person=persons.other_lunatics
+            fail=True
         ), weight=1)
 
 
@@ -833,6 +832,7 @@ class Attack(Action):
     def execute(self, character):
 
         if character.person.attack >= character.get_attack():
+
             self.outcomes.add(Outcome(character,
                 character.person.name[0].upper() +
                 character.person.name[1:] + " kill" +
@@ -840,6 +840,7 @@ class Attack(Action):
                 die=True,
             ), weight=1)
         else:
+
             self.outcomes.add(Outcome(character,
                 "You kill " + character.person.name + ".",
                 unthreat=True,
@@ -2668,6 +2669,7 @@ class TellAPriest(Action):
                 "St. George overhears your comment and turns you, "
                 "over to the guards on charges of lunacy.",
                 move_to=places.prison,
+                new_person=persons.other_lunatics
             ), weight=1)
 
 
@@ -3356,9 +3358,7 @@ class LeaveInAHuff(Action):
 
         self.outcomes.add(Outcome(character,
             None,
-            move=1,
-            new_person=None,
-            unthreat=False
+            move=1
         ), weight=29)
 
         if character.place in places.populated:
@@ -3384,8 +3384,7 @@ class LeaveInAPuff(Action):
 
         self.outcomes.add(Outcome(character,
             None,
-            move_to=place,
-            unthreat=True
+            move_to=place
         ), weight=3)
 
 
@@ -3506,10 +3505,8 @@ class RunLikeTheDevil(Action):
 
         self.outcomes.add(Outcome(character,
             "The Devil is very fast, so you manage to get away.",
-            new_person=None,
-            unthreat=True,
             move=2,
-            succeed=True,
+            succeed=True
         ), weight=9)
 
         self.outcomes.add(Outcome(character,
@@ -3569,8 +3566,6 @@ class WaddleLikeGod(Action):
             " also waddle" + persons.get_tense(character.person) + " like God and "
             "fail to overtake" + persons.get_tense(character.person) + " you. You "
             "slowly get away.",
-            unthreat=True,
-            new_person=None,
             move=1
         ), weight=1)
 
@@ -3792,7 +3787,6 @@ class TrashThePlace(Action):
                 "You are arrested on charges of lunacy and get "
                 "thrown in prison with the other lunatics.",
                 move_to=places.prison,
-                unthreat=True,
                 new_person=persons.other_lunatics,
             ), weight=1)
 
@@ -3881,7 +3875,7 @@ class Loot(Action):
         self.outcomes.add(Outcome(character,
             "You are arrested for attempting to steal an apple.",
             move_to=places.prison,
-            unthreat=True,
+            new_person=persons.other_lunatics
         ), weight=1)
 
 
@@ -4012,7 +4006,6 @@ class Panic(Action):
             "You don't remember what you did, but you seem to have gotten "
             "away.",
             move_to=place,
-            unthreat=True,
             succeed=True
         ), weight=1)
 
@@ -4806,7 +4799,6 @@ class EnterTheVoid(Action):
         self.outcomes.add(Outcome(character,
             None,
             move_to=places.void,
-            unthreat=True,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
