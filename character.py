@@ -1,7 +1,7 @@
 import random
 
 import money
-import items  # TODO remove when done testing game
+import items as items_module  # TODO remove when done testing game
 
 
 class Character(object):
@@ -10,26 +10,47 @@ class Character(object):
     is role playing.
     """
 
-    def __init__(self):
-        self.items = {
-            items.cat: 1,
-            items.many_colored_mushroom: 1,
-            items.love_potion: 1,
-            items.pearl: 1,
-            items.four_leaf_clover: 1}
-        self.attack = 0
-        self.money = money.large_fortune  # TODO start with money.none
-        self.threatened = False
-        self.trip = False
-        self.is_frog = False
-        self.is_monstrosity = False
-        self.lost_peg_leg = False
-        self.lose = False
-        self.alive = True
-        self.alone = True  # character has not found true love
-        self.place = None
-        self.person = None
-        self.employers = set()
+    def __init__(self,
+                 items=None,
+                 employers=None,
+                 attack=0,
+                 money=money.pittance,
+                 threatened=False,
+                 trip=False,
+                 is_frog=False,
+                 is_monstrosity=False,
+                 lost_peg_leg=False,
+                 lose=False,
+                 alive=True,
+                 alone=True,
+                 place=None,
+                 person=None,
+                 ):
+        if items is None:
+            self.items = {
+                items_module.cat: 1,
+                items_module.many_colored_mushroom: 1,
+                items_module.love_potion: 1,
+                items_module.pearl: 1,
+                items_module.four_leaf_clover: 1}
+        else:
+            self.items = items
+        if employers is None:
+            self.employers = set()
+        else:
+            self.employers = employers
+        self.attack = attack
+        self.money = money
+        self.threatened = threatened
+        self.trip = trip
+        self.is_frog = is_frog
+        self.is_monstrosity = is_monstrosity
+        self.lost_peg_leg = lost_peg_leg
+        self.lose = lose
+        self.alive = alive
+        self.alone = alone
+        self.place = place
+        self.person = person
 
     def grow_stronger(self, amount):
         print("You grow stronger.")
@@ -159,21 +180,21 @@ class Character(object):
         return False
 
     def get_attack(self):
-        if self.has_item(items.iron_hammer):
+        if self.has_item(items_module.iron_hammer):
             weapon_bonus = 8
-        elif self.has_item(items.jeweled_cutlass):
+        elif self.has_item(items_module.jeweled_cutlass):
             weapon_bonus = 7
-        elif self.has_item(items.poisoned_dagger):
+        elif self.has_item(items_module.poisoned_dagger):
             weapon_bonus = 6
-        elif self.has_item(items.long_pitchfork):
+        elif self.has_item(items_module.long_pitchfork):
             weapon_bonus = 5
-        elif self.has_item(items.hammer):
+        elif self.has_item(items_module.hammer):
             weapon_bonus = 4
-        elif self.has_item(items.cutlass):
+        elif self.has_item(items_module.cutlass):
             weapon_bonus = 3
-        elif self.has_item(items.dagger):
+        elif self.has_item(items_module.dagger):
             weapon_bonus = 2
-        elif self.has_item(items.pitchfork):
+        elif self.has_item(items_module.pitchfork):
             weapon_bonus = 1
         else:
             weapon_bonus = 0
