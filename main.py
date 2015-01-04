@@ -5,13 +5,6 @@ import options
 from multiple_choice import MultipleChoice
 
 
-def combat(character):
-    """
-    takes in a character, returns outcome of fight
-    """
-    return actions.Attack(character.person).get_outcome(character)
-
-
 def main():
     """
     The goal is to have the main function operate as follows:
@@ -23,8 +16,7 @@ def main():
         Display results of the outcomes
         Outcome changes game state
     """
-    character = Character()
-    character.place = places.tavern
+    character = Character(place=places.tavern)
     choices = MultipleChoice()
     options.set_initial_actions(choices)
     print("\n---The St. George Game---\n")
@@ -34,9 +26,7 @@ def main():
         if not character.threatened or action.combat_action:
             outcome = action.get_outcome(character)
         else:
-            outcome = combat(character)
-            if not character.alive:
-                break
+            outcome = actions.Attack(character.person).get_outcome(character)
         outcome.execute()
         options.add_actions(choices, character, outcome)
         choices.generate_actions(character)
