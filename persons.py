@@ -32,7 +32,9 @@ class Person(object):
             persons.get_tense(self) + " you in prison with the other "
             "lunatics.",
             new_person=persons.other_lunatics,
-            move_to=places.prison)
+            move_to=places.prison,
+            remove_all_items=True
+            )
 
     def __str__(self):
         return self.name
