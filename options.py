@@ -25,7 +25,7 @@ def _add_outcome_actions(choices, character, outcome):
         if character.place in places.burnable:
             choices.add(actions.BurnThePlaceToTheGround(
                 character.place), 3)
-        if not character.place.locked:
+        if not character.place in places.locked:
             choices.add(actions.LeaveInAHuff(), 5)
     if outcome.succeed:
         choices.add(actions.ThumpYourselfOnTheChest(), 5)
@@ -99,9 +99,9 @@ def _add_person_actions(choices, character):
 
 
 def _add_place_actions(choices, character):
-    if not character.place.locked and character.place in places.town:
+    if not character.place in places.locked and character.place in places.town:
         choices.add(actions.LookForACat())
-    if not character.threatened and not character.place.locked:
+    if not character.threatened and not character.place in places.locked:
         for _ in range(3):
             choices.add(actions.GoTo(character.place))
 

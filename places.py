@@ -10,7 +10,6 @@ class Place(object):
         """
         self.name = name
         self.connections = set()
-        self.locked = False
         Place.by_name[name] = self
         if self.name != "the void":
             Place.instances.add(self)
@@ -42,13 +41,12 @@ woods = Place("the woods")
 
 # sets of locations
 
-populated = frozenset([
-    docks,
-    lord_bartholomews_manor,
-    lord_carlos_manor,
-    market,
-    streets,
-    tavern])
+locked = set([
+    cave,
+    prison,
+    pirate_ship,
+    ocean,
+    void])
 
 burnable = set([
     church,
@@ -63,6 +61,14 @@ burnable = set([
 
 burned = set()
 trashed = set()
+
+populated = frozenset([
+    docks,
+    lord_bartholomews_manor,
+    lord_carlos_manor,
+    market,
+    streets,
+    tavern])
 
 outside = frozenset([
     arctic,
@@ -134,9 +140,3 @@ upstairs.connections.add(tavern)
 wizards_lab.connections.add(market)
 woods.connections.add(countryside)
 woods.connections.add(lord_carlos_manor)
-
-cave.locked = True
-prison.locked = True
-pirate_ship.locked = True
-ocean.locked = True
-void.locked = True

@@ -84,7 +84,7 @@ class Outcome(object):
         if self.beg:
             self.character.person.state["given money"] = True
         if self.lock:
-            self.character.place.locked = True
+            places.locked.add(self.character.place)
         if self.burn_place:
             self.burn_place.name = "the smoldering remains of " \
                                    + self.burn_place.name

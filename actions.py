@@ -2367,7 +2367,7 @@ class LookForACat(Action):
                 burn_place=character.place
             ), weight=4)
 
-        if character.place in places.populated and not character.place.locked:
+        if character.place in places.populated and not character.place in places.locked:
 
             self.outcomes.add(Outcome(character,
                 "You follow a cat through the streets but "
@@ -3436,14 +3436,14 @@ class GoToSleep(Action):
                 die=True
             ), weight=100)
 
-        if not character.place.locked:
+        if not character.place in places.locked:
             self.outcomes.add(Outcome(character,
                 "You wake up some hours later.",
                 move=2,
                 new_person=None
             ), weight=3)
 
-        if character.place in places.populated and not character.place.locked:
+        if character.place in places.populated and not character.place in places.locked:
 
             self.outcomes.add(Outcome(character,
                 "You are pleasantly awakened by a cat rubbing itself against "
@@ -4551,7 +4551,7 @@ class SingASong(Action):
                 die=True
             ), weight=20)
 
-        if not character.place.locked:
+        if not character.place in places.locked:
 
             self.outcomes.add(Outcome(character,
                 "You wander aimlessly as you work your way through an epic "
