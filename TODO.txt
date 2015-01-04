@@ -1,40 +1,21 @@
-Lose all items if you go to prison
-Make it to where you can't enter the void if you're already there
-
-actions:
-  skin your cat
-  throw your cat 
-  challenge them to a game of chess 
-    as you play Lord Carlos tells you of his villinous plan
-      Tell Lord X about Lord Carlos' villinous plan
-        you tell them how he was going to assassinate you
-  give the wizard the mushroom and run
-  Repay your debts
-    He takes your money but says "No amount of money can make up for what you've done"
-  Carlos' daughter    
-    Ask her name    
-      She becomes irate and assassinates you
-  grovel (Lord Carlos)
-  Make lick the deck take into account the cleaning
-
-Hop like the devil -> the devil doesn't hop, he runs
-
-You find a dead horse
-  beat it
-
-Cart
-  Go faster
-    Ethical delimma
-    Go even faster 
-
-Do it
-
-And stay out!
-
-Plan B, C, D, E
-
-feature:
-  guards show up when you kill someone
+1.0 (not all-inclusive list yet)
+-add escape from prison actions
+-add Lord Bartholmew in field
+-make it to where you can't enter the void if you're already there
+-game of chess
+-repay debts
+-He takes your money but says "No amount of money can make up for what you've done"
+-grovel
+-she asks you if you remember her name (anne, beth, eve, donna)
+-give the wizard the mushroom and run
+-cart
+-Plan B, C, D, E
+-guards show up when you kill someone
+-Give her a cat, she falls in love with you.
+-Kill all 4 lords
+-Burn everything to the ground (you are satisfied with the way everything has been burned)
+-show him your shiny foreign coin
+-add a docks option
 
 followers:
   forment revolution
@@ -61,21 +42,8 @@ followers:
     Your right hand man decides to make a move and seize power
     You live happily ever, but the journey has just begun for your right-hand man
 
-
-Jon:
-
-Throwing your cat:
--Cat is instant kill weapon (low chance)
--You throw it into possible love interest who is scarred for life
-from what you've done.
--Guards think you're a lunatic.
--Somebody catches it.
--Assassin throws it back at you, killing you.
-
-Romancing pretty lady:
--Give her a cat, she falls in love with you.
-
-Victory Conditions:
--Find True Love
--Kill all 4 lords
--Burn everything to the ground (you are satisfied with the way everything has been burned)
+dogs:
+  work like a dog
+  kick him like a dog
+  dog him
+  you pant like a dog
