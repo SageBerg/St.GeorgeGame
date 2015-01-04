@@ -49,6 +49,9 @@ def _add_person_actions(choices, character):
         choices.add(actions.BoastOfYourBravery(), 1)
     if character.person == persons.eve:
         choices.add(actions.FlirtWith(persons.eve), 1000)  # TODO fix
+    if character.person == persons.pirates:
+        choices.add(actions.ArmWrestle(), 10)
+        choices.add(actions.ChallengeThemToAGameOfChess(), 10)
     if character.person == persons.pretty_lady:
         choices.add(actions.BoastOfYourBravery(), 5)
         choices.add(actions.FlirtWith(persons.pretty_lady), 1000)  # TODO fix
@@ -102,7 +105,7 @@ def _add_place_actions(choices, character):
     if not character.place in places.locked and character.place in places.town:
         choices.add(actions.LookForACat())
     if not character.threatened and not character.place in places.locked:
-        for _ in range(3):
+        for _ in range(5):
             choices.add(actions.GoTo(character.place))
 
     if character.place in places.burnable:
@@ -143,7 +146,7 @@ def _add_place_actions(choices, character):
         choices.add(actions.LookThroughSomeTrash(), 5)
     if character.place == places.docks:
         choices.add(actions.GoFishing(), 2)
-        choices.add(actions.LookForTheWizard(), 2)
+        choices.add(actions.LookForTheWizard(), 1)
         choices.add(actions.DoSomeGambling(), 1)
     #if character.place == places.lord_bartholomews_manor:
         #if persons.lord_bartholomew.alive:
@@ -159,8 +162,6 @@ def _add_place_actions(choices, character):
         if character.person != persons.wealthy_merchant:
             choices.add(actions.LookForAWeapon(), 10)
         choices.add(actions.BuyItem(items.buyable), 10)
-        if character.person != persons.wizard:
-            choices.add(actions.LookForTheWizard(), 4)
         choices.add(actions.WatchAPlay(), 500) # fix
     if character.place == places.mermaid_rock:
         if character.person == persons.mermaid:
@@ -201,7 +202,6 @@ def _add_place_actions(choices, character):
         if character.person != persons.st_george:
             choices.add(actions.LookForStGeorge(), 2)
         choices.add(actions.GawkAtWomen(), 1)
-        choices.add(actions.LookForTheWizard(), 1)
         if character.money == money.small_fortune or \
            character.money == money.large_fortune:
             choices.add(actions.FlauntYourWealth(), 2)

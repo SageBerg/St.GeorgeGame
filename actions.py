@@ -63,6 +63,32 @@ class EnactYourElaborateScheme(Action):
             move_to=places.lord_carlos_manor,
         ), weight=1)
 
+        self.outcomes.add(Outcome(character,
+            "Everything goes as planned until you ask a dragon to do your "
+            "bidding.", 
+            die=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "Your plan goes swimmingly.",
+            add_item=items.jeweled_cutlass,
+            move_to=places.ocean,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "After several months, you realize you don't have what it takes " 
+            "to be a clown.",
+            fail=True,
+            move_to=places.market,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "After several years, you realize you don't have what it takes " 
+            "to be a priest.",
+            fail=True,
+            move_to=places.church,
+        ), weight=1)
+
 
 class AskHerToTakeYouBackToLand(Action):
 
@@ -201,7 +227,7 @@ class Think(Action):
         self.outcomes.add(Outcome(character,
             "You concoct an elaborate scheme.",
             actions=[(EnactYourElaborateScheme(), 10000)]
-        ), weight=1000)  # TODO fix weight
+        ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "All you can think is \"Think. Think. Think.\".",
@@ -250,6 +276,19 @@ class Think(Action):
                 "You think about how painful it would be to get stabbed. "
                 "You soon find out.",
                 die=True
+            ), weight=4)
+
+        if character.place == places.docks:
+            self.outcomes.add(Outcome(character,
+                "Some pirates laugh at you for thinking.",
+                new_person=persons.pirates,
+            ), weight=8)
+
+            self.outcomes.add(Outcome(character,
+                "You think it would be a bad idea to join Lord Arthur's "
+                "crew. Lord Arthur gives you no choice.",
+                add_employer=persons.lord_arthur,
+                move_to=places.pirate_ship,
             ), weight=4)
 
         if character.place == places.docks or \
@@ -648,6 +687,13 @@ class GoFishing(Action):
 
     def execute(self, character):
 
+        if character.place == places.docks:
+            self.outcomes.add(Outcome(character,
+                "Some pirates laugh at you. \"You'll never make a large "
+                "fortune that way.\" one of them says.",
+                new_person=persons.pirates,
+            ), weight=10)
+
         self.outcomes.add(Outcome(character,
             "You don't catch any fish.",
             fail=True,
@@ -738,11 +784,12 @@ class AskAboutAssassins(Action):
             fail=True
         ), weight=1)
 
-        self.outcomes.add(Outcome(character,
-            "During your search, you strike up a conversation "
-            "with a pretty lady.",
-            new_person=persons.pretty_lady
-        ), weight=100) # TODO fix
+        if character.place == places.tavern:
+            self.outcomes.add(Outcome(character,
+                "During your search, you strike up a conversation "
+                "with a pretty lady.",
+                new_person=persons.pretty_lady
+            ), weight=100) # TODO fix weight
 
         if character.place == places.lord_carlos_manor:
             self.outcomes.add(Outcome(character,
@@ -1207,6 +1254,15 @@ class KillEverybodyInAFitOfRage(Action):
             die=True
         ), weight=1)
 
+        if character.person == persons.pirates and \
+           character.place == places.docks:
+            self.outcomes.add(Outcome(character,
+                "You kill all the pirates. Lord Arthur says he is impressed "
+                "with your skills and also happens to be in the market for "
+                "a new crew. He forces you into his service.",
+                move_to=places.pirate_ship,
+            ), weight=10)
+
 
 class SayYouLoveHer(Action):
     """
@@ -1342,6 +1398,34 @@ class ThumpYourselfOnTheChest(Action):
 # B slot actions
 
 
+class ArmWrestle(Action):
+
+    slot = "b"
+
+    def __init__(self):
+        super(ArmWrestle, self).__init__()
+        self.name = "Arm wrestle with them to reclaim your dignity."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "Even the lady pirates can easily beat you. They toss you "
+            "in the ocean when they're done humiliating you.",
+            move_to=places.ocean,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You only lose what little dignity you had left.",
+            fail=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You manage to hold out long enough for Lord Arthur to "
+            "bark orders at his men to press-gang hands for the voyage.",
+            move_to=places.pirate_ship,
+        ), weight=1)
+
+
 class SlurpDown(Action):
 
     slot = "b"
@@ -1446,6 +1530,13 @@ class GawkAtWomen(Action):
                 "An equally creepy woman stairs back at you before "
                 "dissappearing into a dark alley.",
                 actions=[(GoTo(places.dark_alley), 5)],
+            ), weight=1)
+
+        if self.name == "Leer at women.":
+            self.outcomes.add(Outcome(character,
+                "You don't notice any women worth leering at, but you see a "
+                "cat worth leering at.",
+                add_item=items.cat,
             ), weight=1)
 
 
@@ -2395,7 +2486,7 @@ class TellThemYouAreNotALunatic(Action):
     slot = "b"
 
     def __init__(self, topic):
-        super(TellThemYouAreALunatic, self).__init__()
+        super(TellThemYouAreNotALunatic, self).__init__()
         self.topic = topic
         self.name = "Tell them you are not a lunatic, " + \
             "you're just {0}.".format(topic)
@@ -2589,6 +2680,37 @@ class LookForMermaids(Action):
 # C slot actions
 
 
+class ChallengeThemToAGameOfChess(Action):
+
+    slot = "c"
+
+    def __init__(self):
+        super(ChallengeThemToAGameOfChess, self).__init__()
+        self.name = "Challenge them to a game of chess."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "Their opening move is smashing you over the head with a bottle "
+            "of rum. You aren't thinking too straight during the game and "
+            "lose quickly.",
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "The pirates slash the chessboard in half with a cutlass and "
+            "leave.",
+            add_item=items.cutlass,
+            new_person=None,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You beat all the pirates easily. Lord Arthur says your "
+            "wits could be invaluable on the high seas. They soon are.",
+            move_to=places.pirate_ship,
+            actions=[(LickTheGround(places.pirate_ship), 1000)],
+        ), weight=1)
+
+
 class SunYourselfOnARock(Action):
 
     slot = "c"
@@ -2641,7 +2763,7 @@ class ComplainAboutUnfairImprisonment(Action):
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
-            "The guards argue with you for many hours about the finer points "
+            "The guards argue with you about the finer points "
             "of the justice system.",
         ), weight=1)
 
@@ -4425,6 +4547,13 @@ class SingASong(Action):
                 move_to=places.streets,
             ), weight=10)
 
+        if character.place == places.docks:
+            self.outcomes.add(Outcome(character,
+                "You are soon joined in song by a gang of drunken pirates. "
+                "They spill rum on you and ruin your song.",
+                new_person=persons.pirates,
+            ), weight=5)
+
         if character.place == places.upstairs and \
            character.person == persons.pretty_lady:
             self.outcomes.add(Outcome(character,
@@ -5038,6 +5167,12 @@ class DoSomeGambling(Action):
                 fail=True,
             ), weight=2)
 
+            self.outcomes.add(Outcome(character,
+                "You dice with some pirates. They easily beat you.",
+                funcs=[character.lose_all_money],
+                fail=True,
+            ), weight=1)
+
 
 class SneakAround(Action):
     """
@@ -5184,7 +5319,6 @@ class EnterTheVoid(Action):
 
         self.outcomes.add(Outcome(character,
             "There's no air in the void.",
-            clover=True,
             die=True,
         ), weight=1)
 
