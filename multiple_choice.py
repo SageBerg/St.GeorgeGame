@@ -30,11 +30,6 @@ class MultipleChoice(object):
         """
         Selects actions from the options available.
         """
-        self.actions = {"a": self.bags["a"].get(),
-                        "b": self.bags["b"].get(),
-                        "c": self.bags["c"].get(),
-                        "d": self.bags["d"].get(),
-                        "e": self.bags["e"].get()}
         for letter in "abcde":
             self.actions[letter] = self.bags[letter].get()
         self.reset_action_bags(character)
