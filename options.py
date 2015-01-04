@@ -80,6 +80,7 @@ def _add_person_actions(choices, character):
         choices.add(actions.SuckUpTo(persons.lord_bartholomew), 5)
     if character.person == persons.lord_carlos:
         choices.add(actions.SuckUpTo(persons.lord_carlos), 5)
+        choices.add(actions.MakeItHard(), 5)
     if character.person == persons.lord_daniel:
         choices.add(actions.SuckUpTo(persons.lord_daniel), 5)
     if character.person != persons.wizard and \

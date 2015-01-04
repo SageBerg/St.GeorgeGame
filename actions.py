@@ -4155,6 +4155,74 @@ class TrashThePlace(Action):
 # D slot actions
 
 
+class MakeItHard(Action):
+
+    slot = "d"
+
+    def __init__(self, person):
+        super(MakeItHard, self).__init__()
+        self.person = person 
+        self.name = "Make it hard for Lord Carlos to kill you."
+
+    def execute(self, character):
+
+        if character.person == persons.lord_bartholomew:
+
+            self.outcomes.add(Outcome(character,
+                "Lord Carlos in no slouch, he kills you anyway.",
+                die=True,
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "Screaming gibberish in his face only stuns him for so long.",
+                die=True,
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "Lord Carlos is better at killing than you are at not "
+                "being killed.",
+                die=True,
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "You prevent Lord Carlos from killing you, but he calls in "
+                "one of his assassins and has her do it.",
+                die=True,
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "You tell Lord Carlos that you're his son, he doesn't care.",
+                die=True,
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "You spit in his eyes.",
+            ), weight=1)  # TODO causes a fight
+
+            self.outcomes.add(Outcome(character,
+                "You hide behind a valuable painting Lord Carlos is loathe to "
+                "destroy. He loathes you more.",
+                die=True,
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "He kills you as you try to get into an suit of "
+                "armor.",
+                die=True,
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "You flee the country.",
+                move_to=places.arctic,
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "You flee into the woods and hide in a deep cave... "
+                "perhaps a little too deep.",
+                move_to=places.cave,
+            ), weight=1)
+
+
 class ShowYourForeignCoin(Action):
 
     slot = "d"
@@ -5216,7 +5284,7 @@ class SneakAround(Action):
 
         self.outcomes.add(Outcome(character,
             "You find a poisoned dagger in a glass case.",
-            add_item=items.poison_daggar,
+            add_item=items.poisoned_dagger,
             succeed=True
         ), weight=1)
 
