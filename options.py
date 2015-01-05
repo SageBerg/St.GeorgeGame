@@ -144,7 +144,7 @@ def _add_place_actions(choices, character):
         choices.add(actions.DoSomeFarmWork(), 10)
     if character.place == places.dark_alley:
         choices.add(actions.LookForAssassins(), 5)
-        choices.add(actions.BuyBlackMarketItem(items.black_market), 1)
+        choices.add(actions.BuyBlackMarketItem(), 100)  # TODO, was 1
         choices.add(actions.Hide(), 5)
         choices.add(actions.LookThroughSomeTrash(), 5)
     if character.place == places.docks:
@@ -164,7 +164,7 @@ def _add_place_actions(choices, character):
     if character.place == places.market:
         if character.person != persons.wealthy_merchant:
             choices.add(actions.LookForAWeapon(), 10)
-        choices.add(actions.BuyItem(items.buyable), 10)
+        choices.add(actions.BuyItem(), 10)
         choices.add(actions.WatchAPlay(), 500) # fix
     if character.place == places.mermaid_rock:
         if character.person == persons.mermaid:

@@ -2,6 +2,8 @@ import random
 
 import places
 import items
+import money
+
 
 class Outcome(object):
 
@@ -33,9 +35,10 @@ class Outcome(object):
                  add_employer=None,
                  remove_employer=None,
                  topic=None,
-                 funcs=(), # USAGE [action]
+                 funcs=(),  # USAGE [action]
                  actions=(),  # USAGE: [(Action action(), int weight)]
-                 succeed=False
+                 succeed=False,
+                 lose_money=None  # USAGE: (int amount)
                  ):
         self.add_item = add_item
         self.remove_item = remove_item
@@ -72,6 +75,7 @@ class Outcome(object):
         self.remove_employer = remove_employer
         self.funcs = funcs
         self.actions = actions
+        self.lose_money = lose_money
 
     def execute(self):
         """
@@ -92,7 +96,7 @@ class Outcome(object):
             places.burned.add(self.burn_place)
         if self.trash_place:
             self.trash_place.name = "the trashed remains of " \
-                                   + self.trash_place.name
+                                    + self.trash_place.name
             places.trashed.add(self.trash_place)
 
         if self.move:
@@ -138,3 +142,5 @@ class Outcome(object):
             self.character.person.alive = False
             self.character.person = None
             self.character.threatend = False
+        if self.lose_money is not None:
+            self.character.lose_money(self.lose_money)

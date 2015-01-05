@@ -2207,24 +2207,32 @@ class BuyBlackMarketItem(Action):
 
     slot = "b"
 
-    def __init__(self, items):
+    def __init__(self):
         super(BuyBlackMarketItem, self).__init__()
-        self.item = random.choice(items)
+        self.item = random.choice(
+            persons.black_market_merchant.get_sells())
+        self.price = persons.black_market_merchant.get_sell_price(self.item)
         self.name = "Make a shady deal."
 
     def execute(self, character):
 
-        if character.money > money.pittance:
+        if character.money >= self.price:
+
             self.outcomes.add(Outcome(character,
-                "You find a {0}.".format(random.choice([
+                "You cut a deal with a {0}.".format(random.choice([
                     "black market peddler",
                     "merchant witch",
                     "monger of rare items",])),
                 add_item=self.item,
+                lose_money=self.price
             ), weight=3)
+
         else:
+
             self.outcomes.add(Outcome(character,
-                "You can't afford this item.",
+                "You try to buy {0} {1}, but you don't have the money.".format(
+                    items.a_or_an(self.item),
+                    str(self.item)),
                 fail=True,
                 topic="poverty",
             ), weight=3)
@@ -2239,24 +2247,30 @@ class BuyItem(Action):
 
     slot = "b"
 
-    def __init__(self, items):
+    def __init__(self):
         super(BuyItem, self).__init__()
-        self.item = random.choice(items)
-        if self.item.name[0] in "aeiou":
-            self.name = "Buy an " + self.item.name + "."
-        else:
-            self.name = "Buy a " + self.item.name + "."
+        self.item = random.choice(persons.local_merchant.get_sells())
+        self.price = persons.local_merchant.get_sell_price(self.item)
+        self.name = "Buy {0} {1}.".format(
+            items.a_or_an(self.item),
+            str(self.item))
 
     def execute(self, character):
 
         if character.money != money.none:
+
             self.outcomes.add(Outcome(character,
-                "",
+                None,
                 add_item=self.item,
+                lose_money=self.price
             ), weight=3)
+
         else:
+
             self.outcomes.add(Outcome(character,
-                "You can't afford this item.",
+                "You can't afford {0} {1}.".format(
+                    items.a_or_an(self.item),
+                    str(self.item)),
                 fail=True,
                 topic="poverty",
             ), weight=3)
@@ -2268,22 +2282,24 @@ class BuyWeapon(Action):
 
     def __init__(self):
         super(BuyWeapon, self).__init__()
-        self.weapon = random.choice(items.weapons)
+        self.weapon = random.choice(persons.wealthy_merchant.get_sells())
+        self.price = persons.wealthy_merchant.get_sell_price(self.weapon)
         self.name = "Buy a " + str(self.weapon) + "."
 
     def execute(self, character):
 
-        if character.money >= items.get_weapon_price(self.weapon):
+        if character.money >= self.price:
 
             self.outcomes.add(Outcome(character,
                 None,
                 add_item=self.weapon,
+                lose_money=self.price
             ), weight=3)
 
         else:
 
             self.outcomes.add(Outcome(character,
-                "You can't afford this weapon.",
+                "You can't afford it.",
                 fail=True,
                 topic="poverty",
             ), weight=3)

@@ -14,7 +14,7 @@ class Character(object):
                  items=None,
                  employers=None,
                  attack=0,
-                 money=money.pittance,
+                 money=money.large_fortune,
                  threatened=False,
                  trip=False,
                  is_frog=False,
@@ -64,6 +64,15 @@ class Character(object):
         elif self.money == money.pittance:
             print("You still only have {0}.".format(
                 money.to_str(amount)))
+        else:
+            print("You still have {0}.".format(money.to_str(self.money)))
+
+    def lose_money(self, amount):
+        if self.money == money.none:
+            print("You still have no money.")
+        elif self.money == amount:
+            self.money -= 1
+            print("You now only have {0}.".format(money.to_str(self.money)))
         else:
             print("You still have {0}.".format(money.to_str(self.money)))
 
