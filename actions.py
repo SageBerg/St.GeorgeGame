@@ -843,8 +843,7 @@ class AskAboutAssassins(Action):
         if character.place == places.lord_carlos_manor:
             self.outcomes.add(Outcome(character,
                 "You ask a servant about assassins. She asks you to wait where "
-                "you are.",
-                actions=[(RunLikeTheDevil(), 40)],
+                "you are."
             ), weight=10)
 
 
@@ -898,11 +897,10 @@ class AdmireYourJewels(Action):
 
     slot = "a"
 
-    def __init__(self, jewels):
+    def __init__(self):
 
         super(AdmireYourJewels, self).__init__()
         self.name = "Admire your jewels."
-        self.jewels = jewels
 
     def execute(self, character):
 
@@ -913,7 +911,7 @@ class AdmireYourJewels(Action):
         self.outcomes.add(Outcome(character,
             "You decide to store your jewels in your stomach for safe "
             "keeping.",
-            remove_item=self.jewels,
+            remove_item=items.jewels,
             topic="mules"
         ), weight=1)
 
@@ -1472,6 +1470,47 @@ class TryToTakeKeys(Action):
             "It's surprisingly easy to steal keys and get out of prison.",
             move_to=places.streets, 
             succeed=True,
+        ), weight=1)
+
+
+class Grovel(Action):
+    """
+    Only use when character.person == persons.lord_carlos
+    """
+
+    slot = "b"
+
+    def __init__(self):
+        super(Grovel, self).__init__()
+        self.name = "Grovel."
+        self.combat_action = True
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "Lord Carlos is having none if it. He kills you.",
+            die=True
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "Lord Carlos kills you for being obsequious.",
+            die=True
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "He is not interested in your tired excuses. He kills you.",
+            die=True
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "He asks a servant to get you out of his sight. You are "
+            "unceremoniously thrown out of the manor.",
+            move_to=places.woods
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You beg for forgiveness, but he says what you did was "
+            "unforgivable."
         ), weight=1)
 
 
@@ -2267,24 +2306,32 @@ class BuyBlackMarketItem(Action):
 
     slot = "b"
 
-    def __init__(self, items):
+    def __init__(self):
         super(BuyBlackMarketItem, self).__init__()
-        self.item = random.choice(items)
+        self.item = random.choice(
+            persons.black_market_merchant.get_sells())
+        self.price = persons.black_market_merchant.get_sell_price(self.item)
         self.name = "Make a shady deal."
 
     def execute(self, character):
 
-        if character.money > money.pittance:
+        if character.money >= self.price:
+
             self.outcomes.add(Outcome(character,
-                "You find a {0}.".format(random.choice([
+                "You cut a deal with a {0}.".format(random.choice([
                     "black market peddler",
                     "merchant witch",
                     "monger of rare items",])),
                 add_item=self.item,
+                lose_money=self.price
             ), weight=3)
+
         else:
+
             self.outcomes.add(Outcome(character,
-                "You can't afford this item.",
+                "You try to buy {0} {1}, but you don't have the money.".format(
+                    items.a_or_an(self.item),
+                    str(self.item)),
                 fail=True,
                 topic="poverty",
             ), weight=3)
@@ -2299,24 +2346,30 @@ class BuyItem(Action):
 
     slot = "b"
 
-    def __init__(self, items):
+    def __init__(self):
         super(BuyItem, self).__init__()
-        self.item = random.choice(items)
-        if self.item.name[0] in "aeiou":
-            self.name = "Buy an " + self.item.name + "."
-        else:
-            self.name = "Buy a " + self.item.name + "."
+        self.item = random.choice(persons.local_merchant.get_sells())
+        self.price = persons.local_merchant.get_sell_price(self.item)
+        self.name = "Buy {0} {1}.".format(
+            items.a_or_an(self.item),
+            str(self.item))
 
     def execute(self, character):
 
         if character.money != money.none:
+
             self.outcomes.add(Outcome(character,
-                "",
+                None,
                 add_item=self.item,
+                lose_money=self.price
             ), weight=3)
+
         else:
+
             self.outcomes.add(Outcome(character,
-                "You can't afford this item.",
+                "You can't afford {0} {1}.".format(
+                    items.a_or_an(self.item),
+                    str(self.item)),
                 fail=True,
                 topic="poverty",
             ), weight=3)
@@ -2328,22 +2381,24 @@ class BuyWeapon(Action):
 
     def __init__(self):
         super(BuyWeapon, self).__init__()
-        self.weapon = random.choice(items.weapons)
+        self.weapon = random.choice(persons.wealthy_merchant.get_sells())
+        self.price = persons.wealthy_merchant.get_sell_price(self.weapon)
         self.name = "Buy a " + str(self.weapon) + "."
 
     def execute(self, character):
 
-        if character.money >= items.get_weapon_price(self.weapon):
+        if character.money >= self.price:
 
             self.outcomes.add(Outcome(character,
                 None,
                 add_item=self.weapon,
+                lose_money=self.price
             ), weight=3)
 
         else:
 
             self.outcomes.add(Outcome(character,
-                "You can't afford this weapon.",
+                "You can't afford it.",
                 fail=True,
                 topic="poverty",
             ), weight=3)
@@ -3009,9 +3064,12 @@ class TellAPriest(Action):
 
     slot = "c"
 
-    def __init__(self, idea):
+    def __init__(self):
         super(TellAPriest, self).__init__()
-        self.idea = idea
+        self.idea = random.choice([
+            "that God doesn't exist",
+            "that he's fat",
+            "that you are the chosen one"])
         self.name = "Tell a priest " + self.idea + "."
 
     def execute(self, character):
@@ -4278,68 +4336,66 @@ class MakeItHard(Action):
 
     slot = "d"
 
-    def __init__(self, person):
+    def __init__(self):
         super(MakeItHard, self).__init__()
-        self.person = person 
         self.name = "Make it hard for Lord Carlos to kill you."
+        self.combat_action = True
 
     def execute(self, character):
 
-        if character.person == persons.lord_bartholomew:
+        self.outcomes.add(Outcome(character,
+            "Lord Carlos in no slouch, he kills you anyway.",
+            die=True,
+        ), weight=1)
 
-            self.outcomes.add(Outcome(character,
-                "Lord Carlos in no slouch, he kills you anyway.",
-                die=True,
-            ), weight=1)
+        self.outcomes.add(Outcome(character,
+            "Screaming gibberish in his face only stuns him for so long.",
+            die=True,
+        ), weight=1)
 
-            self.outcomes.add(Outcome(character,
-                "Screaming gibberish in his face only stuns him for so long.",
-                die=True,
-            ), weight=1)
+        self.outcomes.add(Outcome(character,
+            "Lord Carlos is better at killing than you are at not "
+            "being killed.",
+            die=True,
+        ), weight=1)
 
-            self.outcomes.add(Outcome(character,
-                "Lord Carlos is better at killing than you are at not "
-                "being killed.",
-                die=True,
-            ), weight=1)
+        self.outcomes.add(Outcome(character,
+            "You prevent Lord Carlos from killing you, but he calls in "
+            "one of his assassins and has her do it.",
+            die=True,
+        ), weight=1)
 
-            self.outcomes.add(Outcome(character,
-                "You prevent Lord Carlos from killing you, but he calls in "
-                "one of his assassins and has her do it.",
-                die=True,
-            ), weight=1)
+        self.outcomes.add(Outcome(character,
+            "You tell Lord Carlos that you're his son, he doesn't care.",
+            die=True,
+        ), weight=1)
 
-            self.outcomes.add(Outcome(character,
-                "You tell Lord Carlos that you're his son, he doesn't care.",
-                die=True,
-            ), weight=1)
+        self.outcomes.add(Outcome(character,
+            "You spit in his eyes.",
+        ), weight=1)  # TODO causes a fight
 
-            self.outcomes.add(Outcome(character,
-                "You spit in his eyes.",
-            ), weight=1)  # TODO causes a fight
+        self.outcomes.add(Outcome(character,
+            "You hide behind a valuable painting Lord Carlos is loathe to "
+            "destroy. He loathes you more.",
+            die=True,
+        ), weight=1)
 
-            self.outcomes.add(Outcome(character,
-                "You hide behind a valuable painting Lord Carlos is loathe to "
-                "destroy. He loathes you more.",
-                die=True,
-            ), weight=1)
+        self.outcomes.add(Outcome(character,
+            "He kills you as you try to get into an suit of "
+            "armor.",
+            die=True,
+        ), weight=1)
 
-            self.outcomes.add(Outcome(character,
-                "He kills you as you try to get into an suit of "
-                "armor.",
-                die=True,
-            ), weight=1)
+        self.outcomes.add(Outcome(character,
+            "You flee the country.",
+            move_to=places.arctic,
+        ), weight=1)
 
-            self.outcomes.add(Outcome(character,
-                "You flee the country.",
-                move_to=places.arctic,
-            ), weight=1)
-
-            self.outcomes.add(Outcome(character,
-                "You flee into the woods and hide in a deep cave... "
-                "perhaps a little too deep.",
-                move_to=places.cave,
-            ), weight=1)
+        self.outcomes.add(Outcome(character,
+            "You flee into the woods and hide in a deep cave... "
+            "perhaps a little too deep.",
+            move_to=places.cave,
+        ), weight=1)
 
 
 class ShowYourForeignCoin(Action):
@@ -4348,7 +4404,7 @@ class ShowYourForeignCoin(Action):
 
     def __init__(self, person):
         super(ShowYourForeignCoin, self).__init__()
-        self.person = person 
+        self.person = person
         self.name = "Show " + self.person.name + " your shiny foreign coin."
 
     def execute(self, character):
@@ -4356,8 +4412,7 @@ class ShowYourForeignCoin(Action):
         if character.person == persons.lord_bartholomew:
 
             self.outcomes.add(Outcome(character,
-                "\"Damn, son. Where'd you find this?\"",
-                actions=[(SayWhereYouFoundIt, 10000)],
+                "\"Damn, son. Where'd you find this?\""
             ), weight=1)
 
 
@@ -4921,9 +4976,8 @@ class SwingYourCat(Action):
 
     slot = "d"
 
-    def __init__(self, cat):
+    def __init__(self):
         super(SwingYourCat, self).__init__()
-        self.cat = cat
         self.name = "Swing your cat."
 
     def execute(self, character):
@@ -4936,7 +4990,7 @@ class SwingYourCat(Action):
 
         self.outcomes.add(Outcome(character,
             "Your cat manages to escape.",
-            remove_item=self.cat
+            remove_item=items.cat
         ), weight=2)
 
         if character.place in places.populated:
@@ -5501,7 +5555,6 @@ class SnoopAround(Action):
             actions=[(TakeIt(persons.wizard, items.fire_proof_cloak), 100)],
             topic="cloaks",
         ), weight=1)
-
 
 # E slot actions
 

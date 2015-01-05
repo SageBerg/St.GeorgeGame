@@ -81,8 +81,9 @@ def _add_person_actions(choices, character):
     if character.person == persons.lord_bartholomew:
         choices.add(actions.SuckUpTo(persons.lord_bartholomew), 5)
     if character.person == persons.lord_carlos:
-        choices.add(actions.SuckUpTo(persons.lord_carlos), 5)
-        choices.add(actions.MakeItHard(), 5)
+        choices.add(actions.SuckUpTo(persons.lord_carlos), 10)
+        choices.add(actions.Grovel(), 40)
+        choices.add(actions.MakeItHard(), 10)
     if character.person == persons.lord_daniel:
         choices.add(actions.SuckUpTo(persons.lord_daniel), 5)
     if character.person != persons.wizard and \
@@ -133,9 +134,7 @@ def _add_place_actions(choices, character):
             choices.add(actions.LookForStGeorge(), 20)
         if character.money != money.none:
             choices.add(actions.Tithe(), 10)
-        choices.add(actions.TellAPriest("that God doesn't exist"), 1)
-        choices.add(actions.TellAPriest("that he's fat"), 1)
-        choices.add(actions.TellAPriest("that you are the chosen one"), 1)
+        choices.add(actions.TellAPriest(), 3)
         choices.add(actions.SingASong("God"), 2)
     if character.place == places.countryside:
         choices.add(actions.PickSomeFlowers(), 10)
@@ -144,7 +143,7 @@ def _add_place_actions(choices, character):
         choices.add(actions.DoSomeFarmWork(), 10)
     if character.place == places.dark_alley:
         choices.add(actions.LookForAssassins(), 5)
-        choices.add(actions.BuyBlackMarketItem(items.black_market), 1)
+        choices.add(actions.BuyBlackMarketItem(), 100)  # TODO, was 1
         choices.add(actions.Hide(), 5)
         choices.add(actions.LookThroughSomeTrash(), 5)
     if character.place == places.docks:
@@ -164,7 +163,7 @@ def _add_place_actions(choices, character):
     if character.place == places.market:
         if character.person != persons.wealthy_merchant:
             choices.add(actions.LookForAWeapon(), 10)
-        choices.add(actions.BuyItem(items.buyable), 10)
+        choices.add(actions.BuyItem(), 10)
         choices.add(actions.WatchAPlay(), 500) # fix
     if character.place == places.mermaid_rock:
         if character.person == persons.mermaid:
@@ -252,9 +251,9 @@ def _add_item_actions(choices, character):
     if character.has_item(items.yellow_mushroom):
         choices.add(actions.ChowDown(items.yellow_mushroom), 1)
     if character.has_item(items.cat):
-        choices.add(actions.SwingYourCat(items.cat), 1)
+        choices.add(actions.SwingYourCat(), 1)
     if character.has_item(items.jewels):
-        choices.add(actions.AdmireYourJewels(items.jewels), 1)
+        choices.add(actions.AdmireYourJewels(), 1)
     if character.has_item(items.bouquet_of_flowers) and \
        (character.person == persons.eve or \
        character.person == persons.fat_lady or \

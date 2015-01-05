@@ -1,6 +1,8 @@
 import outcome
 import persons
 import places
+import items
+import money
 
 
 class Person(object):
@@ -18,6 +20,26 @@ class Person(object):
         self.preferred_attack = self.kill
         Person.instances.append(self)
         Person.by_name[name] = self
+        self.buys = dict()
+        self.sells = dict()
+
+    def get_buys(self):
+        return list(self.buys.keys())
+
+    def get_sells(self):
+        return list(self.sells.keys())
+
+    def add_buys(self, item, price):
+        self.buys[item] = price
+
+    def add_sells(self, item, price):
+        self.sells[item] = price
+
+    def get_buy_price(self, item):
+        return self.buys[item]
+
+    def get_sell_price(self, item):
+        return self.sells[item]
 
     def kill(self, character, verb="kill"):
         return outcome.Outcome(character,
@@ -70,9 +92,35 @@ lord_arthur = Person("Lord Arthur", 6)
 lord_bartholomew = Person("Lord Bartholomew", 4)
 lord_carlos = Person("Lord Carlos", 5)
 lord_daniel = Person("Lord Daniel", 7)
+black_market_merchant = Person("black market merchant", 5)
+local_merchant = Person("local merchant", 3)
 
 assassin.preferred_attack = assassin.assassinate
 assassins.preferred_attack = assassins.assassinate
 eve.preferred_attack = eve.assassinate
 lord_carlos.preferred_attack = lord_carlos.assassinate
 guards.preferred_attack = guards.arrest
+
+black_market_merchant.add_sells(items.deep_cave_newt, money.small_fortune)
+black_market_merchant.add_sells(items.love_potion, money.large_fortune)
+black_market_merchant.add_sells(items.fire_proof_cloak, money.large_fortune)
+black_market_merchant.add_sells(items.tail_potion, money.small_fortune)
+black_market_merchant.add_sells(items.strength_potion, money.small_fortune)
+black_market_merchant.add_sells(items.many_colored_mushroom, money.pittance)
+black_market_merchant.add_sells(items.white_mushroom,  money.pittance)
+black_market_merchant.add_sells(items.black_mushroom, money.pittance)
+
+wealthy_merchant.add_sells(items.pitchfork, money.pittance)
+wealthy_merchant.add_sells(items.dagger, money.pittance)
+wealthy_merchant.add_sells(items.cutlass, money.pittance)
+wealthy_merchant.add_sells(items.hammer, money.pittance)
+wealthy_merchant.add_sells(items.long_pitchfork, money.pittance)
+wealthy_merchant.add_sells(items.poisoned_dagger, money.small_fortune)
+wealthy_merchant.add_sells(items.jeweled_cutlass, money.large_fortune)
+wealthy_merchant.add_sells(items.iron_hammer, money.small_fortune)
+
+local_merchant.add_sells(items.bouquet_of_flowers, money.pittance)
+local_merchant.add_sells(items.fish, money.pittance)
+local_merchant.add_sells(items.ax, money.pittance)
+local_merchant.add_sells(items.pearl, money.pittance)
+local_merchant.add_sells(items.sailor_peg, money.pittance)
