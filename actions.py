@@ -822,8 +822,7 @@ class AskAboutAssassins(Action):
         if character.place == places.lord_carlos_manor:
             self.outcomes.add(Outcome(character,
                 "You ask a servant about assassins. She asks you to wait where "
-                "you are.",
-                actions=[(RunLikeTheDevil(), 40)],
+                "you are."
             ), weight=10)
 
 
