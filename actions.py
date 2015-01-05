@@ -1424,6 +1424,47 @@ class ThumpYourselfOnTheChest(Action):
 # B slot actions
 
 
+class Grovel(Action):
+    """
+    Only use when character.person == persons.lord_carlos
+    """
+
+    slot = "b"
+
+    def __init__(self):
+        super(Grovel, self).__init__()
+        self.name = "Grovel."
+        self.combat_action = True
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "Lord Carlos is having none if it. He kills you.",
+            die=True
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "Lord Carlos kills you for being obsequious.",
+            die=True
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "He is not interested in your tired excuses. He kills you.",
+            die=True
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "He asks a servant to get you out of his sight. You are "
+            "unceremoniously thrown out of the manor.",
+            move_to=places.woods
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You beg for forgiveness, but he says what you did was "
+            "unforgivable."
+        ), weight=1)
+
+
 class ArmWrestle(Action):
 
     slot = "b"
@@ -4208,6 +4249,7 @@ class MakeItHard(Action):
     def __init__(self):
         super(MakeItHard, self).__init__()
         self.name = "Make it hard for Lord Carlos to kill you."
+        self.combat_action = True
 
     def execute(self, character):
 
@@ -5423,7 +5465,6 @@ class SnoopAround(Action):
             actions=[(TakeIt(persons.wizard, items.fire_proof_cloak), 100)],
             topic="cloaks",
         ), weight=1)
-
 
 # E slot actions
 
