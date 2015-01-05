@@ -5,6 +5,7 @@ import places
 
 class Person(object):
 
+    instances = []
     by_name = dict()
 
     def __init__(self, name, attack, group=False):
@@ -15,6 +16,7 @@ class Person(object):
         self.state = {}
         self.attracted = 0
         self.preferred_attack = self.kill
+        Person.instances.append(self)
         Person.by_name[name] = self
 
     def kill(self, character, verb="kill"):
