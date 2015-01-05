@@ -1,19 +1,13 @@
 1.0 (not all-inclusive list yet)
--add escape from prison actions
 -handle if certain characters are dead in options.py and in actions
 -add Lord Bartholmew in field
 -make it to where you can't enter the void if you're already there
 -game of chess
 -repay debts
 -He takes your money but says "No amount of money can make up for what you've done"
--grovel
 -she asks you if you remember her name (anne, beth, eve, donna)
--give the wizard the mushroom and run
 -Plan B, C, D, E
 -guards show up when you kill someone
--Give her a cat, she falls in love with you.
--Kill all 4 lords
--Burn everything to the ground (you are satisfied with the way everything has been burned)
 -show him your shiny foreign coin
 
 followers:
