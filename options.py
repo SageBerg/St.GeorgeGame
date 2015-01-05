@@ -55,6 +55,8 @@ def _add_person_actions(choices, character):
     if character.person == persons.pretty_lady:
         choices.add(actions.BoastOfYourBravery(), 5)
         choices.add(actions.FlirtWith(persons.pretty_lady), 1000)  # TODO fix
+        if character.has_item(items.cat): 
+            choices.add(actions.GiveCat(persons.pretty_lady), 500) # TODO fix weight 
     if character.person == persons.st_george:
         choices.add(actions.BegForMoney(), 10)
         choices.add(actions.SingASong(topic="St. George"), 3)

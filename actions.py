@@ -4296,7 +4296,7 @@ class DrugHerWithYourLovePotion(Action):
         if character.person == persons.pretty_lady:
 
             self.outcomes.add(Outcome(character,
-                "The pretty lady notices you slipping the potion into your "
+                "The pretty lady notices you slipping the potion into her "
                 "drink. She stabs you in the gut and leaves.",
                 die=True,
             ), weight=1)
@@ -4381,6 +4381,24 @@ class LookForNymphs(Action):
                 new_person=persons.assassin,
                 threat=True,
             ), weight=1)
+
+
+class GiveCat(Action):
+
+    slot = "d"
+
+    def __init__(self, woman):
+        super(GiveCat, self).__init__()
+        self.woman = woman
+        self.name = "Give " + woman.name + " your cat."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "She thinks the cat is adorable.",
+            remove_item=items.cat,
+            flirt=(character.person, 3),
+        ), weight=3)
 
 
 class GiveFlowers(Action):
