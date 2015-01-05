@@ -44,6 +44,27 @@ class Action(object):
 # A slot actions
 
 
+class LaughAboutWarden(Action):
+
+    slot = "a"
+
+    def __init__(self):
+        super(LaughAboutWarden, self).__init__()
+        self.name = "Laugh about the warden doing it alone on holidays."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "One of the prison guards pokes you with an eleven-foot pole. "
+            "\"No laughing!\" he says.",
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You feel good for a second, then you remember you're "
+            "in prison.",
+        ), weight=1)
+
+
 class GiveHimTheYellowMushroom(Action):
 
     slot = "a"
@@ -1426,6 +1447,34 @@ class ThumpYourselfOnTheChest(Action):
 # B slot actions
 
 
+class TryToTakeKeys(Action):
+
+    slot = "b"
+
+    def __init__(self):
+        super(TryToTakeKeys, self).__init__()
+        self.name = "Try to take the keys the next chance you get."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "When you try to take the warden's keys, the gaurds notice and "
+            "beat the life out of you.",
+            die=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "When you try to take the warden's keys, the gaurds notice and "
+            "beat the tar out of you.",
+        ), weight=4)
+
+        self.outcomes.add(Outcome(character,
+            "It's surprisingly easy to steal keys and get out of prison.",
+            move_to=places.streets, 
+            succeed=True,
+        ), weight=1)
+
+
 class ArmWrestle(Action):
 
     slot = "b"
@@ -2184,23 +2233,34 @@ class BideYourTime(Action):
 
         self.outcomes.add(Outcome(character,
             "As the days drag on, you go insane.",
-        ), weight=3)
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "The days turn to weeks and the weeks turn to months",
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You eventually manage to dig a secret passage from your cell "
+            "into a cave network.",
+            move_to=places.cave,
+        ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You notice the warden carries the keys when he "
             "inspects the cells. He inspects the cells with "
             "an entourage of guards most weekends, but he "
             "does it alone on holidays.",
+            actions=[(LaughAboutWarden(), 100),
+                     (TryToTakeKeys(), 100),
+                     (WaitForAHoliday(), 100),
+                    ],
         ), weight=2)
-            #self.options["a"].add(LaughAboutWarden(), 5)
-            #self.options["b"].add(TryToTakeKeys(), 5)
-            #self.options["d"].add(WaitForAHoliday(), 5)
 
         if persons.fat_lady.attracted > -1 and persons.fat_lady.attracted < 3:
             self.outcomes.add(Outcome(character,
                 "As the days pass, you find yourself more and more "
-                "attracted to the fat woman who brings you food.",
-            ), weight=3)
+                "attracted to the fat woman who feeds you.",
+            ), weight=2)
 
 
 class BuyBlackMarketItem(Action):
@@ -2706,6 +2766,36 @@ class LookForMermaids(Action):
 
 
 # C slot actions
+
+
+class WaitForAHoliday(Action): 
+
+    slot = "c"
+
+    def __init__(self):
+        super(WaitForAHoliday, self).__init__()
+        self.name = "Wait for a holiday to make your move."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "You manage to swipe the keys off the warden during his "
+            "inspection and escape in the night.",
+            move_to=places.streets,
+        ), weight=2)
+
+        self.outcomes.add(Outcome(character,
+            "You almost get the keys off the warden.",
+            fail=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You manage to snatch the keys off the warden, but he notices and "
+            "has you thrown into a deep dark dungeon. However, you end up in "
+            "a cell with some of Lord Bartholomew's men. They are soon rescued "
+            "and so are you.",
+            move_to=places.lord_barthomews_manor,
+        ), weight=1)
 
 
 class ChallengeThemToAGameOfChess(Action):
