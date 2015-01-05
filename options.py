@@ -133,9 +133,7 @@ def _add_place_actions(choices, character):
             choices.add(actions.LookForStGeorge(), 20)
         if character.money != money.none:
             choices.add(actions.Tithe(), 10)
-        choices.add(actions.TellAPriest("that God doesn't exist"), 1)
-        choices.add(actions.TellAPriest("that he's fat"), 1)
-        choices.add(actions.TellAPriest("that you are the chosen one"), 1)
+        choices.add(actions.TellAPriest(), 3)
         choices.add(actions.SingASong("God"), 2)
     if character.place == places.countryside:
         choices.add(actions.PickSomeFlowers(), 10)
@@ -252,9 +250,9 @@ def _add_item_actions(choices, character):
     if character.has_item(items.yellow_mushroom):
         choices.add(actions.ChowDown(items.yellow_mushroom), 1)
     if character.has_item(items.cat):
-        choices.add(actions.SwingYourCat(items.cat), 1)
+        choices.add(actions.SwingYourCat(), 1)
     if character.has_item(items.jewels):
-        choices.add(actions.AdmireYourJewels(items.jewels), 1)
+        choices.add(actions.AdmireYourJewels(), 1)
     if character.has_item(items.bouquet_of_flowers) and \
        (character.person == persons.eve or \
        character.person == persons.fat_lady or \

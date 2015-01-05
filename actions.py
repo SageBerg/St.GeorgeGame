@@ -877,11 +877,10 @@ class AdmireYourJewels(Action):
 
     slot = "a"
 
-    def __init__(self, jewels):
+    def __init__(self):
 
         super(AdmireYourJewels, self).__init__()
         self.name = "Admire your jewels."
-        self.jewels = jewels
 
     def execute(self, character):
 
@@ -892,7 +891,7 @@ class AdmireYourJewels(Action):
         self.outcomes.add(Outcome(character,
             "You decide to store your jewels in your stomach for safe "
             "keeping.",
-            remove_item=self.jewels,
+            remove_item=items.jewels,
             topic="mules"
         ), weight=1)
 
@@ -2935,9 +2934,12 @@ class TellAPriest(Action):
 
     slot = "c"
 
-    def __init__(self, idea):
+    def __init__(self):
         super(TellAPriest, self).__init__()
-        self.idea = idea
+        self.idea = random.choice([
+            "that God doesn't exist",
+            "that he's fat",
+            "that you are the chosen one"])
         self.name = "Tell a priest " + self.idea + "."
 
     def execute(self, character):
@@ -4204,68 +4206,65 @@ class MakeItHard(Action):
 
     slot = "d"
 
-    def __init__(self, person):
+    def __init__(self):
         super(MakeItHard, self).__init__()
-        self.person = person 
         self.name = "Make it hard for Lord Carlos to kill you."
 
     def execute(self, character):
 
-        if character.person == persons.lord_bartholomew:
+        self.outcomes.add(Outcome(character,
+            "Lord Carlos in no slouch, he kills you anyway.",
+            die=True,
+        ), weight=1)
 
-            self.outcomes.add(Outcome(character,
-                "Lord Carlos in no slouch, he kills you anyway.",
-                die=True,
-            ), weight=1)
+        self.outcomes.add(Outcome(character,
+            "Screaming gibberish in his face only stuns him for so long.",
+            die=True,
+        ), weight=1)
 
-            self.outcomes.add(Outcome(character,
-                "Screaming gibberish in his face only stuns him for so long.",
-                die=True,
-            ), weight=1)
+        self.outcomes.add(Outcome(character,
+            "Lord Carlos is better at killing than you are at not "
+            "being killed.",
+            die=True,
+        ), weight=1)
 
-            self.outcomes.add(Outcome(character,
-                "Lord Carlos is better at killing than you are at not "
-                "being killed.",
-                die=True,
-            ), weight=1)
+        self.outcomes.add(Outcome(character,
+            "You prevent Lord Carlos from killing you, but he calls in "
+            "one of his assassins and has her do it.",
+            die=True,
+        ), weight=1)
 
-            self.outcomes.add(Outcome(character,
-                "You prevent Lord Carlos from killing you, but he calls in "
-                "one of his assassins and has her do it.",
-                die=True,
-            ), weight=1)
+        self.outcomes.add(Outcome(character,
+            "You tell Lord Carlos that you're his son, he doesn't care.",
+            die=True,
+        ), weight=1)
 
-            self.outcomes.add(Outcome(character,
-                "You tell Lord Carlos that you're his son, he doesn't care.",
-                die=True,
-            ), weight=1)
+        self.outcomes.add(Outcome(character,
+            "You spit in his eyes.",
+        ), weight=1)  # TODO causes a fight
 
-            self.outcomes.add(Outcome(character,
-                "You spit in his eyes.",
-            ), weight=1)  # TODO causes a fight
+        self.outcomes.add(Outcome(character,
+            "You hide behind a valuable painting Lord Carlos is loathe to "
+            "destroy. He loathes you more.",
+            die=True,
+        ), weight=1)
 
-            self.outcomes.add(Outcome(character,
-                "You hide behind a valuable painting Lord Carlos is loathe to "
-                "destroy. He loathes you more.",
-                die=True,
-            ), weight=1)
+        self.outcomes.add(Outcome(character,
+            "He kills you as you try to get into an suit of "
+            "armor.",
+            die=True,
+        ), weight=1)
 
-            self.outcomes.add(Outcome(character,
-                "He kills you as you try to get into an suit of "
-                "armor.",
-                die=True,
-            ), weight=1)
+        self.outcomes.add(Outcome(character,
+            "You flee the country.",
+            move_to=places.arctic,
+        ), weight=1)
 
-            self.outcomes.add(Outcome(character,
-                "You flee the country.",
-                move_to=places.arctic,
-            ), weight=1)
-
-            self.outcomes.add(Outcome(character,
-                "You flee into the woods and hide in a deep cave... "
-                "perhaps a little too deep.",
-                move_to=places.cave,
-            ), weight=1)
+        self.outcomes.add(Outcome(character,
+            "You flee into the woods and hide in a deep cave... "
+            "perhaps a little too deep.",
+            move_to=places.cave,
+        ), weight=1)
 
 
 class ShowYourForeignCoin(Action):
@@ -4274,7 +4273,7 @@ class ShowYourForeignCoin(Action):
 
     def __init__(self, person):
         super(ShowYourForeignCoin, self).__init__()
-        self.person = person 
+        self.person = person
         self.name = "Show " + self.person.name + " your shiny foreign coin."
 
     def execute(self, character):
@@ -4282,8 +4281,7 @@ class ShowYourForeignCoin(Action):
         if character.person == persons.lord_bartholomew:
 
             self.outcomes.add(Outcome(character,
-                "\"Damn, son. Where'd you find this?\"",
-                actions=[(SayWhereYouFoundIt, 10000)],
+                "\"Damn, son. Where'd you find this?\""
             ), weight=1)
 
 
@@ -4847,9 +4845,8 @@ class SwingYourCat(Action):
 
     slot = "d"
 
-    def __init__(self, cat):
+    def __init__(self):
         super(SwingYourCat, self).__init__()
-        self.cat = cat
         self.name = "Swing your cat."
 
     def execute(self, character):
@@ -4862,7 +4859,7 @@ class SwingYourCat(Action):
 
         self.outcomes.add(Outcome(character,
             "Your cat manages to escape.",
-            remove_item=self.cat
+            remove_item=items.cat
         ), weight=2)
 
         if character.place in places.populated:
