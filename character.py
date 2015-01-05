@@ -32,6 +32,7 @@ class Character(object):
                 items_module.many_colored_mushroom: 1,
                 items_module.love_potion: 1,
                 items_module.pearl: 1,
+                items_module.yellow_mushroom: 1,
                 items_module.four_leaf_clover: 1}
         else:
             self.items = items

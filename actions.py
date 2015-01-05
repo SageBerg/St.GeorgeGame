@@ -44,6 +44,34 @@ class Action(object):
 # A slot actions
 
 
+class GiveHimTheYellowMushroom(Action):
+
+    slot = "a"
+
+    def __init__(self):
+        super(GiveHimTheYellowMushroom, self).__init__()
+        self.name = "Give him the yellow mushroom."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "The wizard chows down on the yellow mushroom.",
+            remove_item=items.yellow_mushroom,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "The wizard gives you a potion in return.",
+            add_item=random.choice([items.love_potion,
+                                    items.tail_potion,
+                                    items.strength_potion]),
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "Having no further use for you, the wizard turns you into a frog.",
+            funcs=[character.frogify],
+        ), weight=1)
+
+
 class EnactYourElaborateScheme(Action):
 
     slot = "a"
@@ -3610,13 +3638,14 @@ class LookForTheWizard(Action):
                 "When you find him, he can smell that you have a yellow "
                 "mushroom. He asks if he can have it.",
                 move_to=places.market,
-                new_person=persons.wizard
-            ), weight=30)
+                new_person=persons.wizard,
+                actions=[(GiveHimTheYellowMushroom(), 100)]
+            ), weight=100)
 
         self.outcomes.add(Outcome(character,
             "You find him. He turns you into a frog and steps on you.",
             die=1
-        ), weight=2)
+        ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You find him. He turns you into a frog and tries to step on you "
