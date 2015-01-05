@@ -2849,7 +2849,7 @@ class WaitForAHoliday(Action):
             "has you thrown into a deep dark dungeon. However, you end up in "
             "a cell with some of Lord Bartholomew's men. They are soon rescued "
             "and so are you.",
-            move_to=places.lord_barthomews_manor,
+            move_to=places.lord_bartholomews_manor,
         ), weight=1)
 
 
