@@ -4296,6 +4296,30 @@ class JustKeepSwimming(KeepSwimming):
         ), weight=1)
 
 
+class ChallengeHimToAGameOfChess(Action):
+    """
+    Used with Lord Carlos
+    """
+
+    slot = "c"
+
+    def __init__(self):
+        super(ChallengeHimToAGameOfChess, self).__init__()
+        self.name = "Challenge him to a game of chess."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "Lord Carlos says he has no time to waste on fools, but "
+            "when you imply that he's affraid he'll lose,  "
+            "he has his servants set up chessboard.",
+            #actions=[(A3(), 10000),
+            #         (Nf3(), 10000),
+            #         (E4(), 10000),
+            #         (AskForADraw(), 10000)],
+        ), weight=1)
+
+
 class WalkThePlank(Action):
 
     slot = "c"
