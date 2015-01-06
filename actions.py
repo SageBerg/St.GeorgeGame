@@ -5407,7 +5407,7 @@ class DoSomeGambling(Action):
         if character.place == places.tavern or \
            character.place == places.lord_carlos_manor:
             self.outcomes.add(Outcome(character,
-                "It was gambling to stay here. The assassins find you.",
+                "It was a gamble to stay here. The assassins find you.",
                 die=True,
             ), weight=1)
 
