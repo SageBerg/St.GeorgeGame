@@ -1,5 +1,4 @@
 1.0 (not all-inclusive list yet)
--handle if certain characters are dead in options.py and in actions
 -add Lord Bartholmew in field
 -make it to where you can't enter the void if you're already there
 -game of chess

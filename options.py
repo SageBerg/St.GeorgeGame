@@ -130,7 +130,8 @@ def _add_place_actions(choices, character):
     if character.place == places.cave:
         choices.add(actions.LookForAWayOut(), 10)
     if character.place == places.church:
-        if character.person != persons.st_george:
+        if character.person != persons.st_george and \
+           persons.st_george.alive:
             choices.add(actions.LookForStGeorge(), 20)
         if character.money != money.none:
             choices.add(actions.Tithe(), 10)
@@ -161,7 +162,8 @@ def _add_place_actions(choices, character):
             #choices.add(actions.GoStraightToLordCarlos(), 10)
         choices.add(actions.SneakAround(), 20)
     if character.place == places.market:
-        if character.person != persons.wealthy_merchant:
+        if character.person != persons.wealthy_merchant and \
+           persons.wealthy_merchant.alive:
             choices.add(actions.LookForAWeapon(), 10)
         choices.add(actions.BuyItem(), 10)
         choices.add(actions.WatchAPlay(), 500) # fix
@@ -187,7 +189,8 @@ def _add_place_actions(choices, character):
         choices.add(actions.Sink(), 3)
     if character.place == places.pirate_ship:
         choices.add(actions.GoFishing(), 2)
-        choices.add(actions.SuckUpTo(persons.lord_arthur), 3)
+        if persons.lord_arthur.alive:
+            choices.add(actions.SuckUpTo(persons.lord_arthur), 3)
         if character.has_item(items.sailor_peg):
             choices.add(actions.ClimbUpTheTopSails(), 10)
         choices.add(actions.WalkThePlank(), 10)
@@ -201,7 +204,8 @@ def _add_place_actions(choices, character):
         choices.add(actions.FlirtWith(persons.fat_lady), 10)
     if character.place == places.streets and \
        character.person != persons.wizard:
-        if character.person != persons.st_george:
+        if character.person != persons.st_george and \
+           persons.st_george.alive:
             choices.add(actions.LookForStGeorge(), 2)
         choices.add(actions.GawkAtWomen(), 1)
         if character.money == money.small_fortune or \
