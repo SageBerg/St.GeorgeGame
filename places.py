@@ -18,7 +18,7 @@ class Place(object):
         return self.name
 
 
-arctic = Place("the arctic")
+arctic = Place("the Arctic")
 cave = Place("a dark cave")
 church = Place("the church")
 countryside = Place("the countryside")
