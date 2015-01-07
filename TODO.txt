@@ -1,6 +1,9 @@
 1.0 (not all-inclusive list yet)
+-make population and world classes
+-replace all action arguments with alternatives
+-add Lord Daniel actions
+-add Lord Bartholomew actions
 -add Lord Bartholmew in field
--game of chess
 -she asks you if you remember her name (anne, beth, eve, donna)
 -guards show up when you kill someone
 -show him your shiny foreign coin
