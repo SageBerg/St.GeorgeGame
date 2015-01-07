@@ -1468,6 +1468,38 @@ class ThumpYourselfOnTheChest(Action):
 # B slot actions
 
 
+class RepayYourDebts(Action):
+    """
+    Assumes character.person == persons.lord_carlos
+    """
+
+    slot = "b"
+
+    def __init__(self):
+        super(RepayYourDebts, self).__init__()
+        self.name = "Repay your debts."
+        self.combat_action = True
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "He takes your money but says, \"No amount of money can make up "
+            "for what you've done.\"",
+            lose_all_money=True
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "He decideds that your death is the only form of repayment he will "
+            "accept. Your debts are soon settled.",
+            die=True
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "He takes your money and kills you.",
+            die=True
+        ), weight=1)
+
+
 class TryToTakeKeys(Action):
 
     slot = "b"
@@ -4533,7 +4565,7 @@ class DouseHerWithYourLovePotion(Action):
                 win=True,
             ), weight=1)
 
-        if character.person == persons.nymph_queen:
+        elif character.person == persons.nymph_queen:
             
             self.outcomes.add(Outcome(character,
                 "You miss. The nymph queen laughs and turns you into a shrub.",
@@ -4545,6 +4577,14 @@ class DouseHerWithYourLovePotion(Action):
                 "woodland creatures attend your wedding.",
                 win=True,
             ), weight=1)
+
+        else:
+
+            self.outcomes.add(Outcome(character,
+                "You fumble around in your bags looking for the love potion, "
+                "but your lack of organization hinders you.",
+            ), weight=1)
+
 
 
 class DrugHerWithYourLovePotion(Action):

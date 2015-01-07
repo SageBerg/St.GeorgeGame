@@ -2,8 +2,6 @@
 -add Lord Bartholmew in field
 -make it to where you can't enter the void if you're already there
 -game of chess
--repay debts
--He takes your money but says "No amount of money can make up for what you've done"
 -she asks you if you remember her name (anne, beth, eve, donna)
 -Plan B, C, D, E
 -guards show up when you kill someone

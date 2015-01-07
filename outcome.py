@@ -38,7 +38,8 @@ class Outcome(object):
                  funcs=(),  # USAGE [action]
                  actions=(),  # USAGE: [(Action action(), int weight)]
                  succeed=False,
-                 lose_money=None  # USAGE: (int amount)
+                 lose_money=None,  # USAGE: (int amount)
+                 lose_all_money=False
                  ):
         self.add_item = add_item
         self.remove_item = remove_item
@@ -76,6 +77,7 @@ class Outcome(object):
         self.funcs = funcs
         self.actions = actions
         self.lose_money = lose_money
+        self.lose_all_money = lose_all_money
 
     def execute(self):
         """
@@ -144,3 +146,5 @@ class Outcome(object):
             self.character.threatend = False
         if self.lose_money is not None:
             self.character.lose_money(self.lose_money)
+        if self.lose_money:
+            self.character.lose_all_money()
