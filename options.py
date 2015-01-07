@@ -239,6 +239,8 @@ def _add_place_actions(choices, character):
         choices.add(actions.LookForWitches(), 100)  # FIXME
         choices.add(actions.GoMushroomPicking(), 12)
         choices.add(actions.LookForNymphs(), 100)  # FIXME
+    if character.place != places.void and not random.randint(0, 249):
+        choices.add(actions.EnterTheVoid())
 
 
 def _add_item_actions(choices, character):
@@ -286,7 +288,6 @@ def _add_default_actions(choices, character):
     choices.add(actions.LeaveInAPuff())
     choices.add(actions.SingASong())
     choices.add(actions.DanceAJig())
-    choices.add(actions.EnterTheVoid())
 
 
 def _add_frog_actions(choices, character):
@@ -322,4 +323,3 @@ def set_initial_actions(choices):
     choices.actions["b"] = actions.BuyADrink()
     choices.actions["c"] = actions.LeaveInAHuff()
     choices.actions["d"] = actions.SingASong()
-    choices.actions["e"] = actions.EnterTheVoid()

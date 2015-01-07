@@ -126,8 +126,7 @@ class Character(object):
         """
         Kill the character.
         """
-        if self.place.name != "the void":
-            print("You are dead.")
+        print("You are dead.")
         self.alive = False
 
     def move(self, distance=1):
