@@ -38,31 +38,20 @@ class MultipleChoice(object):
         """
         Prints your options and takes input from user.
         """
-        e_off = random.randint(0, 249)
         print()
-        print("a. " + str(self.actions["a"]))
-        print("b. " + str(self.actions["b"]))
-        print("c. " + str(self.actions["c"]))
-        print("d. " + str(self.actions["d"]))
-        if not e_off:
-            print("e. " + str(self.actions["e"]))
+        for letter in "abcde":
+            if self.actions.get(letter, None):
+                print("{0}. {1}".format(letter, str(self.actions[letter])))
         print()
         choice = input()
         print()
-        go_to_next = False
-        while not go_to_next:
-            if choice not in set("abcde"):
-                # Check for cheats
-                if choice.split(" ")[0] == "cheat":
-                    return Cheat(" ".join(choice.split(" ")[1:]))
-                print("Enter a, b, c, or d.")
-                choice = input()
-            elif choice == "e":
-                if not e_off:
-                    go_to_next = True
-                else:
-                    print("Enter a, b, c, or d.")
-                    choice = input()
+        selected_action = None
+        while selected_action is None:
+            if self.actions.get(choice, None) is not None:
+                selected_action = self.actions[choice]
+            elif choice.split(" ")[0] == "cheat":  # Check for cheats
+                selected_action =  Cheat(" ".join(choice.split(" ")[1:]))
             else:
-                go_to_next = True
-        return self.actions[choice]
+                print("Enter the letter for the action you wish to select.")
+                choice = input()
+        return selected_action
