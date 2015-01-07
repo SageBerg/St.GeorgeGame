@@ -44,6 +44,31 @@ class Action(object):
 # A slot actions
 
 
+class A3(Action):
+
+    slot = "a"
+
+    def __init__(self):
+        super(A3, self).__init__()
+        self.name = "a3."
+        self.combat_action = True
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "After seeing your pitifully stupid move, Lord Carlos is no "
+            "longer concerned that you might beat him and has his "
+            "servants assassinate you.",
+            die=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You eventually win the game. Lord Carlos says no one "
+            "can know of his defeat. He assassinates you.",
+            die=True,
+        ), weight=1)
+
+
 class LaughAboutWarden(Action):
 
     slot = "a"
@@ -1497,6 +1522,27 @@ class RepayYourDebts(Action):
         self.outcomes.add(Outcome(character,
             "He takes your money and kills you.",
             die=True
+        ), weight=1)
+
+
+class Nf3(Action):
+
+    slot = "b"
+
+    def __init__(self):
+        super(Nf3, self).__init__()
+        self.name = "Nf3."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "You eventually checkmate Lord Carlos. He tosses the chessboard "
+            "on the floor and pulls out a dagger.",
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "Lord Carlos soon has you backed into a corner. Checkmate.",
+            die=True,
         ), weight=1)
 
 
@@ -3081,6 +3127,28 @@ class Hide(Action):
         ), weight=1)
 
 
+class E4(Action):
+
+    slot = "c"
+
+    def __init__(self):
+        super(E4, self).__init__()
+        self.name = "e4."
+        self.combat_action = True
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "The game ends when Lord Carlos pins you with three queens.",
+            fail=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You beat Lord Carlos in chess. He beats you in life.",
+            die=True,
+        ), weight=1)
+
+
 class LookForAWayOut(Action):
 
     slot = "c"
@@ -4328,6 +4396,24 @@ class JustKeepSwimming(KeepSwimming):
         ), weight=1)
 
 
+class E4(Action):
+
+    slot = "c"
+
+    def __init__(self):
+        super(ChallengeHimToAGameOfChess, self).__init__()
+        self.name = "Challenge him to a game of chess."
+        self.combat_action = True
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "Lord Carlos says he has no time to waste on fools, but "
+            "when you imply that he's affraid he'll lose,  "
+            "he has his servants set up a chessboard.",
+        ), weight=1)
+
+
 class ChallengeHimToAGameOfChess(Action):
     """
     Used with Lord Carlos
@@ -4338,17 +4424,18 @@ class ChallengeHimToAGameOfChess(Action):
     def __init__(self):
         super(ChallengeHimToAGameOfChess, self).__init__()
         self.name = "Challenge him to a game of chess."
+        self.combat_action = True
 
     def execute(self, character):
 
         self.outcomes.add(Outcome(character,
             "Lord Carlos says he has no time to waste on fools, but "
             "when you imply that he's affraid he'll lose,  "
-            "he has his servants set up chessboard.",
-            #actions=[(A3(), 10000),
-            #         (Nf3(), 10000),
-            #         (E4(), 10000),
-            #         (AskForADraw(), 10000)],
+            "he has his servants set up a chessboard.",
+            actions=[(A3(), 10000),
+                     (Nf3(), 10000),
+                     (E4(), 10000),
+                     (AskForADraw(), 10000)],
         ), weight=1)
 
 
@@ -4455,6 +4542,23 @@ class TrashThePlace(Action):
 # D slot actions
 
 
+class AskForADraw(Action):
+
+    slot = "d"
+
+    def __init__(self):
+        super(AskForADraw, self).__init__()
+        self.name = "Ask for a draw."
+        self.combat_action = True
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "Lord Carlos has you drawn and quartered for your impudence.",
+            die=True,
+        ), weight=1)
+
+
 class MakeItHard(Action):
 
     slot = "d"
@@ -4498,8 +4602,8 @@ class MakeItHard(Action):
         ), weight=1)  # TODO causes a fight
 
         self.outcomes.add(Outcome(character,
-            "You hide behind a valuable painting Lord Carlos is loathe to "
-            "destroy. He loathes you more.",
+            "You hide behind a valuable painting Lord Carlos that is loathe "
+            "to destroy. He loathes you more.",
             die=True,
         ), weight=1)
 
@@ -5612,6 +5716,7 @@ class SneakAround(Action):
         ), weight=1)
 
         if persons.eve.alive:
+
             self.outcomes.add(Outcome(character,
                 "You manage to sneak into Lord Carlos' "
                 "daugher's bedroom. She is {0}".format(random.choice(
@@ -5619,7 +5724,7 @@ class SneakAround(Action):
                  "petting her cat.", "putting on jewelry.",
                  "painting a picture of you getting assassinated.",])),
                 new_person=persons.eve,
-            ), weight=1000)  # TODO fix weight
+            ), weight=1)
 
         if persons.lord_carlos.alive:
 
@@ -5636,7 +5741,7 @@ class SneakAround(Action):
                  "training a weasel.", "pacing around."])),
                 new_person=persons.lord_carlos,
                 threat=True,
-            ), weight=1)
+            ), weight=1000)  # TODO fix weight
 
 
 class HideUnderTheDeck(Action):

@@ -81,9 +81,10 @@ def _add_person_actions(choices, character):
     if character.person == persons.lord_bartholomew:
         choices.add(actions.SuckUpTo(persons.lord_bartholomew), 5)
     if character.person == persons.lord_carlos:
-        if character.money >= money.small_fortune:
-            choices.add(actions.RepayYourDebts(), 40)
+        #if character.money >= money.small_fortune:
+        #    choices.add(actions.RepayYourDebts(), 40)
         choices.add(actions.SuckUpTo(persons.lord_carlos), 10)
+        choices.add(actions.ChallengeHimToAGameOfChess(), 10)
         choices.add(actions.Grovel(), 40)
         choices.add(actions.MakeItHard(), 10)
     if character.person == persons.lord_daniel:
@@ -162,7 +163,7 @@ def _add_place_actions(choices, character):
         choices.add(actions.Disguise(), 10)
         #if persons.lord_carlos.alive:
             #choices.add(actions.GoStraightToLordCarlos(), 10)
-        choices.add(actions.SneakAround(), 20)
+        choices.add(actions.SneakAround(), 10)
     if character.place == places.market:
         if character.person != persons.wealthy_merchant and \
            persons.wealthy_merchant.alive:
