@@ -5,7 +5,6 @@
 -add Lord Bartholomew actions
 -add Lord Bartholmew in field
 -she asks you if you remember her name (anne, beth, eve, donna)
--guards show up when you kill someone
 -show him your shiny foreign coin
 
 followers:
