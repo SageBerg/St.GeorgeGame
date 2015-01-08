@@ -80,6 +80,8 @@ def _add_person_actions(choices, character):
         choices.add(actions.SuckUpTo(persons.lord_arthur), 5)
     if character.person == persons.lord_bartholomew:
         choices.add(actions.SuckUpTo(persons.lord_bartholomew), 5)
+    if character.person == persons.lord_bartholomew:
+        choices.add(actions.AskForAsylum(), 10000)  # TODO fix weight
     if character.person == persons.lord_carlos:
         if character.money >= money.small_fortune:
             choices.add(actions.RepayYourDebts(), 40)

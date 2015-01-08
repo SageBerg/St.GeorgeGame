@@ -68,7 +68,7 @@ class AskForAnAudienceWithLordBartholomew(Action):
         self.outcomes.add(Outcome(character,
             "You are granted one." ,
             new_person=persons.lord_bartholomew,
-        ), weight=1)
+        ), weight=1000)  # TODO fix weight
 
 
 class A3(Action):
@@ -4625,6 +4625,33 @@ class TrashThePlace(Action):
 # D slot actions
 
 
+class AskForAsylum(Action):
+
+    slot = "d"
+
+    def __init__(self):
+        super(AskForAsylum, self).__init__()
+        self.name = "Ask for asylum."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "Lord Bartholomew grants you asylum and gives you work shoveling "
+            "coal into ovens. After a few years, you fall in love with a cook "
+            "who also works in the kitchens. You eventually win her heart and "
+            "live happily ever after.",
+            win=True, 
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "Lord Bartholomew grants you asylum, but his manor is soon "
+            "stormed by Lord Daniel's guards. You are arrested for treason.",
+            burn_place=character.place,
+            kill=persons.lord_bartholomew,
+            move_to=places.prison,
+        ), weight=1000)  # TODO fix weight
+
+
 class AskForADraw(Action):
 
     slot = "d"
@@ -5915,6 +5942,7 @@ class SnoopAround(Action):
             actions=[(TakeIt(persons.wizard, items.fire_proof_cloak), 100)],
             topic="cloaks",
         ), weight=1)
+
 
 # E slot actions
 
