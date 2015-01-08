@@ -44,6 +44,33 @@ class Action(object):
 # A slot actions
 
 
+class AskForAnAudienceWithLordBartholomew(Action):
+
+    slot = "a"
+
+    def __init__(self):
+        super(AskForAnAudienceWithLordBartholomew, self).__init__()
+        self.name = "Ask for an audience with Lord Bartholomew."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "The first person you meet is Lord Bartholomew.",
+            new_person=persons.lord_bartholomew,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "The line to meet Lord Bartholomew is very long, "
+            "so you lose patience and wander off.",
+            move_to=places.countryside,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You are granted one." ,
+            new_person=persons.lord_bartholomew,
+        ), weight=1)
+
+
 class A3(Action):
 
     slot = "a"
@@ -1177,7 +1204,7 @@ class LookForVoidDust(Action):
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
-            "You void is very dirty. You soon find some.",
+            "The void is very dirty. You soon find some.",
             add_item=items.bottle_of_void_dust,
             succeed=True,
         ), weight=1)
@@ -1491,6 +1518,34 @@ class ThumpYourselfOnTheChest(Action):
 
 
 # B slot actions
+
+
+class HowlWithPain(Action):
+
+    slot = "b"
+
+    def __init__(self):
+        super(HowlWithPain, self).__init__()
+        self.name = "Howl with pain."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "The manor's servants rush to your aid carry you to "
+            "Lord Bartholomew's priest "
+            "to be healed. The priest informes them that it will require "
+            "a true master to save you, so the servants rush you to "
+            "town to be healed by St. George. He informs them "
+            "that nothing is wrong with you. The servants are relieved and "
+            "head back to the manor.",
+            new_person=persons.st_george,
+            move_to=places.church,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "A maid shushes you. She says Lord Bartholomew's children are "
+            "napping.",
+        ), weight=1)
 
 
 class RepayYourDebts(Action):
@@ -1925,25 +1980,53 @@ class Disguise(Action):
         super(Disguise, self).__init__()
         self.fake_name = random.choice(["St. George.",
                                         "Lord Arthur.",
-                                        "Lord Bartholomew.",
                                         "Lord Daniel."])
         self.name = "Tell the next person you meet that you are " + \
                     "{0}".format(self.fake_name)
 
     def execute(self, character):
 
-        if persons.lord_carlos.alive:
+        if character.place == places.lord_bartholomews_manor:
             self.outcomes.add(Outcome(character,
-                "You soon have an audience with Lord Carlos. He recognizes you "
-                "when you are admitted to his study.",
-                new_person=persons.lord_carlos,
-                threat=True,
-            ), weight=100)
+                "No one is buying it.",
+                fail=True,
+            ), weight=1)
 
-        self.outcomes.add(Outcome(character,
-            "No one is buying it. You are soon assassinated.",
-            die=True
-        ), weight=1)
+            self.outcomes.add(Outcome(character,
+                "You soon have an audience with Lord Bartholomew. When he "
+                "realizes he's been tricked, he has his servants escort you "
+                "out of the manor.",
+                move_to=places.countryside,
+            ), weight=1)
+
+            if self.fake_name == "Lord Arthur":
+                self.outcomes.add(Outcome(character,
+                    "When you tell a groundskeeper that you are Lord Arthur, "
+                    "he laughs and says, \"Lord Arthur? This far inland? I "
+                    "really doubt it.\"",
+                    fail=True,
+                ), weight=3)
+                
+            if self.fake_name == "Lord Daniel":
+                self.outcomes.add(Outcome(character,
+                    "When you tell a servant woman you are Lord Daniel, she beats "
+                    "do death with a broom.",
+                    die=True,
+                ), weight=3)
+
+        if character.place == places.lord_carlos_manor:
+            if persons.lord_carlos.alive:
+                self.outcomes.add(Outcome(character,
+                    "You soon have an audience with Lord Carlos. He recognizes you "
+                    "when you are admitted to his study.",
+                    new_person=persons.lord_carlos,
+                    threat=True,
+                ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "No one is buying it. You are soon assassinated.",
+                die=True
+            ), weight=1)
 
 
 class BurnThePlaceToTheGround(Action):
@@ -2992,9 +3075,9 @@ class ChallengeThemToAGameOfChess(Action):
     def execute(self, character):
 
         self.outcomes.add(Outcome(character,
-            "Their opening move is smashing you over the head with a bottle "
-            "of rum. You aren't thinking too straight during the game and "
-            "lose quickly.",
+            "Their opening move is smashing a bottle of rum over your head "
+            ". You aren't thinking too straight during the game and "
+            "quickly lose.",
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
@@ -5687,61 +5770,93 @@ class SneakAround(Action):
 
     def execute(self, character):
 
-        self.outcomes.add(Outcome(character,
-            "One of the assassin guards noticies you tiptoeing around in "
-            "board daylight. He assassinates you.",
-            die=True
-        ), weight=1)
-
-        self.outcomes.add(Outcome(character,
-            "Your smell gives you away. You are soon assassinated.",
-            die=True,
-        ), weight=1)
-
-        self.outcomes.add(Outcome(character,
-            "You get the hiccups. You are soon assassinated.",
-            die=True,
-        ), weight=1)
-
-        self.outcomes.add(Outcome(character,
-            "You are sneaking through the stables when a man too fat to "
-            "avoid bumps into you. You are soon assassinated.",
-            die=True,
-        ), weight=1)
-
-        self.outcomes.add(Outcome(character,
-            "You find a poisoned dagger in a glass case.",
-            add_item=items.poisoned_dagger,
-            succeed=True
-        ), weight=1)
-
-        if persons.eve.alive:
+        if character.place == places.lord_bartholomews_manor:
+            self.outcomes.add(Outcome(character,
+                "While prowling in the shadows of a hallway, you stub your "
+                "pinkie toe.",
+                actions=[(HowlWithPain(), 10000)],
+                fail=True,
+            ), weight=1000)  # TODO fix weight
 
             self.outcomes.add(Outcome(character,
-                "You manage to sneak into Lord Carlos' "
-                "daugher's bedroom. She is {0}".format(random.choice(
-                ["reading at her desk.", "sharpening a dagger.",
-                 "petting her cat.", "putting on jewelry.",
-                 "painting a picture of you getting assassinated.",])),
-                new_person=persons.eve,
+                "While lurking in a shrub, you catch sight of the fair Lady "
+                "Beatrice.",
             ), weight=1)
 
-        if persons.lord_carlos.alive:
+            self.outcomes.add(Outcome(character,
+                "While hiding behind a door, you overhear Lord Bartholomew "
+                "and his men plotting insurrection.",
+            ), weight=1)
 
             self.outcomes.add(Outcome(character,
-                "Lord Carlos jumps down from some rafters and assassinates you.",
+                "While creeping around in the stables, you find a long "
+                "pitchfork.",
+                add_item=items.long_pitchfork
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "An old man notices you skulking around and starts yelling "
+                "about an assassin. You look behind you, but the the old "
+                "man stabs you in the front.",
+                die=True
+            ), weight=1)
+
+        if character.place == places.lord_carlos_manor:
+            self.outcomes.add(Outcome(character,
+                "One of the assassin guards noticies you tiptoeing around in "
+                "board daylight. He assassinates you.",
+                die=True
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "Your smell gives you away. You are soon assassinated.",
                 die=True,
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
-                "You manage to sneak into Lord Carlos' "
-                "study. He is {0}".format(random.choice(
-                ["writing a letter.", "reading a book.",
-                 "looking straight at you.", "eating a steak.",
-                 "training a weasel.", "pacing around."])),
-                new_person=persons.lord_carlos,
-                threat=True,
-            ), weight=1000)  # TODO fix weight
+                "You get the hiccups. You are soon assassinated.",
+                die=True,
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "You are sneaking through the stables when a man too fat to "
+                "avoid bumps into you. You are soon assassinated.",
+                die=True,
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "You find a poisoned dagger in a glass case.",
+                add_item=items.poisoned_dagger,
+                succeed=True
+            ), weight=1)
+
+            if persons.eve.alive:
+
+                self.outcomes.add(Outcome(character,
+                    "You manage to sneak into Lord Carlos' "
+                    "daugher's bedroom. She is {0}".format(random.choice(
+                    ["reading at her desk.", "sharpening a dagger.",
+                     "petting her cat.", "putting on jewelry.",
+                     "painting a picture of you getting assassinated.",])),
+                    new_person=persons.eve,
+                ), weight=1)
+
+            if persons.lord_carlos.alive:
+
+                self.outcomes.add(Outcome(character,
+                    "Lord Carlos jumps down from some rafters and assassinates you.",
+                    die=True,
+                ), weight=1)
+
+                self.outcomes.add(Outcome(character,
+                    "You manage to sneak into Lord Carlos' "
+                    "study. He is {0}".format(random.choice(
+                    ["writing a letter.", "reading a book.",
+                     "looking straight at you.", "eating a steak.",
+                     "training a weasel.", "pacing around."])),
+                    new_person=persons.lord_carlos,
+                    threat=True,
+                ), weight=1000)  # TODO fix weight
 
 
 class HideUnderTheDeck(Action):
