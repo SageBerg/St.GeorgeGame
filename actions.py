@@ -5096,7 +5096,7 @@ class FreezeToDeath(Action):
 
         self.outcomes.add(Outcome(character,
             "Some eskimos save you from the cold and take you back to land "
-            "in a Kayak. They also give you a fish.",
+            "in a kayak. They also give you a fish.",
             add_item=items.fish,
             move_to=places.countryside,
             succeed=True,
