@@ -250,7 +250,7 @@ class TrainWithTheGuards(Action):
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
-            "You break your neck in a training accidently.",
+            "You accidentally break your neck during training.",
             clover=True,
             die=True,
         ), weight=1)
@@ -554,7 +554,7 @@ class ReadASpellBook(Action):
 
         self.outcomes.add(Outcome(character,
             "You learn that it takes a cat and a pearl "
-            "mushroom to brew a potion of tail growth.",
+            "to brew a potion of tail growth.",
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
@@ -1799,7 +1799,7 @@ class GawkAtWomen(Action):
 
         if self.name == "Stare at women.":
             self.outcomes.add(Outcome(character,
-                "An equally creepy woman stairs back at you before "
+                "An equally creepy woman stares back at you before "
                 "dissappearing into a dark alley.",
                 actions=[(GoTo(places.dark_alley), 5)],
             ), weight=1)
@@ -4178,8 +4178,8 @@ class GoTo(Action):
         if character.place in places.populated:
 
             self.outcomes.add(Outcome(character,
-                "On your way out of {0} you run headlong into some guards and "
-                "they say you must be a lunatic.".format(character.place),
+                "On your way out of {0} you run headlong into some guards. "
+                "They say you must be a lunatic.".format(character.place),
                 new_person=persons.guards,
                 threat=True,
                 topic="oblivious"
@@ -5697,7 +5697,7 @@ class DoSomeFarmWork(Action):
         self.outcomes.add(Outcome(character,
             "You spend a season bailing hay.",
             get_money=money.pittance,
-            add_item=pitchfork
+            add_item=items.pitchfork
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
