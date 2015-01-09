@@ -61,8 +61,12 @@ class Outcome(object):
         self.move_to = move_to
         if msg and self.character.trip:
             msg = msg.split(" ")
+            for i in range(len(msg)):
+                msg[i] = msg[i].strip(".")
+                msg[i] = msg[i].strip(",")
+                msg[i] = msg[i].lower()
             random.shuffle(msg)
-            self.msg = " ".join(msg)
+            self.msg = msg[0][0].upper() + " ".join(msg)[1:] + "."
         else:
             self.msg = msg
         self.new_person = new_person
