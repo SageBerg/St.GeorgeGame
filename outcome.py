@@ -62,8 +62,7 @@ class Outcome(object):
         if msg and self.character.trip:
             msg = msg.split(" ")
             for i in range(len(msg)):
-                msg[i] = msg[i].strip(".")
-                msg[i] = msg[i].strip(",")
+                msg[i] = msg[i].strip(".,\"\'!")
                 msg[i] = msg[i].lower()
             random.shuffle(msg)
             self.msg = msg[0][0].upper() + " ".join(msg)[1:] + "."
