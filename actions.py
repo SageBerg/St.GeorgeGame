@@ -5683,7 +5683,7 @@ class DoSomeFarmWork(Action):
 
     def __init__(self):
         super(DoSomeFarmWork, self).__init__()
-        self.name = "Do some farmwork."
+        self.name = "Do some farm work."
 
     def execute(self, character):
 
