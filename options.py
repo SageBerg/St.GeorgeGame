@@ -275,7 +275,7 @@ def _add_character_actions(choices, character):
     if character.threatened and character.person:
         choices.add(actions.PlayDead(), 10)
         choices.add(actions.Panic(), 1)
-        choices.add(actions.RunLikeTheDevil(), 18)
+        choices.add(actions.RunLikeTheDevil(), 100)
         choices.add(actions.LeaveInAHuff(), 2)
         choices.add(actions.WaddleLikeGod(), 2)
     if character.lost_peg_leg:
