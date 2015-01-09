@@ -946,14 +946,22 @@ class AskDirections(Action):
         if character.person == persons.peasant_lass:
             self.outcomes.add(Outcome(character,
                 "She says Lord Carlos' manor is in the woods.",
+                actions=[(GoTo(character.place, 
+                          specific_dest=places.lord_carlos_manor), 
+                          10000)],
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
                 "She says Lord Bartholomew's manor is nearby.",
+                actions=[(GoTo(character.place, 
+                          specific_dest=places.lord_bartholomews_manor),
+                          10000)],
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
-                "She says there's good mushroom picking in woods.",
+                "She says there's good mushroom picking in the woods.",
+                actions=[(GoTo(character.place,
+                          specific_dest=places.woods), 10000)],
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
@@ -4149,18 +4157,15 @@ class GoTo(Action):
 
     slot = "c"
 
-    def __init__(self, place):
+    def __init__(self, place, specific_dest=None):
         super(GoTo, self).__init__()
-        self.dest = random.sample(place.connections, 1)[0]
+        if specific_dest:
+            self.dest = specific_dest 
+        else:
+            self.dest = random.sample(place.connections, 1)[0]
         self.name = "Go to " + str(self.dest) + "."
 
     def execute(self, character):
-
-        self.outcomes.add(Outcome(character,
-            "You absent mindedly leave {0}".format(character.place),
-            move=1,
-            new_person=None
-        ), weight=3)
 
         self.outcomes.add(Outcome(character,
             None,
@@ -5329,17 +5334,17 @@ class SwingYourCat(Action):
     def execute(self, character):
 
         self.outcomes.add(Outcome(character,
-            "You hit an assassin with your cat.",
-            new_person=persons.assassin,
-            threat=True,
-        ), weight=3)
-
-        self.outcomes.add(Outcome(character,
             "Your cat manages to escape.",
             remove_item=items.cat
         ), weight=2)
 
         if character.place in places.populated:
+
+            self.outcomes.add(Outcome(character,
+                "You hit an assassin with your cat.",
+                new_person=persons.assassin,
+                threat=True,
+            ), weight=3)
 
             self.outcomes.add(Outcome(character,
                 "The local guards notice you swinging your cat around and "
