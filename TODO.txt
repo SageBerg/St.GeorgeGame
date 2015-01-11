@@ -3,9 +3,9 @@
 -replace all action arguments with alternatives
 -add Lord Daniel actions
 -add Lord Bartholomew actions
--add Lord Bartholmew in field
--she asks you if you remember her name (anne, beth, eve, donna)
+-add Lord Bartholomew in field
 -show him your shiny foreign coin
+-add a score system
 
 followers:
   forment revolution
