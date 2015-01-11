@@ -44,6 +44,25 @@ class Action(object):
 # A slot actions
 
 
+class Anne(Action):
+    """
+    used when guessing Eve's name
+    """
+
+    slot = "a"
+
+    def __init__(self):
+        super(Anne, self).__init__()
+        self.name = "\"Anne.\""
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "She grimaces. \"That's my mother, you idiot!\"",
+            die=True,
+        ), weight=1)
+
+
 class AskForAnAudienceWithLordBartholomew(Action):
 
     slot = "a"
@@ -1526,6 +1545,25 @@ class ThumpYourselfOnTheChest(Action):
 
 
 # B slot actions
+
+
+class Beth(Action):
+    """
+    Used when guessing Eve's name
+    """
+
+    slot = "b"
+
+    def __init__(self):
+        super(Beth, self).__init__()
+        self.name = "\"Beth.\""
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "Wrong answer. Lord Carlos' daughter assassinates you.", 
+            die=True,
+        ), weight=1)
 
 
 class HowlWithPain(Action):
@@ -3042,6 +3080,25 @@ class LookForMermaids(Action):
 # C slot actions
 
 
+class Eve(Action):
+    """
+    Used when guessing Eve's name
+    """
+
+    slot = "c"
+
+    def __init__(self):
+        super(Eve, self).__init__()
+        self.name = "\"Eve.\""
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "She gives you the evil eye.",
+            flirt=(persons.eve, 2),
+        ), weight=1)
+
+
 class WaitForAHoliday(Action): 
 
     slot = "c"
@@ -3890,7 +3947,37 @@ class FlirtWith(Action):
 
         if self.person == persons.eve:
             self.outcomes.add(Outcome(character,
-                "She ignores your inuendos, but lets you come to the river "
+                "She asks if you even remember her name. "
+                "You say, \"Of course I remember your name. It's...\"",
+                actions=[(Anne(), 10000), (Beth(), 10000),
+                         (Eve(), 10000), (Donna(), 10000)]
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "You look at her bookshelf and compliment her on her choice "
+                "of books. She casts doubt on your ability to read.",
+                flirt=(persons.eve, 1),
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "When you try to get close to her, she trips you and laughs.",
+                flirt=(persons.eve, 1),
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "She lets you live with her for a few months under the "
+                "condition that she gets to treat you poorly.",
+                flirt=(persons.eve, 1),
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "You say she has pretty lips. She says your lips are only "
+                "pretty when they're shut.",
+                flirt=(persons.eve, 1),
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "She ignores your innuendos, but lets you come to the river "
                 "with her so she can drown a bag of kittens.",
                 flirt=(persons.eve, 1),
             ), weight=1)
@@ -3916,6 +4003,21 @@ class FlirtWith(Action):
                 "room. She seems pleased with your work.",
                 flirt=(persons.eve, 1),
             ), weight=1)
+
+            if persons.eve.attracted > 3: 
+
+                self.outcomes.add(Outcome(character,
+                    "Your suave advances lead to several rounds of passionate "
+                    "sex with Lord Carlos' daughter that night. Unfortunately, "
+                    "you don't wake up at "
+                    "dawn. You wake up in the middle of the night when two "
+                    "hooded assassins kidnap you take you to a dungeon full "
+                    "of torture devices. They are about to put you in an "
+                    "iron maiden when they take off their hoods and reveal "
+                    "that they are Lord Carlos' daughter and a priest. The "
+                    "priest officiates your wedding.",
+                    win=True,
+                ), weight=10000)
 
 
 class GoToSleep(Action):
@@ -4630,6 +4732,26 @@ class TrashThePlace(Action):
 # D slot actions
 
 
+class Donna(Action):
+    """
+    Used when guessing Eve's name
+    """
+
+    slot = "d"
+
+    def __init__(self):
+        super(Donna, self).__init__()
+        self.name = "\"Donna.\""
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "She snakes her head. \"What a shame. I was starting to like "
+            "you.\" She throws a dagger into your guts.",
+            die=True,
+        ), weight=1)
+
+
 class AskForAsylum(Action):
 
     slot = "d"
@@ -4774,7 +4896,7 @@ class DouseHerWithYourLovePotion(Action):
             self.outcomes.add(Outcome(character,
                 "The mermaid falls madly in love with you. "
                 "You run into the mermaid problem, but {0}, "
-                "so you still live happily ever after"
+                "so you still live happily ever after."
                 ".".format(random.choice([
                     "she has a mouth",
                     "she has breasts",
@@ -4784,10 +4906,28 @@ class DouseHerWithYourLovePotion(Action):
                 win=True,
             ), weight=1)
 
+        elif character.person == persons.eve:
+
+            self.outcomes.add(Outcome(character,
+                "She dodges the potion and starts screaming. You are "
+                "soon assassinated.",
+                die=True,
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "Lord Carlos' daughter falls madly in love with you. "
+                "You flee to another country and get married. She is fun "
+                "to be around since she's magically enchanted to always be "
+                "nice to you. However, she is still horrible to everyone "
+                "else. So your life is always filled with advanture and "
+                "danger.",
+                win=True,
+            ), weight=1)
+
         elif character.person == persons.nymph_queen:
             
             self.outcomes.add(Outcome(character,
-                "You miss. The nymph queen laughs and turns you into a shrub.",
+                "You miss. The nymph queen giggles and turns you into a shrub.",
                 lose=True,
             ), weight=1)
 
@@ -5871,7 +6011,7 @@ class SneakAround(Action):
                      "petting her cat.", "putting on jewelry.",
                      "painting a picture of you getting assassinated.",])),
                     new_person=persons.eve,
-                ), weight=1)
+                ), weight=1000)  # TODO fix weight
 
             if persons.lord_carlos.alive:
 
@@ -5888,7 +6028,7 @@ class SneakAround(Action):
                      "training a weasel.", "pacing around."])),
                     new_person=persons.lord_carlos,
                     threat=True,
-                ), weight=1000)  # TODO fix weight
+                ), weight=1)
 
 
 class HideUnderTheDeck(Action):
