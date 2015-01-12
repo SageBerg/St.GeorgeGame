@@ -5222,18 +5222,35 @@ class WatchAPlay(Action):
             "The play portrays Lord Bartholomew in a glorious light.",
         ), weight=1)
 
-        self.outcomes.add(Outcome(character,
-            "The play is put on by some Lord Daniel's guards, the acting is "
-            "terrible and the play portrays Lord Bartholomew in a negative "
-            "light. The audience starts a riot.",
-            new_person=persons.guards,
-            actions=[
-                     (Attack(persons.guards), 10000),
-                     (BurnThePlaceToTheGround(places.market), 10000),
-                     (TrashThePlace(), 10000),
-                     (Loot(), 10000)
-                     ],
-        ), weight=1)
+        if places.market in places.burnable:
+
+            self.outcomes.add(Outcome(character,
+                "The play is put on by some Lord Daniel's guards, the acting is "
+                "terrible and the play portrays Lord Bartholomew in a negative "
+                "light. The audience starts a riot.",
+                new_person=persons.guards,
+                actions=[
+                         (Attack(persons.guards), 10000),
+                         (BurnThePlaceToTheGround(places.market), 10000),
+                         (TrashThePlace(), 10000),
+                         (Loot(), 10000)
+                         ],
+            ), weight=1)
+
+        else:
+
+            self.outcomes.add(Outcome(character,
+                "The play is put on by some Lord Daniel's guards, the acting is "
+                "terrible and the play portrays Lord Bartholomew in a negative "
+                "light. The audience starts a riot.",
+                new_person=persons.guards,
+                actions=[
+                         (Attack(persons.guards), 10000),
+                         (TrashThePlace(), 10000),
+                         (Loot(), 10000)
+                         ],
+            ), weight=1)
+
 
 
 class FlauntYourWealth(Action):
