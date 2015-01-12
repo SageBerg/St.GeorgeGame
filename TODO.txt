@@ -2,9 +2,8 @@
 -make population and world classes
 -replace all action arguments with alternatives
 -add Lord Daniel actions
--add Lord Bartholomew actions
+-add Lord Bartholomew chess, give him pearl 
 -add Lord Bartholomew in field
--show him your shiny foreign coin
 -add a score system
 
 followers:
