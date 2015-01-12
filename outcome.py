@@ -104,7 +104,10 @@ class Outcome(object):
                                     + self.trash_place.name
             places.trashed.add(self.trash_place)
 
-        if self.kill: # this needs to happen before move_to
+        if self.new_person is None or self.new_person:
+            self.character.person = self.new_person
+
+        if self.kill: # this needs to happen before move_to and new_person
             self.character.person.alive = False
             self.character.person = None
             self.character.threatend = False
@@ -113,8 +116,6 @@ class Outcome(object):
             self.character.move(self.move)
         if self.move_to:
             self.character.move_to(self.move_to)
-        if self.new_person is None or self.new_person:
-            self.character.person = self.new_person
         if self.die:
             if self.character.has_item(items.four_leaf_clover) and \
                self.clover:
