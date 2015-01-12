@@ -28,12 +28,13 @@ class Character(object):
                  ):
         if items is None:
             self.items = {
-                items_module.cat: 1,
-                items_module.many_colored_mushroom: 1,
-                items_module.love_potion: 1,
-                items_module.pearl: 1,
-                items_module.yellow_mushroom: 1,
+                items_module.foreign_coin: 1,
                 items_module.four_leaf_clover: 1}
+                #items_module.cat: 1,
+                #items_module.many_colored_mushroom: 1,
+                #items_module.love_potion: 1,
+                #items_module.pearl: 1,
+                #items_module.yellow_mushroom: 1,
         else:
             self.items = items
         if employers is None:
