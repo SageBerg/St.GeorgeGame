@@ -4832,13 +4832,21 @@ class AskForAsylum(Action):
             win=True, 
         ), weight=1)
 
-        self.outcomes.add(Outcome(character,
-            "Lord Bartholomew grants you asylum, but his manor is soon "
-            "stormed by Lord Daniel's guards. You are arrested for treason.",
-            burn_place=character.place,
-            kill=persons.lord_bartholomew,
-            move_to=places.prison,
-        ), weight=1000)  # TODO fix weight
+        if character.place in places.burnable:
+            self.outcomes.add(Outcome(character,
+                "Lord Bartholomew grants you asylum, but his manor is soon "
+                "stormed by Lord Daniel's guards. You are arrested for treason.",
+                burn_place=character.place,
+                kill=persons.lord_bartholomew,
+                move_to=places.prison,
+            ), weight=1000)
+        else:
+            self.outcomes.add(Outcome(character,
+                "Lord Bartholomew grants you asylum, but his manor is soon "
+                "stormed by Lord Daniel's guards. You are arrested for treason.",
+                kill=persons.lord_bartholomew,
+                move_to=places.prison,
+            ), weight=1000)
 
 
 class AskForADraw(Action):
