@@ -1910,14 +1910,14 @@ class SwingOnARope(Action):
                 "You manage to knock a merchant off a rope. Lord Arthur rewards "
                 "your bravery after the battle is over.",
                 succeed=True,
-                add_items=items.fish
+                add_item=items.fish
             ), weight=1)
         else:
             self.outcomes.add(Outcome(character,
                 "You manage to knock a merchant off a rope. The captain rewards "
                 "your bravery after the battle is over.",
                 succeed=True,
-                add_items=items.fish
+                add_item=items.fish
             ), weight=1)
 
         self.outcomes.add(Outcome(character,
