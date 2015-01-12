@@ -7,7 +7,7 @@ class Croak(Action):
     slot = "a"
 
     def __init__(self):
-        super().__init__()
+        super(Croak, self).__init__()
         self.name = "Croak."
 
     def execute(self, character):
@@ -23,7 +23,7 @@ class Ribbit(Action):
     slot = "b"
 
     def __init__(self):
-        super().__init__()
+        super(Ribbit, self).__init__()
         self.name = "Ribbit."
 
     def execute(self, character):
@@ -50,7 +50,7 @@ class Hop(Action):
     slot = "c"
 
     def __init__(self):
-        super().__init__()
+        super(Hop, self).__init__()
         self.name = "Hop."
 
     def execute(self, character):
@@ -81,7 +81,7 @@ class EatAFly(Action):
     slot = "d"
 
     def __init__(self):
-        super().__init__()
+        super(EatAFly, self).__init__()
         self.name = "Eat a fly."
 
     def execute(self, character):
