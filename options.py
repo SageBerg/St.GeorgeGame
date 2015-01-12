@@ -163,11 +163,13 @@ def _add_place_actions(choices, character):
            character.person != persons.lord_bartholomew:
             choices.add(actions.Disguise(), 10)
             choices.add(actions.AskForAnAudienceWithLordBartholomew(), 10)
-        choices.add(actions.SneakAround(), 10)
+        if character.person == None:
+            choices.add(actions.SneakAround(), 10)
     if character.place == places.lord_carlos_manor:
         choices.add(actions.AskAboutAssassins(), 10)
         choices.add(actions.Disguise(), 10)
-        choices.add(actions.SneakAround(), 10)
+        if character.person == None:
+            choices.add(actions.SneakAround(), 10)
     if character.place == places.market:
         if character.person != persons.wealthy_merchant and \
            persons.wealthy_merchant.alive:
