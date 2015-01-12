@@ -1605,9 +1605,9 @@ class HowlWithPain(Action):
     def execute(self, character):
 
         self.outcomes.add(Outcome(character,
-            "The manor's servants rush to your aid carry you to "
+            "The manor's servants rush to your aid and carry you to "
             "Lord Bartholomew's priest "
-            "to be healed. The priest informes them that it will require "
+            "to be healed. The priest informs them that it will require "
             "a true master to save you, so the servants rush you to "
             "town to be healed by St. George. He informs them "
             "that nothing is wrong with you. The servants are relieved and "
@@ -1661,6 +1661,7 @@ class Nf3(Action):
     def __init__(self):
         super(Nf3, self).__init__()
         self.name = "Nf3."
+        self.combat_action = True
 
     def execute(self, character):
 
@@ -3565,12 +3566,12 @@ class CelebrateYourSuccess(Action):
             "You sing a song.",
         ), weight=1)
 
-        if self.place in places.burnable:
+        if character.place in places.burnable:
             self.outcomes.add(Outcome(character,
                 None,
-                burn_place=self.place,
+                burn_place=character.place,
                 succeed=True,
-                move_to=self.place
+                move_to=character.place
             ), weight=1)
 
         if character.place in places.town:
@@ -4626,15 +4627,15 @@ class E4(Action):
     def execute(self, character):
 
         self.outcomes.add(Outcome(character,
-            "Lord Carlos says he has no time to waste on fools, but "
-            "when you imply that he's affraid he'll lose,  "
-            "he has his servants set up a chessboard.",
+            "You lose the game. Lord Carlos celebrates his victory by "
+            "assassinating you.",
+            die=True,
         ), weight=1)
 
 
 class ChallengeHimToAGameOfChess(Action):
     """
-    Used with Lord Carlos
+    Used with Lord Carlos and Lord Bartholomew 
     """
 
     slot = "c"
@@ -4646,15 +4647,29 @@ class ChallengeHimToAGameOfChess(Action):
 
     def execute(self, character):
 
-        self.outcomes.add(Outcome(character,
-            "Lord Carlos says he has no time to waste on fools, but "
-            "when you imply that he's affraid he'll lose,  "
-            "he has his servants set up a chessboard.",
-            actions=[(A3(), 10000),
-                     (Nf3(), 10000),
-                     (E4(), 10000),
-                     (AskForADraw(), 10000)],
-        ), weight=1)
+        if character.person == persons.lord_carlos:
+
+            self.outcomes.add(Outcome(character,
+                "Lord Carlos says he has no time to waste on fools, but "
+                "when you imply that he's afraid he'll lose, "
+                "he has his servants set up a chessboard.",
+                actions=[(A3(), 10000),
+                         (Nf3(), 10000),
+                         (E4(), 10000),
+                         (AskForADraw(), 10000)],
+            ), weight=1)
+
+        if character.person == persons.lord_bartholomew:
+
+            self.outcomes.add(Outcome(character,
+                "Lord Bartholomew says there's always time for a little fun "
+                "in his life. He takes you to his chess parlor and sets up "
+                "a board.",
+                #actions=[(A3(), 10000),
+                #         (Nf3(), 10000),
+                #         (E4(), 10000),
+                #         (TurnBoard(), 10000)],
+            ), weight=1)
 
 
 class WalkThePlank(Action):
@@ -4758,6 +4773,25 @@ class TrashThePlace(Action):
 
 
 # D slot actions
+
+
+class TurnBoard(Action):
+    """
+    Used for chess games against Lord Bartholomew 
+    """
+
+    slot = "d"
+
+    def __init__(self):
+        super(TurnBoard, self).__init__()
+        self.name = "Play poorly and turn the board around once you're losing."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "Lord Bartholomew laughs and concedes.",
+            succeed=True,
+        ), weight=1)
 
 
 class Donna(Action):
