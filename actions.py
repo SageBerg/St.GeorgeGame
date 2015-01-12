@@ -5710,7 +5710,8 @@ class DanceAJig(Action):
                 die=True,
             ), weight=3)
 
-        if character.place in places.populated:
+        if character.place in places.town or \
+           character.place == places.countryside:
             self.outcomes.add(Outcome(character,
                 "Some local peasants are entertained by your antics and toss "
                 "you some coins.",
