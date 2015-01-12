@@ -5117,9 +5117,9 @@ class LookForNymphs(Action):
 
         self.outcomes.add(Outcome(character,
             "You notice a man in a dark cloak stalking you.",
-                new_person=persons.assassin,
-                threat=True,
-            ), weight=1)
+            new_person=persons.assassin,
+            threat=True,
+        ), weight=1)
 
 
 class GiveCat(Action):
@@ -5168,7 +5168,8 @@ class Loot(Action):
 
     def execute(self, character):
 
-        item = random.choice(items.buyable)
+        item = random.choice(persons.local_merchant.get_sells() +
+                             persons.wealthy_merchant.get_sells())
 
         if item.name[0] in "aeiou":
             self.outcomes.add(Outcome(character,
