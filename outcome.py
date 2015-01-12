@@ -80,8 +80,7 @@ class Outcome(object):
         self.funcs = funcs
         self.actions = actions
         self.lose_money = lose_money
-        self.lose_all_money = lose_all_money
-
+        self.lose_all_money = lose_all_money 
     def execute(self):
         """
         NOTE: order of conditions must be logical (based on what should be
