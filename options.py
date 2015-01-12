@@ -81,7 +81,7 @@ def _add_person_actions(choices, character):
     if character.person == persons.lord_bartholomew:
         choices.add(actions.SuckUpTo(persons.lord_bartholomew), 5)
     if character.person == persons.lord_bartholomew:
-        choices.add(actions.AskForAsylum(), 10000)  # TODO fix weight
+        choices.add(actions.AskForAsylum(), 5)
     if character.person == persons.lord_carlos:
         if character.money >= money.small_fortune:
             choices.add(actions.RepayYourDebts(), 40)
@@ -111,7 +111,9 @@ def _add_person_actions(choices, character):
 
 
 def _add_place_actions(choices, character):
-    if not character.place in places.locked and character.place in places.town:
+    if not character.place in places.locked and \
+       character.place in places.town and \
+       not character.has_item(items.cat):
         choices.add(actions.LookForACat())
     if not character.threatened and not character.place in places.locked:
         for _ in range(5):
@@ -157,7 +159,8 @@ def _add_place_actions(choices, character):
         choices.add(actions.LookForTheWizard(), 1)
         choices.add(actions.DoSomeGambling(), 1)
     if character.place == places.lord_bartholomews_manor:
-        if persons.lord_bartholomew.alive:
+        if persons.lord_bartholomew.alive and \
+           character.person != persons.lord_bartholomew:
             choices.add(actions.Disguise(), 10)
             choices.add(actions.AskForAnAudienceWithLordBartholomew(), 10)
         choices.add(actions.SneakAround(), 10)
@@ -224,9 +227,11 @@ def _add_place_actions(choices, character):
             choices.add(actions.DrugHerWithYourLovePotion(persons.pretty_lady)
                         , 100)
     if character.place == places.tower:
-        #choices.add(actions.AskForAnAudienceWithLordDaniel(), 1)
-        choices.add(actions.ComplainAboutUnfairImprisonment(), 100)  # FIXME
-        choices.add(actions.TrainWithTheGuards(), 100)  # FIXME
+        if character.person != persons.lord_daniel and \
+           persons.lord_daniel.alive:
+            choices.add(actions.AskForAnAudienceWithLordDaniel(), 100)
+        choices.add(actions.TrainWithTheGuards(), 5)
+        choices.add(actions.ComplainAboutUnfairImprisonment(), 5)
     if character.place == places.void:
         choices.add(actions.LookForVoidDust(), 1)
     if character.place == places.wizards_lab:
@@ -246,6 +251,10 @@ def _add_place_actions(choices, character):
 
 
 def _add_item_actions(choices, character):
+    if character.has_item(items.foreign_coin) and \
+       (character.person == persons.lord_bartholomew or \
+       character.person == persons.lord_daniel):
+        choices.add(actions.ShowYourForeignCoin(), 100)  # FIXME
     if character.has_item(items.love_potion):
         choices.add(actions.SlurpDown(items.love_potion), 1)
     if character.has_item(items.tail_potion):

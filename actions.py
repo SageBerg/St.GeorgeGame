@@ -90,6 +90,34 @@ class AskForAnAudienceWithLordBartholomew(Action):
         ), weight=1000)  # TODO fix weight
 
 
+class AskForAnAudienceWithLordDaniel(Action):
+
+    slot = "a"
+
+    def __init__(self):
+        super(AskForAnAudienceWithLordDaniel, self).__init__()
+        self.name = "Ask for an audience with Lord Daniel."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "The guards laugh. \"{0},\" "
+            "one of the guards says.".format(random.choice([
+                "He has no time for peasants",
+                "Such audacity",
+                ])),
+            new_person=persons.guards,
+            clover=True,
+            fail=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "The guards mistake you for someone important and take you "
+            "to Lord Daniel.",
+            new_person=persons.lord_daniel,
+        ), weight=100)  # TODO fix weight
+
+
 class A3(Action):
 
     slot = "a"
@@ -248,47 +276,6 @@ class AskHerToTakeYouBackToLand(Action):
             self.outcomes.add(Outcome(character,
                 "She does.",
                 move_to=places.docks,
-            ), weight=1)
-
-
-class TrainWithTheGuards(Action):
-
-    slot = "a"
-
-    def __init__(self):
-        super(TrainWithTheGuards, self).__init__()
-        self.name = "Train with the guards."
-
-    def execute(self, character):
-
-        self.outcomes.add(Outcome(character,
-            "The guards throw you out for not filling out the proper "
-            "paperwork.",
-            move_to=places.streets,
-            fail=True,
-        ), weight=1)
-
-        self.outcomes.add(Outcome(character,
-            "You accidentally break your neck during training.",
-            clover=True,
-            die=True,
-        ), weight=1)
-
-        self.outcomes.add(Outcome(character,
-            "You get the badly beaten in wooden swrodplay.",
-            grow_stronger=1,
-        ), weight=1)
-
-        if character.get_attack() > 4:
-            self.outcomes.add(Outcome(character,
-                "You defeat the captain of the guards at wooden "
-                "swordplay. \"Not bad for a {0},\" he says"
-                ".".format(random.choice([
-                    "peasant",
-                    "lunatic",
-                    "simpleton",
-                    ])),
-                succeed=True,
             ), weight=1)
 
 
@@ -1545,6 +1532,47 @@ class ThumpYourselfOnTheChest(Action):
 
 
 # B slot actions
+
+
+class TrainWithTheGuards(Action):
+
+    slot = "b"
+
+    def __init__(self):
+        super(TrainWithTheGuards, self).__init__()
+        self.name = "Train with the guards."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "The guards throw you out for not filling out the proper "
+            "paperwork.",
+            move_to=places.streets,
+            fail=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You accidentally break your neck during training.",
+            clover=True,
+            die=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You get the badly beaten in wooden swrodplay.",
+            grow_stronger=1,
+        ), weight=1)
+
+        if character.get_attack() > 4:
+            self.outcomes.add(Outcome(character,
+                "You defeat the captain of the guards at wooden "
+                "swordplay. \"Not bad for a {0},\" he says"
+                ".".format(random.choice([
+                    "peasant",
+                    "lunatic",
+                    "simpleton",
+                    ])),
+                succeed=True,
+            ), weight=1)
 
 
 class Beth(Action):
@@ -4866,17 +4894,30 @@ class ShowYourForeignCoin(Action):
 
     slot = "d"
 
-    def __init__(self, person):
+    def __init__(self):
         super(ShowYourForeignCoin, self).__init__()
-        self.person = person
-        self.name = "Show " + self.person.name + " your shiny foreign coin."
+        self.name = "Show him your shiny foreign coin."
 
     def execute(self, character):
 
         if character.person == persons.lord_bartholomew:
 
             self.outcomes.add(Outcome(character,
-                "\"Damn, son. Where'd you find this?\""
+                "\"Damn, son. Where'd you find this?\" Lord Bartholomew asks. "
+                "He doesn't wait for your answer. Instead he takes the "
+                "coin and gives you a small fortune.",
+                remove_item=items.foreign_coin,
+                get_money=money.small_fortune,      
+            ), weight=1)
+
+        elif character.person == persons.lord_daniel:
+
+            self.outcomes.add(Outcome(character,
+                "Lord Daniel has his guards seize you and take your coin. "
+                "They then defenestrate you. Fortunately, you land in a pile "
+                "hay.",
+                move_to=places.streets,
+                remove_item=items.foreign_coin,
             ), weight=1)
 
 
