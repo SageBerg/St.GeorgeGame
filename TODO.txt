@@ -6,9 +6,11 @@
 -add Lord Bartholomew in field
 -add a score system
 -run a test to see how much each action gets executed
+-St. George's wallet
+-kiss your frog
 
 followers:
-  forment revolution
+  foment revolution
     gain follower
     gain right-hand-man
     gain left-hand-man
