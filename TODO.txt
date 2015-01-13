@@ -5,6 +5,7 @@
 -add Lord Bartholomew chess, give him pearl 
 -add Lord Bartholomew in field
 -add a score system
+-run a test to see how much each action gets executed
 
 followers:
   forment revolution
