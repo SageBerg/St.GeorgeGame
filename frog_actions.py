@@ -1,4 +1,4 @@
-from actions import Action
+﻿from actions import Action
 from outcome import Outcome
 
 
@@ -29,7 +29,7 @@ class Ribbit(Action):
     def execute(self, character):
 
         self.outcomes.add(Outcome(character,
-            "A woman notices you and kisses you, hoping your'll turn into a "
+            "A woman notices you and kisses you, hoping you'll turn into a "
             "prince. Instead she gets you. She is not impressed.",
             funcs=[character.defrogify],
         ), weight=1)
@@ -40,7 +40,7 @@ class Ribbit(Action):
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
-            "A loose weasal hears your ribbit and eats you.",
+            "A loose weasel hears your ribbit and eats you.",
             die=True
         ), weight=1)
 

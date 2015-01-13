@@ -1,4 +1,4 @@
-from actions import Action
+﻿from actions import Action
 from outcome import Outcome
 
 
@@ -12,8 +12,8 @@ class AnnihilateEverything(Action):
 
     def execute(self, character):
         self.outcomes.add(Outcome(character,
-            "You start annihilating everything, but the four horsemen of "
-            "apocalypse steal your thunder. You perish in the chaos.",
+            "You start annihilating everything, but the Four Horsemen of "
+            "the Apocalypse steal your thunder. You perish in the chaos.",
             die=True,
         ), weight=1)
 
@@ -30,7 +30,7 @@ class TerrorizeTheKingdom(Action):
 
         self.outcomes.add(Outcome(character,
             "You wreak havoc on a titanic scale, but you eventually fall "
-            "alseep. By the time you wake up, science has advanced so much "
+            "asleep. By the time you wake up, science has advanced so much "
             "that the world government simply nukes you into oblivion.",
             die=True,
         ), weight=1)
