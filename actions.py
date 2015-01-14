@@ -44,6 +44,82 @@ class Action(object):
 # A slot actions
 
 
+class KissYourFrog(Action):
+
+    slot = "a"
+
+    def __init__(self):
+        super(KissYourFrog, self).__init__()
+        self.name = random.choice(["Kiss your frog."]*9 + ["Snog your frog."])
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "The frog turns into an assassin. He assassinates you.",
+            clover=True,
+            die=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "The frog turns into a cat.",
+            remove_item=items.frog,
+            add_item=items.cat,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "The frog turns into a prince. The prince rewards you with a bag "
+            "of jewels.",
+            remove_item=items.frog,
+            add_item=items.jewels,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "The frog turns into a prince. The prince is disgusted to be "
+            "kissing a man and has you put to death.",
+            clover=True,
+            die=True,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "The frog turns into a peasant woman. \"Oh blessed be Lord "
+            "Bartholomew!\" she exclaims.",
+            remove_item=items.frog,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "The frog turns into an ugly fat man. He starts shaking you "
+            "violently. \"I liked being a frog!\" he yells before storming "
+            "off.",
+            remove_item=items.frog,
+        ), weight=1)
+        
+        self.outcomes.add(Outcome(character,
+            "The frog seems to enjoy it.",
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You feel stupid kissing a frog.",
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "The frog turns into a guard. He says you must be a lunatic for "
+            "kissing a frog, but he lets this one slide.",
+            remove_item=items.frog,
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "The frog turns into an old woman. She thanks you and gives you "
+            "some mushrooms.",
+            succeed=True,
+            funcs_with_args=[(character.add_item, items.white_mushroom),
+                             (character.add_item, items.black_mushroom),
+                             (character.add_item, items.yellow_mushroom),
+                             (character.add_item, items.many_colored_mushroom),
+                   ],
+            remove_item=items.frog,
+        ), weight=1)
+
+
 class Anne(Action):
     """
     used when guessing Eve's name
@@ -6166,6 +6242,12 @@ class SnoopAround(Action):
             "You find a fancy red cloak.",
             actions=[(TakeIt(persons.wizard, items.fire_proof_cloak), 100)],
             topic="cloaks",
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "You find a frog.",
+            add_item=items.frog,
+            topic="frogs",
         ), weight=1)
 
 

@@ -253,6 +253,8 @@ def _add_place_actions(choices, character):
 
 
 def _add_item_actions(choices, character):
+    if character.has_item(items.frog):
+        choices.add(actions.KissYourFrog(), 10)
     if character.has_item(items.foreign_coin) and \
        (character.person == persons.lord_bartholomew or \
        character.person == persons.lord_daniel):
