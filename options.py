@@ -232,7 +232,7 @@ def _add_place_actions(choices, character):
         if character.person != persons.lord_daniel and \
            persons.lord_daniel.alive:
             choices.add(actions.AskForAnAudienceWithLordDaniel(), 100)
-        choices.add(actions.TrainWithTheGuards(), 5)
+            choices.add(actions.TrainWithTheGuards(), 5)
         choices.add(actions.ComplainAboutUnfairImprisonment(), 5)
     if character.place == places.void:
         choices.add(actions.LookForVoidDust(), 1)
