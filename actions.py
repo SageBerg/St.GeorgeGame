@@ -115,7 +115,7 @@ class KissYourFrog(Action):
                              (character.add_item, items.black_mushroom),
                              (character.add_item, items.yellow_mushroom),
                              (character.add_item, items.many_colored_mushroom),
-                   ],
+                            ],
             remove_item=items.frog,
         ), weight=1)
 
@@ -3311,32 +3311,51 @@ class ComplainAboutUnfairImprisonment(Action):
 
     def execute(self, character):
 
-        self.outcomes.add(Outcome(character,
-            "The guards say it's fair if Lord Daniel says it's fair.",
-            new_person=persons.guards,
-        ), weight=1)
+        if character.person != persons.lord_daniel:
+            self.outcomes.add(Outcome(character,
+                "The guards say it's fair if Lord Daniel says it's fair.",
+                new_person=persons.guards,
+            ), weight=1)
 
-        self.outcomes.add(Outcome(character,
-            "The guards argue with you about the finer points "
-            "of the justice system.",
-        ), weight=1)
+            self.outcomes.add(Outcome(character,
+                "The guards argue with you about the finer points "
+                "of the justice system.",
+            ), weight=1)
 
-        self.outcomes.add(Outcome(character,
-            "The guards arrest you on charges of lunacy and throw you in "
-            "prison with the other lunatics.",
-            new_person=persons.other_lunatics,
-            move_to=places.prison,
-        ), weight=1)
+            self.outcomes.add(Outcome(character,
+                "The guards arrest you on charges of lunacy and throw you in "
+                "prison with the other lunatics.",
+                new_person=persons.other_lunatics,
+                move_to=places.prison,
+            ), weight=1)
 
-        self.outcomes.add(Outcome(character,
-            "A bureaucrat says she'll let Lord Daniel know of your "
-            "concerns.",
+            self.outcomes.add(Outcome(character,
+                "A bureaucrat says she'll let Lord Daniel know of your "
+                "concerns.",
             succeed=True,
-        ), weight=1)
+            ), weight=1)
 
-        self.outcomes.add(Outcome(character,
-            "A cook assures you that Lord Bartholomew will set things right.",
-        ), weight=1)
+            self.outcomes.add(Outcome(character,
+                "A cook assures you that Lord Bartholomew will set things right.",
+            ), weight=1)
+        else:  # when talking wiht Lord Daniel
+            self.outcomes.add(Outcome(character,
+                "Lord Daniel has his guards carry out of the tower and dump "
+                "in a pile of manure.",
+                move_to=places.streets,
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "Lord Daniel explains to you that your lack of mental "
+                "capacity would never allow you to understand his complex "
+                "policies.",
+            ), weight=1)
+
+            self.outcomes.add(Outcome(character,
+                "Lord Daniel gives you a lengthy lecture about how life "
+                "isn't fair.",
+                topic="boredom",
+            ), weight=1)
 
 
 class Hide(Action):
