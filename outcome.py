@@ -36,6 +36,7 @@ class Outcome(object):
                  remove_employer=None,
                  topic=None,
                  funcs=(),  # USAGE [action]
+                 funcs_with_args=(),  # USAGE [(action, arg)]
                  actions=(),  # USAGE: [(Action action(), int weight)]
                  succeed=False,
                  lose_money=None,  # USAGE: (int amount)
@@ -79,6 +80,7 @@ class Outcome(object):
         self.add_employer = add_employer
         self.remove_employer = remove_employer
         self.funcs = funcs
+        self.funcs_with_args = funcs_with_args 
         self.actions = actions
         self.lose_money = lose_money
         self.lose_all_money = lose_all_money 
@@ -161,6 +163,9 @@ class Outcome(object):
             self.character.grow_stronger(self.grow_stronger)
         for func in self.funcs:
             func()
+        for tup in self.funcs_with_args:
+            tup[0](tup[1])  # tup[0] is the function
+                            # tup[1] is the argument 
         if self.lose_money is not None:
             self.character.lose_money(self.lose_money)
         if self.lose_money:
