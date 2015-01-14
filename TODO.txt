@@ -1,13 +1,9 @@
 1.0 (not all-inclusive list yet)
--make population and world classes
--replace all action arguments with alternatives
 -add Lord Daniel actions
 -add Lord Bartholomew chess, give him pearl 
 -add Lord Bartholomew in field
--add a score system
 -run a test to see how much each action gets executed
 -St. George's wallet
--kiss your frog
 
 followers:
   foment revolution
