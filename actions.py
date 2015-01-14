@@ -5022,6 +5022,7 @@ class DouseHerWithYourLovePotion(Action):
             
             self.outcomes.add(Outcome(character,
                 "You miss. The nymph queen giggles and turns you into a shrub.",
+                score=100,
                 lose=True,
             ), weight=1)
 

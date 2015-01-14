@@ -39,7 +39,8 @@ class Outcome(object):
                  actions=(),  # USAGE: [(Action action(), int weight)]
                  succeed=False,
                  lose_money=None,  # USAGE: (int amount)
-                 lose_all_money=False
+                 lose_all_money=False,
+                 score=1,  # each action gives you one point by default
                  ):
         self.add_item = add_item
         self.remove_item = remove_item
@@ -81,6 +82,8 @@ class Outcome(object):
         self.actions = actions
         self.lose_money = lose_money
         self.lose_all_money = lose_all_money 
+        self.score = score
+
     def execute(self):
         """
         NOTE: order of conditions must be logical (based on what should be
@@ -116,6 +119,9 @@ class Outcome(object):
             self.character.move(self.move)
         if self.move_to:
             self.character.move_to(self.move_to)
+        if self.win:
+            self.score += 100     
+        self.character.score += self.score
         if self.die:
             if self.character.has_item(items.four_leaf_clover) and \
                self.clover:

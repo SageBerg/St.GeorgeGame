@@ -25,6 +25,7 @@ class Character(object):
                  alone=True,
                  place=None,
                  person=None,
+                 score=1,
                  ):
         if items is None:
             self.items = {
@@ -53,6 +54,7 @@ class Character(object):
         self.alone = alone
         self.place = place
         self.person = person
+        self.score = score 
 
     def grow_stronger(self, amount):
         print("You grow stronger.")
@@ -128,6 +130,7 @@ class Character(object):
         Kill the character.
         """
         print("You are dead.")
+        print("Score: " + str(self.score))
         self.alive = False
 
     def move(self, distance=1):
@@ -176,6 +179,7 @@ class Character(object):
         Win the game.
         """
         print("You win!")
+        print("Score: " + str(self.score))
         self.alone = False
 
     def add_employer(self, employer):
