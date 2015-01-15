@@ -3,7 +3,6 @@
 -add Lord Bartholomew chess, give him pearl 
 -add Lord Bartholomew in field
 -run a test to see how much each action gets executed
--St. George's wallet
 
 followers:
   foment revolution
