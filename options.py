@@ -81,6 +81,7 @@ def _add_person_actions(choices, character):
     if character.person == persons.lord_bartholomew:
         choices.add(actions.SuckUpTo(persons.lord_bartholomew), 5)
     if character.person == persons.lord_bartholomew:
+        choices.add(actions.ChatWithLordBartholomew(), 5)
         choices.add(actions.AskForAsylum(), 5)
     if character.person == persons.lord_carlos:
         if character.money >= money.small_fortune:

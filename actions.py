@@ -3185,6 +3185,73 @@ class LookForMermaids(Action):
 # C slot actions
 
 
+class ChatWithLordBartholomew(Action):
+
+    slot = "c"
+
+    def __init__(self):
+        super(ChatWithLordBartholomew, self).__init__()
+        self.name = "Chat with Lord Bartholomew."
+
+    def execute(self, character):
+
+        self.outcomes.add(Outcome(character,
+            "Lord Bartholomew talks about the injustices in the world "
+            "and how action is needed to set them right.",
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "Lord Bartholomew is genuinly interested in your life story.",
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "Lord Bartholomew says that a cause is the only "
+            "thing worth dying for.",
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "Lord Bartholomew stresses the value of hard work and the "
+            "importance of the peasant class.",
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "Lord Bartholomew takes you on a walk and shows you the "
+            "sights around the countryside. You don't get much of a chance "
+            "to talk to him because too many peasants are clamoring to get "
+            "his autograph.",
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "Lord Bartholomew says the only man of any value in the town is "
+            "St. George.",
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "Lord Bartholomew says Lord Arthur is a rascal, who will be "
+            "delt with when the time comes.",
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "Lord Bartholomew says Lord Daniel is a tyrant, who will be "
+            "delt with when the time comes.",
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "Lord Bartholomew says Lord Carlos is a blackguard, who will be "
+            "delt with when the time comes. You couldn't agree more.",
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "Lord Bartholomew says the wizard is a dangerous man, who will be "
+            "delt with when the time comes.",
+        ), weight=1)
+
+        self.outcomes.add(Outcome(character,
+            "Lord Bartholomew says that family is the only thing worht living "
+            "for.",
+        ), weight=1)
+
+
 class Eve(Action):
     """
     Used when guessing Eve's name
