@@ -1,7 +1,6 @@
 1.0 (not all-inclusive list yet)
 -add Lord Daniel actions
--add Lord Bartholomew chess, give him pearl 
--add Lord Bartholomew in field
+-add Lord Bartholomew chess
 -run a test to see how much each action gets executed
 
 followers:

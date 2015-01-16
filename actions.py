@@ -3051,11 +3051,9 @@ class TipACow(Action):
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
-            "You're not strong enough to push the cow over, but you notice a "
-            "pearl in the field.",
+            "You're not strong enough to push the cow over.",
             new_person=None,
-            add_item=items.pearl,
-            topic="pearls and cows",
+            topic="cows",
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
