@@ -163,7 +163,7 @@ class AskForAnAudienceWithLordBartholomew(Action):
         self.outcomes.add(Outcome(character,
             "You are granted one." ,
             new_person=persons.lord_bartholomew,
-        ), weight=1000)  # TODO fix weight
+        ), weight=1)
 
 
 class AskForAnAudienceWithLordDaniel(Action):
@@ -191,7 +191,7 @@ class AskForAnAudienceWithLordDaniel(Action):
             "The guards mistake you for someone important and take you "
             "to Lord Daniel.",
             new_person=persons.lord_daniel,
-        ), weight=100)  # TODO fix weight
+        ), weight=1)
 
 
 class A3(Action):
@@ -385,7 +385,7 @@ class AskHerToBrew(Action):
                 "a large batch.",
                 add_item=self.potion,
                 funcs=[lambda: character.remove_item(items.cat),
-                       lambda: character.remove_item(items.pearl)]
+                       lambda: character.remove_item(items.pearl)],
             ), weight=1)
 
         if self.potion.name == "potion of strength":
@@ -394,7 +394,7 @@ class AskHerToBrew(Action):
                 "a large batch.",
                 add_item=self.potion,
                 funcs=[lambda: character.remove_item(items.white_mushroom),
-                       lambda: character.remove_item(items.deep_cave_newt)]
+                       lambda: character.remove_item(items.deep_cave_newt)],
             ), weight=1)
 
 
@@ -410,17 +410,17 @@ class Think(Action):
 
         self.outcomes.add(Outcome(character,
             "You come up with four brilliant ideas.",
-            actions=[(LickTheGround(character.place), 10)]
+            actions=[(LickTheGround(character.place), 10)],
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You concoct an elaborate scheme.",
-            actions=[(EnactYourElaborateScheme(), 10000)]
+            actions=[(EnactYourElaborateScheme(), 10000)],
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "All you can think is \"Think. Think. Think.\".",
-            fail=True
+            fail=True,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
@@ -444,12 +444,12 @@ class Think(Action):
             persons.pretty_lady.name != "Olga":
             self.outcomes.add(Outcome(character,
                 "You think about a pretty lady you saw in the tavern.",
-                topic="marriage"
+                topic="marriage",
             ), weight=1)
         elif persons.pretty_lady.name == "Olga":
             self.outcomes.add(Outcome(character,
                 "You think about Olga.",
-                topic="marriage"
+                topic="marriage",
             ), weight=1)
 
         if character.place == places.wizards_lab or \
@@ -464,7 +464,7 @@ class Think(Action):
             self.outcomes.add(Outcome(character,
                 "You think about how painful it would be to get stabbed. "
                 "You soon find out.",
-                die=True
+                die=True,
             ), weight=4)
 
         if character.place == places.docks:
@@ -497,49 +497,49 @@ class Think(Action):
             self.outcomes.add(Outcome(character,
                 "You think you can survive the jump from the top of the "
                 "tower.",
-                die=True
+                die=True,
             ), weight=5)
 
             self.outcomes.add(Outcome(character,
                 "While you're thinking, a guard hands you an ax and tells "
                 "you to chop firewood for the cooks.",
-                add_item=items.ax
+                add_item=items.ax,
             ), weight=5)
 
         if character.place == places.countryside:
             self.outcomes.add(Outcome(character,
                 "You think about Lord Bartholomew.",
-                topic="Lord Bartholomew"
+                topic="Lord Bartholomew",
             ), weight=3)
 
             self.outcomes.add(Outcome(character,
                 "You wonder if any peasant women would "
                 "go for a man like you.",
-                topic="peasants"
+                topic="peasants",
             ), weight=2)
 
         if character.place == places.woods:
             self.outcomes.add(Outcome(character,
                 "You think about fire.",
-                topic="fire"
+                topic="fire",
             ), weight=3)
 
         if character.place == places.church:
             self.outcomes.add(Outcome(character,
                 "You wonder what life is all about and feel smug "
                 "for being so philosophical.",
-                topic="yourself"
+                topic="yourself",
             ), weight=3)
 
         if character.place == places.arctic:
             self.outcomes.add(Outcome(character,
                 "You think about ice.",
-                topic="ice"
+                topic="ice",
             ), weight=3)
 
             self.outcomes.add(Outcome(character,
                 "You can't think about much besides how cold you are.",
-                topic="misery"
+                topic="misery",
             ), weight=4)
 
         if character.place == places.cave:
@@ -553,11 +553,11 @@ class Think(Action):
             ), weight=3)
 
             self.outcomes.add(Outcome(character,
-                "You think about death."
+                "You think about death.",
             ), weight=3)
 
             self.outcomes.add(Outcome(character,
-                "You think about suffocation."
+                "You think about suffocation.",
             ), weight=3)
 
         if character.person:
@@ -567,7 +567,7 @@ class Think(Action):
             ), weight=3)
 
             self.outcomes.add(Outcome(character,
-                "You space out."
+                "You space out.",
             ), weight=2)
 
 
@@ -698,47 +698,47 @@ class SuckUpTo(Action):
 
             self.outcomes.add(Outcome(character,
                 "Lord Bartholomew wishes you well and sends you on your way.",
-                move_to=places.countryside
+                move_to=places.countryside,
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
                 "Lord Bartholomew takes a liking to you and gives you a long "
                 "pitchfork.",
-                add_item=items.long_pitchfork
+                add_item=items.long_pitchfork,
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
                 "Lord Bartholomew tells you to take more pride in yourself.",
-                succeed=True
+                succeed=True,
             ), weight=1)
 
         if self.person == persons.lord_carlos:
 
             self.outcomes.add(Outcome(character,
-                "He tells you that your are forgiven, but his men never fail."
+                "He tells you that your are forgiven, but his men never fail.",
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
                 "He has you thrown out the window.",
-                move_to=places.woods
+                move_to=places.woods,
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
                 "Lord Carlos is having none of it. He kills you.",
-                die=True
+                die=True,
             ), weight=1)
 
         if self.person == persons.lord_daniel:
 
             self.outcomes.add(Outcome(character,
                 "Lord Daniel sends you away.",
-                move_to=places.streets
+                move_to=places.streets,
             ), weight=1)
 
 
             self.outcomes.add(Outcome(character,
                 "Lord Daniel questions your sanity.",
-                fail=True
+                fail=True,
             ), weight=1)
 
 
@@ -778,13 +778,13 @@ class Swashbuckle(Action):
                 self.outcomes.add(Outcome(character,
                     "You kill several innocent merchants. Lord Arthur is "
                     "pleased and gives you a large share of the plunder.",
-                    get_money=money.large_fortune
+                    get_money=money.large_fortune,
                 ), weight=1)
             else:
                 self.outcomes.add(Outcome(character,
                     "You kill several innocent merchants. The captain is "
                     "pleased and gives you a large share of the plunder.",
-                    get_money=money.large_fortune
+                    get_money=money.large_fortune,
                 ), weight=1)
 
         else:
@@ -792,25 +792,25 @@ class Swashbuckle(Action):
             self.outcomes.add(Outcome(character,
                 "You find it difficult to swashbuckle without a cutlass. "
                 "You are soon killed.",
-                die=True
+                die=True,
             ), weight=1)
 
         if persons.lord_arthur.alive:
             self.outcomes.add(Outcome(character,
                 "You manage to hold your own. Afterwards Lord Arthur divvies "
                 "up the booty.",
-                add_item=items.jewels
+                add_item=items.jewels,
             ), weight=1)
         else:
             self.outcomes.add(Outcome(character,
                 "You manage to hold your own. Afterwards you divide "
                 "the booty.",
-                add_item=items.jewels
+                add_item=items.jewels,
             ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "A cabin boy stabs you in the back during the fight.",
-            die=True
+            die=True,
         ), weight=1)
 
         if not character.has_item(items.sailor_peg) and \
@@ -819,7 +819,7 @@ class Swashbuckle(Action):
             self.outcomes.add(Outcome(character,
                 "You lose your leg in the battle, but Lord Arthur gives you a "
                 "sailor peg as a replacement.",
-                add_item=items.sailor_peg
+                add_item=items.sailor_peg,
             ), weight=1)
 
 
@@ -978,13 +978,13 @@ class AskAboutAssassins(Action):
             "The first person you ask about assassins turns "
             "out to be an assassin. She assassinates you.",
             clover=True,
-            die=True
+            die=True,
         ), weight=3)
 
         self.outcomes.add(Outcome(character,
             "You ask around, but nobody has heard anything "
             "about assassins.",
-            fail=True
+            fail=True,
         ), weight=1)
 
         if character.place == places.tavern and \
@@ -993,12 +993,12 @@ class AskAboutAssassins(Action):
                 "During your search, you strike up a conversation "
                 "with a pretty lady.",
                 new_person=persons.pretty_lady
-            ), weight=100) # TODO fix weight
+            ), weight=1)
 
         if character.place == places.lord_carlos_manor:
             self.outcomes.add(Outcome(character,
                 "You ask a servant about assassins. She asks you to wait where "
-                "you are."
+                "you are.",
             ), weight=10)
 
 
@@ -1016,13 +1016,13 @@ class AskDirections(Action):
             self.outcomes.add(Outcome(character,
                 "He tells you there are four directions, north, south, "
                 "east, and west.",
-                fail=True
+                fail=True,
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
                 "He tells you the only direction worth going is to Lord "
                 "Bartholomew's house.",
-                fail=True
+                fail=True,
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
@@ -1068,20 +1068,20 @@ class AdmireYourJewels(Action):
     def execute(self, character):
 
         self.outcomes.add(Outcome(character,
-            "You decide that your jewels outclass everything else you have."
+            "You decide that your jewels outclass everything else you have.",
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You decide to store your jewels in your stomach for safe "
             "keeping.",
             remove_item=items.jewels,
-            topic="mules"
+            topic="mules",
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You find a pearl in your bag of jewels",
             add_item=items.pearl,
-            topic="pearls"
+            topic="pearls",
         ), weight=1)
 
         if character.place in places.populated:
@@ -1100,7 +1100,7 @@ class AdmireYourJewels(Action):
                 "must be a lunatic",
                 new_person=persons.guards,
                 threat=True,
-                topic='curious'
+                topic='curious',
             ), weight=2)
 
 
@@ -1354,7 +1354,7 @@ class LookForStGeorge(Action):
         self.outcomes.add(Outcome(character,
             "You trip over a cat and break your neck.",
             clover=True,
-            die=True
+            die=True,
         ), weight=1)
 
         if persons.st_george.alive:
@@ -1458,12 +1458,12 @@ class KillEverybodyInAFitOfRage(Action):
 
         self.outcomes.add(Outcome(character,
             "You start with yourself.",
-            die=True
+            die=True,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You make no exceptions.",
-            die=True
+            die=True,
         ), weight=1)
 
         if character.person == persons.pirates and \
@@ -1496,7 +1496,7 @@ class SayYouLoveHer(Action):
             self.outcomes.add(Outcome(character,
                 "\"What a shame,\" an assassin says as he steps into the room. "
                 "He shoots you with a crossbow.",
-                die=True
+                die=True,
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
@@ -1506,7 +1506,7 @@ class SayYouLoveHer(Action):
                 new_person=persons.fat_lady,
                 actions=[
                     (MarryFelicity(), 777),
-                    (RunLikeTheDevil(), 666)]
+                    (RunLikeTheDevil(), 666)],
             ), weight=9)
 
 
@@ -1525,7 +1525,7 @@ class MarryOlga(Action):
             "an alley behind the church. Olga asks the priestess if she would "
             "like to come along for the honeymoon, but the priestess "
             "declines.",
-            win=True
+            win=True,
         ), weight=1)
 
         if persons.lord_arthur.alive:
@@ -1533,7 +1533,7 @@ class MarryOlga(Action):
                 "Lord Arthur performs a wedding for you and Olga on the deck "
                 "of his pirate ship. By the time the ceremony is over the "
                 "ship has sailed. You are now both members of the crew.",
-                win=True
+                win=True,
             ), weight=1)
 
         if persons.wizard.alive:
@@ -1541,7 +1541,7 @@ class MarryOlga(Action):
                 "The wizard performs a wedding for you and Olga in the market. "
                 "He turns you both into sheep after the vows, but it is much "
                 "safer being sheep.",
-                win=True
+                win=True,
             ), weight=1)
 
         if persons.lord_bartholomew.alive:
@@ -1549,7 +1549,7 @@ class MarryOlga(Action):
                 "Lord Bartholomew performs a wedding for you and Olga in the "
                 "countryside. 20,000 people attend your wedding, but you "
                 "suspect they just wanted to see Lord Bartholomew.",
-                win=True
+                win=True,
             ), weight=1)
 
 
@@ -1565,7 +1565,7 @@ class MarryFelicity(Action):
 
         self.outcomes.add(Outcome(character,
             "St. George secretly performs a wedding for you and Felicity.",
-            win=True
+            win=True,
         ), weight=9)
 
 
