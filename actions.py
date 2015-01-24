@@ -1719,18 +1719,18 @@ class RepayYourDebts(Action):
         self.outcomes.add(Outcome(character,
             "He takes your money but says, \"No amount of money can make up "
             "for what you've done.\"",
-            lose_all_money=True
+            lose_all_money=True,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "He informs you that your death is the only form of repayment he "
             "will accept. Your debts are soon settled.",
-            die=True
+            die=True,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "He takes your money and kills you.",
-            die=True
+            die=True,
         ), weight=1)
 
 
@@ -1800,23 +1800,23 @@ class Grovel(Action):
 
         self.outcomes.add(Outcome(character,
             "Lord Carlos is having none of it. He kills you.",
-            die=True
+            die=True,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "Lord Carlos kills you for being obsequious.",
-            die=True
+            die=True,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "He is not interested in your tired excuses. He kills you.",
-            die=True
+            die=True,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "He asks a servant to get you out of his sight. You are "
             "unceremoniously thrown out of the manor.",
-            move_to=places.woods
+            move_to=places.woods,
         ), weight=1)
 
 
@@ -1992,12 +1992,12 @@ class SwingOnARope(Action):
                 "You manage to knock a merchant off a rope. The captain "
                 "rewards your bravery after the battle is over.",
                 succeed=True,
-                add_item=items.fish
+                add_item=items.fish,
             ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "A merchant cuts you down.",
-            die=True
+            die=True,
         ), weight=1)
 
 
@@ -2176,7 +2176,7 @@ class Disguise(Action):
 
             self.outcomes.add(Outcome(character,
                 "No one is buying it. You are soon assassinated.",
-                die=True
+                die=True,
             ), weight=1)
 
 
@@ -2195,7 +2195,7 @@ class BurnThePlaceToTheGround(Action):
             self.outcomes.add(Outcome(character,
                 "You accidentally set yourself on fire and promptly burn to "
                 "the ground.",
-                die=True
+                die=True,
             ), weight=1)
         else:
             if self.place in places.burnable:
@@ -2204,7 +2204,7 @@ class BurnThePlaceToTheGround(Action):
                     "fancy red cloak is fireproof.",
                     burn_place=self.place,
                     succeed=True,
-                    move_to=self.place
+                    move_to=self.place,
                 ), weight=1)
 
         if self.place in places.burnable:
@@ -2212,26 +2212,26 @@ class BurnThePlaceToTheGround(Action):
                 None,
                 burn_place=self.place,
                 succeed=True,
-                move_to=self.place
+                move_to=self.place,
             ), weight=4)
 
         if character.place == places.lord_carlos_manor:
             self.outcomes.add(Outcome(character,
                 "You get assassinated while looking for kindling.",
-                die=True
+                die=True,
             ), weight=40)
 
         if character.person == persons.st_george:
             self.outcomes.add(Outcome(character,
                 "St. George sees you attempting arson and smites you.",
-                die=True
+                die=True,
             ), weight=30)
 
         if character.person == persons.st_george:
             self.outcomes.add(Outcome(character,
                 "The wizard sees you attempting arson and turns you into a "
                 "frog. He steps on you.",
-                die=True
+                die=True,
             ), weight=20)
 
 
@@ -2281,45 +2281,45 @@ class ClimbIntoTheCrowsNest(Action):
                 (Swashbuckle(), 1000),
                 (SwingOnARope(), 1000),
                 (FireACanon(), 1000),
-                (HideUnderTheDeck(), 1000)]
+                (HideUnderTheDeck(), 1000)],
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You are able to help guide the ship to land.",
             succeed=True,
-            move_to=places.woods
+            move_to=places.woods,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You are able to help guide the ship to the docks.",
             succeed=True,
-            move_to=places.docks
+            move_to=places.docks,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You drop your bag on your way up the mast. A pirate takes it.",
             remove_all_items=True,
             fail=True,
-            topic="treachery"
+            topic="treachery",
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You fall off the mast on the way up mast.",
             clover=True,
-            die=True
+            die=True,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "A crow in the crow's nest caws in your face, startling "
             "you. You fall off the mast and land on the deck.",
-            die=True
+            die=True,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "A crow in the crow's nest caws in your face, startling "
             "you. You fall off the mast and land in the water.",
             fail=True,
-            move_to=places.ocean
+            move_to=places.ocean,
         ), weight=1)
 
 
@@ -2337,11 +2337,11 @@ class RaiseASail(Action):
             self.outcomes.add(Outcome(character,
                 "Lord Arthur has you killed for raising the wrong sail.",
                 clover=True,
-                die=True
+                die=True,
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
-                "Lord Arthur yells at you to scrub the deck."
+                "Lord Arthur yells at you to scrub the deck.",
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
@@ -2351,7 +2351,7 @@ class RaiseASail(Action):
                     (Swashbuckle(), 1000),
                     (SwingOnARope(), 1000),
                     (FireACanon(), 1000),
-                    (HideUnderTheDeck(), 1000)]
+                    (HideUnderTheDeck(), 1000)],
             ), weight=1)
 
             if not character.is_employed_by(persons.lord_arthur):
@@ -2369,13 +2369,13 @@ class RaiseASail(Action):
                     (Swashbuckle(), 1000),
                     (SwingOnARope(), 1000),
                     (FireACanon(), 1000),
-                    (HideUnderTheDeck(), 1000)]
+                    (HideUnderTheDeck(), 1000)],
             ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You help the ship return to the docks quicker.",
             succeed=True,
-            move_to=places.docks
+            move_to=places.docks,
         ), weight=1)
 
 
@@ -2391,7 +2391,7 @@ class ScrubTheDeck(Action):
 
         self.outcomes.add(Outcome(character,
             "You scrub the deck until it sparkles, then you scrub it some "
-            "more."
+            "more.",
         ), weight=1)
 
         if persons.lord_arthur.alive:
@@ -2402,18 +2402,18 @@ class ScrubTheDeck(Action):
                     (Swashbuckle(), 1000),
                     (SwingOnARope(), 1000),
                     (FireACanon(), 1000),
-                    (HideUnderTheDeck(), 1000)]
+                    (HideUnderTheDeck(), 1000)],
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
-                "Lord Arthur yells at you to raise a sail."
+                "Lord Arthur yells at you to raise a sail.",
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
                 "You dislocate your shoulder scrubbing and Lord Arthur has no "
                 "further use for you. He has you thrown off the ship.",
                 clover=True,
-                die=True
+                die=True,
             ), weight=1)
 
             if character.is_employed_by(persons.lord_arthur):
@@ -2446,7 +2446,7 @@ class PlayDead(Action):
 
         self.outcomes.add(Outcome(character,
             "You soon are.",
-            die=True
+            die=True,
         ), weight=2)
 
         if character.person != persons.lord_carlos:
@@ -2455,7 +2455,7 @@ class PlayDead(Action):
                     character.person.name),
                 unthreat=True,
                 new_person=None,
-                fail=True
+                fail=True,
             ), weight=1)
         else:
             self.outcomes.add(Outcome(character,
@@ -2467,14 +2467,14 @@ class PlayDead(Action):
 
         self.outcomes.add(Outcome(character,
             "You go the extra mile to make it realistic.",
-            die=True
+            die=True,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "Just to be sure, {0} kill{1} you.".format(
                 character.person.name,
                 persons.get_tense(character.person)),
-            die=True
+            die=True,
         ), weight=1)
 
 
@@ -2490,48 +2490,48 @@ class PrayToAHigherPower(Action):
 
         self.outcomes.add(Outcome(character,
             "Your prayers go unanswered.",
-            fail=True
+            fail=True,
         ), weight=2)
 
         if character.has_any_items():
             self.outcomes.add(Outcome(character,
                 "God decides to test you.",
-                remove_all_items=True
+                remove_all_items=True,
             ), weight=2)
 
         self.outcomes.add(Outcome(character,
             "God speaks to you and shows you the way.",
-            topic="arson"
+            topic="arson",
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "God tells you to marry the nymph queen.",
-            topic="nymphs"
+            topic="nymphs",
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "Your prayers are answered.",
-            get_money=money.small_fortune
+            get_money=money.small_fortune,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "Your prayers for a beautiful wife are answered but she soon "
             "leaves you.",
             fail=True,
-            topic="divorce"
+            topic="divorce",
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "Your prayers aren't answered, but the assassins' are.",
             clover=True,
-            die=True
+            die=True,
         ), weight=1)
 
         if character.place in places.burnable:
 
             self.outcomes.add(Outcome(character,
                 "Your prayers are answered.",
-                burn_place=character.place
+                burn_place=character.place,
             ), weight=1)
 
         if character.place == places.tavern:
@@ -2540,7 +2540,7 @@ class PrayToAHigherPower(Action):
                 "God does nothing for you, but you do find a small sack of "
                 "jewels someone left on a counter.",
                 add_item=items.jewels,
-                topic='jewels'
+                topic='jewels',
             ), weight=1)
 
         if character.place in places.town and \
@@ -2548,7 +2548,7 @@ class PrayToAHigherPower(Action):
 
             self.outcomes.add(Outcome(character,
                 "St. George joins you in prayer.",
-                new_person=persons.st_george
+                new_person=persons.st_george,
             ), weight=1)
 
 
@@ -2574,13 +2574,13 @@ class BegForMoney(Action):
                 self.outcomes.add(Outcome(character,
                     "St. George becomes irritated by your begging "
                     "and crushes you with his iron hammer.",
-                    die=True
+                    die=True,
                 ), weight=1)
 
                 self.outcomes.add(Outcome(character,
                     "St. George smites you with his saintly wraith "
                     "for being ungrateful.",
-                    die=True
+                    die=True,
                 ), weight=1)
 
             else:
@@ -2685,7 +2685,7 @@ class BuyBlackMarketItem(Action):
                     "merchant witch",
                     "monger of rare items",])),
                 add_item=self.item,
-                lose_money=self.price
+                lose_money=self.price,
             ), weight=3)
 
         else:
@@ -2723,7 +2723,7 @@ class BuyItem(Action):
             self.outcomes.add(Outcome(character,
                 None,
                 add_item=self.item,
-                lose_money=self.price
+                lose_money=self.price,
             ), weight=3)
 
         else:
@@ -2754,7 +2754,7 @@ class BuyWeapon(Action):
             self.outcomes.add(Outcome(character,
                 None,
                 add_item=self.weapon,
-                lose_money=self.price
+                lose_money=self.price,
             ), weight=3)
 
         else:
@@ -2796,13 +2796,13 @@ class BuyADrink(Action):
             self.outcomes.add(Outcome(character,
                 "As you drink, you hear a peasant talking about how great "
                 "Lord Bartholomew is.",
-                topic='Lord Bartholomew'
+                topic="Lord Bartholomew",
             ), weight=2)
 
             self.outcomes.add(Outcome(character,
                 "A man in a black cloak sits next to you and orders a drink.",
                 new_person=persons.assassin,
-                topic="assassins"
+                topic="assassins",
             ), weight=2)
 
         else:
@@ -2834,7 +2834,7 @@ class BoastOfYourBravery(Action):
                  character.person.name[0].upper() +
                  character.person.name[1:] +
                  " is not impressed.",
-                 fail=True
+                 fail=True,
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
@@ -2860,18 +2860,18 @@ class BoastOfYourBravery(Action):
                 self.outcomes.add(Outcome(character,
                     "You tell St. George about the time you burnt a house "
                     "down and hey slays you for your wicked ways.",
-                    die=True
+                    die=True,
                 ), weight=1)
 
                 self.outcomes.add(Outcome(character,
                     "St. George lauds your noble deeds and rewards you.",
-                    get_money=money.large_fortune
+                    get_money=money.large_fortune,
                 ), weight=1)
 
                 self.outcomes.add(Outcome(character,
                     "St. George becomes irate when you claim to have slain a "
                     "dragon. He obliterates you.",
-                    die=True
+                    die=True,
                 ), weight=1)
 
             if character.person == persons.pretty_lady:
@@ -2896,12 +2896,12 @@ class BoastOfYourBravery(Action):
                 self.outcomes.add(Outcome(character,
                     "She points out several inconsistencies in your story.",
                     flirt=-1,
-                    fail=True
+                    fail=True,
                 ), weight=1)
 
                 self.outcomes.add(Outcome(character,
                     "She seems to buy it.",
-                    flirt=1
+                    flirt=1,
                 ), weight=1)
 
             if character.person == persons.guards:
@@ -2910,7 +2910,7 @@ class BoastOfYourBravery(Action):
                     "You tell the guards that you are brave.\n 'A brave "
                     "lunatic,' they say and they throw you in prison.",
                     new_person=persons.other_lunatics,
-                    move_to=places.prison
+                    move_to=places.prison,
                 ), weight=1)
 
 
@@ -2960,7 +2960,7 @@ class LookForACat(Action):
 
             self.outcomes.add(Outcome(character,
                 "You knock a lantern over as you chase a cat.",
-                burn_place=character.place
+                burn_place=character.place,
             ), weight=4)
 
         if character.place in places.populated and not character.place in places.locked:
@@ -3096,7 +3096,7 @@ class LookForSeaTurtles(Action):
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
-            "You find a shark instead. It minds its own business."
+            "You find a shark instead. It minds its own business.",
         ), weight=1)
 
 
@@ -3113,7 +3113,7 @@ class LookForMermaids(Action):
         self.outcomes.add(Outcome(character,
             "You find a wooden mermaid figurehead on the front of Lord "
             "Arthur's ship. The crew hoists you abroad.",
-            move_to=places.pirate_ship
+            move_to=places.pirate_ship,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
@@ -3123,7 +3123,7 @@ class LookForMermaids(Action):
 
         self.outcomes.add(Outcome(character,
             "You find a sea turtle instead.",
-            fail=True
+            fail=True,
         ), weight=1)
 
         if character.place == places.mermaid_rock:
@@ -3166,7 +3166,7 @@ class LookForMermaids(Action):
             self.outcomes.add(Outcome(character,
                 "You find a mermaid. She leads you back to her rock.",
                 move_to=places.mermaid_rock,
-                new_person=persons.mermaid
+                new_person=persons.mermaid,
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
