@@ -222,9 +222,10 @@ def _add_place_actions(choices, character):
            character.money == money.large_fortune:
             choices.add(actions.FlauntYourWealth(), 2)
     if character.place == places.tavern:
-        choices.add(actions.AskAboutAssassins(), 1)
-        choices.add(actions.BuyADrink(), 2)
-        choices.add(actions.DoSomeGambling(), 1)
+        if places.tavern in places.burnable:
+            choices.add(actions.AskAboutAssassins(), 1)
+            choices.add(actions.BuyADrink(), 2)
+            choices.add(actions.DoSomeGambling(), 1)
         if character.has_item(items.love_potion) and \
            character.person == persons.pretty_lady:
             choices.add(actions.DrugHerWithYourLovePotion(persons.pretty_lady)
@@ -246,9 +247,10 @@ def _add_place_actions(choices, character):
         if character.has_item(items.ax):
             choices.add(actions.ChopDownATree(), 20)
         choices.add(actions.PickSomeFlowers(), 10)
-        choices.add(actions.LookForWitches(), 100)  # FIXME
+        if character.person != persons.witch:
+            choices.add(actions.LookForWitches(), 10)
         choices.add(actions.GoMushroomPicking(), 12)
-        choices.add(actions.LookForNymphs(), 100)  # FIXME
+        choices.add(actions.LookForNymphs(), 10)
     if character.place != places.void and not random.randint(0, 249):
         choices.add(actions.EnterTheVoid())
 

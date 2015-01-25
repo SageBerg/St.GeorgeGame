@@ -2723,6 +2723,7 @@ class BuyItem(Action):
             self.outcomes.add(Outcome(character,
                 None,
                 add_item=self.item,
+                new_person=None,
                 lose_money=self.price,
             ), weight=3)
 
@@ -2732,6 +2733,7 @@ class BuyItem(Action):
                 "You can't afford {0} {1}.".format(
                     items.a_or_an(self.item),
                     str(self.item)),
+                new_person=None,
                 fail=True,
                 topic="poverty",
             ), weight=3)
