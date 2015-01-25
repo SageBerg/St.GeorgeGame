@@ -3225,27 +3225,27 @@ class ChatWithLordBartholomew(Action):
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
-            "Lord Bartholomew says Lord Arthur is a rascal, who will be "
+            "Lord Bartholomew says Lord Arthur is a rascal who will be "
             "delt with when the time comes.",
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
-            "Lord Bartholomew says Lord Daniel is a tyrant, who will be "
+            "Lord Bartholomew says Lord Daniel is a tyrant who will be "
             "delt with when the time comes.",
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
-            "Lord Bartholomew says Lord Carlos is a blackguard, who will be "
+            "Lord Bartholomew says Lord Carlos is a thug who will be "
             "delt with when the time comes. You couldn't agree more.",
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
-            "Lord Bartholomew says the wizard is a dangerous man, who will be "
+            "Lord Bartholomew says the wizard is a dangerous man who will be "
             "delt with when the time comes.",
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
-            "Lord Bartholomew says that family is the only thing worht living "
+            "Lord Bartholomew says family is the only thing worth living "
             "for.",
         ), weight=1)
 
@@ -3292,7 +3292,7 @@ class WaitForAHoliday(Action):
 
         self.outcomes.add(Outcome(character,
             "You manage to snatch the keys off the warden, but he notices and "
-            "has you thrown into a deep dark dungeon. However, you end up in "
+            "has you thrown in a deep dark dungeon. However, you end up in "
             "a cell with some of Lord Bartholomew's men. They are soon rescued "
             "and so are you.",
             move_to=places.lord_bartholomews_manor,
@@ -3397,12 +3397,13 @@ class ComplainAboutUnfairImprisonment(Action):
             self.outcomes.add(Outcome(character,
                 "A bureaucrat says she'll let Lord Daniel know of your "
                 "concerns.",
-            succeed=True,
+                succeed=True,
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
                 "A cook assures you that Lord Bartholomew will set things right.",
             ), weight=1)
+
         else:  # when talking wiht Lord Daniel
             self.outcomes.add(Outcome(character,
                 "Lord Daniel has his guards carry out of the tower and dump "
@@ -3623,7 +3624,7 @@ class TellAPriest(Action):
                     "St. George overhears your comment and turns you, "
                     "over to the guards on charges of lunacy.",
                     move_to=places.prison,
-                    new_person=persons.other_lunatics
+                    new_person=persons.other_lunatics,
                 ), weight=1)
 
 
@@ -3644,7 +3645,7 @@ class FireACanon(Action):
             "You manage to knock the merchant ship's mast down. "
             "It falls on you.",
             clover=True,
-            die=True
+            die=True,
         ), weight=1)
 
         if persons.lord_arthur.alive:
@@ -3652,14 +3653,14 @@ class FireACanon(Action):
                 "You sink the merchant ship, plunder and all. Lord Arthur "
                 "is not pleased, so he flogs you with his cat. The cat seems "
                 "more traumatized than you, but you get fairly scratched up.",
-                new_person=persons.lord_arthur
+                new_person=persons.lord_arthur,
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
                 "You fumble around with the cannon, but Lord Arthur is "
                 "convinced you contributed to his victory and gives you a bag "
                 "of jewels.",
-                add_item=items.jewels
+                add_item=items.jewels,
             ), weight=1)
 
 
@@ -3733,7 +3734,7 @@ class CelebrateYourSuccess(Action):
                 None,
                 burn_place=character.place,
                 succeed=True,
-                move_to=character.place
+                move_to=character.place,
             ), weight=1)
 
         if character.place in places.town:
@@ -3777,7 +3778,7 @@ class CelebrateYourSuccess(Action):
                 "You drink until you black out. You wake up weary and "
                 "penniless.",
                 move_to=places.dark_alley,
-                funcs=[character.lose_all_money]
+                funcs=[character.lose_all_money],
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
@@ -3963,7 +3964,7 @@ class FlirtWith(Action):
                     "You strike up a conversation and learn that her name is "
                     "Felicity.",
                     flirt=(persons.fat_lady, 2),
-                    funcs=[change_name]
+                    funcs=[change_name],
                 ), weight=1000)
 
         elif self.person == persons.fat_lady:  # We know her name
@@ -4011,7 +4012,7 @@ class FlirtWith(Action):
             if persons.fat_lady.attracted > 10:
                 self.outcomes.add(Outcome(character,
                     "Felicity whispers that she loves you.",
-                    love_confessor=persons.fat_lady
+                    love_confessor=persons.fat_lady,
                 ), weight=100)
 
         if self.person == persons.pretty_lady and \
@@ -4034,7 +4035,7 @@ class FlirtWith(Action):
                 "You find out that you both like "
                 "cats. She says her cat loves being petted.",
                 flirt=(persons.pretty_lady, 2),
-            ), weight=100)  # FIXME
+            ), weight=1)
 
             self.outcomes.add(Outcome(character,
                 "You say the flower in her hair looks goes well with "
@@ -4070,7 +4071,7 @@ class FlirtWith(Action):
                 self.outcomes.add(Outcome(character,
                     "She says her name is Olga. You also tell your name.",
                     flirt=(persons.pretty_lady, 2),
-                    funcs=[change_name]
+                    funcs=[change_name],
                 ), weight=10000)
 
         elif self.person == persons.pretty_lady and \
@@ -4083,7 +4084,7 @@ class FlirtWith(Action):
                 new_person=persons.pretty_lady,
                 move_to=places.upstairs,
                 flirt=(persons.pretty_lady, 2),
-            ), weight=300) # FIXME
+            ), weight=3)
 
             self.outcomes.add(Outcome(character,
                 "You follow her to her room upstairs. Lots of passionate "
@@ -4104,7 +4105,7 @@ class FlirtWith(Action):
                 ])),
                 succeed=True,
                 flirt=(persons.pretty_lady, 2),
-            ), weight=400)  # FIXME
+            ), weight=4)
 
             self.outcomes.add(Outcome(character,
                 "Olga whispers that she's been stalking you.",
@@ -4136,7 +4137,7 @@ class FlirtWith(Action):
                 self.outcomes.add(Outcome(character,
                     "Olga grabs your hand. \"Life's too short, "
                     "let's get married!\"",
-                    love_confessor=persons.pretty_lady
+                    love_confessor=persons.pretty_lady,
                 ), weight=1000)
 
         if self.person == persons.eve:
@@ -4144,7 +4145,7 @@ class FlirtWith(Action):
                 "She asks if you even remember her name. "
                 "You say, \"Of course I remember your name. It's...\"",
                 actions=[(Anne(), 10000), (Beth(), 10000),
-                         (Eve(), 10000), (Donna(), 10000)]
+                         (Eve(), 10000), (Donna(), 10000)],
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
@@ -4227,13 +4228,13 @@ class GoToSleep(Action):
         self.outcomes.add(Outcome(character,
             "You wake up dead.",
             clover=True,
-            die=1
+            die=True,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You have a nightmare about weasels.",
             topic="weasels",
-            new_person=None
+            new_person=None,
         ), weight=2)
 
         self.outcomes.add(Outcome(character,
@@ -4245,12 +4246,12 @@ class GoToSleep(Action):
         self.outcomes.add(Outcome(character,
             "You have a wonderful dream that you married a nymph and took her "
             "to bed in Lord Carlos' manor.",
-            new_person=None
+            new_person=None,
         ), weight=2)
 
         self.outcomes.add(Outcome(character,
             "You wake up well-rested some hours later.",
-            new_person=None
+            new_person=None,
         ), weight=2)
 
         if character.place == places.prison:
@@ -4258,26 +4259,26 @@ class GoToSleep(Action):
                 "You wake up just in time to see an assassin slip a weasel "
                 "between the bars of your cell. The weasel kills you.",
                 clover=True,
-                die=True
+                die=True,
             ), weight=3)
 
         if character.place == places.lord_carlos_manor:
             self.outcomes.add(Outcome(character,
                 "You wake up in Lord Carlos' dungeon. You never leave.",
-                die=True
+                die=True,
             ), weight=100)
 
         if character.place == places.ocean:
             self.outcomes.add(Outcome(character,
                 "You drown in your sleep.",
-                die=True
+                die=True,
             ), weight=100)
 
         if not character.place in places.locked:
             self.outcomes.add(Outcome(character,
                 "You wake up some hours later.",
                 move=2,
-                new_person=None
+                new_person=None,
             ), weight=3)
 
         if character.place in places.populated and not \
@@ -4287,27 +4288,27 @@ class GoToSleep(Action):
                 "You are pleasantly awakened by a cat rubbing itself against "
                 "you.",
                 add_item=items.cat,
-                new_person=None
+                new_person=None,
             ), weight=2)
 
             self.outcomes.add(Outcome(character,
                 "You wake up robbed of all your worldly possessions.",
                 remove_all_items=True,
                 funcs=[character.lose_all_money],
-                new_person=None
+                new_person=None,
             ), weight=2)
 
             self.outcomes.add(Outcome(character,
                 "You are rudely awakened by an assassin's dagger.",
                 clover=True,
-                die=True
+                die=True,
             ), weight=2)
 
             self.outcomes.add(Outcome(character,
                 "You wake up with some coins on your cloak.",
                 get_money=money.pittance,
                 topic="money",
-                new_person=None
+                new_person=None,
             ), weight=2)
 
 
@@ -4328,12 +4329,12 @@ class LookForTheWizard(Action):
                     "mushroom. He asks if he can have it.",
                     move_to=places.market,
                     new_person=persons.wizard,
-                    actions=[(GiveHimTheYellowMushroom(), 100)]
+                    actions=[(GiveHimTheYellowMushroom(), 100)],
                 ), weight=100)
 
             self.outcomes.add(Outcome(character,
                 "You find him. He turns you into a frog and steps on you.",
-                die=1
+                die=True,
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
@@ -4346,32 +4347,32 @@ class LookForTheWizard(Action):
                 "When you find him. He gives you a frog.",
                 add_item=items.frog,
                 move_to=places.market,
-                new_person=persons.wizard
+                new_person=persons.wizard,
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
                 "You find the wizard. He is telling a woman how he "
                 "cursed the icicles in the arctic.",
                 move_to=places.market,
-                new_person=persons.wizard
+                new_person=persons.wizard,
             ), weight=2)
 
             self.outcomes.add(Outcome(character,
                 "You find the wizard. He is telling a woman about "
                 "a mesmerizing pearl.",
                 move_to=places.market,
-                new_person=persons.wizard
+                new_person=persons.wizard,
             ), weight=2)
 
             self.outcomes.add(Outcome(character,
                 "You see the wizard emptying a flask into a well.",
                 move_to=places.market,
-                new_person=persons.wizard
+                new_person=persons.wizard,
             ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You look for the wizard, but the assassins are looking for you.",
-            die=1
+            die=True,
         ), weight=1)
 
         if persons.st_george.alive:
@@ -4379,14 +4380,14 @@ class LookForTheWizard(Action):
                 self.outcomes.add(Outcome(character,
                     "You can't find the wizard, but you find St. George. "
                     "He says the wizard is a little testy.",
-                    new_person=persons.st_george
+                    new_person=persons.st_george,
                 ), weight=1)
             else:
                 self.outcomes.add(Outcome(character,
                     "You can't find the wizard since the wizard is dead, "
                     "but you find St. George. He says the wizard was a "
                     "complicated man.",
-                    new_person=persons.st_george
+                    new_person=persons.st_george,
                 ), weight=1)
 
 
@@ -4402,14 +4403,14 @@ class LeaveInAHuff(Action):
 
         self.outcomes.add(Outcome(character,
             None,
-            move=1
+            move=1,
         ), weight=49)
 
         if character.place in places.populated:
             self.outcomes.add(Outcome(character,
                 "The huffy manner in which you left causes some assassins to "
                 "notice you. They assassinate you.",
-                die=True
+                die=True,
             ), weight=1)
 
 
@@ -4428,7 +4429,7 @@ class LeaveInAPuff(Action):
 
         self.outcomes.add(Outcome(character,
             None,
-            move_to=place
+            move_to=place,
         ), weight=3)
 
 
@@ -4466,14 +4467,14 @@ class GoTo(Action):
         self.outcomes.add(Outcome(character,
             None,
             move_to=self.dest,
-            new_person=None
+            new_person=None,
         ), weight=3)
 
         if self.dest == places.dark_alley:
 
             self.outcomes.add(Outcome(character,
                 "You go into a dark alley. You do not come out.",
-                die=True
+                die=True,
             ), weight=3)
 
         if character.place in places.populated:
@@ -4483,7 +4484,7 @@ class GoTo(Action):
                 "They say you must be a lunatic.".format(character.place),
                 new_person=persons.guards,
                 threat=True,
-                topic="oblivious"
+                topic="oblivious",
             ), weight=3)
 
             self.outcomes.add(Outcome(character,
@@ -4491,7 +4492,7 @@ class GoTo(Action):
                 "you.".format(self.dest),
                 move_to=self.dest,
                 threat=True,
-                new_person=persons.assassin
+                new_person=persons.assassin,
             ), weight=2)
 
             if character.has_item(items.cat):
@@ -4507,31 +4508,31 @@ class GoTo(Action):
             self.outcomes.add(Outcome(character,
                 overhear_template.format("someone say that the town's well "
                     "has been poisoned"),
-                move_to=self.dest
+                move_to=self.dest,
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
                 overhear_template.format("someone talking about how nice St. "
                     "George was to them"),
-                move_to=self.dest
+                move_to=self.dest,
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
                 overhear_template.format("a man talking being a pirate on "
                     "Lord Arthur's ship"),
-                move_to=self.dest
+                move_to=self.dest,
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
                 overhear_template.format("a woman asking around about "
                     "assassins"),
-                move_to=self.dest
+                move_to=self.dest,
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
                 overhear_template.format("some men are planning a trip to "
                     "the woods to look for nymphs"),
-                move_to=self.dest
+                move_to=self.dest,
             ), weight=1)
 
 
@@ -4549,7 +4550,7 @@ class RunLikeTheDevil(Action):
         self.outcomes.add(Outcome(character,
             "The Devil is very fast, so you manage to get away.",
             move=2,
-            succeed=True
+            succeed=True,
         ), weight=9)
 
         self.outcomes.add(Outcome(character,
@@ -4557,7 +4558,7 @@ class RunLikeTheDevil(Action):
             " also run" + persons.get_tense(character.person) + 
             " like the Devil "
             "and overtake" + persons.get_tense(character.person) + " you.",
-            die=True
+            die=True,
         ), weight=1)
 
         if character.person == persons.fat_lady and \
@@ -4568,7 +4569,7 @@ class RunLikeTheDevil(Action):
                 new_person=None,
                 move=2,
                 succeed=True,
-                flirt=(persons.fat_lady, -666)
+                flirt=(persons.fat_lady, -666),
             ), weight=666)
 
         if character.person == persons.pretty_lady and \
@@ -4577,7 +4578,7 @@ class RunLikeTheDevil(Action):
                 "The Devil is pretty fast but Olga is prettier and faster. "
                 "She strangles you to death.",
                 die=True,
-                flirt=(persons.pretty_lady, -666)
+                flirt=(persons.pretty_lady, -666),
             ), weight=666)
 
             self.outcomes.add(Outcome(character,
@@ -4602,7 +4603,7 @@ class WaddleLikeGod(Action):
 
         self.outcomes.add(Outcome(character,
             "God is very slow, so you don't manage to get away.",
-            die=True
+            die=True,
         ), weight=9)
 
         self.outcomes.add(Outcome(character,
@@ -4613,7 +4614,7 @@ class WaddleLikeGod(Action):
             "fail to overtake" +
             persons.get_tense(character.person) + " you. You "
             "slowly get away.",
-            move=1
+            move=1,
         ), weight=1)
 
 
@@ -4687,34 +4688,34 @@ class Swim(Action):
 
         self.outcomes.add(Outcome(character,
             "You manage to stay afloat.",
-            actions=[(next_action, 10000)]
+            actions=[(next_action, 10000)],
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You keep your head up.",
-            actions=[(next_action, 10000)]
+            actions=[(next_action, 10000)],
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You see a ship in the distance. You are unable to reach it.",
             actions=[(next_action, 10000)],
-            fail=True
+            fail=True,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You make very little progress.",
             actions=[(next_action, 10000)],
-            fail=True
+            fail=True,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You die of dehydration.",
-            die=True
+            die=True,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You are in way over your head.",
-            die=True
+            die=True,
         ), weight=1)
 
 
@@ -4731,7 +4732,7 @@ class KeepSwimming(Swim):
 
         self.outcomes.add(Outcome(character,
             "You die of exhaustion.",
-            die=True
+            die=True,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
@@ -4742,7 +4743,7 @@ class KeepSwimming(Swim):
         self.outcomes.add(Outcome(character,
             "You find a mermaid sitting on a rock.",
             move_to=places.mermaid_rock,
-            new_person=persons.mermaid
+            new_person=persons.mermaid,
         ), weight=1)
 
         if character.has_item(items.cat):
@@ -4751,7 +4752,7 @@ class KeepSwimming(Swim):
                 "Your cat dies.",
                 actions=[(JustKeepSwimming(), 10000)],
                 remove_item=items.cat,
-                fail=True
+                fail=True,
             ), weight=1)
 
 
@@ -4768,12 +4769,12 @@ class JustKeepSwimming(KeepSwimming):
 
         self.outcomes.add(Outcome(character,
             "You die of exhaustion.",
-            die=True
+            die=True,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You finally find land.",
-            move_to=places.docks
+            move_to=places.docks,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
@@ -4858,14 +4859,14 @@ class WalkThePlank(Action):
 
         self.outcomes.add(Outcome(character,
             "You fall into the ocean.",
-            move_to=places.ocean
+            move_to=places.ocean,
         ), weight=3)
 
         self.outcomes.add(Outcome(character,
             "Lord Arthur's pet shark emerges from the depths and snatches you "
             "as you fall.",
             clover=True,
-            die=True
+            die=True,
         ), weight=1)
 
 
@@ -4883,7 +4884,7 @@ class TrashThePlace(Action):
             None,
             trash_place=character.place,
             succeed=True,
-            move_to=character.place
+            move_to=character.place,
         ), weight=4)
 
         self.outcomes.add(Outcome(character,
@@ -4891,7 +4892,7 @@ class TrashThePlace(Action):
             add_item=items.fire_proof_cloak,
             trash_place=character.place,
             succeed=True,
-            move_to=character.place
+            move_to=character.place,
         ), weight=1)
 
         if character.place == places.market:
