@@ -4038,7 +4038,7 @@ class FlirtWith(Action):
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
-                "You say the flower in her hair looks goes well with "
+                "You say the flower in her hair goes well with "
                 "her eyes. She says you can smell her flower if you like.",
                 flirt=(persons.pretty_lady, 2),
             ), weight=1)
@@ -4629,7 +4629,7 @@ class WanderTheCountryside(Action):
     def execute(self, character):
 
         self.outcomes.add(Outcome(character,
-            "Not all those who wonder are lost, but you are.",
+            "Not all those who wander are lost, but you are.",
             fail=True,
             new_person=None,
         ), weight=1)
@@ -5078,7 +5078,8 @@ class MakeItHard(Action):
 
         self.outcomes.add(Outcome(character,
             "You spit in his eyes.",
-        ), weight=1)  # TODO causes a fight
+            actions=[RunLikeTheDevil(), 666],
+        ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You hide behind a painting Lord Carlos that is loathe "
@@ -5262,7 +5263,7 @@ class LookForNymphs(Action):
                                          "only rivaled by her attractiveness."
                                          ])),
             new_person=persons.nymph_queen,
-        ), weight=1000) # TODO fix weight
+        ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You see some nymphs bathing in a waterfall, but they hex "
@@ -5373,7 +5374,7 @@ class Loot(Action):
         self.outcomes.add(Outcome(character,
             "You are arrested for attempting to steal an apple.",
             move_to=places.prison,
-            new_person=persons.other_lunatics
+            new_person=persons.other_lunatics,
         ), weight=1)
 
 
@@ -5389,19 +5390,21 @@ class WatchAPlay(Action):
 
         self.outcomes.add(Outcome(character,
             "The play satirizes Lord Daniel's policy on lunacy. "
-            "The actors are arrested at the end of the play."
+            "The actors are arrested at the end of the play.",
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
-            "The play portrays Lord Bartholomew in a glorious light.",
+            "The play portrays Lord Bartholomew in a glorious light. The "
+            "audience is very pleased and claps for so long that it becomes "
+            "awkward.",
         ), weight=1)
 
         if places.market in places.burnable:
 
             self.outcomes.add(Outcome(character,
-                "The play is put on by some Lord Daniel's guards, the acting is "
-                "terrible and the play portrays Lord Bartholomew in a negative "
-                "light. The audience starts a riot.",
+                "The play is put on by some of Lord Daniel's guards. The "
+                "acting is horrible and the play portrays Lord Bartholomew in "
+                "a negative light. The audience starts a riot.",
                 new_person=persons.guards,
                 actions=[
                          (Attack(persons.guards), 10000),
@@ -5535,7 +5538,7 @@ class Panic(Action):
             "You don't remember what you did, but you seem to have gotten "
             "away.",
             move_to=place,
-            succeed=True
+            succeed=True,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
@@ -5632,19 +5635,19 @@ class SingASong(Action):
             self.outcomes.add(Outcome(character,
                 "Your singing is too loud for you to hear the footsteps of an "
                 "assassin. He assassinates you.",
-                die=True
+                die=True,
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
                 "A crowd gathers to hear your music and throws you a small "
                 "fortune in coins.",
-                get_money=money.small_fortune
+                get_money=money.small_fortune,
             ), weight=2)
 
             self.outcomes.add(Outcome(character,
                 "The locals hate your voice and soon mob you.",
                 clover=True,
-                die=True
+                die=True,
             ), weight=1)
 
             if not character.person:
@@ -5652,21 +5655,21 @@ class SingASong(Action):
                     "While you're singing, some men in black cloaks start to "
                     "edge their way toward you.",
                     new_person=persons.assassins,
-                    threat=True
+                    threat=True,
                 ), weight=3)
 
         if self.topic == "assassins":
             self.outcomes.add(Outcome(character,
                 "An assassin notices you singing about assassins and "
                 "assassinates you",
-                die=True
+                die=True,
             ), weight=5)
 
         if character.person == persons.wizard:
             self.outcomes.add(Outcome(character,
                 "The wizard complains that you are singing off-key. He turns "
                 "you into a frog and steps on you.",
-                die=True
+                die=True,
             ), weight=20)
 
         if not character.place in places.locked:
@@ -5674,7 +5677,7 @@ class SingASong(Action):
             self.outcomes.add(Outcome(character,
                 "You wander aimlessly as you work your way through an epic "
                 "ballad.",
-                move=1
+                move=1,
             ), weight=1)
 
         if self.topic is None:
@@ -5693,7 +5696,7 @@ class SingASong(Action):
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
-                "You sing a song about Lord Daniel, head of the guard.",
+                "You sing a song about Lord Daniel, leader of the guards.",
             ), weight=1)
 
         self.outcomes.add(Outcome(character,
@@ -5713,7 +5716,7 @@ class SwingYourCat(Action):
 
         self.outcomes.add(Outcome(character,
             "Your cat manages to escape.",
-            remove_item=items.cat
+            remove_item=items.cat,
         ), weight=2)
 
         if character.place in places.populated:
@@ -5729,7 +5732,7 @@ class SwingYourCat(Action):
                 "conclude that you must be a lunatic.",
                 new_person=persons.guards,
                 threat=True,
-                topic="angry"
+                topic="mad",
             ), weight=3)
 
 
@@ -5746,13 +5749,13 @@ class LookThroughSomeTrash(Action):
         self.outcomes.add(Outcome(character,
             "You attempt to look through the trash, but an assassin takes it "
             "out.",
-            die=True
+            die=True,
         ), weight=2)
 
         self.outcomes.add(Outcome(character,
             "While you are searching through the trash you find a somewhat "
             "agreeable cat.",
-            add_item=items.cat
+            add_item=items.cat,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
@@ -5761,29 +5764,29 @@ class LookThroughSomeTrash(Action):
             add_item=items.cat,
             new_person=persons.guards,
             threat=True,
-            topic="curious"
+            topic="curious",
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You do not find anything useful in the trash.",
             fail=True,
-            topic="trash"
+            topic="trash",
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You find a mirror in the trash. You see nothing of value.",
-            fail=True
+            fail=True,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You find a bad smell.",
-            fail=True
+            fail=True,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You find an old ax.",
             succeed=True,
-            add_item=items.ax
+            add_item=items.ax,
         ), weight=1)
 
 
@@ -5852,7 +5855,7 @@ class DanceAJig(Action):
             self.outcomes.add(Outcome(character,
                 "The local peasants are entertained by your antics and toss "
                 "you some coins.",
-                get_money=money.pittance
+                get_money=money.pittance,
             ), weight=10)
 
             self.outcomes.add(Outcome(character,
@@ -5928,7 +5931,7 @@ class Drown(Action):
 
         self.outcomes.add(Outcome(character,
             "You drown.",
-            die=True
+            die=True,
         ), weight=1)
 
 
@@ -5991,7 +5994,7 @@ class YellAPiratePhrase(Action):
             self.outcomes.add(Outcome(character,
                 "Lord Arthur has you thrown off the ship.",
                 move_to=places.ocean,
-                fail=True
+                fail=True,
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
@@ -5999,7 +6002,7 @@ class YellAPiratePhrase(Action):
                 "says \"{0}.\"".format(
                     self.phrase),
                 new_person=persons.lord_arthur,
-                fail=True
+                fail=True,
             ), weight=1)
 
             if character.is_employed_by(persons.lord_arthur):
@@ -6007,7 +6010,7 @@ class YellAPiratePhrase(Action):
                     "Lord Arthur tells you that you are no longer a member of "
                     "the crew.",
                     remove_employer=persons.lord_arthur,
-                    fail=True
+                    fail=True,
                 ), weight=1)
             else:
                 self.outcomes.add(Outcome(character,
@@ -6037,7 +6040,7 @@ class SaveTheWitch(Action):
         self.outcomes.add(Outcome(character,
             "You have trouble untying her and the peasants kill you for "
             "meddling.",
-            die=True
+            die=True,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
@@ -6081,7 +6084,7 @@ class DoSomeFarmWork(Action):
         self.outcomes.add(Outcome(character,
             "You spend a season bailing hay.",
             get_money=money.pittance,
-            add_item=items.pitchfork
+            add_item=items.pitchfork,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
@@ -6094,19 +6097,19 @@ class DoSomeFarmWork(Action):
             "You spend a season slaughtering hogs. You find a shiny foreign "
             "coin in one of the hogs.",
             get_money=money.pittance,
-            add_item=items.foreign_coin
+            add_item=items.foreign_coin,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "You find work, but the assassins find you.",
-            die=True
+            die=True,
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "During your duties, you get kicked by a mule. You somehow don't "
             "die.",
             get_money=money.pittance,
-            topic="mules"
+            topic="mules",
         ), weight=1)
 
 
@@ -6135,6 +6138,7 @@ class DoSomeGambling(Action):
         if character.place == places.tavern:
             self.outcomes.add(Outcome(character,
                 "You get cleaned out by a pretty lady.",
+                new_person = persons.pretty_lady,
                 funcs=[character.lose_all_money],
                 fail=True,
             ), weight=1)
@@ -6188,7 +6192,7 @@ class SneakAround(Action):
                 "pinkie toe.",
                 actions=[(HowlWithPain(), 10000)],
                 fail=True,
-            ), weight=1000)  # TODO fix weight
+            ), weight=1)
 
             self.outcomes.add(Outcome(character,
                 "While lurking in a shrub, you catch sight of the fair Lady "
@@ -6210,14 +6214,14 @@ class SneakAround(Action):
                 "An old man notices you skulking around and starts yelling "
                 "about an assassin. You look behind you, but the old "
                 "man stabs you in the front.",
-                die=True
+                die=True,
             ), weight=1)
 
         if character.place == places.lord_carlos_manor:
             self.outcomes.add(Outcome(character,
                 "One of the assassin guards sees you tiptoeing around in "
                 "board daylight. He assassinates you.",
-                die=True
+                die=True,
             ), weight=1)
 
             self.outcomes.add(Outcome(character,
@@ -6239,7 +6243,7 @@ class SneakAround(Action):
             self.outcomes.add(Outcome(character,
                 "You find a poisoned dagger in a glass case.",
                 add_item=items.poisoned_dagger,
-                succeed=True
+                succeed=True,
             ), weight=1)
 
             if persons.eve.alive:
@@ -6251,7 +6255,7 @@ class SneakAround(Action):
                      "petting her cat.", "putting on jewelry.",
                      "painting a picture of you getting assassinated.",])),
                     new_person=persons.eve,
-                ), weight=1000)  # TODO fix weight
+                ), weight=2)
 
             if persons.lord_carlos.alive:
 
@@ -6264,11 +6268,11 @@ class SneakAround(Action):
                     "You manage to sneak into Lord Carlos' "
                     "study. He is {0}".format(random.choice(
                     ["writing a letter.", "reading a book.",
-                     "looking straight at you.", "eating a steak.",
+                     "looking straight at you.", "eating a heart.",
                      "training a weasel.", "pacing around."])),
                     new_person=persons.lord_carlos,
                     threat=True,
-                ), weight=1)
+                ), weight=2)
 
 
 class HideUnderTheDeck(Action):
@@ -6290,12 +6294,12 @@ class HideUnderTheDeck(Action):
 
         self.outcomes.add(Outcome(character,
             "You fight an epic battle against one of the rats on the "
-            "lower decks."
+            "lower decks.",
         ), weight=1)
 
         self.outcomes.add(Outcome(character,
             "Lord Arthur has you killed when he hears of your cowardice.",
-            die=True
+            die=True,
         ), weight=1)
 
 
@@ -6353,7 +6357,7 @@ class EnterTheVoid(Action):
         self.outcomes.add(Outcome(character,
             None,
             move_to=places.void,
-        ), weight=1)
+        ), weight=3)
 
         self.outcomes.add(Outcome(character,
             "There's no air in the void.",
