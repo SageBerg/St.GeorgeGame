@@ -43,7 +43,8 @@ def main():
         Outcome changes game state
     """
     character = Character(place=places.tavern)
-    state = GameState(character)
+    places_object = places.Places()
+    state = GameState(character, places_object)
     choices = MultipleChoice()
     options.set_initial_actions(choices)
     print("\n---The St. George Game---\n")
