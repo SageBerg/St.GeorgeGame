@@ -4,6 +4,7 @@ import places
 import persons
 import actions
 import options
+from state import GameState
 from character import Character
 from multiple_choice import MultipleChoice
 
@@ -42,21 +43,25 @@ def main():
         Outcome changes game state
     """
     character = Character(place=places.tavern)
+    state = GameState(character)
     choices = MultipleChoice()
     options.set_initial_actions(choices)
     print("\n---The St. George Game---\n")
     print("You are in a tavern. The local assassins hate you.")
-    while character.alive and character.alone and not character.lose:
+    while state.character.alive and \
+          state.character.alone and not \
+          state.character.lose:
         action = choices.choose_action()
-        if not character.threatened or action.combat_action:
-            outcome = action.get_outcome(character)
+        if not state.character.threatened or action.combat_action:
+            outcome = action.get_outcome(state)
         else:
-            outcome = actions.Attack(character.person).get_outcome(character)
+            outcome = \
+            actions.Attack(state.character.person).get_outcome(state)
         outcome.execute()
-        options.add_actions(choices, character, outcome)
-        choices.generate_actions(character)
-        lords_victory(character)
-        pyro_victory(character)
+        options.add_actions(choices, state, outcome)
+        choices.generate_actions(state.character)
+        lords_victory(state.character)
+        pyro_victory(state.character)
         
 if __name__ == "__main__":
     main()

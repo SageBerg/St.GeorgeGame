@@ -8,7 +8,7 @@ import money
 class Outcome(object):
 
     def __init__(self,
-                 character,
+                 state,
                  msg,
                  add_item=False,  # USAGE: items.item_name
                  remove_item=False,  # USAGE: items.item_name
@@ -51,7 +51,7 @@ class Outcome(object):
         self.beg = beg
         self.burn_place = burn_place
         self.trash_place = trash_place
-        self.character = character
+        self.character = state.character
         self.lose = lose
         self.die = die
         self.fail = fail

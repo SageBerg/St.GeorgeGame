@@ -41,17 +41,17 @@ class Person(object):
     def get_sell_price(self, item):
         return self.sells[item]
 
-    def kill(self, character, verb="kill"):
-        return outcome.Outcome(character,
+    def kill(self, state, verb="kill"):
+        return outcome.Outcome(state,
             self.name[0].upper() + self.name[1:] + " " + verb +
             get_tense(self) + " you.",
             die=True)
 
-    def assassinate(self, character):
-        return self.kill(character, verb="assassinate")
+    def assassinate(self, state):
+        return self.kill(state.character, verb="assassinate")
 
-    def arrest(self, character):
-        return outcome.Outcome(character,
+    def arrest(self, state):
+        return outcome.Outcome(state,
             self.name[0].upper() + self.name[1:] + " throw" +
             persons.get_tense(self) + " you in prison with the other "
             "lunatics.",
