@@ -42,11 +42,11 @@ def main():
         Display results of the outcomes
         Outcome changes game state
     """
-    character = Character(place=places.tavern)
     places_object = places.Places()
+    character = Character(place=places_object.places_dict["tavern"])
     state = GameState(character, places_object)
     choices = MultipleChoice()
-    options.set_initial_actions(choices)
+    options.set_initial_actions(choices, state)
     print("\n---The St. George Game---\n")
     print("You are in a tavern. The local assassins hate you.")
     while state.character.alive and \
@@ -62,7 +62,7 @@ def main():
         options.add_actions(choices, state, outcome)
         choices.generate_actions(state.character)
         lords_victory(state.character)
-        pyro_victory(state.character)
+        #pyro_victory(state.character)  #needs a refactor
         
 if __name__ == "__main__":
     main()

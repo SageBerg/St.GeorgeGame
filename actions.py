@@ -20,7 +20,7 @@ class Action(object):
         pass
 
     @abc.abstractmethod
-    def __init__(self):
+    def __init__(self, state):
         self.name = ""
         self.combat_action = False
         self.outcomes = Raffle()
@@ -47,8 +47,8 @@ class KissYourFrog(Action):
 
     slot = "a"
 
-    def __init__(self):
-        super(KissYourFrog, self).__init__()
+    def __init__(self, state):
+        super(KissYourFrog, self, state).__init__()
         self.name = random.choice(["Kiss your frog."]*9 + ["Snog your frog."])
 
     def execute(self, state):
@@ -126,8 +126,8 @@ class Anne(Action):
 
     slot = "a"
 
-    def __init__(self):
-        super(Anne, self).__init__()
+    def __init__(self, state):
+        super(Anne, self, state).__init__()
         self.name = "\"Anne.\""
 
     def execute(self, state):
@@ -142,8 +142,8 @@ class AskForAnAudienceWithLordBartholomew(Action):
 
     slot = "a"
 
-    def __init__(self):
-        super(AskForAnAudienceWithLordBartholomew, self).__init__()
+    def __init__(self, state):
+        super(AskForAnAudienceWithLordBartholomew, self, state).__init__()
         self.name = "Ask for an audience with Lord Bartholomew."
 
     def execute(self, state):
@@ -156,7 +156,7 @@ class AskForAnAudienceWithLordBartholomew(Action):
         self.outcomes.add(Outcome(state,
             "The line to meet Lord Bartholomew is very long, "
             "so you lose patience and wander off.",
-            move_to=places.countryside,
+            move_to=state.places.places_dict["countryside"],
         ), weight=1)
 
         self.outcomes.add(Outcome(state,
@@ -169,8 +169,8 @@ class AskForAnAudienceWithLordDaniel(Action):
 
     slot = "a"
 
-    def __init__(self):
-        super(AskForAnAudienceWithLordDaniel, self).__init__()
+    def __init__(self, state):
+        super(AskForAnAudienceWithLordDaniel, self, state).__init__()
         self.name = "Ask for an audience with Lord Daniel."
 
     def execute(self, state):
@@ -197,8 +197,8 @@ class A3(Action):
 
     slot = "a"
 
-    def __init__(self):
-        super(A3, self).__init__()
+    def __init__(self, state):
+        super(A3, self, state).__init__()
         self.name = "a3."
         self.combat_action = True
 
@@ -222,8 +222,8 @@ class LaughAboutWarden(Action):
 
     slot = "a"
 
-    def __init__(self):
-        super(LaughAboutWarden, self).__init__()
+    def __init__(self, state):
+        super(LaughAboutWarden, self, state).__init__()
         self.name = "Laugh about the warden doing it alone on holidays."
 
     def execute(self, state):
@@ -243,8 +243,8 @@ class GiveHimTheYellowMushroom(Action):
 
     slot = "a"
 
-    def __init__(self):
-        super(GiveHimTheYellowMushroom, self).__init__()
+    def __init__(self, state):
+        super(GiveHimTheYellowMushroom, self, state).__init__()
         self.name = "Give him the yellow mushroom."
 
     def execute(self, state):
@@ -276,8 +276,8 @@ class EnactYourElaborateScheme(Action):
 
     slot = "a"
 
-    def __init__(self):
-        super(EnactYourElaborateScheme, self).__init__()
+    def __init__(self, state):
+        super(EnactYourElaborateScheme, self, state).__init__()
         self.name = "Enact your elaborate scheme."
 
     def execute(self, state):
@@ -289,7 +289,7 @@ class EnactYourElaborateScheme(Action):
                 "hot soup on him and he dies.",
                 new_person=persons.lord_carlos,
                 kill=persons.lord_carlos,
-                move_to=places.lord_carlos_manor,
+                move_to=state.places.places_dict["lord_carlos_manor"],
             ), weight=1)
 
         self.outcomes.add(Outcome(state,
@@ -301,21 +301,21 @@ class EnactYourElaborateScheme(Action):
         self.outcomes.add(Outcome(state,
             "Your plan goes swimmingly.",
             add_item=items.jeweled_cutlass,
-            move_to=places.ocean,
+            move_to=state.places.places_dict["ocean"],
         ), weight=1)
 
         self.outcomes.add(Outcome(state,
             "After several months, you realize you don't have what it takes " 
             "to be a clown.",
             fail=True,
-            move_to=places.market,
+            move_to=state.places.places_dict["market"],
         ), weight=1)
 
         self.outcomes.add(Outcome(state,
             "After several years, you realize you don't have what it takes " 
             "to be a priest.",
             fail=True,
-            move_to=places.church,
+            move_to=state.places.places_dict["church"],
         ), weight=1)
 
 
@@ -323,13 +323,13 @@ class AskHerToTakeYouBackToLand(Action):
 
     slot = "a"
 
-    def __init__(self):
-        super(AskHerToTakeYouBackToLand, self).__init__()
+    def __init__(self, state):
+        super(AskHerToTakeYouBackToLand, self, state).__init__()
         self.name = "Ask her to take you back to land."
 
     def execute(self, state):
 
-        if state.character.place == places.mermaid_rock:
+        if state.character.place == state.places.places_dict["mermaid_rock"]:
             self.outcomes.add(Outcome(state,
                 "She doesn't know where land is, but "
                 "she gives you a fish.",
@@ -344,13 +344,13 @@ class AskHerToTakeYouBackToLand(Action):
             self.outcomes.add(Outcome(state,
                 "She takes you out to see, but gets bored and leaves you "
                 "there.",
-                move_to=places.ocean,
+                move_to=state.places.places_dict["ocean"],
                 fail=True,
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "She does.",
-                move_to=places.docks,
+                move_to=state.places.places_dict["docks"],
             ), weight=1)
 
 
@@ -359,7 +359,7 @@ class AskHerToBrew(Action):
     slot = "a"
 
     def __init__(self, potion):
-        super(AskHerToBrew, self).__init__()
+        super(AskHerToBrew, self, state).__init__()
         self.potion = potion
         self.name = "Ask her to brew a {0}.".format(self.potion.name)
 
@@ -401,8 +401,8 @@ class Think(Action):
 
     slot = "a"
 
-    def __init__(self):
-        super(Think, self).__init__()
+    def __init__(self, state):
+        super(Think, self, state).__init__()
         self.name = "Think."
 
     def execute(self, state):
@@ -439,7 +439,7 @@ class Think(Action):
             "You get lost in your thoughts.",
         ), weight=1)
 
-        if state.character.place != places.tavern and \
+        if state.character.place != state.places.places_dict["tavern"] and \
             persons.pretty_lady.name != "Olga":
             self.outcomes.add(Outcome(state,
                 "You think about a pretty lady you saw in the tavern.",
@@ -451,22 +451,22 @@ class Think(Action):
                 topic="marriage",
             ), weight=1)
 
-        if state.character.place == places.wizards_lab or \
-           state.character.place == places.lord_carlos_manor:
+        if state.character.place == state.places.places_dict["wizards_lab"] or \
+           state.character.place == state.places.places_dict["lord_carlos_manor"]:
             self.outcomes.add(Outcome(state,
                 "You think you probably shouldn't be here.",
             ), weight=8)
 
-        if state.character.place == places.tavern or \
-           state.character.place == places.dark_alley or \
-           state.character.place == places.lord_carlos_manor:
+        if state.character.place == state.places.places_dict["tavern"] or \
+           state.character.place == state.places.places_dict["dark_alley"] or \
+           state.character.place == state.places.places_dict["lord_carlos_manor"]:
             self.outcomes.add(Outcome(state,
                 "You think about how painful it would be to get stabbed. "
                 "You soon find out.",
                 die=True,
             ), weight=4)
 
-        if state.character.place == places.docks:
+        if state.character.place == state.places.places_dict["docks"]:
             self.outcomes.add(Outcome(state,
                 "Some pirates laugh at you for thinking.",
                 new_person=persons.pirates,
@@ -477,13 +477,13 @@ class Think(Action):
                     "You think it would be a bad idea to join Lord Arthur's "
                     "crew. Lord Arthur gives you no choice.",
                     add_employer=persons.lord_arthur,
-                    move_to=places.pirate_ship,
+                    move_to=state.places.places_dict["pirate_ship"],
                 ), weight=4)
 
-        if state.character.place == places.docks or \
-           state.character.place == places.ocean or \
-           state.character.place == places.pirate_ship or \
-           state.character.place == places.mermaid_rock:
+        if state.character.place == state.places.places_dict["docks"] or \
+           state.character.place == state.places.places_dict["ocean"] or \
+           state.character.place == state.places.places_dict["pirate_ship"] or \
+           state.character.place == state.places.places_dict["mermaid_rock"]:
             self.outcomes.add(Outcome(state,
                 "You think the ocean is really big.",
             ), weight=8)
@@ -492,7 +492,7 @@ class Think(Action):
                 "You think the bad smell might be coming from you.",
             ), weight=2)
 
-        if state.character.place == places.tower:
+        if state.character.place == state.places.tower:
             self.outcomes.add(Outcome(state,
                 "You think you can survive the jump from the top of the "
                 "tower.",
@@ -505,7 +505,7 @@ class Think(Action):
                 add_item=items.ax,
             ), weight=5)
 
-        if state.character.place == places.countryside:
+        if state.character.place == state.places.places_dict["countryside"]:
             self.outcomes.add(Outcome(state,
                 "You think about Lord Bartholomew.",
                 topic="Lord Bartholomew",
@@ -517,20 +517,20 @@ class Think(Action):
                 topic="peasants",
             ), weight=2)
 
-        if state.character.place == places.woods:
+        if state.character.place == state.places.places_dict["woods"]:
             self.outcomes.add(Outcome(state,
                 "You think about fire.",
                 topic="fire",
             ), weight=3)
 
-        if state.character.place == places.church:
+        if state.character.place == state.places.places_dict["church"]:
             self.outcomes.add(Outcome(state,
                 "You wonder what life is all about and feel smug "
                 "for being so philosophical.",
                 topic="yourself",
             ), weight=3)
 
-        if state.character.place == places.arctic:
+        if state.character.place == state.places.places_dict["arctic"]:
             self.outcomes.add(Outcome(state,
                 "You think about ice.",
                 topic="ice",
@@ -541,7 +541,7 @@ class Think(Action):
                 topic="misery",
             ), weight=4)
 
-        if state.character.place == places.cave:
+        if state.character.place == state.places.places_dict["cave"]:
             self.outcomes.add(Outcome(state,
                 "You think about the darkness that is crushing in on you from "
                 "all sides.",
@@ -575,7 +575,7 @@ class Yell(Action):
     slot = "a"
 
     def __init__(self, exclamation):
-        super(Yell, self).__init__()
+        super(Yell, self, state).__init__()
         self.exclamation = exclamation
         self.name = "Yell \"{0}!\"".format(exclamation)
 
@@ -616,8 +616,8 @@ class ReadASpellBook(Action):
 
     slot = "a"
 
-    def __init__(self):
-        super(ReadASpellBook, self).__init__()
+    def __init__(self, state):
+        super(ReadASpellBook, self, state).__init__()
         self.name = "Read a spellbook."
 
     def execute(self, state):
@@ -678,7 +678,7 @@ class SuckUpTo(Action):
     slot = "a"
 
     def __init__(self, person):
-        super(SuckUpTo, self).__init__()
+        super(SuckUpTo, self, state).__init__()
         self.person = person
         self.name = "Suck up to {0}.".format(person)
         self.combat_action = True
@@ -690,14 +690,14 @@ class SuckUpTo(Action):
             self.outcomes.add(Outcome(state,
                 "Lord Arthur sends you on a mission to find him a pet sea "
                 "turtle.",
-                move_to=places.ocean,
+                move_to=state.places.places_dict["ocean"],
             ), weight=1)
 
         if self.person == persons.lord_bartholomew:
 
             self.outcomes.add(Outcome(state,
                 "Lord Bartholomew wishes you well and sends you on your way.",
-                move_to=places.countryside,
+                move_to=state.places.places_dict["countryside"],
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
@@ -719,7 +719,7 @@ class SuckUpTo(Action):
 
             self.outcomes.add(Outcome(state,
                 "He has you thrown out the window.",
-                move_to=places.woods,
+                move_to=state.places.places_dict["woods"],
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
@@ -731,7 +731,7 @@ class SuckUpTo(Action):
 
             self.outcomes.add(Outcome(state,
                 "Lord Daniel sends you away.",
-                move_to=places.streets,
+                move_to=state.places.places_dict["streets"],
             ), weight=1)
 
 
@@ -745,8 +745,8 @@ class TellThemYouAreALunatic(Action):
 
     slot = "a"
 
-    def __init__(self):
-        super(TellThemYouAreALunatic, self).__init__()
+    def __init__(self, state):
+        super(TellThemYouAreALunatic, self, state).__init__()
         self.name = "Tell them you are a lunatic."
 
     def execute(self, state):
@@ -764,8 +764,8 @@ class Swashbuckle(Action):
 
     slot = "a"
 
-    def __init__(self):
-        super(Swashbuckle, self).__init__()
+    def __init__(self, state):
+        super(Swashbuckle, self, state).__init__()
         self.name = "Swashbuckle."
 
     def execute(self, state):
@@ -829,8 +829,8 @@ class LookForAssassins(Action):
 
     slot = "a"
 
-    def __init__(self):
-        super(LookForAssassins, self).__init__()
+    def __init__(self, state):
+        super(LookForAssassins, self, state).__init__()
         self.name = "Look for assassins."
 
     def execute(self, state):
@@ -849,8 +849,8 @@ class PickSomeFlowers(Action):
 
     slot = "a"
 
-    def __init__(self):
-        super(PickSomeFlowers, self).__init__()
+    def __init__(self, state):
+        super(PickSomeFlowers, self, state).__init__()
         self.name = "Pick some flowers."
 
     def execute(self, state):
@@ -882,13 +882,13 @@ class GoFishing(Action):
 
     slot = "a"
 
-    def __init__(self):
-        super(GoFishing, self).__init__()
+    def __init__(self, state):
+        super(GoFishing, self, state).__init__()
         self.name = "Go fishing."
 
     def execute(self, state):
 
-        if state.character.place == places.docks:
+        if state.character.place == state.places.places_dict["docks"]:
             self.outcomes.add(Outcome(state,
                 "Some pirates laugh at you. \"You'll never make a large "
                 "fortune that way,\" one of them says.",
@@ -916,7 +916,7 @@ class GoFishing(Action):
             succeed=True,
         ), weight=10)
 
-        if state.character.place == places.docks:
+        if state.character.place == state.places.places_dict["docks"]:
             self.outcomes.add(Outcome(state,
                 "You don't catch any fish, but the assassins catch you.",
                 clover=True,
@@ -929,7 +929,7 @@ class TakeIt(Action):
     slot = "a"
 
     def __init__(self, wronged_party, item):
-        super(TakeIt, self).__init__()
+        super(TakeIt, self, state).__init__()
         self.wronged_party = wronged_party
         self.item = item
         self.name = "Take it."
@@ -967,8 +967,8 @@ class AskAboutAssassins(Action):
 
     slot = "a"
 
-    def __init__(self):
-        super(AskAboutAssassins, self).__init__()
+    def __init__(self, state):
+        super(AskAboutAssassins, self, state).__init__()
         self.name = "Ask about assassins."
 
     def execute(self, state):
@@ -986,7 +986,7 @@ class AskAboutAssassins(Action):
             fail=True,
         ), weight=1)
 
-        if state.character.place == places.tavern and \
+        if state.character.place == state.places.places_dict["tavern"] and \
            persons.pretty_lady.alive:
             self.outcomes.add(Outcome(state,
                 "During your search, you strike up a conversation "
@@ -994,7 +994,7 @@ class AskAboutAssassins(Action):
                 new_person=persons.pretty_lady
             ), weight=1)
 
-        if state.character.place == places.lord_carlos_manor:
+        if state.character.place == state.places.places_dict["lord_carlos_manor"]:
             self.outcomes.add(Outcome(state,
                 "You ask a servant about assassins. She asks you to wait where "
                 "you are.",
@@ -1005,8 +1005,8 @@ class AskDirections(Action):
 
     slot = "a"
 
-    def __init__(self):
-        super(AskDirections, self).__init__()
+    def __init__(self, state):
+        super(AskDirections, self, state).__init__()
         self.name = "Ask directions."
 
     def execute(self, state):
@@ -1032,21 +1032,21 @@ class AskDirections(Action):
             self.outcomes.add(Outcome(state,
                 "She says Lord Carlos' manor is in the woods.",
                 actions=[(GoTo(state.character.place,
-                          specific_dest=places.lord_carlos_manor),
+                          specific_dest=state.places.places_dict["lord_carlos_manor"]),
                           10000)],
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "She says Lord Bartholomew's manor is nearby.",
                 actions=[(GoTo(state.character.place,
-                          specific_dest=places.lord_bartholomews_manor),
+                          specific_dest=state.places.places_dict["lord_bartholomews_manor"]),
                           10000)],
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "She says there's good mushroom picking in the woods.",
                 actions=[(GoTo(state.character.place,
-                          specific_dest=places.woods), 10000)],
+                          specific_dest=state.places.places_dict["woods"]), 10000)],
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
@@ -1059,9 +1059,9 @@ class AdmireYourJewels(Action):
 
     slot = "a"
 
-    def __init__(self):
+    def __init__(self, state):
 
-        super(AdmireYourJewels, self).__init__()
+        super(AdmireYourJewels, self, state).__init__()
         self.name = "Admire your jewels."
 
     def execute(self, state):
@@ -1083,7 +1083,7 @@ class AdmireYourJewels(Action):
             topic="pearls",
         ), weight=1)
 
-        if state.character.place in places.populated:
+        if state.character.place in state.places.populated:
 
             self.outcomes.add(Outcome(state,
                 "You notice the reflection of a dagger in a particularly "
@@ -1092,7 +1092,7 @@ class AdmireYourJewels(Action):
                 die=True,
             ), weight=1)
 
-        if state.character.place in places.town:
+        if state.character.place in state.places.town:
 
             self.outcomes.add(Outcome(state,
                 "The guards catch you with your pants down. They conclude you "
@@ -1107,8 +1107,8 @@ class Apologize(Action):
 
     slot = "a"
 
-    def __init__(self):
-        super(Apologize, self).__init__()
+    def __init__(self, state):
+        super(Apologize, self, state).__init__()
         self.name = "Tell him you're sorry."
         self.combat_action = True
 
@@ -1137,7 +1137,7 @@ class Attack(Action):
     slot = "a"
 
     def __init__(self, person):
-        super(Attack, self).__init__()
+        super(Attack, self, state).__init__()
         self.name = "Attack " + person.name + "."
         self.combat_action = True
 
@@ -1160,8 +1160,8 @@ class GoDivingForPearls(Action):
 
     slot = "a"
 
-    def __init__(self):
-        super(GoDivingForPearls, self).__init__()
+    def __init__(self, state):
+        super(GoDivingForPearls, self, state).__init__()
         self.name = "Go diving for pearls."
 
     def execute(self, state):
@@ -1191,7 +1191,7 @@ class GoDivingForPearls(Action):
         self.outcomes.add(Outcome(state,
             "You exhaust yourself trying to find pearls and start to drown. "
             "A beautiful mermaid grabs you and hoists you to safety.",
-            move_to=places.mermaid_rock,
+            move_to=state.places.places_dict["mermaid_rock"],
             new_person=persons.mermaid,
         ), weight=1)
 
@@ -1201,11 +1201,11 @@ class LickTheGround(Action):
     slot = "a"
 
     def __init__(self, place):
-        super(LickTheGround, self).__init__()
+        super(LickTheGround, self, state).__init__()
         self.place = place
-        if place in places.inside:
+        if place in state.places.inside:
             self.ground = "floor"
-        elif place == places.pirate_ship:
+        elif place == state.places.places_dict["pirate_ship"]:
             self.ground = "deck"
         else:
             self.ground = "ground"
@@ -1226,7 +1226,7 @@ class LickTheGround(Action):
             fail=True,
         ), weight=3)
 
-        if state.character.place in places.populated:
+        if state.character.place in state.places.populated:
             self.outcomes.add(Outcome(state,
                 "The local guards see you licking the {0} and accuse you of "
                 "being a lunatic.".format(self.ground),
@@ -1234,26 +1234,26 @@ class LickTheGround(Action):
                 threat=True,
             ), weight=3)
 
-        if state.character.place == places.wizards_lab:
+        if state.character.place == state.places.places_dict["wizards_lab"]:
             self.outcomes.add(Outcome(state,
                 "You lick some spilled potion off the floor and start "
                 "growing at a monstrous rate.",
                 funcs=[state.character.monstrosify],
             ), weight=20)
 
-        if state.character.place == places.ocean:
+        if state.character.place == state.places.places_dict["ocean"]:
             self.outcomes.add(Outcome(state,
                 "You drown while swimming toward the ocean floor with your "
                 "tongue extended.",
                 die=True,
             ), weight=10000)
 
-        if state.character.place == places.woods:
+        if state.character.place == state.places.places_dict["woods"]:
             self.outcomes.add(Outcome(state,
                 "As you lick the ground, you notice it smells oddly familiar.",
             ), weight=3)
 
-        if state.character.place == places.arctic:
+        if state.character.place == state.places.places_dict["arctic"]:
             self.outcomes.add(Outcome(state,
                 "The ice tastes really cold.",
             ), weight=10)
@@ -1263,8 +1263,8 @@ class LookForAWeapon(Action):
 
     slot = "a"
 
-    def __init__(self):
-        super(LookForAWeapon, self).__init__()
+    def __init__(self, state):
+        super(LookForAWeapon, self, state).__init__()
         self.name = "Look for a weapon."
 
     def execute(self, state):
@@ -1286,8 +1286,8 @@ class LookForVoidDust(Action):
 
     slot = "a"
 
-    def __init__(self):
-        super(LookForVoidDust, self).__init__()
+    def __init__(self, state):
+        super(LookForVoidDust, self, state).__init__()
         self.name = "Look for void dust."
 
     def execute(self, state):
@@ -1307,8 +1307,8 @@ class GoMushroomPicking(Action):
 
     slot = "a"
 
-    def __init__(self):
-        super(GoMushroomPicking, self).__init__()
+    def __init__(self, state):
+        super(GoMushroomPicking, self, state).__init__()
         self.name = "Go mushroom picking."
 
     def execute(self, state):
@@ -1339,8 +1339,8 @@ class LookForStGeorge(Action):
 
     slot = "a"
 
-    def __init__(self):
-        super(LookForStGeorge, self).__init__()
+    def __init__(self, state):
+        super(LookForStGeorge, self, state).__init__()
         self.name = "Look for St. George."
 
     def execute(self, state):
@@ -1359,19 +1359,19 @@ class LookForStGeorge(Action):
         if persons.st_george.alive:
             self.outcomes.add(Outcome(state,
                 "You find St. George at the church.",
-                move_to=places.church,
+                move_to=state.places.places_dict["church"],
                 new_person=persons.st_george,
             ), weight=10)
 
             self.outcomes.add(Outcome(state,
                 "You find St. George in the streets.",
-                move_to=places.streets,
+                move_to=state.places.places_dict["streets"],
                 new_person=persons.st_george,
             ), weight=5)
 
             self.outcomes.add(Outcome(state,
                 "You find St. George in the market.",
-                move_to=places.market,
+                move_to=state.places.places_dict["market"],
                 new_person=persons.st_george,
             ), weight=3)
 
@@ -1380,23 +1380,23 @@ class KillYourselfInFrustration(Action):
 
     slot = "a"
 
-    def __init__(self):
-        super(KillYourselfInFrustration, self).__init__()
+    def __init__(self, state):
+        super(KillYourselfInFrustration, self, state).__init__()
         self.name = "Kill yourself in frustration."
 
     def execute(self, state):
 
         if state.character.place in [
-                places.docks,
-                places.mermaid_rock,
-                places.arctic]:
+                state.places.places_dict["docks"],
+                state.places.places_dict["mermaid_rock"],
+                state.places.places_dict["arctic"]]:
             self.outcomes.add(Outcome(state,
                 "You walk into the ocean and are suddenly inspired to write "
                 "a novel. You drown.",
                 die=True,
             ), weight=5)
 
-        if state.character.place in [places.streets, places.market, places.church] \
+        if state.character.place in [state.places.places_dict["streets"], state.places.places_dict["market"], state.places.places_dict["church"]] \
            and persons.st_george.alive:
             self.outcomes.add(Outcome(state,
                 "You throw yourself off a rooftop, but St. George catches "
@@ -1405,7 +1405,7 @@ class KillYourselfInFrustration(Action):
                 new_person=persons.st_george,
             ), weight=2)
 
-        if state.character.place in [places.docks]:
+        if state.character.place in [state.places.places_dict["docks"]]:
             self.outcomes.add(Outcome(state,
                 "You find Lord Arthur and ask him to kill you with his "
                 "jeweled cutlass. He gladly obliges.",
@@ -1417,7 +1417,7 @@ class KillYourselfInFrustration(Action):
             die=True,
         ), weight=3)
 
-        if state.character.place != places.ocean:
+        if state.character.place != state.places.places_dict["ocean"]:
             if not state.character.has_item(items.fire_proof_cloak):
                 self.outcomes.add(Outcome(state,
                     "You set yourself on fire and burn to a crisp.",
@@ -1435,9 +1435,9 @@ class KillYourselfInFrustration(Action):
                 die=True,
             ), weight=3)
 
-        if state.character.place == places.countryside or \
-           state.character.place == places.lord_bartholomews_manor or \
-           state.character.place == places.streets:
+        if state.character.place == state.places.places_dict["countryside"] or \
+           state.character.place == state.places.places_dict["lord_bartholomews_manor"] or \
+           state.character.place == state.places.places_dict["streets"]:
             self.outcomes.add(Outcome(state,
                 "You are about to impale yourself on a fence post when a "
                 "small boy walks by. By the time he leaves, your stupidity "
@@ -1449,8 +1449,8 @@ class KillEverybodyInAFitOfRage(Action):
 
     slot = "a"
 
-    def __init__(self):
-        super(KillEverybodyInAFitOfRage, self).__init__()
+    def __init__(self, state):
+        super(KillEverybodyInAFitOfRage, self, state).__init__()
         self.name = "Kill everybody in a fit of rage."
 
     def execute(self, state):
@@ -1466,13 +1466,13 @@ class KillEverybodyInAFitOfRage(Action):
         ), weight=1)
 
         if state.character.person == persons.pirates and \
-           state.character.place == places.docks and \
+           state.character.place == state.places.places_dict["docks"] and \
            persons.lord_arthur.alive:
             self.outcomes.add(Outcome(state,
                 "You kill all the pirates. Lord Arthur says he is impressed "
                 "with your skills and also happens to be in the market for "
                 "a new crew. He forces you into his service.",
-                move_to=places.pirate_ship,
+                move_to=state.places.places_dict["pirate_ship"],
             ), weight=10)
 
 
@@ -1484,7 +1484,7 @@ class SayYouLoveHer(Action):
     slot = "a"
 
     def __init__(self, person):
-        super(SayYouLoveHer, self).__init__()
+        super(SayYouLoveHer, self, state).__init__()
         self.name = "Say you love her too."
         self.person = person
 
@@ -1501,7 +1501,7 @@ class SayYouLoveHer(Action):
             self.outcomes.add(Outcome(state,
                 "Felicity is overjoyed and secretly lets you out of prison "
                 "that night. \"Let's get married!\" she says.",
-                move_to=places.streets,
+                move_to=state.places.places_dict["streets"],
                 new_person=persons.fat_lady,
                 actions=[
                     (MarryFelicity(), 777),
@@ -1513,8 +1513,8 @@ class MarryOlga(Action):
 
     slot = "a"
 
-    def __init__(self):
-        super(MarryOlga, self).__init__()
+    def __init__(self, state):
+        super(MarryOlga, self, state).__init__()
         self.name = "Marry Olga."
 
     def execute(self, state):
@@ -1556,8 +1556,8 @@ class MarryFelicity(Action):
 
     slot = "a"
 
-    def __init__(self):
-        super(MarryFelicity, self).__init__()
+    def __init__(self, state):
+        super(MarryFelicity, self, state).__init__()
         self.name = "Marry Felicity."
 
     def execute(self, state):
@@ -1572,8 +1572,8 @@ class ThumpYourselfOnTheChest(Action):
 
     slot = "a"
 
-    def __init__(self):
-        super(ThumpYourselfOnTheChest, self).__init__()
+    def __init__(self, state):
+        super(ThumpYourselfOnTheChest, self, state).__init__()
         self.name = "Thump yourself on the chest."
 
     def execute(self, state):
@@ -1587,8 +1587,8 @@ class ThumpYourselfOnTheChest(Action):
             die=True,
         ), weight=1)
 
-        if state.character.place in places.populated or \
-           state.character.place == places.countryside:
+        if state.character.place in state.places.populated or \
+           state.character.place == state.places.places_dict["countryside"]:
             self.outcomes.add(Outcome(state,
                 "A peasant woman sees you thump your chest and seems "
                 "impressed. Unfortunately, her husband is not. He ushers her "
@@ -1617,8 +1617,8 @@ class TrainWithTheGuards(Action):
 
     slot = "b"
 
-    def __init__(self):
-        super(TrainWithTheGuards, self).__init__()
+    def __init__(self, state):
+        super(TrainWithTheGuards, self, state).__init__()
         self.name = "Train with the guards."
 
     def execute(self, state):
@@ -1626,7 +1626,7 @@ class TrainWithTheGuards(Action):
         self.outcomes.add(Outcome(state,
             "The guards throw you out for not filling out the proper "
             "paperwork.",
-            move_to=places.streets,
+            move_to=state.places.places_dict["streets"],
             fail=True,
         ), weight=1)
 
@@ -1661,8 +1661,8 @@ class Beth(Action):
 
     slot = "b"
 
-    def __init__(self):
-        super(Beth, self).__init__()
+    def __init__(self, state):
+        super(Beth, self, state).__init__()
         self.name = "\"Beth.\""
 
     def execute(self, state):
@@ -1677,8 +1677,8 @@ class HowlWithPain(Action):
 
     slot = "b"
 
-    def __init__(self):
-        super(HowlWithPain, self).__init__()
+    def __init__(self, state):
+        super(HowlWithPain, self, state).__init__()
         self.name = "Howl with pain."
 
     def execute(self, state):
@@ -1692,7 +1692,7 @@ class HowlWithPain(Action):
             "that nothing is wrong with you. The servants are relieved and "
             "head back to the manor.",
             new_person=persons.st_george,
-            move_to=places.church,
+            move_to=state.places.places_dict["church"],
         ), weight=1)
 
         self.outcomes.add(Outcome(state,
@@ -1708,8 +1708,8 @@ class RepayYourDebts(Action):
 
     slot = "b"
 
-    def __init__(self):
-        super(RepayYourDebts, self).__init__()
+    def __init__(self, state):
+        super(RepayYourDebts, self, state).__init__()
         self.name = "Repay your debts."
         self.combat_action = True
 
@@ -1737,8 +1737,8 @@ class Nf3(Action):
 
     slot = "b"
 
-    def __init__(self):
-        super(Nf3, self).__init__()
+    def __init__(self, state):
+        super(Nf3, self, state).__init__()
         self.name = "Nf3."
         self.combat_action = True
 
@@ -1759,8 +1759,8 @@ class TryToTakeKeys(Action):
 
     slot = "b"
 
-    def __init__(self):
-        super(TryToTakeKeys, self).__init__()
+    def __init__(self, state):
+        super(TryToTakeKeys, self, state).__init__()
         self.name = "Try to take the keys the next chance you get."
 
     def execute(self, state):
@@ -1778,7 +1778,7 @@ class TryToTakeKeys(Action):
 
         self.outcomes.add(Outcome(state,
             "It's surprisingly easy to steal keys and get out of prison.",
-            move_to=places.streets,
+            move_to=state.places.places_dict["streets"],
             succeed=True,
         ), weight=1)
 
@@ -1790,8 +1790,8 @@ class Grovel(Action):
 
     slot = "b"
 
-    def __init__(self):
-        super(Grovel, self).__init__()
+    def __init__(self, state):
+        super(Grovel, self, state).__init__()
         self.name = "Grovel."
         self.combat_action = True
 
@@ -1815,7 +1815,7 @@ class Grovel(Action):
         self.outcomes.add(Outcome(state,
             "He asks a servant to get you out of his sight. You are "
             "unceremoniously thrown out of the manor.",
-            move_to=places.woods,
+            move_to=state.places.places_dict["woods"],
         ), weight=1)
 
 
@@ -1823,8 +1823,8 @@ class ArmWrestle(Action):
 
     slot = "b"
 
-    def __init__(self):
-        super(ArmWrestle, self).__init__()
+    def __init__(self, state):
+        super(ArmWrestle, self, state).__init__()
         self.name = "Arm wrestle with them to reclaim your dignity."
 
     def execute(self, state):
@@ -1832,7 +1832,7 @@ class ArmWrestle(Action):
         self.outcomes.add(Outcome(state,
             "Even the lady pirates can easily beat you. They toss you "
             "in the ocean when they're done humiliating you.",
-            move_to=places.ocean,
+            move_to=state.places.places_dict["ocean"],
         ), weight=1)
 
         self.outcomes.add(Outcome(state,
@@ -1843,7 +1843,7 @@ class ArmWrestle(Action):
         self.outcomes.add(Outcome(state,
             "You manage to hold out long enough for Lord Arthur to "
             "bark orders at his men to press-gang hands for the voyage.",
-            move_to=places.pirate_ship,
+            move_to=state.places.places_dict["pirate_ship"],
         ), weight=1)
 
 
@@ -1852,7 +1852,7 @@ class SlurpDown(Action):
     slot = "b"
 
     def __init__(self, potion):
-        super(SlurpDown, self).__init__()
+        super(SlurpDown, self, state).__init__()
         self.potion = potion
         self.name = "{0}".format(random.choice([
             "Slurp down your ",
@@ -1890,8 +1890,8 @@ class LookForWitches(Action):
 
     slot = "b"
 
-    def __init__(self):
-        super(LookForWitches, self).__init__()
+    def __init__(self, state):
+        super(LookForWitches, self, state).__init__()
         self.name = "Look for witches"
 
     def execute(self, state):
@@ -1901,7 +1901,7 @@ class LookForWitches(Action):
             new_person=persons.witch,
         ), weight=1)
 
-        if state.character.place in places.burnable:
+        if state.character.place in state.places.burnable:
             self.outcomes.add(Outcome(state,
                 "You can't find any witches. Only trees.",
                 fail=True,
@@ -1917,8 +1917,8 @@ class GawkAtWomen(Action):
 
     slot = "b"
 
-    def __init__(self):
-        super(GawkAtWomen, self).__init__()
+    def __init__(self, state):
+        super(GawkAtWomen, self, state).__init__()
         self.name = "{0} at women.".format(random.choice(
             ["Gawk", "Leer", "Stare"]))
 
@@ -1950,7 +1950,7 @@ class GawkAtWomen(Action):
             self.outcomes.add(Outcome(state,
                 "An equally creepy woman stares back at you before "
                 "disappearing into a dark alley.",
-                actions=[(GoTo(places.dark_alley), 5)],
+                actions=[(GoTo(state.places.places_dict["dark_alley"]), 5)],
             ), weight=1)
 
         if self.name == "Leer at women.":
@@ -1968,15 +1968,15 @@ class SwingOnARope(Action):
 
     slot = "b"
 
-    def __init__(self):
-        super(SwingOnARope, self).__init__()
+    def __init__(self, state):
+        super(SwingOnARope, self, state).__init__()
         self.name = "Swing on a Rope."
 
     def execute(self, state):
 
         self.outcomes.add(Outcome(state,
             "You fall into the ocean and no one bothers to save you.",
-            move_to=places.ocean,
+            move_to=state.places.places_dict["ocean"],
         ), weight=1)
 
         if persons.lord_arthur.alive:
@@ -2004,8 +2004,8 @@ class Tithe(Action):
 
     slot = "b"
 
-    def __init__(self):
-        super(Tithe, self).__init__()
+    def __init__(self, state):
+        super(Tithe, self, state).__init__()
         self.name = "Tithe."
 
     def execute(self, state):
@@ -2051,8 +2051,8 @@ class BarterWithEskimos(Action):
 
     slot = "b"
 
-    def __init__(self):
-        super(BarterWithEskimos, self).__init__()
+    def __init__(self, state):
+        super(BarterWithEskimos, self, state).__init__()
         self.name = "Barter with the Eskimos."
 
     def execute(self, state):
@@ -2067,7 +2067,7 @@ class BarterWithEskimos(Action):
             self.outcomes.add(Outcome(state,
                 "You trade your seal for passage back to land.",
                 remove_item=items.seal_carcass,
-                move_to=places.woods,
+                move_to=state.places.places_dict["woods"],
                 topic="Eskimos",
             ), weight=9)
 
@@ -2075,7 +2075,7 @@ class BarterWithEskimos(Action):
             "The Eskimos drive a hard bargain, but take you to land in "
             "one of their kayaks.",
             funcs=[state.character.remove_all_items],
-            move_to=places.woods,
+            move_to=state.places.places_dict["woods"],
             topic="Eskimos",
         ), weight=1)
 
@@ -2084,8 +2084,8 @@ class BuildAnIgloo(Action):
 
     slot = "b"
 
-    def __init__(self):
-        super(BuildAnIgloo, self).__init__()
+    def __init__(self, state):
+        super(BuildAnIgloo, self, state).__init__()
         self.name = "Build an igloo."
 
     def execute(self, state):
@@ -2116,7 +2116,7 @@ class BuildAnIgloo(Action):
             self.outcomes.add(Outcome(state,
                 "You survive in your igloo until winter by eating your seal. "
                 "The winter ice sheet allows you to get back to land.",
-                move_to=places.woods,
+                move_to=state.places.places_dict["woods"],
                 remove_item=items.seal_carcass,
                 succeed=True,
             ), weight=50)
@@ -2126,8 +2126,8 @@ class Disguise(Action):
 
     slot = "b"
 
-    def __init__(self):
-        super(Disguise, self).__init__()
+    def __init__(self, state):
+        super(Disguise, self, state).__init__()
         self.fake_name = random.choice(["St. George.",
                                         "Lord Arthur.",
                                         "Lord Daniel."])
@@ -2136,7 +2136,7 @@ class Disguise(Action):
 
     def execute(self, state):
 
-        if state.character.place == places.lord_bartholomews_manor:
+        if state.character.place == state.places.places_dict["lord_bartholomews_manor"]:
             self.outcomes.add(Outcome(state,
                 "No one is buying it.",
                 fail=True,
@@ -2146,7 +2146,7 @@ class Disguise(Action):
                 "You soon have an audience with Lord Bartholomew. When he "
                 "realizes he's been tricked, he has his servants escort you "
                 "out of the manor.",
-                move_to=places.countryside,
+                move_to=state.places.places_dict["countryside"],
             ), weight=1)
 
             if self.fake_name == "Lord Arthur":
@@ -2164,7 +2164,7 @@ class Disguise(Action):
                     die=True,
                 ), weight=3)
 
-        if state.character.place == places.lord_carlos_manor:
+        if state.character.place == state.places.places_dict["lord_carlos_manor"]:
             if persons.lord_carlos.alive:
                 self.outcomes.add(Outcome(state,
                     "You soon have an audience with Lord Carlos. He recognizes you "
@@ -2184,7 +2184,7 @@ class BurnThePlaceToTheGround(Action):
     slot = "b"
 
     def __init__(self, place):
-        super(BurnThePlaceToTheGround, self).__init__()
+        super(BurnThePlaceToTheGround, self, state).__init__()
         self.place = place
         self.name = "Burn {0} to the ground.".format(place.name)
 
@@ -2197,7 +2197,7 @@ class BurnThePlaceToTheGround(Action):
                 die=True,
             ), weight=1)
         else:
-            if self.place in places.burnable:
+            if self.place in state.places.burnable:
                 self.outcomes.add(Outcome(state,
                     "You almost perish in the blaze, but your "
                     "fancy red cloak is fireproof.",
@@ -2206,7 +2206,7 @@ class BurnThePlaceToTheGround(Action):
                     move_to=self.place,
                 ), weight=1)
 
-        if self.place in places.burnable:
+        if self.place in state.places.burnable:
             self.outcomes.add(Outcome(state,
                 None,
                 burn_place=self.place,
@@ -2214,7 +2214,7 @@ class BurnThePlaceToTheGround(Action):
                 move_to=self.place,
             ), weight=4)
 
-        if state.character.place == places.lord_carlos_manor:
+        if state.character.place == state.places.places_dict["lord_carlos_manor"]:
             self.outcomes.add(Outcome(state,
                 "You get assassinated while looking for kindling.",
                 die=True,
@@ -2268,8 +2268,8 @@ class ClimbIntoTheCrowsNest(Action):
 
     slot = "b"
 
-    def __init__(self):
-        super(ClimbIntoTheCrowsNest, self).__init__()
+    def __init__(self, state):
+        super(ClimbIntoTheCrowsNest, self, state).__init__()
         self.name = "Climb into the crow's nest."
 
     def execute(self, state):
@@ -2286,13 +2286,13 @@ class ClimbIntoTheCrowsNest(Action):
         self.outcomes.add(Outcome(state,
             "You are able to help guide the ship to land.",
             succeed=True,
-            move_to=places.woods,
+            move_to=state.places.places_dict["woods"],
         ), weight=1)
 
         self.outcomes.add(Outcome(state,
             "You are able to help guide the ship to the docks.",
             succeed=True,
-            move_to=places.docks,
+            move_to=state.places.places_dict["docks"],
         ), weight=1)
 
         self.outcomes.add(Outcome(state,
@@ -2318,7 +2318,7 @@ class ClimbIntoTheCrowsNest(Action):
             "A crow in the crow's nest caws in your face, startling "
             "you. You fall off the mast and land in the water.",
             fail=True,
-            move_to=places.ocean,
+            move_to=state.places.places_dict["ocean"],
         ), weight=1)
 
 
@@ -2326,8 +2326,8 @@ class RaiseASail(Action):
 
     slot = "b"
 
-    def __init__(self):
-        super(RaiseASail, self).__init__()
+    def __init__(self, state):
+        super(RaiseASail, self, state).__init__()
         self.name = "Raise a sail."
 
     def execute(self, state):
@@ -2374,7 +2374,7 @@ class RaiseASail(Action):
         self.outcomes.add(Outcome(state,
             "You help the ship return to the docks quicker.",
             succeed=True,
-            move_to=places.docks,
+            move_to=state.places.places_dict["docks"],
         ), weight=1)
 
 
@@ -2382,8 +2382,8 @@ class ScrubTheDeck(Action):
 
     slot = "b"
 
-    def __init__(self):
-        super(ScrubTheDeck, self).__init__()
+    def __init__(self, state):
+        super(ScrubTheDeck, self, state).__init__()
         self.name = "Scrub the deck."
 
     def execute(self, state):
@@ -2436,8 +2436,8 @@ class PlayDead(Action):
 
     slot = "b"
 
-    def __init__(self):
-        super(PlayDead, self).__init__()
+    def __init__(self, state):
+        super(PlayDead, self, state).__init__()
         self.name = "Play dead."
         self.combat_action = True
 
@@ -2481,8 +2481,8 @@ class PrayToAHigherPower(Action):
 
     slot = "b"
 
-    def __init__(self):
-        super(PrayToAHigherPower, self).__init__()
+    def __init__(self, state):
+        super(PrayToAHigherPower, self, state).__init__()
         self.name = "Pray to a higher power."
 
     def execute(self, state):
@@ -2526,14 +2526,14 @@ class PrayToAHigherPower(Action):
             die=True,
         ), weight=1)
 
-        if state.character.place in places.burnable:
+        if state.character.place in state.places.burnable:
 
             self.outcomes.add(Outcome(state,
                 "Your prayers are answered.",
                 burn_place=state.character.place,
             ), weight=1)
 
-        if state.character.place == places.tavern:
+        if state.character.place == state.places.places_dict["tavern"]:
 
             self.outcomes.add(Outcome(state,
                 "God does nothing for you, but you do find a small sack of "
@@ -2542,7 +2542,7 @@ class PrayToAHigherPower(Action):
                 topic='jewels',
             ), weight=1)
 
-        if state.character.place in places.town and \
+        if state.character.place in state.places.town and \
            persons.st_george.alive:
 
             self.outcomes.add(Outcome(state,
@@ -2555,13 +2555,13 @@ class BegForMoney(Action):
 
     slot = "b"
 
-    def __init__(self):
-        super(BegForMoney, self).__init__()
+    def __init__(self, state):
+        super(BegForMoney, self, state).__init__()
         self.name = "Beg for money."
 
     def execute(self, state):
 
-        if state.character.place != places.church and \
+        if state.character.place != state.places.places_dict["church"] and \
            state.character.person == persons.st_george:
             self.outcomes.add(Outcome(state,
                 "St. George tells you he has lost his wallet in the church.",
@@ -2619,8 +2619,8 @@ class BideYourTime(Action):
 
     slot = "b"
 
-    def __init__(self):
-        super(BideYourTime, self).__init__()
+    def __init__(self, state):
+        super(BideYourTime, self, state).__init__()
         self.name = "Bide your time."
 
     def execute(self, state):
@@ -2642,7 +2642,7 @@ class BideYourTime(Action):
         self.outcomes.add(Outcome(state,
             "You eventually manage to dig a secret passage from your cell "
             "into a cave network.",
-            move_to=places.cave,
+            move_to=state.places.places_dict["cave"],
         ), weight=1)
 
         self.outcomes.add(Outcome(state,
@@ -2667,8 +2667,8 @@ class BuyBlackMarketItem(Action):
 
     slot = "b"
 
-    def __init__(self):
-        super(BuyBlackMarketItem, self).__init__()
+    def __init__(self, state):
+        super(BuyBlackMarketItem, self, state).__init__()
         self.item = random.choice(
             persons.black_market_merchant.get_sells())
         self.price = persons.black_market_merchant.get_sell_price(self.item)
@@ -2707,8 +2707,8 @@ class BuyItem(Action):
 
     slot = "b"
 
-    def __init__(self):
-        super(BuyItem, self).__init__()
+    def __init__(self, state):
+        super(BuyItem, self, state).__init__()
         self.item = random.choice(persons.local_merchant.get_sells())
         self.price = persons.local_merchant.get_sell_price(self.item)
         self.name = "Buy {0} {1}.".format(
@@ -2742,8 +2742,8 @@ class BuyWeapon(Action):
 
     slot = "b"
 
-    def __init__(self):
-        super(BuyWeapon, self).__init__()
+    def __init__(self, state):
+        super(BuyWeapon, self, state).__init__()
         self.weapon = random.choice(persons.wealthy_merchant.get_sells())
         self.price = persons.wealthy_merchant.get_sell_price(self.weapon)
         self.name = "Buy a " + str(self.weapon) + "."
@@ -2771,8 +2771,8 @@ class BuyADrink(Action):
 
     slot = "b"
 
-    def __init__(self):
-        super(BuyADrink, self).__init__()
+    def __init__(self, state):
+        super(BuyADrink, self, state).__init__()
         self.name = "Buy a drink."
 
     def execute(self, state):
@@ -2817,8 +2817,8 @@ class BoastOfYourBravery(Action):
 
     slot = "b"
 
-    def __init__(self):
-        super(BoastOfYourBravery, self).__init__()
+    def __init__(self, state):
+        super(BoastOfYourBravery, self, state).__init__()
         self.name = "Boast of your bravery."
 
     def execute(self, state):
@@ -2911,7 +2911,7 @@ class BoastOfYourBravery(Action):
                     "You tell the guards that you are brave.\n 'A brave "
                     "lunatic,' they say and they throw you in prison.",
                     new_person=persons.other_lunatics,
-                    move_to=places.prison,
+                    move_to=state.places.places_dict["prison"],
                 ), weight=1)
 
 
@@ -2919,8 +2919,8 @@ class LookForACat(Action):
 
     slot = "b"
 
-    def __init__(self):
-        super(LookForACat, self).__init__()
+    def __init__(self, state):
+        super(LookForACat, self, state).__init__()
         self.name = "Look for a cat."
 
     def execute(self, state):
@@ -2956,20 +2956,20 @@ class LookForACat(Action):
             die=True,
         ), weight=1)
 
-        if state.character.place in places.burnable and \
-           state.character.place in places.town:
+        if state.character.place in state.places.burnable and \
+           state.character.place in state.places.town:
 
             self.outcomes.add(Outcome(state,
                 "You knock a lantern over as you chase a cat.",
                 burn_place=state.character.place,
             ), weight=4)
 
-        if state.character.place in places.populated and not state.character.place in places.locked:
+        if state.character.place in state.places.populated and not state.character.place in state.places.locked:
 
             self.outcomes.add(Outcome(state,
                 "You follow a cat through the streets but "
                 "eventually lose track of it.",
-                move_to=places.dark_alley,
+                move_to=state.places.places_dict["dark_alley"],
             ), weight=6)
 
             self.outcomes.add(Outcome(state,
@@ -2980,7 +2980,7 @@ class LookForACat(Action):
                 topic="lonely",
             ), weight=6)
 
-        if state.character.place == places.pirate_ship:
+        if state.character.place == state.places.places_dict["pirate_ship"]:
             self.outcomes.add(Outcome(state,
                 "You find Lord Arthur's freakish cat. The cat has "
                 "eight more tails than a normal cat.",
@@ -2992,7 +2992,7 @@ class TellThemYouAreNotALunatic(Action):
     slot = "b"
 
     def __init__(self, topic):
-        super(TellThemYouAreNotALunatic, self).__init__()
+        super(TellThemYouAreNotALunatic, self, state).__init__()
         self.topic = topic
         self.name = "Tell them you are not a lunatic, " + \
             "you're just {0}.".format(topic)
@@ -3003,14 +3003,14 @@ class TellThemYouAreNotALunatic(Action):
             self.outcomes.add(Outcome(state,
                 "\"An {0} lunatic,\" they say.".format(self.topic),
                 fail=True,
-                move_to=places.prison,
+                move_to=state.places.places_dict["prison"],
                 new_person=persons.other_lunatics,
             ), weight=1)
         else:
             self.outcomes.add(Outcome(state,
                 "\"A {0} lunatic,\" they say.".format(self.topic),
                 fail=True,
-                move_to=places.prison,
+                move_to=state.places.places_dict["prison"],
                 new_person=persons.other_lunatics,
             ), weight=1)
 
@@ -3019,8 +3019,8 @@ class TipACow(Action):
 
     slot = "b"
 
-    def __init__(self):
-        super(TipACow, self).__init__()
+    def __init__(self, state):
+        super(TipACow, self, state).__init__()
         self.name = "Tip a cow."
 
     def execute(self, state):
@@ -3068,8 +3068,8 @@ class LookForSeaTurtles(Action):
 
     slot = "b"
 
-    def __init__(self):
-        super(LookForSeaTurtles, self).__init__()
+    def __init__(self, state):
+        super(LookForSeaTurtles, self, state).__init__()
         self.name = "Look for sea turtles."
 
     def execute(self, state):
@@ -3086,7 +3086,7 @@ class LookForSeaTurtles(Action):
 
         self.outcomes.add(Outcome(state,
             "You find a sea turtle and follow it to shore.",
-            move_to=places.woods,
+            move_to=state.places.places_dict["woods"],
             topic="sea turtles",
             succeed=True,
         ), weight=1)
@@ -3105,8 +3105,8 @@ class LookForMermaids(Action):
 
     slot = "b"
 
-    def __init__(self):
-        super(LookForMermaids, self).__init__()
+    def __init__(self, state):
+        super(LookForMermaids, self, state).__init__()
         self.name = "Look for mermaids."
 
     def execute(self, state):
@@ -3114,7 +3114,7 @@ class LookForMermaids(Action):
         self.outcomes.add(Outcome(state,
             "You find a wooden mermaid figurehead on the front of Lord "
             "Arthur's ship. The crew hoists you abroad.",
-            move_to=places.pirate_ship,
+            move_to=state.places.places_dict["pirate_ship"],
         ), weight=1)
 
         self.outcomes.add(Outcome(state,
@@ -3127,7 +3127,7 @@ class LookForMermaids(Action):
             fail=True,
         ), weight=1)
 
-        if state.character.place == places.mermaid_rock:
+        if state.character.place == state.places.places_dict["mermaid_rock"]:
             self.outcomes.add(Outcome(state,
                 "{0} {1}".format(random.choice([
                     "You almost step on one",
@@ -3163,10 +3163,10 @@ class LookForMermaids(Action):
                 die=True,
             ), weight=1)
 
-        if state.character.place == places.ocean:
+        if state.character.place == state.places.places_dict["ocean"]:
             self.outcomes.add(Outcome(state,
                 "You find a mermaid. She leads you back to her rock.",
-                move_to=places.mermaid_rock,
+                move_to=state.places.places_dict["mermaid_rock"],
                 new_person=persons.mermaid,
             ), weight=1)
 
@@ -3188,8 +3188,8 @@ class ChatWithLordBartholomew(Action):
 
     slot = "c"
 
-    def __init__(self):
-        super(ChatWithLordBartholomew, self).__init__()
+    def __init__(self, state):
+        super(ChatWithLordBartholomew, self, state).__init__()
         self.name = "Chat with Lord Bartholomew."
 
     def execute(self, state):
@@ -3258,8 +3258,8 @@ class Eve(Action):
 
     slot = "c"
 
-    def __init__(self):
-        super(Eve, self).__init__()
+    def __init__(self, state):
+        super(Eve, self, state).__init__()
         self.name = "\"Eve.\""
 
     def execute(self, state):
@@ -3274,8 +3274,8 @@ class WaitForAHoliday(Action):
 
     slot = "c"
 
-    def __init__(self):
-        super(WaitForAHoliday, self).__init__()
+    def __init__(self, state):
+        super(WaitForAHoliday, self, state).__init__()
         self.name = "Wait for a holiday to make your move."
 
     def execute(self, state):
@@ -3283,7 +3283,7 @@ class WaitForAHoliday(Action):
         self.outcomes.add(Outcome(state,
             "You manage to swipe the keys off the warden during his "
             "inspection. You make your escape that night.",
-            move_to=places.streets,
+            move_to=state.places.places_dict["streets"],
         ), weight=2)
 
         self.outcomes.add(Outcome(state,
@@ -3296,7 +3296,7 @@ class WaitForAHoliday(Action):
             "has you thrown in a deep dark dungeon. However, you end up in "
             "a cell with some of Lord Bartholomew's men. They are soon rescued "
             "and so are you.",
-            move_to=places.lord_bartholomews_manor,
+            move_to=state.places.places_dict["lord_bartholomews_manor"],
         ), weight=1)
 
 
@@ -3304,8 +3304,8 @@ class ChallengeThemToAGameOfChess(Action):
 
     slot = "c"
 
-    def __init__(self):
-        super(ChallengeThemToAGameOfChess, self).__init__()
+    def __init__(self, state):
+        super(ChallengeThemToAGameOfChess, self, state).__init__()
         self.name = "Challenge them to a game of chess."
 
     def execute(self, state):
@@ -3326,8 +3326,8 @@ class ChallengeThemToAGameOfChess(Action):
         self.outcomes.add(Outcome(state,
             "You beat all the pirates easily. Lord Arthur says your "
             "wits could be invaluable on the high seas. They soon are.",
-            move_to=places.pirate_ship,
-            actions=[(LickTheGround(places.pirate_ship), 1000)],
+            move_to=state.places.places_dict["pirate_ship"],
+            actions=[(LickTheGround(state.places.places_dict["pirate_ship"]), 1000)],
         ), weight=1)
 
 
@@ -3335,8 +3335,8 @@ class SunYourselfOnARock(Action):
 
     slot = "c"
 
-    def __init__(self):
-        super(SunYourselfOnARock, self).__init__()
+    def __init__(self, state):
+        super(SunYourselfOnARock, self, state).__init__()
         self.name = "Sun yourself on a rock."
 
     def execute(self, state):
@@ -3371,8 +3371,8 @@ class ComplainAboutUnfairImprisonment(Action):
 
     slot = "c"
 
-    def __init__(self):
-        super(ComplainAboutUnfairImprisonment, self).__init__()
+    def __init__(self, state):
+        super(ComplainAboutUnfairImprisonment, self, state).__init__()
         self.name = "Complain about unfair imprisonment."
 
     def execute(self, state):
@@ -3392,7 +3392,7 @@ class ComplainAboutUnfairImprisonment(Action):
                 "The guards arrest you on charges of lunacy and throw you in "
                 "prison with the other lunatics.",
                 new_person=persons.other_lunatics,
-                move_to=places.prison,
+                move_to=state.places.places_dict["prison"],
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
@@ -3409,7 +3409,7 @@ class ComplainAboutUnfairImprisonment(Action):
             self.outcomes.add(Outcome(state,
                 "Lord Daniel has his guards carry out of the tower and dump "
                 "in a pile of manure.",
-                move_to=places.streets,
+                move_to=state.places.places_dict["streets"],
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
@@ -3429,8 +3429,8 @@ class Hide(Action):
 
     slot = "c"
 
-    def __init__(self):
-        super(Hide, self).__init__()
+    def __init__(self, state):
+        super(Hide, self, state).__init__()
         self.name = "Hide."
 
     def execute(self, state):
@@ -3470,8 +3470,8 @@ class E4(Action):
 
     slot = "c"
 
-    def __init__(self):
-        super(E4, self).__init__()
+    def __init__(self, state):
+        super(E4, self, state).__init__()
         self.name = "e4."
         self.combat_action = True
 
@@ -3492,8 +3492,8 @@ class LookForAWayOut(Action):
 
     slot = "c"
 
-    def __init__(self):
-        super(LookForAWayOut, self).__init__()
+    def __init__(self, state):
+        super(LookForAWayOut, self, state).__init__()
         self.name = "Look for a way out."
 
     def execute(self, state):
@@ -3527,7 +3527,7 @@ class LookForAWayOut(Action):
 
         self.outcomes.add(Outcome(state,
             "You find your way out of the cave.",
-            move_to=places.woods,
+            move_to=state.places.places_dict["woods"],
             succeed=True,
         ), weight=1)
 
@@ -3536,8 +3536,8 @@ class ClimbUpTheTopSails(Action):
 
     slot = "c"
 
-    def __init__(self):
-        super(ClimbUpTheTopSails, self).__init__()
+    def __init__(self, state):
+        super(ClimbUpTheTopSails, self, state).__init__()
         self.name = "Climb up the top sails."
 
     def execute(self, state):
@@ -3553,8 +3553,8 @@ class TellAPriest(Action):
 
     slot = "c"
 
-    def __init__(self):
-        super(TellAPriest, self).__init__()
+    def __init__(self, state):
+        super(TellAPriest, self, state).__init__()
         self.idea = random.choice([
             "that God doesn't exist",
             "that he's fat",
@@ -3601,7 +3601,7 @@ class TellAPriest(Action):
             self.outcomes.add(Outcome(state,
                 "St. George overhears your comment and agrees with you, "
                 "but throws you out of the church for rudeness.",
-                move_to=places.streets,
+                move_to=state.places.places_dict["streets"],
             ), weight=1)
 
         if self.idea == "that you are the chosen one":
@@ -3609,7 +3609,7 @@ class TellAPriest(Action):
                 "The priest finds your arguments so pitiful that he gives "
                 "you a pittance and sends you on your way.",
                 get_money=money.pittance,
-                move_to=places.streets,
+                move_to=state.places.places_dict["streets"],
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
@@ -3624,7 +3624,7 @@ class TellAPriest(Action):
                 self.outcomes.add(Outcome(state,
                     "St. George overhears your comment and turns you, "
                     "over to the guards on charges of lunacy.",
-                    move_to=places.prison,
+                    move_to=state.places.places_dict["prison"],
                     new_person=persons.other_lunatics,
                 ), weight=1)
 
@@ -3636,8 +3636,8 @@ class FireACanon(Action):
 
     slot = "c"
 
-    def __init__(self):
-        super(FireACanon, self).__init__()
+    def __init__(self, state):
+        super(FireACanon, self, state).__init__()
         self.name = "Fire a cannon."
 
     def execute(self, state):
@@ -3669,8 +3669,8 @@ class ClubASeal(Action):
 
     slot = "c"
 
-    def __init__(self):
-        super(ClubASeal, self).__init__()
+    def __init__(self, state):
+        super(ClubASeal, self, state).__init__()
         self.name = "Club a seal."
 
     def execute(self, state):
@@ -3710,8 +3710,8 @@ class CelebrateYourSuccess(Action):
 
     slot = "c"
 
-    def __init__(self):
-        super(CelebrateYourSuccess, self).__init__()
+    def __init__(self, state):
+        super(CelebrateYourSuccess, self, state).__init__()
         self.name = "Celebrate your success."
 
     def execute(self, state):
@@ -3730,7 +3730,7 @@ class CelebrateYourSuccess(Action):
             "You sing a song.",
         ), weight=1)
 
-        if state.character.place in places.burnable:
+        if state.character.place in state.places.burnable:
             self.outcomes.add(Outcome(state,
                 None,
                 burn_place=state.character.place,
@@ -3738,19 +3738,19 @@ class CelebrateYourSuccess(Action):
                 move_to=state.character.place,
             ), weight=1)
 
-        if state.character.place in places.town:
+        if state.character.place in state.places.town:
 
             self.outcomes.add(Outcome(state,
                 "You go see a play in the market.",
-                move_to=places.market,
+                move_to=state.places.places_dict["market"],
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "You go to a brothel and admire the decorations.",
-                move_to=places.streets,
+                move_to=state.places.places_dict["streets"],
             ), weight=1)
 
-        if state.character.place in places.populated and \
+        if state.character.place in state.places.populated and \
            state.character.money != money.none:
 
             self.outcomes.add(Outcome(state,
@@ -3758,7 +3758,7 @@ class CelebrateYourSuccess(Action):
                 funcs=[state.character.lose_all_money],
             ), weight=1)
 
-        if state.character.place == places.arctic:
+        if state.character.place == state.places.places_dict["arctic"]:
 
             self.outcomes.add(Outcome(state,
                 "You make a snow woman.",
@@ -3768,7 +3768,7 @@ class CelebrateYourSuccess(Action):
                 "You make a snow angel.",
             ), weight=1)
 
-        if state.character.place == places.tavern:
+        if state.character.place == state.places.places_dict["tavern"]:
 
             self.outcomes.add(Outcome(state,
                 "You drink until you black out.",
@@ -3778,7 +3778,7 @@ class CelebrateYourSuccess(Action):
             self.outcomes.add(Outcome(state,
                 "You drink until you black out. You wake up weary and "
                 "penniless.",
-                move_to=places.dark_alley,
+                move_to=state.places.places_dict["dark_alley"],
                 funcs=[state.character.lose_all_money],
             ), weight=1)
 
@@ -3786,7 +3786,7 @@ class CelebrateYourSuccess(Action):
                 "You drink until you black out. "
                 "Lord Arthur wakes you by yelling that you need to get on "
                 "with your duties.",
-                move_to=places.pirate_ship,
+                move_to=state.places.places_dict["pirate_ship"],
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
@@ -3802,8 +3802,8 @@ class ChopDownATree(Action):
 
     slot = "c"
 
-    def __init__(self):
-        super(ChopDownATree, self).__init__()
+    def __init__(self, state):
+        super(ChopDownATree, self, state).__init__()
         self.name = "Chop down a tree."
 
     def execute(self, state):
@@ -3852,7 +3852,7 @@ class ChowDown(Action):
     slot = "c"
 
     def __init__(self, food):
-        super(ChowDown, self).__init__()
+        super(ChowDown, self, state).__init__()
         self.food = food
         self.name = "Chow down on the " + str(food) + "."
 
@@ -3892,8 +3892,8 @@ class ChowDown(Action):
                 grow_stronger=1,
             ), weight=2)
 
-            if state.character.place == places.woods or \
-               state.character.place == places.countryside:
+            if state.character.place == state.places.places_dict["woods"] or \
+               state.character.place == state.places.places_dict["countryside"]:
                 self.outcomes.add(Outcome(state,
                     "You shrink to the size of a peanut. A weasel "
                     "soon comes along and eats you.",
@@ -3907,7 +3907,7 @@ class FlirtWith(Action):
     slot = "c"
 
     def __init__(self, person):
-        super(FlirtWith, self).__init__()
+        super(FlirtWith, self, state).__init__()
         self.person = person
         self.name = "Flirt with {0}.".format(person.name)
 
@@ -4076,14 +4076,14 @@ class FlirtWith(Action):
                 ), weight=10000)
 
         elif self.person == persons.pretty_lady and \
-             state.character.place == places.tavern:  # We know her name
+             state.character.place == state.places.places_dict["tavern"]:  # We know her name
 
             self.outcomes.add(Outcome(state,
                 "You follow Olga to her room, "
                 "where she shows you some paintings she's borrowing "
                 "from Lord Carlos.",
                 new_person=persons.pretty_lady,
-                move_to=places.upstairs,
+                move_to=state.places.places_dict["upstairs"],
                 flirt=(persons.pretty_lady, 2),
             ), weight=3)
 
@@ -4095,7 +4095,7 @@ class FlirtWith(Action):
             ), weight=1)
 
         elif self.person == persons.pretty_lady and \
-             state.character.place == places.upstairs:
+             state.character.place == state.places.places_dict["upstairs"]:
 
             self.outcomes.add(Outcome(state,
                 "{0}".format(random.choice([
@@ -4189,7 +4189,7 @@ class FlirtWith(Action):
                 "She says she wants to make love to you in the woods, "
                 "but you lose track of her in the darkness. She doesn't "
                 "come back for you.",
-                move_to=places.woods,
+                move_to=state.places.places_dict["woods"],
                 fail=True,
                 flirt=(persons.eve, 1),
             ), weight=1)
@@ -4220,8 +4220,8 @@ class GoToSleep(Action):
 
     slot = "c"
 
-    def __init__(self):
-        super(GoToSleep, self).__init__()
+    def __init__(self, state):
+        super(GoToSleep, self, state).__init__()
         self.name = "Go to sleep."
 
     def execute(self, state):
@@ -4255,7 +4255,7 @@ class GoToSleep(Action):
             new_person=None,
         ), weight=2)
 
-        if state.character.place == places.prison:
+        if state.character.place == state.places.places_dict["prison"]:
             self.outcomes.add(Outcome(state,
                 "You wake up just in time to see an assassin slip a weasel "
                 "between the bars of your cell. The weasel kills you.",
@@ -4263,27 +4263,27 @@ class GoToSleep(Action):
                 die=True,
             ), weight=3)
 
-        if state.character.place == places.lord_carlos_manor:
+        if state.character.place == state.places.places_dict["lord_carlos_manor"]:
             self.outcomes.add(Outcome(state,
                 "You wake up in Lord Carlos' dungeon. You never leave.",
                 die=True,
             ), weight=100)
 
-        if state.character.place == places.ocean:
+        if state.character.place == state.places.places_dict["ocean"]:
             self.outcomes.add(Outcome(state,
                 "You drown in your sleep.",
                 die=True,
             ), weight=100)
 
-        if not state.character.place in places.locked:
+        if not state.character.place in state.places.locked:
             self.outcomes.add(Outcome(state,
                 "You wake up some hours later.",
                 move=2,
                 new_person=None,
             ), weight=3)
 
-        if state.character.place in places.populated and not \
-           state.character.place in places.locked:
+        if state.character.place in state.places.populated and not \
+           state.character.place in state.places.locked:
 
             self.outcomes.add(Outcome(state,
                 "You are pleasantly awakened by a cat rubbing itself against "
@@ -4317,8 +4317,8 @@ class LookForTheWizard(Action):
 
     slot = "c"
 
-    def __init__(self):
-        super(LookForTheWizard, self).__init__()
+    def __init__(self, state):
+        super(LookForTheWizard, self, state).__init__()
         self.name = "Look for the wizard."
 
     def execute(self, state):
@@ -4328,7 +4328,7 @@ class LookForTheWizard(Action):
                 self.outcomes.add(Outcome(state,
                     "When you find him, he can smell that you have a yellow "
                     "mushroom. He asks if he can have it.",
-                    move_to=places.market,
+                    move_to=state.places.places_dict["market"],
                     new_person=persons.wizard,
                     actions=[(GiveHimTheYellowMushroom(), 100)],
                 ), weight=100)
@@ -4347,27 +4347,27 @@ class LookForTheWizard(Action):
             self.outcomes.add(Outcome(state,
                 "When you find him. He gives you a frog.",
                 add_item=items.frog,
-                move_to=places.market,
+                move_to=state.places.places_dict["market"],
                 new_person=persons.wizard,
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "You find the wizard. He is telling a woman how he "
                 "cursed the icicles in the arctic.",
-                move_to=places.market,
+                move_to=state.places.places_dict["market"],
                 new_person=persons.wizard,
             ), weight=2)
 
             self.outcomes.add(Outcome(state,
                 "You find the wizard. He is telling a woman about "
                 "a mesmerizing pearl.",
-                move_to=places.market,
+                move_to=state.places.places_dict["market"],
                 new_person=persons.wizard,
             ), weight=2)
 
             self.outcomes.add(Outcome(state,
                 "You see the wizard emptying a flask into a well.",
-                move_to=places.market,
+                move_to=state.places.places_dict["market"],
                 new_person=persons.wizard,
             ), weight=1)
 
@@ -4396,8 +4396,8 @@ class LeaveInAHuff(Action):
 
     slot = "c"
 
-    def __init__(self):
-        super(LeaveInAHuff, self).__init__()
+    def __init__(self, state):
+        super(LeaveInAHuff, self, state).__init__()
         self.name = "Leave in a huff."
 
     def execute(self, state):
@@ -4407,7 +4407,7 @@ class LeaveInAHuff(Action):
             move=1,
         ), weight=49)
 
-        if state.character.place in places.populated:
+        if state.character.place in state.places.populated:
             self.outcomes.add(Outcome(state,
                 "The huffy manner in which you left causes some assassins to "
                 "notice you. They assassinate you.",
@@ -4419,13 +4419,13 @@ class LeaveInAPuff(Action):
 
     slot = "c"
 
-    def __init__(self):
-        super(LeaveInAPuff, self).__init__()
+    def __init__(self, state):
+        super(LeaveInAPuff, self, state).__init__()
         self.name = "Leave in a puff."
         self.combat_action = True
 
     def execute(self, state):
-        options = places.Place.instances - set([state.character.place])
+        options = state.places.Place.instances - set([state.character.place])
         place = random.sample(options, 1)[0]
 
         self.outcomes.add(Outcome(state,
@@ -4438,8 +4438,8 @@ class FleeTheScene(Action):
 
     slot = "c"
 
-    def __init__(self):
-        super(FleeTheScene, self).__init__()
+    def __init__(self, state):
+        super(FleeTheScene, self, state).__init__()
         self.name = "Flee the scene."
 
     def execute(self, state):
@@ -4456,7 +4456,7 @@ class GoTo(Action):
     slot = "c"
 
     def __init__(self, place, specific_dest=None):
-        super(GoTo, self).__init__()
+        super(GoTo, self, state).__init__()
         if specific_dest:
             self.dest = specific_dest
         else:
@@ -4471,14 +4471,14 @@ class GoTo(Action):
             new_person=None,
         ), weight=3)
 
-        if self.dest == places.dark_alley:
+        if self.dest == state.places.places_dict["dark_alley"]:
 
             self.outcomes.add(Outcome(state,
                 "You go into a dark alley. You do not come out.",
                 die=True,
             ), weight=3)
 
-        if state.character.place in places.populated:
+        if state.character.place in state.places.populated:
 
             self.outcomes.add(Outcome(state,
                 "On your way out of {0} you run headlong into some guards. "
@@ -4541,8 +4541,8 @@ class RunLikeTheDevil(Action):
 
     slot = "c"
 
-    def __init__(self):
-        super(RunLikeTheDevil, self).__init__()
+    def __init__(self, state):
+        super(RunLikeTheDevil, self, state).__init__()
         self.name = "Run like the Devil."
         self.combat_action = True
 
@@ -4595,8 +4595,8 @@ class WaddleLikeGod(Action):
 
     slot = "c"
 
-    def __init__(self):
-        super(WaddleLikeGod, self).__init__()
+    def __init__(self, state):
+        super(WaddleLikeGod, self, state).__init__()
         self.name = "Waddle like God."
         self.combat_action = True
 
@@ -4623,8 +4623,8 @@ class WanderTheCountryside(Action):
 
     slot = "c"
 
-    def __init__(self):
-        super(WanderTheCountryside, self).__init__()
+    def __init__(self, state):
+        super(WanderTheCountryside, self, state).__init__()
         self.name = "Wander the countryside."
 
     def execute(self, state):
@@ -4676,8 +4676,8 @@ class Swim(Action):
 
     slot = "c"
 
-    def __init__(self):
-        super(Swim, self).__init__()
+    def __init__(self, state):
+        super(Swim, self, state).__init__()
         self.name = "Swim."
 
     def execute(self, state):
@@ -4724,8 +4724,8 @@ class KeepSwimming(Swim):
 
     slot = "c"
 
-    def __init__(self):
-        super(KeepSwimming, self).__init__()
+    def __init__(self, state):
+        super(KeepSwimming, self, state).__init__()
         self.name = "Keep swimming."
 
     def execute(self, state):
@@ -4738,12 +4738,12 @@ class KeepSwimming(Swim):
 
         self.outcomes.add(Outcome(state,
             "You are picked up by Lord Arthur's pirate ship.",
-            move_to=places.pirate_ship,
+            move_to=state.places.places_dict["pirate_ship"],
         ), weight=1)
 
         self.outcomes.add(Outcome(state,
             "You find a mermaid sitting on a rock.",
-            move_to=places.mermaid_rock,
+            move_to=state.places.places_dict["mermaid_rock"],
             new_person=persons.mermaid,
         ), weight=1)
 
@@ -4761,8 +4761,8 @@ class JustKeepSwimming(KeepSwimming):
 
     slot = "c"
 
-    def __init__(self):
-        super(JustKeepSwimming, self).__init__()
+    def __init__(self, state):
+        super(JustKeepSwimming, self, state).__init__()
         self.name = "Just keep swimming."
 
     def execute(self, state):
@@ -4775,13 +4775,13 @@ class JustKeepSwimming(KeepSwimming):
 
         self.outcomes.add(Outcome(state,
             "You finally find land.",
-            move_to=places.docks,
+            move_to=state.places.places_dict["docks"],
         ), weight=1)
 
         self.outcomes.add(Outcome(state,
             "As you swim, you notice the water getting colder. You eventually "
             "find ice.",
-            move_to=places.arctic,
+            move_to=state.places.places_dict["arctic"],
             fail=True
         ), weight=1)
 
@@ -4790,8 +4790,8 @@ class E4(Action):
 
     slot = "c"
 
-    def __init__(self):
-        super(ChallengeHimToAGameOfChess, self).__init__()
+    def __init__(self, state):
+        super(ChallengeHimToAGameOfChess, self, state).__init__()
         self.name = "Challenge him to a game of chess."
         self.combat_action = True
 
@@ -4811,8 +4811,8 @@ class ChallengeHimToAGameOfChess(Action):
 
     slot = "c"
 
-    def __init__(self):
-        super(ChallengeHimToAGameOfChess, self).__init__()
+    def __init__(self, state):
+        super(ChallengeHimToAGameOfChess, self, state).__init__()
         self.name = "Challenge him to a game of chess."
         self.combat_action = True
 
@@ -4847,8 +4847,8 @@ class WalkThePlank(Action):
 
     slot = "c"
 
-    def __init__(self):
-        super(WalkThePlank, self).__init__()
+    def __init__(self, state):
+        super(WalkThePlank, self, state).__init__()
         self.name = "Walk the plank."
 
     def execute(self, state):
@@ -4860,7 +4860,7 @@ class WalkThePlank(Action):
 
         self.outcomes.add(Outcome(state,
             "You fall into the ocean.",
-            move_to=places.ocean,
+            move_to=state.places.places_dict["ocean"],
         ), weight=3)
 
         self.outcomes.add(Outcome(state,
@@ -4875,8 +4875,8 @@ class TrashThePlace(Action):
 
     slot = "c"
 
-    def __init__(self):
-        super(TrashThePlace, self).__init__()
+    def __init__(self, state):
+        super(TrashThePlace, self, state).__init__()
         self.name = "Trash the place."
 
     def execute(self, state):
@@ -4896,7 +4896,7 @@ class TrashThePlace(Action):
             move_to=state.character.place,
         ), weight=1)
 
-        if state.character.place == places.market:
+        if state.character.place == state.places.places_dict["market"]:
             self.outcomes.add(Outcome(state,
                 "You get trampled to death by a spooked horse.",
                 die=True,
@@ -4905,11 +4905,11 @@ class TrashThePlace(Action):
             self.outcomes.add(Outcome(state,
                 "You are arrested on charges of lunacy and get "
                 "thrown in prison with the other lunatics.",
-                move_to=places.prison,
+                move_to=state.places.places_dict["prison"],
                 new_person=persons.other_lunatics,
             ), weight=1)
 
-        if state.character.place == places.wizards_lab:
+        if state.character.place == state.places.places_dict["wizards_lab"]:
             if not state.character.has_item(items.fire_proof_cloak):
                 self.outcomes.add(Outcome(state,
                     "One of the potions you break blows up the lab.",
@@ -4933,7 +4933,7 @@ class TrashThePlace(Action):
                     die=True,
                 ), weight=20)
 
-            if state.character.place == places.wizards_lab and \
+            if state.character.place == state.places.places_dict["wizards_lab"] and \
                state.character.person != persons.wizard and \
                persons.wizard.alive:
                 self.outcomes.add(Outcome(state,
@@ -4953,8 +4953,8 @@ class TurnBoard(Action):
 
     slot = "d"
 
-    def __init__(self):
-        super(TurnBoard, self).__init__()
+    def __init__(self, state):
+        super(TurnBoard, self, state).__init__()
         self.name = "Play poorly and turn the board around once you're losing."
 
     def execute(self, state):
@@ -4972,8 +4972,8 @@ class Donna(Action):
 
     slot = "d"
 
-    def __init__(self):
-        super(Donna, self).__init__()
+    def __init__(self, state):
+        super(Donna, self, state).__init__()
         self.name = "\"Donna.\""
 
     def execute(self, state):
@@ -4989,8 +4989,8 @@ class AskForAsylum(Action):
 
     slot = "d"
 
-    def __init__(self):
-        super(AskForAsylum, self).__init__()
+    def __init__(self, state):
+        super(AskForAsylum, self, state).__init__()
         self.name = "Ask for asylum."
 
     def execute(self, state):
@@ -5003,14 +5003,14 @@ class AskForAsylum(Action):
             win=True,
         ), weight=1)
 
-        if state.character.place in places.burnable:
+        if state.character.place in state.places.burnable:
             self.outcomes.add(Outcome(state,
                 "Lord Bartholomew grants you asylum, but his manor is soon "
                 "stormed by Lord Daniel's guards. You are arrested for "
                 "treason.",
                 burn_place=state.character.place,
                 kill=persons.lord_bartholomew,
-                move_to=places.prison,
+                move_to=state.places.places_dict["prison"],
             ), weight=1000)
         else:
             self.outcomes.add(Outcome(state,
@@ -5018,7 +5018,7 @@ class AskForAsylum(Action):
                 "stormed by Lord Daniel's guards. You are arrested for "
                 "treason.",
                 kill=persons.lord_bartholomew,
-                move_to=places.prison,
+                move_to=state.places.places_dict["prison"],
             ), weight=1000)
 
 
@@ -5026,8 +5026,8 @@ class AskForADraw(Action):
 
     slot = "d"
 
-    def __init__(self):
-        super(AskForADraw, self).__init__()
+    def __init__(self, state):
+        super(AskForADraw, self, state).__init__()
         self.name = "Ask for a draw."
         self.combat_action = True
 
@@ -5043,8 +5043,8 @@ class MakeItHard(Action):
 
     slot = "d"
 
-    def __init__(self):
-        super(MakeItHard, self).__init__()
+    def __init__(self, state):
+        super(MakeItHard, self, state).__init__()
         self.name = "Make it hard for Lord Carlos to kill you."
         self.combat_action = True
 
@@ -5096,13 +5096,13 @@ class MakeItHard(Action):
 
         self.outcomes.add(Outcome(state,
             "You flee the country.",
-            move_to=places.arctic,
+            move_to=state.places.places_dict["arctic"],
         ), weight=1)
 
         self.outcomes.add(Outcome(state,
             "You flee to the woods and hide in a deep cave... "
             "perhaps a little too deep.",
-            move_to=places.cave,
+            move_to=state.places.places_dict["cave"],
         ), weight=1)
 
 
@@ -5110,8 +5110,8 @@ class ShowYourForeignCoin(Action):
 
     slot = "d"
 
-    def __init__(self):
-        super(ShowYourForeignCoin, self).__init__()
+    def __init__(self, state):
+        super(ShowYourForeignCoin, self, state).__init__()
         self.name = "Show him your shiny foreign coin."
 
     def execute(self, state):
@@ -5132,7 +5132,7 @@ class ShowYourForeignCoin(Action):
                 "Lord Daniel has his guards seize you and take your coin. "
                 "They then defenestrate you. Fortunately, you land in a pile "
                 "hay.",
-                move_to=places.streets,
+                move_to=state.places.places_dict["streets"],
                 remove_item=items.foreign_coin,
             ), weight=1)
 
@@ -5142,7 +5142,7 @@ class DouseHerWithYourLovePotion(Action):
     slot = "d"
 
     def __init__(self, lady):
-        super(DouseHerWithYourLovePotion, self).__init__()
+        super(DouseHerWithYourLovePotion, self, state).__init__()
         self.lady = lady
         self.name = "Douse " + self.lady.name + " with your love potion."
 
@@ -5209,7 +5209,7 @@ class DrugHerWithYourLovePotion(Action):
     slot = "d"
 
     def __init__(self, lady):
-        super(DrugHerWithYourLovePotion, self).__init__()
+        super(DrugHerWithYourLovePotion, self, state).__init__()
         self.lady = lady
         self.name = "Drug " + self.lady.name + " with your love potion."
 
@@ -5245,8 +5245,8 @@ class LookForNymphs(Action):
 
     slot = "d"
 
-    def __init__(self):
-        super(LookForNymphs, self).__init__()
+    def __init__(self, state):
+        super(LookForNymphs, self, state).__init__()
         self.name = "Look for nymphs."
 
     def execute(self, state):
@@ -5281,7 +5281,7 @@ class LookForNymphs(Action):
 
         self.outcomes.add(Outcome(state,
             "You slip and tumble into a hole in the ground.",
-            move_to=places.cave,
+            move_to=state.places.places_dict["cave"],
             fail=True,
         ), weight=1)
 
@@ -5310,7 +5310,7 @@ class GiveCat(Action):
     slot = "d"
 
     def __init__(self, woman):
-        super(GiveCat, self).__init__()
+        super(GiveCat, self, state).__init__()
         self.woman = woman
         self.name = "Give " + woman.name + " your cat."
 
@@ -5328,7 +5328,7 @@ class GiveFlowers(Action):
     slot = "d"
 
     def __init__(self, woman):
-        super(GiveFlowers, self).__init__()
+        super(GiveFlowers, self, state).__init__()
         self.woman = woman
         self.name = "Give " + woman.name + " your bouquet of flowers."
 
@@ -5345,8 +5345,8 @@ class Loot(Action):
 
     slot = "d"
 
-    def __init__(self):
-        super(Loot, self).__init__()
+    def __init__(self, state):
+        super(Loot, self, state).__init__()
         self.name = "Loot."
 
     def execute(self, state):
@@ -5374,7 +5374,7 @@ class Loot(Action):
 
         self.outcomes.add(Outcome(state,
             "You are arrested for attempting to steal an apple.",
-            move_to=places.prison,
+            move_to=state.places.places_dict["prison"],
             new_person=persons.other_lunatics,
         ), weight=1)
 
@@ -5383,8 +5383,8 @@ class WatchAPlay(Action):
 
     slot = "d"
 
-    def __init__(self):
-        super(WatchAPlay, self).__init__()
+    def __init__(self, state):
+        super(WatchAPlay, self, state).__init__()
         self.name = "Watch a play."
 
     def execute(self, state):
@@ -5400,7 +5400,7 @@ class WatchAPlay(Action):
             "awkward.",
         ), weight=1)
 
-        if places.market in places.burnable:
+        if state.places.places_dict["market"] in state.places.burnable:
 
             self.outcomes.add(Outcome(state,
                 "The play is put on by some of Lord Daniel's guards. The "
@@ -5409,7 +5409,7 @@ class WatchAPlay(Action):
                 new_person=persons.guards,
                 actions=[
                          (Attack(persons.guards), 10000),
-                         (BurnThePlaceToTheGround(places.market), 10000),
+                         (BurnThePlaceToTheGround(state.places.places_dict["market"]), 10000),
                          (TrashThePlace(), 10000),
                          (Loot(), 10000)
                          ],
@@ -5435,8 +5435,8 @@ class FlauntYourWealth(Action):
 
     slot = "d"
 
-    def __init__(self):
-        super(FlauntYourWealth, self).__init__()
+    def __init__(self, state):
+        super(FlauntYourWealth, self, state).__init__()
         self.name = "Flaunt your wealth."
 
     def execute(self, state):
@@ -5469,8 +5469,8 @@ class FreezeToDeath(Action):
 
     slot = "d"
 
-    def __init__(self):
-        super(FreezeToDeath, self).__init__()
+    def __init__(self, state):
+        super(FreezeToDeath, self, state).__init__()
         self.name = "Freeze to death."
 
     def execute(self, state):
@@ -5517,7 +5517,7 @@ class FreezeToDeath(Action):
             "Some Eskimos save you from the cold and take you back to land "
             "in a kayak. They also give you a fish.",
             add_item=items.fish,
-            move_to=places.countryside,
+            move_to=state.places.places_dict["countryside"],
             succeed=True,
         ), weight=2)
 
@@ -5526,13 +5526,13 @@ class Panic(Action):
 
     slot = "d"
 
-    def __init__(self):
-        super(Panic, self).__init__()
+    def __init__(self, state):
+        super(Panic, self, state).__init__()
         self.name = "Panic!"
         self.combat_action = True
 
     def execute(self, state):
-        options = places.Place.instances - set([state.character.place])
+        options = state.places.Place.instances - set([state.character.place])
         place = random.sample(options, 1)[0]
 
         self.outcomes.add(Outcome(state,
@@ -5558,7 +5558,7 @@ class SingASong(Action):
     slot = "d"
 
     def __init__(self, topic=None):
-        super(SingASong, self).__init__()
+        super(SingASong, self, state).__init__()
         self.topic = topic
         if topic:
             self.name = "Sing a song about {0}.".format(topic)
@@ -5567,24 +5567,24 @@ class SingASong(Action):
 
     def execute(self, state):
 
-        if state.character.place == places.church:
+        if state.character.place == state.places.places_dict["church"]:
             self.outcomes.add(Outcome(state,
                 "A priestess finds your lyrics {0} and has you thrown out of "
                 "the church.".format(random.choice(
                     ["blasphemous", "crude", "idiotic", "offensive",
                      "mildly offensive", "uncreative"])),
                 fail=True,
-                move_to=places.streets,
+                move_to=state.places.places_dict["streets"],
             ), weight=10)
 
-        if state.character.place == places.docks:
+        if state.character.place == state.places.places_dict["docks"]:
             self.outcomes.add(Outcome(state,
                 "You are soon joined in song by a gang of drunken pirates. "
                 "They spill rum on you and ruin your song.",
                 new_person=persons.pirates,
             ), weight=5)
 
-        if state.character.place == places.upstairs and \
+        if state.character.place == state.places.places_dict["upstairs"] and \
            state.character.person == persons.pretty_lady:
             self.outcomes.add(Outcome(state,
                 "You sing a romantic ballad. Olga is impressed.",
@@ -5596,7 +5596,7 @@ class SingASong(Action):
                 flirt=(persons.pretty_lady, 2),
             ), weight=20)
 
-        if state.character.place == places.lord_carlos_manor:
+        if state.character.place == state.places.places_dict["lord_carlos_manor"]:
             self.outcomes.add(Outcome(state,
                 "This is no place for merry-making. You are soon "
                 "assassinated.",
@@ -5609,7 +5609,7 @@ class SingASong(Action):
                 die=True,
             ), weight=10)
 
-        if state.character.place == places.mermaid_rock:
+        if state.character.place == state.places.places_dict["mermaid_rock"]:
             self.outcomes.add(Outcome(state,
                 "As you sing, a ship sails by. The "
                 "captain is tied to the mast. He is not "
@@ -5626,12 +5626,12 @@ class SingASong(Action):
                 self.outcomes.add(Outcome(state,
                     "The mermaid is displeased with your choice of lyrics and "
                     "pushes you into the ocean.",
-                    move_to=places.ocean,
+                    move_to=state.places.places_dict["ocean"],
                     flirt=(persons.mermaid, -1),
                     fail=True,
                 ), weight=10)
 
-        if state.character.place in places.populated:
+        if state.character.place in state.places.populated:
 
             self.outcomes.add(Outcome(state,
                 "Your singing is too loud for you to hear the footsteps of an "
@@ -5673,7 +5673,7 @@ class SingASong(Action):
                 die=True,
             ), weight=20)
 
-        if not state.character.place in places.locked:
+        if not state.character.place in state.places.locked:
 
             self.outcomes.add(Outcome(state,
                 "You wander aimlessly as you work your way through an epic "
@@ -5709,8 +5709,8 @@ class SwingYourCat(Action):
 
     slot = "d"
 
-    def __init__(self):
-        super(SwingYourCat, self).__init__()
+    def __init__(self, state):
+        super(SwingYourCat, self, state).__init__()
         self.name = "Swing your cat."
 
     def execute(self, state):
@@ -5720,7 +5720,7 @@ class SwingYourCat(Action):
             remove_item=items.cat,
         ), weight=2)
 
-        if state.character.place in places.populated:
+        if state.character.place in state.places.populated:
 
             self.outcomes.add(Outcome(state,
                 "You hit an assassin with your cat.",
@@ -5741,8 +5741,8 @@ class LookThroughSomeTrash(Action):
 
     slot = "d"
 
-    def __init__(self):
-        super(LookThroughSomeTrash, self).__init__()
+    def __init__(self, state):
+        super(LookThroughSomeTrash, self, state).__init__()
         self.name = "Look through some trash."
 
     def execute(self, state):
@@ -5795,13 +5795,13 @@ class DanceAJig(Action):
 
     slot = "d"
 
-    def __init__(self):
-        super(DanceAJig, self).__init__()
+    def __init__(self, state):
+        super(DanceAJig, self, state).__init__()
         self.name = "Dance a jig."
 
     def execute(self, state):
 
-        if state.character.place != places.ocean:
+        if state.character.place != state.places.places_dict["ocean"]:
             self.outcomes.add(Outcome(state,
                 "You get sweaty.",
             ), weight=9)
@@ -5810,7 +5810,7 @@ class DanceAJig(Action):
                 "You have a grand old time.",
             ), weight=5)
 
-            if state.character.place != places.void:
+            if state.character.place != state.places.places_dict["void"]:
                 self.outcomes.add(Outcome(state,
                     "You step in a puddle and get your britches wet.",
                     fail=True,
@@ -5838,7 +5838,7 @@ class DanceAJig(Action):
                 fail=True,
             ), weight=2)
 
-        if state.character.place == places.woods:
+        if state.character.place == state.places.places_dict["woods"]:
             fae = random.choice(["fairaes", "sprites",
                                  "pixies", "dryads",
                                  "nymphs", "spirits"])
@@ -5851,8 +5851,8 @@ class DanceAJig(Action):
                 die=True,
             ), weight=3)
 
-        if state.character.place in places.town or \
-           state.character.place == places.countryside:
+        if state.character.place in state.places.town or \
+           state.character.place == state.places.places_dict["countryside"]:
             self.outcomes.add(Outcome(state,
                 "The local peasants are entertained by your antics and toss "
                 "you some coins.",
@@ -5864,7 +5864,7 @@ class DanceAJig(Action):
                 "Lord Bartholomew.",
             ), weight=15)
 
-        if state.character.place == places.countryside:
+        if state.character.place == state.places.places_dict["countryside"]:
             self.outcomes.add(Outcome(state,
                 "Many peasants start dancing with you and begin singing an "
                 "ode to Lord Bartholomew.",
@@ -5882,7 +5882,7 @@ class DanceAJig(Action):
             self.outcomes.add(Outcome(state,
                 "\"We got a dancer,\" one of them says. They throw you in "
                 "prison.",
-                move_to=places.prison,
+                move_to=state.places.places_dict["prison"],
                 new_person=persons.other_lunatics,
             ), weight=100)
 
@@ -5892,14 +5892,14 @@ class DanceAJig(Action):
                 topic="guards",
             ), weight=100)
 
-        if state.character.place == places.arctic:
+        if state.character.place == state.places.places_dict["arctic"]:
             self.outcomes.add(Outcome(state,
                 "You get sweaty. The sweat freezes on you. "
                 "You freeze to death.",
                 die=True,
             ), weight=30)
 
-        if state.character.place == places.cave:
+        if state.character.place == state.places.places_dict["cave"]:
             self.outcomes.add(Outcome(state,
                 "Dancing fails to cheer you up.",
                 fail=True,
@@ -5911,8 +5911,8 @@ class DanceAJig(Action):
                 die=True,
             ), weight=15)
 
-        if state.character.place == places.tavern or \
-           state.character.place == places.lord_carlos_manor:
+        if state.character.place == state.places.places_dict["tavern"] or \
+           state.character.place == state.places.places_dict["lord_carlos_manor"]:
             self.outcomes.add(Outcome(state,
                 "Some assassins immediately notice you dancing and assassinate "
                 "you.",
@@ -5924,8 +5924,8 @@ class Drown(Action):
 
     slot = "d"
 
-    def __init__(self):
-        super(Drown, self).__init__()
+    def __init__(self, state):
+        super(Drown, self, state).__init__()
         self.name = "Drown."
 
     def execute(self, state):
@@ -5938,8 +5938,8 @@ class Drown(Action):
 
 class Sink(Drown):
 
-    def __init__(self):
-        super(Sink, self).__init__()
+    def __init__(self, state):
+        super(Sink, self, state).__init__()
         self.name = "Sink."
 
 
@@ -5947,8 +5947,8 @@ class SaveTheCat(Action):
 
     slot = "d"
 
-    def __init__(self):
-        super(SaveTheCat, self).__init__()
+    def __init__(self, state):
+        super(SaveTheCat, self, state).__init__()
         self.name = "Save the cat."
 
     def execute(self, state):
@@ -5970,8 +5970,8 @@ class YellAPiratePhrase(Action):
 
     slot = "d"
 
-    def __init__(self):
-        super(YellAPiratePhrase, self).__init__()
+    def __init__(self, state):
+        super(YellAPiratePhrase, self, state).__init__()
         self.phrase = random.choice(
             ["Shiver me timbers",
              "Dead men tell no tales",
@@ -5994,7 +5994,7 @@ class YellAPiratePhrase(Action):
         if persons.lord_arthur.alive:
             self.outcomes.add(Outcome(state,
                 "Lord Arthur has you thrown off the ship.",
-                move_to=places.ocean,
+                move_to=state.places.places_dict["ocean"],
                 fail=True,
             ), weight=1)
 
@@ -6032,8 +6032,8 @@ class SaveTheWitch(Action):
 
     slot = "d"
 
-    def __init__(self):
-        super(SaveTheWitch, self).__init__()
+    def __init__(self, state):
+        super(SaveTheWitch, self, state).__init__()
         self.name = "Save the witch."
 
     def execute(self, state):
@@ -6048,7 +6048,7 @@ class SaveTheWitch(Action):
             "You escape with her. She thanks you and gives you "
             "a deep-cave newt before you part ways.",
             add_item=items.deep_cave_newt,
-            move_to=places.woods,
+            move_to=state.places.places_dict["woods"],
             topic=random.choice(["heroism", "newts", "witches"]),
         ), weight=1)
 
@@ -6064,8 +6064,8 @@ class DoSomeFarmWork(Action):
 
     slot = "d"
 
-    def __init__(self):
-        super(DoSomeFarmWork, self).__init__()
+    def __init__(self, state):
+        super(DoSomeFarmWork, self, state).__init__()
         self.name = "Do some farm work."
 
     def execute(self, state):
@@ -6118,8 +6118,8 @@ class DoSomeGambling(Action):
 
     slot = "d"
 
-    def __init__(self):
-        super(DoSomeGambling, self).__init__()
+    def __init__(self, state):
+        super(DoSomeGambling, self, state).__init__()
         self.name = "Do some gambling."
 
     def execute(self, state):
@@ -6136,7 +6136,7 @@ class DoSomeGambling(Action):
             fail=True,
         ), weight=1)
 
-        if state.character.place == places.tavern:
+        if state.character.place == state.places.places_dict["tavern"]:
             self.outcomes.add(Outcome(state,
                 "You get cleaned out by a pretty lady.",
                 new_person = persons.pretty_lady,
@@ -6144,14 +6144,14 @@ class DoSomeGambling(Action):
                 fail=True,
             ), weight=1)
 
-        if state.character.place == places.tavern or \
-           state.character.place == places.lord_carlos_manor:
+        if state.character.place == state.places.places_dict["tavern"] or \
+           state.character.place == state.places.places_dict["lord_carlos_manor"]:
             self.outcomes.add(Outcome(state,
                 "It was a gamble to stay here. The assassins find you.",
                 die=True,
             ), weight=1)
 
-        if state.character.place == places.docks:
+        if state.character.place == state.places.places_dict["docks"]:
 
             self.outcomes.add(Outcome(state,
                 "You play some dice with Lord Arthur. He whips you soundly. "
@@ -6181,13 +6181,13 @@ class SneakAround(Action):
 
     slot = "d"
 
-    def __init__(self):
-        super(SneakAround, self).__init__()
+    def __init__(self, state):
+        super(SneakAround, self, state).__init__()
         self.name = "Sneak around."
 
     def execute(self, state):
 
-        if state.character.place == places.lord_bartholomews_manor:
+        if state.character.place == state.places.places_dict["lord_bartholomews_manor"]:
             self.outcomes.add(Outcome(state,
                 "While prowling in the shadows of a hallway, you stub your "
                 "pinkie toe.",
@@ -6218,7 +6218,7 @@ class SneakAround(Action):
                 die=True,
             ), weight=1)
 
-        if state.character.place == places.lord_carlos_manor:
+        if state.character.place == state.places.places_dict["lord_carlos_manor"]:
             self.outcomes.add(Outcome(state,
                 "One of the assassin guards sees you tiptoeing around in "
                 "board daylight. He assassinates you.",
@@ -6283,8 +6283,8 @@ class HideUnderTheDeck(Action):
 
     slot = "d"
 
-    def __init__(self):
-        super(HideUnderTheDeck, self).__init__()
+    def __init__(self, state):
+        super(HideUnderTheDeck, self, state).__init__()
         self.name = "Hide under the deck."
 
     def execute(self, state):
@@ -6311,15 +6311,15 @@ class SnoopAround(Action):
 
     slot = "d"
 
-    def __init__(self):
-        super(SnoopAround, self).__init__()
+    def __init__(self, state):
+        super(SnoopAround, self, state).__init__()
         self.name = "Snoop around."
 
     def execute(self, state):
 
         self.outcomes.add(Outcome(state,
             "The Wizard finds you and conks you on the head with his staff.",
-            move_to=places.arctic,
+            move_to=state.places.places_dict["arctic"],
         ), weight=1)
 
         self.outcomes.add(Outcome(state,
@@ -6348,8 +6348,8 @@ class EnterTheVoid(Action):
 
     slot = "e"
 
-    def __init__(self):
-        super(EnterTheVoid, self).__init__()
+    def __init__(self, state):
+        super(EnterTheVoid, self, state).__init__()
         self.name = "Enter the void."
         self.combat_action = True
 
@@ -6357,7 +6357,7 @@ class EnterTheVoid(Action):
 
         self.outcomes.add(Outcome(state,
             None,
-            move_to=places.void,
+            move_to=state.places.places_dict["void"],
         ), weight=3)
 
         self.outcomes.add(Outcome(state,
