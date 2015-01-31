@@ -6,8 +6,8 @@ class AnnihilateEverything(Action):
 
     slot = "a"
 
-    def __init__(self):
-        super(AnnihilateEverything, self).__init__()
+    def __init__(self, state):
+        super(AnnihilateEverything, self).__init__(state)
         self.name = "Annihilate everything."
 
     def execute(self, character):
@@ -22,8 +22,8 @@ class TerrorizeTheKingdom(Action):
 
     slot = "b"
 
-    def __init__(self):
-        super(TerrorizeTheKingdom, self).__init__()
+    def __init__(self, state):
+        super(TerrorizeTheKingdom, self).__init__(state)
         self.name = "Terrorize the kingdom."
 
     def execute(self, character):
@@ -40,8 +40,8 @@ class GoOnARampage(Action):
 
     slot = "c"
 
-    def __init__(self):
-        super(GoOnARampage, self).__init__()
+    def __init__(self, state):
+        super(GoOnARampage, self).__init__(state)
         self.name = "Go on a rampage."
 
     def execute(self, character):
@@ -57,8 +57,8 @@ class DestroyAllHumanCivilizations(Action):
 
     slot = "d"
 
-    def __init__(self):
-        super(DestroyAllHumanCivilizations, self).__init__()
+    def __init__(self, state):
+        super(DestroyAllHumanCivilizations, self).__init__(state)
         self.name = "Destroy all human civilizations."
 
     def execute(self, character):
