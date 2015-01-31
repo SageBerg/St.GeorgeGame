@@ -4732,7 +4732,7 @@ class KeepSwimming(Swim):
         self.name = "Keep swimming."
 
     def execute(self, state):
-        super(KeepSwimming, self).execute(state.character)
+        super(KeepSwimming, self).execute(state)
 
         self.outcomes.add(Outcome(state,
             "You die of exhaustion.",
@@ -4769,7 +4769,7 @@ class JustKeepSwimming(KeepSwimming):
         self.name = "Just keep swimming."
 
     def execute(self, state):
-        super(JustKeepSwimming, self).execute(state.character)
+        super(JustKeepSwimming, self).execute(state)
 
         self.outcomes.add(Outcome(state,
             "You die of exhaustion.",
