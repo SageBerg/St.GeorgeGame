@@ -13,7 +13,7 @@ class Croak(Action):
     def execute(self, state):
 
         self.outcomes.add(Outcome(state,
-            "You croak",
+            "You croak.",
             die=True,
         ), weight=1)
 
