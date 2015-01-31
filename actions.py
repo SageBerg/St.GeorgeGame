@@ -1031,21 +1031,21 @@ class AskDirections(Action):
         if state.character.person == persons.peasant_lass:
             self.outcomes.add(Outcome(state,
                 "She says Lord Carlos' manor is in the woods.",
-                actions=[(GoTo(state.character.place,
+                actions=[(GoTo(state, state.character.place,
                           specific_dest=state.places.places_dict["lord_carlos_manor"]),
                           10000)],
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "She says Lord Bartholomew's manor is nearby.",
-                actions=[(GoTo(state.character.place,
+                actions=[(GoTo(state, state.character.place,
                           specific_dest=state.places.places_dict["lord_bartholomews_manor"]),
                           10000)],
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "She says there's good mushroom picking in the woods.",
-                actions=[(GoTo(state.character.place,
+                actions=[(GoTo(state, state.character.place,
                           specific_dest=state.places.places_dict["woods"]), 10000)],
             ), weight=1)
 
@@ -3330,7 +3330,7 @@ class ChallengeThemToAGameOfChess(Action):
             "You beat all the pirates easily. Lord Arthur says your "
             "wits could be invaluable on the high seas. They soon are.",
             move_to=state.places.places_dict["pirate_ship"],
-            actions=[(LickTheGround(state.places.places_dict["pirate_ship"]), 1000)],
+            actions=[(LickTheGround(state, state.places.places_dict["pirate_ship"]), 1000)],
         ), weight=1)
 
 
@@ -5481,13 +5481,13 @@ class FreezeToDeath(Action):
         self.outcomes.add(Outcome(state,
             "While you're trying to freeze to death, you notice some "
             "penguins nearby.",
-            actions=[(Yell("that there aren't penguins in the arctic"), 100)],
+            actions=[(Yell(state, "that there aren't penguins in the arctic"), 100)],
         ), weight=1)
 
         self.outcomes.add(Outcome(state,
             "While you are waiting to freeze to death, you notice "
             "the wizard dropping off a boatload of penguins.",
-            actions=[(Yell("Don't leave without me"), 10000)],
+            actions=[(Yell(state, "Don't leave without me"), 10000)],
         ), weight=1)
 
         self.outcomes.add(Outcome(state,
@@ -6336,7 +6336,7 @@ class SnoopAround(Action):
 
         self.outcomes.add(Outcome(state,
             "You find a fancy red cloak.",
-            actions=[(TakeIt(persons.wizard, items.fire_proof_cloak), 100)],
+            actions=[(TakeIt(state, persons.wizard, items.fire_proof_cloak), 100)],
             topic="cloaks",
         ), weight=1)
 

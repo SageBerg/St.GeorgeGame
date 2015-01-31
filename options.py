@@ -79,7 +79,7 @@ def _add_person_actions(choices, state):
     if state.character.person == persons.lord_arthur:
         choices.add(actions.SuckUpTo(state, persons.lord_arthur), 5)
     if state.character.person == persons.lord_bartholomew:
-        choices.add(actions.SuckUpTo(stated, persons.lord_bartholomew), 5)
+        choices.add(actions.SuckUpTo(state, persons.lord_bartholomew), 5)
     if state.character.person == persons.lord_bartholomew:
         choices.add(actions.ChatWithLordBartholomew(state), 5)
         choices.add(actions.AskForAsylum(state), 5)
