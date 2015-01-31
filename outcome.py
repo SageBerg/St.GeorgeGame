@@ -1,6 +1,5 @@
 import random
 
-import places
 import items
 import money
 
@@ -43,6 +42,7 @@ class Outcome(object):
                  lose_all_money=False,
                  score=1,  # each action gives you one point by default
                  ):
+        self.state = state
         self.add_item = add_item
         self.remove_item = remove_item
         self.remove_all_items = remove_all_items
@@ -97,16 +97,16 @@ class Outcome(object):
         if self.beg:
             self.character.person.state["given money"] = True
         if self.lock:
-            places.locked.add(self.character.place)
+            self.state.places.locked.add(self.character.place)
         if self.burn_place:
             self.burn_place.name = "the smoldering remains of " \
                                    + self.burn_place.name
-            places.burnable.remove(self.burn_place)
-            places.burned.add(self.burn_place)
+            self.state.places.burnable.remove(self.burn_place)
+            self.state.places.burned.add(self.burn_place)
         if self.trash_place:
             self.trash_place.name = "the trashed remains of " \
                                     + self.trash_place.name
-            places.trashed.add(self.trash_place)
+            self.state.places.trashed.add(self.trash_place)
 
         if self.kill:  # this needs to happen before move_to
             if self.new_person:  # use the new person

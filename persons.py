@@ -48,7 +48,7 @@ class Person(object):
             die=True)
 
     def assassinate(self, state):
-        return self.kill(state.character, verb="assassinate")
+        return self.kill(state, verb="assassinate")
 
     def arrest(self, state):
         return outcome.Outcome(state,
@@ -56,7 +56,7 @@ class Person(object):
             persons.get_tense(self) + " you in prison with the other "
             "lunatics.",
             new_person=persons.other_lunatics,
-            move_to=places.prison,
+            move_to=state.places.places_dict["prison"],
             remove_all_items=True
             )
 

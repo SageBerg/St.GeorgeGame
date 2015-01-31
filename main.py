@@ -57,7 +57,7 @@ def main():
             outcome = action.get_outcome(state)
         else:
             outcome = \
-            actions.Attack(state.character.person).get_outcome(state)
+            actions.Attack(state, state.character.person).get_outcome(state)
         outcome.execute()
         options.add_actions(choices, state, outcome)
         choices.generate_actions(state.character)

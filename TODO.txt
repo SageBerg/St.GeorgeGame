@@ -3,6 +3,8 @@
 -run a test to see how much each action gets executed
 -A normal lunatic
 -pretend you're crazy (You don't have to)
+-fix LeaveInAPuff for new system
+-do state refactor for frog and monstrosity actions
 
 followers:
   foment revolution

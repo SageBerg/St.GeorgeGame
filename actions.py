@@ -48,7 +48,7 @@ class KissYourFrog(Action):
     slot = "a"
 
     def __init__(self, state):
-        super(KissYourFrog, self, state).__init__()
+        super(KissYourFrog, self).__init__(state)
         self.name = random.choice(["Kiss your frog."]*9 + ["Snog your frog."])
 
     def execute(self, state):
@@ -127,7 +127,7 @@ class Anne(Action):
     slot = "a"
 
     def __init__(self, state):
-        super(Anne, self, state).__init__()
+        super(Anne, self).__init__(state)
         self.name = "\"Anne.\""
 
     def execute(self, state):
@@ -143,7 +143,7 @@ class AskForAnAudienceWithLordBartholomew(Action):
     slot = "a"
 
     def __init__(self, state):
-        super(AskForAnAudienceWithLordBartholomew, self, state).__init__()
+        super(AskForAnAudienceWithLordBartholomew, self).__init__(state)
         self.name = "Ask for an audience with Lord Bartholomew."
 
     def execute(self, state):
@@ -170,7 +170,7 @@ class AskForAnAudienceWithLordDaniel(Action):
     slot = "a"
 
     def __init__(self, state):
-        super(AskForAnAudienceWithLordDaniel, self, state).__init__()
+        super(AskForAnAudienceWithLordDaniel, self).__init__(state)
         self.name = "Ask for an audience with Lord Daniel."
 
     def execute(self, state):
@@ -198,7 +198,7 @@ class A3(Action):
     slot = "a"
 
     def __init__(self, state):
-        super(A3, self, state).__init__()
+        super(A3, self).__init__(state)
         self.name = "a3."
         self.combat_action = True
 
@@ -223,7 +223,7 @@ class LaughAboutWarden(Action):
     slot = "a"
 
     def __init__(self, state):
-        super(LaughAboutWarden, self, state).__init__()
+        super(LaughAboutWarden, self).__init__(state)
         self.name = "Laugh about the warden doing it alone on holidays."
 
     def execute(self, state):
@@ -244,7 +244,7 @@ class GiveHimTheYellowMushroom(Action):
     slot = "a"
 
     def __init__(self, state):
-        super(GiveHimTheYellowMushroom, self, state).__init__()
+        super(GiveHimTheYellowMushroom, self).__init__(state)
         self.name = "Give him the yellow mushroom."
 
     def execute(self, state):
@@ -277,7 +277,7 @@ class EnactYourElaborateScheme(Action):
     slot = "a"
 
     def __init__(self, state):
-        super(EnactYourElaborateScheme, self, state).__init__()
+        super(EnactYourElaborateScheme, self).__init__(state)
         self.name = "Enact your elaborate scheme."
 
     def execute(self, state):
@@ -324,7 +324,7 @@ class AskHerToTakeYouBackToLand(Action):
     slot = "a"
 
     def __init__(self, state):
-        super(AskHerToTakeYouBackToLand, self, state).__init__()
+        super(AskHerToTakeYouBackToLand, self).__init__(state)
         self.name = "Ask her to take you back to land."
 
     def execute(self, state):
@@ -358,8 +358,8 @@ class AskHerToBrew(Action):
 
     slot = "a"
 
-    def __init__(self, potion):
-        super(AskHerToBrew, self, state).__init__()
+    def __init__(self, state, potion):
+        super(AskHerToBrew, self).__init__(state)
         self.potion = potion
         self.name = "Ask her to brew a {0}.".format(self.potion.name)
 
@@ -402,19 +402,19 @@ class Think(Action):
     slot = "a"
 
     def __init__(self, state):
-        super(Think, self, state).__init__()
+        super(Think, self).__init__(state)
         self.name = "Think."
 
     def execute(self, state):
 
         self.outcomes.add(Outcome(state,
             "You come up with four brilliant ideas.",
-            actions=[(LickTheGround(state.character.place), 10)],
+            actions=[(LickTheGround(state, state.character.place), 10)],
         ), weight=1)
 
         self.outcomes.add(Outcome(state,
             "You concoct an elaborate scheme.",
-            actions=[(EnactYourElaborateScheme(), 10000)],
+            actions=[(EnactYourElaborateScheme(state), 10000)],
         ), weight=1)
 
         self.outcomes.add(Outcome(state,
@@ -492,7 +492,7 @@ class Think(Action):
                 "You think the bad smell might be coming from you.",
             ), weight=2)
 
-        if state.character.place == state.places.tower:
+        if state.character.place == state.places.places_dict["tower"]:
             self.outcomes.add(Outcome(state,
                 "You think you can survive the jump from the top of the "
                 "tower.",
@@ -574,8 +574,8 @@ class Yell(Action):
 
     slot = "a"
 
-    def __init__(self, exclamation):
-        super(Yell, self, state).__init__()
+    def __init__(self, state, exclamation):
+        super(Yell, self).__init__(state)
         self.exclamation = exclamation
         self.name = "Yell \"{0}!\"".format(exclamation)
 
@@ -617,7 +617,7 @@ class ReadASpellBook(Action):
     slot = "a"
 
     def __init__(self, state):
-        super(ReadASpellBook, self, state).__init__()
+        super(ReadASpellBook, self).__init__(state)
         self.name = "Read a spellbook."
 
     def execute(self, state):
@@ -677,8 +677,8 @@ class SuckUpTo(Action):
 
     slot = "a"
 
-    def __init__(self, person):
-        super(SuckUpTo, self, state).__init__()
+    def __init__(self, state, person):
+        super(SuckUpTo, self).__init__(state)
         self.person = person
         self.name = "Suck up to {0}.".format(person)
         self.combat_action = True
@@ -746,7 +746,7 @@ class TellThemYouAreALunatic(Action):
     slot = "a"
 
     def __init__(self, state):
-        super(TellThemYouAreALunatic, self, state).__init__()
+        super(TellThemYouAreALunatic, self).__init__(state)
         self.name = "Tell them you are a lunatic."
 
     def execute(self, state):
@@ -765,7 +765,7 @@ class Swashbuckle(Action):
     slot = "a"
 
     def __init__(self, state):
-        super(Swashbuckle, self, state).__init__()
+        super(Swashbuckle, self).__init__(state)
         self.name = "Swashbuckle."
 
     def execute(self, state):
@@ -830,7 +830,7 @@ class LookForAssassins(Action):
     slot = "a"
 
     def __init__(self, state):
-        super(LookForAssassins, self, state).__init__()
+        super(LookForAssassins, self).__init__(state)
         self.name = "Look for assassins."
 
     def execute(self, state):
@@ -850,7 +850,7 @@ class PickSomeFlowers(Action):
     slot = "a"
 
     def __init__(self, state):
-        super(PickSomeFlowers, self, state).__init__()
+        super(PickSomeFlowers, self).__init__(state)
         self.name = "Pick some flowers."
 
     def execute(self, state):
@@ -883,7 +883,7 @@ class GoFishing(Action):
     slot = "a"
 
     def __init__(self, state):
-        super(GoFishing, self, state).__init__()
+        super(GoFishing, self).__init__(state)
         self.name = "Go fishing."
 
     def execute(self, state):
@@ -928,8 +928,8 @@ class TakeIt(Action):
 
     slot = "a"
 
-    def __init__(self, wronged_party, item):
-        super(TakeIt, self, state).__init__()
+    def __init__(self, state, wronged_party, item):
+        super(TakeIt, self).__init__(state)
         self.wronged_party = wronged_party
         self.item = item
         self.name = "Take it."
@@ -968,7 +968,7 @@ class AskAboutAssassins(Action):
     slot = "a"
 
     def __init__(self, state):
-        super(AskAboutAssassins, self, state).__init__()
+        super(AskAboutAssassins, self).__init__(state)
         self.name = "Ask about assassins."
 
     def execute(self, state):
@@ -1006,7 +1006,7 @@ class AskDirections(Action):
     slot = "a"
 
     def __init__(self, state):
-        super(AskDirections, self, state).__init__()
+        super(AskDirections, self).__init__(state)
         self.name = "Ask directions."
 
     def execute(self, state):
@@ -1061,7 +1061,7 @@ class AdmireYourJewels(Action):
 
     def __init__(self, state):
 
-        super(AdmireYourJewels, self, state).__init__()
+        super(AdmireYourJewels, self).__init__(state)
         self.name = "Admire your jewels."
 
     def execute(self, state):
@@ -1108,7 +1108,7 @@ class Apologize(Action):
     slot = "a"
 
     def __init__(self, state):
-        super(Apologize, self, state).__init__()
+        super(Apologize, self).__init__(state)
         self.name = "Tell him you're sorry."
         self.combat_action = True
 
@@ -1136,8 +1136,8 @@ class Attack(Action):
 
     slot = "a"
 
-    def __init__(self, person):
-        super(Attack, self, state).__init__()
+    def __init__(self, state, person):
+        super(Attack, self).__init__(state)
         self.name = "Attack " + person.name + "."
         self.combat_action = True
 
@@ -1161,7 +1161,7 @@ class GoDivingForPearls(Action):
     slot = "a"
 
     def __init__(self, state):
-        super(GoDivingForPearls, self, state).__init__()
+        super(GoDivingForPearls, self).__init__(state)
         self.name = "Go diving for pearls."
 
     def execute(self, state):
@@ -1200,8 +1200,8 @@ class LickTheGround(Action):
 
     slot = "a"
 
-    def __init__(self, place):
-        super(LickTheGround, self, state).__init__()
+    def __init__(self, state, place):
+        super(LickTheGround, self).__init__(state)
         self.place = place
         if place in state.places.inside:
             self.ground = "floor"
@@ -1264,7 +1264,7 @@ class LookForAWeapon(Action):
     slot = "a"
 
     def __init__(self, state):
-        super(LookForAWeapon, self, state).__init__()
+        super(LookForAWeapon, self).__init__(state)
         self.name = "Look for a weapon."
 
     def execute(self, state):
@@ -1287,7 +1287,7 @@ class LookForVoidDust(Action):
     slot = "a"
 
     def __init__(self, state):
-        super(LookForVoidDust, self, state).__init__()
+        super(LookForVoidDust, self).__init__(state)
         self.name = "Look for void dust."
 
     def execute(self, state):
@@ -1308,7 +1308,7 @@ class GoMushroomPicking(Action):
     slot = "a"
 
     def __init__(self, state):
-        super(GoMushroomPicking, self, state).__init__()
+        super(GoMushroomPicking, self).__init__(state)
         self.name = "Go mushroom picking."
 
     def execute(self, state):
@@ -1340,7 +1340,7 @@ class LookForStGeorge(Action):
     slot = "a"
 
     def __init__(self, state):
-        super(LookForStGeorge, self, state).__init__()
+        super(LookForStGeorge, self).__init__(state)
         self.name = "Look for St. George."
 
     def execute(self, state):
@@ -1381,7 +1381,7 @@ class KillYourselfInFrustration(Action):
     slot = "a"
 
     def __init__(self, state):
-        super(KillYourselfInFrustration, self, state).__init__()
+        super(KillYourselfInFrustration, self).__init__(state)
         self.name = "Kill yourself in frustration."
 
     def execute(self, state):
@@ -1396,7 +1396,9 @@ class KillYourselfInFrustration(Action):
                 die=True,
             ), weight=5)
 
-        if state.character.place in [state.places.places_dict["streets"], state.places.places_dict["market"], state.places.places_dict["church"]] \
+        if state.character.place in [state.places.places_dict["streets"], 
+                                     state.places.places_dict["market"], 
+                                     state.places.places_dict["church"]] \
            and persons.st_george.alive:
             self.outcomes.add(Outcome(state,
                 "You throw yourself off a rooftop, but St. George catches "
@@ -1450,7 +1452,7 @@ class KillEverybodyInAFitOfRage(Action):
     slot = "a"
 
     def __init__(self, state):
-        super(KillEverybodyInAFitOfRage, self, state).__init__()
+        super(KillEverybodyInAFitOfRage, self).__init__(state)
         self.name = "Kill everybody in a fit of rage."
 
     def execute(self, state):
@@ -1483,8 +1485,8 @@ class SayYouLoveHer(Action):
 
     slot = "a"
 
-    def __init__(self, person):
-        super(SayYouLoveHer, self, state).__init__()
+    def __init__(self, state, person):
+        super(SayYouLoveHer, self).__init__(state)
         self.name = "Say you love her too."
         self.person = person
 
@@ -1504,8 +1506,8 @@ class SayYouLoveHer(Action):
                 move_to=state.places.places_dict["streets"],
                 new_person=persons.fat_lady,
                 actions=[
-                    (MarryFelicity(), 777),
-                    (RunLikeTheDevil(), 666)],
+                    (MarryFelicity(state), 777),
+                    (RunLikeTheDevil(state), 666)],
             ), weight=9)
 
 
@@ -1514,7 +1516,7 @@ class MarryOlga(Action):
     slot = "a"
 
     def __init__(self, state):
-        super(MarryOlga, self, state).__init__()
+        super(MarryOlga, self).__init__(state)
         self.name = "Marry Olga."
 
     def execute(self, state):
@@ -1557,7 +1559,7 @@ class MarryFelicity(Action):
     slot = "a"
 
     def __init__(self, state):
-        super(MarryFelicity, self, state).__init__()
+        super(MarryFelicity, self).__init__(state)
         self.name = "Marry Felicity."
 
     def execute(self, state):
@@ -1573,7 +1575,7 @@ class ThumpYourselfOnTheChest(Action):
     slot = "a"
 
     def __init__(self, state):
-        super(ThumpYourselfOnTheChest, self, state).__init__()
+        super(ThumpYourselfOnTheChest, self).__init__(state)
         self.name = "Thump yourself on the chest."
 
     def execute(self, state):
@@ -1618,7 +1620,7 @@ class TrainWithTheGuards(Action):
     slot = "b"
 
     def __init__(self, state):
-        super(TrainWithTheGuards, self, state).__init__()
+        super(TrainWithTheGuards, self).__init__(state)
         self.name = "Train with the guards."
 
     def execute(self, state):
@@ -1662,7 +1664,7 @@ class Beth(Action):
     slot = "b"
 
     def __init__(self, state):
-        super(Beth, self, state).__init__()
+        super(Beth, self).__init__(state)
         self.name = "\"Beth.\""
 
     def execute(self, state):
@@ -1678,7 +1680,7 @@ class HowlWithPain(Action):
     slot = "b"
 
     def __init__(self, state):
-        super(HowlWithPain, self, state).__init__()
+        super(HowlWithPain, self).__init__(state)
         self.name = "Howl with pain."
 
     def execute(self, state):
@@ -1709,7 +1711,7 @@ class RepayYourDebts(Action):
     slot = "b"
 
     def __init__(self, state):
-        super(RepayYourDebts, self, state).__init__()
+        super(RepayYourDebts, self).__init__(state)
         self.name = "Repay your debts."
         self.combat_action = True
 
@@ -1738,7 +1740,7 @@ class Nf3(Action):
     slot = "b"
 
     def __init__(self, state):
-        super(Nf3, self, state).__init__()
+        super(Nf3, self).__init__(state)
         self.name = "Nf3."
         self.combat_action = True
 
@@ -1760,7 +1762,7 @@ class TryToTakeKeys(Action):
     slot = "b"
 
     def __init__(self, state):
-        super(TryToTakeKeys, self, state).__init__()
+        super(TryToTakeKeys, self).__init__(state)
         self.name = "Try to take the keys the next chance you get."
 
     def execute(self, state):
@@ -1791,7 +1793,7 @@ class Grovel(Action):
     slot = "b"
 
     def __init__(self, state):
-        super(Grovel, self, state).__init__()
+        super(Grovel, self).__init__(state)
         self.name = "Grovel."
         self.combat_action = True
 
@@ -1824,7 +1826,7 @@ class ArmWrestle(Action):
     slot = "b"
 
     def __init__(self, state):
-        super(ArmWrestle, self, state).__init__()
+        super(ArmWrestle, self).__init__(state)
         self.name = "Arm wrestle with them to reclaim your dignity."
 
     def execute(self, state):
@@ -1851,8 +1853,8 @@ class SlurpDown(Action):
 
     slot = "b"
 
-    def __init__(self, potion):
-        super(SlurpDown, self, state).__init__()
+    def __init__(self, state, potion):
+        super(SlurpDown, self).__init__(state)
         self.potion = potion
         self.name = "{0}".format(random.choice([
             "Slurp down your ",
@@ -1891,7 +1893,7 @@ class LookForWitches(Action):
     slot = "b"
 
     def __init__(self, state):
-        super(LookForWitches, self, state).__init__()
+        super(LookForWitches, self).__init__(state)
         self.name = "Look for witches"
 
     def execute(self, state):
@@ -1918,7 +1920,7 @@ class GawkAtWomen(Action):
     slot = "b"
 
     def __init__(self, state):
-        super(GawkAtWomen, self, state).__init__()
+        super(GawkAtWomen, self).__init__(state)
         self.name = "{0} at women.".format(random.choice(
             ["Gawk", "Leer", "Stare"]))
 
@@ -1950,7 +1952,7 @@ class GawkAtWomen(Action):
             self.outcomes.add(Outcome(state,
                 "An equally creepy woman stares back at you before "
                 "disappearing into a dark alley.",
-                actions=[(GoTo(state.places.places_dict["dark_alley"]), 5)],
+                actions=[(GoTo(state, state.places.places_dict["dark_alley"]), 5)],
             ), weight=1)
 
         if self.name == "Leer at women.":
@@ -1969,7 +1971,7 @@ class SwingOnARope(Action):
     slot = "b"
 
     def __init__(self, state):
-        super(SwingOnARope, self, state).__init__()
+        super(SwingOnARope, self).__init__(state)
         self.name = "Swing on a Rope."
 
     def execute(self, state):
@@ -2005,7 +2007,7 @@ class Tithe(Action):
     slot = "b"
 
     def __init__(self, state):
-        super(Tithe, self, state).__init__()
+        super(Tithe, self).__init__(state)
         self.name = "Tithe."
 
     def execute(self, state):
@@ -2052,7 +2054,7 @@ class BarterWithEskimos(Action):
     slot = "b"
 
     def __init__(self, state):
-        super(BarterWithEskimos, self, state).__init__()
+        super(BarterWithEskimos, self).__init__(state)
         self.name = "Barter with the Eskimos."
 
     def execute(self, state):
@@ -2085,7 +2087,7 @@ class BuildAnIgloo(Action):
     slot = "b"
 
     def __init__(self, state):
-        super(BuildAnIgloo, self, state).__init__()
+        super(BuildAnIgloo, self).__init__(state)
         self.name = "Build an igloo."
 
     def execute(self, state):
@@ -2127,7 +2129,7 @@ class Disguise(Action):
     slot = "b"
 
     def __init__(self, state):
-        super(Disguise, self, state).__init__()
+        super(Disguise, self).__init__(state)
         self.fake_name = random.choice(["St. George.",
                                         "Lord Arthur.",
                                         "Lord Daniel."])
@@ -2183,8 +2185,8 @@ class BurnThePlaceToTheGround(Action):
 
     slot = "b"
 
-    def __init__(self, place):
-        super(BurnThePlaceToTheGround, self, state).__init__()
+    def __init__(self, state, place):
+        super(BurnThePlaceToTheGround, self).__init__(state)
         self.place = place
         self.name = "Burn {0} to the ground.".format(place.name)
 
@@ -2238,8 +2240,8 @@ class SetThePlaceOnFire(BurnThePlaceToTheGround):
 
     slot = "a"
 
-    def __init__(self, place):
-        super(SetThePlaceOnFire, self).__init__(place)
+    def __init__(self, state, place):
+        super(SetThePlaceOnFire, self).__init__(state, place)
         self.place = place
         self.name = "Set {0} ablaze.".format(place.name)
 
@@ -2248,8 +2250,8 @@ class BurnThePlaceToACrisp(BurnThePlaceToTheGround):
 
     slot = "c"
 
-    def __init__(self, place):
-        super(BurnThePlaceToACrisp, self).__init__(place)
+    def __init__(self, state, place):
+        super(BurnThePlaceToACrisp, self).__init__(state, place)
         self.place = place
         self.name = "Burn {0} to a crisp.".format(place.name)
 
@@ -2258,8 +2260,8 @@ class LightUpThePlace(BurnThePlaceToTheGround):
 
     slot = "d"
 
-    def __init__(self, place):
-        super(LightUpThePlace, self).__init__(place)
+    def __init__(self, state, place):
+        super(LightUpThePlace, self).__init__(state, place)
         self.place = place
         self.name = "Light up {0}.".format(place.name)
 
@@ -2269,7 +2271,7 @@ class ClimbIntoTheCrowsNest(Action):
     slot = "b"
 
     def __init__(self, state):
-        super(ClimbIntoTheCrowsNest, self, state).__init__()
+        super(ClimbIntoTheCrowsNest, self).__init__(state)
         self.name = "Climb into the crow's nest."
 
     def execute(self, state):
@@ -2277,10 +2279,10 @@ class ClimbIntoTheCrowsNest(Action):
         self.outcomes.add(Outcome(state,
             "You spot a merchant ship. A raid ensues.",
             actions=[
-                (Swashbuckle(), 1000),
-                (SwingOnARope(), 1000),
-                (FireACanon(), 1000),
-                (HideUnderTheDeck(), 1000)],
+                (Swashbuckle(state), 1000),
+                (SwingOnARope(state), 1000),
+                (FireACanon(state), 1000),
+                (HideUnderTheDeck(state), 1000)],
         ), weight=1)
 
         self.outcomes.add(Outcome(state,
@@ -2327,7 +2329,7 @@ class RaiseASail(Action):
     slot = "b"
 
     def __init__(self, state):
-        super(RaiseASail, self, state).__init__()
+        super(RaiseASail, self).__init__(state)
         self.name = "Raise a sail."
 
     def execute(self, state):
@@ -2347,10 +2349,10 @@ class RaiseASail(Action):
                 "As you are raising a sail you see a merchant ship. Lord Arthur "
                 "calls all hands to raid the ship.",
                 actions=[
-                    (Swashbuckle(), 1000),
-                    (SwingOnARope(), 1000),
-                    (FireACanon(), 1000),
-                    (HideUnderTheDeck(), 1000)],
+                    (Swashbuckle(state), 1000),
+                    (SwingOnARope(state), 1000),
+                    (FireACanon(state), 1000),
+                    (HideUnderTheDeck(state), 1000)],
             ), weight=1)
 
             if not state.character.is_employed_by(persons.lord_arthur):
@@ -2365,10 +2367,10 @@ class RaiseASail(Action):
                 "As you are raising a sail you see a merchant ship. The "
                 "captain calls all hands to raid the ship.",
                 actions=[
-                    (Swashbuckle(), 1000),
-                    (SwingOnARope(), 1000),
-                    (FireACanon(), 1000),
-                    (HideUnderTheDeck(), 1000)],
+                    (Swashbuckle(state), 1000),
+                    (SwingOnARope(state), 1000),
+                    (FireACanon(state), 1000),
+                    (HideUnderTheDeck(state), 1000)],
             ), weight=1)
 
         self.outcomes.add(Outcome(state,
@@ -2383,7 +2385,7 @@ class ScrubTheDeck(Action):
     slot = "b"
 
     def __init__(self, state):
-        super(ScrubTheDeck, self, state).__init__()
+        super(ScrubTheDeck, self).__init__(state)
         self.name = "Scrub the deck."
 
     def execute(self, state):
@@ -2398,10 +2400,10 @@ class ScrubTheDeck(Action):
                 "As you are scrubbing, the deck you hear Lord Arthur calling all "
                 "hands to raid an approaching merchant ship.",
                 actions=[
-                    (Swashbuckle(), 1000),
-                    (SwingOnARope(), 1000),
-                    (FireACanon(), 1000),
-                    (HideUnderTheDeck(), 1000)],
+                    (Swashbuckle(state), 1000),
+                    (SwingOnARope(state), 1000),
+                    (FireACanon(state), 1000),
+                    (HideUnderTheDeck(state), 1000)],
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
@@ -2437,7 +2439,7 @@ class PlayDead(Action):
     slot = "b"
 
     def __init__(self, state):
-        super(PlayDead, self, state).__init__()
+        super(PlayDead, self).__init__(state)
         self.name = "Play dead."
         self.combat_action = True
 
@@ -2482,7 +2484,7 @@ class PrayToAHigherPower(Action):
     slot = "b"
 
     def __init__(self, state):
-        super(PrayToAHigherPower, self, state).__init__()
+        super(PrayToAHigherPower, self).__init__(state)
         self.name = "Pray to a higher power."
 
     def execute(self, state):
@@ -2556,7 +2558,7 @@ class BegForMoney(Action):
     slot = "b"
 
     def __init__(self, state):
-        super(BegForMoney, self, state).__init__()
+        super(BegForMoney, self).__init__(state)
         self.name = "Beg for money."
 
     def execute(self, state):
@@ -2620,7 +2622,7 @@ class BideYourTime(Action):
     slot = "b"
 
     def __init__(self, state):
-        super(BideYourTime, self, state).__init__()
+        super(BideYourTime, self).__init__(state)
         self.name = "Bide your time."
 
     def execute(self, state):
@@ -2650,9 +2652,9 @@ class BideYourTime(Action):
             "inspects the cells. He inspects the cells with "
             "an entourage of guards most weekends, but he "
             "does it alone on holidays.",
-            actions=[(LaughAboutWarden(), 100),
-                     (TryToTakeKeys(), 100),
-                     (WaitForAHoliday(), 100),
+            actions=[(LaughAboutWarden(state), 100),
+                     (TryToTakeKeys(state), 100),
+                     (WaitForAHoliday(state), 100),
                     ],
         ), weight=2)
 
@@ -2668,7 +2670,7 @@ class BuyBlackMarketItem(Action):
     slot = "b"
 
     def __init__(self, state):
-        super(BuyBlackMarketItem, self, state).__init__()
+        super(BuyBlackMarketItem, self).__init__(state)
         self.item = random.choice(
             persons.black_market_merchant.get_sells())
         self.price = persons.black_market_merchant.get_sell_price(self.item)
@@ -2708,7 +2710,7 @@ class BuyItem(Action):
     slot = "b"
 
     def __init__(self, state):
-        super(BuyItem, self, state).__init__()
+        super(BuyItem, self).__init__(state)
         self.item = random.choice(persons.local_merchant.get_sells())
         self.price = persons.local_merchant.get_sell_price(self.item)
         self.name = "Buy {0} {1}.".format(
@@ -2743,7 +2745,7 @@ class BuyWeapon(Action):
     slot = "b"
 
     def __init__(self, state):
-        super(BuyWeapon, self, state).__init__()
+        super(BuyWeapon, self).__init__(state)
         self.weapon = random.choice(persons.wealthy_merchant.get_sells())
         self.price = persons.wealthy_merchant.get_sell_price(self.weapon)
         self.name = "Buy a " + str(self.weapon) + "."
@@ -2772,7 +2774,7 @@ class BuyADrink(Action):
     slot = "b"
 
     def __init__(self, state):
-        super(BuyADrink, self, state).__init__()
+        super(BuyADrink, self).__init__(state)
         self.name = "Buy a drink."
 
     def execute(self, state):
@@ -2818,7 +2820,7 @@ class BoastOfYourBravery(Action):
     slot = "b"
 
     def __init__(self, state):
-        super(BoastOfYourBravery, self, state).__init__()
+        super(BoastOfYourBravery, self).__init__(state)
         self.name = "Boast of your bravery."
 
     def execute(self, state):
@@ -2920,7 +2922,7 @@ class LookForACat(Action):
     slot = "b"
 
     def __init__(self, state):
-        super(LookForACat, self, state).__init__()
+        super(LookForACat, self).__init__(state)
         self.name = "Look for a cat."
 
     def execute(self, state):
@@ -2964,7 +2966,8 @@ class LookForACat(Action):
                 burn_place=state.character.place,
             ), weight=4)
 
-        if state.character.place in state.places.populated and not state.character.place in state.places.locked:
+        if state.character.place in state.places.populated and not \
+           state.character.place in state.places.locked:
 
             self.outcomes.add(Outcome(state,
                 "You follow a cat through the streets but "
@@ -2991,8 +2994,8 @@ class TellThemYouAreNotALunatic(Action):
 
     slot = "b"
 
-    def __init__(self, topic):
-        super(TellThemYouAreNotALunatic, self, state).__init__()
+    def __init__(self, state, topic):
+        super(TellThemYouAreNotALunatic, self).__init__(state)
         self.topic = topic
         self.name = "Tell them you are not a lunatic, " + \
             "you're just {0}.".format(topic)
@@ -3020,7 +3023,7 @@ class TipACow(Action):
     slot = "b"
 
     def __init__(self, state):
-        super(TipACow, self, state).__init__()
+        super(TipACow, self).__init__(state)
         self.name = "Tip a cow."
 
     def execute(self, state):
@@ -3069,7 +3072,7 @@ class LookForSeaTurtles(Action):
     slot = "b"
 
     def __init__(self, state):
-        super(LookForSeaTurtles, self, state).__init__()
+        super(LookForSeaTurtles, self).__init__(state)
         self.name = "Look for sea turtles."
 
     def execute(self, state):
@@ -3106,7 +3109,7 @@ class LookForMermaids(Action):
     slot = "b"
 
     def __init__(self, state):
-        super(LookForMermaids, self, state).__init__()
+        super(LookForMermaids, self).__init__(state)
         self.name = "Look for mermaids."
 
     def execute(self, state):
@@ -3189,7 +3192,7 @@ class ChatWithLordBartholomew(Action):
     slot = "c"
 
     def __init__(self, state):
-        super(ChatWithLordBartholomew, self, state).__init__()
+        super(ChatWithLordBartholomew, self).__init__(state)
         self.name = "Chat with Lord Bartholomew."
 
     def execute(self, state):
@@ -3259,7 +3262,7 @@ class Eve(Action):
     slot = "c"
 
     def __init__(self, state):
-        super(Eve, self, state).__init__()
+        super(Eve, self).__init__(state)
         self.name = "\"Eve.\""
 
     def execute(self, state):
@@ -3275,7 +3278,7 @@ class WaitForAHoliday(Action):
     slot = "c"
 
     def __init__(self, state):
-        super(WaitForAHoliday, self, state).__init__()
+        super(WaitForAHoliday, self).__init__(state)
         self.name = "Wait for a holiday to make your move."
 
     def execute(self, state):
@@ -3305,7 +3308,7 @@ class ChallengeThemToAGameOfChess(Action):
     slot = "c"
 
     def __init__(self, state):
-        super(ChallengeThemToAGameOfChess, self, state).__init__()
+        super(ChallengeThemToAGameOfChess, self).__init__(state)
         self.name = "Challenge them to a game of chess."
 
     def execute(self, state):
@@ -3336,7 +3339,7 @@ class SunYourselfOnARock(Action):
     slot = "c"
 
     def __init__(self, state):
-        super(SunYourselfOnARock, self, state).__init__()
+        super(SunYourselfOnARock, self).__init__(state)
         self.name = "Sun yourself on a rock."
 
     def execute(self, state):
@@ -3372,7 +3375,7 @@ class ComplainAboutUnfairImprisonment(Action):
     slot = "c"
 
     def __init__(self, state):
-        super(ComplainAboutUnfairImprisonment, self, state).__init__()
+        super(ComplainAboutUnfairImprisonment, self).__init__(state)
         self.name = "Complain about unfair imprisonment."
 
     def execute(self, state):
@@ -3430,7 +3433,7 @@ class Hide(Action):
     slot = "c"
 
     def __init__(self, state):
-        super(Hide, self, state).__init__()
+        super(Hide, self).__init__(state)
         self.name = "Hide."
 
     def execute(self, state):
@@ -3471,7 +3474,7 @@ class E4(Action):
     slot = "c"
 
     def __init__(self, state):
-        super(E4, self, state).__init__()
+        super(E4, self).__init__(state)
         self.name = "e4."
         self.combat_action = True
 
@@ -3493,7 +3496,7 @@ class LookForAWayOut(Action):
     slot = "c"
 
     def __init__(self, state):
-        super(LookForAWayOut, self, state).__init__()
+        super(LookForAWayOut, self).__init__(state)
         self.name = "Look for a way out."
 
     def execute(self, state):
@@ -3537,7 +3540,7 @@ class ClimbUpTheTopSails(Action):
     slot = "c"
 
     def __init__(self, state):
-        super(ClimbUpTheTopSails, self, state).__init__()
+        super(ClimbUpTheTopSails, self).__init__(state)
         self.name = "Climb up the top sails."
 
     def execute(self, state):
@@ -3554,7 +3557,7 @@ class TellAPriest(Action):
     slot = "c"
 
     def __init__(self, state):
-        super(TellAPriest, self, state).__init__()
+        super(TellAPriest, self).__init__(state)
         self.idea = random.choice([
             "that God doesn't exist",
             "that he's fat",
@@ -3637,7 +3640,7 @@ class FireACanon(Action):
     slot = "c"
 
     def __init__(self, state):
-        super(FireACanon, self, state).__init__()
+        super(FireACanon, self).__init__(state)
         self.name = "Fire a cannon."
 
     def execute(self, state):
@@ -3670,7 +3673,7 @@ class ClubASeal(Action):
     slot = "c"
 
     def __init__(self, state):
-        super(ClubASeal, self, state).__init__()
+        super(ClubASeal, self).__init__(state)
         self.name = "Club a seal."
 
     def execute(self, state):
@@ -3711,7 +3714,7 @@ class CelebrateYourSuccess(Action):
     slot = "c"
 
     def __init__(self, state):
-        super(CelebrateYourSuccess, self, state).__init__()
+        super(CelebrateYourSuccess, self).__init__(state)
         self.name = "Celebrate your success."
 
     def execute(self, state):
@@ -3803,7 +3806,7 @@ class ChopDownATree(Action):
     slot = "c"
 
     def __init__(self, state):
-        super(ChopDownATree, self, state).__init__()
+        super(ChopDownATree, self).__init__(state)
         self.name = "Chop down a tree."
 
     def execute(self, state):
@@ -3851,8 +3854,8 @@ class ChowDown(Action):
 
     slot = "c"
 
-    def __init__(self, food):
-        super(ChowDown, self, state).__init__()
+    def __init__(self, state, food):
+        super(ChowDown, self).__init__(state)
         self.food = food
         self.name = "Chow down on the " + str(food) + "."
 
@@ -3906,8 +3909,8 @@ class FlirtWith(Action):
 
     slot = "c"
 
-    def __init__(self, person):
-        super(FlirtWith, self, state).__init__()
+    def __init__(self, state, person):
+        super(FlirtWith, self).__init__(state)
         self.person = person
         self.name = "Flirt with {0}.".format(person.name)
 
@@ -4145,8 +4148,8 @@ class FlirtWith(Action):
             self.outcomes.add(Outcome(state,
                 "She asks if you even remember her name. "
                 "You say, \"Of course I remember your name. It's...\"",
-                actions=[(Anne(), 10000), (Beth(), 10000),
-                         (Eve(), 10000), (Donna(), 10000)],
+                actions=[(Anne(state), 10000), (Beth(state), 10000),
+                         (Eve(state), 10000), (Donna(state), 10000)],
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
@@ -4221,7 +4224,7 @@ class GoToSleep(Action):
     slot = "c"
 
     def __init__(self, state):
-        super(GoToSleep, self, state).__init__()
+        super(GoToSleep, self).__init__(state)
         self.name = "Go to sleep."
 
     def execute(self, state):
@@ -4318,7 +4321,7 @@ class LookForTheWizard(Action):
     slot = "c"
 
     def __init__(self, state):
-        super(LookForTheWizard, self, state).__init__()
+        super(LookForTheWizard, self).__init__(state)
         self.name = "Look for the wizard."
 
     def execute(self, state):
@@ -4330,7 +4333,7 @@ class LookForTheWizard(Action):
                     "mushroom. He asks if he can have it.",
                     move_to=state.places.places_dict["market"],
                     new_person=persons.wizard,
-                    actions=[(GiveHimTheYellowMushroom(), 100)],
+                    actions=[(GiveHimTheYellowMushroom(state), 100)],
                 ), weight=100)
 
             self.outcomes.add(Outcome(state,
@@ -4397,7 +4400,7 @@ class LeaveInAHuff(Action):
     slot = "c"
 
     def __init__(self, state):
-        super(LeaveInAHuff, self, state).__init__()
+        super(LeaveInAHuff, self).__init__(state)
         self.name = "Leave in a huff."
 
     def execute(self, state):
@@ -4415,12 +4418,12 @@ class LeaveInAHuff(Action):
             ), weight=1)
 
 
-class LeaveInAPuff(Action):
+class LeaveInAPuff(Action):  # UNDER REVISION
 
     slot = "c"
 
     def __init__(self, state):
-        super(LeaveInAPuff, self, state).__init__()
+        super(LeaveInAPuff, self).__init__(state)
         self.name = "Leave in a puff."
         self.combat_action = True
 
@@ -4439,7 +4442,7 @@ class FleeTheScene(Action):
     slot = "c"
 
     def __init__(self, state):
-        super(FleeTheScene, self, state).__init__()
+        super(FleeTheScene, self).__init__(state)
         self.name = "Flee the scene."
 
     def execute(self, state):
@@ -4455,8 +4458,8 @@ class GoTo(Action):
 
     slot = "c"
 
-    def __init__(self, place, specific_dest=None):
-        super(GoTo, self, state).__init__()
+    def __init__(self, state, place, specific_dest=None):
+        super(GoTo, self).__init__(state)
         if specific_dest:
             self.dest = specific_dest
         else:
@@ -4542,7 +4545,7 @@ class RunLikeTheDevil(Action):
     slot = "c"
 
     def __init__(self, state):
-        super(RunLikeTheDevil, self, state).__init__()
+        super(RunLikeTheDevil, self).__init__(state)
         self.name = "Run like the Devil."
         self.combat_action = True
 
@@ -4596,7 +4599,7 @@ class WaddleLikeGod(Action):
     slot = "c"
 
     def __init__(self, state):
-        super(WaddleLikeGod, self, state).__init__()
+        super(WaddleLikeGod, self).__init__(state)
         self.name = "Waddle like God."
         self.combat_action = True
 
@@ -4624,7 +4627,7 @@ class WanderTheCountryside(Action):
     slot = "c"
 
     def __init__(self, state):
-        super(WanderTheCountryside, self, state).__init__()
+        super(WanderTheCountryside, self).__init__(state)
         self.name = "Wander the countryside."
 
     def execute(self, state):
@@ -4637,14 +4640,14 @@ class WanderTheCountryside(Action):
 
         self.outcomes.add(Outcome(state,
             "You find a mob of peasants about to perform a witch burning.",
-            actions=[(SaveTheWitch(), 30)],
+            actions=[(SaveTheWitch(state), 30)],
             new_person=None,
         ), weight=1)
 
         self.outcomes.add(Outcome(state,
             "You find a mob of peasant children about to perform a cat "
             "burning.",
-            actions=[(SaveTheCat(), 30)],
+            actions=[(SaveTheCat(state), 30)],
             new_person=None,
         ), weight=1)
 
@@ -4677,15 +4680,15 @@ class Swim(Action):
     slot = "c"
 
     def __init__(self, state):
-        super(Swim, self, state).__init__()
+        super(Swim, self).__init__(state)
         self.name = "Swim."
 
     def execute(self, state):
 
         if type(self) == JustKeepSwimming or type(self) == KeepSwimming:
-            next_action = JustKeepSwimming()
+            next_action = JustKeepSwimming(state)
         else:
-            next_action = KeepSwimming()
+            next_action = KeepSwimming(state)
 
         self.outcomes.add(Outcome(state,
             "You manage to stay afloat.",
@@ -4725,7 +4728,7 @@ class KeepSwimming(Swim):
     slot = "c"
 
     def __init__(self, state):
-        super(KeepSwimming, self, state).__init__()
+        super(KeepSwimming, self).__init__(state)
         self.name = "Keep swimming."
 
     def execute(self, state):
@@ -4751,7 +4754,7 @@ class KeepSwimming(Swim):
 
             self.outcomes.add(Outcome(state,
                 "Your cat dies.",
-                actions=[(JustKeepSwimming(), 10000)],
+                actions=[(JustKeepSwimming(state), 10000)],
                 remove_item=items.cat,
                 fail=True,
             ), weight=1)
@@ -4762,7 +4765,7 @@ class JustKeepSwimming(KeepSwimming):
     slot = "c"
 
     def __init__(self, state):
-        super(JustKeepSwimming, self, state).__init__()
+        super(JustKeepSwimming, self).__init__(state)
         self.name = "Just keep swimming."
 
     def execute(self, state):
@@ -4791,7 +4794,7 @@ class E4(Action):
     slot = "c"
 
     def __init__(self, state):
-        super(ChallengeHimToAGameOfChess, self, state).__init__()
+        super(ChallengeHimToAGameOfChess, self).__init__(state)
         self.name = "Challenge him to a game of chess."
         self.combat_action = True
 
@@ -4812,7 +4815,7 @@ class ChallengeHimToAGameOfChess(Action):
     slot = "c"
 
     def __init__(self, state):
-        super(ChallengeHimToAGameOfChess, self, state).__init__()
+        super(ChallengeHimToAGameOfChess, self).__init__(state)
         self.name = "Challenge him to a game of chess."
         self.combat_action = True
 
@@ -4824,10 +4827,10 @@ class ChallengeHimToAGameOfChess(Action):
                 "Lord Carlos says he has no time to waste on fools, but "
                 "when you imply that he's afraid he'll lose, "
                 "he has his servants set up a chessboard.",
-                actions=[(A3(), 10000),
-                         (Nf3(), 10000),
-                         (E4(), 10000),
-                         (AskForADraw(), 10000)],
+                actions=[(A3(state), 10000),
+                         (Nf3(state), 10000),
+                         (E4(state), 10000),
+                         (AskForADraw(state), 10000)],
             ), weight=1)
 
         if state.character.person == persons.lord_bartholomew:
@@ -4836,10 +4839,10 @@ class ChallengeHimToAGameOfChess(Action):
                 "Lord Bartholomew says there's always time for a little fun "
                 "in his life. He takes you to his chess parlor and sets up "
                 "a board.",
-                #actions=[(A3(), 10000),
-                #         (Nf3(), 10000),
-                #         (E4(), 10000),
-                #         (TurnBoard(), 10000)],
+                #actions=[(A3(state), 10000),
+                #         (Nf3(state), 10000),
+                #         (E4(state), 10000),
+                #         (TurnBoard(state), 10000)],
             ), weight=1)
 
 
@@ -4848,7 +4851,7 @@ class WalkThePlank(Action):
     slot = "c"
 
     def __init__(self, state):
-        super(WalkThePlank, self, state).__init__()
+        super(WalkThePlank, self).__init__(state)
         self.name = "Walk the plank."
 
     def execute(self, state):
@@ -4876,7 +4879,7 @@ class TrashThePlace(Action):
     slot = "c"
 
     def __init__(self, state):
-        super(TrashThePlace, self, state).__init__()
+        super(TrashThePlace, self).__init__(state)
         self.name = "Trash the place."
 
     def execute(self, state):
@@ -4954,7 +4957,7 @@ class TurnBoard(Action):
     slot = "d"
 
     def __init__(self, state):
-        super(TurnBoard, self, state).__init__()
+        super(TurnBoard, self).__init__(state)
         self.name = "Play poorly and turn the board around once you're losing."
 
     def execute(self, state):
@@ -4973,7 +4976,7 @@ class Donna(Action):
     slot = "d"
 
     def __init__(self, state):
-        super(Donna, self, state).__init__()
+        super(Donna, self).__init__(state)
         self.name = "\"Donna.\""
 
     def execute(self, state):
@@ -4990,7 +4993,7 @@ class AskForAsylum(Action):
     slot = "d"
 
     def __init__(self, state):
-        super(AskForAsylum, self, state).__init__()
+        super(AskForAsylum, self).__init__(state)
         self.name = "Ask for asylum."
 
     def execute(self, state):
@@ -5027,7 +5030,7 @@ class AskForADraw(Action):
     slot = "d"
 
     def __init__(self, state):
-        super(AskForADraw, self, state).__init__()
+        super(AskForADraw, self).__init__(state)
         self.name = "Ask for a draw."
         self.combat_action = True
 
@@ -5044,7 +5047,7 @@ class MakeItHard(Action):
     slot = "d"
 
     def __init__(self, state):
-        super(MakeItHard, self, state).__init__()
+        super(MakeItHard, self).__init__(state)
         self.name = "Make it hard for Lord Carlos to kill you."
         self.combat_action = True
 
@@ -5079,7 +5082,7 @@ class MakeItHard(Action):
 
         self.outcomes.add(Outcome(state,
             "You spit in his eyes.",
-            actions=[RunLikeTheDevil(), 666],
+            actions=[RunLikeTheDevil(state), 666],
         ), weight=1)
 
         self.outcomes.add(Outcome(state,
@@ -5111,7 +5114,7 @@ class ShowYourForeignCoin(Action):
     slot = "d"
 
     def __init__(self, state):
-        super(ShowYourForeignCoin, self, state).__init__()
+        super(ShowYourForeignCoin, self).__init__(state)
         self.name = "Show him your shiny foreign coin."
 
     def execute(self, state):
@@ -5141,8 +5144,8 @@ class DouseHerWithYourLovePotion(Action):
 
     slot = "d"
 
-    def __init__(self, lady):
-        super(DouseHerWithYourLovePotion, self, state).__init__()
+    def __init__(self, state, lady):
+        super(DouseHerWithYourLovePotion, self).__init__(state)
         self.lady = lady
         self.name = "Douse " + self.lady.name + " with your love potion."
 
@@ -5208,8 +5211,8 @@ class DrugHerWithYourLovePotion(Action):
 
     slot = "d"
 
-    def __init__(self, lady):
-        super(DrugHerWithYourLovePotion, self, state).__init__()
+    def __init__(self, state, lady):
+        super(DrugHerWithYourLovePotion, self).__init__(state)
         self.lady = lady
         self.name = "Drug " + self.lady.name + " with your love potion."
 
@@ -5246,7 +5249,7 @@ class LookForNymphs(Action):
     slot = "d"
 
     def __init__(self, state):
-        super(LookForNymphs, self, state).__init__()
+        super(LookForNymphs, self).__init__(state)
         self.name = "Look for nymphs."
 
     def execute(self, state):
@@ -5309,8 +5312,8 @@ class GiveCat(Action):
 
     slot = "d"
 
-    def __init__(self, woman):
-        super(GiveCat, self, state).__init__()
+    def __init__(self, state, woman):
+        super(GiveCat, self).__init__(state)
         self.woman = woman
         self.name = "Give " + woman.name + " your cat."
 
@@ -5327,8 +5330,8 @@ class GiveFlowers(Action):
 
     slot = "d"
 
-    def __init__(self, woman):
-        super(GiveFlowers, self, state).__init__()
+    def __init__(self, state, woman):
+        super(GiveFlowers, self).__init__(state)
         self.woman = woman
         self.name = "Give " + woman.name + " your bouquet of flowers."
 
@@ -5346,7 +5349,7 @@ class Loot(Action):
     slot = "d"
 
     def __init__(self, state):
-        super(Loot, self, state).__init__()
+        super(Loot, self).__init__(state)
         self.name = "Loot."
 
     def execute(self, state):
@@ -5384,7 +5387,7 @@ class WatchAPlay(Action):
     slot = "d"
 
     def __init__(self, state):
-        super(WatchAPlay, self, state).__init__()
+        super(WatchAPlay, self).__init__(state)
         self.name = "Watch a play."
 
     def execute(self, state):
@@ -5408,10 +5411,10 @@ class WatchAPlay(Action):
                 "a negative light. The audience starts a riot.",
                 new_person=persons.guards,
                 actions=[
-                         (Attack(persons.guards), 10000),
-                         (BurnThePlaceToTheGround(state.places.places_dict["market"]), 10000),
-                         (TrashThePlace(), 10000),
-                         (Loot(), 10000)
+                         (Attack(state, persons.guards), 10000),
+                         (BurnThePlaceToTheGround(state, state.places.places_dict["market"]), 10000),
+                         (TrashThePlace(state), 10000),
+                         (Loot(state), 10000)
                          ],
             ), weight=1)
 
@@ -5423,9 +5426,9 @@ class WatchAPlay(Action):
                 "light. The audience starts a riot.",
                 new_person=persons.guards,
                 actions=[
-                         (Attack(persons.guards), 10000),
-                         (TrashThePlace(), 10000),
-                         (Loot(), 10000)
+                         (Attack(state, persons.guards), 10000),
+                         (TrashThePlace(state), 10000),
+                         (Loot(state), 10000)
                          ],
             ), weight=1)
 
@@ -5436,7 +5439,7 @@ class FlauntYourWealth(Action):
     slot = "d"
 
     def __init__(self, state):
-        super(FlauntYourWealth, self, state).__init__()
+        super(FlauntYourWealth, self).__init__(state)
         self.name = "Flaunt your wealth."
 
     def execute(self, state):
@@ -5449,7 +5452,7 @@ class FlauntYourWealth(Action):
         self.outcomes.add(Outcome(state,
             "The guards notice you and conclude you must be rich.",
             new_person=persons.guards,
-            actions=[(TellThemYouAreALunatic(), 10000)],
+            actions=[(TellThemYouAreALunatic(state), 10000)],
         ), weight=1)
 
         if persons.st_george.alive:
@@ -5470,7 +5473,7 @@ class FreezeToDeath(Action):
     slot = "d"
 
     def __init__(self, state):
-        super(FreezeToDeath, self, state).__init__()
+        super(FreezeToDeath, self).__init__(state)
         self.name = "Freeze to death."
 
     def execute(self, state):
@@ -5527,11 +5530,13 @@ class Panic(Action):
     slot = "d"
 
     def __init__(self, state):
-        super(Panic, self, state).__init__()
+        super(Panic, self).__init__(state)
         self.name = "Panic!"
         self.combat_action = True
 
     def execute(self, state):
+        #under revision 
+        """
         options = state.places.Place.instances - set([state.character.place])
         place = random.sample(options, 1)[0]
 
@@ -5541,6 +5546,7 @@ class Panic(Action):
             move_to=place,
             succeed=True,
         ), weight=1)
+        """
 
         self.outcomes.add(Outcome(state,
             "Panicking doesn't help.",
@@ -5557,8 +5563,8 @@ class SingASong(Action):
 
     slot = "d"
 
-    def __init__(self, topic=None):
-        super(SingASong, self, state).__init__()
+    def __init__(self, state, topic=None):
+        super(SingASong, self).__init__(state)
         self.topic = topic
         if topic:
             self.name = "Sing a song about {0}.".format(topic)
@@ -5710,7 +5716,7 @@ class SwingYourCat(Action):
     slot = "d"
 
     def __init__(self, state):
-        super(SwingYourCat, self, state).__init__()
+        super(SwingYourCat, self).__init__(state)
         self.name = "Swing your cat."
 
     def execute(self, state):
@@ -5742,7 +5748,7 @@ class LookThroughSomeTrash(Action):
     slot = "d"
 
     def __init__(self, state):
-        super(LookThroughSomeTrash, self, state).__init__()
+        super(LookThroughSomeTrash, self).__init__(state)
         self.name = "Look through some trash."
 
     def execute(self, state):
@@ -5796,7 +5802,7 @@ class DanceAJig(Action):
     slot = "d"
 
     def __init__(self, state):
-        super(DanceAJig, self, state).__init__()
+        super(DanceAJig, self).__init__(state)
         self.name = "Dance a jig."
 
     def execute(self, state):
@@ -5925,7 +5931,7 @@ class Drown(Action):
     slot = "d"
 
     def __init__(self, state):
-        super(Drown, self, state).__init__()
+        super(Drown, self).__init__(state)
         self.name = "Drown."
 
     def execute(self, state):
@@ -5939,7 +5945,7 @@ class Drown(Action):
 class Sink(Drown):
 
     def __init__(self, state):
-        super(Sink, self, state).__init__()
+        super(Sink, self).__init__(state)
         self.name = "Sink."
 
 
@@ -5948,7 +5954,7 @@ class SaveTheCat(Action):
     slot = "d"
 
     def __init__(self, state):
-        super(SaveTheCat, self, state).__init__()
+        super(SaveTheCat, self).__init__(state)
         self.name = "Save the cat."
 
     def execute(self, state):
@@ -5971,7 +5977,7 @@ class YellAPiratePhrase(Action):
     slot = "d"
 
     def __init__(self, state):
-        super(YellAPiratePhrase, self, state).__init__()
+        super(YellAPiratePhrase, self).__init__(state)
         self.phrase = random.choice(
             ["Shiver me timbers",
              "Dead men tell no tales",
@@ -6033,7 +6039,7 @@ class SaveTheWitch(Action):
     slot = "d"
 
     def __init__(self, state):
-        super(SaveTheWitch, self, state).__init__()
+        super(SaveTheWitch, self).__init__(state)
         self.name = "Save the witch."
 
     def execute(self, state):
@@ -6065,7 +6071,7 @@ class DoSomeFarmWork(Action):
     slot = "d"
 
     def __init__(self, state):
-        super(DoSomeFarmWork, self, state).__init__()
+        super(DoSomeFarmWork, self).__init__(state)
         self.name = "Do some farm work."
 
     def execute(self, state):
@@ -6119,7 +6125,7 @@ class DoSomeGambling(Action):
     slot = "d"
 
     def __init__(self, state):
-        super(DoSomeGambling, self, state).__init__()
+        super(DoSomeGambling, self).__init__(state)
         self.name = "Do some gambling."
 
     def execute(self, state):
@@ -6182,7 +6188,7 @@ class SneakAround(Action):
     slot = "d"
 
     def __init__(self, state):
-        super(SneakAround, self, state).__init__()
+        super(SneakAround, self).__init__(state)
         self.name = "Sneak around."
 
     def execute(self, state):
@@ -6191,7 +6197,7 @@ class SneakAround(Action):
             self.outcomes.add(Outcome(state,
                 "While prowling in the shadows of a hallway, you stub your "
                 "pinkie toe.",
-                actions=[(HowlWithPain(), 10000)],
+                actions=[(HowlWithPain(state), 10000)],
                 fail=True,
             ), weight=1)
 
@@ -6284,7 +6290,7 @@ class HideUnderTheDeck(Action):
     slot = "d"
 
     def __init__(self, state):
-        super(HideUnderTheDeck, self, state).__init__()
+        super(HideUnderTheDeck, self).__init__(state)
         self.name = "Hide under the deck."
 
     def execute(self, state):
@@ -6312,7 +6318,7 @@ class SnoopAround(Action):
     slot = "d"
 
     def __init__(self, state):
-        super(SnoopAround, self, state).__init__()
+        super(SnoopAround, self).__init__(state)
         self.name = "Snoop around."
 
     def execute(self, state):
@@ -6349,7 +6355,7 @@ class EnterTheVoid(Action):
     slot = "e"
 
     def __init__(self, state):
-        super(EnterTheVoid, self, state).__init__()
+        super(EnterTheVoid, self).__init__(state)
         self.name = "Enter the void."
         self.combat_action = True
 
