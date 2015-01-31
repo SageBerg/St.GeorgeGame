@@ -42,9 +42,10 @@ def main():
         Display results of the outcomes
         Outcome changes game state
     """
+    persons_object = persons.Persons()
     places_object = places.Places()
-    character = Character(place=places_object.places_dict["tavern"])
-    state = GameState(character, places_object)
+    character_object = Character(place=places_object.places_dict["tavern"])
+    state = GameState(character_object, places_object, persons_object)
     choices = MultipleChoice()
     options.set_initial_actions(choices, state)
     print("\n---The St. George Game---\n")
@@ -61,7 +62,7 @@ def main():
         outcome.execute()
         options.add_actions(choices, state, outcome)
         choices.generate_actions(state.character)
-        lords_victory(state.character)
+        #lords_victory(state.character)
         #pyro_victory(state.character)  #needs a refactor
         
 if __name__ == "__main__":
