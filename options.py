@@ -13,9 +13,9 @@ def _add_outcome_actions(choices, state, outcome):
     for action, weight in outcome.actions:
         choices.add(action, weight)
     if outcome.love_confessor is not None:
-        if outcome.love_confessor == state.persons.persons_dict["fat_lady"]:
+        if outcome.love_confessor == state.persons.persons_dict["felicity"]:
             choices.add(actions.SayYouLoveHer(state, outcome.love_confessor), 10000)
-        if outcome.love_confessor == state.persons.persons_dict["pretty_lady"]:
+        if outcome.love_confessor == state.persons.persons_dict["olga"]:
             choices.add(actions.MarryOlga(state), 10000)
             choices.add(actions.RunLikeTheDevil(state), 10000)
     if outcome.fail:
@@ -53,11 +53,11 @@ def _add_person_actions(choices, state):
     if state.character.person == state.persons.persons_dict["pirates"]:
         choices.add(actions.ArmWrestle(state), 10)
         choices.add(actions.ChallengeThemToAGameOfChess(state), 10)
-    if state.character.person == state.persons.persons_dict["pretty_lady"]:
+    if state.character.person == state.persons.persons_dict["olga"]:
         choices.add(actions.BoastOfYourBravery(state), 5)
-        choices.add(actions.FlirtWith(state, state.persons.persons_dict["pretty_lady"]), 100)
+        choices.add(actions.FlirtWith(state, state.persons.persons_dict["olga"]), 100)
         if state.character.has_item(items.cat): 
-            choices.add(actions.GiveCat(state, state.persons.persons_dict["pretty_lady"]), 10)
+            choices.add(actions.GiveCat(state, state.persons.persons_dict["olga"]), 10)
     if state.character.person == state.persons.persons_dict["st_george"]:
         choices.add(actions.BegForMoney(state), 10)
         choices.add(actions.SingASong(state, topic="St. George"), 3)
@@ -134,7 +134,7 @@ def _add_place_actions(choices, state):
     if state.character.place == state.places.places_dict["arctic"]:
         choices.add(actions.GoFishing(state), 2)
         if state.character.has_item(items.seal_carcass):
-            choices.add(actions.BarterWithEskimos(state), 2)
+            choices.add(actions.BarterWithInuits(state), 2)
         choices.add(actions.BuildAnIgloo(state), 20)
         choices.add(actions.ClubASeal(state), 20)
         choices.add(actions.FreezeToDeath(state), 2)
@@ -214,7 +214,7 @@ def _add_place_actions(choices, state):
         choices.add(actions.DoSomeGambling(state), 1)
     if state.character.place == state.places.places_dict["prison"]:
         choices.add(actions.BideYourTime(state), 10)
-        choices.add(actions.FlirtWith(state, state.persons.persons_dict["fat_lady"]), 10)
+        choices.add(actions.FlirtWith(state, state.persons.persons_dict["felicity"]), 10)
     if state.character.place == state.places.places_dict["streets"] and \
        state.character.person != state.persons.persons_dict["wizard"]:
         if state.character.person != state.persons.persons_dict["st_george"] and \
@@ -230,8 +230,8 @@ def _add_place_actions(choices, state):
             choices.add(actions.BuyADrink(state), 2)
             choices.add(actions.DoSomeGambling(state), 1)
         if state.character.has_item(items.love_potion) and \
-           state.character.person == state.persons.persons_dict["pretty_lady"]:
-            choices.add(actions.DrugHerWithYourLovePotion(state, state.persons.persons_dict["pretty_lady"])
+           state.character.person == state.persons.persons_dict["olga"]:
+            choices.add(actions.DrugHerWithYourLovePotion(state, state.persons.persons_dict["olga"])
                         , 100)
     if state.character.place == state.places.places_dict["tower"]:
         if state.character.person != state.persons.persons_dict["lord_daniel"] and \
@@ -286,8 +286,8 @@ def _add_item_actions(choices, state):
         choices.add(actions.AdmireYourJewels(state), 1)
     if state.character.has_item(items.bouquet_of_flowers) and \
        (state.character.person == state.persons.persons_dict["eve"] or \
-       state.character.person == state.persons.persons_dict["fat_lady"] or \
-       state.character.person == state.persons.persons_dict["pretty_lady"]):
+       state.character.person == state.persons.persons_dict["felicity"] or \
+       state.character.person == state.persons.persons_dict["olga"]):
         choices.add(actions.GiveFlowers(state, state.character.person), 20)
 
 

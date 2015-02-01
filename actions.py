@@ -444,12 +444,12 @@ class Think(Action):
         ), weight=1)
 
         if state.character.place != state.places.places_dict["tavern"] and \
-            state.persons.persons_dict["pretty_lady"].name != "Olga":
+            state.persons.persons_dict["olga"].name != "Olga":
             self.outcomes.add(Outcome(state,
                 "You think about a pretty lady you saw in the tavern.",
                 topic="marriage",
             ), weight=1)
-        elif state.persons.persons_dict["pretty_lady"].name == "Olga":
+        elif state.persons.persons_dict["olga"].name == "Olga":
             self.outcomes.add(Outcome(state,
                 "You think about Olga.",
                 topic="marriage",
@@ -991,11 +991,11 @@ class AskAboutAssassins(Action):
         ), weight=1)
 
         if state.character.place == state.places.places_dict["tavern"] and \
-           state.persons.persons_dict["pretty_lady"].alive:
+           state.persons.persons_dict["olga"].alive:
             self.outcomes.add(Outcome(state,
                 "During your search, you strike up a conversation "
                 "with a pretty lady.",
-                new_person=state.persons.persons_dict["pretty_lady"],
+                new_person=state.persons.persons_dict["olga"],
             ), weight=1)
 
         if state.character.place == state.places.places_dict["lord_carlos_manor"]:
@@ -1495,7 +1495,7 @@ class SayYouLoveHer(Action):
 
     def execute(self, state):
 
-        if self.person == state.persons.persons_dict["fat_lady"]:
+        if self.person == state.persons.persons_dict["felicity"]:
 
             self.outcomes.add(Outcome(state,
                 "\"What a shame,\" an assassin says as he steps into the room. "
@@ -1507,7 +1507,7 @@ class SayYouLoveHer(Action):
                 "Felicity is overjoyed and secretly lets you out of prison "
                 "that night. \"Let's get married!\" she says.",
                 move_to=state.places.places_dict["streets"],
-                new_person=state.persons.persons_dict["fat_lady"],
+                new_person=state.persons.persons_dict["felicity"],
                 actions=[
                     (MarryFelicity(state), 777),
                     (RunLikeTheDevil(state), 666)],
@@ -2052,13 +2052,13 @@ class Tithe(Action):
             ), weight=1)
 
 
-class BarterWithEskimos(Action):
+class BarterWithInuits(Action):
 
     slot = "b"
 
     def __init__(self, state):
-        super(BarterWithEskimos, self).__init__(state)
-        self.name = "Barter with the Eskimos."
+        super(BarterWithInuits, self).__init__(state)
+        self.name = "Barter with the Inuits."
 
     def execute(self, state):
 
@@ -2073,15 +2073,15 @@ class BarterWithEskimos(Action):
                 "You trade your seal for passage back to land.",
                 remove_item=items.seal_carcass,
                 move_to=state.places.places_dict["woods"],
-                topic="Eskimos",
+                topic="the Inuits",
             ), weight=9)
 
         self.outcomes.add(Outcome(state,
-            "The Eskimos drive a hard bargain, but take you to land in "
+            "The Inuits drive a hard bargain, but take you to land in "
             "one of their kayaks.",
             funcs=[state.character.remove_all_items],
             move_to=state.places.places_dict["woods"],
-            topic="Eskimos",
+            topic="the Inuits",
         ), weight=1)
 
 
@@ -2661,8 +2661,8 @@ class BideYourTime(Action):
                     ],
         ), weight=2)
 
-        if state.persons.persons_dict["fat_lady"].attracted > -1 and \
-           state.persons.persons_dict["fat_lady"].attracted < 3:
+        if state.persons.persons_dict["felicity"].attracted > -1 and \
+           state.persons.persons_dict["felicity"].attracted < 3:
             self.outcomes.add(Outcome(state,
                 "As the days pass, you find yourself more and more "
                 "attracted to the fat woman who feeds you.",
@@ -2881,7 +2881,7 @@ class BoastOfYourBravery(Action):
                     die=True,
                 ), weight=1)
 
-            if state.character.person == state.persons.persons_dict["pretty_lady"]:
+            if state.character.person == state.persons.persons_dict["olga"]:
 
                 self.outcomes.add(Outcome(state,
                     "Her eyes glaze over as you struggle to remember times "
@@ -2898,7 +2898,7 @@ class BoastOfYourBravery(Action):
                     "She seems interested in your stories.",
                 ), weight=1)
 
-            if state.character.person == state.persons.persons_dict["fat_lady"]:
+            if state.character.person == state.persons.persons_dict["felicity"]:
 
                 self.outcomes.add(Outcome(state,
                     "She points out several inconsistencies in your story.",
@@ -3926,12 +3926,12 @@ class FlirtWith(Action):
                 fail=True,
             ), weight=1000)
 
-        if self.person == state.persons.persons_dict["fat_lady"] and \
-           state.persons.persons_dict["fat_lady"].name != "Felicity":
+        if self.person == state.persons.persons_dict["felicity"] and \
+           state.persons.persons_dict["felicity"].name != "Felicity":
 
             self.outcomes.add(Outcome(state,
                 "She ignores your hoots.",
-                flirt=(state.persons.persons_dict["fat_lady"], -1),
+                flirt=(state.persons.persons_dict["felicity"], -1),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
@@ -3941,90 +3941,90 @@ class FlirtWith(Action):
             self.outcomes.add(Outcome(state,
                 "She ignores you when you say \"Hello,\" but "
                 "you catch her glancing at you throughout the day.",
-                flirt=(state.persons.persons_dict["fat_lady"], 2),
+                flirt=(state.persons.persons_dict["felicity"], 2),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "She smiles, but doesn't reply to the love "
                 "poem you recite to her.",
-                flirt=(state.persons.persons_dict["fat_lady"], 2),
+                flirt=(state.persons.persons_dict["felicity"], 2),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "She ignores you, but wears a low-cut blouse the next day.",
-                flirt=(state.persons.persons_dict["fat_lady"], 2),
+                flirt=(state.persons.persons_dict["felicity"], 2),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "She ignores you, but gives you more food the next day.",
-                flirt=(state.persons.persons_dict["fat_lady"], 2),
+                flirt=(state.persons.persons_dict["felicity"], 2),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "She ignores you, but gives you more food the next day.",
-                flirt=(state.persons.persons_dict["fat_lady"], 2),
+                flirt=(state.persons.persons_dict["felicity"], 2),
             ), weight=1)
 
-            if state.persons.persons_dict["fat_lady"].attracted > 3:
+            if state.persons.persons_dict["felicity"].attracted > 3:
                 def change_name():
-                    state.persons.persons_dict["fat_lady"].name = "Felicity"
+                    state.persons.persons_dict["felicity"].name = "Felicity"
                 self.outcomes.add(Outcome(state,
                     "You strike up a conversation and learn that her name is "
                     "Felicity.",
-                    flirt=(state.persons.persons_dict["fat_lady"], 2),
+                    flirt=(state.persons.persons_dict["felicity"], 2),
                     funcs=[change_name],
                 ), weight=1000)
 
-        elif self.person == state.persons.persons_dict["fat_lady"]:  # We know her name
+        elif self.person == state.persons.persons_dict["felicity"]:  # We know her name
 
             self.outcomes.add(Outcome(state,
                 "Felicity blows you kisses.",
-                flirt=(state.persons.persons_dict["fat_lady"], 2),
+                flirt=(state.persons.persons_dict["felicity"], 2),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "Felicity leans in close and kisses your cheek.",
-                flirt=(state.persons.persons_dict["fat_lady"], 2),
+                flirt=(state.persons.persons_dict["felicity"], 2),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "Felicity talks with you for hours. She only "
                 "stops when the warden barks at her to get "
                 "back to work.",
-                flirt=(state.persons.persons_dict["fat_lady"], 2),
+                flirt=(state.persons.persons_dict["felicity"], 2),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "Felicity tells you she asked the warden to "
                 "let you out, but he has a strict \"No lunatics "
                 "on the streets\" policy.",
-                flirt=(state.persons.persons_dict["fat_lady"], 2),
+                flirt=(state.persons.persons_dict["felicity"], 2),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "Felicity says she thinks about you a lot.",
-                flirt=(state.persons.persons_dict["fat_lady"], 2),
+                flirt=(state.persons.persons_dict["felicity"], 2),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "Felicity laughs at all your jests, even the bad ones.",
-                flirt=(state.persons.persons_dict["fat_lady"], 2),
+                flirt=(state.persons.persons_dict["felicity"], 2),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "Felicity asks if she looks fat in her new dress. "
                 "You say \"Yes.\" She doesn't speak to you for several days.",
-                flirt=(state.persons.persons_dict["fat_lady"], -1),
+                flirt=(state.persons.persons_dict["felicity"], -1),
             ), weight=1)
 
-            if state.persons.persons_dict["fat_lady"].attracted > 10:
+            if state.persons.persons_dict["felicity"].attracted > 10:
                 self.outcomes.add(Outcome(state,
                     "Felicity whispers that she loves you.",
-                    love_confessor=state.persons.persons_dict["fat_lady"],
+                    love_confessor=state.persons.persons_dict["felicity"],
                 ), weight=100)
 
-        if self.person == state.persons.persons_dict["pretty_lady"] and \
-           state.persons.persons_dict["pretty_lady"].name != "Olga":
+        if self.person == state.persons.persons_dict["olga"] and \
+           state.persons.persons_dict["olga"].name != "Olga":
 
             self.outcomes.add(Outcome(state,
                 "When you squeeze her butt, she stabs you in the heart with a "
@@ -4035,75 +4035,75 @@ class FlirtWith(Action):
             self.outcomes.add(Outcome(state,
                 "You play a game of darts together, but you get upset when "
                 "you lose and ruin the mood.",
-                flirt=(state.persons.persons_dict["pretty_lady"], -1),
+                flirt=(state.persons.persons_dict["olga"], -1),
                 fail=True,
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "You find out that you both like "
                 "cats. She says her cat loves being petted.",
-                flirt=(state.persons.persons_dict["pretty_lady"], 2),
+                flirt=(state.persons.persons_dict["olga"], 2),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "You amuse her with realistic impreesions of bird "
                 "songs. She says she likes a man who's good with his tongue.",
-                flirt=(state.persons.persons_dict["pretty_lady"], 2),
+                flirt=(state.persons.persons_dict["olga"], 2),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "She is impressed with your juggling and says she likes a man "
                 "with skilled hands.",
-                flirt=(state.persons.persons_dict["pretty_lady"], 2),
+                flirt=(state.persons.persons_dict["olga"], 2),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "You say the flower in her hair goes well with "
                 "her eyes. She says you can smell her flower if you like.",
-                flirt=(state.persons.persons_dict["pretty_lady"], 2),
+                flirt=(state.persons.persons_dict["olga"], 2),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "She sits on your lap when you buy her a drink.",
-                flirt=(state.persons.persons_dict["pretty_lady"], 2),
+                flirt=(state.persons.persons_dict["olga"], 2),
             ), weight=1)
 
             if state.persons.persons_dict["blind_bartender"].alive:
                 self.outcomes.add(Outcome(state,
                     "You both laugh about how bad the ale is. The blind bartender "
                     "is not pleased.",
-                    flirt=(state.persons.persons_dict["pretty_lady"], 2),
+                    flirt=(state.persons.persons_dict["olga"], 2),
                 ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "You have a meal together.",
-                flirt=(state.persons.persons_dict["pretty_lady"], 2),
+                flirt=(state.persons.persons_dict["olga"], 2),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "She plays with your hair while you talk of your exploits.",
-                flirt=(state.persons.persons_dict["pretty_lady"], 2),
+                flirt=(state.persons.persons_dict["olga"], 2),
             ), weight=1)
 
-            if state.persons.persons_dict["pretty_lady"].attracted > 3:
+            if state.persons.persons_dict["olga"].attracted > 3:
                 def change_name():
-                    state.persons.persons_dict["pretty_lady"].name = "Olga"
+                    state.persons.persons_dict["olga"].name = "Olga"
                 self.outcomes.add(Outcome(state,
                     "She says her name is Olga. You also tell your name.",
-                    flirt=(state.persons.persons_dict["pretty_lady"], 2),
+                    flirt=(state.persons.persons_dict["olga"], 2),
                     funcs=[change_name],
                 ), weight=10000)
 
-        elif self.person == state.persons.persons_dict["pretty_lady"] and \
+        elif self.person == state.persons.persons_dict["olga"] and \
              state.character.place == state.places.places_dict["tavern"]:
 
             self.outcomes.add(Outcome(state,
                 "You follow Olga to her room, "
                 "where she shows you some paintings she's borrowing "
                 "from Lord Carlos.",
-                new_person=state.persons.persons_dict["pretty_lady"],
+                new_person=state.persons.persons_dict["olga"],
                 move_to=state.places.places_dict["upstairs"],
-                flirt=(state.persons.persons_dict["pretty_lady"], 2),
+                flirt=(state.persons.persons_dict["olga"], 2),
             ), weight=3)
 
             self.outcomes.add(Outcome(state,
@@ -4113,7 +4113,7 @@ class FlirtWith(Action):
                 die=True,
             ), weight=1)
 
-        elif self.person == state.persons.persons_dict["pretty_lady"] and \
+        elif self.person == state.persons.persons_dict["olga"] and \
              state.character.place == state.places.places_dict["upstairs"]:
 
             self.outcomes.add(Outcome(state,
@@ -4123,27 +4123,27 @@ class FlirtWith(Action):
                 "Olga does lots of nice things to you.",
                 ])),
                 succeed=True,
-                flirt=(state.persons.persons_dict["pretty_lady"], 2),
+                flirt=(state.persons.persons_dict["olga"], 2),
             ), weight=4)
 
             self.outcomes.add(Outcome(state,
                 "Olga whispers that she's been stalking you.",
-                flirt=(state.persons.persons_dict["pretty_lady"], 2),
+                flirt=(state.persons.persons_dict["olga"], 2),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "You both stay up late talking by candlelight.",
-                flirt=(state.persons.persons_dict["pretty_lady"], 3),
+                flirt=(state.persons.persons_dict["olga"], 3),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "Olga tells you her life story. Half of it seems made up.",
-                flirt=(state.persons.persons_dict["pretty_lady"], 2),
+                flirt=(state.persons.persons_dict["olga"], 2),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "You compliment her on her borrowed paintings. She is pleased.",
-                flirt=(state.persons.persons_dict["pretty_lady"], 2),
+                flirt=(state.persons.persons_dict["olga"], 2),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
@@ -4152,11 +4152,11 @@ class FlirtWith(Action):
                 die=True,
             ), weight=1)
 
-            if state.persons.persons_dict["pretty_lady"].attracted > 10:
+            if state.persons.persons_dict["olga"].attracted > 10:
                 self.outcomes.add(Outcome(state,
                     "Olga grabs your hand. \"Life's too short, "
                     "let's get married!\"",
-                    love_confessor=state.persons.persons_dict["pretty_lady"],
+                    love_confessor=state.persons.persons_dict["olga"],
                 ), weight=1000)
 
         if self.person == state.persons.persons_dict["eve"]:
@@ -4580,25 +4580,25 @@ class RunLikeTheDevil(Action):
             die=True,
         ), weight=1)
 
-        if state.character.person == state.persons.persons_dict["fat_lady"] and \
-           state.persons.persons_dict["fat_lady"].attracted > 9:
+        if state.character.person == state.persons.persons_dict["felicity"] and \
+           state.persons.persons_dict["felicity"].attracted > 9:
             self.outcomes.add(Outcome(state,
                 "The Devil is very fast and not very fat, so you manage to get "
                 "away unmarried.",
                 new_person=None,
                 move=2,
                 succeed=True,
-                flirt=(state.persons.persons_dict["fat_lady"], -666),
+                flirt=(state.persons.persons_dict["felicity"], -666),
             ), weight=666)
 
         if state.character.person == \
-           state.persons.persons_dict["pretty_lady"] and \
-           state.persons.persons_dict["pretty_lady"].attracted > 9:
+           state.persons.persons_dict["olga"] and \
+           state.persons.persons_dict["olga"].attracted > 9:
             self.outcomes.add(Outcome(state,
                 "The Devil is pretty fast but Olga is prettier and faster. "
                 "She strangles you to death.",
                 die=True,
-                flirt=(state.persons.persons_dict["pretty_lady"], -666),
+                flirt=(state.persons.persons_dict["olga"], -666),
             ), weight=666)
 
             self.outcomes.add(Outcome(state,
@@ -4606,7 +4606,7 @@ class RunLikeTheDevil(Action):
                 new_person=None,
                 move=2,
                 succeed=True,
-                flirt=(state.persons.persons_dict["pretty_lady"], -666)
+                flirt=(state.persons.persons_dict["olga"], -666)
             ), weight=666)
 
 
@@ -5234,7 +5234,7 @@ class DrugHerWithYourLovePotion(Action):
 
     def execute(self, state):
 
-        if state.character.person == state.persons.persons_dict["pretty_lady"]:
+        if state.character.person == state.persons.persons_dict["olga"]:
 
             self.outcomes.add(Outcome(state,
                 "The pretty lady notices you slipping the potion into her "
@@ -5254,7 +5254,7 @@ class DrugHerWithYourLovePotion(Action):
 
             self.outcomes.add(Outcome(state,
                 "You manage to drug her. She becomes very flirty with you.",
-                flirt=(state.persons.persons_dict["pretty_lady"], 10),
+                flirt=(state.persons.persons_dict["olga"], 10),
                 remove_item=items.love_potion,
                 succeed=True,
             ), weight=1)
@@ -5533,7 +5533,7 @@ class FreezeToDeath(Action):
         ), weight=1)
 
         self.outcomes.add(Outcome(state,
-            "Some Eskimos save you from the cold and take you back to land "
+            "Some Inuits save you from the cold and take you back to land "
             "in a kayak. They also give you a fish.",
             add_item=items.fish,
             move_to=state.places.places_dict["countryside"],
@@ -5607,15 +5607,15 @@ class SingASong(Action):
             ), weight=5)
 
         if state.character.place == state.places.places_dict["upstairs"] and \
-           state.character.person == state.persons.persons_dict["pretty_lady"]:
+           state.character.person == state.persons.persons_dict["olga"]:
             self.outcomes.add(Outcome(state,
                 "You sing a romantic ballad. Olga is impressed.",
-                flirt=(state.persons.persons_dict["pretty_lady"], 2),
+                flirt=(state.persons.persons_dict["olga"], 2),
             ), weight=20)
 
             self.outcomes.add(Outcome(state,
                 "Olga interrupts your song by kissing you.",
-                flirt=(state.persons.persons_dict["pretty_lady"], 2),
+                flirt=(state.persons.persons_dict["olga"], 2),
             ), weight=20)
 
         if state.character.place == state.places.places_dict["lord_carlos_manor"]:
@@ -6161,7 +6161,7 @@ class DoSomeGambling(Action):
         if state.character.place == state.places.places_dict["tavern"]:
             self.outcomes.add(Outcome(state,
                 "You get cleaned out by a pretty lady.",
-                new_person = state.persons.persons_dict["pretty_lady"],
+                new_person = state.persons.persons_dict["olga"],
                 funcs=[state.character.lose_all_money],
                 fail=True,
             ), weight=1)
