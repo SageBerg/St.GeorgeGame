@@ -20,5 +20,3 @@ FIXES
 STYLE
 -reduce all lines to 79 characters or less
 -run a spell check on the project
--repalce the word Eskimo with Inuit
--replace variable name fat_lady with prison_lady
