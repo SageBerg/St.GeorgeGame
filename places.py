@@ -1,24 +1,21 @@
 class Place(object):
 
-    instances = set()
-    by_name = dict()
-
     def __init__(self, name):
         """
         args: name: string
-              populated: boolean
         """
         self.name = name
         self.connections = set()
-        Place.by_name[name] = self
-        if self.name != "the void":
-            Place.instances.add(self)
 
     def __str__(self):
         return self.name
 
 
 class Places(object):
+    """
+    instance of Places is contained in the state object (under state.places)
+    Places represents the state of the places in a given world 
+    """
 
     def __init__(self):
         self.places_dict = { 

@@ -11,9 +11,6 @@ def get_tense(person):
 
 class Person(object):
 
-    instances = []  #factor this out
-    by_name = dict()
-
     def __init__(self, name, attack, group=False):
         self.name = name
         self.attack = attack
@@ -22,8 +19,6 @@ class Person(object):
         self.state = {}
         self.attracted = 0
         self.preferred_attack = self.kill 
-        Person.instances.append(self)
-        Person.by_name[name] = self
         self.buys = dict()
         self.sells = dict()
 
@@ -69,6 +64,10 @@ class Person(object):
 
 
 class Persons(object):
+    """
+    instance of Persons is contained in the state object (under state.persons)
+    Persons represents the state of the people in a given world 
+    """
 
     def __init__(self):
         self.persons_dict = {
