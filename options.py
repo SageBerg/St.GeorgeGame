@@ -13,9 +13,9 @@ def _add_outcome_actions(choices, state, outcome):
     for action, weight in outcome.actions:
         choices.add(action, weight)
     if outcome.love_confessor is not None:
-        if outcome.love_confessor == persons.fat_lady:
+        if outcome.love_confessor == state.persons.persons_dict["fat_lady"]:
             choices.add(actions.SayYouLoveHer(state, outcome.love_confessor), 10000)
-        if outcome.love_confessor == persons.pretty_lady:
+        if outcome.love_confessor == state.persons.persons_dict["pretty_lady"]:
             choices.add(actions.MarryOlga(state), 10000)
             choices.add(actions.RunLikeTheDevil(state), 10000)
     if outcome.fail:
@@ -31,7 +31,7 @@ def _add_outcome_actions(choices, state, outcome):
         choices.add(actions.ThumpYourselfOnTheChest(state), 5)
         choices.add(actions.CelebrateYourSuccess(state), 5)
     if outcome.topic:
-        if outcome.new_person == persons.guards:
+        if outcome.new_person == state.persons.persons_dict["guards"]:
             choices.add(actions.TellThemYouAreNotALunatic(state,
                 topic=outcome.topic), 10)
         else:
@@ -41,75 +41,76 @@ def _add_outcome_actions(choices, state, outcome):
 def _add_person_actions(choices, state):
     if state.character.person:
         choices.add(actions.Attack(state, state.character.person), 10)
-    if state.character.person == persons.assassin:
+    if state.character.person == state.persons.persons_dict["assassin"]:
         choices.add(actions.Apologize(state), 10)
-    if state.character.person == persons.assassins:
+    if state.character.person == state.persons.persons_dict["assassins"]:
         choices.add(actions.BoastOfYourBravery(state), 1)
-    if state.character.person == persons.blind_bartender:
+    if state.character.person == state.persons.persons_dict["blind_bartender"]:
         choices.add(actions.BoastOfYourBravery(state), 1)
-    if state.character.person == persons.eve:
-        choices.add(actions.FlirtWith(state, persons.eve), 1000)  # TODO fix
-    if state.character.person == persons.pirates:
+        #choices.add(actions.ChatWithTheBlindBartender(state), 1)
+    if state.character.person == state.persons.persons_dict["eve"]:
+        choices.add(actions.FlirtWith(state, state.persons.persons_dict["eve"]), 100)
+    if state.character.person == state.persons.persons_dict["pirates"]:
         choices.add(actions.ArmWrestle(state), 10)
         choices.add(actions.ChallengeThemToAGameOfChess(state), 10)
-    if state.character.person == persons.pretty_lady:
+    if state.character.person == state.persons.persons_dict["pretty_lady"]:
         choices.add(actions.BoastOfYourBravery(state), 5)
-        choices.add(actions.FlirtWith(state, persons.pretty_lady), 1000)  # TODO fix
+        choices.add(actions.FlirtWith(state, state.persons.persons_dict["pretty_lady"]), 100)
         if state.character.has_item(items.cat): 
-            choices.add(actions.GiveCat(state, persons.pretty_lady), 500) # TODO fix weight 
-    if state.character.person == persons.st_george:
+            choices.add(actions.GiveCat(state, state.persons.persons_dict["pretty_lady"]), 10)
+    if state.character.person == state.persons.persons_dict["st_george"]:
         choices.add(actions.BegForMoney(state), 10)
         choices.add(actions.SingASong(state, topic="St. George"), 3)
-    if state.character.person == persons.wealthy_merchant:
+    if state.character.person == state.persons.persons_dict["wealthy_merchant"]:
         choices.add(actions.BoastOfYourBravery(state), 1)
         choices.add(actions.BuyWeapon(state), 30)
         choices.add(actions.SingASong(state, topic="weapons"), 3)
-    if state.character.person == persons.nymph_queen and \
+    if state.character.person == state.persons.persons_dict["nymph_queen"] and \
        state.character.has_item(items.love_potion):
-        choices.add(actions.DouseHerWithYourLovePotion(state, persons.nymph_queen)
+        choices.add(actions.DouseHerWithYourLovePotion(state, state.persons.persons_dict["nymph_queen"])
                     , 1000)
-    if state.character.person == persons.eve and \
+    if state.character.person == state.persons.persons_dict["eve"] and \
        state.character.has_item(items.love_potion):
-        choices.add(actions.DouseHerWithYourLovePotion(state, persons.eve)
+        choices.add(actions.DouseHerWithYourLovePotion(state, state.persons.persons_dict["eve"])
                     , 1000)
-    if state.character.person == persons.wizard:
+    if state.character.person == state.persons.persons_dict["wizard"]:
         choices.add(actions.BoastOfYourBravery(state), 2)
         choices.add(actions.SingASong(state), 2)
         choices.add(actions.SingASong(state, topic="magic"), 3)
-    if state.character.person == persons.lord_arthur:
-        choices.add(actions.SuckUpTo(state, persons.lord_arthur), 5)
-    if state.character.person == persons.lord_bartholomew:
-        choices.add(actions.SuckUpTo(state, persons.lord_bartholomew), 5)
-    if state.character.person == persons.lord_bartholomew:
+    if state.character.person == state.persons.persons_dict["lord_arthur"]:
+        choices.add(actions.SuckUpTo(state, state.persons.persons_dict["lord_arthur"]), 5)
+    if state.character.person == state.persons.persons_dict["lord_bartholomew"]:
+        choices.add(actions.SuckUpTo(state, state.persons.persons_dict["lord_bartholomew"]), 5)
+    if state.character.person == state.persons.persons_dict["lord_bartholomew"]:
         choices.add(actions.ChatWithLordBartholomew(state), 5)
         choices.add(actions.AskForAsylum(state), 5)
-    if state.character.person == persons.lord_carlos:
+    if state.character.person == state.persons.persons_dict["lord_carlos"]:
         if state.character.money >= money.small_fortune:
             choices.add(actions.RepayYourDebts(state), 40)
-        choices.add(actions.SuckUpTo(state, persons.lord_carlos), 10)
+        choices.add(actions.SuckUpTo(state, state.persons.persons_dict["lord_carlos"]), 10)
         choices.add(actions.ChallengeHimToAGameOfChess(state), 10)
         choices.add(actions.Grovel(state), 40)
         choices.add(actions.MakeItHard(state), 10)
-    if state.character.person == persons.lord_daniel:
-        choices.add(actions.SuckUpTo(state, persons.lord_daniel), 5)
-    if state.character.person != persons.wizard and \
+    if state.character.person == state.persons.persons_dict["lord_daniel"]:
+        choices.add(actions.SuckUpTo(state, state.persons.persons_dict["lord_daniel"]), 5)
+    if state.character.person != state.persons.persons_dict["wizard"] and \
        state.character.place in [state.places.places_dict["streets"], 
                                  state.places.places_dict["market"]]:
         choices.add(actions.LookForTheWizard(state), 2)
-    if state.character.person == persons.peasant_lass or \
-       state.character.person == persons.simple_peasant:
+    if state.character.person == state.persons.persons_dict["peasant_lass"] or \
+       state.character.person == state.persons.persons_dict["simple_peasant"]:
         choices.add(actions.AskDirections(state), 30)
-    if state.character.person == persons.witch:
+    if state.character.person == state.persons.persons_dict["witch"]:
         if state.character.has_item(items.bottle_of_sap) and \
            state.character.has_item(items.bouquet_of_flowers) and \
            state.character.has_item(items.many_colored_mushroom):
-            choices.add(actions.AskHerToBrew(state, items.love_potion), 100)
+            choices.add(actions.AskHerToBrew(state, items.love_potion), 1000)
         if state.character.has_item(items.cat) and \
            state.character.has_item(items.pearl):
-            choices.add(actions.AskHerToBrew(state, items.tail_potion), 100)
+            choices.add(actions.AskHerToBrew(state, items.tail_potion), 1000)
         if state.character.has_item(items.white_mushroom) and \
            state.character.has_item(items.deep_cave_newt):
-            choices.add(actions.AskHerToBrew(state, items.strength_potion), 100)
+            choices.add(actions.AskHerToBrew(state, items.strength_potion), 1000)
 
 
 def _add_place_actions(choices, state):
@@ -140,8 +141,8 @@ def _add_place_actions(choices, state):
     if state.character.place == state.places.places_dict["cave"]:
         choices.add(actions.LookForAWayOut(state), 10)
     if state.character.place == state.places.places_dict["church"]:
-        if state.character.person != persons.st_george and \
-           persons.st_george.alive:
+        if state.character.person != state.persons.persons_dict["st_george"] and \
+           state.persons.persons_dict["st_george"].alive:
             choices.add(actions.LookForStGeorge(state), 20)
         if state.character.money != money.none:
             choices.add(actions.Tithe(state), 10)
@@ -162,8 +163,8 @@ def _add_place_actions(choices, state):
         choices.add(actions.LookForTheWizard(state), 1)
         choices.add(actions.DoSomeGambling(state), 1)
     if state.character.place == state.places.places_dict["lord_bartholomews_manor"]:
-        if persons.lord_bartholomew.alive and \
-           state.character.person != persons.lord_bartholomew:
+        if state.persons.persons_dict["lord_bartholomew"].alive and \
+           state.character.person != state.persons.persons_dict["lord_bartholomew"]:
             choices.add(actions.Disguise(state), 10)
             choices.add(actions.AskForAnAudienceWithLordBartholomew(state), 10)
         if state.character.person == None:
@@ -174,22 +175,22 @@ def _add_place_actions(choices, state):
         if state.character.person == None:
             choices.add(actions.SneakAround(state), 10)
     if state.character.place == state.places.places_dict["market"]:
-        if state.character.person != persons.wealthy_merchant and \
-           persons.wealthy_merchant.alive:
+        if state.character.person != state.persons.persons_dict["wealthy_merchant"] and \
+           state.persons.persons_dict["wealthy_merchant"].alive:
             choices.add(actions.LookForAWeapon(state), 10)
         choices.add(actions.BuyItem(state), 10)
         choices.add(actions.WatchAPlay(state), 500) # fix
     if state.character.place == state.places.places_dict["mermaid_rock"]:
-        if state.character.person == persons.mermaid:
+        if state.character.person == state.persons.persons_dict["mermaid"]:
             choices.add(actions.AskHerToTakeYouBackToLand(state), 2)
-            choices.add(actions.FlirtWith(state, persons.mermaid), 2)
+            choices.add(actions.FlirtWith(state, state.persons.persons_dict["mermaid"]), 2)
             if state.character.has_item(items.love_potion):
                 choices.add(
-                    actions.DouseHerWithYourLovePotion(state, persons.mermaid),
+                    actions.DouseHerWithYourLovePotion(state, state.persons.persons_dict["mermaid"]),
                     2)
         choices.add(actions.GoFishing(state), 2)
         choices.add(actions.SunYourselfOnARock(state), 2)
-        if state.character.person != persons.mermaid:
+        if state.character.person != state.persons.persons_dict["mermaid"]:
             choices.add(actions.LookForMermaids(state), 5)
         choices.add(actions.SingASong(state), 2)
     if state.character.place == state.places.places_dict["ocean"]:
@@ -201,8 +202,8 @@ def _add_place_actions(choices, state):
         choices.add(actions.Sink(state), 3)
     if state.character.place == state.places.places_dict["pirate_ship"]:
         choices.add(actions.GoFishing(state), 2)
-        if persons.lord_arthur.alive:
-            choices.add(actions.SuckUpTo(state, persons.lord_arthur), 3)
+        if state.persons.persons_dict["lord_arthur"].alive:
+            choices.add(actions.SuckUpTo(state, state.persons.persons_dict["lord_arthur"]), 3)
         if state.character.has_item(items.sailor_peg):
             choices.add(actions.ClimbUpTheTopSails(state), 10)
         choices.add(actions.WalkThePlank(state), 10)
@@ -213,11 +214,11 @@ def _add_place_actions(choices, state):
         choices.add(actions.DoSomeGambling(state), 1)
     if state.character.place == state.places.places_dict["prison"]:
         choices.add(actions.BideYourTime(state), 10)
-        choices.add(actions.FlirtWith(state, persons.fat_lady), 10)
+        choices.add(actions.FlirtWith(state, state.persons.persons_dict["fat_lady"]), 10)
     if state.character.place == state.places.places_dict["streets"] and \
-       state.character.person != persons.wizard:
-        if state.character.person != persons.st_george and \
-           persons.st_george.alive:
+       state.character.person != state.persons.persons_dict["wizard"]:
+        if state.character.person != state.persons.persons_dict["st_george"] and \
+           state.persons.persons_dict["st_george"].alive:
             choices.add(actions.LookForStGeorge(state), 2)
         choices.add(actions.GawkAtWomen(state), 1)
         if state.character.money == money.small_fortune or \
@@ -229,12 +230,12 @@ def _add_place_actions(choices, state):
             choices.add(actions.BuyADrink(state), 2)
             choices.add(actions.DoSomeGambling(state), 1)
         if state.character.has_item(items.love_potion) and \
-           state.character.person == persons.pretty_lady:
-            choices.add(actions.DrugHerWithYourLovePotion(state, persons.pretty_lady)
+           state.character.person == state.persons.persons_dict["pretty_lady"]:
+            choices.add(actions.DrugHerWithYourLovePotion(state, state.persons.persons_dict["pretty_lady"])
                         , 100)
     if state.character.place == state.places.places_dict["tower"]:
-        if state.character.person != persons.lord_daniel and \
-           persons.lord_daniel.alive:
+        if state.character.person != state.persons.persons_dict["lord_daniel"] and \
+           state.persons.persons_dict["lord_daniel"].alive:
             choices.add(actions.AskForAnAudienceWithLordDaniel(state), 100)
             choices.add(actions.TrainWithTheGuards(state), 5)
         choices.add(actions.ComplainAboutUnfairImprisonment(state), 5)
@@ -249,7 +250,7 @@ def _add_place_actions(choices, state):
         if state.character.has_item(items.ax):
             choices.add(actions.ChopDownATree(state), 20)
         choices.add(actions.PickSomeFlowers(state), 10)
-        if state.character.person != persons.witch:
+        if state.character.person != state.persons.persons_dict["witch"]:
             choices.add(actions.LookForWitches(state), 10)
         choices.add(actions.GoMushroomPicking(state), 12)
         choices.add(actions.LookForNymphs(state), 10)
@@ -262,8 +263,8 @@ def _add_item_actions(choices, state):
     if state.character.has_item(items.frog):
         choices.add(actions.KissYourFrog(state), 10)
     if state.character.has_item(items.foreign_coin) and \
-       (state.character.person == persons.lord_bartholomew or \
-       state.character.person == persons.lord_daniel):
+       (state.character.person == state.persons.persons_dict["lord_bartholomew"] or \
+       state.character.person == state.persons.persons_dict["lord_daniel"]):
         choices.add(actions.ShowYourForeignCoin(state), 10)
     if state.character.has_item(items.love_potion):
         choices.add(actions.SlurpDown(state, items.love_potion), 1)
@@ -284,9 +285,9 @@ def _add_item_actions(choices, state):
     if state.character.has_item(items.jewels):
         choices.add(actions.AdmireYourJewels(state), 1)
     if state.character.has_item(items.bouquet_of_flowers) and \
-       (state.character.person == persons.eve or \
-       state.character.person == persons.fat_lady or \
-       state.character.person == persons.pretty_lady):
+       (state.character.person == state.persons.persons_dict["eve"] or \
+       state.character.person == state.persons.persons_dict["fat_lady"] or \
+       state.character.person == state.persons.persons_dict["pretty_lady"]):
         choices.add(actions.GiveFlowers(state, state.character.person), 20)
 
 

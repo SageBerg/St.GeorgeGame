@@ -1,4 +1,8 @@
-﻿import random
+﻿from __future__ import print_function  # for printing to stderr
+# for exmaple: print(state.character.get_attack(), file=sys.stderr)
+import sys
+
+import random
 import abc
 
 import places
@@ -150,7 +154,7 @@ class AskForAnAudienceWithLordBartholomew(Action):
 
         self.outcomes.add(Outcome(state,
             "The first person you meet is Lord Bartholomew.",
-            new_person=persons.persons_dict["lord_bartholomew"],
+            new_person=state.persons.persons_dict["lord_bartholomew"],
         ), weight=1)
 
         self.outcomes.add(Outcome(state,
@@ -161,7 +165,7 @@ class AskForAnAudienceWithLordBartholomew(Action):
 
         self.outcomes.add(Outcome(state,
             "You are granted one." ,
-            new_person=persons.persons_dict["lord_bartholomew"],
+            new_person=state.persons.persons_dict["lord_bartholomew"],
         ), weight=1)
 
 
@@ -181,7 +185,7 @@ class AskForAnAudienceWithLordDaniel(Action):
                 "He has no time for peasants",
                 "Such audacity",
                 ])),
-            new_person=persons.persons_dict["guards"],
+            new_person=state.persons.persons_dict["guards"],
             clover=True,
             fail=True,
         ), weight=1)
@@ -189,7 +193,7 @@ class AskForAnAudienceWithLordDaniel(Action):
         self.outcomes.add(Outcome(state,
             "The guards mistake you for someone important and take you "
             "to Lord Daniel.",
-            new_person=persons.persons_dict["lord_daniel"],
+            new_person=state.persons.persons_dict["lord_daniel"],
         ), weight=1)
 
 
@@ -268,7 +272,7 @@ class GiveHimTheYellowMushroom(Action):
 
         self.outcomes.add(Outcome(state,
             "The wizard swallows the mushroom whole and chokes to death.",
-            kill=persons.persons_dict["wizard"],
+            kill=state.persons.persons_dict["wizard"],
         ), weight=1)
 
 
@@ -282,13 +286,13 @@ class EnactYourElaborateScheme(Action):
 
     def execute(self, state):
 
-        if persons.persons_dict["lord_carlos"].alive:
+        if state.persons.persons_dict["lord_carlos"].alive:
             self.outcomes.add(Outcome(state,
                 "You are just about to dump a cauldron of hot soup on Lord "
                 "Carlos when he looks up and notices you. You then dump the "
                 "hot soup on him and he dies.",
-                new_person=persons.persons_dict["lord_carlos"],
-                kill=persons.persons_dict["lord_carlos"],
+                new_person=state.persons.persons_dict["lord_carlos"],
+                kill=state.persons.persons_dict["lord_carlos"],
                 move_to=state.places.places_dict["lord_carlos_manor"],
             ), weight=1)
 
@@ -440,12 +444,12 @@ class Think(Action):
         ), weight=1)
 
         if state.character.place != state.places.places_dict["tavern"] and \
-            persons.persons_dict["pretty_lady"].name != "Olga":
+            state.persons.persons_dict["pretty_lady"].name != "Olga":
             self.outcomes.add(Outcome(state,
                 "You think about a pretty lady you saw in the tavern.",
                 topic="marriage",
             ), weight=1)
-        elif persons.persons_dict["pretty_lady"].name == "Olga":
+        elif state.persons.persons_dict["pretty_lady"].name == "Olga":
             self.outcomes.add(Outcome(state,
                 "You think about Olga.",
                 topic="marriage",
@@ -469,14 +473,14 @@ class Think(Action):
         if state.character.place == state.places.places_dict["docks"]:
             self.outcomes.add(Outcome(state,
                 "Some pirates laugh at you for thinking.",
-                new_person=persons.persons_dict["pirates"],
+                new_person=state.persons.persons_dict["pirates"],
             ), weight=8)
 
-            if persons.persons_dict["lord_arthur"].alive:
+            if state.persons.persons_dict["lord_arthur"].alive:
                 self.outcomes.add(Outcome(state,
                     "You think it would be a bad idea to join Lord Arthur's "
                     "crew. Lord Arthur gives you no choice.",
-                    add_employer=persons.persons_dict["lord_arthur"],
+                    add_employer=state.persons.persons_dict["lord_arthur"],
                     move_to=state.places.places_dict["pirate_ship"],
                 ), weight=4)
 
@@ -587,7 +591,7 @@ class Yell(Action):
                 fail=True,
             ), weight=1)
             
-            if state.character.person == persons.persons_dict["lord_arthur"]:
+            if state.character.person == state.persons.persons_dict["lord_arthur"]:
                 self.outcomes.add(Outcome(state,
                     "Lord Arthur says he knows a town where you can "
                     "find a wooden leg.",
@@ -685,7 +689,7 @@ class SuckUpTo(Action):
 
     def execute(self, state):
 
-        if self.person == persons.persons_dict["lord_arthur"]:
+        if self.person == state.persons.persons_dict["lord_arthur"]:
 
             self.outcomes.add(Outcome(state,
                 "Lord Arthur sends you on a mission to find him a pet sea "
@@ -693,7 +697,7 @@ class SuckUpTo(Action):
                 move_to=state.places.places_dict["ocean"],
             ), weight=1)
 
-        if self.person == persons.persons_dict["lord_bartholomew"]:
+        if self.person == state.persons.persons_dict["lord_bartholomew"]:
 
             self.outcomes.add(Outcome(state,
                 "Lord Bartholomew wishes you well and sends you on your way.",
@@ -711,7 +715,7 @@ class SuckUpTo(Action):
                 succeed=True,
             ), weight=1)
 
-        if self.person == persons.persons_dict["lord_carlos"]:
+        if self.person == state.persons.persons_dict["lord_carlos"]:
 
             self.outcomes.add(Outcome(state,
                 "He tells you that your are forgiven, but his men never fail.",
@@ -727,7 +731,7 @@ class SuckUpTo(Action):
                 die=True,
             ), weight=1)
 
-        if self.person == persons.persons_dict["lord_daniel"]:
+        if self.person == state.persons.persons_dict["lord_daniel"]:
 
             self.outcomes.add(Outcome(state,
                 "Lord Daniel sends you away.",
@@ -773,7 +777,7 @@ class Swashbuckle(Action):
         if state.character.has_item(items.cutlass) or \
            state.character.has_item(items.jeweled_cutlass):
 
-            if persons.persons_dict["lord_arthur"].alive:
+            if state.persons.persons_dict["lord_arthur"].alive:
                 self.outcomes.add(Outcome(state,
                     "You kill several innocent merchants. Lord Arthur is "
                     "pleased and gives you a large share of the plunder.",
@@ -794,7 +798,7 @@ class Swashbuckle(Action):
                 die=True,
             ), weight=1)
 
-        if persons.persons_dict["lord_arthur"].alive:
+        if state.persons.persons_dict["lord_arthur"].alive:
             self.outcomes.add(Outcome(state,
                 "You manage to hold your own. Afterwards Lord Arthur divvies "
                 "up the booty.",
@@ -813,7 +817,7 @@ class Swashbuckle(Action):
         ), weight=1)
 
         if not state.character.has_item(items.sailor_peg) and \
-           persons.persons_dict["lord_arthur"].alive:
+           state.persons.persons_dict["lord_arthur"].alive:
 
             self.outcomes.add(Outcome(state,
                 "You lose your leg in the battle, but Lord Arthur gives you a "
@@ -892,7 +896,7 @@ class GoFishing(Action):
             self.outcomes.add(Outcome(state,
                 "Some pirates laugh at you. \"You'll never make a large "
                 "fortune that way,\" one of them says.",
-                new_person=persons.persons_dict["pirates"],
+                new_person=state.persons.persons_dict["pirates"],
             ), weight=10)
 
         self.outcomes.add(Outcome(state,
@@ -987,11 +991,11 @@ class AskAboutAssassins(Action):
         ), weight=1)
 
         if state.character.place == state.places.places_dict["tavern"] and \
-           persons.persons_dict["pretty_lady"].alive:
+           state.persons.persons_dict["pretty_lady"].alive:
             self.outcomes.add(Outcome(state,
                 "During your search, you strike up a conversation "
                 "with a pretty lady.",
-                new_person=persons.persons_dict["pretty_lady"],
+                new_person=state.persons.persons_dict["pretty_lady"],
             ), weight=1)
 
         if state.character.place == state.places.places_dict["lord_carlos_manor"]:
@@ -1011,7 +1015,7 @@ class AskDirections(Action):
 
     def execute(self, state):
 
-        if state.character.person == persons.persons_dict["simple_peasant"]:
+        if state.character.person == state.persons.persons_dict["simple_peasant"]:
             self.outcomes.add(Outcome(state,
                 "He tells you there are four directions, north, south, "
                 "east, and west.",
@@ -1028,7 +1032,7 @@ class AskDirections(Action):
                 "He says the town is yonder.",
             ), weight=1)
 
-        if state.character.person == persons.persons_dict["peasant_lass"]:
+        if state.character.person == state.persons.persons_dict["peasant_lass"]:
             self.outcomes.add(Outcome(state,
                 "She says Lord Carlos' manor is in the woods.",
                 actions=[(GoTo(state, state.character.place,
@@ -1097,7 +1101,7 @@ class AdmireYourJewels(Action):
             self.outcomes.add(Outcome(state,
                 "The guards catch you with your pants down. They conclude you "
                 "must be a lunatic",
-                new_person=persons.persons_dict["guards"],
+                new_person=state.persons.persons_dict["guards"],
                 threat=True,
                 topic='curious',
             ), weight=2)
@@ -1142,7 +1146,6 @@ class Attack(Action):
         self.combat_action = True
 
     def execute(self, state):
-
         if state.character.person.attack >= state.character.get_attack():
 
             self.outcomes.add(state.character.person.preferred_attack(state))
@@ -1192,7 +1195,7 @@ class GoDivingForPearls(Action):
             "You exhaust yourself trying to find pearls and start to drown. "
             "A beautiful mermaid grabs you and hoists you to safety.",
             move_to=state.places.places_dict["mermaid_rock"],
-            new_person=persons.persons_dict["mermaid"],
+            new_person=state.persons.persons_dict["mermaid"],
         ), weight=1)
 
 
@@ -1230,7 +1233,7 @@ class LickTheGround(Action):
             self.outcomes.add(Outcome(state,
                 "The local guards see you licking the {0} and accuse you of "
                 "being a lunatic.".format(self.ground),
-                new_person=persons.persons_dict["guards"],
+                new_person=state.persons.persons_dict["guards"],
                 threat=True,
             ), weight=3)
 
@@ -1269,10 +1272,10 @@ class LookForAWeapon(Action):
 
     def execute(self, state):
 
-        if persons.persons_dict["wealthy_merchant"].alive:
+        if state.persons.persons_dict["wealthy_merchant"].alive:
             self.outcomes.add(Outcome(state,
                 "You find yourself talking to a wealthy war merchant.",
-                new_person=persons.persons_dict["wealthy_merchant"],
+                new_person=state.persons.persons_dict["wealthy_merchant"],
             ), weight=9)
 
         self.outcomes.add(Outcome(state,
@@ -1356,23 +1359,23 @@ class LookForStGeorge(Action):
             die=True,
         ), weight=1)
 
-        if persons.persons_dict["st_george"].alive:
+        if state.persons.persons_dict["st_george"].alive:
             self.outcomes.add(Outcome(state,
                 "You find St. George at the church.",
                 move_to=state.places.places_dict["church"],
-                new_person=persons.persons_dict["st_george"],
+                new_person=state.persons.persons_dict["st_george"],
             ), weight=10)
 
             self.outcomes.add(Outcome(state,
                 "You find St. George in the streets.",
                 move_to=state.places.places_dict["streets"],
-                new_person=persons.persons_dict["st_george"],
+                new_person=state.persons.persons_dict["st_george"],
             ), weight=5)
 
             self.outcomes.add(Outcome(state,
                 "You find St. George in the market.",
                 move_to=state.places.places_dict["market"],
-                new_person=persons.persons_dict["st_george"],
+                new_person=state.persons.persons_dict["st_george"],
             ), weight=3)
 
 
@@ -1399,12 +1402,12 @@ class KillYourselfInFrustration(Action):
         if state.character.place in [state.places.places_dict["streets"], 
                                      state.places.places_dict["market"], 
                                      state.places.places_dict["church"]] \
-           and persons.persons_dict["st_george"].alive:
+           and state.persons.persons_dict["st_george"].alive:
             self.outcomes.add(Outcome(state,
                 "You throw yourself off a rooftop, but St. George catches "
                 "you and gives you a large fortune.",
                 get_money=money.large_fortune,
-                new_person=persons.persons_dict["st_george"],
+                new_person=state.persons.persons_dict["st_george"],
             ), weight=2)
 
         if state.character.place in [state.places.places_dict["docks"]]:
@@ -1467,9 +1470,9 @@ class KillEverybodyInAFitOfRage(Action):
             die=True,
         ), weight=1)
 
-        if state.character.person == persons.persons_dict["pirates"] and \
+        if state.character.person == state.persons.persons_dict["pirates"] and \
            state.character.place == state.places.places_dict["docks"] and \
-           persons.persons_dict["lord_arthur"].alive:
+           state.persons.persons_dict["lord_arthur"].alive:
             self.outcomes.add(Outcome(state,
                 "You kill all the pirates. Lord Arthur says he is impressed "
                 "with your skills and also happens to be in the market for "
@@ -1492,7 +1495,7 @@ class SayYouLoveHer(Action):
 
     def execute(self, state):
 
-        if self.person == persons.persons_dict["fat_lady"]:
+        if self.person == state.persons.persons_dict["fat_lady"]:
 
             self.outcomes.add(Outcome(state,
                 "\"What a shame,\" an assassin says as he steps into the room. "
@@ -1504,7 +1507,7 @@ class SayYouLoveHer(Action):
                 "Felicity is overjoyed and secretly lets you out of prison "
                 "that night. \"Let's get married!\" she says.",
                 move_to=state.places.places_dict["streets"],
-                new_person=persons.persons_dict["fat_lady"],
+                new_person=state.persons.persons_dict["fat_lady"],
                 actions=[
                     (MarryFelicity(state), 777),
                     (RunLikeTheDevil(state), 666)],
@@ -1529,7 +1532,7 @@ class MarryOlga(Action):
             win=True,
         ), weight=1)
 
-        if persons.persons_dict["lord_arthur"].alive:
+        if state.persons.persons_dict["lord_arthur"].alive:
             self.outcomes.add(Outcome(state,
                 "Lord Arthur performs a wedding for you and Olga on the deck "
                 "of his pirate ship. By the time the ceremony is over the "
@@ -1537,7 +1540,7 @@ class MarryOlga(Action):
                 win=True,
             ), weight=1)
 
-        if persons.persons_dict["wizard"].alive:
+        if state.persons.persons_dict["wizard"].alive:
             self.outcomes.add(Outcome(state,
                 "The wizard performs a wedding for you and Olga in the market. "
                 "He turns you both into sheep after the vows, but it is much "
@@ -1545,7 +1548,7 @@ class MarryOlga(Action):
                 win=True,
             ), weight=1)
 
-        if persons.persons_dict["lord_bartholomew"].alive:
+        if state.persons.persons_dict["lord_bartholomew"].alive:
             self.outcomes.add(Outcome(state,
                 "Lord Bartholomew performs a wedding for you and Olga in the "
                 "countryside. 20,000 people attend your wedding, but you "
@@ -1603,7 +1606,7 @@ class ThumpYourselfOnTheChest(Action):
                 fail=True,
             ), weight=9)
 
-        if state.character.person == persons.persons_dict["wizard"]:
+        if state.character.person == state.persons.persons_dict["wizard"]:
             self.outcomes.add(Outcome(state,
                 "The wizard says, \"If you like behaving like a gorilla so "
                 "much why not be a gorilla?\" He tries to turn you into a "
@@ -1693,7 +1696,7 @@ class HowlWithPain(Action):
             "town to be healed by St. George. He informs them "
             "that nothing is wrong with you. The servants are relieved and "
             "head back to the manor.",
-            new_person=persons.persons_dict["st_george,
+            new_person=state.persons.persons_dict["st_george"],
             move_to=state.places.places_dict["church"],
         ), weight=1)
 
@@ -1705,7 +1708,7 @@ class HowlWithPain(Action):
 
 class RepayYourDebts(Action):
     """
-    Assumes state.character.person == persons.persons_dict["lord_carlos
+    Assumes state.character.person == state.state.persons.persons_dict["lord_carlos"]
     """
 
     slot = "b"
@@ -1787,7 +1790,7 @@ class TryToTakeKeys(Action):
 
 class Grovel(Action):
     """
-    Only use when state.character.person == persons.persons_dict["lord_carlos
+    Only use when state.character.person == state.persons.persons_dict["lord_carlos"]
     """
 
     slot = "b"
@@ -1900,7 +1903,7 @@ class LookForWitches(Action):
 
         self.outcomes.add(Outcome(state,
             "You find a witch deep in the woods.",
-            new_person=persons.persons_dict["witch,
+            new_person=state.persons.persons_dict["witch"],
         ), weight=1)
 
         if state.character.place in state.places.burnable:
@@ -1981,12 +1984,12 @@ class SwingOnARope(Action):
             move_to=state.places.places_dict["ocean"],
         ), weight=1)
 
-        if persons.persons_dict["lord_arthur.alive:
+        if state.persons.persons_dict["lord_arthur"].alive:
             self.outcomes.add(Outcome(state,
                 "You manage to knock a merchant off a rope. Lord Arthur "
                 "rewards your bravery after the battle is over.",
                 succeed=True,
-                add_item=items.fish
+                add_item=items.fish,
             ), weight=1)
         else:
             self.outcomes.add(Outcome(state,
@@ -2033,19 +2036,19 @@ class Tithe(Action):
             "A priestess blesses you.",
         ), weight=1)
 
-        if persons.persons_dict["lord_carlos.alive:
+        if state.persons.persons_dict["lord_carlos"].alive:
             self.outcomes.add(Outcome(state,
                 "It was a good time to make peace with God. Lord Carlos steps "
                 "out from behind a pillar and assassinates you.",
                 die=True,
             ), weight=1)
 
-        if state.character.get_attack() < 7 and persons.persons_dict["st_george.alive:
+        if state.character.get_attack() < 7 and state.persons.persons_dict["st_george"].alive:
             self.outcomes.add(Outcome(state,
                 "St. George sees that you are a righteous man and gives you an "
                 "iron hammer to help you do God's work.",
                 add_item=items.iron_hammer,
-                new_person=persons.persons_dict["st_george,
+                new_person=state.persons.persons_dict["st_george"],
             ), weight=1)
 
 
@@ -2167,11 +2170,11 @@ class Disguise(Action):
                 ), weight=3)
 
         if state.character.place == state.places.places_dict["lord_carlos_manor"]:
-            if persons.persons_dict["lord_carlos.alive:
+            if state.persons.persons_dict["lord_carlos"].alive:
                 self.outcomes.add(Outcome(state,
                     "You soon have an audience with Lord Carlos. He recognizes you "
                     "when you are admitted to his study.",
-                    new_person=persons.persons_dict["lord_carlos,
+                    new_person=state.persons.persons_dict["lord_carlos"],
                     threat=True,
                 ), weight=1)
 
@@ -2222,13 +2225,13 @@ class BurnThePlaceToTheGround(Action):
                 die=True,
             ), weight=40)
 
-        if state.character.person == persons.persons_dict["st_george:
+        if state.character.person == state.persons.persons_dict["st_george"]:
             self.outcomes.add(Outcome(state,
                 "St. George sees you attempting arson and smites you.",
                 die=True,
             ), weight=30)
 
-        if state.character.person == persons.persons_dict["st_george:
+        if state.character.person == state.persons.persons_dict["st_george"]:
             self.outcomes.add(Outcome(state,
                 "The wizard sees you attempting arson and turns you into a "
                 "frog. He steps on you.",
@@ -2334,7 +2337,7 @@ class RaiseASail(Action):
 
     def execute(self, state):
 
-        if persons.persons_dict["lord_arthur.alive:
+        if state.persons.persons_dict["lord_arthur"].alive:
             self.outcomes.add(Outcome(state,
                 "Lord Arthur has you killed for raising the wrong sail.",
                 clover=True,
@@ -2355,12 +2358,12 @@ class RaiseASail(Action):
                     (HideUnderTheDeck(state), 1000)],
             ), weight=1)
 
-            if not state.character.is_employed_by(persons.persons_dict["lord_arthur):
+            if not state.character.is_employed_by(state.persons.persons_dict["lord_arthur"]):
 
                 self.outcomes.add(Outcome(state,
                     "Lord Arthur is impressed by your initiative and makes you a "
                     "member of the crew.",
-                    add_employer=persons.persons_dict["lord_arthur,
+                    add_employer=state.persons.persons_dict["lord_arthur"],
                 ), weight=1)
         else:
             self.outcomes.add(Outcome(state,
@@ -2395,7 +2398,7 @@ class ScrubTheDeck(Action):
             "more.",
         ), weight=1)
 
-        if persons.persons_dict["lord_arthur.alive:
+        if state.persons.persons_dict["lord_arthur"].alive:
             self.outcomes.add(Outcome(state,
                 "As you are scrubbing, the deck you hear Lord Arthur calling all "
                 "hands to raid an approaching merchant ship.",
@@ -2417,11 +2420,11 @@ class ScrubTheDeck(Action):
                 die=True,
             ), weight=1)
 
-            if state.character.is_employed_by(persons.persons_dict["lord_arthur):
+            if state.character.is_employed_by(state.persons.persons_dict["lord_arthur"]):
 
                 self.outcomes.add(Outcome(state,
                     "Lord Arthur yells at you to scrub harder.",
-                    new_person=persons.persons_dict["lord_arthur,
+                    new_person=state.persons.persons_dict["lord_arthur"],
                 ), weight=1)
 
             else:
@@ -2429,8 +2432,8 @@ class ScrubTheDeck(Action):
                 self.outcomes.add(Outcome(state,
                     "Lord Arthur is impressed by your initiative and makes you a "
                     "member of the crew.",
-                    new_person=persons.persons_dict["lord_arthur,
-                    add_employer=persons.persons_dict["lord_arthur,
+                    new_person=state.persons.persons_dict["lord_arthur"],
+                    add_employer=state.persons.persons_dict["lord_arthur"],
                 ), weight=1)
 
 
@@ -2450,7 +2453,7 @@ class PlayDead(Action):
             die=True,
         ), weight=2)
 
-        if state.character.person != persons.persons_dict["lord_carlos:
+        if state.character.person != state.persons.persons_dict["lord_carlos"]:
             self.outcomes.add(Outcome(state,
                 "You are too pathetic for {0} to kill.".format(
                     state.character.person.name),
@@ -2474,7 +2477,7 @@ class PlayDead(Action):
         self.outcomes.add(Outcome(state,
             "Just to be sure, {0} kill{1} you.".format(
                 state.character.person.name,
-                persons.persons_dict["get_tense(state.character.person)),
+                persons.get_tense(state.character.person)),
             die=True,
         ), weight=1)
 
@@ -2545,11 +2548,11 @@ class PrayToAHigherPower(Action):
             ), weight=1)
 
         if state.character.place in state.places.town and \
-           persons.persons_dict["st_george.alive:
+           state.persons.persons_dict["st_george"].alive:
 
             self.outcomes.add(Outcome(state,
                 "St. George joins you in prayer.",
-                new_person=persons.persons_dict["st_george,
+                new_person=state.persons.persons_dict["st_george"],
             ), weight=1)
 
 
@@ -2564,14 +2567,14 @@ class BegForMoney(Action):
     def execute(self, state):
 
         if state.character.place != state.places.places_dict["church"] and \
-           state.character.person == persons.persons_dict["st_george:
+           state.character.person == state.persons.persons_dict["st_george"]:
             self.outcomes.add(Outcome(state,
                 "St. George tells you he has lost his wallet in the church.",
             ), weight=1)
 
 
-        if state.character.person == persons.persons_dict["st_george:
-            if persons.persons_dict["st_george.state.get("given money", False):
+        if state.character.person == state.persons.persons_dict["st_george"]:
+            if state.persons.persons_dict["st_george"].state.get("given money", False):
                 self.outcomes.add(Outcome(state,
                     "St. George becomes irritated by your begging "
                     "and crushes you with his iron hammer.",
@@ -2587,7 +2590,7 @@ class BegForMoney(Action):
             else:
                 self.outcomes.add(Outcome(state,
                     state.character.person.name + " give" +
-                    persons.persons_dict["get_tense(state.character.person) +
+                    persons.get_tense(state.character.person) +
                     " you a pittance.",
                     beg=True,
                     get_money=money.pittance,
@@ -2595,7 +2598,7 @@ class BegForMoney(Action):
 
                 self.outcomes.add(Outcome(state,
                     state.character.person.name + " give" +
-                    persons.persons_dict["get_tense(state.character.person) +
+                    persons.get_tense(state.character.person) +
                     " you a small fortune.",
                     beg=True,
                     get_money=money.small_fortune,
@@ -2603,7 +2606,7 @@ class BegForMoney(Action):
 
                 self.outcomes.add(Outcome(state,
                     state.character.person.name + " give" +
-                    persons.persons_dict["get_tense(state.character.person) +
+                    persons.get_tense(state.character.person) +
                     " you a large fortune.",
                     beg=True,
                     get_money=money.large_fortune,
@@ -2658,7 +2661,8 @@ class BideYourTime(Action):
                     ],
         ), weight=2)
 
-        if persons.persons_dict["fat_lady.attracted > -1 and persons.persons_dict["fat_lady.attracted < 3:
+        if state.persons.persons_dict["fat_lady"].attracted > -1 and \
+           state.persons.persons_dict["fat_lady"].attracted < 3:
             self.outcomes.add(Outcome(state,
                 "As the days pass, you find yourself more and more "
                 "attracted to the fat woman who feeds you.",
@@ -2672,8 +2676,8 @@ class BuyBlackMarketItem(Action):
     def __init__(self, state):
         super(BuyBlackMarketItem, self).__init__(state)
         self.item = random.choice(
-            persons.persons_dict["black_market_merchant.get_sells())
-        self.price = persons.persons_dict["black_market_merchant.get_sell_price(self.item)
+            state.persons.persons_dict["black_market_merchant"].get_sells())
+        self.price = state.persons.persons_dict["black_market_merchant"].get_sell_price(self.item)
         self.name = "Make a shady deal."
 
     def execute(self, state):
@@ -2711,8 +2715,8 @@ class BuyItem(Action):
 
     def __init__(self, state):
         super(BuyItem, self).__init__(state)
-        self.item = random.choice(persons.persons_dict["local_merchant.get_sells())
-        self.price = persons.persons_dict["local_merchant.get_sell_price(self.item)
+        self.item = random.choice(state.persons.persons_dict["local_merchant"].get_sells())
+        self.price = state.persons.persons_dict["local_merchant"].get_sell_price(self.item)
         self.name = "Buy {0} {1}.".format(
             items.a_or_an(self.item),
             str(self.item))
@@ -2746,8 +2750,8 @@ class BuyWeapon(Action):
 
     def __init__(self, state):
         super(BuyWeapon, self).__init__(state)
-        self.weapon = random.choice(persons.persons_dict["wealthy_merchant.get_sells())
-        self.price = persons.persons_dict["wealthy_merchant.get_sell_price(self.weapon)
+        self.weapon = random.choice(state.persons.persons_dict["wealthy_merchant"].get_sells())
+        self.price = state.persons.persons_dict["wealthy_merchant"].get_sell_price(self.weapon)
         self.name = "Buy a " + str(self.weapon) + "."
 
     def execute(self, state):
@@ -2779,11 +2783,11 @@ class BuyADrink(Action):
 
     def execute(self, state):
 
-        if persons.persons_dict["blind_bartender.alive:
+        if state.persons.persons_dict["blind_bartender"].alive:
 
             self.outcomes.add(Outcome(state,
                 "The blind bartender grumbles as he passes you a drink.",
-                new_person=persons.persons_dict["blind_bartender,
+                new_person=state.persons.persons_dict["blind_bartender"],
             ), weight=4)
 
             self.outcomes.add(Outcome(state,
@@ -2804,7 +2808,7 @@ class BuyADrink(Action):
 
             self.outcomes.add(Outcome(state,
                 "A man in a black cloak sits next to you and orders a drink.",
-                new_person=persons.persons_dict["assassin,
+                new_person=state.persons.persons_dict["assassin"],
                 topic="assassins",
             ), weight=2)
 
@@ -2847,14 +2851,14 @@ class BoastOfYourBravery(Action):
                 fail=True,
             ), weight=1)
 
-            if state.character.person == persons.persons_dict["blind_bartender:
+            if state.character.person == state.persons.persons_dict["blind_bartender"]:
 
                 self.outcomes.add(Outcome(state,
                     "The blind bartender starts pretending to be deaf.",
                     fail=True,
                 ), weight=3)
 
-            if state.character.person == persons.persons_dict["st_george:
+            if state.character.person == state.persons.persons_dict["st_george"]:
 
                 self.outcomes.add(Outcome(state,
                     "St. George warns you of the dangers of hubris.",
@@ -2877,7 +2881,7 @@ class BoastOfYourBravery(Action):
                     die=True,
                 ), weight=1)
 
-            if state.character.person == persons.persons_dict["pretty_lady:
+            if state.character.person == state.persons.persons_dict["pretty_lady"]:
 
                 self.outcomes.add(Outcome(state,
                     "Her eyes glaze over as you struggle to remember times "
@@ -2894,7 +2898,7 @@ class BoastOfYourBravery(Action):
                     "She seems interested in your stories.",
                 ), weight=1)
 
-            if state.character.person == persons.persons_dict["fat_lady:
+            if state.character.person == state.persons.persons_dict["fat_lady"]:
 
                 self.outcomes.add(Outcome(state,
                     "She points out several inconsistencies in your story.",
@@ -2907,12 +2911,12 @@ class BoastOfYourBravery(Action):
                     flirt=1,
                 ), weight=1)
 
-            if state.character.person == persons.persons_dict["guards:
+            if state.character.person == state.persons.persons_dict["guards"]:
 
                 self.outcomes.add(Outcome(state,
                     "You tell the guards that you are brave.\n 'A brave "
                     "lunatic,' they say and they throw you in prison.",
-                    new_person=persons.persons_dict["other_lunatics,
+                    new_person=state.persons.persons_dict["other_lunatics"],
                     move_to=state.places.places_dict["prison"],
                 ), weight=1)
 
@@ -2978,7 +2982,7 @@ class LookForACat(Action):
             self.outcomes.add(Outcome(state,
                 "The local guards notice you searching for a cat "
                 "and conclude that you must be a lunatic.",
-                new_person=persons.persons_dict["guards,
+                new_person=state.persons.persons_dict["guards"],
                 threat=True,
                 topic="lonely",
             ), weight=6)
@@ -3007,14 +3011,14 @@ class TellThemYouAreNotALunatic(Action):
                 "\"An {0} lunatic,\" they say.".format(self.topic),
                 fail=True,
                 move_to=state.places.places_dict["prison"],
-                new_person=persons.persons_dict["other_lunatics,
+                new_person=state.persons.persons_dict["other_lunatics"],
             ), weight=1)
         else:
             self.outcomes.add(Outcome(state,
                 "\"A {0} lunatic,\" they say.".format(self.topic),
                 fail=True,
                 move_to=state.places.places_dict["prison"],
-                new_person=persons.persons_dict["other_lunatics,
+                new_person=state.persons.persons_dict["other_lunatics"],
             ), weight=1)
 
 
@@ -3063,7 +3067,7 @@ class TipACow(Action):
         self.outcomes.add(Outcome(state,
             "Some peasants mistake you for a cow thief and form a lynch mob.",
             threat=True,
-            new_person=persons.persons_dict["mob,
+            new_person=state.persons.persons_dict["mob"],
         ), weight=1)
 
 
@@ -3145,7 +3149,7 @@ class LookForMermaids(Action):
                     "She's beautiful, but smells terrible.",
                     "She sings a song about Lord Arthur.",
                     ])),
-                new_person=persons.persons_dict["mermaid
+                new_person=state.persons.persons_dict["mermaid"],
             ), weight=3)
 
             self.outcomes.add(Outcome(state,
@@ -3170,7 +3174,7 @@ class LookForMermaids(Action):
             self.outcomes.add(Outcome(state,
                 "You find a mermaid. She leads you back to her rock.",
                 move_to=state.places.places_dict["mermaid_rock"],
-                new_person=persons.persons_dict["mermaid,
+                new_person=state.persons.persons_dict["mermaid"],
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
@@ -3269,7 +3273,7 @@ class Eve(Action):
 
         self.outcomes.add(Outcome(state,
             "She gives you the evil eye.",
-            flirt=(persons.persons_dict["eve, 2),
+            flirt=(state.persons.persons_dict["eve"], 2),
         ), weight=1)
 
 
@@ -3361,12 +3365,12 @@ class SunYourselfOnARock(Action):
             die=True,
         ), weight=1)
 
-        if state.character.person != persons.persons_dict["mermaid:
+        if state.character.person != state.persons.persons_dict["mermaid"]:
 
             self.outcomes.add(Outcome(state,
                 "When you open your eyes you see a mermaid sunbathing next to "
                 "you.",
-                new_person=persons.persons_dict["mermaid,
+                new_person=state.persons.persons_dict["mermaid"],
             ), weight=1)
 
 
@@ -3380,10 +3384,10 @@ class ComplainAboutUnfairImprisonment(Action):
 
     def execute(self, state):
 
-        if state.character.person != persons.persons_dict["lord_daniel:
+        if state.character.person != state.persons.persons_dict["lord_daniel"]:
             self.outcomes.add(Outcome(state,
                 "The guards say it's fair if Lord Daniel says it's fair.",
-                new_person=persons.persons_dict["guards,
+                new_person=state.persons.persons_dict["guards"],
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
@@ -3394,7 +3398,7 @@ class ComplainAboutUnfairImprisonment(Action):
             self.outcomes.add(Outcome(state,
                 "The guards arrest you on charges of lunacy and throw you in "
                 "prison with the other lunatics.",
-                new_person=persons.persons_dict["other_lunatics,
+                new_person=state.persons.persons_dict["other_lunatics"],
                 move_to=state.places.places_dict["prison"],
             ), weight=1)
 
@@ -3623,12 +3627,12 @@ class TellAPriest(Action):
                 "\"I would know it when I see it,\" he says.",
             ), weight=1)
 
-            if persons.persons_dict["st_george.alive:
+            if state.persons.persons_dict["st_george"].alive:
                 self.outcomes.add(Outcome(state,
                     "St. George overhears your comment and turns you, "
                     "over to the guards on charges of lunacy.",
                     move_to=state.places.places_dict["prison"],
-                    new_person=persons.persons_dict["other_lunatics,
+                    new_person=state.persons.persons_dict["other_lunatics"],
                 ), weight=1)
 
 
@@ -3652,12 +3656,12 @@ class FireACanon(Action):
             die=True,
         ), weight=1)
 
-        if persons.persons_dict["lord_arthur.alive:
+        if state.persons.persons_dict["lord_arthur"].alive:
             self.outcomes.add(Outcome(state,
                 "You sink the merchant ship, plunder and all. Lord Arthur "
                 "is not pleased, so he flogs you with his cat. The cat seems "
                 "more traumatized than you, but you get fairly scratched up.",
-                new_person=persons.persons_dict["lord_arthur,
+                new_person=state.persons.persons_dict["lord_arthur"],
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
@@ -3916,18 +3920,18 @@ class FlirtWith(Action):
 
     def execute(self, state):
 
-        if self.person == persons.persons_dict["mermaid:
+        if self.person == state.persons.persons_dict["mermaid"]:
             self.outcomes.add(Outcome(state,
                 "You run into the mermaid problem.",
                 fail=True,
             ), weight=1000)
 
-        if self.person == persons.persons_dict["fat_lady and \
-           persons.persons_dict["fat_lady.name != "Felicity":
+        if self.person == state.persons.persons_dict["fat_lady"] and \
+           state.persons.persons_dict["fat_lady"].name != "Felicity":
 
             self.outcomes.add(Outcome(state,
                 "She ignores your hoots.",
-                flirt=(persons.persons_dict["fat_lady, -1),
+                flirt=(state.persons.persons_dict["fat_lady"], -1),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
@@ -3937,90 +3941,90 @@ class FlirtWith(Action):
             self.outcomes.add(Outcome(state,
                 "She ignores you when you say \"Hello,\" but "
                 "you catch her glancing at you throughout the day.",
-                flirt=(persons.persons_dict["fat_lady, 2),
+                flirt=(state.persons.persons_dict["fat_lady"], 2),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "She smiles, but doesn't reply to the love "
                 "poem you recite to her.",
-                flirt=(persons.persons_dict["fat_lady, 2),
+                flirt=(state.persons.persons_dict["fat_lady"], 2),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "She ignores you, but wears a low-cut blouse the next day.",
-                flirt=(persons.persons_dict["fat_lady, 2),
+                flirt=(state.persons.persons_dict["fat_lady"], 2),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "She ignores you, but gives you more food the next day.",
-                flirt=(persons.persons_dict["fat_lady, 2),
+                flirt=(state.persons.persons_dict["fat_lady"], 2),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "She ignores you, but gives you more food the next day.",
-                flirt=(persons.persons_dict["fat_lady, 2),
+                flirt=(state.persons.persons_dict["fat_lady"], 2),
             ), weight=1)
 
-            if persons.persons_dict["fat_lady.attracted > 3:
+            if state.persons.persons_dict["fat_lady"].attracted > 3:
                 def change_name():
-                    persons.persons_dict["fat_lady.name = "Felicity"
+                    state.persons.persons_dict["fat_lady"].name = "Felicity"
                 self.outcomes.add(Outcome(state,
                     "You strike up a conversation and learn that her name is "
                     "Felicity.",
-                    flirt=(persons.persons_dict["fat_lady, 2),
+                    flirt=(state.persons.persons_dict["fat_lady"], 2),
                     funcs=[change_name],
                 ), weight=1000)
 
-        elif self.person == persons.persons_dict["fat_lady:  # We know her name
+        elif self.person == state.persons.persons_dict["fat_lady"]:  # We know her name
 
             self.outcomes.add(Outcome(state,
                 "Felicity blows you kisses.",
-                flirt=(persons.persons_dict["fat_lady, 2),
+                flirt=(state.persons.persons_dict["fat_lady"], 2),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "Felicity leans in close and kisses your cheek.",
-                flirt=(persons.persons_dict["fat_lady, 2),
+                flirt=(state.persons.persons_dict["fat_lady"], 2),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "Felicity talks with you for hours. She only "
                 "stops when the warden barks at her to get "
                 "back to work.",
-                flirt=(persons.persons_dict["fat_lady, 2),
+                flirt=(state.persons.persons_dict["fat_lady"], 2),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "Felicity tells you she asked the warden to "
                 "let you out, but he has a strict \"No lunatics "
                 "on the streets\" policy.",
-                flirt=(persons.persons_dict["fat_lady, 2),
+                flirt=(state.persons.persons_dict["fat_lady"], 2),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "Felicity says she thinks about you a lot.",
-                flirt=(persons.persons_dict["fat_lady, 2),
+                flirt=(state.persons.persons_dict["fat_lady"], 2),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "Felicity laughs at all your jests, even the bad ones.",
-                flirt=(persons.persons_dict["fat_lady, 2),
+                flirt=(state.persons.persons_dict["fat_lady"], 2),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "Felicity asks if she looks fat in her new dress. "
                 "You say \"Yes.\" She doesn't speak to you for several days.",
-                flirt=(persons.persons_dict["fat_lady, -1),
+                flirt=(state.persons.persons_dict["fat_lady"], -1),
             ), weight=1)
 
-            if persons.persons_dict["fat_lady.attracted > 10:
+            if state.persons.persons_dict["fat_lady"].attracted > 10:
                 self.outcomes.add(Outcome(state,
                     "Felicity whispers that she loves you.",
-                    love_confessor=persons.persons_dict["fat_lady,
+                    love_confessor=state.persons.persons_dict["fat_lady"],
                 ), weight=100)
 
-        if self.person == persons.persons_dict["pretty_lady and \
-           persons.persons_dict["pretty_lady.name != "Olga":
+        if self.person == state.persons.persons_dict["pretty_lady"] and \
+           state.persons.persons_dict["pretty_lady"].name != "Olga":
 
             self.outcomes.add(Outcome(state,
                 "When you squeeze her butt, she stabs you in the heart with a "
@@ -4029,65 +4033,77 @@ class FlirtWith(Action):
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
-                "You play a game of darts together. You get upset when you "
-                "lose and ruin the mood.",
-                flirt=(persons.persons_dict["pretty_lady, -1),
+                "You play a game of darts together, but you get upset when "
+                "you lose and ruin the mood.",
+                flirt=(state.persons.persons_dict["pretty_lady"], -1),
                 fail=True,
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "You find out that you both like "
                 "cats. She says her cat loves being petted.",
-                flirt=(persons.persons_dict["pretty_lady, 2),
+                flirt=(state.persons.persons_dict["pretty_lady"], 2),
+            ), weight=1)
+
+            self.outcomes.add(Outcome(state,
+                "You amuse her with realistic impreesions of bird "
+                "songs. She says she likes a man who's good with his tongue.",
+                flirt=(state.persons.persons_dict["pretty_lady"], 2),
+            ), weight=1)
+
+            self.outcomes.add(Outcome(state,
+                "She is impressed with your juggling and says she likes a man "
+                "with skilled hands.",
+                flirt=(state.persons.persons_dict["pretty_lady"], 2),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "You say the flower in her hair goes well with "
                 "her eyes. She says you can smell her flower if you like.",
-                flirt=(persons.persons_dict["pretty_lady, 2),
+                flirt=(state.persons.persons_dict["pretty_lady"], 2),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "She sits on your lap when you buy her a drink.",
-                flirt=(persons.persons_dict["pretty_lady, 2),
+                flirt=(state.persons.persons_dict["pretty_lady"], 2),
             ), weight=1)
 
-            if persons.persons_dict["blind_bartender.alive:
+            if state.persons.persons_dict["blind_bartender"].alive:
                 self.outcomes.add(Outcome(state,
                     "You both laugh about how bad the ale is. The blind bartender "
                     "is not pleased.",
-                    flirt=(persons.persons_dict["pretty_lady, 2),
+                    flirt=(state.persons.persons_dict["pretty_lady"], 2),
                 ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "You have a meal together.",
-                flirt=(persons.persons_dict["pretty_lady, 2),
+                flirt=(state.persons.persons_dict["pretty_lady"], 2),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "She plays with your hair while you talk of your exploits.",
-                flirt=(persons.persons_dict["pretty_lady, 2),
+                flirt=(state.persons.persons_dict["pretty_lady"], 2),
             ), weight=1)
 
-            if persons.persons_dict["pretty_lady.attracted > 3:
+            if state.persons.persons_dict["pretty_lady"].attracted > 3:
                 def change_name():
-                    persons.persons_dict["pretty_lady.name = "Olga"
+                    state.persons.persons_dict["pretty_lady"].name = "Olga"
                 self.outcomes.add(Outcome(state,
                     "She says her name is Olga. You also tell your name.",
-                    flirt=(persons.persons_dict["pretty_lady, 2),
+                    flirt=(state.persons.persons_dict["pretty_lady"], 2),
                     funcs=[change_name],
                 ), weight=10000)
 
-        elif self.person == persons.persons_dict["pretty_lady and \
-             state.character.place == state.places.places_dict["tavern"]:  # We know her name
+        elif self.person == state.persons.persons_dict["pretty_lady"] and \
+             state.character.place == state.places.places_dict["tavern"]:
 
             self.outcomes.add(Outcome(state,
                 "You follow Olga to her room, "
                 "where she shows you some paintings she's borrowing "
                 "from Lord Carlos.",
-                new_person=persons.persons_dict["pretty_lady,
+                new_person=state.persons.persons_dict["pretty_lady"],
                 move_to=state.places.places_dict["upstairs"],
-                flirt=(persons.persons_dict["pretty_lady, 2),
+                flirt=(state.persons.persons_dict["pretty_lady"], 2),
             ), weight=3)
 
             self.outcomes.add(Outcome(state,
@@ -4097,38 +4113,37 @@ class FlirtWith(Action):
                 die=True,
             ), weight=1)
 
-        elif self.person == persons.persons_dict["pretty_lady and \
+        elif self.person == state.persons.persons_dict["pretty_lady"] and \
              state.character.place == state.places.places_dict["upstairs"]:
 
             self.outcomes.add(Outcome(state,
                 "{0}".format(random.choice([
                 "You make passionate love together.",
                 "You sleep together.",
-                "You do it.",
                 "Olga does lots of nice things to you.",
                 ])),
                 succeed=True,
-                flirt=(persons.persons_dict["pretty_lady, 2),
+                flirt=(state.persons.persons_dict["pretty_lady"], 2),
             ), weight=4)
 
             self.outcomes.add(Outcome(state,
                 "Olga whispers that she's been stalking you.",
-                flirt=(persons.persons_dict["pretty_lady, 2),
+                flirt=(state.persons.persons_dict["pretty_lady"], 2),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "You both stay up late talking by candlelight.",
-                flirt=(persons.persons_dict["pretty_lady, 3),
+                flirt=(state.persons.persons_dict["pretty_lady"], 3),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "Olga tells you her life story. Half of it seems made up.",
-                flirt=(persons.persons_dict["pretty_lady, 2),
+                flirt=(state.persons.persons_dict["pretty_lady"], 2),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "You compliment her on her borrowed paintings. She is pleased.",
-                flirt=(persons.persons_dict["pretty_lady, 2),
+                flirt=(state.persons.persons_dict["pretty_lady"], 2),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
@@ -4137,14 +4152,14 @@ class FlirtWith(Action):
                 die=True,
             ), weight=1)
 
-            if persons.persons_dict["pretty_lady.attracted > 10:
+            if state.persons.persons_dict["pretty_lady"].attracted > 10:
                 self.outcomes.add(Outcome(state,
                     "Olga grabs your hand. \"Life's too short, "
                     "let's get married!\"",
-                    love_confessor=persons.persons_dict["pretty_lady,
+                    love_confessor=state.persons.persons_dict["pretty_lady"],
                 ), weight=1000)
 
-        if self.person == persons.persons_dict["eve:
+        if self.person == state.persons.persons_dict["eve"]:
             self.outcomes.add(Outcome(state,
                 "She asks if you even remember her name. "
                 "You say, \"Of course I remember your name. It's...\"",
@@ -4155,37 +4170,37 @@ class FlirtWith(Action):
             self.outcomes.add(Outcome(state,
                 "You look at her bookshelf and compliment her on her choice "
                 "of books. She casts doubt on your ability to read.",
-                flirt=(persons.persons_dict["eve, 1),
+                flirt=(state.persons.persons_dict["eve"], 1),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "When you try to get close to her, she trips you and laughs.",
-                flirt=(persons.persons_dict["eve, 1),
+                flirt=(state.persons.persons_dict["eve"], 1),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "She lets you live with her for a few months under the "
                 "condition that she gets to treat you poorly.",
-                flirt=(persons.persons_dict["eve, 1),
+                flirt=(state.persons.persons_dict["eve"], 1),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "You say she has pretty lips. She says your lips are only "
                 "pretty when they're shut.",
-                flirt=(persons.persons_dict["eve, 1),
+                flirt=(state.persons.persons_dict["eve"], 1),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "She ignores your innuendos, but lets you come to the river "
                 "with her so she can drown a bag of kittens.",
-                flirt=(persons.persons_dict["eve, 1),
+                flirt=(state.persons.persons_dict["eve"], 1),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "She tells you to hide in a chest, because she thinks her "
                 "father is coming. She locks you in the chest and doesn't "
                 "let you out for a week.",
-                flirt=(persons.persons_dict["eve, 1),
+                flirt=(state.persons.persons_dict["eve"], 1),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
@@ -4194,16 +4209,16 @@ class FlirtWith(Action):
                 "come back for you.",
                 move_to=state.places.places_dict["woods"],
                 fail=True,
-                flirt=(persons.persons_dict["eve, 1),
+                flirt=(state.persons.persons_dict["eve"], 1),
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "She asks you to prove your devotion to her by cleaning her "
                 "room. She seems pleased with your work.",
-                flirt=(persons.persons_dict["eve, 1),
+                flirt=(state.persons.persons_dict["eve"], 1),
             ), weight=1)
 
-            if persons.persons_dict["eve.attracted > 3:
+            if state.persons.persons_dict["eve"].attracted > 3:
 
                 self.outcomes.add(Outcome(state,
                     "Your suave advances lead to several rounds of passionate "
@@ -4326,13 +4341,13 @@ class LookForTheWizard(Action):
 
     def execute(self, state):
 
-        if persons.persons_dict["wizard.alive:
+        if state.persons.persons_dict["wizard"].alive:
             if state.character.has_item(items.yellow_mushroom):
                 self.outcomes.add(Outcome(state,
                     "When you find him, he can smell that you have a yellow "
                     "mushroom. He asks if he can have it.",
                     move_to=state.places.places_dict["market"],
-                    new_person=persons.persons_dict["wizard,
+                    new_person=state.persons.persons_dict["wizard"],
                     actions=[(GiveHimTheYellowMushroom(state), 100)],
                 ), weight=100)
 
@@ -4351,27 +4366,27 @@ class LookForTheWizard(Action):
                 "When you find him. He gives you a frog.",
                 add_item=items.frog,
                 move_to=state.places.places_dict["market"],
-                new_person=persons.persons_dict["wizard,
+                new_person=state.persons.persons_dict["wizard"],
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
                 "You find the wizard. He is telling a woman how he "
                 "cursed the icicles in the arctic.",
                 move_to=state.places.places_dict["market"],
-                new_person=persons.persons_dict["wizard,
+                new_person=state.persons.persons_dict["wizard"],
             ), weight=2)
 
             self.outcomes.add(Outcome(state,
                 "You find the wizard. He is telling a woman about "
                 "a mesmerizing pearl.",
                 move_to=state.places.places_dict["market"],
-                new_person=persons.persons_dict["wizard,
+                new_person=state.persons.persons_dict["wizard"],
             ), weight=2)
 
             self.outcomes.add(Outcome(state,
                 "You see the wizard emptying a flask into a well.",
                 move_to=state.places.places_dict["market"],
-                new_person=persons.persons_dict["wizard,
+                new_person=state.persons.persons_dict["wizard"],
             ), weight=1)
 
         self.outcomes.add(Outcome(state,
@@ -4379,19 +4394,19 @@ class LookForTheWizard(Action):
             die=True,
         ), weight=1)
 
-        if persons.persons_dict["st_george.alive:
-            if persons.persons_dict["wizard.alive:
+        if state.persons.persons_dict["st_george"].alive:
+            if state.persons.persons_dict["wizard"].alive:
                 self.outcomes.add(Outcome(state,
                     "You can't find the wizard, but you find St. George. "
                     "He says the wizard is a little testy.",
-                    new_person=persons.persons_dict["st_george,
+                    new_person=state.persons.persons_dict["st_george"],
                 ), weight=1)
             else:
                 self.outcomes.add(Outcome(state,
                     "You can't find the wizard since the wizard is dead, "
                     "but you find St. George. He says the wizard was a "
                     "complicated man.",
-                    new_person=persons.persons_dict["st_george,
+                    new_person=state.persons.persons_dict["st_george"],
                 ), weight=1)
 
 
@@ -4486,7 +4501,7 @@ class GoTo(Action):
             self.outcomes.add(Outcome(state,
                 "On your way out of {0} you run headlong into some guards. "
                 "They say you must be a lunatic.".format(state.character.place),
-                new_person=persons.persons_dict["guards,
+                new_person=state.persons.persons_dict["guards"],
                 threat=True,
                 topic="oblivious",
             ), weight=3)
@@ -4496,7 +4511,7 @@ class GoTo(Action):
                 "you.".format(self.dest),
                 move_to=self.dest,
                 threat=True,
-                new_person=persons.persons_dict["assassin,
+                new_person=state.persons.persons_dict["assassin"],
             ), weight=2)
 
             if state.character.has_item(items.cat):
@@ -4559,30 +4574,31 @@ class RunLikeTheDevil(Action):
 
         self.outcomes.add(Outcome(state,
             "You run like the Devil, but " + state.character.person.name +
-            " also run" + persons.persons_dict["get_tense(state.character.person) + 
+            " also run" + persons.get_tense(state.character.person) + 
             " like the Devil "
-            "and overtake" + persons.persons_dict["get_tense(state.character.person) + " you.",
+            "and overtake" + persons.get_tense(state.character.person) + " you.",
             die=True,
         ), weight=1)
 
-        if state.character.person == persons.persons_dict["fat_lady and \
-           persons.persons_dict["fat_lady.attracted > 9:
+        if state.character.person == state.persons.persons_dict["fat_lady"] and \
+           state.persons.persons_dict["fat_lady"].attracted > 9:
             self.outcomes.add(Outcome(state,
                 "The Devil is very fast and not very fat, so you manage to get "
                 "away unmarried.",
                 new_person=None,
                 move=2,
                 succeed=True,
-                flirt=(persons.persons_dict["fat_lady, -666),
+                flirt=(state.persons.persons_dict["fat_lady"], -666),
             ), weight=666)
 
-        if state.character.person == persons.persons_dict["pretty_lady and \
-           persons.persons_dict["pretty_lady.attracted > 9:
+        if state.character.person == \
+           state.persons.persons_dict["pretty_lady"] and \
+           state.persons.persons_dict["pretty_lady"].attracted > 9:
             self.outcomes.add(Outcome(state,
                 "The Devil is pretty fast but Olga is prettier and faster. "
                 "She strangles you to death.",
                 die=True,
-                flirt=(persons.persons_dict["pretty_lady, -666),
+                flirt=(state.persons.persons_dict["pretty_lady"], -666),
             ), weight=666)
 
             self.outcomes.add(Outcome(state,
@@ -4590,7 +4606,7 @@ class RunLikeTheDevil(Action):
                 new_person=None,
                 move=2,
                 succeed=True,
-                flirt=(persons.persons_dict["pretty_lady, -666)
+                flirt=(state.persons.persons_dict["pretty_lady"], -666)
             ), weight=666)
 
 
@@ -4614,9 +4630,9 @@ class WaddleLikeGod(Action):
             "You waddle like God, but " +
             state.character.person.name +
             " also waddle" +
-            persons.persons_dict["get_tense(state.character.person) + " like God and "
+            persons.get_tense(state.character.person) + " like God and "
             "fail to overtake" +
-            persons.persons_dict["get_tense(state.character.person) + " you. You "
+            persons.get_tense(state.character.person) + " you. You "
             "slowly get away.",
             move=1,
         ), weight=1)
@@ -4662,16 +4678,16 @@ class WanderTheCountryside(Action):
             new_person=None,
         ), weight=1)
 
-        if persons.persons_dict["simple_peasant.alive:
+        if state.persons.persons_dict["simple_peasant"].alive:
             self.outcomes.add(Outcome(state,
                 "You find a simple peasant.",
-                new_person=persons.persons_dict["simple_peasant,
+                new_person=state.persons.persons_dict["simple_peasant"],
             ), weight=1)
 
-        if persons.persons_dict["peasant_lass.alive:
+        if state.persons.persons_dict["peasant_lass"].alive:
             self.outcomes.add(Outcome(state,
                 "You find a peasant lass.",
-                new_person=persons.persons_dict["peasant_lass,
+                new_person=state.persons.persons_dict["peasant_lass"],
             ), weight=1)
 
 
@@ -4747,7 +4763,7 @@ class KeepSwimming(Swim):
         self.outcomes.add(Outcome(state,
             "You find a mermaid sitting on a rock.",
             move_to=state.places.places_dict["mermaid_rock"],
-            new_person=persons.persons_dict["mermaid,
+            new_person=state.persons.persons_dict["mermaid"],
         ), weight=1)
 
         if state.character.has_item(items.cat):
@@ -4821,7 +4837,7 @@ class ChallengeHimToAGameOfChess(Action):
 
     def execute(self, state):
 
-        if state.character.person == persons.persons_dict["lord_carlos:
+        if state.character.person == state.persons.persons_dict["lord_carlos"]:
 
             self.outcomes.add(Outcome(state,
                 "Lord Carlos says he has no time to waste on fools, but "
@@ -4833,7 +4849,7 @@ class ChallengeHimToAGameOfChess(Action):
                          (AskForADraw(state), 10000)],
             ), weight=1)
 
-        if state.character.person == persons.persons_dict["lord_bartholomew:
+        if state.character.person == state.persons.persons_dict["lord_bartholomew"]:
 
             self.outcomes.add(Outcome(state,
                 "Lord Bartholomew says there's always time for a little fun "
@@ -4909,7 +4925,7 @@ class TrashThePlace(Action):
                 "You are arrested on charges of lunacy and get "
                 "thrown in prison with the other lunatics.",
                 move_to=state.places.places_dict["prison"],
-                new_person=persons.persons_dict["other_lunatics,
+                new_person=state.persons.persons_dict["other_lunatics"],
             ), weight=1)
 
         if state.character.place == state.places.places_dict["wizards_lab"]:
@@ -4930,18 +4946,18 @@ class TrashThePlace(Action):
                 die=True,
             ), weight=2)
 
-            if state.character.person == persons.persons_dict["wizard:
+            if state.character.person == state.persons.persons_dict["wizard"]:
                 self.outcomes.add(Outcome(state,
                     "The wizard incinerates you.",
                     die=True,
                 ), weight=20)
 
             if state.character.place == state.places.places_dict["wizards_lab"] and \
-               state.character.person != persons.persons_dict["wizard and \
-               persons.persons_dict["wizard.alive:
+               state.character.person != state.persons.persons_dict["wizard"] and \
+               state.persons.persons_dict["wizard"].alive:
                 self.outcomes.add(Outcome(state,
                     "The wizard walks in and starts yelling obscenities.",
-                    new_person=persons.persons_dict["wizard,
+                    new_person=state.persons.persons_dict["wizard"],
                     threat=True,
                 ), weight=1)
 
@@ -5012,7 +5028,7 @@ class AskForAsylum(Action):
                 "stormed by Lord Daniel's guards. You are arrested for "
                 "treason.",
                 burn_place=state.character.place,
-                kill=persons.persons_dict["lord_bartholomew,
+                kill=state.persons.persons_dict["lord_bartholomew"],
                 move_to=state.places.places_dict["prison"],
             ), weight=1000)
         else:
@@ -5020,7 +5036,7 @@ class AskForAsylum(Action):
                 "Lord Bartholomew grants you asylum, but his manor is soon "
                 "stormed by Lord Daniel's guards. You are arrested for "
                 "treason.",
-                kill=persons.persons_dict["lord_bartholomew,
+                kill=state.persons.persons_dict["lord_bartholomew"],
                 move_to=state.places.places_dict["prison"],
             ), weight=1000)
 
@@ -5119,7 +5135,7 @@ class ShowYourForeignCoin(Action):
 
     def execute(self, state):
 
-        if state.character.person == persons.persons_dict["lord_bartholomew:
+        if state.character.person == state.persons.persons_dict["lord_bartholomew"]:
 
             self.outcomes.add(Outcome(state,
                 "\"Damn, son. Where'd you find this?\" Lord Bartholomew asks. "
@@ -5129,7 +5145,7 @@ class ShowYourForeignCoin(Action):
                 get_money=money.small_fortune,
             ), weight=1)
 
-        elif state.character.person == persons.persons_dict["lord_daniel:
+        elif state.character.person == state.persons.persons_dict["lord_daniel"]:
 
             self.outcomes.add(Outcome(state,
                 "Lord Daniel has his guards seize you and take your coin. "
@@ -5151,7 +5167,7 @@ class DouseHerWithYourLovePotion(Action):
 
     def execute(self, state):
 
-        if state.character.person == persons.persons_dict["mermaid:
+        if state.character.person == state.persons.persons_dict["mermaid"]:
 
             self.outcomes.add(Outcome(state,
                 "The mermaid falls madly in love with you. "
@@ -5166,7 +5182,7 @@ class DouseHerWithYourLovePotion(Action):
                 win=True,
             ), weight=1)
 
-        elif state.character.person == persons.persons_dict["eve:
+        elif state.character.person == state.persons.persons_dict["eve"]:
 
             self.outcomes.add(Outcome(state,
                 "She dodges the potion and starts screaming. You are "
@@ -5184,7 +5200,7 @@ class DouseHerWithYourLovePotion(Action):
                 win=True,
             ), weight=1)
 
-        elif state.character.person == persons.persons_dict["nymph_queen:
+        elif state.character.person == state.persons.persons_dict["nymph_queen"]:
             
             self.outcomes.add(Outcome(state,
                 "You miss. The nymph queen giggles and turns you into a shrub.",
@@ -5218,7 +5234,7 @@ class DrugHerWithYourLovePotion(Action):
 
     def execute(self, state):
 
-        if state.character.person == persons.persons_dict["pretty_lady:
+        if state.character.person == state.persons.persons_dict["pretty_lady"]:
 
             self.outcomes.add(Outcome(state,
                 "The pretty lady notices you slipping the potion into her "
@@ -5226,7 +5242,7 @@ class DrugHerWithYourLovePotion(Action):
                 die=True,
             ), weight=1)
 
-            if persons.persons_dict["blind_bartender.alive:
+            if state.persons.persons_dict["blind_bartender"].alive:
                 self.outcomes.add(Outcome(state,
                     "You distract her by pointing out a wart on the blind "
                     "bartender's nose. After she takes a drink, she looks "
@@ -5238,7 +5254,7 @@ class DrugHerWithYourLovePotion(Action):
 
             self.outcomes.add(Outcome(state,
                 "You manage to drug her. She becomes very flirty with you.",
-                flirt=(persons.persons_dict["pretty_lady, 10),
+                flirt=(state.persons.persons_dict["pretty_lady"], 10),
                 remove_item=items.love_potion,
                 succeed=True,
             ), weight=1)
@@ -5266,7 +5282,7 @@ class LookForNymphs(Action):
                                          "exhilarating", "overwhelming",
                                          "only rivaled by her attractiveness."
                                          ])),
-            new_person=persons.persons_dict["nymph_queen,
+            new_person=state.persons.persons_dict["nymph_queen"],
         ), weight=1)
 
         self.outcomes.add(Outcome(state,
@@ -5298,12 +5314,12 @@ class LookForNymphs(Action):
 
         self.outcomes.add(Outcome(state,
             "You find a witch instead.",
-            new_person=persons.persons_dict["witch,
+            new_person=state.persons.persons_dict["witch"],
         ), weight=1)
 
         self.outcomes.add(Outcome(state,
             "You notice a man in a dark cloak stalking you.",
-            new_person=persons.persons_dict["assassin,
+            new_person=state.persons.persons_dict["assassin"],
             threat=True,
         ), weight=1)
 
@@ -5354,8 +5370,8 @@ class Loot(Action):
 
     def execute(self, state):
 
-        item = random.choice(persons.persons_dict["local_merchant.get_sells() +
-                             persons.persons_dict["wealthy_merchant.get_sells())
+        item = random.choice(state.persons.persons_dict["local_merchant"].get_sells() +
+                             state.persons.persons_dict["wealthy_merchant"].get_sells())
 
         if item.name[0] in "aeiou":
             self.outcomes.add(Outcome(state,
@@ -5378,7 +5394,7 @@ class Loot(Action):
         self.outcomes.add(Outcome(state,
             "You are arrested for attempting to steal an apple.",
             move_to=state.places.places_dict["prison"],
-            new_person=persons.persons_dict["other_lunatics,
+            new_person=state.persons.persons_dict["other_lunatics"],
         ), weight=1)
 
 
@@ -5409,9 +5425,9 @@ class WatchAPlay(Action):
                 "The play is put on by some of Lord Daniel's guards. The "
                 "acting is horrible and the play portrays Lord Bartholomew in "
                 "a negative light. The audience starts a riot.",
-                new_person=persons.persons_dict["guards,
+                new_person=state.persons.persons_dict["guards"],
                 actions=[
-                         (Attack(state, persons.persons_dict["guards), 10000),
+                         (Attack(state, state.persons.persons_dict["guards"]), 10000),
                          (BurnThePlaceToTheGround(state, state.places.places_dict["market"]), 10000),
                          (TrashThePlace(state), 10000),
                          (Loot(state), 10000)
@@ -5424,9 +5440,9 @@ class WatchAPlay(Action):
                 "The play is put on by some Lord Daniel's guards, the acting is "
                 "terrible and the play portrays Lord Bartholomew in a negative "
                 "light. The audience starts a riot.",
-                new_person=persons.persons_dict["guards,
+                new_person=state.persons.persons_dict["guards"],
                 actions=[
-                         (Attack(state, persons.persons_dict["guards), 10000),
+                         (Attack(state, state.persons.persons_dict["guards"]), 10000),
                          (TrashThePlace(state), 10000),
                          (Loot(state), 10000)
                          ],
@@ -5451,15 +5467,15 @@ class FlauntYourWealth(Action):
 
         self.outcomes.add(Outcome(state,
             "The guards notice you and conclude you must be rich.",
-            new_person=persons.persons_dict["guards,
+            new_person=state.persons.persons_dict["guards"],
             actions=[(TellThemYouAreALunatic(state), 10000)],
         ), weight=1)
 
-        if persons.persons_dict["st_george.alive:
+        if state.persons.persons_dict["st_george"].alive:
             self.outcomes.add(Outcome(state,
                 "St. George notices you and warns you of the dangers of "
                 "flamboyance.",
-                new_person=persons.persons_dict["st_george,
+                new_person=state.persons.persons_dict["st_george"],
             ), weight=1)
 
         self.outcomes.add(Outcome(state,
@@ -5587,19 +5603,19 @@ class SingASong(Action):
             self.outcomes.add(Outcome(state,
                 "You are soon joined in song by a gang of drunken pirates. "
                 "They spill rum on you and ruin your song.",
-                new_person=persons.persons_dict["pirates,
+                new_person=state.persons.persons_dict["pirates"],
             ), weight=5)
 
         if state.character.place == state.places.places_dict["upstairs"] and \
-           state.character.person == persons.persons_dict["pretty_lady:
+           state.character.person == state.persons.persons_dict["pretty_lady"]:
             self.outcomes.add(Outcome(state,
                 "You sing a romantic ballad. Olga is impressed.",
-                flirt=(persons.persons_dict["pretty_lady, 2),
+                flirt=(state.persons.persons_dict["pretty_lady"], 2),
             ), weight=20)
 
             self.outcomes.add(Outcome(state,
                 "Olga interrupts your song by kissing you.",
-                flirt=(persons.persons_dict["pretty_lady, 2),
+                flirt=(state.persons.persons_dict["pretty_lady"], 2),
             ), weight=20)
 
         if state.character.place == state.places.places_dict["lord_carlos_manor"]:
@@ -5623,17 +5639,17 @@ class SingASong(Action):
                 fail=True,
             ), weight=10)
 
-            if state.character.person == persons.persons_dict["mermaid:
+            if state.character.person == state.persons.persons_dict["mermaid"]:
                 self.outcomes.add(Outcome(state,
                     "The mermaid enjoys your singing and sings with you.",
-                    flirt=(persons.persons_dict["mermaid, 2),
+                    flirt=(state.persons.persons_dict["mermaid"], 2),
                 ), weight=20)
 
                 self.outcomes.add(Outcome(state,
                     "The mermaid is displeased with your choice of lyrics and "
                     "pushes you into the ocean.",
                     move_to=state.places.places_dict["ocean"],
-                    flirt=(persons.persons_dict["mermaid, -1),
+                    flirt=(state.persons.persons_dict["mermaid"], -1),
                     fail=True,
                 ), weight=10)
 
@@ -5661,7 +5677,7 @@ class SingASong(Action):
                 self.outcomes.add(Outcome(state,
                     "While you're singing, some men in black cloaks start to "
                     "edge their way toward you.",
-                    new_person=persons.persons_dict["assassins,
+                    new_person=state.persons.persons_dict["assassins"],
                     threat=True,
                 ), weight=3)
 
@@ -5672,7 +5688,7 @@ class SingASong(Action):
                 die=True,
             ), weight=5)
 
-        if state.character.person == persons.persons_dict["wizard:
+        if state.character.person == state.persons.persons_dict["wizard"]:
             self.outcomes.add(Outcome(state,
                 "The wizard complains that you are singing off-key. He turns "
                 "you into a frog and steps on you.",
@@ -5730,14 +5746,14 @@ class SwingYourCat(Action):
 
             self.outcomes.add(Outcome(state,
                 "You hit an assassin with your cat.",
-                new_person=persons.persons_dict["assassin,
+                new_person=state.persons.persons_dict["assassin"],
                 threat=True,
             ), weight=3)
 
             self.outcomes.add(Outcome(state,
                 "The local guards notice you swinging your cat around and "
                 "conclude that you must be a lunatic.",
-                new_person=persons.persons_dict["guards,
+                new_person=state.persons.persons_dict["guards"],
                 threat=True,
                 topic="mad",
             ), weight=3)
@@ -5769,7 +5785,7 @@ class LookThroughSomeTrash(Action):
             "The local guards see you searching through the trash and accuse "
             "you of being a lunatic.",
             add_item=items.cat,
-            new_person=persons.persons_dict["guards,
+            new_person=state.persons.persons_dict["guards"],
             threat=True,
             topic="curious",
         ), weight=1)
@@ -5876,20 +5892,20 @@ class DanceAJig(Action):
                 "ode to Lord Bartholomew.",
             ), weight=25)
 
-        if state.character.person == persons.persons_dict["mermaid"]:
+        if state.character.person == state.persons.persons_dict["mermaid"]:
             self.outcomes.add(Outcome(state,
                 "She laughs and claps and seems completely in awe of your "
                 "legs.",
             ), weight=1)
 
-        if state.character.person == persons.persons_dict["guards"]:  # TODO these don't happen 
+        if state.character.person == state.persons.persons_dict["guards"]:  # TODO these don't happen 
                                                 # because this is not a 
                                                 # combat action
             self.outcomes.add(Outcome(state,
                 "\"We got a dancer,\" one of them says. They throw you in "
                 "prison.",
                 move_to=state.places.places_dict["prison"],
-                new_person=persons.persons_dict["other_lunatics"],
+                new_person=state.persons.persons_dict["other_lunatics"],
             ), weight=100)
 
             self.outcomes.add(Outcome(state,
@@ -5997,7 +6013,7 @@ class YellAPiratePhrase(Action):
 
     def execute(self, state):
 
-        if persons.persons_dict["lord_arthur"].alive:
+        if state.persons.persons_dict["lord_arthur"].alive:
             self.outcomes.add(Outcome(state,
                 "Lord Arthur has you thrown off the ship.",
                 move_to=state.places.places_dict["ocean"],
@@ -6008,23 +6024,23 @@ class YellAPiratePhrase(Action):
                 "Lord Arthur tells you that no true pirate "
                 "says \"{0}.\"".format(
                     self.phrase),
-                new_person=persons.persons_dict["lord_arthur"],
+                new_person=state.persons.persons_dict["lord_arthur"],
                 fail=True,
             ), weight=1)
 
-            if state.character.is_employed_by(persons.persons_dict["lord_arthur"]):
+            if state.character.is_employed_by(state.persons.persons_dict["lord_arthur"]):
                 self.outcomes.add(Outcome(state,
                     "Lord Arthur tells you that you are no longer a member of "
                     "the crew.",
-                    remove_employer=persons.persons_dict["lord_arthur"],
+                    remove_employer=state.persons.persons_dict["lord_arthur"],
                     fail=True,
                 ), weight=1)
             else:
                 self.outcomes.add(Outcome(state,
                     "Lord Arthur is impressed by your enthusiasm and makes "
                     "you a member of the crew.",
-                    new_person=persons.persons_dict["lord_arthur"],
-                    add_employer=persons.persons_dict["lord_arthur"],
+                    new_person=state.persons.persons_dict["lord_arthur"],
+                    add_employer=state.persons.persons_dict["lord_arthur"],
                     topic="piracy",
                 ), weight=1)
         else:
@@ -6145,7 +6161,7 @@ class DoSomeGambling(Action):
         if state.character.place == state.places.places_dict["tavern"]:
             self.outcomes.add(Outcome(state,
                 "You get cleaned out by a pretty lady.",
-                new_person = persons.persons_dict["pretty_lady"],
+                new_person = state.persons.persons_dict["pretty_lady"],
                 funcs=[state.character.lose_all_money],
                 fail=True,
             ), weight=1)
@@ -6174,7 +6190,7 @@ class DoSomeGambling(Action):
 
             self.outcomes.add(Outcome(state,
                 "You dice with some pirates. They easily beat you.",
-                new_person=persons.persons_dict["pirates"],
+                new_person=state.persons.persons_dict["pirates"],
                 funcs=[state.character.lose_all_money],
                 fail=True,
             ), weight=1)
@@ -6253,7 +6269,7 @@ class SneakAround(Action):
                 succeed=True,
             ), weight=1)
 
-            if persons.persons_dict["eve"].alive:
+            if state.persons.persons_dict["eve"].alive:
 
                 self.outcomes.add(Outcome(state,
                     "You manage to sneak into Lord Carlos' "
@@ -6261,10 +6277,10 @@ class SneakAround(Action):
                     ["reading at her desk.", "sharpening a dagger.",
                      "petting her cat.", "putting on jewelry.",
                      "painting a picture of you getting assassinated.",])),
-                    new_person=persons.persons_dict["eve"],
+                    new_person=state.persons.persons_dict["eve"],
                 ), weight=2)
 
-            if persons.persons_dict["lord_carlos"].alive:
+            if state.persons.persons_dict["lord_carlos"].alive:
 
                 self.outcomes.add(Outcome(state,
                     "Lord Carlos jumps down from some rafters and assassinates you.",
@@ -6277,7 +6293,7 @@ class SneakAround(Action):
                     ["writing a letter.", "reading a book.",
                      "looking straight at you.", "eating a heart.",
                      "training a weasel.", "pacing around."])),
-                    new_person=persons.persons_dict["lord_carlos"],
+                    new_person=state.persons.persons_dict["lord_carlos"],
                     threat=True,
                 ), weight=2)
 
@@ -6336,7 +6352,7 @@ class SnoopAround(Action):
 
         self.outcomes.add(Outcome(state,
             "You find a fancy red cloak.",
-            actions=[(TakeIt(state, persons.persons_dict["wizard"], items.fire_proof_cloak), 100)],
+            actions=[(TakeIt(state, state.persons.persons_dict["wizard"], items.fire_proof_cloak), 100)],
             topic="cloaks",
         ), weight=1)
 
