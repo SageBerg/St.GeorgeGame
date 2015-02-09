@@ -1,5 +1,4 @@
 import random
-
 import state
 import actions
 import frog_actions
@@ -307,7 +306,7 @@ def _add_default_actions(choices, state):
     choices.add(actions.LickTheGround(state, state.character.place))
     choices.add(actions.PrayToAHigherPower(state))
     choices.add(actions.GoToSleep(state))
-    #choices.add(actions.LeaveInAPuff(state))  # under revision
+    choices.add(actions.LeaveInAPuff(state))
     choices.add(actions.SingASong(state))
     choices.add(actions.DanceAJig(state))
 

@@ -4433,7 +4433,7 @@ class LeaveInAHuff(Action):
             ), weight=1)
 
 
-class LeaveInAPuff(Action):  # UNDER REVISION
+class LeaveInAPuff(Action):
 
     slot = "c"
 
@@ -4443,8 +4443,10 @@ class LeaveInAPuff(Action):  # UNDER REVISION
         self.combat_action = True
 
     def execute(self, state):
-        options = state.places.Place.instances - set([state.character.place])
-        place = random.sample(options, 1)[0]
+        place = state.character.place 
+        while place == state.character.place:
+            place = state.places.places_dict[random.choice(
+               state.places.places_dict.keys())]
 
         self.outcomes.add(Outcome(state,
             None,
