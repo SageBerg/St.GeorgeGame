@@ -168,5 +168,5 @@ class Outcome(object):
                             # tup[1] is the argument 
         if self.lose_money is not None:
             self.character.lose_money(self.lose_money)
-        if self.lose_money:
+        if self.lose_all_money:
             self.character.lose_all_money()
