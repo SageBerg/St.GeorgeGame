@@ -670,7 +670,7 @@ class ReadASpellBook(Action):
             "The first book you open appears to be the wizard's diary. "
             "{0}.".format(random.choice([
                 "It is full of details about how he is too chicken to "
-                "ask out a woman he often sees in the market.",
+                "ask out a woman he often sees in the market",
                 "He appears to be obsessed with void dust, but can't "
                 "figure out how to get any.",
                 "It's mostly math proofs."])),
