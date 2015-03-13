@@ -8,20 +8,20 @@ from state import GameState
 from character import Character
 from multiple_choice import MultipleChoice
 
-def lords_victory(character):
-    if not persons.lord_arthur.alive and \
-       not persons.lord_bartholomew.alive and \
-       not persons.lord_carlos.alive and \
-       not persons.lord_daniel.alive:
-        character.alone = False
+def lords_victory(state):
+    if not state.persons.persons_dict["lord_arthur"].alive and \
+       not state.persons.persons_dict["lord_bartholomew"].alive and \
+       not state.persons.persons_dict["lord_carlos"].alive and \
+       not state.persons.persons_dict["lord_daniel"].alive:
+        state.character.alone = False
         print("You have destroyed the establishment and brought about "
               "a uptopian anarchy... more or less.")
         print("You win!")
 
-def pyro_victory(character):
-    if len(places.burned) > 8:  # increase this number for each new 
+def pyro_victory(state):
+    if len(state.places.burned) > 8:  # increase this number for each new 
                                 # burnable place we add
-        character.alone = False  # might need to add a master_pryo 
+        state.character.alone = False  # might need to add a master_pryo 
                                  # boolean for the character instead 
                                  # of using .alone (which makes no sense)
         print(random.choice(["Some people just like to watch the world "
@@ -62,8 +62,8 @@ def main():
         outcome.execute()
         options.add_actions(choices, state, outcome)
         choices.generate_actions(state.character)
-        #lords_victory(state.character)
-        #pyro_victory(state.character)  #needs a refactor
+        lords_victory(state)
+        pyro_victory(state)
         
 if __name__ == "__main__":
     main()
