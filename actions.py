@@ -5875,7 +5875,8 @@ class DanceAJig(Action):
                 die=True,
             ), weight=3)
 
-        if state.character.place in state.places.town or \
+        if (state.character.place in state.places.town and \
+           state.character.place not in state.places.locked) or \
            state.character.place == state.places.places_dict["countryside"]:
             self.outcomes.add(Outcome(state,
                 "The local peasants are entertained by your antics and toss "
