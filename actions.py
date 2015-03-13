@@ -4446,7 +4446,7 @@ class LeaveInAPuff(Action):
         place = state.character.place 
         while place == state.character.place:
             place = state.places.places_dict[random.choice(
-               state.places.places_dict.keys())]
+               list(state.places.places_dict.keys()))]
 
         self.outcomes.add(Outcome(state,
             None,
