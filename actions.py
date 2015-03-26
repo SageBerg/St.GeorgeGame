@@ -3960,11 +3960,6 @@ class FlirtWith(Action):
                 flirt=(state.persons.persons_dict["felicity"], 2),
             ), weight=1)
 
-            self.outcomes.add(Outcome(state,
-                "She ignores you, but gives you more food the next day.",
-                flirt=(state.persons.persons_dict["felicity"], 2),
-            ), weight=1)
-
             if state.persons.persons_dict["felicity"].attracted > 3:
                 def change_name():
                     state.persons.persons_dict["felicity"].name = "Felicity"
