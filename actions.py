@@ -4807,8 +4807,8 @@ class E4(Action):
     slot = "c"
 
     def __init__(self, state):
-        super(ChallengeHimToAGameOfChess, self).__init__(state)
-        self.name = "Challenge him to a game of chess."
+        super(E4, self).__init__(state)
+        self.name = "E4."
         self.combat_action = True
 
     def execute(self, state):
