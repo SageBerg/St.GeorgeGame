@@ -1,0 +1,28 @@
+body {
+    background: black;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    color: white;
+    font-family: helvetica;
+    text-align: center;
+}
+
+#game_board {
+    width: 90%;
+    height: 500px;
+    background: black;
+    border-style: solid;
+    border-color: white;
+    border-width: 2px;
+    border-radius: 20px;
+    margin: auto;
+}
+
+.option {
+    font-family: helvetica;
+    color: white;
+    margin-left: 20px;
+}
