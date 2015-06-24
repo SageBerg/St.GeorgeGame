@@ -21,7 +21,7 @@ class Raffle(object):
 
     def get(self):
         """
-        chooses one action from the bag and returns itkk
+        chooses one action from the bag and returns it
         """
         total_weights = 0
         for weight in self.options.values():
