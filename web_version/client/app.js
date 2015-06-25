@@ -27,6 +27,10 @@ function main() {
                 break;
         }
     }
+    var raffle = {"size": 0};
+    raffle_add(raffle, "action", 10);
+    console.log(raffle);
+    raffle_get(raffle);
 }
 
 $(document).ready(main);

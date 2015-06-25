@@ -9,3 +9,5 @@ server = http.createServer(app);
 server.listen(port);
 
 app.use(express.static(__dirname + "/client"));
+
+console.log("Server started!");
