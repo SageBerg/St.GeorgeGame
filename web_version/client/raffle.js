@@ -8,27 +8,19 @@ function raffle_add(raffle, outcome, votes) {
     }
 }
 
+/* this raffle is designed and intended for single drawings */
 function raffle_get(raffle) {
-    var countdown = raffle.size;
-    var roll = randint(countdown);
-    console.log(roll);
-    var temp_key, keys = [];
-    for (temp_key in raffle) {
-        if (raffle.hasOwnProperty(temp_key)) { //and key != size
-            keys.push(temp_key);
+    var roll = randint(raffle.size);
+    for (key in raffle) {
+        if (key != "size") { 
+        // the "size" attribute is part of the raffle, but shouldn't be drawn 
+            roll -= raffle[key];
+            if (roll <= 0) {
+                break;
+            }
         }
     }
-    for (key in keys) {
-        console.log(key);
-    }
-    /*
-    while (roll) {
-        if (roll <= ) {
-            return 
-        }
-        roll -=  
-    }
-    */
+    return key;
 }
 
 function randint(n) {

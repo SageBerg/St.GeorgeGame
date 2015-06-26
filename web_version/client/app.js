@@ -27,10 +27,18 @@ function main() {
                 break;
         }
     }
+    /* testing raffle */
+    /* 
     var raffle = {"size": 0};
-    raffle_add(raffle, "action", 10);
+    raffle_add(raffle, "action1", 10);
+    raffle_add(raffle, "action1", 10);
+    raffle_add(raffle, "action2", 10);
+    raffle_add(raffle, "action3", 5);
     console.log(raffle);
-    raffle_get(raffle);
+    for (var i = 0; i < 3; i++) {
+        console.log(raffle_get(raffle));
+    }
+    */
 }
 
 $(document).ready(main);
