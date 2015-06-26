@@ -1,3 +1,8 @@
+function handle_take_action(resp_body) {
+    request = {};
+    $.post("take_action.json", request, null);
+}
+
 function main() {
     document.onkeypress = function(event) {
         switch (event.which) {
