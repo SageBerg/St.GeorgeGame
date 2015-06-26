@@ -1,6 +1,12 @@
-function handle_take_action(resp_body) {
-    request = {};
-    $.post("take_action.json", request, null);
+var game_state = {"place": "the_tavern", 
+                  "person": null, 
+                  "character": {"items": ["cat"]}
+                 };
+
+var message = "You are in a tavern. The local assassins hate you.";
+
+function handle_take_action(resp) {
+    console.log(resp.message);
 }
 
 function main() {
@@ -11,6 +17,7 @@ function main() {
                 break;
             case 97:
                 console.log("you pressed a");
+                $.post("take_action.json", {}, handle_take_action);
                 break;
             case 66:
                 console.log("you pressed B");
@@ -32,18 +39,6 @@ function main() {
                 break;
         }
     }
-    /* testing raffle */
-    /* 
-    var raffle = {"size": 0};
-    raffle_add(raffle, "action1", 10);
-    raffle_add(raffle, "action1", 10);
-    raffle_add(raffle, "action2", 10);
-    raffle_add(raffle, "action3", 5);
-    console.log(raffle);
-    for (var i = 0; i < 3; i++) {
-        console.log(raffle_get(raffle));
-    }
-    */
 }
 
 $(document).ready(main);
