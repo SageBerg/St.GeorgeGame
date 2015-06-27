@@ -16,8 +16,10 @@ console.log("Server started!");
 app.post("/take_action.json", take_action_handler);
 
 function take_action_handler(req, res) {
-    console.log("client sent a request to this server");
     console.log(req.body);
-    var response = {"message": "You are soon assassinated."};
+    var response = {"new_game": false,
+                    "message": "You are soon assassinated.",
+                    "options": {"a": "Play again."},
+                   };
     res.json(response); 
 }
