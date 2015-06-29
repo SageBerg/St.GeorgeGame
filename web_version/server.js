@@ -22,6 +22,15 @@ function strip_action(string) {
 function take_action_handler(req, res) {
     console.log("action:", strip_action(req.body.action));
     console.log("place:", req.body.game_state.place);
+    
+    var outcome_raffle = {"size": 0};
+    build_outcome_raffle(outcome_raffle, strip_action(req.body.action));
+    var outcome = raffle_get(outcome_raffle);
+
+    //set up raffles for the options
+    //get the options
+    //sent the outcome and options the the client
+
     if (req.body.game_state.place == "the tavern" && 
         strip_action(req.body.action) == "Leave in a huff.") {
         console.log("you go to the streets");
@@ -33,6 +42,10 @@ function take_action_handler(req, res) {
     res.json(response); 
 }
 
+function build_outcome_raffle(outcome_raffle, action) { 
+
+}
+
 var places = {"the tavern": ["the streets"],
               "the streets": ["the market", "the tower", "the church", 
                               "a dark alley", "the docks", "the countryside"],
@@ -41,5 +54,33 @@ var places = {"the tavern": ["the streets"],
               "the docks": ["the streets", "the market", "the ocean", 
                             "the woods"],
               "the woods": ["the docks", "the countryside"],
-             }            
-                            
+             }
+
+/* raffle should be an object with an attribute "size" initially set to 0 */ 
+function raffle_add(raffle, outcome, votes) {
+    raffle["size"] += votes;
+    if (raffle[outcome]) {
+        raffle[outcome] += votes;
+    } else {
+        raffle[outcome] = votes;
+    }
+}
+
+/* this raffle is designed and intended for single drawings */
+function raffle_get(raffle) {
+    var roll = randint(raffle.size);
+    for (key in raffle) {
+        if (key != "size") { 
+        // the "size" attribute is part of the raffle, but shouldn't be drawn 
+            roll -= raffle[key];
+            if (roll <= 0) {
+                break;
+            }
+        }
+    }
+    return key;
+}
+
+function randint(n) {
+    return Math.floor(Math.random() * n);
+}
