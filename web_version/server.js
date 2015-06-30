@@ -20,30 +20,34 @@ function strip_action(string) {
 }
 
 function take_action_handler(req, res) {
-    console.log("action:", strip_action(req.body.action));
-    console.log("place:", req.body.game_state.place);
-    
-    var outcome_raffle = {"size": 0};
-    build_outcome_raffle(outcome_raffle, strip_action(req.body.action));
-    var outcome = raffle_get(outcome_raffle);
-
-    //set up raffles for the options
-    //get the options
-    //sent the outcome and options the the client
-
-    if (req.body.game_state.place == "the tavern" && 
-        strip_action(req.body.action) == "Leave in a huff.") {
-        console.log("you go to the streets");
-    }
-    var response = {"new_game": false,
-                    "message": "You are soon assassinated.",
-                    "options": {"a": "Play again."},
-                   };
-    res.json(response); 
+    var outcomes = {"size": 0};
+    var action = strip_action(req.body.action);
+    outcomes = get_possible_outcomes_of_action(outcomes, action);
+    var outcome = raffle_get(outcomes);
+    console.log(outcome["message"]);
+    //get_player_options(req.body.game_state, outcome.message);
+    //outcome.options.a = "Play again.";
+    res.json(outcome); //sent outcome to the client
 }
 
-function build_outcome_raffle(outcome_raffle, action) { 
-
+function get_possible_outcomes_of_action(raffle, action) { 
+    var outcome_template  = {"new_game": false,
+                             "message": "",
+                             "options": {"a": "", 
+                                         "b": "", 
+                                         "c": "", 
+                                         "d": "", 
+                                         "e": ""},
+                            };
+    var outcome;
+    if (action == "Ask about assassins.") {
+        outcome = outcome_template;
+        outcome.new_game = true;
+        outcome.message = "The first person you ask happens to be an assassin" +
+            ". She assassinates you.";
+        raffle_add(raffle, outcome, 10);
+    }
+    return raffle;
 }
 
 var places = {"the tavern": ["the streets"],
