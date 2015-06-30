@@ -6,6 +6,7 @@ var game_state = {"place": "the tavern",
 var message = "You are in a tavern. The local assassins hate you.";
 
 function handle_take_action(resp) {
+    console.log(resp.message);
     if (resp.new_game) {
         location.reload();
     }
