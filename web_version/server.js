@@ -23,20 +23,24 @@ function take_action_handler(req, res) {
     var outcomes = {"size": 0};
     var action = strip_action(req.body.action);
     outcomes = get_possible_outcomes_of_action(outcomes, action);
-    var outcome = raffle_get(outcomes);
-    var outcome_template  = {"new_game": false,
-                             "message": "",
-                             "options": {"a": "", 
-                                         "b": "", 
-                                         "c": "", 
-                                         "d": "", 
-                                         "e": ""},
-                            };
-    outcome_template.message = outcome;
-    console.log(outcome_template.message);
-    //get_player_options(req.body.game_state, outcome.message);
-    //outcome.options.a = "Play again.";
-    res.json(outcome_template); //sent outcome to the client
+    var outcome_message = raffle_get(outcomes);
+    var outcome  = {"new_game": false,
+                    "message": "",
+                    "options": {"a": "", 
+                                "b": "", 
+                                "c": "", 
+                                "d": "", 
+                                "e": ""},
+                    "game_state": {},
+                   };
+    outcome.message = outcome_message;
+    game_state_after_outcome = req.body.game_state;
+    options = get_player_options(req.body.game_state, outcome);
+    outcome.options.a = options[0];
+    outcome.options.b = options[1];
+    outcome.options.c = options[2];
+    outcome.options.d = options[3];
+    res.json(outcome);
 }
 
 function get_possible_outcomes_of_action(raffle, action) { 
@@ -49,6 +53,24 @@ function get_possible_outcomes_of_action(raffle, action) {
         raffle_add(raffle, outcome, 5);
     }
     return raffle;
+}
+
+function get_player_options(game_state, outcome) {
+    raffle_a = {"size": 0};
+    raffle_b = {"size": 0};
+    raffle_c = {"size": 0};
+    raffle_d = {"size": 0};
+    raffle_add(raffle_a, "Think.", 1);
+    raffle_add(raffle_a, "Lick the ground.", 1);
+    raffle_add(raffle_b, "Pray to a higher power.", 1);
+    raffle_add(raffle_c, "Go to sleep.", 1);
+    raffle_add(raffle_c, "Leave in a puff.", 1);
+    raffle_add(raffle_d, "Sing a song.", 1);
+    raffle_add(raffle_d, "Dance a jig.", 1);
+    return [raffle_get(raffle_a),
+            raffle_get(raffle_b),
+            raffle_get(raffle_c),
+            raffle_get(raffle_d)]
 }
 
 var places = {"the tavern": ["the streets"],
@@ -74,14 +96,14 @@ function raffle_add(raffle, outcome, votes) {
 /* this raffle is designed and intended for single drawings */
 function raffle_get(raffle) {
     var roll = randint(raffle.size);
+    console.log("roll", roll);
     for (key in raffle) {
         if (key != "size") { 
         // the "size" attribute is part of the raffle, but shouldn't be drawn 
-            roll -= raffle[key];
             if (roll <= 0) {
-                console.log("key", key);
                 break;
             }
+            roll -= raffle[key];
         }
     }
     return key;
