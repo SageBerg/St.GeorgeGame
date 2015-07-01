@@ -34,12 +34,20 @@ function take_action_handler(req, res) {
                     "game_state": {},
                    };
     outcome.message = outcome_message;
-    game_state_after_outcome = req.body.game_state;
-    options = get_player_options(req.body.game_state, outcome);
-    outcome.options.a = options[0];
-    outcome.options.b = options[1];
-    outcome.options.c = options[2];
-    outcome.options.d = options[3];
+    outcome.game_state = req.body.game_state;
+    if (outcome.message == "The first person you ask happens to be an assassin"
+            + ".The assassin assassinates you.") {
+        outcome.new_game = true;
+    }
+    if (!outcome.new_game) {
+        options = get_player_options(req.body.game_state, outcome);
+        outcome.options.a = options[0];
+        outcome.options.b = options[1];
+        outcome.options.c = options[2];
+        outcome.options.d = options[3];
+    } else {
+        outcome.options.a = "Play again.";
+    }
     res.json(outcome);
 }
 
@@ -49,8 +57,11 @@ function get_possible_outcomes_of_action(raffle, action) {
         outcome = "The first person you ask happens to be an assassin. " +
             "The assassin assassinates you.";
         raffle_add(raffle, outcome, 10);
-        outcome = "No one wants to talk to you.";
-        raffle_add(raffle, outcome, 5);
+        raffle_add(raffle, "No one wants to talk to you.", 5);
+        raffle_add(raffle, 
+            "During your investigation, " +
+            "you find yourself talking to a pretty lady."
+            , 5); //fix
     }
     return raffle;
 }
@@ -60,6 +71,16 @@ function get_player_options(game_state, outcome) {
     raffle_b = {"size": 0};
     raffle_c = {"size": 0};
     raffle_d = {"size": 0};
+
+    console.log("outcome.message", outcome.message);
+
+    if (outcome.message == 
+            "During your investigation, " +
+            "you find yourself talking to a pretty lady."
+       ) {
+        raffle_add(raffle_b, "Flirt with the pretty lady.", 100); //fix
+    }
+
     raffle_add(raffle_a, "Think.", 1);
     raffle_add(raffle_a, "Lick the ground.", 1);
     raffle_add(raffle_b, "Pray to a higher power.", 1);
@@ -67,6 +88,13 @@ function get_player_options(game_state, outcome) {
     raffle_add(raffle_c, "Leave in a puff.", 1);
     raffle_add(raffle_d, "Sing a song.", 1);
     raffle_add(raffle_d, "Dance a jig.", 1);
+
+    if (game_state.place == "the tavern") {
+        raffle_add(raffle_a, "Ask about assassins.", 1);
+        raffle_add(raffle_b, "Buy a drink.", 2);
+        raffle_add(raffle_d, "Do some gambling.", 2);
+    }
+
     return [raffle_get(raffle_a),
             raffle_get(raffle_b),
             raffle_get(raffle_c),
@@ -96,7 +124,6 @@ function raffle_add(raffle, outcome, votes) {
 /* this raffle is designed and intended for single drawings */
 function raffle_get(raffle) {
     var roll = randint(raffle.size);
-    console.log("roll", roll);
     for (key in raffle) {
         if (key != "size") { 
         // the "size" attribute is part of the raffle, but shouldn't be drawn 
