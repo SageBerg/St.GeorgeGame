@@ -24,13 +24,6 @@ function take_action_handler(req, res) {
     var action = strip_action(req.body.action);
     outcomes = get_possible_outcomes_of_action(outcomes, action);
     var outcome = raffle_get(outcomes);
-    console.log(outcome["message"]);
-    //get_player_options(req.body.game_state, outcome.message);
-    //outcome.options.a = "Play again.";
-    res.json(outcome); //sent outcome to the client
-}
-
-function get_possible_outcomes_of_action(raffle, action) { 
     var outcome_template  = {"new_game": false,
                              "message": "",
                              "options": {"a": "", 
@@ -39,13 +32,21 @@ function get_possible_outcomes_of_action(raffle, action) {
                                          "d": "", 
                                          "e": ""},
                             };
+    outcome_template.message = outcome;
+    console.log(outcome_template.message);
+    //get_player_options(req.body.game_state, outcome.message);
+    //outcome.options.a = "Play again.";
+    res.json(outcome_template); //sent outcome to the client
+}
+
+function get_possible_outcomes_of_action(raffle, action) { 
     var outcome;
     if (action == "Ask about assassins.") {
-        outcome = outcome_template;
-        outcome.new_game = true;
-        outcome.message = "The first person you ask happens to be an assassin" +
-            ". She assassinates you.";
+        outcome = "The first person you ask happens to be an assassin. " +
+            "The assassin assassinates you.";
         raffle_add(raffle, outcome, 10);
+        outcome = "No one wants to talk to you.";
+        raffle_add(raffle, outcome, 5);
     }
     return raffle;
 }
@@ -78,6 +79,7 @@ function raffle_get(raffle) {
         // the "size" attribute is part of the raffle, but shouldn't be drawn 
             roll -= raffle[key];
             if (roll <= 0) {
+                console.log("key", key);
                 break;
             }
         }
