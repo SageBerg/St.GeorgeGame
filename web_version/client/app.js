@@ -9,6 +9,11 @@ function handle_take_action(resp) {
     if (resp.new_game) {
         location.reload();
     }
+    console.log(resp.game_state.place, game_state.place);
+    if (resp.game_state.palce !== game_state.place) {
+        resp.message += " You find yourself in " + game_state.place + "."; 
+    }
+    game_state = resp.game_state;
     document.getElementById("message").innerHTML = resp.message;
     document.getElementById("a").innerHTML = "a. " + resp.options["a"];
     var letters = "bcde";

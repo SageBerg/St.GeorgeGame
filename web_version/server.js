@@ -52,11 +52,11 @@ function take_action_handler(req, res) {
 }
 
 function get_possible_outcomes_of_action(raffle, action) { 
-    var outcome;
     if (action == "Ask about assassins.") {
-        outcome = "The first person you ask happens to be an assassin. " +
-            "The assassin assassinates you.";
-        raffle_add(raffle, outcome, 10);
+        raffle_add(raffle, 
+            "The first person you ask happens to be an assassin. " +
+            "The assassin assassinates you."
+            , 10);
         raffle_add(raffle, "No one wants to talk to you.", 5);
         raffle_add(raffle, 
             "During your investigation, " +
@@ -72,8 +72,6 @@ function get_player_options(game_state, outcome) {
     raffle_c = {"size": 0};
     raffle_d = {"size": 0};
 
-    console.log("outcome.message", outcome.message);
-
     if (outcome.message == 
             "During your investigation, " +
             "you find yourself talking to a pretty lady."
@@ -85,6 +83,7 @@ function get_player_options(game_state, outcome) {
     raffle_add(raffle_a, "Lick the ground.", 1);
     raffle_add(raffle_b, "Pray to a higher power.", 1);
     raffle_add(raffle_c, "Go to sleep.", 1);
+    raffle_add(raffle_c, "Go to the streets.", 100); //fix
     raffle_add(raffle_c, "Leave in a puff.", 1);
     raffle_add(raffle_d, "Sing a song.", 1);
     raffle_add(raffle_d, "Dance a jig.", 1);
@@ -105,11 +104,13 @@ var places = {"the tavern": ["the streets"],
               "the streets": ["the market", "the tower", "the church", 
                               "a dark alley", "the docks", "the countryside"],
               "the tower": ["the streets"],
-              "the chuch": ["the streets"],
+              "the church": ["the streets"],
               "the docks": ["the streets", "the market", "the ocean", 
                             "the woods"],
               "the woods": ["the docks", "the countryside"],
              }
+
+var locked = ["prison"];
 
 /* raffle should be an object with an attribute "size" initially set to 0 */ 
 function raffle_add(raffle, outcome, votes) {
