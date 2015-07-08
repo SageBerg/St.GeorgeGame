@@ -346,7 +346,7 @@ class AskHerToTakeYouBackToLand(Action):
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
-                "She takes you out to see, but gets bored and leaves you "
+                "She takes you out to sea, but gets bored and leaves you "
                 "there.",
                 move_to=state.places.places_dict["ocean"],
                 fail=True,
