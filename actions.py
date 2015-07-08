@@ -4534,7 +4534,7 @@ class GoTo(Action):
             ), weight=1)
 
             self.outcomes.add(Outcome(state,
-                overhear_template.format("a man talking being a pirate on "
+                overhear_template.format("a man talking about being a pirate on "
                     "Lord Arthur's ship"),
                 move_to=self.dest,
             ), weight=1)
