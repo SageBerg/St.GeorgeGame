@@ -3138,7 +3138,7 @@ class LookForMermaids(Action):
             self.outcomes.add(Outcome(state,
                 "{0} {1}".format(random.choice([
                     "You almost step on one",
-                    "You find one putting sea shells in her hair",
+                    "You find one putting seashells in her hair.",
                     "There are mermaids everywhere, there's one next to you.",
                     "After hours of climbing around on the rocks you find "
                     "one.",
