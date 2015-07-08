@@ -6241,7 +6241,7 @@ class SneakAround(Action):
         if state.character.place == state.places.places_dict["lord_carlos_manor"]:
             self.outcomes.add(Outcome(state,
                 "One of the assassin guards sees you tiptoeing around in "
-                "board daylight. He assassinates you.",
+                "broad daylight. He assassinates you.",
                 die=True,
             ), weight=1)
 
