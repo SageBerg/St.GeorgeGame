@@ -5277,7 +5277,7 @@ class LookForNymphs(Action):
                                          "doing tai chi in a meadow"]),
                           random.choice(["intoxicating", "dazzling",
                                          "exhilarating", "overwhelming",
-                                         "only rivaled by her attractiveness."
+                                         "only rivaled by her attractiveness"
                                          ])),
             new_person=state.persons.persons_dict["nymph_queen"],
         ), weight=1)
