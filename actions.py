@@ -5998,7 +5998,7 @@ class YellAPiratePhrase(Action):
              "Arr Matey",
              "Avast",
              "Aye Aye",
-             "Send 'em to Dave Jone's locker",
+             "Send 'em to Davy Jones' locker",
              "Thare she blows",
              "Hoist the Jolly Roger",
              "Walk the plank",
