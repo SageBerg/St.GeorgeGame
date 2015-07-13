@@ -6,17 +6,17 @@ var game_state = {"place": "the tavern",
 var message = "You are in a tavern. The local assassins hate you.";
 
 function handle_take_action(resp) {
-    if (resp.new_game) {
+    if (resp.reload) {
         location.reload();
     }
-    console.log(resp.game_state.place, game_state.place);
-    if (resp.game_state.palce !== game_state.place) {
+    if (resp.moved) {
         resp.message += " You find yourself in " + game_state.place + "."; 
     }
     game_state = resp.game_state;
+    console.log(resp);
     document.getElementById("message").innerHTML = resp.message;
     document.getElementById("a").innerHTML = "a. " + resp.options["a"];
-    var letters = "bcde";
+    var letters = "abcd";
     var letter;
     for (index in letters) {
         letter = letters[index];

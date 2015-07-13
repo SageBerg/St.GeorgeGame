@@ -20,22 +20,33 @@ function strip_action(string) {
 }
 
 function take_action_handler(req, res) {
-    var outcomes = {};
+  
+    if (strip_action(req.body.action) === "Play again.") {
+        res.json({"reload": true});
+    }
+
+    //argument formatting
     var action = strip_action(req.body.action);
-    outcomes = get_possible_outcomes_of_action(outcomes, action);
-    var outcome_object = raffle_get(outcomes);
+    
+    //get outcome
+    var possible_outcomes = get_possible_outcomes_of_action({}, action);
     var outcome = {"new_game": false,
-                   "message": "",
+                   "message": raffle_get(possible_outcomes),
+                   "moved": false,
                    "options": {"a": "", 
                                "b": "", 
                                "c": "", 
                                "d": "", 
                                "e": ""},
-                   "game_state": {},
+                   "game_state": req.body.game_state 
                   };
-    outcome.message = outcome_object.message;
-    outcome.game_state = req.body.game_state;
-    if (!outcome_object.new_game) {
+    outcome.new_game = all_outcomes[outcome.message].new_game;
+    if (all_outcomes[outcome.message].moved) {
+        outcome.moved = true;
+    }
+    
+    //get options
+    if (!outcome.new_game) {
         options = get_player_options(req.body.game_state, outcome);
         outcome.options.a = options[0];
         outcome.options.b = options[1];
@@ -50,21 +61,27 @@ function take_action_handler(req, res) {
 function get_possible_outcomes_of_action(raffle, action) { 
     if (action === "Ask about assassins.") {
         raffle_add(raffle, 
-                   {"message": 
                     "The first person you ask happens to be an assassin. " +
                     "The assassin assassinates you."
-                    , "new_game": true}
                    , 5);
+        /*
         raffle_add(raffle, 
-                   {"message": 
                     "No one wants to talk to you."
-                    , "new_game": true}
                    , 5);
         raffle_add(raffle, 
-                   {"message": 
                     "During your investigation, " +
                     "you find yourself talking to a pretty lady."
-                    , "new_game": true}
+                   , 5);
+        */
+    }
+    if (action === "Buy a drink.") {
+        raffle_add(raffle, 
+                   "The blind bartender grumbles as he serves you a drink."
+                   , 5);
+    }
+    if (action === "Leave in a huff.") {
+        raffle_add(raffle, 
+                   ""
                    , 5);
     }
     return raffle;
@@ -118,17 +135,33 @@ function get_place_player_options(game_state, raffle_a, raffle_b,
     }
 }
 
-var places = {"the tavern": ["the streets"],
+var places = {"the tavern":  ["the streets"],
               "the streets": ["the market", "the tower", "the church", 
                               "a dark alley", "the docks", "the countryside"],
-              "the tower": ["the streets"],
-              "the church": ["the streets"],
-              "the docks": ["the streets", "the market", "the ocean", 
-                            "the woods"],
-              "the woods": ["the docks", "the countryside"],
+              "the tower":   ["the streets"],
+              "the church":  ["the streets"],
+              "the docks":   ["the streets", "the market", "the ocean", 
+                              "the woods"],
+              "the woods":   ["the docks", "the countryside"],
              }
 
 var locked = ["prison", "a dark cave", "a pirate ship"];
+
+var all_outcomes = {
+    "The first person you ask happens to be an assassin. The assassin assassinates you."
+    : {
+        "new_game": true,
+    },
+    "The blind bartender grumbles as he serves you a drink."
+    : {
+        "new_game": true,
+    },
+    ""
+    : {
+        "new_game": true,
+        "moved": "true", 
+    },
+};
 
 function raffle_add(raffle, outcome, votes) {
     if (raffle[outcome]) {
