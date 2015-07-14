@@ -30,12 +30,19 @@ console.log("Server started!"); //because feedback is nice
 
 // Game Data (will be stored in db if the size of the game gets unweidly
 
-actions = {"assassinated_in_tavern": {"dead": true, 
-            "message": 
-                "The first person you meet turns out to be an assassin. " +
-                "She assassinates you.",
-            }
-          };
+actions = {
+    "assassinated_in_tavern": 
+        {"dead": true, 
+         "message": 
+             "The first person you meet turns out to be an assassin. " +
+             "She assassinates you.",
+        },
+    "find_a_pretty_lady":
+        {"message":
+            "During your investigation, you find yourself talking to a " +
+            "pretty lady.",
+        },
+};
 
 //hald done
 locked = ["prison", "a dark cave", "a pirate ship"];
@@ -57,15 +64,15 @@ places = {"the tavern":  ["the streets"],
 
 function action_handler(req, res) {
     if (strip_action(req.body.action) === "Play again.") {
-        res.json({
-            "reload": true
-        });
+        res.json({"reload": true});
+        return;
     }
     var client_action = strip_action(req.body.action);
     var outcome_id = raffle_get(get_possible_outcomes_of_action(client_action));
-    var outcome = get_outcome(outcome_id);
+    var outcome = get_outcome(req.body.game_state, outcome_id);
+    
     if (!outcome.dead && !outcome.found_love) {
-        options = get_player_options(req.body.game_state, outcome_id);
+        options = get_player_options(outcome);
         outcome.options.a = options[0];
         outcome.options.b = options[1];
         outcome.options.c = options[2];
@@ -74,6 +81,7 @@ function action_handler(req, res) {
         outcome.options.a = "Play again.";
         outcome.options.b = "Don't play again.";
     }
+    console.log("server sending:", outcome);
     res.json(outcome);
 }
 
@@ -91,11 +99,12 @@ function create_outcome_template() {
            };
 }
 
-function get_outcome(outcome_id) {
+function get_outcome(game_state, outcome_id) {
     outcome = create_outcome_template();
     for (key in actions[outcome_id]) {
         outcome[key] = actions[outcome_id][key];        
     }
+    outcome.game_state = game_state;
     return outcome;
 }
 
@@ -104,7 +113,7 @@ function get_possible_outcomes_of_action(action) {
     if (action === "Ask about assassins.") {
         raffle_add(raffle, "assassinated_in_tavern", 5);
         //raffle_add(raffle, "no_one_wants_to_talk", 5);
-        //raffle_add(raffle, "find_a_pretty_lady", 5);
+        raffle_add(raffle, "find_a_pretty_lady", 5);
     }
     if (action === "Buy a drink.") {
         //raffle_add(raffle, "blind_bartender_grumbles", 5);
@@ -117,6 +126,7 @@ function get_possible_outcomes_of_action(action) {
 
 function get_player_options(outcome) {
     var a = {}, b = {}, c = {}, d = {};
+    console.log("outcome.game_state:", outcome.game_state);
     get_default_player_options(outcome.game_state, a, b, c, d);
     get_outcome_player_options(outcome.message, a, b, c, d);
     get_place_player_options(outcome.game_state, a, b, c, d);

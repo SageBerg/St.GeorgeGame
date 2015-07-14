@@ -1,11 +1,12 @@
-var game_state = {"place": "the tavern", 
-                  "person": null, 
-                  "character": {"items": ["cat"]},
-                 };
+game_state = {"place": "the tavern", 
+              "person": null, 
+              "character": {"items": ["cat"]},
+             };
 
-var message = "You are in a tavern. The local assassins hate you.";
+message = "You are in a tavern. The local assassins hate you.";
 
 function handle_action(resp) {
+    console.log("client receiving:", resp);
     if (resp.reload) {
         location.reload();
     }
@@ -13,7 +14,6 @@ function handle_action(resp) {
         resp.message += " You find yourself in " + game_state.place + "."; 
     }
     game_state = resp.game_state;
-    console.log(resp);
     document.getElementById("message").innerHTML = resp.message;
     document.getElementById("a").innerHTML = "a. " + resp.options["a"];
     var letters = "abcd";
