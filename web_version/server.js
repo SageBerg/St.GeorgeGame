@@ -28,7 +28,7 @@ console.log("Server started!"); //because feedback is nice
 
 
 
-// Game Data (will be stored in db if the size of the game gets unweidly
+// Game Data (will be stored in db if the size of the game gets unweidly)
 
 actions = {
     "assassinated_in_tavern": 
@@ -86,7 +86,7 @@ function action_handler(req, res) {
     res.json(outcome);
 }
 
-function enact_game_state_edits(game_state, game_state_edits) {
+function make_game_state_edits(game_state, game_state_edits) {
     for (key in game_state_edits) {
         if (key === "person") {
             game_state.person = game_state_edits.person;
@@ -115,7 +115,7 @@ function get_outcome(game_state, outcome_id) {
         outcome[key] = actions[outcome_id][key];        
     }
     outcome.game_state = game_state;
-    enact_game_state_edits(outcome.game_state, outcome.game_state_edits);
+    make_game_state_edits(outcome.game_state, outcome.game_state_edits);
     return outcome;
 }
 
@@ -139,7 +139,7 @@ function get_player_options(outcome) {
     var a = {}, b = {}, c = {}, d = {};
     console.log("outcome.game_state:", outcome.game_state);
     get_default_player_options(outcome.game_state, a, b, c, d);
-    get_npc_influenced_player_options(outcome.game_state.person, a, b, c, d);
+    get_npc_player_options(outcome.game_state.person, a, b, c, d);
     get_outcome_player_options(outcome.message, a, b, c, d);
     get_place_player_options(outcome.game_state, a, b, c, d);
     return [raffle_get(a), raffle_get(b), raffle_get(c), raffle_get(d)];
@@ -158,11 +158,11 @@ function get_default_player_options(game_state, raffle_a, raffle_b,
 }
 
 function get_outcome_player_options(message, raffle_a, raffle_b, 
-                                    raffle_c, raffle_d) {
+                                             raffle_c, raffle_d) {
 }
 
 function get_place_player_options(game_state, raffle_a, raffle_b, 
-                                  raffle_c, raffle_d) {
+                                              raffle_c, raffle_d) {
     if (game_state.place == "the tavern") {
         raffle_add(raffle_a, "Ask about assassins.", 1);
         raffle_add(raffle_b, "Buy a drink.", 2);
@@ -170,7 +170,7 @@ function get_place_player_options(game_state, raffle_a, raffle_b,
     }
 }
 
-function get_npc_influenced_player_options(npc, raffle_a, raffle_b, 
+function get_npc_player_options(npc, raffle_a, raffle_b, 
                                                 raffle_c, raffle_d) {
     if (npc === "pretty_lady") {
         raffle_add(raffle_b, "Flirt with the pretty lady.", 100);
