@@ -1,3 +1,14 @@
+/*
+ * The St. George Game (server)
+ * by Sage Berg
+ * developed in JavaScript 23 June 2015 
+ *                      to XX XXXX 2015
+ */
+
+
+
+// Server Setup
+
 var express = require('express'),
     http = require('http'),
     port = 3000,
@@ -11,97 +22,105 @@ server.listen(port);
 app.use(express.urlencoded());
 app.use(express.static(__dirname + "/client"));
 
-app.post("/take_action.json", take_action_handler);
+app.post("/action.json", action_handler);
 
-console.log("Server started!");
+console.log("Server started!"); //because feedback is nice
 
-function strip_action(string) {
-    return string.trim().slice(3, string.trim().length);
-}
 
-function take_action_handler(req, res) {
-  
+
+// Game Data (will be stored in db if the size of the game gets unweidly
+
+actions = {"assassinated_in_tavern": {"dead": true, 
+            "message": 
+                "The first person you meet turns out to be an assassin. " +
+                "She assassinates you.",
+            }
+          };
+
+//hald done
+locked = ["prison", "a dark cave", "a pirate ship"];
+
+//half done
+places = {"the tavern":  ["the streets"],
+          "the streets": ["the market", "the tower", "the church", 
+                          "a dark alley", "the docks", "the countryside"],
+          "the tower":   ["the streets"],
+          "the church":  ["the streets"],
+          "the docks":   ["the streets", "the market", "the ocean", 
+                          "the woods"],
+          "the woods":   ["the docks", "the countryside"],
+         };
+
+
+
+// Functions (listed in alphabetical order)
+
+function action_handler(req, res) {
     if (strip_action(req.body.action) === "Play again.") {
-        res.json({"reload": true});
+        res.json({
+            "reload": true
+        });
     }
-
-    //argument formatting
-    var action = strip_action(req.body.action);
-    
-    //get outcome
-    var possible_outcomes = get_possible_outcomes_of_action({}, action);
-    var outcome = {"new_game": false,
-                   "message": raffle_get(possible_outcomes),
-                   "moved": false,
-                   "options": {"a": "", 
-                               "b": "", 
-                               "c": "", 
-                               "d": "", 
-                               "e": ""},
-                   "game_state": req.body.game_state 
-                  };
-    outcome.new_game = all_outcomes[outcome.message].new_game;
-    if (all_outcomes[outcome.message].moved) {
-        outcome.moved = true;
-    }
-    
-    //get options
-    if (!outcome.new_game) {
-        options = get_player_options(req.body.game_state, outcome);
+    var client_action = strip_action(req.body.action);
+    var outcome_id = raffle_get(get_possible_outcomes_of_action(client_action));
+    var outcome = get_outcome(outcome_id);
+    if (!outcome.dead && !outcome.found_love) {
+        options = get_player_options(req.body.game_state, outcome_id);
         outcome.options.a = options[0];
         outcome.options.b = options[1];
         outcome.options.c = options[2];
         outcome.options.d = options[3];
     } else {
         outcome.options.a = "Play again.";
+        outcome.options.b = "Don't play again.";
     }
     res.json(outcome);
 }
 
-function get_possible_outcomes_of_action(raffle, action) { 
+function strip_action(string) {
+    return string.trim().slice(3, string.trim().length);
+}
+
+function create_outcome_template() {
+    return {"dead": false,
+            "game_state": {},
+            "found_love": false,
+            "message": "default message (you shouldn't be seeing this message)",
+            "options": {"a": "", "b": "", "c": "", "d": "", "e": "",},
+            "redload": false,
+           };
+}
+
+function get_outcome(outcome_id) {
+    outcome = create_outcome_template();
+    for (key in actions[outcome_id]) {
+        outcome[key] = actions[outcome_id][key];        
+    }
+    return outcome;
+}
+
+function get_possible_outcomes_of_action(action) { 
+    raffle = {};
     if (action === "Ask about assassins.") {
-        raffle_add(raffle, 
-                    "The first person you ask happens to be an assassin. " +
-                    "The assassin assassinates you."
-                   , 5);
-        /*
-        raffle_add(raffle, 
-                    "No one wants to talk to you."
-                   , 5);
-        raffle_add(raffle, 
-                    "During your investigation, " +
-                    "you find yourself talking to a pretty lady."
-                   , 5);
-        */
+        raffle_add(raffle, "assassinated_in_tavern", 5);
+        //raffle_add(raffle, "no_one_wants_to_talk", 5);
+        //raffle_add(raffle, "find_a_pretty_lady", 5);
     }
     if (action === "Buy a drink.") {
-        raffle_add(raffle, 
-                   "The blind bartender grumbles as he serves you a drink."
-                   , 5);
+        //raffle_add(raffle, "blind_bartender_grumbles", 5);
     }
     if (action === "Leave in a huff.") {
-        raffle_add(raffle, 
-                   ""
-                   , 5);
+        //raffle_add(raffle, "", 5);
     }
     return raffle;
 }
 
-function get_player_options(game_state, outcome) {
-    raffle_a = {};
-    raffle_b = {};
-    raffle_c = {};
-    raffle_d = {};
-    get_default_player_options(game_state, raffle_a, raffle_b, raffle_c, 
-                               raffle_d);
-    get_outcome_player_options(outcome.message, raffle_a, raffle_b,
-                               raffle_c, raffle_d);
-    get_place_player_options(game_state, raffle_a, raffle_b, raffle_c, 
-                             raffle_d);
-    return [raffle_get(raffle_a),
-            raffle_get(raffle_b),
-            raffle_get(raffle_c),
-            raffle_get(raffle_d)]
+function get_player_options(outcome) {
+    var a = {}, b = {}, c = {}, d = {};
+    get_default_player_options(outcome.game_state, a, b, c, d);
+    get_outcome_player_options(outcome.message, a, b, c, d);
+    get_place_player_options(outcome.game_state, a, b, c, d);
+    return [raffle_get(a), raffle_get(b), raffle_get(c), raffle_get(d)];
 }
 
 function get_default_player_options(game_state, raffle_a, raffle_b, 
@@ -134,34 +153,6 @@ function get_place_player_options(game_state, raffle_a, raffle_b,
         raffle_add(raffle_d, "Do some gambling.", 2);
     }
 }
-
-var places = {"the tavern":  ["the streets"],
-              "the streets": ["the market", "the tower", "the church", 
-                              "a dark alley", "the docks", "the countryside"],
-              "the tower":   ["the streets"],
-              "the church":  ["the streets"],
-              "the docks":   ["the streets", "the market", "the ocean", 
-                              "the woods"],
-              "the woods":   ["the docks", "the countryside"],
-             }
-
-var locked = ["prison", "a dark cave", "a pirate ship"];
-
-var all_outcomes = {
-    "The first person you ask happens to be an assassin. The assassin assassinates you."
-    : {
-        "new_game": true,
-    },
-    "The blind bartender grumbles as he serves you a drink."
-    : {
-        "new_game": true,
-    },
-    ""
-    : {
-        "new_game": true,
-        "moved": "true", 
-    },
-};
 
 function raffle_add(raffle, outcome, votes) {
     if (raffle[outcome]) {
