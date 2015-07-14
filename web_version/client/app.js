@@ -5,7 +5,7 @@ var game_state = {"place": "the tavern",
 
 var message = "You are in a tavern. The local assassins hate you.";
 
-function handle_take_action(resp) {
+function handle_action(resp) {
     if (resp.reload) {
         location.reload();
     }
@@ -29,11 +29,20 @@ function handle_take_action(resp) {
     }
 }
 
+function strip_action(string) {
+    return string.trim().slice(3, string.trim().length);
+}
+
 function call_post(letter) {
-    $.post("take_action.json", 
-           {"action": document.getElementById(letter).innerHTML,
-            "game_state": game_state}, 
-           handle_take_action);
+    if (strip_action(document.getElementById(letter).innerHTML) === 
+            "Don't play again.") {
+        window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+    } else {
+        $.post("action.json", 
+               {"action": document.getElementById(letter).innerHTML,
+                "game_state": game_state}, 
+               handle_action);
+    }
 }
 
 function main() {
