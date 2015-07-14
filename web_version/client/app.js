@@ -6,10 +6,10 @@ game_state = {"place": "the tavern",
 message = "You are in a tavern. The local assassins hate you.";
 
 function handle_action(resp) {
-    console.log("client receiving:", resp);
     if (resp.reload) {
         location.reload();
     }
+    console.log("client receiving person:", resp.game_state.person);
     if (resp.moved) {
         resp.message += " You find yourself in " + game_state.place + "."; 
     }

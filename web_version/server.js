@@ -41,6 +41,7 @@ actions = {
         {"message":
             "During your investigation, you find yourself talking to a " +
             "pretty lady.",
+         "game_state_edits": {"person": "pretty_lady"},
         },
 };
 
@@ -85,6 +86,14 @@ function action_handler(req, res) {
     res.json(outcome);
 }
 
+function enact_game_state_edits(game_state, game_state_edits) {
+    for (key in game_state_edits) {
+        if (key === "person") {
+            game_state.person = game_state_edits.person;
+        }
+    }
+}
+
 function strip_action(string) {
     return string.trim().slice(3, string.trim().length);
 }
@@ -92,6 +101,7 @@ function strip_action(string) {
 function create_outcome_template() {
     return {"dead": false,
             "game_state": {},
+            "game_state_edits": {},
             "found_love": false,
             "message": "default message (you shouldn't be seeing this message)",
             "options": {"a": "", "b": "", "c": "", "d": "", "e": "",},
@@ -105,6 +115,7 @@ function get_outcome(game_state, outcome_id) {
         outcome[key] = actions[outcome_id][key];        
     }
     outcome.game_state = game_state;
+    enact_game_state_edits(outcome.game_state, outcome.game_state_edits);
     return outcome;
 }
 
@@ -128,6 +139,7 @@ function get_player_options(outcome) {
     var a = {}, b = {}, c = {}, d = {};
     console.log("outcome.game_state:", outcome.game_state);
     get_default_player_options(outcome.game_state, a, b, c, d);
+    get_npc_influenced_player_options(outcome.game_state.person, a, b, c, d);
     get_outcome_player_options(outcome.message, a, b, c, d);
     get_place_player_options(outcome.game_state, a, b, c, d);
     return [raffle_get(a), raffle_get(b), raffle_get(c), raffle_get(d)];
@@ -147,12 +159,6 @@ function get_default_player_options(game_state, raffle_a, raffle_b,
 
 function get_outcome_player_options(message, raffle_a, raffle_b, 
                                     raffle_c, raffle_d) {
-    if (message == 
-            "During your investigation, " +
-            "you find yourself talking to a pretty lady."
-       ) {
-        raffle_add(raffle_b, "Flirt with the pretty lady.", 100);
-    }
 }
 
 function get_place_player_options(game_state, raffle_a, raffle_b, 
@@ -161,6 +167,13 @@ function get_place_player_options(game_state, raffle_a, raffle_b,
         raffle_add(raffle_a, "Ask about assassins.", 1);
         raffle_add(raffle_b, "Buy a drink.", 2);
         raffle_add(raffle_d, "Do some gambling.", 2);
+    }
+}
+
+function get_npc_influenced_player_options(npc, raffle_a, raffle_b, 
+                                                raffle_c, raffle_d) {
+    if (npc === "pretty_lady") {
+        raffle_add(raffle_b, "Flirt with the pretty lady.", 100);
     }
 }
 
