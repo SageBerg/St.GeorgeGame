@@ -45,26 +45,6 @@ actions = {
         },
 };
 
-//hald done
-locked = ["prison", "a dark cave", "a pirate ship"];
-
-//half done
-places = {"the tavern":  ["the streets"],
-          "the streets": ["the market", "the tower", "the church", 
-                          "a dark alley", "the docks", "the countryside"],
-          "the tower":   ["the streets"],
-          "the church":  ["the streets"],
-          "the docks":   ["the streets", "the market", "the ocean", 
-                          "the woods"],
-          "the woods":   ["the docks", "the countryside"],
-         };
-
-persons = {
-    "pretty_lady": {"name": "the pretty lady",
-                    "attack": 1,
-                    "attracted": 0}
-};
-
 
 
 // Functions (listed in alphabetical order)
@@ -88,7 +68,7 @@ function action_handler(req, res) {
         outcome.options.a = "Play again.";
         outcome.options.b = "Don't play again.";
     }
-    console. log("servehop boys full album sending:", outcome);
+    console. log("server sending:", outcome);
     res.json(outcome);
 }
 
