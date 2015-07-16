@@ -30,6 +30,253 @@ console.log("Server started!"); //because feedback is nice
 
 // Game Data (will be stored in db if the size of the game gets unweidly)
 
+//outcome ids map to outcome objects
+persons = {
+    "assassin":
+    {
+        "alive": true,
+        "attack": 6,
+        "attracted": 0,
+        "name": "an assassin",
+        "prefered_attack": "assassinate",
+        "sells": [],
+        "type": "female", 
+    },
+    "assassins":
+    {
+        "alive": true,
+        "attack": 7,
+        "attracted": 0,
+        "name": "some assassins",
+        "prefered_attack": "assassinate",
+        "sells": [],
+        "type": "group", 
+    },
+    "black_market_merchant":
+    {
+        "alive": true,
+        "attack": 4,
+        "attracted": 0,
+        "name": "a merchant of ill repute",
+        "prefered_attack": "kill",
+        "sells": ["deep_cave_newt", "love_potion", "many_colored_mushroom", 
+                  "white_mushroom", "black_mushroom", "fire_proof_cloak",
+                  "strength_potion"],
+        "type": "female",
+    },
+    "blind_bartender":
+    {
+        "alive": true,
+        "attack": 1,
+        "attracted": 0,
+        "name": "the blind bartender",
+        "prefered_attack": "kill",
+        "sells": [],
+        "type": "male", 
+    },
+    "eve":
+    {
+        "alive": true,
+        "attack": 4,
+        "attracted": 1,
+        "name": "Lord Carlos' daughter",
+        "prefered_attack": "assassinate",
+        "sells": [],
+        "type": "female", 
+    },
+    "felicity":
+    {
+        "alive": true,
+        "attack": 4,
+        "attracted": 1,
+        "name": "the fat lady",
+        "prefered_attack": "kill",
+        "sells": [],
+        "type": "female", 
+    },
+    "guards":
+    {
+        "alive": true,
+        "attack": 4,
+        "attracted": 0,
+        "name": "the guards",
+        "prefered_attack": "arrest",
+        "sells": [],
+        "type": "group", 
+    },
+    "lord_arthur":
+    {
+        "alive": true,
+        "attack": 7,
+        "attracted": 0,
+        "name": "Lord Arthur",
+        "prefered_attack": "walk_the_plank",
+        "sells": [],
+        "type": "male", 
+    },
+    "lord_bartholomew":
+    {
+        "alive": true,
+        "attack": 6,
+        "attracted": 0,
+        "name": "Lord Bartholomew",
+        "prefered_attack": "kill",
+        "sells": [],
+        "type": "male", 
+    },
+    "lord_carlos":
+    {
+        "alive": true,
+        "attack": 5,
+        "attracted": 0,
+        "name": "Lord Carlos",
+        "prefered_attack": "assassinate",
+        "sells": [],
+        "type": "male", 
+    },
+    "lord_daniel":
+    {
+        "alive": true,
+        "attack": 8,
+        "attracted": 0,
+        "name": "Lord Daniel",
+        "prefered_attack": "arrest",
+        "sells": [],
+        "type": "male",
+    },
+    "merchant":
+    {
+        "alive": true,
+        "attack": 3,
+        "attracted": 0,
+        "name": "the merchant woman",
+        "prefered_attack": "drown",
+        "sells": ["ax", "flowers", "sailor_peg", "pearl", "fish"],
+        "type": "female",
+    },
+    "mermaid":
+    {
+        "alive": true,
+        "attack": 3,
+        "attracted": 1,
+        "name": "the mermaid",
+        "prefered_attack": "drown",
+        "sells": [],
+        "type": "female", 
+    },
+    "mob":
+    {
+        "alive": true,
+        "attack": 9,
+        "attracted": 0,
+        "name": "the angry mob",
+        "prefered_attack": "burn",
+        "sells": [],
+        "type": "group", 
+    },
+    "nymph_queen":
+    {
+        "alive": true,
+        "attack": 10,
+        "attracted": 1,
+        "name": "the nymph queen",
+        "prefered_attack": "hex",
+        "sells": [],
+        "type": "female", 
+    },
+    "olga":
+    {
+        "alive": true,
+        "attack": 1,
+        "attracted": 1,
+        "name": "the pretty lady",
+        "prefered_attack": "kill",
+        "sells": [],
+        "type": "female", 
+    },
+    "other_lunatics":
+    {
+        "alive": true,
+        "attack": -1,
+        "attracted": 0,
+        "name": "the other lunatics",
+        "prefered_attack": "kill",
+        "sells": [],
+        "type": "group", 
+    },
+    "peasant_lass":
+    {
+        "alive": true,
+        "attack": 7,
+        "attracted": 0,
+        "name": "the peasant lass",
+        "prefered_attack": "kill",
+        "sells": ["many_colored_mushroom", "white_mushroom"],
+        "type": "female", 
+    },
+    "pirates":
+    {
+        "alive": true,
+        "attack": 6,
+        "attracted": 0,
+        "name": "the pirates",
+        "prefered_attack": "kill",
+        "type": "group", 
+    },
+    "simple_peasant":
+    {
+        "alive": true,
+        "attack": -1,
+        "attracted": 0,
+        "name": "the simple peasant",
+        "prefered_attack": "kill",
+        "sells": [],
+        "type": "male", 
+    },
+    "st_george":
+    {
+        "alive": true,
+        "attack": 100,
+        "attracted": 0,
+        "name": "St. George",
+        "prefered_attack": "smite",
+        "sells": [],
+        "type": "male", 
+    },
+    "war_merchant":
+    {
+        "alive": true,
+        "attack": 7,
+        "attracted": 0,
+        "name": "the wealthy war merchant",
+        "prefered_attack": "kill",
+        "sells": ["dagger", "poison_dagger", "cutlass", "jeweled_cutlass", 
+                  "hammer", "iron_hammer"],
+        "type": "male", 
+    },
+    "witch":
+    {
+        "alive": true,
+        "attack": 7,
+        "attracted": 0,
+        "name": "the witch",
+        "prefered_attack": "toad",
+        "sells": ["love_potion", "tail_potion", "strength_potion"],
+        "type": "female", 
+    },
+    "wizard":
+    {
+        "alive": true,
+        "attack": 7,
+        "attracted": 0,
+        "name": "the wizard",
+        "prefered_attack": "toad",
+        "sells": [],
+        "type": "male", 
+    },
+};
+
+
 actions = {
     "assassinated_in_tavern": 
         {"dead": true, 
@@ -41,13 +288,31 @@ actions = {
         {"message":
             "During your investigation, you find yourself talking to a " +
             "pretty lady.",
-         "game_state_edits": {"person": "pretty_lady"},
+         "game_state_edits": {"person": persons.olga},
+        },
+    "no_one_wants_to_talk":
+        {"message":
+            "No one wants to talk to you.",
+            //add kill yourself in frustration
+        },
+    "bartender_grumbles":
+        {"message":
+            "The blind bartender grumbles as a he passes you a drink.",
+         "game_state_edits": {"person": persons.blind_bartender},
+        },
+    "you_get_killed": 
+        {"dead": true, 
+         "message": 
+             "You get killed.",
+        },
+    "you_kill": 
+        {
+         "message": 
+             "PLACEHOLDER.",
         },
 };
 
-
-
-// Functions (listed in alphabetical order)
+// Functions
 
 function action_handler(req, res) {
     if (strip_action(req.body.action) === "Play again.") {
@@ -55,7 +320,9 @@ function action_handler(req, res) {
         return;
     }
     var client_action = strip_action(req.body.action);
-    var outcome_id = raffle_get(get_possible_outcomes_of_action(client_action));
+    var outcome_raffle = get_possible_outcomes_of_action(req.body.game_state, 
+                                                         client_action);
+    var outcome_id = raffle_get(outcome_raffle);
     var outcome = get_outcome(req.body.game_state, outcome_id);
     
     if (!outcome.dead && !outcome.found_love) {
@@ -68,7 +335,6 @@ function action_handler(req, res) {
         outcome.options.a = "Play again.";
         outcome.options.b = "Don't play again.";
     }
-    console. log("server sending:", outcome);
     res.json(outcome);
 }
 
@@ -89,7 +355,7 @@ function create_outcome_template() {
             "game_state": {},
             "game_state_edits": {},
             "found_love": false,
-            "message": "default message (you shouldn't be seeing this message)",
+            "message": "error: (you shouldn't be seeing this message)",
             "options": {"a": "", "b": "", "c": "", "d": "", "e": "",},
             "redload": false,
            };
@@ -105,15 +371,24 @@ function get_outcome(game_state, outcome_id) {
     return outcome;
 }
 
-function get_possible_outcomes_of_action(action) { 
+function get_possible_outcomes_of_action(game_state, action) { 
     raffle = {};
+    if (action.split(" ")[0] === "Attack") {
+        if (game_state.character.attack_strength > game_state.person.attack) {
+            raffle_add(raffle, "you_kill", 1);
+            return raffle;
+        } else {
+            raffle_add(raffle, "you_get_killed", 1);
+            return raffle;
+        }
+    }
     if (action === "Ask about assassins.") {
-        raffle_add(raffle, "assassinated_in_tavern", 5);
-        //raffle_add(raffle, "no_one_wants_to_talk", 5);
-        raffle_add(raffle, "find_a_pretty_lady", 5);
+        //raffle_add(raffle, "assassinated_in_tavern", 5);
+        raffle_add(raffle, "no_one_wants_to_talk", 5);
+        //raffle_add(raffle, "find_a_pretty_lady", 5);
     }
     if (action === "Buy a drink.") {
-        //raffle_add(raffle, "blind_bartender_grumbles", 5);
+        raffle_add(raffle, "bartender_grumbles", 5);
     }
     if (action === "Leave in a huff.") {
         //raffle_add(raffle, "", 5);
@@ -123,7 +398,6 @@ function get_possible_outcomes_of_action(action) {
 
 function get_player_options(outcome) {
     var a = {}, b = {}, c = {}, d = {};
-    console.log("outcome.game_state:", outcome.game_state);
     get_default_player_options(outcome.game_state, a, b, c, d);
     get_npc_player_options(outcome.game_state.person, a, b, c, d);
     get_outcome_player_options(outcome.message, a, b, c, d);
@@ -157,9 +431,23 @@ function get_place_player_options(game_state, raffle_a, raffle_b,
 }
 
 function get_npc_player_options(npc, raffle_a, raffle_b, 
-                                                raffle_c, raffle_d) {
-    if (npc === "pretty_lady") {
+                                     raffle_c, raffle_d) {
+    if (npc !== null && npc !== "") {
+        raffle_add(raffle_a, "Attack " + get_her_him_or_them(npc) + ".", 10);
+    }
+    if (npc.name === "pretty_lady") {
         raffle_add(raffle_b, "Flirt with the pretty lady.", 100);
+    }
+}
+
+function get_her_him_or_them(npc) {
+    switch (npc.type) {
+        case "female":
+            return "her";
+        case "group":
+            return "them";
+        case "male":
+            return "him";
     }
 }
 
