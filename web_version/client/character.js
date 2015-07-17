@@ -1,5 +1,5 @@
 character = {
-    "attack_strength": 0,
+    "attack_strength": 10,
     "items": {
               "ax": 0,
               "black_mushroom": 0,
@@ -34,4 +34,5 @@ character = {
               "yellow_mushroom": 0,
     }, 
     "money": "no money",
+    "threatened": false,
 };
