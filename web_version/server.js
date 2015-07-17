@@ -276,6 +276,228 @@ persons = {
     },
 };
 
+places = {
+    "arctic": 
+    {
+        "burnable":  false,
+        "links":     ["ocean"],
+        "locked":    false,
+        "name":      "the Arctic",
+        "outside":   true,
+        "populated": false,
+        "town":      false,
+        "trashable": false,
+    },
+    "cave": 
+    {
+        "burnable":  false,
+        "links":     ["ocean"],
+        "locked":    true,
+        "name":      "a dark cave",
+        "outside":   true,
+        "populated": false,
+        "town":      false,
+        "trashable": false,
+    },
+    "church": 
+    {
+        "burnable":  true,
+        "links":     ["market", "streets"],
+        "locked":    false,
+        "name":      "the church",
+        "outside":   false,
+        "populated": true,
+        "town":      true,
+        "trashable": false,
+    },
+    "countryside": 
+    {
+        "burnable":  false,
+        "links":     ["lord_bartholomew_manor", "streets", "woods"],
+        "locked":    false,
+        "name":      "the countryside",
+        "outside":   true,
+        "populated": true,
+        "town":      false,
+        "trashable": false,
+    },
+    "dark_alley": 
+    {
+        "burnable":  false,
+        "links":     ["streets"],
+        "locked":    false,
+        "name":      "a dark alley",
+        "outside":   true,
+        "populated": true,
+        "town":      true,
+        "trashable": false,
+    },
+    "docks": 
+    {
+        "burnable":  false,
+        "links":     ["market", "ocean", "streets", "woods"],
+        "locked":    false,
+        "name":      "the docks",
+        "outside":   true,
+        "populated": true,
+        "town":      true,
+        "trashable": false,
+    },
+    "lord_bartholomew_manor": 
+    {
+        "burnable":  true,
+        "links":     ["countryside"],
+        "locked":    false,
+        "name":      "Lord Bartholomew's Manor",
+        "outside":   false,
+        "populated": true,
+        "town":      false,
+        "trashable": false,
+    },
+    "lord_carlos_manor": 
+    {
+        "burnable":  true,
+        "links":     ["woods"],
+        "locked":    false,
+        "name":      "Lord Carlos' Manor",
+        "outside":   false,
+        "populated": true,
+        "town":      false,
+        "trashable": true,
+    },
+    "market": 
+    {
+        "burnable":  true,
+        "links":     ["church", "streets", "docks", "wizard_lab"],
+        "locked":    false,
+        "name":      "the market",
+        "outside":   true,
+        "populated": true,
+        "town":      true,
+        "trashable": true,
+    },
+    "mermaid_rock":
+    {
+        "burnable":  false,
+        "links":     ["ocean"],
+        "locked":    false,
+        "name":      "the docks",
+        "outside":   true,
+        "populated": false,
+        "town":      false,
+        "trashable": false,
+    },
+    "ocean": 
+    {
+        "burnable":  false,
+        "links":     [],
+        "locked":    true,
+        "name":      "the ocean",
+        "outside":   true,
+        "populated": false,
+        "town":      false,
+        "trashable": false,
+    },
+    "pirate_ship": 
+    {
+        "burnable":  false,
+        "links":     [],
+        "locked":    true,
+        "name":      "Lord Arthur's Pirate Ship",
+        "outside":   true,
+        "populated": true,
+        "town":      false,
+        "trashable": false,
+    },
+    "prison": 
+    {
+        "burnable":  false,
+        "links":     [],
+        "locked":    true,
+        "name":      "the docks",
+        "outside":   false,
+        "populated": true,
+        "town":      false,
+        "trashable": false,
+    },
+    "streets": 
+    {
+        "burnable":  false,
+        "links":     ["church", "countryside", "market", "tavern", "tower"],
+        "locked":    false,
+        "name":      "the streets",
+        "outside":   true,
+        "populated": true,
+        "town":      true,
+        "trashable": false,
+    },
+    "tavern": 
+    {
+        "burnable":  true,
+        "links":     ["streets"],
+        "locked":    false,
+        "name":      "the tavern",
+        "outside":   false,
+        "populated": true,
+        "town":      true,
+        "trashable": false,
+    },
+    "tower": 
+    {
+        "burnable":  true,
+        "links":     ["streets"],
+        "locked":    false,
+        "name":      "the tower",
+        "outside":   false,
+        "populated": true,
+        "town":      true,
+        "trashable": false,
+    },
+    "upstairs": 
+    {
+        "burnable":  false,
+        "links":     ["tavern"],
+        "locked":    false,
+        "name":      "the docks",
+        "outside":   false,
+        "populated": false,
+        "town":      false,
+        "trashable": true,
+    },
+    "void": 
+    {
+        "burnable":  false,
+        "links":     [],
+        "locked":    true,
+        "name":      "the void",
+        "outside":   false,
+        "populated": false,
+        "town":      false,
+        "trashable": false,
+    },
+    "wizard_lab": 
+    {
+        "burnable":  true,
+        "links":     ["market"],
+        "locked":    false,
+        "name":      "the wizard's lab",
+        "outside":   false,
+        "populated": false,
+        "town":      false,
+        "trashable": true,
+    },
+    "woods": 
+    {
+        "burnable":  true,
+        "links":     ["countryside", "lord_carlos_manor", "ocean", "docks"],
+        "locked":    false,
+        "name":      "the woods",
+        "outside":   true,
+        "populated": false,
+        "town":      false, 
+        "trashable": false,
+    },
+};
 
 actions = {
     "assassinated_in_tavern": 
@@ -308,7 +530,8 @@ actions = {
     "you_kill": 
         {
          "message": 
-             "PLACEHOLDER.",
+             "You kill",
+         "game_state_edits": {"person": ""},
         },
 };
 
@@ -324,7 +547,7 @@ function action_handler(req, res) {
                                                          client_action);
     var outcome_id = raffle_get(outcome_raffle);
     var outcome = get_outcome(req.body.game_state, outcome_id);
-    
+  
     if (!outcome.dead && !outcome.found_love) {
         options = get_player_options(outcome);
         outcome.options.a = options[0];
@@ -336,6 +559,13 @@ function action_handler(req, res) {
         outcome.options.b = "Don't play again.";
     }
     res.json(outcome);
+}
+
+function complete_message_based_on_context(outcome) {
+    if (outcome.message === "You kill") {
+        outcome.message += " " + outcome.game_state.person.name + ".";
+        outcome.game_state.person.alive = false;
+    }
 }
 
 function make_game_state_edits(game_state, game_state_edits) {
@@ -367,6 +597,7 @@ function get_outcome(game_state, outcome_id) {
         outcome[key] = actions[outcome_id][key];        
     }
     outcome.game_state = game_state;
+    complete_message_based_on_context(outcome);
     make_game_state_edits(outcome.game_state, outcome.game_state_edits);
     return outcome;
 }
@@ -411,10 +642,21 @@ function get_default_player_options(game_state, raffle_a, raffle_b,
     raffle_add(raffle_a, "Lick the ground.", 1);
     raffle_add(raffle_b, "Pray to a higher power.", 1);
     raffle_add(raffle_c, "Go to sleep.", 1);
-    //raffle_add(raffle_c, "Go to" + get_adjacent_place(game_state) + ".", 1);
+    if (game_state.place.links) {
+        raffle_add(raffle_c, 
+                   "Go to " + get_adjacent_place(game_state.place) + ".", 10);
+    }
     raffle_add(raffle_c, "Leave in a puff.", 1);
     raffle_add(raffle_d, "Sing a song.", 1);
     raffle_add(raffle_d, "Dance a jig.", 1);
+}
+
+function get_adjacent_place(place) {
+    raffle = {};
+    for (i in place.links) {
+        raffle_add(raffle, places[place.links[i]].name, 1);
+    }
+    return raffle_get(raffle);
 }
 
 function get_outcome_player_options(message, raffle_a, raffle_b, 
@@ -423,7 +665,7 @@ function get_outcome_player_options(message, raffle_a, raffle_b,
 
 function get_place_player_options(game_state, raffle_a, raffle_b, 
                                               raffle_c, raffle_d) {
-    if (game_state.place == "the tavern") {
+    if (game_state.place === "the tavern") {
         raffle_add(raffle_a, "Ask about assassins.", 1);
         raffle_add(raffle_b, "Buy a drink.", 2);
         raffle_add(raffle_d, "Do some gambling.", 2);
