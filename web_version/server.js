@@ -522,6 +522,11 @@ actions = {
             "The blind bartender grumbles as a he passes you a drink.",
          "game_state_edits": {"person": persons.blind_bartender},
         },
+    "random_move":
+        {"message":
+            "",
+         "moved": true,
+        },
     "you_get_killed": 
         {"dead": true, 
          "message": 
@@ -586,6 +591,7 @@ function create_outcome_template() {
             "game_state_edits": {},
             "found_love": false,
             "message": "error: (you shouldn't be seeing this message)",
+            "moved": false,
             "options": {"a": "", "b": "", "c": "", "d": "", "e": "",},
             "redload": false,
            };
@@ -607,10 +613,8 @@ function get_possible_outcomes_of_action(game_state, action) {
     if (action.split(" ")[0] === "Attack") {
         if (game_state.character.attack_strength > game_state.person.attack) {
             raffle_add(raffle, "you_kill", 1);
-            return raffle;
         } else {
             raffle_add(raffle, "you_get_killed", 1);
-            return raffle;
         }
     }
     if (action === "Ask about assassins.") {
@@ -622,9 +626,16 @@ function get_possible_outcomes_of_action(game_state, action) {
         raffle_add(raffle, "bartender_grumbles", 5);
     }
     if (action === "Leave in a huff.") {
-        //raffle_add(raffle, "", 5);
+        raffle_add(raffle, "random_move", 1);
+        game_state.place = 
+            places[game_state.place].links[
+                randint(places[game_state.place].links.length)];
     }
     return raffle;
+}
+
+function randint(n) {
+    return Math.floor(Math.random() * n);
 }
 
 function get_player_options(outcome) {
@@ -641,12 +652,13 @@ function get_default_player_options(game_state, raffle_a, raffle_b,
     raffle_add(raffle_a, "Think.", 1);
     raffle_add(raffle_a, "Lick the ground.", 1);
     raffle_add(raffle_b, "Pray to a higher power.", 1);
-    raffle_add(raffle_c, "Go to sleep.", 1);
-    if (game_state.place.links) {
-        raffle_add(raffle_c, 
-                   "Go to " + get_adjacent_place(game_state.place) + ".", 10);
+    //raffle_add(raffle_c, "Go to sleep.", 1);
+    if (places[game_state.place].links.length > 0) {
+        //raffle_add(raffle_c, 
+        //           "Go to " + get_adjacent_place(game_state.place) + ".", 10);
+        raffle_add(raffle_c, "Leave in a huff.", 1);
     }
-    raffle_add(raffle_c, "Leave in a puff.", 1);
+    //raffle_add(raffle_c, "Leave in a puff.", 1);
     raffle_add(raffle_d, "Sing a song.", 1);
     raffle_add(raffle_d, "Dance a jig.", 1);
 }
