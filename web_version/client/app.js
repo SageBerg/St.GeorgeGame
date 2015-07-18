@@ -8,7 +8,8 @@ function handle_action(resp) {
     //console.log("client receiving person:", resp.game_state.person);
     game_state = resp.game_state;
     if (resp.moved) {
-        resp.message += " You find yourself in " + game_state.place + "."; 
+        resp.message += "You find yourself in " + 
+                        places[game_state.place].name + "."; 
     }
     document.getElementById("message").innerHTML = resp.message;
     document.getElementById("a").innerHTML = "a. " + resp.options["a"];
