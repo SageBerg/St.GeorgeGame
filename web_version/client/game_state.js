@@ -2,6 +2,6 @@ game_state = {
     "character": character,
     "person":    null, 
     "persons":   persons,
-    "place":     places.tavern, 
+    "place":     "tavern", 
     "places":    places 
 };
