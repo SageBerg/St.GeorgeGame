@@ -506,6 +506,13 @@ actions = {
              "The first person you meet turns out to be an assassin. " +
              "She assassinates you.",
         },
+    "assassins_notice_singing":
+        {"message":
+            "Some men in dark cloaks notice your singing and start edging " +
+            "towards you.",
+         "character_edits": {"person": persons.assassins, "threatened": true},
+         "game_state_edits": {"person": persons.assassins},
+        },
     "find_a_pretty_lady":
         {"message":
             "During your investigation, you find yourself talking to a " +
@@ -581,19 +588,31 @@ function make_game_state_edits(game_state, game_state_edits) {
     }
 }
 
+function make_character_edits(game_state, character_edits) {
+    for (key in character_edits) {
+        if (key === "person") {
+            game_state.character.person = character_edits.person;
+        }
+        if (key === "threatened") {
+            game_state.character.threatened = character_edits.threatened;
+        }
+    }
+}
+
 function strip_action(string) {
     return string.trim().slice(3, string.trim().length);
 }
 
 function create_outcome_template() {
-    return {"dead": false,
+    return {"character_edits": {},
+            "dead": false,
             "game_state": {},
             "game_state_edits": {},
             "found_love": false,
             "message": "error: (you shouldn't be seeing this message)",
             "moved": false,
             "options": {"a": "", "b": "", "c": "", "d": "", "e": "",},
-            "redload": false,
+            "redload": false, //factor this out
            };
 }
 
@@ -605,18 +624,28 @@ function get_outcome(game_state, outcome_id) {
     outcome.game_state = game_state;
     complete_message_based_on_context(outcome);
     make_game_state_edits(outcome.game_state, outcome.game_state_edits);
+    make_character_edits(outcome.game_state, outcome.character_edits);
     return outcome;
+}
+
+function fight(game_state, raffle) {
+    if (game_state.character.attack_strength > game_state.person.attack) {
+        raffle_add(raffle, "you_kill", 1);
+    } else {
+        raffle_add(raffle, "you_get_killed", 1);
+    }
 }
 
 function get_possible_outcomes_of_action(game_state, action) { 
     raffle = {};
-    if (action.split(" ")[0] === "Attack") {
-        if (game_state.character.attack_strength > game_state.person.attack) {
-            raffle_add(raffle, "you_kill", 1);
-        } else {
-            raffle_add(raffle, "you_get_killed", 1);
-        }
+    if (action.split(" ")[0] === "Attack" || 
+        game_state.character.threatened === true &&
+        action !== "Run like the Devil." &&
+        action !== "Waddle like God." && 
+        action !== "Leave in a puff.") {
+        fight(game_state, raffle);
     }
+
     if (action === "Ask about assassins.") {
         //raffle_add(raffle, "assassinated_in_tavern", 5);
         raffle_add(raffle, "no_one_wants_to_talk", 5);
@@ -630,6 +659,11 @@ function get_possible_outcomes_of_action(game_state, action) {
         game_state.place = 
             places[game_state.place].links[
                 randint(places[game_state.place].links.length)];
+    }
+    if (action === "Sing a song.") {
+        if (game_state.place === "tavern") {
+            raffle_add(raffle, "assassins_notice_singing", 1);
+        }
     }
     return raffle;
 }

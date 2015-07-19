@@ -1,5 +1,7 @@
 character = {
     "attack_strength": 10,
+    "dead": false,
+    "found_love": false,
     "items": {
               "ax": 0,
               "black_mushroom": 0,
@@ -34,5 +36,8 @@ character = {
               "yellow_mushroom": 0,
     }, 
     "money": "no money",
+    "moved": false,
+    "person": null,
+    "place": "tavern",
     "threatened": false,
 };
