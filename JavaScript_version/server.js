@@ -1,10 +1,9 @@
 "use strict";
 
-//var action      = require("./actions").actions;
 var character   = require("./character").character;
 var destringify = require("./destringify_http").destringify;
 var options     = require("./options");
-//var outcomes    = require("./outcomes").outcomes;
+var outcomes    = require("./outcomes");
 var persons     = require("./persons").persons;
 var places      = require("./places").places;
 
@@ -36,21 +35,10 @@ function respond_with_initial_world(req, res) {
 }
 
 function respond_with_outcome(req, res) {
-    var game_state        = req.query;
-    destringify(game_state); //because HTTP turns booleans into strings
-    var outcome           = "assassinated"; //raffle.get(possible_outcomes);
-    game_state            = apply_outcome(outcome, game_state);
-    game_state.options    = options.get_options(game_state);
+    var game_state     = req.query;
+    game_state         = destringify(game_state);
+    var outcome        = outcomes.get_outcome(game_state);
+    game_state         = outcomes.apply_outcome(outcome, game_state);
+    game_state.options = options.get_options(game_state);
     res.json(game_state);
-}
-
-function apply_outcome(outcome, game_state) {
-    if (outcome === "assassinated") {
-        game_state.message = "You get assassinated.";
-        //game_state.character.is_dead = true;
-    } else {
-        game_state.message = "Error: No outcome!";
-    }
-    game_state.action = null; //the player hasn't chosen a new action yet
-    return game_state
 }
