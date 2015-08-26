@@ -1,0 +1,19 @@
+{
+  "name": "st_george_game",
+  "version": "1.0.0",
+  "description": "a multiple choice rpg",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SageBerg/St.GeorgeGame.git"
+  },
+  "author": "Sage Berg",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SageBerg/St.GeorgeGame/issues"
+  },
+  "homepage": "https://github.com/SageBerg/St.GeorgeGame#readme"
+}
