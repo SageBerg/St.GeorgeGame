@@ -1,27 +1,27 @@
 "use strict";
 
-var persons   = require("./persons").persons;
-var places    = require("./places").places;
-var actions   = require("./actions").actions;
-var character = require("./character").character;
+//var action      = require("./actions").actions;
+var character   = require("./character").character;
+var destringify = require("./destringify_http").destringify;
+var options     = require("./options");
+//var outcomes    = require("./outcomes").outcomes;
+var persons     = require("./persons").persons;
+var places      = require("./places").places;
 
-var express   = require('express');
-var http      = require('http');
-var port      = 3000;
+var express     = require('express');
+var http        = require('http');
+var port        = 3000;
 var app;
 var server;
 
 app = express();
-server = http.createServer(app);
-server.listen(port);
-
-//app.use(express.urlencoded());
-app.use(express.static(__dirname));
 
 app.get("/request_initial_world.json", respond_with_initial_world);
 app.get("/request_outcome_of_action.json", respond_with_outcome); 
+app.use(express.static(__dirname));
 
-console.log("Server started on port: " + port); //because feedback is nice
+server = http.createServer(app);
+server.listen(port);
 
 function respond_with_initial_world(req, res) {
     var game_state = {
@@ -33,7 +33,8 @@ function respond_with_initial_world(req, res) {
                 "a": "Ask about assassins",
                 "b": "Buy a drink",
                 "c": "Leave in a huff",
-                "d": "Sing a song"
+                "d": "Sing a song",
+                "e": ""
             },
         "persons": persons,
         "places": places,
@@ -42,6 +43,22 @@ function respond_with_initial_world(req, res) {
 }
 
 function respond_with_outcome(req, res) {
-    console.log(req.query.game_state.action);
-    //res.json();
+    var game_state        = req.query;
+    destringify(game_state); //because HTTP turns booleans into strings
+    //var possible_outcomes = get_possible_outcomes(action, game_state); 
+    var outcome           = "assassinated"; //raffle.get(possible_outcomes);
+    game_state            = apply_outcome(outcome, game_state);
+    game_state.options    = options.get_options(game_state);
+    res.json(game_state);
+}
+
+function apply_outcome(outcome, game_state) {
+    if (outcome === "assassinated") {
+        game_state.message = "You get assassinated.";
+        //game_state.character.is_dead = true;
+    } else {
+        game_state.message = "Error: No outcome!";
+    }
+    game_state.action = null; //the player hasn't chosen a new action yet
+    return game_state
 }
