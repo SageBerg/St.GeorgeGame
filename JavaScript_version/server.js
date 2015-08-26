@@ -26,10 +26,10 @@ function respond_with_initial_world(req, res) {
     var game_state = {
         "action":    null,
         "character": character,
-        "message":   "You are in a tavern. The local assassins hate you",
+        "message":   "You are in a tavern. The local assassins hate you.",
         "options":   options.default_options,
         "persons":   persons,
-        "places":    places,
+        "places":    places
     };
     res.json(game_state);
 }
