@@ -1,6 +1,6 @@
-/* raffle should be an object with an attribute "size" initially set to 0 */ 
-function raffle_add(raffle, outcome, votes) {
-    raffle["size"] += votes;
+"use strict";
+
+exports.add = function raffle_add(raffle, outcome, votes) {
     if (raffle[outcome]) {
         raffle[outcome] += votes;
     } else {
@@ -8,21 +8,17 @@ function raffle_add(raffle, outcome, votes) {
     }
 }
 
-/* this raffle is designed and intended for single drawings */
-function raffle_get(raffle) {
-    var roll = randint(raffle.size);
-    for (key in raffle) {
-        if (key != "size") { 
-        // the "size" attribute is part of the raffle, but shouldn't be drawn 
-            roll -= raffle[key];
-            if (roll <= 0) {
-                break;
-            }
+exports.get = function raffle_get(raffle) {
+    var raffle_size = 0;
+    for (var key in raffle) {
+        raffle_size += raffle[key]; 
+    }
+    var roll = Math.floor(Math.random() * raffle_size) + 1;
+    for (var key in raffle) {
+        roll -= raffle[key];
+        if (roll <= 0) {
+            break;
         }
     }
     return key;
-}
-
-function randint(n) {
-    return Math.floor(Math.random() * n);
 }
