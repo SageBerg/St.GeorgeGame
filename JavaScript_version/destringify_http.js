@@ -73,4 +73,7 @@ exports.destringify = function destringify(game_state) {
         }
 
     }
+    
+    return game_state;
+
 }
