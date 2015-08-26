@@ -25,19 +25,12 @@ server.listen(port);
 
 function respond_with_initial_world(req, res) {
     var game_state = {
-        "action": null,
+        "action":    null,
         "character": character,
-        "message": "You are in a tavern. The local assassins hate you",
-        "options": 
-            {
-                "a": "Ask about assassins",
-                "b": "Buy a drink",
-                "c": "Leave in a huff",
-                "d": "Sing a song",
-                "e": ""
-            },
-        "persons": persons,
-        "places": places,
+        "message":   "You are in a tavern. The local assassins hate you",
+        "options":   options.default_options,
+        "persons":   persons,
+        "places":    places,
     };
     res.json(game_state);
 }
@@ -45,7 +38,6 @@ function respond_with_initial_world(req, res) {
 function respond_with_outcome(req, res) {
     var game_state        = req.query;
     destringify(game_state); //because HTTP turns booleans into strings
-    //var possible_outcomes = get_possible_outcomes(action, game_state); 
     var outcome           = "assassinated"; //raffle.get(possible_outcomes);
     game_state            = apply_outcome(outcome, game_state);
     game_state.options    = options.get_options(game_state);

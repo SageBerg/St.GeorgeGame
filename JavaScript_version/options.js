@@ -2,6 +2,12 @@
 
 var raffle = require("./raffle");
 
+exports.default_options = {"a": "Ask about assassins",
+                           "b": "Buy a drink",
+                           "c": "Leave in a huff",
+                           "d": "Sing a song",
+                           "e": ""};
+
 exports.get_options = function get_options(game_state) {
     var options = {"a": {}, "b": {}, "c": {}, "d": {} };
     if (game_state.character.is_dead === false) {
