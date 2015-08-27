@@ -16,20 +16,20 @@ function request_outcome_of_action(action) {
 function handle_new_world(resp) {
     game_state = resp;
     document.getElementById("message").innerHTML = resp.message;
-    document.getElementById("a").innerHTML = "a. " + resp.options.a + ".";
-    document.getElementById("b").innerHTML = "b. " + resp.options.b + ".";
+    document.getElementById("a").innerHTML = "a. " + resp.options.a;
+    document.getElementById("b").innerHTML = "b. " + resp.options.b;
     if (resp.options.c !== "") {
-        document.getElementById("c").innerHTML = "c. " + resp.options.c + ".";
+        document.getElementById("c").innerHTML = "c. " + resp.options.c;
     } else {
         document.getElementById("c").innerHTML = "";
     }
     if (resp.options.d !== "") {
-        document.getElementById("d").innerHTML = "d. " + resp.options.d + ".";
+        document.getElementById("d").innerHTML = "d. " + resp.options.d;
     } else {
         document.getElementById("d").innerHTML = "";
     }
     if (resp.options.e !== "") {
-        document.getElementById("e").innerHTML = "e. " + resp.options.e + ".";
+        document.getElementById("e").innerHTML = "e. " + resp.options.e;
     } else {
         document.getElementById("e").innerHTML = "";
     }
@@ -41,13 +41,13 @@ function main() {
     document.onkeypress = function(event) {
         var ascii = event.which;
         if (ascii == 49 || ascii == 65 || ascii == 97) {
-            if (game_state.options.a === "Play again") {
+            if (game_state.options.a === "Play again.") {
                 request_initial_world();
             } else {
                 request_outcome_of_action(game_state.options.a);
             }
         } else if (ascii == 50 || ascii == 66 || ascii == 98) {
-            if (game_state.options.b === "Don't play again") {
+            if (game_state.options.b === "Don't play again.") {
                 window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
             } else {
                 request_outcome_of_action(game_state.options.b);
