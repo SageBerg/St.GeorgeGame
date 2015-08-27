@@ -9,4 +9,7 @@ exports.actions = {
     "Leave in a huff.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "moved", 10);
     },
+    "Leave in a puff.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "left_in_a_puff", 10000);
+    },
 }
