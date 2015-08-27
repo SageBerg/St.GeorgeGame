@@ -5,9 +5,13 @@
  *                      to XX XXXX 2015
  */
 
-
+"use strict";
 
 // Server Setup
+
+var persons = require("./persons");
+var places  = require("./places");
+var actions = require("./actions");
 
 var express = require('express'),
     http = require('http'),
@@ -24,528 +28,9 @@ app.use(express.static(__dirname + "/client"));
 
 app.post("/action.json", action_handler);
 
-console.log("Server started!"); //because feedback is nice
-
-
+console.log("Server started on port: " + port); //because feedback is nice
 
 // Game Data (will be stored in db if the size of the game gets unweidly)
-
-//outcome ids map to outcome objects
-persons = {
-    "assassin":
-    {
-        "alive": true,
-        "attack": 6,
-        "attracted": 0,
-        "name": "an assassin",
-        "prefered_attack": "assassinate",
-        "sells": [],
-        "type": "female", 
-    },
-    "assassins":
-    {
-        "alive": true,
-        "attack": 7,
-        "attracted": 0,
-        "name": "some assassins",
-        "prefered_attack": "assassinate",
-        "sells": [],
-        "type": "group", 
-    },
-    "black_market_merchant":
-    {
-        "alive": true,
-        "attack": 4,
-        "attracted": 0,
-        "name": "a merchant of ill repute",
-        "prefered_attack": "kill",
-        "sells": ["deep_cave_newt", "love_potion", "many_colored_mushroom", 
-                  "white_mushroom", "black_mushroom", "fire_proof_cloak",
-                  "strength_potion"],
-        "type": "female",
-    },
-    "blind_bartender":
-    {
-        "alive": true,
-        "attack": 1,
-        "attracted": 0,
-        "name": "the blind bartender",
-        "prefered_attack": "kill",
-        "sells": [],
-        "type": "male", 
-    },
-    "eve":
-    {
-        "alive": true,
-        "attack": 4,
-        "attracted": 1,
-        "name": "Lord Carlos' daughter",
-        "prefered_attack": "assassinate",
-        "sells": [],
-        "type": "female", 
-    },
-    "felicity":
-    {
-        "alive": true,
-        "attack": 4,
-        "attracted": 1,
-        "name": "the fat lady",
-        "prefered_attack": "kill",
-        "sells": [],
-        "type": "female", 
-    },
-    "guards":
-    {
-        "alive": true,
-        "attack": 4,
-        "attracted": 0,
-        "name": "the guards",
-        "prefered_attack": "arrest",
-        "sells": [],
-        "type": "group", 
-    },
-    "lord_arthur":
-    {
-        "alive": true,
-        "attack": 7,
-        "attracted": 0,
-        "name": "Lord Arthur",
-        "prefered_attack": "walk_the_plank",
-        "sells": [],
-        "type": "male", 
-    },
-    "lord_bartholomew":
-    {
-        "alive": true,
-        "attack": 6,
-        "attracted": 0,
-        "name": "Lord Bartholomew",
-        "prefered_attack": "kill",
-        "sells": [],
-        "type": "male", 
-    },
-    "lord_carlos":
-    {
-        "alive": true,
-        "attack": 5,
-        "attracted": 0,
-        "name": "Lord Carlos",
-        "prefered_attack": "assassinate",
-        "sells": [],
-        "type": "male", 
-    },
-    "lord_daniel":
-    {
-        "alive": true,
-        "attack": 8,
-        "attracted": 0,
-        "name": "Lord Daniel",
-        "prefered_attack": "arrest",
-        "sells": [],
-        "type": "male",
-    },
-    "merchant":
-    {
-        "alive": true,
-        "attack": 3,
-        "attracted": 0,
-        "name": "the merchant woman",
-        "prefered_attack": "drown",
-        "sells": ["ax", "flowers", "sailor_peg", "pearl", "fish"],
-        "type": "female",
-    },
-    "mermaid":
-    {
-        "alive": true,
-        "attack": 3,
-        "attracted": 1,
-        "name": "the mermaid",
-        "prefered_attack": "drown",
-        "sells": [],
-        "type": "female", 
-    },
-    "mob":
-    {
-        "alive": true,
-        "attack": 9,
-        "attracted": 0,
-        "name": "the angry mob",
-        "prefered_attack": "burn",
-        "sells": [],
-        "type": "group", 
-    },
-    "nymph_queen":
-    {
-        "alive": true,
-        "attack": 10,
-        "attracted": 1,
-        "name": "the nymph queen",
-        "prefered_attack": "hex",
-        "sells": [],
-        "type": "female", 
-    },
-    "olga":
-    {
-        "alive": true,
-        "attack": 1,
-        "attracted": 1,
-        "name": "the pretty lady",
-        "prefered_attack": "kill",
-        "sells": [],
-        "type": "female", 
-    },
-    "other_lunatics":
-    {
-        "alive": true,
-        "attack": -1,
-        "attracted": 0,
-        "name": "the other lunatics",
-        "prefered_attack": "kill",
-        "sells": [],
-        "type": "group", 
-    },
-    "peasant_lass":
-    {
-        "alive": true,
-        "attack": 7,
-        "attracted": 0,
-        "name": "the peasant lass",
-        "prefered_attack": "kill",
-        "sells": ["many_colored_mushroom", "white_mushroom"],
-        "type": "female", 
-    },
-    "pirates":
-    {
-        "alive": true,
-        "attack": 6,
-        "attracted": 0,
-        "name": "the pirates",
-        "prefered_attack": "kill",
-        "type": "group", 
-    },
-    "simple_peasant":
-    {
-        "alive": true,
-        "attack": -1,
-        "attracted": 0,
-        "name": "the simple peasant",
-        "prefered_attack": "kill",
-        "sells": [],
-        "type": "male", 
-    },
-    "st_george":
-    {
-        "alive": true,
-        "attack": 100,
-        "attracted": 0,
-        "name": "St. George",
-        "prefered_attack": "smite",
-        "sells": [],
-        "type": "male", 
-    },
-    "war_merchant":
-    {
-        "alive": true,
-        "attack": 7,
-        "attracted": 0,
-        "name": "the wealthy war merchant",
-        "prefered_attack": "kill",
-        "sells": ["dagger", "poison_dagger", "cutlass", "jeweled_cutlass", 
-                  "hammer", "iron_hammer"],
-        "type": "male", 
-    },
-    "witch":
-    {
-        "alive": true,
-        "attack": 7,
-        "attracted": 0,
-        "name": "the witch",
-        "prefered_attack": "toad",
-        "sells": ["love_potion", "tail_potion", "strength_potion"],
-        "type": "female", 
-    },
-    "wizard":
-    {
-        "alive": true,
-        "attack": 7,
-        "attracted": 0,
-        "name": "the wizard",
-        "prefered_attack": "toad",
-        "sells": [],
-        "type": "male", 
-    },
-};
-
-places = {
-    "arctic": 
-    {
-        "burnable":  false,
-        "links":     ["ocean"],
-        "locked":    false,
-        "name":      "the Arctic",
-        "outside":   true,
-        "populated": false,
-        "town":      false,
-        "trashable": false,
-    },
-    "cave": 
-    {
-        "burnable":  false,
-        "links":     ["ocean"],
-        "locked":    true,
-        "name":      "a dark cave",
-        "outside":   true,
-        "populated": false,
-        "town":      false,
-        "trashable": false,
-    },
-    "church": 
-    {
-        "burnable":  true,
-        "links":     ["market", "streets"],
-        "locked":    false,
-        "name":      "the church",
-        "outside":   false,
-        "populated": true,
-        "town":      true,
-        "trashable": false,
-    },
-    "countryside": 
-    {
-        "burnable":  false,
-        "links":     ["lord_bartholomew_manor", "streets", "woods"],
-        "locked":    false,
-        "name":      "the countryside",
-        "outside":   true,
-        "populated": true,
-        "town":      false,
-        "trashable": false,
-    },
-    "dark_alley": 
-    {
-        "burnable":  false,
-        "links":     ["streets"],
-        "locked":    false,
-        "name":      "a dark alley",
-        "outside":   true,
-        "populated": true,
-        "town":      true,
-        "trashable": false,
-    },
-    "docks": 
-    {
-        "burnable":  false,
-        "links":     ["market", "ocean", "streets", "woods"],
-        "locked":    false,
-        "name":      "the docks",
-        "outside":   true,
-        "populated": true,
-        "town":      true,
-        "trashable": false,
-    },
-    "lord_bartholomew_manor": 
-    {
-        "burnable":  true,
-        "links":     ["countryside"],
-        "locked":    false,
-        "name":      "Lord Bartholomew's Manor",
-        "outside":   false,
-        "populated": true,
-        "town":      false,
-        "trashable": false,
-    },
-    "lord_carlos_manor": 
-    {
-        "burnable":  true,
-        "links":     ["woods"],
-        "locked":    false,
-        "name":      "Lord Carlos' Manor",
-        "outside":   false,
-        "populated": true,
-        "town":      false,
-        "trashable": true,
-    },
-    "market": 
-    {
-        "burnable":  true,
-        "links":     ["church", "streets", "docks", "wizard_lab"],
-        "locked":    false,
-        "name":      "the market",
-        "outside":   true,
-        "populated": true,
-        "town":      true,
-        "trashable": true,
-    },
-    "mermaid_rock":
-    {
-        "burnable":  false,
-        "links":     ["ocean"],
-        "locked":    false,
-        "name":      "the docks",
-        "outside":   true,
-        "populated": false,
-        "town":      false,
-        "trashable": false,
-    },
-    "ocean": 
-    {
-        "burnable":  false,
-        "links":     [],
-        "locked":    true,
-        "name":      "the ocean",
-        "outside":   true,
-        "populated": false,
-        "town":      false,
-        "trashable": false,
-    },
-    "pirate_ship": 
-    {
-        "burnable":  false,
-        "links":     [],
-        "locked":    true,
-        "name":      "Lord Arthur's Pirate Ship",
-        "outside":   true,
-        "populated": true,
-        "town":      false,
-        "trashable": false,
-    },
-    "prison": 
-    {
-        "burnable":  false,
-        "links":     [],
-        "locked":    true,
-        "name":      "the docks",
-        "outside":   false,
-        "populated": true,
-        "town":      false,
-        "trashable": false,
-    },
-    "streets": 
-    {
-        "burnable":  false,
-        "links":     ["church", "countryside", "market", "tavern", "tower"],
-        "locked":    false,
-        "name":      "the streets",
-        "outside":   true,
-        "populated": true,
-        "town":      true,
-        "trashable": false,
-    },
-    "tavern": 
-    {
-        "burnable":  true,
-        "links":     ["streets"],
-        "locked":    false,
-        "name":      "the tavern",
-        "outside":   false,
-        "populated": true,
-        "town":      true,
-        "trashable": false,
-    },
-    "tower": 
-    {
-        "burnable":  true,
-        "links":     ["streets"],
-        "locked":    false,
-        "name":      "the tower",
-        "outside":   false,
-        "populated": true,
-        "town":      true,
-        "trashable": false,
-    },
-    "upstairs": 
-    {
-        "burnable":  false,
-        "links":     ["tavern"],
-        "locked":    false,
-        "name":      "the docks",
-        "outside":   false,
-        "populated": false,
-        "town":      false,
-        "trashable": true,
-    },
-    "void": 
-    {
-        "burnable":  false,
-        "links":     [],
-        "locked":    true,
-        "name":      "the void",
-        "outside":   false,
-        "populated": false,
-        "town":      false,
-        "trashable": false,
-    },
-    "wizard_lab": 
-    {
-        "burnable":  true,
-        "links":     ["market"],
-        "locked":    false,
-        "name":      "the wizard's lab",
-        "outside":   false,
-        "populated": false,
-        "town":      false,
-        "trashable": true,
-    },
-    "woods": 
-    {
-        "burnable":  true,
-        "links":     ["countryside", "lord_carlos_manor", "ocean", "docks"],
-        "locked":    false,
-        "name":      "the woods",
-        "outside":   true,
-        "populated": false,
-        "town":      false, 
-        "trashable": false,
-    },
-};
-
-actions = {
-    "assassinated_in_tavern": 
-        {"dead": true, 
-         "message": 
-             "The first person you meet turns out to be an assassin. " +
-             "She assassinates you.",
-        },
-    "assassins_notice_singing":
-        {"message":
-            "Some men in dark cloaks notice your singing and start edging " +
-            "towards you.",
-         "character_edits": {"person": persons.assassins, "threatened": true},
-         "game_state_edits": {"person": persons.assassins},
-        },
-    "find_a_pretty_lady":
-        {"message":
-            "During your investigation, you find yourself talking to a " +
-            "pretty lady.",
-         "game_state_edits": {"person": persons.olga},
-        },
-    "no_one_wants_to_talk":
-        {"message":
-            "No one wants to talk to you.",
-            //add kill yourself in frustration
-        },
-    "bartender_grumbles":
-        {"message":
-            "The blind bartender grumbles as a he passes you a drink.",
-         "game_state_edits": {"person": persons.blind_bartender},
-        },
-    "random_move":
-        {"message":
-            "",
-         "moved": true,
-        },
-    "you_get_killed": 
-        {"dead": true, 
-         "message": 
-             "You get killed.",
-        },
-    "you_kill": 
-        {
-         "message": 
-             "You kill",
-         "game_state_edits": {"person": ""},
-        },
-};
 
 // Functions
 
@@ -561,7 +46,7 @@ function action_handler(req, res) {
     var outcome = get_outcome(req.body.game_state, outcome_id);
   
     if (!outcome.dead && !outcome.found_love) {
-        options = get_player_options(outcome);
+        var options = get_player_options(outcome);
         outcome.options.a = options[0];
         outcome.options.b = options[1];
         outcome.options.c = options[2];
@@ -581,7 +66,7 @@ function complete_message_based_on_context(outcome) {
 }
 
 function make_game_state_edits(game_state, game_state_edits) {
-    for (key in game_state_edits) {
+    for (var key in game_state_edits) {
         if (key === "person") {
             game_state.person = game_state_edits.person;
         }
@@ -589,7 +74,7 @@ function make_game_state_edits(game_state, game_state_edits) {
 }
 
 function make_character_edits(game_state, character_edits) {
-    for (key in character_edits) {
+    for (var key in character_edits) {
         if (key === "person") {
             game_state.character.person = character_edits.person;
         }
@@ -617,8 +102,8 @@ function create_outcome_template() {
 }
 
 function get_outcome(game_state, outcome_id) {
-    outcome = create_outcome_template();
-    for (key in actions[outcome_id]) {
+    var outcome = create_outcome_template();
+    for (var key in actions[outcome_id]) {
         outcome[key] = actions[outcome_id][key];        
     }
     outcome.game_state = game_state;
@@ -637,7 +122,7 @@ function fight(game_state, raffle) {
 }
 
 function get_possible_outcomes_of_action(game_state, action) { 
-    raffle = {};
+    var raffle = {};
     if (action.split(" ")[0] === "Attack" || 
         game_state.character.threatened === true &&
         action !== "Run like the Devil." &&
@@ -682,12 +167,12 @@ function get_player_options(outcome) {
 }
 
 function get_default_player_options(game_state, raffle_a, raffle_b, 
-                                    raffle_c, raffle_d) {
+                                                raffle_c, raffle_d) {
     raffle_add(raffle_a, "Think.", 1);
     raffle_add(raffle_a, "Lick the ground.", 1);
     raffle_add(raffle_b, "Pray to a higher power.", 1);
     //raffle_add(raffle_c, "Go to sleep.", 1);
-    if (places[game_state.place].links.length > 0) {
+    if (places.places[game_state.place].links.length > 0) {
         //raffle_add(raffle_c, 
         //           "Go to " + get_adjacent_place(game_state.place) + ".", 10);
         raffle_add(raffle_c, "Leave in a huff.", 1);
@@ -698,8 +183,8 @@ function get_default_player_options(game_state, raffle_a, raffle_b,
 }
 
 function get_adjacent_place(place) {
-    raffle = {};
-    for (i in place.links) {
+    var raffle = {};
+    for (var i in place.links) {
         raffle_add(raffle, places[place.links[i]].name, 1);
     }
     return raffle_get(raffle);
@@ -749,11 +234,11 @@ function raffle_add(raffle, outcome, votes) {
 
 function raffle_get(raffle) {
     var raffle_size = 0;
-    for (key in raffle) {
+    for (var key in raffle) {
         raffle_size += raffle[key]; 
     }
     var roll = Math.floor(Math.random() * raffle_size);
-    for (key in raffle) {
+    for (var key in raffle) {
         roll -= raffle[key];
         if (roll <= 0) {
             break;

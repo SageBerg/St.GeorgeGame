@@ -1,4 +1,6 @@
-message = "You are in a tavern. The local assassins hate you.";
+"use strict";
+
+var message = "You are in a tavern. The local assassins hate you.";
 
 function handle_action(resp) {
     if (resp.reload) {
@@ -6,7 +8,7 @@ function handle_action(resp) {
         return;
     }
     //console.log("client receiving person:", resp.game_state.person);
-    game_state = resp.game_state;
+    var game_state = resp.game_state;
     if (resp.moved) {
         resp.message += "You find yourself in " + 
                         places[game_state.place].name + "."; 
@@ -15,7 +17,7 @@ function handle_action(resp) {
     document.getElementById("a").innerHTML = "a. " + resp.options["a"];
     var letters = "abcd";
     var letter;
-    for (index in letters) {
+    for (var index in letters) {
         letter = letters[index];
         if (resp.options[letter]) {
             document.getElementById(letter).innerHTML = 
