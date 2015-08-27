@@ -13,23 +13,37 @@ function request_outcome_of_action(action) {
            handle_new_world);
 }
 
+var her_him_them = {
+    "female": "her",
+    "male": "him",
+    "group": "them"
+}
+
 function handle_new_world(resp) {
     game_state = resp;
-    document.getElementById("message").innerHTML = resp.message;
-    document.getElementById("a").innerHTML = "a. " + resp.options.a;
-    document.getElementById("b").innerHTML = "b. " + resp.options.b;
-    if (resp.options.c !== "") {
-        document.getElementById("c").innerHTML = "c. " + resp.options.c;
+    if (game_state.character.is_dead) {
+        game_state.message += " You are dead."; 
+    }
+    document.getElementById("message").innerHTML = game_state.message;
+    if (game_state.options.a === "Attack") {
+        document.getElementById("a").innerHTML = 
+            "a. Attack " + her_him_them[resp.character.person.type] + ".";
+    } else {
+        document.getElementById("a").innerHTML = "a. " + game_state.options.a;
+    }
+    document.getElementById("b").innerHTML = "b. " + game_state.options.b;
+    if (game_state.options.c !== "") {
+        document.getElementById("c").innerHTML = "c. " + game_state.options.c;
     } else {
         document.getElementById("c").innerHTML = "";
     }
-    if (resp.options.d !== "") {
-        document.getElementById("d").innerHTML = "d. " + resp.options.d;
+    if (game_state.options.d !== "") {
+        document.getElementById("d").innerHTML = "d. " + game_state.options.d;
     } else {
         document.getElementById("d").innerHTML = "";
     }
-    if (resp.options.e !== "") {
-        document.getElementById("e").innerHTML = "e. " + resp.options.e;
+    if (game_state.options.e !== "") {
+        document.getElementById("e").innerHTML = "e. " + game_state.options.e;
     } else {
         document.getElementById("e").innerHTML = "";
     }

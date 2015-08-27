@@ -38,6 +38,25 @@ var outcomes = {
         game_state.character.threatened = false;
         return game_state;
     },
+    "kill": function(game_state) {
+        game_state.message = "You kill " + game_state.character.person.name + 
+                             ".";
+        for (var person in game_state.persons) {
+            if (game_state.persons[person].name === 
+                game_state.character.person.name) {
+                game_state.persons[person].alive = false;
+            }
+        }
+        game_state.character.person = null;
+        game_state.character.is_threatened = false;
+        return game_state;
+    },
+    "lose_fight": function(game_state) {
+        game_state.message = "You get killed by " + 
+                             game_state.character.person.name + ".";
+        game_state.character.is_dead = true;
+        return game_state;
+    },
     "meet_blind_bartender": function(game_state) {
         game_state.message = 
             "The blind bartender grumbles as he passes you a drink.";
