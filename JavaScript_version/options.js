@@ -35,7 +35,7 @@ function get_default_options(raffle_a, raffle_b, raffle_c, raffle_d) {
     raffle.add(raffle_a, "Think.", 1);
     raffle.add(raffle_a, "Lick the ground.", 1);
     raffle.add(raffle_b, "Pray to a higher power.", 1);
-    //raffle.add(raffle_c, "Go to sleep.", 1);
+    raffle.add(raffle_c, "Go to sleep.", 1);
     raffle.add(raffle_c, "Leave in a puff.", 1);
     raffle.add(raffle_d, "Sing a song.", 1);
     raffle.add(raffle_d, "Dance a jig.", 1);
