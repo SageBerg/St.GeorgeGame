@@ -20,15 +20,34 @@ function move_character(game_state, destination) {
     game_state.character.place = destination;
     game_state.character.is_threatened = false;
     game_state.character.person = null;
-    game_state.message += "You find yourself in " + destination + ".";
+    game_state.message += " You find yourself in " + destination + ".";
+}
+
+var he_she_they = {
+    "female": "she",
+    "male": "he",
+    "group": "they"
+}
+
+function conjugate(game_state, word) {
+    if (game_state.persons[game_state.character.person].type !== "group") {
+        return word + "s"; 
+    }
+    return word
+} 
+
+function get_subject(game_state) {
+    return he_she_they[game_state.persons[game_state.character.person].type];
 }
 
 var outcomes = {
+
     "assassinated": function(game_state) {
         game_state.message = "You get assassinated.";
         game_state.character.is_dead = true;
         return game_state;
     },
+
     "assassins_approach": function(game_state) {
         game_state.message = 
             "Some men in dark cloaks notice you singing " + 
@@ -37,6 +56,25 @@ var outcomes = {
         game_state.character.is_threatened = true;
         return game_state;
     },
+
+    "caught": function(game_state) {
+        game_state.message = 
+            "You run like the Devil, but " + get_subject(game_state) +
+            " also " + conjugate(game_state, "run") + " like thd Devil and " +
+            conjugate(game_state, "overtake") + " you.";
+        game_state.character.is_dead = true;
+        return game_state;
+    },
+
+    "escaped": function(game_state) {
+        game_state.message = 
+            "The Devil is very fast, so you manage to get away.";
+        var links = game_state.places[game_state.character.place].links
+        var destination = links[random_int(links.length)];
+        move_character(game_state, destination);
+        return game_state;
+    },
+
     "left_in_a_puff": function(game_state) {
         game_state.message = "";
         var place_list = [];
@@ -51,6 +89,7 @@ var outcomes = {
         move_character(game_state, destination);
         return game_state;
     },
+
     "kill": function(game_state) {
         game_state.message =
             "You kill " +
@@ -60,6 +99,7 @@ var outcomes = {
         game_state.character.person = null;
         return game_state;
     },
+
     "lose_fight": function(game_state) {
         game_state.message = 
             "You get killed by " + 
@@ -67,12 +107,14 @@ var outcomes = {
         game_state.character.is_dead = true;
         return game_state;
     },
+
     "meet_blind_bartender": function(game_state) {
         game_state.message = 
             "The blind bartender grumbles as he passes you a drink.";
         game_state.character.person = "blind_bartender";
         return game_state;
     },
+
     "moved": function(game_state) {
         game_state.message = "";
         var links = game_state.places[game_state.character.place].links
@@ -80,8 +122,10 @@ var outcomes = {
         move_character(game_state, destination);
         return game_state;
     },
+
     "no_one_cares":function(game_state) {
         game_state.message = "You sing your favorite song. No one cares.";
         return game_state;
     },
+
 }

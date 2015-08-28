@@ -45,7 +45,13 @@ function get_default_options(raffle_a, raffle_b, raffle_c, raffle_d) {
 
 function get_character_options(game_state, raffle_a, raffle_b, raffle_c, 
                                raffle_d) {
+
     if (game_state.character.person !== null) {
         raffle.add(raffle_a, "Attack", 10);
     }
+
+    if (game_state.character.is_threatened === true) {
+        raffle.add(raffle_c, "Run like the Devil.", 10);
+    }
+
 }
