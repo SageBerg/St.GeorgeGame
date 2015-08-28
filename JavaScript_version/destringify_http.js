@@ -13,6 +13,10 @@ exports.destringify = function destringify(game_state) {
         }
     }
 
+    if (game_state.character.person === "") {
+        game_state.character.person = null;
+    }
+
     for (var item in game_state.character.items) {
         game_state.character.items[item] =
         parseInt(game_state.character.items[item]);

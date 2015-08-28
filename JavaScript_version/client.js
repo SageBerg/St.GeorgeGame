@@ -27,7 +27,8 @@ function handle_new_world(resp) {
     document.getElementById("message").innerHTML = game_state.message;
     if (game_state.options.a === "Attack") {
         document.getElementById("a").innerHTML = 
-            "a. Attack " + her_him_them[resp.character.person.type] + ".";
+            "a. Attack " + 
+            her_him_them[resp.persons[resp.character.person].type] + ".";
     } else {
         document.getElementById("a").innerHTML = "a. " + game_state.options.a;
     }

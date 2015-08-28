@@ -5,7 +5,7 @@ var raffle = require("./raffle");
 exports.actions = {
     "Attack": function(game_state, possible_outcomes) {
         if (game_state.character.strength > 
-            game_state.character.person.attack) {
+            game_state.persons[game_state.character.person].attack) {
             raffle.add(possible_outcomes, "kill", 10000);
         } else {
             raffle.add(possible_outcomes, "lose_fight", 10000);
@@ -22,6 +22,13 @@ exports.actions = {
     },
     "Leave in a puff.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "left_in_a_puff", 10000);
+        return possible_outcomes;
+    },
+    "Sing a song.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "no_one_cares", 1);
+        if (game_state.character.place === "tavern") {
+            raffle.add(possible_outcomes, "assassins_approach", 10000);
+        }
         return possible_outcomes;
     },
 }
