@@ -19,6 +19,13 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    //this special action interrupts your action when you're threatened and
+    //you don't choose to fight or run away
+    "GET_ATTACKED": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "get_attacked", 1);
+        return possible_outcomes;
+    },
+
     "Leave in a huff.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "moved", 10);
         return possible_outcomes;

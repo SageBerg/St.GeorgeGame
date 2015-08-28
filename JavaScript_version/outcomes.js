@@ -4,7 +4,16 @@ var raffle  = require("./raffle");
 var actions = require("./actions").actions;
 
 exports.get_outcome = function get_outcome(game_state) {
-    var possible_outcomes = actions[game_state.action](game_state, {});
+    var possible_outcomes;
+    if (game_state.character.is_threatened === true && 
+        game_state.action !== "Attack" &&
+        game_state.action !== "Leave in a puff." &&
+        game_state.action !== "Run like the Devil." &&
+        game_state.action !== "Waddle like God.") {
+        possible_outcomes = actions["GET_ATTACKED"](game_state, {});
+    } else {
+        possible_outcomes = actions[game_state.action](game_state, {});
+    }
     return raffle.get(possible_outcomes);
 }
 
@@ -40,6 +49,10 @@ function get_subject(game_state) {
     return he_she_they[game_state.persons[game_state.character.person].type];
 }
 
+function get_name(game_state) {
+    return game_state.persons[game_state.character.person].name;
+}
+
 var outcomes = {
 
     "assassinated": function(game_state) {
@@ -59,7 +72,7 @@ var outcomes = {
 
     "caught": function(game_state) {
         game_state.message = 
-            "You run like the Devil, but " + get_subject(game_state) +
+            "You run like the Devil, but " + get_name(game_state) +
             " also " + conjugate(game_state, "run") + " like thd Devil and " +
             conjugate(game_state, "overtake") + " you.";
         game_state.character.is_dead = true;
@@ -75,6 +88,28 @@ var outcomes = {
         return game_state;
     },
 
+    "get_attacked": function(game_state) {
+        var attempted_action = 
+            game_state.action[0].toLowerCase() +
+            game_state.action.slice(1, game_state.action.length - 1);
+        game_state.message = 
+            "You try to " + attempted_action + ", but " + 
+            get_name(game_state) + " " +
+            conjugate(game_state, "kill") + " you."
+        game_state.character.is_dead = true;
+        return game_state;
+    },
+
+    "kill": function(game_state) {
+        game_state.message =
+            "You kill " +
+            game_state.persons[game_state.character.person].name + ".";
+        game_state.persons[game_state.character.person].alive = false;
+        game_state.character.is_threatened = false;
+        game_state.character.person = null;
+        return game_state;
+    },
+
     "left_in_a_puff": function(game_state) {
         game_state.message = "";
         var place_list = [];
@@ -87,16 +122,6 @@ var outcomes = {
         var roll = random_int(place_list.length);
         var destination = place_list[roll];
         move_character(game_state, destination);
-        return game_state;
-    },
-
-    "kill": function(game_state) {
-        game_state.message =
-            "You kill " +
-            game_state.persons[game_state.character.person].name + ".";
-        game_state.persons[game_state.character.person].alive = false;
-        game_state.character.is_threatened = false;
-        game_state.character.person = null;
         return game_state;
     },
 
