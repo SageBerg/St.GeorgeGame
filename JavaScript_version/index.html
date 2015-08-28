@@ -5,12 +5,22 @@
     </head>
     <body>
         <h1>The St. George Game</h1>
-        <p id="message"><p>
-        <p id="a"><p>
-        <p id="b"><p>
-        <p id="c"><p>
-        <p id="d"><p>
-        <p id="e"><p>
+        <p id="message"></p>
+        <div>
+            <span id="a" onclick="a_execute()" style="cursor:pointer;"></span>
+        </div>
+        <div>
+            <span id="b" onclick="b_execute()" style="cursor:pointer;"></span>
+        </div>
+        <div>
+            <span id="c" onclick="execute('c')" style="cursor:pointer;"></span>
+        </div>
+        <div>
+            <span id="d" onclick="execute('d')" style="cursor:pointer;"></span>
+        </div>
+        <div>
+            <span id="e" onclick="execute('e')" style="cursor:pointer;"></span>
+        </div>
     </body>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="client.js"></script>

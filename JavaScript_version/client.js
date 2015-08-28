@@ -20,10 +20,17 @@ var her_him_them = {
 }
 
 function handle_new_world(resp) {
+
     game_state = resp;
+
     if (game_state.character.is_dead) {
         game_state.message += " You are dead."; 
     }
+
+    for (var i = 0; i < 5; i++) {
+        document.getElementById("abcde"[i]).style.color = "black";
+    }
+
     document.getElementById("message").innerHTML = game_state.message;
     if (game_state.options.a === "Attack") {
         document.getElementById("a").innerHTML = 
@@ -48,6 +55,7 @@ function handle_new_world(resp) {
     } else {
         document.getElementById("e").innerHTML = "";
     }
+
 }
 
 function main() {
@@ -56,28 +64,43 @@ function main() {
     document.onkeypress = function(event) {
         var ascii = event.which;
         if (ascii == 49 || ascii == 65 || ascii == 97) {
-            if (game_state.options.a === "Play again.") {
-                request_initial_world();
-            } else {
-                request_outcome_of_action(game_state.options.a);
-            }
+            a_execute();
         } else if (ascii == 50 || ascii == 66 || ascii == 98) {
-            if (game_state.options.b === "Don't play again.") {
-                window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
-            } else {
-                request_outcome_of_action(game_state.options.b);
-            }
+            b_execute();
         } else if (ascii == 51 || ascii == 67 || ascii == 99 
                    && game_state.options.c !== "") {
-            request_outcome_of_action(game_state.options.c);
+            execute("c");
         } else if (ascii == 52 || ascii == 68 || ascii == 100
                    && game_state.options.d !== "") {
-            request_outcome_of_action(game_state.options.d);
+            execute("d");
         } else if (ascii == 53 || ascii == 69 || ascii == 101
                    && game_state.options.e !== "") {
-            request_outcome_of_action("e");
+            execute("e");
         }
     }
+}
+
+function a_execute() {
+    document.getElementById("a").style.color = "red";
+    if (game_state.options.a === "Play again.") {
+        request_initial_world();
+    } else {
+        request_outcome_of_action(game_state.options.a);
+    }
+}
+
+function b_execute() {
+    document.getElementById("b").style.color = "red";
+    if (game_state.options.b === "Don't play again.") {
+        window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+    } else {
+        request_outcome_of_action(game_state.options.b);
+    }
+}
+
+function execute(letter) {
+    document.getElementById(letter).style.color = "red";
+    request_outcome_of_action(game_state.options[letter]);
 }
 
 $(document).ready(main);
