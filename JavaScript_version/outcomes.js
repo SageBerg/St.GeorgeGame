@@ -115,10 +115,12 @@ var outcomes = {
         var place_list = [];
         for (var place in game_state.places) {
             if (game_state.places[place] !== 
-                game_state.places[game_state.character.place]) {
+                game_state.places[game_state.character.place] &&
+                place !== "void") {
             place_list.push(game_state.places[place].name);
             }
         }
+        console.log(place_list);
         var roll = random_int(place_list.length);
         var destination = place_list[roll];
         move_character(game_state, destination);
