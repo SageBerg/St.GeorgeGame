@@ -54,6 +54,15 @@ function get_name(game_state) {
     return game_state.persons[game_state.character.person].name;
 }
 
+function get_item(game_state, item) {
+    if (game_state.character.items[item] === 0) {
+        game_state.message += " You now have " + item + ".";
+    } else {
+        game_sate.message += " You now have another " + item + ".";
+    }
+    game_state.character.items[item] += 1;
+}
+
 var outcomes = {
 
     "assassinated": function(game_state) {
@@ -91,6 +100,7 @@ var outcomes = {
 
     "find_a_cat": function(game_state) {
         game_state.message = "You find a cat.";
+        get_item(game_state, "cat");
         return game_state;
     },
 
