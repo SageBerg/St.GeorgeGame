@@ -81,7 +81,7 @@ function main() {
 }
 
 function a_execute() {
-    document.getElementById("a").style.color = "red";
+    document.getElementById("a").style.color = "white";
     if (game_state.options.a === "Play again.") {
         request_initial_world();
     } else {
@@ -90,7 +90,7 @@ function a_execute() {
 }
 
 function b_execute() {
-    document.getElementById("b").style.color = "red";
+    document.getElementById("b").style.color = "white";
     if (game_state.options.b === "Don't play again.") {
         window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
     } else {
@@ -99,7 +99,7 @@ function b_execute() {
 }
 
 function execute(letter) {
-    document.getElementById(letter).style.color = "red";
+    document.getElementById(letter).style.color = "white";
     request_outcome_of_action(game_state.options[letter]);
 }
 
