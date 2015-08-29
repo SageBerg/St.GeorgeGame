@@ -120,7 +120,6 @@ var outcomes = {
             place_list.push(game_state.places[place].name);
             }
         }
-        console.log(place_list);
         var roll = random_int(place_list.length);
         var destination = place_list[roll];
         move_character(game_state, destination);
