@@ -29,7 +29,8 @@ function move_character(game_state, destination) {
     game_state.character.place = destination;
     game_state.character.is_threatened = false;
     game_state.character.person = null;
-    game_state.message += " You find yourself in " + destination + ".";
+    game_state.message += " You find yourself in " + 
+        game_state.places[destination].name + ".";
 }
 
 var he_she_they = {
@@ -88,6 +89,11 @@ var outcomes = {
         return game_state;
     },
 
+    "find_a_cat": function(game_state) {
+        game_state.message = "You find a cat.";
+        return game_state;
+    },
+
     "get_attacked": function(game_state) {
         var attempted_action = 
             game_state.action[0].toLowerCase() +
@@ -117,7 +123,7 @@ var outcomes = {
             if (game_state.places[place] !== 
                 game_state.places[game_state.character.place] &&
                 place !== "void") {
-            place_list.push(game_state.places[place].name);
+                place_list.push(place);
             }
         }
         var roll = random_int(place_list.length);

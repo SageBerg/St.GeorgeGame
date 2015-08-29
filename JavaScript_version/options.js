@@ -11,18 +11,24 @@ exports.default_options = {"a": "Ask about assassins.",
 exports.get_options = function get_options(game_state) {
     var options = {"a": {}, "b": {}, "c": {}, "d": {} };
     if (game_state.character.is_dead === false) {
+
         get_default_options(options.a, options.b, options.c, options.d);
         get_character_options(game_state, options.a, options.b, options.c, 
                               options.d);
+        get_place_options(game_state, options.a, options.b, options.c, 
+                          options.d);
+
         options.a = raffle.get(options.a);
         options.b = raffle.get(options.b);
         options.c = raffle.get(options.c);
         options.d = raffle.get(options.d);
+
         if (Math.floor(Math.random() * 250) === 0) {
             options.e = "Enter the void.";
         } else {
             options.e = "";
         }
+
     } else {
         options.a = "Play again.";
         options.b = "Don't play again.";
@@ -54,4 +60,15 @@ function get_character_options(game_state, raffle_a, raffle_b, raffle_c,
         raffle.add(raffle_c, "Run like the Devil.", 10);
     }
 
+}
+
+function get_place_options(game_state, raffle_a, raffle_b, raffle_c, 
+                           raffle_d) {
+
+    console.log("game_state.places", game_state.places);
+    console.log("game_state.character.places", game_state.character.place);
+    //console.log(game_state.places[game_state.character.place]);
+    if (game_state.places[game_state.character.place].town) {
+        raffle.add(raffle_c, "Look for a cat.", 10);
+    }
 }

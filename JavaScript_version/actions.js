@@ -36,6 +36,11 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Look for a cat.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "find_a_cat", 10000);
+        return possible_outcomes;
+    },
+
     "Run like the Devil.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "escaped", 9);
         raffle.add(possible_outcomes, "caught", 1);
