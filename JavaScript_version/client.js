@@ -13,12 +13,6 @@ function request_outcome_of_action(action) {
            handle_new_world);
 }
 
-var her_him_them = {
-    "female": "her",
-    "male": "him",
-    "group": "them"
-}
-
 function handle_new_world(resp) {
 
     game_state = resp;
@@ -34,8 +28,7 @@ function handle_new_world(resp) {
     document.getElementById("message").innerHTML = game_state.message;
     if (game_state.options.a === "Attack") {
         document.getElementById("a").innerHTML = 
-            "a. Attack " + 
-            her_him_them[resp.persons[resp.character.person].type] + ".";
+            "a. Attack " + resp.persons[resp.character.person].name + ".";
     } else {
         document.getElementById("a").innerHTML = "a. " + game_state.options.a;
     }
