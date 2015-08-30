@@ -52,6 +52,10 @@ function get_default_options(raffle_a, raffle_b, raffle_c, raffle_d) {
 function get_character_options(game_state, raffle_a, raffle_b, raffle_c, 
                                raffle_d) {
 
+    if (game_state.places[game_state.character.place].locked === false) {
+        raffle.add(raffle_c, "GO_TO", 200);
+    }
+
     if (game_state.character.person !== null) {
         raffle.add(raffle_a, "Attack", 10);
     }
@@ -66,9 +70,9 @@ function get_character_options(game_state, raffle_a, raffle_b, raffle_c,
 function get_place_options(game_state, raffle_a, raffle_b, raffle_c, 
                            raffle_d) {
     if (game_state.places[game_state.character.place].town) {
-        raffle.add(raffle_c, "Look for a cat.", 10);
+        raffle.add(raffle_c, "Look for a cat.", 1);
         if (game_state.character.person !== "st_george") {
-            raffle.add(raffle_d, "Look for St. George.", 10);
+            raffle.add(raffle_d, "Look for St. George.", 1);
         }
     }
 }

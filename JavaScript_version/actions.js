@@ -26,6 +26,11 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Go to.": function(game_state, possible_outcomes, destination) {
+        raffle.add(possible_outcomes, "go_to", 1);
+        return possible_outcomes;
+    },
+
     "Leave in a huff.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "moved", 10);
         return possible_outcomes;

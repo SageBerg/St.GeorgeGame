@@ -2,6 +2,10 @@
 
 var game_state = {};
 
+function random_int(n) {
+    return Math.floor(Math.random() * n);
+}
+
 function request_initial_world() {
     $.get("request_initial_world.json", {}, handle_new_world);
 }
@@ -11,6 +15,12 @@ function request_outcome_of_action(action) {
     $.get("request_outcome_of_action.json", 
            game_state,
            handle_new_world);
+}
+
+function get_destination(game_sate) {
+    var links = game_state.places[game_state.character.place].links;
+    var destination = links[random_int(links.length)];
+    return destination;
 }
 
 function handle_new_world(resp) {
@@ -34,7 +44,13 @@ function handle_new_world(resp) {
     }
     document.getElementById("b").innerHTML = "b. " + game_state.options.b;
     if (game_state.options.c !== "") {
-        document.getElementById("c").innerHTML = "c. " + game_state.options.c;
+        if (game_state.options.c === "GO_TO") {
+            document.getElementById("c").innerHTML = "c. Go to " + 
+                game_state.places[get_destination(game_state)].name;
+        } else {
+            document.getElementById("c").innerHTML = "c. " + 
+                game_state.options.c;
+        }
     } else {
         document.getElementById("c").innerHTML = "";
     }
@@ -90,6 +106,18 @@ function b_execute() {
         request_outcome_of_action(game_state.options.b);
     }
 }
+
+/*
+function c_execute() {
+    document.getElementById("c").style.color = "white";
+    if (game_state.options.c.slice(0, === ) {
+
+    } else {
+        request_outcome_of_action(game_state.options.b);
+    }
+}
+*/
+
 
 function execute(letter) {
     document.getElementById(letter).style.color = "white";

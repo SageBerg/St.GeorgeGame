@@ -58,7 +58,7 @@ function get_item(game_state, item) {
     if (game_state.character.items[item] === 0) {
         game_state.message += " You now have " + item + ".";
     } else {
-        game_sate.message += " You now have another " + item + ".";
+        game_state.message += " You now have another " + item + ".";
     }
     game_state.character.items[item] += 1;
 }
@@ -191,7 +191,7 @@ var outcomes = {
 
     "moved": function(game_state) {
         game_state.message = "";
-        var links = game_state.places[game_state.character.place].links
+        var links = game_state.places[game_state.character.place].links;
         var destination = links[random_int(links.length)];
         move_character(game_state, destination);
         return game_state;
