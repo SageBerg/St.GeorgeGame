@@ -55,7 +55,12 @@ exports.actions = {
     "Sing a song.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "no_one_cares", 1);
         if (game_state.character.place === "tavern") {
-            raffle.add(possible_outcomes, "assassins_approach", 10000);
+            raffle.add(possible_outcomes, "assassins_approach", 10);
+        }
+        if (game_state.character.place === "streets" || 
+            game_state.character.place === "market" ||
+            game_state.character.place === "tavern") {
+            raffle.add(possible_outcomes, "earn_small_fortune_in_coins", 100); //TODO fix prob
         }
         return possible_outcomes;
     },

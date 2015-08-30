@@ -63,6 +63,23 @@ function get_item(game_state, item) {
     game_state.character.items[item] += 1;
 }
 
+function get_money(game_state, money) {
+    if (money_map[game_state.character.money].value < money_map[money].value) {
+        game_state.character.money = money;
+        game_state.message += " You now have " + money_map[money].name + ".";
+    } else {
+        game_state.message += 
+        " You still have " + money_map[game_state.character.money].name + ".";
+    }
+}
+
+var money_map = {
+    "none":          {"value": 0, "name": "no money"},
+    "pittance":      {"value": 1, "name": "a pittance"},
+    "small_fortune": {"value": 2, "name": "a small fortune"},
+    "large_fortune": {"value": 3, "name": "a small fortune"}
+}
+
 var outcomes = {
 
     "assassinated": function(game_state) {
@@ -86,6 +103,14 @@ var outcomes = {
             " also " + conjugate(game_state, "run") + " like thd Devil and " +
             conjugate(game_state, "overtake") + " you.";
         game_state.character.is_dead = true;
+        return game_state;
+    },
+
+    "earn_small_fortune_in_coins": function(game_state) {
+        game_state.message = 
+            "A crowd gathers to hear your singing and " + 
+            "tosses you a small fortune in coins.";
+        get_money(game_state, "small_fortune");
         return game_state;
     },
 
