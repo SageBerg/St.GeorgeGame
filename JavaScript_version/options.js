@@ -57,7 +57,8 @@ function get_character_options(game_state, raffle_a, raffle_b, raffle_c,
     }
 
     if (game_state.character.is_threatened === true) {
-        raffle.add(raffle_c, "Run like the Devil.", 10);
+        raffle.add(raffle_c, "Run like the Devil.", 100);
+        //raffle.add(raffle_c, "Waddle like God.", 10);
     }
 
 }
@@ -66,5 +67,8 @@ function get_place_options(game_state, raffle_a, raffle_b, raffle_c,
                            raffle_d) {
     if (game_state.places[game_state.character.place].town) {
         raffle.add(raffle_c, "Look for a cat.", 10);
+        if (game_state.character.person !== "st_george") {
+            raffle.add(raffle_d, "Look for St. George.", 10);
+        }
     }
 }

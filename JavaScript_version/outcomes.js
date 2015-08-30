@@ -101,6 +101,13 @@ var outcomes = {
     "find_a_cat": function(game_state) {
         game_state.message = "You find a cat.";
         get_item(game_state, "cat");
+        game_state.character.person = null;
+        return game_state;
+    },
+
+    "find_st_george": function(game_state) {
+        game_state.message = "You you find St. George.";
+        game_state.character.person = "st_george";
         return game_state;
     },
 
