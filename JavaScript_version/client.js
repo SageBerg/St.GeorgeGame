@@ -38,6 +38,17 @@ var weapons_map = {
     "iron_hammer": "iron hammer"
 }
 
+//TODO factor this out to helper_functions.js
+function a_or_an(next_letter) {
+    if (next_letter === "a" ||
+        next_letter === "e" ||
+        next_letter === "i" ||
+        next_letter === "o" ||
+        next_letter === "u") {
+        return "an";
+    }
+    return "a";
+}
 
 function handle_new_world(resp) {
 
@@ -76,7 +87,8 @@ function handle_new_world(resp) {
         if (game_state.options.d === "Buy a weapon.") {
             var weapon = get_weapon(game_state);
             document.getElementById("d").innerHTML = 
-                "d. Buy a " + weapons_map[weapon] + ".";
+                "d. Buy " + a_or_an(weapons_map[weapon][0]) + " " +
+                weapons_map[weapon] + ".";
             game_state.for_sell = weapon;
         } else {
             document.getElementById("d").innerHTML = "d. " +

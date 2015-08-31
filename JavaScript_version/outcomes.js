@@ -34,6 +34,17 @@ function move_character(game_state, destination) {
         game_state.places[destination].name + ".";
 }
 
+function a_or_an(next_letter) {
+    if (next_letter === "a" ||
+        next_letter === "e" ||
+        next_letter === "i" ||
+        next_letter === "o" ||
+        next_letter === "u") {
+        return "an";
+    }
+    return "a";
+}
+
 /*
 var he_she_they = {
     "female": "she",
@@ -59,7 +70,7 @@ function get_name(game_state) {
 
 function get_item(game_state, item) {
     if (game_state.character.items[item] === 0) {
-        game_state.message += " You now have " + item + ".";
+        game_state.message += " You now have " + a_or_an(item[0]) + item + ".";
     } else {
         game_state.message += " You now have another " + item + ".";
     }
@@ -87,7 +98,8 @@ function add_move_message(game_state) {
 var outcomes = {
 
     "assassinated": function(game_state) {
-        game_state.message = "You get assassinated.";
+        game_state.message = "The first woman you talk to turns out to be an " +
+        "assasin. She assassinates you.";
         game_state.character.is_dead = true;
         return game_state;
     },
@@ -105,6 +117,7 @@ var outcomes = {
         game_state.message = "";
         if (game_state.character.items[game_state.for_sell] === 0) {
             game_state.message += " You now have " + 
+            a_or_an(items.weapons_map[game_state.for_sell].name[0]) + " " +
             items.weapons_map[game_state.for_sell].name + ".";
         } else {
             game_state.message += " You now have another " +
