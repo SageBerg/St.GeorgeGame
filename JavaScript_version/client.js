@@ -23,6 +23,22 @@ function get_destination(game_sate) {
     return destination;
 }
 
+function get_weapon(game_state) {
+    var weapons = game_state.persons[game_state.character.person].sells   
+    var weapon  = weapons[random_int(weapons.length)];
+    return weapon;
+}
+
+var weapons_map = {
+    "dagger": "dagger",
+    "poison_dagger": "poison dagger",
+    "cutlass": "cutlass",
+    "jeweled_cutlass": "jeweled cutlass",
+    "hammer": "hammer",
+    "iron_hammer": "iron hammer"
+}
+
+
 function handle_new_world(resp) {
 
     game_state = resp;
@@ -48,7 +64,7 @@ function handle_new_world(resp) {
             var dest = get_destination(game_state);
             document.getElementById("c").innerHTML = "c. Go to " + 
                 game_state.places[dest].name;
-                game_state.destination = dest;
+            game_state.destination = dest;
         } else {
             document.getElementById("c").innerHTML = "c. " + 
                 game_state.options.c;
@@ -57,7 +73,15 @@ function handle_new_world(resp) {
         document.getElementById("c").innerHTML = "";
     }
     if (game_state.options.d !== "") {
-        document.getElementById("d").innerHTML = "d. " + game_state.options.d;
+        if (game_state.options.d === "Buy a weapon.") {
+            var weapon = get_weapon(game_state);
+            document.getElementById("d").innerHTML = 
+                "d. Buy a " + weapons_map[weapon] + ".";
+            game_state.for_sell = weapon;
+        } else {
+            document.getElementById("d").innerHTML = "d. " +
+                game_state.options.d;
+        }
     } else {
         document.getElementById("d").innerHTML = "";
     }

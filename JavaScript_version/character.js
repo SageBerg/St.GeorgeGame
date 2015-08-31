@@ -10,6 +10,12 @@ exports.character = {
     "items": 
     {
         "cat": 0,
+        "dagger": 0,
+        "cutlass": 0,
+        "hammer": 0,
+        "poison_dagger": 0,
+        "jeweled_cutlass": 0,
+        "iron_hammer": 0
     },
     "money": "none",
     "person": "",

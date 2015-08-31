@@ -1,6 +1,7 @@
 "use strict";
 
 var raffle = require("./raffle");
+var items   = require("./items");
 
 exports.actions = {
 
@@ -16,6 +17,17 @@ exports.actions = {
 
     "Buy a drink.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "meet_blind_bartender", 10);
+        return possible_outcomes;
+    },
+
+    "Buy a weapon.": function(game_state, possible_outcomes) {
+
+        if (items.money_map[items.weapons_map[game_state.for_sell].cost].value 
+            <= items.money_map[game_state.character.money].value) {
+            raffle.add(possible_outcomes, "bought_a_weapon", 1);
+        } else {
+            raffle.add(possible_outcomes, "cannot_afford", 1);
+        }
         return possible_outcomes;
     },
 

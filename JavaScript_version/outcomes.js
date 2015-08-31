@@ -1,7 +1,8 @@
 "use strict";
 
-var raffle  = require("./raffle");
 var actions = require("./actions").actions;
+var items   = require("./items");
+var raffle  = require("./raffle");
 
 exports.get_outcome = function get_outcome(game_state) {
     var possible_outcomes;
@@ -33,11 +34,13 @@ function move_character(game_state, destination) {
         game_state.places[destination].name + ".";
 }
 
+/*
 var he_she_they = {
     "female": "she",
     "male": "he",
     "group": "they"
 }
+*/
 
 function conjugate(game_state, word) {
     if (game_state.persons[game_state.character.person].type !== "group") {
@@ -64,25 +67,21 @@ function get_item(game_state, item) {
 }
 
 function get_money(game_state, money) {
-    if (money_map[game_state.character.money].value < money_map[money].value) {
+    if (items.money_map[game_state.character.money].value < 
+        items.money_map[money].value) {
         game_state.character.money = money;
-        game_state.message += " You now have " + money_map[money].name + ".";
+        game_state.message += " You now have " + 
+            items.money_map[money].name + ".";
     } else {
         game_state.message += 
-        " You still have " + money_map[game_state.character.money].name + ".";
+        " You still have " + 
+        items.money_map[game_state.character.money].name + ".";
     }
 }
 
 function add_move_message(game_state) {
     game_state.message += "You find yourself in " + 
         game_state.places[game_state.character.place].name + ".";
-}
-
-var money_map = {
-    "none":          {"value": 0, "name": "no money"},
-    "pittance":      {"value": 1, "name": "a pittance"},
-    "small_fortune": {"value": 2, "name": "a small fortune"},
-    "large_fortune": {"value": 3, "name": "a small fortune"}
 }
 
 var outcomes = {
@@ -99,6 +98,30 @@ var outcomes = {
             "and start edging toward you.";
         game_state.character.person = "assassins";
         game_state.character.is_threatened = true;
+        return game_state;
+    },
+
+    "bought_a_weapon": function(game_state) {
+        game_state.message = "";
+        if (game_state.character.items[game_state.for_sell] === 0) {
+            game_state.message += " You now have " + 
+            items.weapons_map[game_state.for_sell].name + ".";
+        } else {
+            game_state.message += " You now have another " +
+            items.weapons_map[game_state.for_sell].name + ".";
+        }
+        game_state.character.items[game_state.for_sell] += 1;
+        if (game_state.character.strength <= 
+            items.weapons_map[game_state.for_sell].attack) {
+            //TODO made white mushrooms and weapons stack in this way
+            game_state.character.strength = 
+            items.weapons_map[game_state.for_sell].attack;
+        }
+        return game_state;
+    },
+
+    "cannot_afford": function(game_state) {
+        game_state.message = "You cannot afford this item." 
         return game_state;
     },
 

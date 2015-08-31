@@ -27,6 +27,7 @@ function respond_with_initial_world(req, res) {
         "action":      null,
         "character":   character,
         "destination": null,
+        "for_sell":    null,
         "message":     "You are in a tavern. The local assassins hate you.",
         "options":     options.default_options,
         "persons":     persons,
