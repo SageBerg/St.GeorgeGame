@@ -73,6 +73,11 @@ function get_money(game_state, money) {
     }
 }
 
+function add_move_message(game_state) {
+    game_state.message += "You find yourself in " + 
+        game_state.places[game_state.character.place].name + ".";
+}
+
 var money_map = {
     "none":          {"value": 0, "name": "no money"},
     "pittance":      {"value": 1, "name": "a pittance"},
@@ -130,8 +135,15 @@ var outcomes = {
         return game_state;
     },
 
+    "find_a_war_merchant": function(game_state) {
+        game_state.message = 
+            "You find yourself talking to a wealthy war merchant.";
+        game_state.character.person = "war_merchant";
+        return game_state;
+    },
+
     "find_st_george": function(game_state) {
-        game_state.message = "You you find St. George.";
+        game_state.message = "You find St. George.";
         game_state.character.person = "st_george";
         return game_state;
     },
@@ -145,6 +157,14 @@ var outcomes = {
             get_name(game_state) + " " +
             conjugate(game_state, "kill") + " you."
         game_state.character.is_dead = true;
+        return game_state;
+    },
+
+    "go_to": function(game_state) {
+        game_state.message = "";
+        game_state.character.place = game_state.destination;
+        game_state.destination = null;
+        add_move_message(game_state);
         return game_state;
     },
 

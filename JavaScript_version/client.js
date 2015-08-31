@@ -45,8 +45,10 @@ function handle_new_world(resp) {
     document.getElementById("b").innerHTML = "b. " + game_state.options.b;
     if (game_state.options.c !== "") {
         if (game_state.options.c === "GO_TO") {
+            var dest = get_destination(game_state);
             document.getElementById("c").innerHTML = "c. Go to " + 
-                game_state.places[get_destination(game_state)].name;
+                game_state.places[dest].name;
+                game_state.destination = dest;
         } else {
             document.getElementById("c").innerHTML = "c. " + 
                 game_state.options.c;
@@ -106,18 +108,6 @@ function b_execute() {
         request_outcome_of_action(game_state.options.b);
     }
 }
-
-/*
-function c_execute() {
-    document.getElementById("c").style.color = "white";
-    if (game_state.options.c.slice(0, === ) {
-
-    } else {
-        request_outcome_of_action(game_state.options.b);
-    }
-}
-*/
-
 
 function execute(letter) {
     document.getElementById(letter).style.color = "white";

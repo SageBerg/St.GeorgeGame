@@ -26,7 +26,7 @@ exports.actions = {
         return possible_outcomes;
     },
 
-    "Go to.": function(game_state, possible_outcomes, destination) {
+    "GO_TO": function(game_state, possible_outcomes, destination) {
         raffle.add(possible_outcomes, "go_to", 1);
         return possible_outcomes;
     },
@@ -48,6 +48,11 @@ exports.actions = {
 
     "Look for St. George.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "find_st_george", 10000);
+        return possible_outcomes;
+    },
+
+    "Look for a weapon.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "find_a_war_merchant", 10000);
         return possible_outcomes;
     },
 

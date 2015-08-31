@@ -17,6 +17,8 @@ exports.get_options = function get_options(game_state) {
                               options.d);
         get_place_options(game_state, options.a, options.b, options.c, 
                           options.d);
+        get_person_options(game_state, options.a, options.b, options.c, 
+                           options.d);
 
         options.a = raffle.get(options.a);
         options.b = raffle.get(options.b);
@@ -74,5 +76,16 @@ function get_place_options(game_state, raffle_a, raffle_b, raffle_c,
         if (game_state.character.person !== "st_george") {
             raffle.add(raffle_d, "Look for St. George.", 1);
         }
+    }
+    if (game_state.character.person !== "war_merchant") { //&&
+        //game_state.character.place === "market") {
+        raffle.add(raffle_d, "Look for a weapon.", 10);
+    }
+}
+
+function get_person_options(game_state, raffle_a, raffle_b, raffle_c, 
+                            raffle_d) {
+    if (game_state.character.person === "war_merchant") {
+        raffle.add(raffle_d, "Buy a weapon.", 10000);
     }
 }
