@@ -5,6 +5,8 @@ var items   = require("./items");
 
 exports.actions = {
 
+    //a
+
     "Annihilate everything.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "apocalypse", 1);
         return possible_outcomes;
@@ -28,6 +30,8 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    //b
+
     "Buy a drink.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "meet_blind_bartender", 10);
         return possible_outcomes;
@@ -43,16 +47,24 @@ exports.actions = {
         return possible_outcomes;
     },
 
-    "Destroy all human civilizations.": function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "killed_by_hero", 1);
-        return possible_outcomes;
-    },
+    //c
 
     "Chow down on your many colored mushroom.": 
     function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "start_tripping", 1);
         return possible_outcomes;
     },
+
+    //d
+
+    "Destroy all human civilizations.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "killed_by_hero", 1);
+        return possible_outcomes;
+    },
+
+    //e
+    
+    //f
 
     "Flirt with": function(game_state, possible_outcomes) {
         if (game_state.persons[game_state.character.person].name === 
@@ -72,6 +84,8 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    //g
+    
     //this special action interrupts your action when you're threatened and
     //you don't choose to fight or run away
     "GET_ATTACKED": function(game_state, possible_outcomes) {
@@ -98,6 +112,16 @@ exports.actions = {
         raffle.add(possible_outcomes, "go_to", 1);
         return possible_outcomes;
     },
+
+    //h
+    
+    //i
+    
+    //j
+    
+    //k
+
+    //l
 
     "Leave in a huff.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "moved", 10);
@@ -138,11 +162,28 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    //m
+
     "MARRY": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "married", 1);
         return possible_outcomes;
     },
 
+    //n
+    
+    //o
+    
+    //p
+
+    "Pray to a higher power.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "ignored", 1);
+        return possible_outcomes;
+    },
+
+    //q
+    
+    //r
+    
     "Run like the Devil.": function(game_state, possible_outcomes) {
         if (game_state.character.is_threatened) {
             raffle.add(possible_outcomes, "escaped", 9);
@@ -153,6 +194,8 @@ exports.actions = {
         }
         return possible_outcomes;
     },
+
+    //s
 
     "Sing a song.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "no_one_cares", 1);
@@ -167,9 +210,22 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    //t
+
     "Terrorize the kingdom.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "killed_in_future", 1);
         return possible_outcomes;
     },
 
+    //u
+
+    //v
+    
+    //w
+    
+    //x
+
+    //y
+
+    //z
 }

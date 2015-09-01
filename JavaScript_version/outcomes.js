@@ -107,6 +107,8 @@ function clover(game_state) {
 
 var outcomes = {
 
+    //a
+
     "apocalypse": function(game_state) {
         game_state.message =
             "You start annihilating everything, but the Four Horsemen of " +
@@ -131,6 +133,8 @@ var outcomes = {
         return game_state;
     },
 
+    //b
+
     "bought_a_weapon": function(game_state) {
         game_state.message = "";
         if (game_state.character.items[game_state.for_sell] === 0) {
@@ -150,6 +154,8 @@ var outcomes = {
         }
         return game_state;
     },
+
+    //c
 
     "cannot_afford": function(game_state) {
         game_state.message = "You cannot afford this item." 
@@ -173,10 +179,14 @@ var outcomes = {
         return game_state;
     },
 
+    //d
+
     "distasteful": function(game_state) {
         game_state.message = "You find the flavor of the ground distasteful.";
         return game_state;
     },
+
+    //e
 
     "earn_small_fortune_in_coins": function(game_state) {
         game_state.message = 
@@ -207,6 +217,8 @@ var outcomes = {
         return game_state;
     },
 
+    //f
+    
     "find_a_cat": function(game_state) {
         game_state.message = "You find a cat.";
         get_item(game_state, "cat");
@@ -239,6 +251,8 @@ var outcomes = {
         game_state.character.person = "st_george";
         return game_state;
     },
+
+    //g
 
     "get_attacked": function(game_state) {
         var attempted_action = 
@@ -293,6 +307,14 @@ var outcomes = {
         return game_state;
     },
 
+    //h
+    
+    //i
+    
+    //j
+    
+    //k
+
     "kill": function(game_state) {
         game_state.message =
             "You kill " +
@@ -328,6 +350,8 @@ var outcomes = {
         return game_state;
     },
 
+    //l
+
     "left_in_a_puff": function(game_state) {
         game_state.message = "";
         var place_list = [];
@@ -351,6 +375,8 @@ var outcomes = {
         game_state.character.is_dead = true;
         return game_state;
     },
+
+    //m
 
     "married": function(game_state) {
         if (game_state.character.person === "olga") {
@@ -412,10 +438,16 @@ var outcomes = {
         return game_state;
     },
 
+    //n
+
     "no_one_cares":function(game_state) {
         game_state.message = "You sing your favorite song. No one cares.";
         return game_state;
     },
+
+    //o
+    
+    //p
 
     "pick_many_colored_mushroom":function(game_state) {
         game_state.message = "You pick a many colored mushroom.";
@@ -423,11 +455,17 @@ var outcomes = {
         return game_state;
     },
 
+    //q
+    
+    //r
+
     "rebuffed_by_olga":function(game_state) {
         game_state.message = "Her eyes glaze over while you struggle make " +
             "yourself sound interesting.";
         return game_state;
     },
+
+    //s
 
     "start_tripping":function(game_state) {
         game_state.message = "You start feeling strange."
@@ -444,11 +482,19 @@ var outcomes = {
         return game_state;
     },
 
+    //t
+
     "trip_over_a_cat":function(game_state) {
         game_state.message = "You trip over a cat and break your neck.";
         clover(game_state);
         return game_state;
     },
+
+    //u
+    
+    //v
+
+    //w
 
     "wowed_olga":function(game_state) {
         var messages = [
@@ -497,5 +543,11 @@ var outcomes = {
         }
         return game_state;
     },
+
+    //x
+    
+    //y
+    
+    //z
 
 }
