@@ -260,6 +260,85 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Think.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "think_about_sex", 1);
+        raffle.add(possible_outcomes, "think_elaborate_scheme", 1);
+        raffle.add(possible_outcomes, "think_four_ideas", 1);
+        raffle.add(possible_outcomes, "think_get_lost", 1);
+        raffle.add(possible_outcomes, "think_reevaluate_life", 1);
+        raffle.add(possible_outcomes, "think_think_think", 1);
+
+        if (game_state.character.place !== "tavern") {
+            raffle.add(possible_outcomes, "think_about_olga", 1);
+        }
+
+        if (game_state.character.place === "lord_carlos_manor" ||
+            game_state.character.place === "wizard_lab") {
+            raffle.add(possible_outcomes, "think_you_shouldnt_be_here", 1);
+        }
+
+        if (game_state.character.place === "tavern" ||
+            game_state.character.place === "dark_alley" ||
+            game_state.character.place === "lord_carlos_manor") {
+            raffle.add(possible_outcomes, "think_of_getting_stabbed", 2);
+        }
+      
+        if (game_state.character.place === "docks" ||
+            game_state.character.place === "pirate_ship") {
+            raffle.add(possible_outcomes, "think_pirates_laugh", 2);
+        }
+
+        if (game_state.character.place === "docks" ||
+            game_state.character.place === "pirate_ship" ||
+            game_state.character.place === "ocean" ||
+            game_state.character.place === "mermaid_rock"
+           ) {
+            raffle.add(possible_outcomes, "think_ocean_is_big", 2);
+            raffle.add(possible_outcomes, "think_bad_smell", 2);
+        }
+
+        if (game_state.character.place === "docks" &&
+            game_state.persons.lord_arthur.alive) {
+            raffle.add(possible_outcomes, "think_about_lord_arthur", 2);
+        }
+
+        if (game_state.character.place === "tower") {
+            raffle.add(possible_outcomes, "think_ax", 2);
+            raffle.add(possible_outcomes, "think_jump", 2);
+        }
+
+        if (game_state.character.place === "countryside") {
+            raffle.add(possible_outcomes, "think_about_lord_bartholomew", 2);
+            raffle.add(possible_outcomes, "think_peasant_women", 2);
+        }
+
+        if (game_state.character.place === "woods") {
+            raffle.add(possible_outcomes, "think_fire", 2);
+        }
+
+        if (game_state.character.place === "arctic") {
+            raffle.add(possible_outcomes, "think_ice", 2);
+            raffle.add(possible_outcomes, "think_cold", 2);
+        }
+
+        if (game_state.character.place === "cave") {
+            raffle.add(possible_outcomes, "think_bats", 2);
+            raffle.add(possible_outcomes, "think_darkness", 2);
+            raffle.add(possible_outcomes, "think_death", 2);
+            raffle.add(possible_outcomes, "think_suffocation", 2);
+        }
+
+        if (game_state.character.place === "church") {
+            raffle.add(possible_outcomes, "think_meaning_of_life", 2);
+        }
+
+        if (game_state.character.person !== null) {
+            raffle.add(possible_outcomes, "zone_out", 4);
+        }
+
+        return possible_outcomes;
+    },
+
     //u
 
     //v

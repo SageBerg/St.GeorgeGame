@@ -85,7 +85,7 @@ exports.get_options = function get_options(game_state) {
 }
 
 function get_default_options(raffle_a, raffle_b, raffle_c, raffle_d) {
-    //raffle.add(raffle_a, "Think.", 1);
+    raffle.add(raffle_a, "Think.", 1000); //fix
     raffle.add(raffle_a, "Lick the ground.", 1);
     raffle.add(raffle_b, "Pray to a higher power.", 1);
     raffle.add(raffle_c, "Go to sleep.", 1);
@@ -175,7 +175,9 @@ function get_person_options(game_state, raffle_a, raffle_b, raffle_c,
 
 function get_outcome_options(game_state, raffle_a, raffle_b, raffle_c, 
                             raffle_d) {
-    if (game_state.outcome === "ignored") {
+    if (game_state.outcome === "ignored" ||
+        game_state.outcome === "think_pirates_laugh"   
+       ) {
         raffle.add(raffle_a, "Kill yourself in frustration.", 1);
     }
 }

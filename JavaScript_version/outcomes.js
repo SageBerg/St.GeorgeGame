@@ -619,6 +619,151 @@ var outcomes = {
 
     //t
 
+    "think_about_lord_arthur":function(game_state) {
+        game_state.message = "You think it would be a bad idea to join " +
+        "Lord Arthur's crew. He gives no choice.";
+        move_character(game_state, "pirate_ship");
+        return game_state;
+    },
+
+    "think_about_lord_bartholomew":function(game_state) {
+        game_state.message = "You think about Lord Bartholomew.";
+        return game_state;
+    },
+
+    "think_about_olga":function(game_state) {
+        if (game_state.persons.olga.name === "the pretty lady") {
+            game_state.message = "You think about a pretty lady you saw at " +
+                "the tavern.";
+        } else {
+            game_state.message = "You think about Olga and feel lonely.";
+        }
+        return game_state;
+    },
+
+    "think_about_sex":function(game_state) {
+        game_state.message = "Since you're a man, you think about sex.";
+        return game_state;
+    },
+
+    "think_ax":function(game_state) {
+        game_state.message = "While you're thinking, a guard hands you an ax " +
+        "and tells you to chop some firewood for the cooks.";
+        get_item(game_state, "ax");
+        return game_state;
+    },
+
+    "think_bad_smell":function(game_state) {
+        game_state.message = "You think the bad smell might be coming from " + 
+        "you.";
+        return game_state;
+    },
+
+    "think_bats":function(game_state) {
+        game_state.message = "You think you hear bats, but you also think " + 
+        "you might be crazy.";
+        return game_state;
+    },
+
+    "think_cold":function(game_state) {
+        game_state.message = "You can't think about much besides how cold " +
+        "you are.";
+        return game_state;
+    },
+
+    "think_darkness":function(game_state) {
+        game_state.message = "You think about the darkness that is crushing " +
+        "in on you from all sides.";
+        return game_state;
+    },
+
+    "think_death":function(game_state) {
+        game_state.message = "You think about death.";
+        return game_state;
+    },
+
+    "think_elaborate_scheme":function(game_state) {
+        game_state.message = "You concoct an elaborate scheme.";
+        return game_state;
+    },
+
+    "think_fire":function(game_state) {
+        game_state.message = "You think about fire.";
+        return game_state;
+    },
+
+    "think_four_ideas":function(game_state) {
+        game_state.message = "You come up with four brilliant ideas.";
+        return game_state;
+    },
+
+    "think_get_lost":function(game_state) {
+        game_state.message = "You get lost in your thoughts."; 
+        return game_state;
+    },
+
+    "think_ice":function(game_state) {
+        game_state.message = "You think about ice."; 
+        return game_state;
+    },
+
+    "think_jump":function(game_state) {
+        game_state.message = "You think you can survive the jump from the " +
+        "top of the tower."; 
+        game_state.character.is_dead = true;
+        return game_state;
+    },
+
+    "think_meaning_of_life":function(game_state) {
+        game_state.message = "You ponder the meaning of life and " +
+        "feel smug for being so philosophical.";
+        return game_state;
+    },
+
+    "think_ocean_is_big":function(game_state) {
+        game_state.message = "You think the ocean is really big."; 
+        return game_state;
+    },
+
+    "think_of_getting_stabbed":function(game_state) {
+        game_state.message = "You think about how painful it would be to " +
+        "get stabbed. You soon find out.";
+        game_state.character.is_dead = true;
+        return game_state;
+    },
+
+    "think_peasant_women":function(game_state) {
+        game_state.message = "You wonder if any peasant women would go for " +
+        "a man like you.";
+        return game_state;
+    },
+
+    "think_pirates_laugh":function(game_state) {
+        game_state.message = "Some pirates laugh at you for thinking.";
+        return game_state;
+    },
+
+    "think_reevaluate_life":function(game_state) {
+        game_state.message = "You spend some time reevaluating your life " +
+            "and conclude that you need to stay the course.";
+        return game_state;
+    },
+
+    "think_suffocation":function(game_state) {
+        game_state.message = "You think about suffocation.";
+        return game_state;
+    },
+
+    "think_think_think":function(game_state) {
+        game_state.message = "All you can think is \"Think. Think. Think.\""; 
+        return game_state;
+    },
+
+    "think_you_shouldnt_be_here":function(game_state) {
+        game_state.message = "You think you probably shouldn't be here."; 
+        return game_state;
+    },
+
     "trip_over_a_cat":function(game_state) {
         game_state.message = "You trip over a cat and break your neck.";
         clover(game_state);
@@ -684,5 +829,18 @@ var outcomes = {
     //y
     
     //z
+
+    "zone_out":function(game_state) {
+        var messages = [
+            "You zone out while " + 
+            get_name(game_state) + " " + conjugate(game_state, "talk") +
+            " to you.",
+            "You space out while " + 
+            get_name(game_state) + " " + conjugate(game_state, "talk") +
+            " about Lord Bartholomew.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
 
 }
