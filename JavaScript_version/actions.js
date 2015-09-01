@@ -127,6 +127,11 @@ exports.actions = {
     
     //k
 
+    "Kill yourself in frustration.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "kill_self", 9);
+        return possible_outcomes;
+    },
+
     //l
 
     "Leave in a huff.": function(game_state, possible_outcomes) {
@@ -188,7 +193,7 @@ exports.actions = {
         raffle.add(possible_outcomes, "god_shows_you_the_way", 1);
         raffle.add(possible_outcomes, "god_tells_you_to_marry", 1);
         raffle.add(possible_outcomes, "god_tests_you", 1);
-        raffle.add(possible_outcomes, "ignored", 1);
+        raffle.add(possible_outcomes, "ignored", 10000); //fix
 
         if (game_state.places[game_state.character.place].burnable) {
             raffle.add(possible_outcomes, "god_commits_arson", 1);

@@ -404,6 +404,15 @@ var outcomes = {
         return game_state;
     },
 
+    "kill_self": function(game_state) {
+        var messages = [
+            "You perform the ritual of seppuku.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.is_dead = true;
+        return game_state;
+    },
+
     "killed_by_hero": function(game_state) {
         game_state.message =
             "You throw out your arm destroying the first three " + 

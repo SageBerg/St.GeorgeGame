@@ -59,6 +59,8 @@ exports.get_options = function get_options(game_state) {
         get_default_options(options.a, options.b, options.c, options.d);
         get_character_options(game_state, options.a, options.b, options.c, 
                               options.d);
+        get_outcome_options(game_state, options.a, options.b, options.c, 
+                            options.d);
         get_place_options(game_state, options.a, options.b, options.c, 
                           options.d);
         get_person_options(game_state, options.a, options.b, options.c, 
@@ -168,5 +170,12 @@ function get_person_options(game_state, raffle_a, raffle_b, raffle_c,
         game_state.character.person === "nymph_queen"
        ) {
         raffle.add(raffle_d, "Flirt with", 100);
+    }
+}
+
+function get_outcome_options(game_state, raffle_a, raffle_b, raffle_c, 
+                            raffle_d) {
+    if (game_state.outcome = "ignored") {
+        raffle.add(raffle_a, "Kill yourself in frustration.", 1000); //fix
     }
 }
