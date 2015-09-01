@@ -39,6 +39,8 @@ exports.actions = {
     "Flirt with": function(game_state, possible_outcomes) {
         if (game_state.character.person === "olga") {
             raffle.add(possible_outcomes, "rebuffed_by_olga", 1);
+            raffle.add(possible_outcomes, "killed_by_olga", 1);
+            raffle.add(possible_outcomes, "wowed_olga", 8);
         }
         return possible_outcomes;
     },

@@ -215,6 +215,14 @@ var outcomes = {
         return game_state;
     },
 
+    "killed_by_olga": function(game_state) {
+        game_state.message =
+            "When you squeeze her butt, she stabs you in the heart with a " +
+            "poisoned dagger.";
+        game_state.character.is_dead = true;
+        return game_state;
+    },
+
     "left_in_a_puff": function(game_state) {
         game_state.message = "";
         var place_list = [];
@@ -271,6 +279,29 @@ var outcomes = {
         game_state.message = "Her eyes glaze over while you struggle make " +
             "yourself sound interesting.";
         game_state.persons["olga"].attracted -= 1;
+        return game_state;
+    },
+
+    "wowed_olga":function(game_state) {
+        var messages = [
+            "You play a game of darts together. " +
+            "She is delighted when she beats you.",
+            "You find out that you both like " +
+            "cats. She says her cat loves being petted.",
+            "You amuse her with realistic impreesions of bird " +
+            "songs. She says she likes a man who's good with his tongue.",
+            "She is impressed with your juggling and says she likes a man " +
+            "with skilled hands.", 
+            "You say the flower in her hair goes well with " +
+            "her eyes. She says you can smell her flower if you like.",
+            "She sits on your lap when you buy her a drink.",
+            "You both laugh about how bad the ale is. The bartender " +
+            "is not pleased.",
+            "You have a meal together.",
+            "She plays with your hair while you talk of your exploits."
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        game_state.persons["olga"].attracted += 1;
         return game_state;
     },
 
