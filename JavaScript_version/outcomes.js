@@ -354,9 +354,13 @@ var outcomes = {
     },
 
     "meet_olga": function(game_state) {
-        game_state.message = 
-            "During your invstigation, you strike up a conversation with a " + 
-            "pretty lady.";
+        if (game_state.persons.olga.name === "the pretty lady") {
+            game_state.message = 
+            "During your invstigation, you strike up a conversation with " +                "a pretty lady.";
+        } else {
+            game_state.message = 
+            "During your invstigation, you find yourself talking with Olga.";
+        }
         game_state.character.person = "olga";
         return game_state;
     },

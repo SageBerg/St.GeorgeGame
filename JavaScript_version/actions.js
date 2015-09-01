@@ -6,8 +6,10 @@ var items   = require("./items");
 exports.actions = {
 
     "Ask about assassins.": function(game_state, possible_outcomes) {
-        //raffle.add(possible_outcomes, "assassinated", 1);
-        raffle.add(possible_outcomes, "meet_olga", 1);
+        raffle.add(possible_outcomes, "assassinated", 1);
+        if (game_state.persons.olga.alive) {
+            raffle.add(possible_outcomes, "meet_olga", 1000); //TODO fix prob
+        }
         return possible_outcomes;
     },
 
