@@ -5,6 +5,11 @@ var items   = require("./items");
 
 exports.actions = {
 
+    "Annihilate everything.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "apocalypse", 1);
+        return possible_outcomes;
+    },
+
     "Ask about assassins.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "assassinated", 1);
         if (game_state.persons.olga.alive) {
@@ -35,6 +40,11 @@ exports.actions = {
         } else {
             raffle.add(possible_outcomes, "cannot_afford", 1);
         }
+        return possible_outcomes;
+    },
+
+    "Destroy all human civilizations.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "killed_by_hero", 1);
         return possible_outcomes;
     },
 
@@ -79,6 +89,11 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Go on a rampage.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "starve", 1);
+        return possible_outcomes;
+    },
+
     "GO_TO": function(game_state, possible_outcomes, destination) {
         raffle.add(possible_outcomes, "go_to", 1);
         return possible_outcomes;
@@ -91,6 +106,14 @@ exports.actions = {
 
     "Leave in a puff.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "left_in_a_puff", 10000);
+        return possible_outcomes;
+    },
+
+    "Lick the ground.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "distasteful", 1);
+        if (game_state.character.place === "wizard_lab") {
+            raffle.add(possible_outcomes, "monstrosity", 1);
+        }
         return possible_outcomes;
     },
 
@@ -141,6 +164,11 @@ exports.actions = {
             game_state.character.place === "tavern") {
             raffle.add(possible_outcomes, "earn_small_fortune_in_coins", 1);
         }
+        return possible_outcomes;
+    },
+
+    "Terrorize the kingdom.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "killed_in_future", 1);
         return possible_outcomes;
     },
 

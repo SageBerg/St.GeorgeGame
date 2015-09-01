@@ -107,6 +107,14 @@ function clover(game_state) {
 
 var outcomes = {
 
+    "apocalypse": function(game_state) {
+        game_state.message =
+            "You start annihilating everything, but the Four Horsemen of " +
+            "the Apocalypse steal your thunder. You perish in the chaos.";
+        game_state.character.is_dead = true;
+        return game_state;
+    },
+
     "assassinated": function(game_state) {
         game_state.message = "The first woman you talk to turns out to be an " +
         "assasin. She assassinates you.";
@@ -162,6 +170,11 @@ var outcomes = {
             "The Devil is pretty fast, but Olga is faster and prettier. " +
             "She catches you and strangles you to death.";
         game_state.character.is_dead = true;
+        return game_state;
+    },
+
+    "distasteful": function(game_state) {
+        game_state.message = "You find the flavor of the ground distasteful.";
         return game_state;
     },
 
@@ -290,10 +303,27 @@ var outcomes = {
         return game_state;
     },
 
+    "killed_by_hero": function(game_state) {
+        game_state.message =
+            "You throw out your arm destroying the first three " + 
+            "civilizations and an opportunistic hero slays you.";
+        game_state.character.is_dead = true;
+        return game_state;
+    },
+
     "killed_by_olga": function(game_state) {
         game_state.message =
             "When you squeeze her butt, she stabs you in the heart with a " +
             "poisoned dagger.";
+        game_state.character.is_dead = true;
+        return game_state;
+    },
+
+    "killed_in_future": function(game_state) {
+        game_state.message =
+            "You wreak havoc on a titanic scale, but you eventually fall " +
+            "asleep. By the time you wake up, science has advanced so much " +
+            "that the world government simply nukes you into oblivion.";
         game_state.character.is_dead = true;
         return game_state;
     },
@@ -365,6 +395,15 @@ var outcomes = {
         return game_state;
     },
 
+    "monstrosity": function(game_state) {
+        game_state.message = 
+            "You lick some spilled potion off the floor and start " +
+            "growing at a monstrous rate. By the time you stop growing, " +
+            "you have become a towering monstrosity.";
+        game_state.character.is_monstrosity = true;
+        return game_state;
+    },
+
     "moved": function(game_state) {
         game_state.message = "";
         var links = game_state.places[game_state.character.place].links;
@@ -394,6 +433,14 @@ var outcomes = {
         game_state.message = "You start feeling strange."
         game_state.character.is_tripping = true;
         game_state.character.items["many colored mushroom"] -= 1;
+        return game_state;
+    },
+
+    "starve": function(game_state) {
+        game_state.message =
+            "You smash towns, flatten forests, level mountains, and " +
+            "ultimately run out of food.";
+        game_state.character.is_dead = true;
         return game_state;
     },
 

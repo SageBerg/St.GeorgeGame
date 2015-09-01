@@ -23,6 +23,12 @@ exports.get_options = function get_options(game_state) {
         options.c = "";
         options.d = "";
         options.e = "";
+    } else if (game_state.character.is_monstrosity) {
+        options.a = "Annihilate everything.";
+        options.b = "Terrorize the kingdom.";
+        options.c = "Go on a rampage.";
+        options.d = "Destroy all human civilizations.";
+        options.e = "";
     } else {
 
         get_default_options(options.a, options.b, options.c, options.d);
@@ -52,7 +58,7 @@ exports.get_options = function get_options(game_state) {
 }
 
 function get_default_options(raffle_a, raffle_b, raffle_c, raffle_d) {
-    raffle.add(raffle_a, "Think.", 1);
+    //raffle.add(raffle_a, "Think.", 1);
     raffle.add(raffle_a, "Lick the ground.", 1);
     raffle.add(raffle_b, "Pray to a higher power.", 1);
     raffle.add(raffle_c, "Go to sleep.", 1);
