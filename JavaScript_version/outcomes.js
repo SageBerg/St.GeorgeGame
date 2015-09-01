@@ -26,6 +26,15 @@ function random_int(n) {
     return Math.floor(Math.random() * n);
 }
 
+function burn(game_state) {
+    game_state.places[game_state.character.place].burnable = false;
+    game_state.places[game_state.character.place].name = "the smoldering remains of " + 
+    game_state.places[game_state.character.place].name;
+    game_state.character.person = null;
+    game_state.message = "You find yourself in " +
+    game_state.places[game_state.character.place].name + ".";
+}
+
 function move_character(game_state, destination) {
     game_state.character.place = destination;
     game_state.character.is_threatened = false;
@@ -78,6 +87,13 @@ function get_item(game_state, item) {
     game_state.character.items[item] += 1;
 }
 
+function lose_all_items(game_state) {
+    for (var item in game_state.character.items) {
+        game_state.character.items[item] = 0;
+    }
+    game_state.message += " You now have no items.";
+}
+
 function get_money(game_state, money) {
     if (items.money_map[game_state.character.money].value < 
         items.money_map[money].value) {
@@ -113,6 +129,13 @@ var outcomes = {
         game_state.message =
             "You start annihilating everything, but the Four Horsemen of " +
             "the Apocalypse steal your thunder. You perish in the chaos.";
+        game_state.character.is_dead = true;
+        return game_state;
+    },
+
+    "assassin_prayer_answered": function(game_state) {
+        game_state.message = 
+            "Your prayers aren't answered, but the assassins' are.",
         game_state.character.is_dead = true;
         return game_state;
     },
@@ -307,10 +330,61 @@ var outcomes = {
         return game_state;
     },
 
+    "god_commits_arson":function(game_state) {
+        game_state.message = 
+            "Your prayers are answered.";
+        burn(game_state);
+        return game_state;
+    },
+
+    "god_gives_you_a_wife":function(game_state) {
+        game_state.message = 
+            "Your prayers for a beautiful wife are answered, but she soon " +
+            "leaves you.";
+        return game_state;
+    },
+
+    "god_gives_you_jewels":function(game_state) {
+        game_state.message = 
+            "God does nothing for you, but you do " +
+            "find a bag of jewels someone left on the counter.";
+        return game_state;
+    },
+
+    "god_shows_you_the_way":function(game_state) {
+        game_state.message = 
+            "God speaks to you and shows you the way.";
+        return game_state;
+    },
+
+    "god_showers_you_with_gold":function(game_state) {
+        game_state.message = "God rewards your devotion with a large fortune.";
+        get_money(game_state, "large_fortune");
+        return game_state;
+    },
+
+    "god_tells_you_to_marry":function(game_state) {
+        game_state.message = 
+            "God tells you to get married.";
+        return game_state;
+    },
+
+    "god_tests_you":function(game_state) {
+        game_state.message = 
+            "God decides to test you.";
+        lose_all_items(game_state);
+        return game_state;
+    },
+
     //h
     
     //i
     
+    "ignored": function(game_state) {
+        game_state.message = "God ignores your prayers.";
+        return game_state;
+    },
+
     //j
     
     //k
@@ -466,6 +540,12 @@ var outcomes = {
     },
 
     //s
+
+    "st_george_joins_you_in_prayer":function(game_state) {
+        game_state.message = "St. George joins you in prayer."
+        game_state.character.person = "st_george";
+        return game_state;
+    },
 
     "start_tripping":function(game_state) {
         game_state.message = "You start feeling strange."
