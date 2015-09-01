@@ -91,6 +91,13 @@ function get_place_options(game_state, raffle_a, raffle_b, raffle_c,
     if (game_state.character.place === "woods") {
         raffle.add(raffle_a, "Go mushroom picking.", 2);
     }
+
+    if (game_state.character.place === "countryside" || 
+        game_state.character.place === "woods" ||
+        game_state.character.place === "lord_bartholomew_manor") {
+        raffle.add(raffle_b, "Go flower picking.", 2);
+    }
+
 }
 
 function get_person_options(game_state, raffle_a, raffle_b, raffle_c, 

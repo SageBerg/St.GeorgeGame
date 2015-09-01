@@ -96,6 +96,15 @@ function add_move_message(game_state) {
         game_state.places[game_state.character.place].name + ".";
 }
 
+function clover(game_state) {
+    if (game_state.character["four-leaf clover"] < 1) {
+        game_state.character.is_dead = true;
+    } else {
+        game_state.message += " Or at least that's what you think " +
+        "would have happened if you didn't have a lucky four-leaf clover.";
+    }
+}
+
 var outcomes = {
 
     "assassinated": function(game_state) {
@@ -197,6 +206,14 @@ var outcomes = {
         return game_state;
     },
 
+    "get_a_four-leaf_clover": function(game_state) {
+        game_state.message = "You don't find any flowers, but you find a " + 
+        "four-leaf clover instead.";
+        get_item(game_state, "four-leaf clover");
+        game_state.character.person = null;
+        return game_state;
+    },
+
     "go_to": function(game_state) {
         game_state.message = "";
         game_state.character.place = game_state.destination;
@@ -282,6 +299,13 @@ var outcomes = {
         return game_state;
     },
 
+    "rebuffed_by_olga":function(game_state) {
+        game_state.message = "Her eyes glaze over while you struggle make " +
+            "yourself sound interesting.";
+        game_state.persons["olga"].attracted -= 1;
+        return game_state;
+    },
+
     "start_tripping":function(game_state) {
         game_state.message = "You start feeling strange."
         game_state.character.is_tripping = true;
@@ -289,10 +313,9 @@ var outcomes = {
         return game_state;
     },
 
-    "rebuffed_by_olga":function(game_state) {
-        game_state.message = "Her eyes glaze over while you struggle make " +
-            "yourself sound interesting.";
-        game_state.persons["olga"].attracted -= 1;
+    "trip_over_a_cat":function(game_state) {
+        game_state.message = "You trip over a cat and break your neck.";
+        clover(game_state);
         return game_state;
     },
 

@@ -9,15 +9,17 @@ exports.character = {
     "is_tripping_on_mushrooms": false,
     "items": 
     {
-        "cat": 0,
         "dagger": 0,
         "cutlass": 0,
         "hammer": 0,
         "poison_dagger": 0,
         "jeweled_cutlass": 0,
         "iron_hammer": 0,
-        "many colored mushroom": 0,
+
         "black mushroom": 0,
+        "cat": 0,
+        "four-leaf clover": 0,
+        "many colored mushroom": 0,
         "white mushroom": 0,
         "yellow mushroom": 0,
     },

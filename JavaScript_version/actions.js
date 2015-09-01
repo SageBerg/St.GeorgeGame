@@ -63,6 +63,11 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Go flower picking.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "get_a_four-leaf_clover", 1);
+        return possible_outcomes;
+    },
+
     "GO_TO": function(game_state, possible_outcomes, destination) {
         raffle.add(possible_outcomes, "go_to", 1);
         return possible_outcomes;
@@ -84,7 +89,8 @@ exports.actions = {
     },
 
     "Look for St. George.": function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "find_st_george", 10000);
+        raffle.add(possible_outcomes, "find_st_george", 5);
+        raffle.add(possible_outcomes, "trip_over_a_cat", 10000);
         return possible_outcomes;
     },
 
