@@ -4,7 +4,7 @@ exports.money_map = {
     "none":          {"value": 0, "name": "no money"},
     "pittance":      {"value": 1, "name": "a pittance"},
     "small_fortune": {"value": 2, "name": "a small fortune"},
-    "large_fortune": {"value": 3, "name": "a small fortune"}
+    "large_fortune": {"value": 3, "name": "a large fortune"}
 }
 
 exports.weapons_map = {
