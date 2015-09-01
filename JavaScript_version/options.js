@@ -67,19 +67,29 @@ function get_character_options(game_state, raffle_a, raffle_b, raffle_c,
         //raffle.add(raffle_c, "Waddle like God.", 10);
     }
 
+    if (game_state.character.items["many colored mushroom"] > 0) {
+        raffle.add(raffle_d, "Chow down on your many colored mushroom.", 1);
+    }
+
 }
 
 function get_place_options(game_state, raffle_a, raffle_b, raffle_c, 
                            raffle_d) {
+
     if (game_state.places[game_state.character.place].town) {
         raffle.add(raffle_c, "Look for a cat.", 1);
         if (game_state.character.person !== "st_george") {
             raffle.add(raffle_d, "Look for St. George.", 1);
         }
     }
-    if (game_state.character.person !== "war_merchant") { //&&
-        //game_state.character.place === "market") {
+
+    if (game_state.character.person !== "war_merchant" &&
+        game_state.character.place === "market") {
         raffle.add(raffle_d, "Look for a weapon.", 10);
+    }
+
+    if (game_state.character.place === "woods") {
+        raffle.add(raffle_a, "Go mushroom picking.", 2);
     }
 }
 

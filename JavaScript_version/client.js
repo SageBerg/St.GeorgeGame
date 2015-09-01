@@ -50,6 +50,30 @@ function a_or_an(next_letter) {
     return "a";
 }
 
+function scramble(text) {
+    for (var i in "?\"\'!.,:;") {
+        text = text.replace("?\"\'!.,:;"[i], "");
+    }
+    text = text.toLowerCase();
+    var array = text.split(" ");
+    var currentIndex = array.length, temporaryValue, randomIndex ;
+
+    while (0 !== currentIndex) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+
+    var return_text = "";
+    for (var i = 0; i < array.length; i++) {
+        return_text += array[i] + " ";
+    }
+
+    return return_text;
+}
+
 function handle_new_world(resp) {
 
     game_state = resp;
@@ -62,7 +86,13 @@ function handle_new_world(resp) {
         document.getElementById("abcde"[i]).style.color = "black";
     }
 
-    document.getElementById("message").innerHTML = game_state.message;
+    if (game_state.character.is_tripping) {
+        document.getElementById("message").innerHTML = 
+        scramble(game_state.message);
+    } else {
+        document.getElementById("message").innerHTML = game_state.message;
+    }
+
     if (game_state.options.a === "Attack") {
         document.getElementById("a").innerHTML = 
             "a. Attack " + resp.persons[resp.character.person].name + ".";

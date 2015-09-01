@@ -70,7 +70,8 @@ function get_name(game_state) {
 
 function get_item(game_state, item) {
     if (game_state.character.items[item] === 0) {
-        game_state.message += " You now have " + a_or_an(item[0]) + item + ".";
+        game_state.message += " You now have " + a_or_an(item[0]) + " " + 
+        item + ".";
     } else {
         game_state.message += " You now have another " + item + ".";
     }
@@ -272,6 +273,19 @@ var outcomes = {
 
     "no_one_cares":function(game_state) {
         game_state.message = "You sing your favorite song. No one cares.";
+        return game_state;
+    },
+
+    "pick_many_colored_mushroom":function(game_state) {
+        game_state.message = "You pick a many colored mushroom.";
+        get_item(game_state, "many colored mushroom");
+        return game_state;
+    },
+
+    "start_tripping":function(game_state) {
+        game_state.message = "You start feeling strange."
+        game_state.character.is_tripping = true;
+        game_state.character.items["many colored mushroom"] -= 1;
         return game_state;
     },
 

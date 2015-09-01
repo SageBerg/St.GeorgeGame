@@ -36,6 +36,12 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Chow down on your many colored mushroom.": 
+    function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "start_tripping", 1);
+        return possible_outcomes;
+    },
+
     "Flirt with": function(game_state, possible_outcomes) {
         if (game_state.character.person === "olga") {
             raffle.add(possible_outcomes, "rebuffed_by_olga", 1);
@@ -49,6 +55,11 @@ exports.actions = {
     //you don't choose to fight or run away
     "GET_ATTACKED": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "get_attacked", 1);
+        return possible_outcomes;
+    },
+
+    "Go mushroom picking.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "pick_many_colored_mushroom", 1);
         return possible_outcomes;
     },
 

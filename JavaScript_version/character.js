@@ -15,7 +15,11 @@ exports.character = {
         "hammer": 0,
         "poison_dagger": 0,
         "jeweled_cutlass": 0,
-        "iron_hammer": 0
+        "iron_hammer": 0,
+        "many colored mushroom": 0,
+        "black mushroom": 0,
+        "white mushroom": 0,
+        "yellow mushroom": 0,
     },
     "money": "none",
     "person": "",
