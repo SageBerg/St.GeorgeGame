@@ -153,7 +153,12 @@ exports.actions = {
     },
 
     "Look for a cat.": function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "find_a_cat", 10000);
+        raffle.add(possible_outcomes, "find_a_cat", 1);
+        return possible_outcomes;
+    },
+
+    "Look for a weapon.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "find_a_war_merchant", 1);
         return possible_outcomes;
     },
 
@@ -165,11 +170,6 @@ exports.actions = {
     "Look for St. George.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "find_st_george", 5);
         raffle.add(possible_outcomes, "trip_over_a_cat", 1);
-        return possible_outcomes;
-    },
-
-    "Look for a weapon.": function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "find_a_war_merchant", 10000);
         return possible_outcomes;
     },
 
@@ -193,7 +193,7 @@ exports.actions = {
         raffle.add(possible_outcomes, "god_shows_you_the_way", 1);
         raffle.add(possible_outcomes, "god_tells_you_to_marry", 1);
         raffle.add(possible_outcomes, "god_tests_you", 1);
-        raffle.add(possible_outcomes, "ignored", 10000); //fix
+        raffle.add(possible_outcomes, "ignored", 2);
 
         if (game_state.places[game_state.character.place].burnable) {
             raffle.add(possible_outcomes, "god_commits_arson", 1);
@@ -217,7 +217,12 @@ exports.actions = {
     "Run like the Devil.": function(game_state, possible_outcomes) {
         if (game_state.character.is_threatened) {
             raffle.add(possible_outcomes, "escaped", 9);
-            raffle.add(possible_outcomes, "caught", 1);
+            if (game_state.persons[game_state.character.person].prefered_attack
+                === "arrest") {
+                raffle.add(possible_outcomes, "caught_and_arrested", 1);
+            } else {
+                raffle.add(possible_outcomes, "caught", 1);
+            }
         } else if (game_state.character.person === "olga") {
             raffle.add(possible_outcomes, "escaped_unmarried", 1);
             raffle.add(possible_outcomes, "caught_by_olga", 1);
@@ -229,14 +234,22 @@ exports.actions = {
 
     "Sing a song.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "no_one_cares", 1);
+
         if (game_state.character.place === "tavern") {
             raffle.add(possible_outcomes, "assassins_approach", 10);
         }
+
+        if (game_state.character.place === "streets" || 
+            game_state.character.place === "market") {
+            raffle.add(possible_outcomes, "guards_stop_you_singing", 1);
+        }
+
         if (game_state.character.place === "streets" || 
             game_state.character.place === "market" ||
             game_state.character.place === "tavern") {
             raffle.add(possible_outcomes, "earn_small_fortune_in_coins", 1);
         }
+
         return possible_outcomes;
     },
 

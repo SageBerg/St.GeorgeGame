@@ -22,6 +22,10 @@ exports.apply_outcome = function apply_outcome(outcome, game_state) {
     return outcomes[outcome](game_state);
 }
 
+function capitalize(string) {
+    return string[0].toUpperCase() + string.slice(1);
+}
+
 function random_int(n) {
     return Math.floor(Math.random() * n);
 }
@@ -54,13 +58,11 @@ function a_or_an(next_letter) {
     return "a";
 }
 
-/*
 var he_she_they = {
     "female": "she",
     "male": "he",
     "group": "they"
 }
-*/
 
 function conjugate(game_state, word) {
     if (game_state.persons[game_state.character.person].type !== "group") {
@@ -199,6 +201,19 @@ var outcomes = {
         return game_state;
     },
 
+    "caught_and_arrested": function(game_state) {
+        game_state.message = 
+            "You run like the Devil, but " + get_name(game_state) +
+            " also " + conjugate(game_state, "run") + " like thd Devil and " +
+            conjugate(game_state, "overtake") + " you. " +
+            capitalize(get_subject(game_state)) + " " +
+            conjugate(game_state, "arrest") + 
+            " you and throw you in prison with the other lunatics.";
+        move_character(game_state, "prison");
+        game_state.character.person = "other_lunatics";
+        return game_state;
+    },
+
     "caught_by_olga": function(game_state) {
         game_state.message = 
             "The Devil is pretty fast, but Olga is faster and prettier. " +
@@ -286,11 +301,22 @@ var outcomes = {
         var attempted_action = 
             game_state.action[0].toLowerCase() +
             game_state.action.slice(1, game_state.action.length - 1);
-        game_state.message = 
-            "You try to " + attempted_action + ", but " + 
-            get_name(game_state) + " " +
-            conjugate(game_state, "kill") + " you."
-        game_state.character.is_dead = true;
+        if (game_state.persons[game_state.character.person].prefered_attack ===
+            "arrest") {
+            game_state.message = 
+                "You try to " + attempted_action + ", but " + 
+                get_name(game_state) + " " +
+                conjugate(game_state, "throw") + " you in prison with the " +
+                "other lunatics.";
+            move_character(game_state, "prison");
+            game_state.character.person = "other_lunatics";
+        } else {
+            game_state.message = 
+                "You try to " + attempted_action + ", but " + 
+                get_name(game_state) + " " +
+                conjugate(game_state, "kill") + " you."
+            game_state.character.is_dead = true;
+        }
         return game_state;
     },
 
@@ -378,6 +404,14 @@ var outcomes = {
         game_state.message = 
             "God decides to test you.";
         lose_all_items(game_state);
+        return game_state;
+    },
+
+    "guards_stop_you_singing":function(game_state) {
+        game_state.message = "The local guards see you singing and conclude " +
+        "that you must be a lunatic.";
+        game_state.character.person = "guards";
+        game_state.character.is_threatened = true;
         return game_state;
     },
 
