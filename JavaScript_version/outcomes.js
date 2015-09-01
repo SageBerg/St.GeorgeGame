@@ -113,7 +113,7 @@ function add_move_message(game_state) {
 }
 
 function clover(game_state) {
-    if (game_state.character["four-leaf clover"] < 1) {
+    if (game_state.character.items["four-leaf clover"] < 1) {
         game_state.character.is_dead = true;
     } else {
         game_state.message += " Or at least that's what you think " +
