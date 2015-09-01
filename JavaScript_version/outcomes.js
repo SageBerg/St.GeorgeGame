@@ -157,6 +157,14 @@ var outcomes = {
         return game_state;
     },
 
+    "caught_by_olga": function(game_state) {
+        game_state.message = 
+            "The Devil is pretty fast, but Olga is faster and prettier. " +
+            "She catches you and strangles you to death.";
+        game_state.character.is_dead = true;
+        return game_state;
+    },
+
     "earn_small_fortune_in_coins": function(game_state) {
         game_state.message = 
             "A crowd gathers to hear your singing and " + 
@@ -174,6 +182,18 @@ var outcomes = {
         return game_state;
     },
 
+    "escaped_unmarried": function(game_state) {
+        game_state.message = 
+            "The Devil is very fast, so you manage to get away unmarried.";
+        if (game_state.character.person === "olga") {
+            game_state.persons.olga.attracted = 0;
+        }
+        var links = game_state.places[game_state.character.place].links
+        var destination = links[random_int(links.length)];
+        move_character(game_state, destination);
+        return game_state;
+    },
+
     "find_a_cat": function(game_state) {
         game_state.message = "You find a cat.";
         get_item(game_state, "cat");
@@ -185,6 +205,19 @@ var outcomes = {
         game_state.message = 
             "You find yourself talking to a wealthy war merchant.";
         game_state.character.person = "war_merchant";
+        return game_state;
+    },
+
+    "find_olga": function(game_state) {
+        if (game_state.persons.olga.attracted < 1) {
+            game_state.message = "You find Olga laughing with her friends. " +
+                "\"Oh hey there,\" she calls to you. \"I was just telling " +
+                "my friends how you ran away when I asked you to marry me.\"";
+        } else {
+            game_state.message = "You find Olga drinking some ale. " +
+                "\"Hey there, Good Looking,\" she says.";
+        }
+        game_state.character.person = "olga";
         return game_state;
     },
 
@@ -350,7 +383,6 @@ var outcomes = {
     "rebuffed_by_olga":function(game_state) {
         game_state.message = "Her eyes glaze over while you struggle make " +
             "yourself sound interesting.";
-        game_state.persons["olga"].attracted -= 1;
         return game_state;
     },
 

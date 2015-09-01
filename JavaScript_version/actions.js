@@ -97,9 +97,14 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Look for Olga.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "find_olga", 1);
+        return possible_outcomes;
+    },
+
     "Look for St. George.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "find_st_george", 5);
-        raffle.add(possible_outcomes, "trip_over_a_cat", 10000);
+        raffle.add(possible_outcomes, "trip_over_a_cat", 1);
         return possible_outcomes;
     },
 
@@ -114,8 +119,13 @@ exports.actions = {
     },
 
     "Run like the Devil.": function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "escaped", 9);
-        raffle.add(possible_outcomes, "caught", 1);
+        if (game_state.character.is_threatened) {
+            raffle.add(possible_outcomes, "escaped", 9);
+            raffle.add(possible_outcomes, "caught", 1);
+        } else if (game_state.character.person === "olga") {
+            raffle.add(possible_outcomes, "escaped_unmarried", 1);
+            raffle.add(possible_outcomes, "caught_by_olga", 1);
+        }
         return possible_outcomes;
     },
 
