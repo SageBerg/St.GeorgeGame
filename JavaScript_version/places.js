@@ -127,7 +127,7 @@ exports.places = {
         "burnable":  false,
         "links":     [],
         "locked":    true,
-        "name":      "Lord Arthur's Pirate Ship",
+        "name":      "Lord Arthur's pirate ship",
         "outside":   true,
         "populated": true,
         "town":      false,
