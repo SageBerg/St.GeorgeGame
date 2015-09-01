@@ -223,6 +223,30 @@ var outcomes = {
         return game_state;
     },
 
+    "go_upstairs_and_die":function(game_state) {
+        game_state.message = "Olga invites you to her room upstairs. " +
+            "When you get there, lots of passionate stabbing ensues.";
+        game_state.character.is_dead = true;
+        return game_state;
+    },
+
+    "go_upstairs_with_olga":function(game_state) {
+        var messages = [
+            "After dancing with Olga for a couple of hours, she takes " +
+            "you upstairs to see the view from her window.",
+            "You and Olga stay up late trading jokes. When the innkeeper " + 
+            "says they're closing down for the night, Olga takes you " +
+            "upstairs to her room where she has some fine paintings she's " +
+            "borrowing from Lord Carlos.",
+            "Once you're both quite drunk, Olga takes you upstairs to " + 
+            "her room."
+        ] 
+        game_state.character.place = "upstairs";
+        game_state.message = messages[random_int(messages.length)];
+        game_state.persons["olga"].attracted += 1;
+        return game_state;
+    },
+
     "kill": function(game_state) {
         game_state.message =
             "You kill " +
@@ -262,6 +286,30 @@ var outcomes = {
             "You get killed by " + 
             game_state.persons[game_state.character.person].name + ".";
         game_state.character.is_dead = true;
+        return game_state;
+    },
+
+    "married": function(game_state) {
+        if (game_state.character.person === "olga") {
+            var messages = [
+                "Lord Bartholomew performs a wedding for you and Olga in the " +
+                "countryside. 20,000 people attend your wedding, but you " +
+                "suspect they just wanted to see Lord Bartholomew.",
+                "The wizard performs a wedding for you and Olga in the market." +
+                " He turns you both into sheep after the vows, but it's much " +
+                "safer being sheep.",
+                "Lord Arthur performs a wedding for you and Olga on the deck " +
+                "of his pirate ship. By the time the ceremony is over the " +
+                "ship has sailed. You are now both members of the crew.",
+                "A bleary-eyed priestess performs a wedding for you and Olga in " +
+                "an alley behind the church. Olga asks the priestess if she " +
+                "would like to come along for the honeymoon, but the priestess " +
+                "declines.",
+            ] 
+            game_state.message = messages[random_int(messages.length)];
+            game_state.character.has_found_true_love = true;
+            game_state.message += " You and Olga live happily ever after.";
+        }
         return game_state;
     },
 
@@ -339,6 +387,31 @@ var outcomes = {
         ] 
         game_state.message = messages[random_int(messages.length)];
         game_state.persons["olga"].attracted += 1;
+        if (game_state.persons["olga"].attracted > 2 && 
+            game_state.persons["olga"].name === "the pretty lady") {
+            game_state.persons.olga.name = "Olga";
+            game_state.message += " She tells you her name is Olga. " +
+            "You also tell her your name.";
+        }
+        return game_state;
+    },
+
+    "wowed_olga_upstairs":function(game_state) {
+        var messages = [
+            "You make passionate love together.",
+            "You sleep together.",
+            "Olga does lots of nice things to you.",
+            "Olga whispers that she's been stalking you.",
+            "You both stay up late talking by candlelight.",
+            "Olga tells you her life story. Half of it seems made up.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        game_state.persons["olga"].attracted += 1;
+        if (game_state.persons["olga"].attracted > 5) {
+            game_state.message = "Olga grabs your hand. \"Life's too short, " +
+            "let's get married!\"";
+            game_state.marriage = true;
+        }
         return game_state;
     },
 

@@ -10,7 +10,20 @@ exports.default_options = {"a": "Ask about assassins.",
 
 exports.get_options = function get_options(game_state) {
     var options = {"a": {}, "b": {}, "c": {}, "d": {} };
-    if (game_state.character.is_dead === false) {
+    if (game_state.character.is_dead || 
+        game_state.character.has_found_true_love) {
+        options.a = "Play again.";
+        options.b = "Don't play again.";
+        options.c = "";
+        options.d = "";
+        options.e = "";
+    } else if (game_state.marriage === true) {
+        options.a = "MARRY";
+        options.b = "Run like the Devil.";
+        options.c = "";
+        options.d = "";
+        options.e = "";
+    } else {
 
         get_default_options(options.a, options.b, options.c, options.d);
         get_character_options(game_state, options.a, options.b, options.c, 
@@ -31,13 +44,10 @@ exports.get_options = function get_options(game_state) {
             options.e = "";
         }
 
-    } else {
-        options.a = "Play again.";
-        options.b = "Don't play again.";
-        options.c = "";
-        options.d = "";
-        options.e = "";
     }
+
+    game_state.marriage = false;
+
     return options;
 }
 

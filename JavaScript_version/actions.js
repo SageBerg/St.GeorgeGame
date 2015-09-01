@@ -43,10 +43,19 @@ exports.actions = {
     },
 
     "Flirt with": function(game_state, possible_outcomes) {
-        if (game_state.character.person === "olga") {
+        if (game_state.persons[game_state.character.person].name === 
+            "the pretty lady") {
             raffle.add(possible_outcomes, "rebuffed_by_olga", 1);
             raffle.add(possible_outcomes, "killed_by_olga", 1);
             raffle.add(possible_outcomes, "wowed_olga", 8);
+        } else if (game_state.persons[game_state.character.person].name ===
+                   "Olga") {
+            if (game_state.character.place === "tavern") {
+                raffle.add(possible_outcomes, "go_upstairs_with_olga", 9);
+                raffle.add(possible_outcomes, "go_upstairs_and_die", 1);
+            } else {
+                raffle.add(possible_outcomes, "wowed_olga_upstairs", 1);
+            }
         }
         return possible_outcomes;
     },
@@ -99,6 +108,11 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "MARRY": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "married", 1);
+        return possible_outcomes;
+    },
+
     "Run like the Devil.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "escaped", 9);
         raffle.add(possible_outcomes, "caught", 1);
@@ -113,7 +127,7 @@ exports.actions = {
         if (game_state.character.place === "streets" || 
             game_state.character.place === "market" ||
             game_state.character.place === "tavern") {
-            raffle.add(possible_outcomes, "earn_small_fortune_in_coins", 100); //TODO fix prob
+            raffle.add(possible_outcomes, "earn_small_fortune_in_coins", 1);
         }
         return possible_outcomes;
     },

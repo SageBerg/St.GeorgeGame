@@ -96,6 +96,9 @@ function handle_new_world(resp) {
     if (game_state.options.a === "Attack") {
         document.getElementById("a").innerHTML = 
             "a. Attack " + resp.persons[resp.character.person].name + ".";
+    } else if (game_state.options.a === "MARRY") {
+        document.getElementById("a").innerHTML = "a. Marry " +
+            game_state.persons[game_state.character.person].name + ".";
     } else {
         document.getElementById("a").innerHTML = "a. " + game_state.options.a;
     }
