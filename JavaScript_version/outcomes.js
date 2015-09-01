@@ -178,6 +178,11 @@ var outcomes = {
         return game_state;
     },
 
+    "burn": function(game_state) {
+        burn(game_state);
+        return game_state;
+    },
+
     //c
 
     "cannot_afford": function(game_state) {
@@ -540,6 +545,13 @@ var outcomes = {
     },
 
     //s
+
+    "set_self_on_fire":function(game_state) {
+        game_state.message = "You accidently set yourself on fire and " +
+        "promptly burn to a crisp.";
+        game_state.character.is_dead = true;
+        return game_state;
+    },
 
     "st_george_joins_you_in_prayer":function(game_state) {
         game_state.message = "St. George joins you in prayer."

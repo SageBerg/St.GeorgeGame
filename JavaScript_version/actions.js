@@ -32,6 +32,12 @@ exports.actions = {
 
     //b
 
+    "BURN": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "burn", 3);
+        raffle.add(possible_outcomes, "set_self_on_fire", 1);
+        return possible_outcomes;
+    },
+
     "Buy a drink.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "meet_blind_bartender", 10);
         return possible_outcomes;

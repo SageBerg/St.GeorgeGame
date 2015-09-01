@@ -93,6 +93,7 @@ function handle_new_world(resp) {
         document.getElementById("message").innerHTML = game_state.message;
     }
 
+//Option a.
     if (game_state.options.a === "Attack") {
         document.getElementById("a").innerHTML = 
             "a. Attack " + resp.persons[resp.character.person].name + ".";
@@ -102,7 +103,16 @@ function handle_new_world(resp) {
     } else {
         document.getElementById("a").innerHTML = "a. " + game_state.options.a;
     }
-    document.getElementById("b").innerHTML = "b. " + game_state.options.b;
+
+//Option b.
+    if (game_state.options.b === "BURN") {
+        document.getElementById("b").innerHTML = "b. Burn " + 
+            game_state.places[game_state.character.place].name + 
+            " to the ground.";
+    } else {
+        document.getElementById("b").innerHTML = "b. " + game_state.options.b;
+    }
+//Option c.
     if (game_state.options.c !== "") {
         if (game_state.options.c === "GO_TO") {
             var dest = get_destination(game_state);
@@ -116,6 +126,8 @@ function handle_new_world(resp) {
     } else {
         document.getElementById("c").innerHTML = "";
     }
+
+//Option d.
     if (game_state.options.d !== "") {
         if (game_state.options.d === "Buy a weapon.") {
             var weapon = get_weapon(game_state);
@@ -133,6 +145,8 @@ function handle_new_world(resp) {
     } else {
         document.getElementById("d").innerHTML = "";
     }
+
+//Option e.
     if (game_state.options.e !== "") {
         document.getElementById("e").innerHTML = "e. " + game_state.options.e;
     } else {

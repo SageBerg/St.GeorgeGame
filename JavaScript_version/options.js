@@ -8,10 +8,35 @@ exports.default_options = {"a": "Ask about assassins.",
                            "d": "Sing a song.",
                            "e": ""};
 
+function burned_everything(game_state) {
+    for (var place in game_state.places) {
+        if (game_state.places[place].burnable) {
+            return false;
+        }
+    }
+    return true;
+} 
+
+function random_int(n) {
+    return Math.floor(Math.random() * n);
+}
+
 exports.get_options = function get_options(game_state) {
     var options = {"a": {}, "b": {}, "c": {}, "d": {} };
     if (game_state.character.is_dead || 
         game_state.character.has_found_true_love) {
+        options.a = "Play again.";
+        options.b = "Don't play again.";
+        options.c = "";
+        options.d = "";
+        options.e = "";
+    } else if (burned_everything(game_state)) {
+        var messages = [
+            "Some people just like to watch the world " +
+            "burn. You are one of them. You win.",
+            "You are satisfied with how everything has been burned. You win.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
         options.a = "Play again.";
         options.b = "Don't play again.";
         options.c = "";
@@ -91,6 +116,10 @@ function get_character_options(game_state, raffle_a, raffle_b, raffle_c,
 
 function get_place_options(game_state, raffle_a, raffle_b, raffle_c, 
                            raffle_d) {
+
+    if (game_state.places[game_state.character.place].burnable) {
+        raffle.add(raffle_b, "BURN", 1);
+    }
 
     if (game_state.places[game_state.character.place].town) {
         raffle.add(raffle_c, "Look for a cat.", 1);
