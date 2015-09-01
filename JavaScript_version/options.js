@@ -88,4 +88,9 @@ function get_person_options(game_state, raffle_a, raffle_b, raffle_c,
     if (game_state.character.person === "war_merchant") {
         raffle.add(raffle_d, "Buy a weapon.", 10000);
     }
+
+    if (game_state.character.person === "olga") {
+        raffle.add(raffle_d, "Flirt with", 100);
+        //game_state.persons[game_state.character.person].name + ".", 10000);
+    }
 }

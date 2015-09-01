@@ -200,6 +200,7 @@ var outcomes = {
         game_state.message = "";
         game_state.character.place = game_state.destination;
         game_state.destination = null;
+        game_state.character.person = null;
         add_move_message(game_state);
         return game_state;
     },
@@ -245,6 +246,14 @@ var outcomes = {
         return game_state;
     },
 
+    "meet_olga": function(game_state) {
+        game_state.message = 
+            "During your invstigation, you strike up a conversation with a " + 
+            "pretty lady.";
+        game_state.character.person = "olga";
+        return game_state;
+    },
+
     "moved": function(game_state) {
         game_state.message = "";
         var links = game_state.places[game_state.character.place].links;
@@ -255,6 +264,13 @@ var outcomes = {
 
     "no_one_cares":function(game_state) {
         game_state.message = "You sing your favorite song. No one cares.";
+        return game_state;
+    },
+
+    "rebuffed_by_olga":function(game_state) {
+        game_state.message = "Her eyes glaze over while you struggle make " +
+            "yourself sound interesting.";
+        game_state.persons["olga"].attracted -= 1;
         return game_state;
     },
 

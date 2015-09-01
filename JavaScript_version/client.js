@@ -90,6 +90,9 @@ function handle_new_world(resp) {
                 "d. Buy " + a_or_an(weapons_map[weapon][0]) + " " +
                 weapons_map[weapon] + ".";
             game_state.for_sell = weapon;
+        } else if (game_state.options.d === "Flirt with") {
+            document.getElementById("d").innerHTML = "d. Flirt with " +
+                game_state.persons[game_state.character.person].name + ".";
         } else {
             document.getElementById("d").innerHTML = "d. " +
                 game_state.options.d;

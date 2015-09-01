@@ -5,6 +5,12 @@ var items   = require("./items");
 
 exports.actions = {
 
+    "Ask about assassins.": function(game_state, possible_outcomes) {
+        //raffle.add(possible_outcomes, "assassinated", 1);
+        raffle.add(possible_outcomes, "meet_olga", 1);
+        return possible_outcomes;
+    },
+
     "Attack": function(game_state, possible_outcomes) {
         if (game_state.character.strength > 
             game_state.persons[game_state.character.person].attack) {
@@ -21,12 +27,18 @@ exports.actions = {
     },
 
     "Buy a weapon.": function(game_state, possible_outcomes) {
-
         if (items.money_map[items.weapons_map[game_state.for_sell].cost].value 
             <= items.money_map[game_state.character.money].value) {
             raffle.add(possible_outcomes, "bought_a_weapon", 1);
         } else {
             raffle.add(possible_outcomes, "cannot_afford", 1);
+        }
+        return possible_outcomes;
+    },
+
+    "Flirt with": function(game_state, possible_outcomes) {
+        if (game_state.character.person === "olga") {
+            raffle.add(possible_outcomes, "rebuffed_by_olga", 1);
         }
         return possible_outcomes;
     },
