@@ -22,31 +22,6 @@ exports.apply_outcome = function apply_outcome(outcome, game_state) {
     return outcomes[outcome](game_state);
 }
 
-function capitalize(string) {
-    return string[0].toUpperCase() + string.slice(1);
-}
-
-function random_int(n) {
-    return Math.floor(Math.random() * n);
-}
-
-function burn(game_state) {
-    game_state.places[game_state.character.place].burnable = false;
-    game_state.places[game_state.character.place].name = "the smoldering remains of " + 
-    game_state.places[game_state.character.place].name;
-    game_state.character.person = null;
-    game_state.message = "You find yourself in " +
-    game_state.places[game_state.character.place].name + ".";
-}
-
-function move_character(game_state, destination) {
-    game_state.character.place = destination;
-    game_state.character.is_threatened = false;
-    game_state.character.person = null;
-    game_state.message += " You find yourself in " + 
-        game_state.places[destination].name + ".";
-}
-
 function a_or_an(next_letter) {
     if (next_letter === "a" ||
         next_letter === "e" ||
@@ -58,10 +33,32 @@ function a_or_an(next_letter) {
     return "a";
 }
 
-var he_she_they = {
-    "female": "she",
-    "male": "he",
-    "group": "they"
+function add_move_message(game_state) {
+    game_state.message += "You find yourself in " + 
+        game_state.places[game_state.character.place].name + ".";
+}
+
+function burn(game_state) {
+    game_state.places[game_state.character.place].burnable = false;
+    game_state.places[game_state.character.place].name = 
+        "the smoldering remains of " + 
+        game_state.places[game_state.character.place].name;
+    game_state.character.person = null;
+    game_state.message = "You find yourself in " +
+    game_state.places[game_state.character.place].name + ".";
+}
+
+function capitalize(string) {
+    return string[0].toUpperCase() + string.slice(1);
+}
+
+function clover(game_state) {
+    if (game_state.character.items["four-leaf clover"] < 1) {
+        game_state.character.is_dead = true;
+    } else {
+        game_state.message += " Or at least that's what you think " +
+        "would have happened if you didn't have a lucky four-leaf clover.";
+    }
 }
 
 function conjugate(game_state, word) {
@@ -71,14 +68,6 @@ function conjugate(game_state, word) {
     return word
 } 
 
-function get_subject(game_state) {
-    return he_she_they[game_state.persons[game_state.character.person].type];
-}
-
-function get_name(game_state) {
-    return game_state.persons[game_state.character.person].name;
-}
-
 function get_item(game_state, item) {
     if (game_state.character.items[item] === 0) {
         game_state.message += " You now have " + a_or_an(item[0]) + " " + 
@@ -87,13 +76,6 @@ function get_item(game_state, item) {
         game_state.message += " You now have another " + item + ".";
     }
     game_state.character.items[item] += 1;
-}
-
-function lose_all_items(game_state) {
-    for (var item in game_state.character.items) {
-        game_state.character.items[item] = 0;
-    }
-    game_state.message += " You now have no items.";
 }
 
 function get_money(game_state, money) {
@@ -109,18 +91,42 @@ function get_money(game_state, money) {
     }
 }
 
-function add_move_message(game_state) {
-    game_state.message += "You find yourself in " + 
-        game_state.places[game_state.character.place].name + ".";
+function get_name(game_state) {
+    return game_state.persons[game_state.character.person].name;
 }
 
-function clover(game_state) {
-    if (game_state.character.items["four-leaf clover"] < 1) {
-        game_state.character.is_dead = true;
-    } else {
-        game_state.message += " Or at least that's what you think " +
-        "would have happened if you didn't have a lucky four-leaf clover.";
+function get_subject(game_state) {
+    return he_she_they[game_state.persons[game_state.character.person].type];
+}
+
+function move_character(game_state, destination) {
+    game_state.character.place = destination;
+    game_state.character.is_threatened = false;
+    game_state.character.person = null;
+    game_state.message += " You find yourself in " + 
+        game_state.places[destination].name + ".";
+}
+
+function lose_all_items(game_state) {
+    for (var item in game_state.character.items) {
+        game_state.character.items[item] = 0;
     }
+    game_state.message += " You now have no items.";
+}
+
+function random_int(n) {
+    return Math.floor(Math.random() * n);
+}
+
+function get_random_adjacent_destination(game_state) {
+    var links = game_state.places[game_state.character.place].links;
+    return links[random_int(links.length)];
+}
+
+var he_she_they = {
+    "female": "she",
+    "male": "he",
+    "group": "they"
 }
 
 var outcomes = {
@@ -242,9 +248,10 @@ var outcomes = {
     "escaped": function(game_state) {
         game_state.message = 
             "The Devil is very fast, so you manage to get away.";
-        var links = game_state.places[game_state.character.place].links
-        var destination = links[random_int(links.length)];
-        move_character(game_state, destination);
+        //var links = game_state.places[game_state.character.place].links
+        //var destination = links[random_int(links.length)];
+        //move_character(game_state, destination);
+        move_character(game_state, get_random_adjacent_destination(game_state));
         return game_state;
     },
 
@@ -254,9 +261,10 @@ var outcomes = {
         if (game_state.character.person === "olga") {
             game_state.persons.olga.attracted = 0;
         }
-        var links = game_state.places[game_state.character.place].links
-        var destination = links[random_int(links.length)];
-        move_character(game_state, destination);
+        //var links = game_state.places[game_state.character.place].links
+        //var destination = links[random_int(links.length)];
+        //move_character(game_state, destination);
+        move_character(game_state, get_random_adjacent_destination(game_state));
         return game_state;
     },
 
@@ -554,9 +562,9 @@ var outcomes = {
 
     "moved": function(game_state) {
         game_state.message = "";
-        var links = game_state.places[game_state.character.place].links;
-        var destination = links[random_int(links.length)];
-        move_character(game_state, destination);
+        //var links = game_state.places[game_state.character.place].links;
+        //var destination = links[random_int(links.length)];
+        move_character(game_state, get_random_adjacent_destination(game_state));
         return game_state;
     },
 
@@ -775,6 +783,85 @@ var outcomes = {
     //v
 
     //w
+
+    "wake_up":function(game_state) {
+        var messages = [
+            "You wake up well-rested some hours later.",
+            "You have a nightmare about weasels.",
+            "You have a wonderful dream that you are in bed with Lord " +
+            "Carlos' daughter.",
+            "You dream of fire.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "wake_up_assassinated":function(game_state) {
+        game_state.message = "You are rudely awakened by an assassin's dagger.";
+        clover(game_state);
+        return game_state;
+    },
+
+    "wake_up_dead":function(game_state) {
+        game_state.message = "You wake up dead."; 
+        clover(game_state);
+        return game_state;
+    },
+
+    "wake_up_drown":function(game_state) {
+        game_state.message = "You drown in your sleep.";
+        game_state.character.is_dead = true;
+        return game_state;
+    },
+
+    "wake_up_in_dungeon":function(game_state) {
+        game_state.message = "You wake up in Lord Carlos' dungeon " +
+            "and eventually die there.";
+        game_state.character.is_dead = true;
+        return game_state;
+    },
+
+    "wake_up_in_prison":function(game_state) {
+        game_state.message = "You are rousted by some guards who toss you in " +
+            "prison with the other lunatics.";
+        move_character(game_state, "prison");
+        game_state.character.person = "other_lunatics";
+        return game_state;
+    },
+
+    "wake_up_richer":function(game_state) {
+        game_state.message = "You wake with a few coins on your cloak."; 
+        get_money(game_state, "pittance");
+        return game_state;
+    },
+
+    "wake_up_robbed":function(game_state) {
+        game_state.message = "You wake up robbed of all your wordly " +
+            "possessions."; 
+        lose_all_items(game_state);
+        return game_state;
+    },
+
+    "wake_up_somewhere_else":function(game_state) {
+        game_state.message = "You wake up a few hours later."
+        move_character(game_state, get_random_adjacent_destination(game_state));
+        return game_state;
+    },
+
+    "wake_up_weasel":function(game_state) {
+        game_state.message = "You wake up just in time to see an assassin " +
+            "slip a weasel through the bars of your cell. " +
+            "The weasal kills you.";
+        game_state.character.is_dead = true;
+        return game_state;
+    },
+
+    "wake_up_with_cat":function(game_state) {
+        game_state.message = "You are pleasantly awakened by a cat rubbing " +
+            "up against you."; 
+        get_item(game_state, "cat");
+        return game_state;
+    },
 
     "wowed_olga":function(game_state) {
         var messages = [

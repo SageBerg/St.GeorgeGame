@@ -3,6 +3,10 @@
 var raffle = require("./raffle");
 var items   = require("./items");
 
+function get_place(game_state) {
+    return game_state.places[game_state.character.place];
+}
+
 exports.actions = {
 
     //a
@@ -116,6 +120,40 @@ exports.actions = {
 
     "GO_TO": function(game_state, possible_outcomes, destination) {
         raffle.add(possible_outcomes, "go_to", 1);
+        return possible_outcomes;
+    },
+
+    "Go to sleep.": function(game_state, possible_outcomes, destination) {
+        raffle.add(possible_outcomes, "wake_up", 4);
+        raffle.add(possible_outcomes, "wake_up_dead", 1);
+
+        if (get_place(game_state).locked === false) {
+            raffle.add(possible_outcomes, "wake_up_somewhere_else", 1);
+        }
+
+        if (get_place(game_state).populated) {
+            raffle.add(possible_outcomes, "wake_up_assassinated", 1);
+            raffle.add(possible_outcomes, "wake_up_richer", 1);
+            raffle.add(possible_outcomes, "wake_up_robbed", 1);
+            raffle.add(possible_outcomes, "wake_up_with_cat", 1);
+        }
+
+        if (game_state.character.place === "lord_carlos_manor") {
+            raffle.add(possible_outcomes, "wake_up_in_dungeon", 2);
+        }
+
+        if (game_state.character.place === "ocean") {
+            raffle.add(possible_outcomes, "wake_up_drown", 100000);
+        }
+
+        if (game_state.character.place === "prison") {
+            raffle.add(possible_outcomes, "wake_up_weasel", 2);
+        }
+
+        if (game_state.character.place === "tower") {
+            raffle.add(possible_outcomes, "wake_up_in_prison", 2);
+        }
+
         return possible_outcomes;
     },
 
