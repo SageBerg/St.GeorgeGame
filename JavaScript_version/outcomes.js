@@ -44,7 +44,7 @@ function burn(game_state) {
         "the smoldering remains of " + 
         game_state.places[game_state.character.place].name;
     game_state.character.person = null;
-    game_state.message += "You find yourself in " +
+    game_state.message = "You find yourself in " +
     game_state.places[game_state.character.place].name + ".";
 }
 
@@ -395,8 +395,10 @@ var outcomes = {
     },
 
     "god_commits_arson":function(game_state) {
-        game_state.message = "Your prayers are answered. ";
-        burn(game_state);
+        burn(game_state); //the order matters here since burn() 
+                          //overwrites the message
+        game_state.message = "Your prayers are answered. " + 
+            game_state.message;
         return game_state;
     },
 
