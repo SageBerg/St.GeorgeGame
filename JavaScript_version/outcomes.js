@@ -415,6 +415,19 @@ var outcomes = {
         return game_state;
     },
 
+    "ground_tastes_cold":function(game_state) {
+        game_state.message = "The ground tastes really cold.";
+        return game_state;
+    },
+
+    "guards_stop_you_licking":function(game_state) {
+        game_state.message = "The local guards see you licking the ground " +
+            "and conclude you must be a lunatic.";
+        game_state.character.person = "guards";
+        game_state.character.is_threatened = true;
+        return game_state;
+    },
+
     "guards_stop_you_singing":function(game_state) {
         game_state.message = "The local guards see you singing and conclude " +
         "that you must be a lunatic.";
@@ -427,6 +440,13 @@ var outcomes = {
     
     //i
     
+    "infection": function(game_state) {
+        game_state.message = "You catch a nasty infection and spend weeks " +
+            "fighting it.";
+        game_state.character.is_dead = true;
+        return game_state;
+    },
+
     "ignored": function(game_state) {
         game_state.message = "God ignores your prayers.";
         return game_state;
@@ -495,6 +515,13 @@ var outcomes = {
         var roll = random_int(place_list.length);
         var destination = place_list[roll];
         move_character(game_state, destination);
+        return game_state;
+    },
+
+    "lick_the_ocean": function(game_state) {
+        game_state.message = "You drown swimming towards the ocean floor " +
+            "with your tongue extended.";
+        game_state.character.is_dead = true;
         return game_state;
     },
 

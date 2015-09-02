@@ -183,10 +183,25 @@ exports.actions = {
     },
 
     "Lick the ground.": function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "distasteful", 1);
-        if (game_state.character.place === "wizard_lab") {
-            raffle.add(possible_outcomes, "monstrosity", 1);
+        raffle.add(possible_outcomes, "distasteful", 5);
+        raffle.add(possible_outcomes, "infection", 1);
+
+        if (get_place(game_state).town) {
+            raffle.add(possible_outcomes, "guards_stop_you_licking", 6);
         }
+
+        if (game_state.character.place === "arctic") {
+            raffle.add(possible_outcomes, "ground_tastes_cold", 6);
+        }
+
+        if (game_state.character.place === "ocean") {
+            raffle.add(possible_outcomes, "lick_the_ocean", 100000);
+        }
+
+        if (game_state.character.place === "wizard_lab") {
+            raffle.add(possible_outcomes, "monstrosity", 6);
+        }
+
         return possible_outcomes;
     },
 
