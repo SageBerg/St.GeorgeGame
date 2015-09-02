@@ -240,6 +240,7 @@ exports.actions = {
     //p
 
     "Pray to a higher power.": function(game_state, possible_outcomes) {
+
         raffle.add(possible_outcomes, "assassin_prayer_answered", 1);
         raffle.add(possible_outcomes, "god_gives_you_a_wife", 1);
         raffle.add(possible_outcomes, "god_showers_you_with_gold", 1);
@@ -249,11 +250,11 @@ exports.actions = {
         raffle.add(possible_outcomes, "ignored", 2);
 
         if (game_state.places[game_state.character.place].burnable) {
-            raffle.add(possible_outcomes, "god_commits_arson", 1);
+            raffle.add(possible_outcomes, "god_commits_arson", 2);
         }
 
         if (game_state.character.place === "tavern") {
-            raffle.add(possible_outcomes, "god_gives_you_jewels", 1);
+            raffle.add(possible_outcomes, "god_gives_you_jewels", 2);
         }
 
         if (game_state.places[game_state.character.place].town) {

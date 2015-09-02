@@ -44,7 +44,7 @@ function burn(game_state) {
         "the smoldering remains of " + 
         game_state.places[game_state.character.place].name;
     game_state.character.person = null;
-    game_state.message = "You find yourself in " +
+    game_state.message += "You find yourself in " +
     game_state.places[game_state.character.place].name + ".";
 }
 
@@ -370,8 +370,7 @@ var outcomes = {
     },
 
     "god_commits_arson":function(game_state) {
-        game_state.message = 
-            "Your prayers are answered.";
+        game_state.message = "Your prayers are answered. ";
         burn(game_state);
         return game_state;
     },
@@ -385,8 +384,9 @@ var outcomes = {
 
     "god_gives_you_jewels":function(game_state) {
         game_state.message = 
-            "God does nothing for you, but you do " +
+            "God does nothing for you, but you " +
             "find a bag of jewels someone left on the counter.";
+        get_item(game_state, "bag of jewels");
         return game_state;
     },
 
