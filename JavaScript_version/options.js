@@ -90,8 +90,8 @@ function get_default_options(raffle_a, raffle_b, raffle_c, raffle_d) {
     raffle.add(raffle_b, "Pray to a higher power.", 1);
     raffle.add(raffle_c, "Go to sleep.", 1);
     raffle.add(raffle_c, "Leave in a puff.", 1);
-    raffle.add(raffle_d, "Sing a song.", 1);
-    //raffle.add(raffle_d, "Dance a jig.", 1);
+    //raffle.add(raffle_d, "Sing a song.", 1);
+    raffle.add(raffle_d, "Dance a jig.", 1);
 }
 
 function get_character_options(game_state, raffle_a, raffle_b, raffle_c, 
@@ -179,7 +179,9 @@ function get_person_options(game_state, raffle_a, raffle_b, raffle_c,
 
 function get_outcome_options(game_state, raffle_a, raffle_b, raffle_c, 
                             raffle_d) {
-    if (game_state.outcome === "ignored" ||
+    if (
+        game_state.outcome === "dance_in_puddle" ||
+        game_state.outcome === "ignored" ||
         game_state.outcome === "think_pirates_laugh" ||
         game_state.outcome === "pirates_ruin_song" ||
         game_state.outcome === "wake_up_robbed"

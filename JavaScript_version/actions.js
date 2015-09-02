@@ -71,6 +71,64 @@ exports.actions = {
 
     //d
 
+    "Dance a jig.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "dance_a_jig", 4);
+        
+        if (game_state.character.place !== "void" &&
+            game_state.character.place !== "ocean") {
+                raffle.add(possible_outcomes, "dance_and_die", 1);
+            if (get_place(game_state).outside === true) {
+                raffle.add(possible_outcomes, "dance_in_puddle", 1);
+            }
+        }
+
+        if (game_state.character.place === "tavern" ||
+            game_state.character.place === "lord_carlos_manor") {
+            raffle.add(possible_outcomes, "assassins_notice_dance", 4);
+        }
+
+        if (game_state.character.place === "ocean") {
+            raffle.add(possible_outcomes, "dance_and_drown", 1);
+            raffle.add(possible_outcomes, "swim_a_jig", 1);
+            raffle.add(possible_outcomes, "cannot_dance", 1);
+        }
+
+        if (game_state.character.place === "woods") {
+            raffle.add(possible_outcomes, "dance_with_woodland_creatures", 12);
+            raffle.add(possible_outcomes, "dance_with_goblins", 2);
+        }
+
+        if (game_state.character.place === "cave") {
+            raffle.add(possible_outcomes, "dance_fails_to_cheer", 4);
+            raffle.add(possible_outcomes, "dance_and_slip", 4);
+        }
+
+        if (game_state.character.place === "arctic") {
+            raffle.add(possible_outcomes, "dance_and_freeze", 4);
+        }
+
+        if (game_state.character.place === "countryside" ||
+            game_state.character.place === "lord_bartholomew_manor" ||
+            get_place(game_state).town === true) {
+            raffle.add(possible_outcomes, "dance_with_peasants", 2);
+            raffle.add(possible_outcomes, "dance_for_coin", 2);
+        }
+
+        if (get_place(game_state).town === true) {
+            raffle.add(possible_outcomes, "guards_stop_you_dancing", 2);
+        }
+
+        if (game_state.character.person === "mermaid") {
+            raffle.add(possible_outcomes, "mermaid_likes_your_dance", 8000);
+        }
+
+        if (game_state.character.person !== null) {
+            raffle.add(possible_outcomes, "not_impressed", 2);
+        }
+
+        return possible_outcomes;
+    },
+
     "Destroy all human civilizations.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "killed_by_hero", 1);
         return possible_outcomes;

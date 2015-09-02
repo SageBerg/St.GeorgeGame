@@ -68,6 +68,10 @@ function conjugate(game_state, word) {
     return word
 } 
 
+function die(game_state) {
+    game_state.character.is_dead = true;
+}
+
 function get_item(game_state, item) {
     if (game_state.character.items[item] === 0) {
         game_state.message += " You now have " + a_or_an(item[0]) + " " + 
@@ -176,6 +180,12 @@ var outcomes = {
         return game_state;
     },
 
+    "assassins_notice_dance": function(game_state) {
+        game_state.message = "The assassins immediately notice you dancing.";
+        game_state.character.is_dead = true;
+        return game_state;
+    },
+
     //b
 
     "bought_a_weapon": function(game_state) {
@@ -207,6 +217,11 @@ var outcomes = {
 
     "cannot_afford": function(game_state) {
         game_state.message = "You cannot afford this item." 
+        return game_state;
+    },
+
+    "cannot_dance": function(game_state) {
+        game_state.message = "You can't dance a jig, you're in the ocean." 
         return game_state;
     },
 
@@ -255,6 +270,117 @@ var outcomes = {
 
     //d
 
+    "dance_a_jig": function(game_state) {
+        var messages = [
+            "You have a grand old time.",
+            "You get sweaty.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "dance_and_die": function(game_state) {
+        var messages = [
+            "While you're dancing, you twist your ankle, fall to the " +
+            "ground, try to catch yourself, but break your wrist, " +
+            "hit your head on the ground and break your neck.",
+            "You dance so vigorously you become exhausted and die.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        clover(game_state);
+        return game_state;
+    },
+
+    "dance_and_drown": function(game_state) {
+        var messages = [
+            "You drown trying to dance a jig.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
+        return game_state;
+    },
+
+    "dance_and_freeze": function(game_state) {
+        var messages = [
+            "You get sweaty. The sweat freezes to you and you freeze to " +
+            "death.",
+            "You fall through the ice while dancing. You quickly freeze to " +
+            "death.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
+        return game_state;
+    },
+
+    "dance_and_slip": function(game_state) {
+        var messages = [
+            "You slip on a rock and fall to your death in the darkness.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
+        return game_state;
+    },
+
+    "dance_fails_to_cheer": function(game_state) {
+        var messages = [
+            "Dancing fails to cheer you up.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "dance_for_coin": function(game_state) {
+        var messages = [
+            "The locals are entertained by your antics and toss " +
+            "you some coins.",
+            "A noble takes pitty on you and gives some money.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        get_money(game_state, "pittance");
+        return game_state;
+    },
+
+    "dance_in_puddle": function(game_state) {
+        var messages = [
+            "You dance through a puddle and get your britches wet.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "dance_with_goblins": function(game_state) {
+        var messages = [
+            "Some goblins dance with you and then kill you.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
+        return game_state;
+    },
+
+    "dance_with_peasants": function(game_state) {
+        var messages = [
+            "Many peasants start dancing with you and begin singing " +
+            random_choice(["an ode to", "about", "a song about",
+                           "the praises of"]) +
+            " Lord Bartholomew.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "dance_with_woodland_creatures": function(game_state) {
+        var messages = [
+            "Some " +
+            random_choice(["dryads", "faeries", "nymphs", "pixies", 
+                           "spirits", "sprites", "tree ents"]) +
+            " dance with you and then " +
+            random_choice(["fade away", "disappear", "scatter"]) +
+            ".",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
     "distasteful": function(game_state) {
         game_state.message = "You find the flavor of the ground distasteful.";
         return game_state;
@@ -273,9 +399,6 @@ var outcomes = {
     "escaped": function(game_state) {
         game_state.message = 
             "The Devil is very fast, so you manage to get away.";
-        //var links = game_state.places[game_state.character.place].links
-        //var destination = links[random_int(links.length)];
-        //move_character(game_state, destination);
         move_character(game_state, get_random_adjacent_destination(game_state));
         return game_state;
     },
@@ -286,9 +409,6 @@ var outcomes = {
         if (game_state.character.person === "olga") {
             game_state.persons.olga.attracted = 0;
         }
-        //var links = game_state.places[game_state.character.place].links
-        //var destination = links[random_int(links.length)];
-        //move_character(game_state, destination);
         move_character(game_state, get_random_adjacent_destination(game_state));
         return game_state;
     },
@@ -447,6 +567,14 @@ var outcomes = {
         return game_state;
     },
 
+    "guards_stop_you_dancing":function(game_state) {
+        game_state.message = "The local guards see your jig and conclude " +
+        "that you must be a lunatic.";
+        game_state.character.person = "guards";
+        game_state.character.is_threatened = true;
+        return game_state;
+    },
+
     "guards_stop_you_licking":function(game_state) {
         game_state.message = "The local guards see you licking the ground " +
             "and conclude you must be a lunatic.";
@@ -599,7 +727,7 @@ var outcomes = {
                 " He turns you both into sheep after the vows, but it's much " +
                 "safer being sheep.",
                 "Lord Arthur performs a wedding for you and Olga on the deck " +
-                "of his pirate ship. By the time the ceremony is over the " +
+                "of his pirate ship. By the time the ceremony is over, the " +
                 "ship has sailed. You are now both members of the crew.",
                 "A bleary-eyed priestess performs a wedding for you and Olga in " +
                 "an alley behind the church. Olga asks the priestess if she " +
@@ -623,7 +751,8 @@ var outcomes = {
     "meet_olga": function(game_state) {
         if (game_state.persons.olga.name === "the pretty lady") {
             game_state.message = 
-            "During your invstigation, you strike up a conversation with " +                "a pretty lady.";
+            "During your invstigation, you strike up a conversation with " +                
+            "a pretty lady.";
         } else {
             game_state.message = 
             "During your invstigation, you find yourself talking with Olga.";
@@ -636,6 +765,13 @@ var outcomes = {
         game_state.message = "The mermaid is annoyed by your song and " +
             "pushes you into the ocean.";
         move_character(game_state, "ocean");
+        return game_state;
+    },
+
+    "mermaid_likes_your_dance":function(game_state) {
+        game_state.message = "The mermaid laughs and claps her hands. " +
+            "She is completely in awe of your legs.";
+        get_person(game_state).attracted += 1;
         return game_state;
     },
 
@@ -775,6 +911,11 @@ var outcomes = {
             "You smash towns, flatten forests, level mountains, and " +
             "ultimately run out of food.";
         game_state.character.is_dead = true;
+        return game_state;
+    },
+
+    "swim_a_jig": function(game_state) {
+        game_state.message = "You swim a jig.";
         return game_state;
     },
 
