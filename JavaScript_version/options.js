@@ -2,11 +2,11 @@
 
 var raffle = require("./raffle");
 
-exports.default_options = {"a": "Ask about assassins.",
-                           "b": "Buy a drink.",
-                           "c": "Leave in a huff.",
-                           "d": "Sing a song.",
-                           "e": ""};
+exports.starting_options = {"a": "Ask about assassins.",
+                            "b": "Buy a drink.",
+                            "c": "Leave in a huff.",
+                            "d": "Sing a song.",
+                            "e": ""};
 
 function burned_everything(game_state) {
     for (var place in game_state.places) {

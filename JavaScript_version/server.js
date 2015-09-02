@@ -30,7 +30,7 @@ function respond_with_initial_world(req, res) {
         "for_sell":    null,
         "marriage":    false,
         "message":     "You are in a tavern. The local assassins hate you.",
-        "options":     options.default_options,
+        "options":     options.starting_options,
         "outcome":     null,
         "persons":     persons,
         "places":      places
