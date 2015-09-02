@@ -545,6 +545,33 @@ var outcomes = {
         return game_state;
     },
 
+    "leer_and_get_assassinated": function(game_state) {
+        game_state.message = "You are too distracted by all the pretty " +
+            "women to notice the assassins closing in on you.";
+        game_state.character.is_dead = true;
+        return game_state;
+    },
+
+    "leer_at_cat": function(game_state) {
+        game_state.message = "You don't see any woman worth leering at, " +
+            "but you do see a cat worth leering at.";
+        get_item(game_state, "cat");
+        return game_state;
+    },
+
+    "leer_at_women": function(game_state) {
+        var messages = [
+            "You fair woman notices you and hastens away.",
+            "You stop leering when you realize it isn't a woman.",
+            "An equally creepy woman stares back at you before " +
+            "disappearing into the crowd",
+            "A woman becomes annoyed with your leering and throws salt in " +
+            "your eyes.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
     "lick_the_ocean": function(game_state) {
         game_state.message = "You drown swimming towards the ocean floor " +
             "with your tongue extended.";
@@ -623,8 +650,6 @@ var outcomes = {
 
     "moved": function(game_state) {
         game_state.message = "";
-        //var links = game_state.places[game_state.character.place].links;
-        //var destination = links[random_int(links.length)];
         move_character(game_state, get_random_adjacent_destination(game_state));
         return game_state;
     },

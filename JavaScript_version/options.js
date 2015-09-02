@@ -155,6 +155,10 @@ function get_place_options(game_state, raffle_a, raffle_b, raffle_c,
         raffle.add(raffle_a, "Go mushroom picking.", 2);
     }
 
+    if (game_state.character.place === "streets") {
+        raffle.add(raffle_b, "Leer at women.", 2000);
+    }
+
 }
 
 function get_person_options(game_state, raffle_a, raffle_b, raffle_c, 

@@ -186,6 +186,13 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Leer at women.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "leer_at_cat", 1);
+        raffle.add(possible_outcomes, "leer_and_get_assassinated", 1);
+        raffle.add(possible_outcomes, "leer_at_women", 4);
+        return possible_outcomes;
+    },
+
     "Lick the ground.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "distasteful", 5);
         raffle.add(possible_outcomes, "infection", 1);
