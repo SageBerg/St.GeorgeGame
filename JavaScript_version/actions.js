@@ -7,6 +7,10 @@ function get_place(game_state) {
     return game_state.places[game_state.character.place];
 }
 
+function get_person(game_state) {
+    return game_state.persons[game_state.character.person];
+}
+
 exports.actions = {
 
     //a
@@ -287,21 +291,66 @@ exports.actions = {
     //s
 
     "Sing a song.": function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "no_one_cares", 1);
-
-        if (game_state.character.place === "tavern") {
-            raffle.add(possible_outcomes, "assassins_approach", 10);
-        }
+        raffle.add(possible_outcomes, "no_one_cares", 2);
+        raffle.add(possible_outcomes, "sing_about_lords", 1);
 
         if (game_state.character.place === "streets" || 
             game_state.character.place === "market") {
-            raffle.add(possible_outcomes, "guards_stop_you_singing", 1);
+            raffle.add(possible_outcomes, "guards_stop_you_singing", 2);
         }
 
         if (game_state.character.place === "streets" || 
             game_state.character.place === "market" ||
             game_state.character.place === "tavern") {
-            raffle.add(possible_outcomes, "earn_small_fortune_in_coins", 1);
+            raffle.add(possible_outcomes, "earn_small_fortune_in_coins", 2);
+            raffle.add(possible_outcomes, "crowd_hates_your_voice", 1);
+        }
+
+        if (get_place(game_state).town) {
+            raffle.add(possible_outcomes, "cannot_hear_assassin", 1);
+        }
+
+        if (game_state.character.place === "tavern") {
+            raffle.add(possible_outcomes, "assassins_approach", 10);
+        }
+
+        if (game_state.character.place === "church") {
+            raffle.add(possible_outcomes, "priestess_takes_offense", 10);
+        }
+
+        if (game_state.character.place === "docks") {
+            raffle.add(possible_outcomes, "pirates_ruin_song", 10);
+        }
+
+        if (game_state.character.place === "mermaid_rock" &&
+            game_state.character.person !== "mermaid") {
+            raffle.add(possible_outcomes, "sing_to_greeks", 10);
+        }
+
+        if (game_state.character.place === "lord_carlos_manor") {
+            raffle.add(possible_outcomes, "sing_at_lord_carlos_manor", 10);
+        }
+
+        if (get_place(game_state).locked === false) {
+            raffle.add(possible_outcomes, "wander_while_singing", 1);
+        }
+
+        if (game_state.character.person === "wizard") {
+            raffle.add(possible_outcomes, "wizard_complains", 10);
+        }
+
+        if (game_state.character.person === "mermaid") {
+            raffle.add(possible_outcomes, "sing_to_mermaid", 10);
+            raffle.add(possible_outcomes, "mermaid_dislikes_your_song", 5);
+        }
+
+        if (game_state.character.person === "olga" && 
+            get_person(game_state).name === "Olga") {
+            raffle.add(possible_outcomes, "sing_to_olga", 100);
+        }
+
+        if (game_state.character.person !== null) {
+            raffle.add(possible_outcomes, "not_impressed", 1);
         }
 
         return possible_outcomes;

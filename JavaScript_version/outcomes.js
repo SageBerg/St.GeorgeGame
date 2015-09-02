@@ -95,6 +95,14 @@ function get_name(game_state) {
     return game_state.persons[game_state.character.person].name;
 }
 
+function get_place(game_state) {
+    return game_state.places[game_state.character.place];
+}
+
+function get_person(game_state) {
+    return game_state.persons[game_state.character.person];
+}
+
 function get_subject(game_state) {
     return he_she_they[game_state.persons[game_state.character.person].type];
 }
@@ -112,6 +120,10 @@ function lose_all_items(game_state) {
         game_state.character.items[item] = 0;
     }
     game_state.message += " You now have no items.";
+}
+
+function random_choice(array) {
+    return array[random_int(array.length)]; 
 }
 
 function random_int(n) {
@@ -198,6 +210,13 @@ var outcomes = {
         return game_state;
     },
 
+    "cannot_hear_assassin": function(game_state) {
+        game_state.message = "Your singing is too laud for you to hear the " +
+            "assassin sneaking up behind you." 
+        clover(game_state);
+        return game_state;
+    },
+
     "caught": function(game_state) {
         game_state.message = 
             "You run like the Devil, but " + get_name(game_state) +
@@ -225,6 +244,12 @@ var outcomes = {
             "The Devil is pretty fast, but Olga is faster and prettier. " +
             "She catches you and strangles you to death.";
         game_state.character.is_dead = true;
+        return game_state;
+    },
+
+    "crowd_hates_your_voice": function(game_state) {
+        game_state.message = "The locals hate your voice and soon mob you.";
+        clover(game_state);
         return game_state;
     },
 
@@ -578,6 +603,13 @@ var outcomes = {
         return game_state;
     },
 
+    "mermaid_dislikes_your_song":function(game_state) {
+        game_state.message = "The mermaid is annoyed by your song and " +
+            "pushes you into the ocean.";
+        move_character(game_state, "ocean");
+        return game_state;
+    },
+
     "monstrosity": function(game_state) {
         game_state.message = 
             "You lick some spilled potion off the floor and start " +
@@ -602,6 +634,12 @@ var outcomes = {
         return game_state;
     },
 
+    "not_impressed":function(game_state) {
+        game_state.message = capitalize(get_person(game_state).name) + 
+            " is not impressed.";
+        return game_state;
+    },
+
     //o
     
     //p
@@ -609,6 +647,22 @@ var outcomes = {
     "pick_many_colored_mushroom":function(game_state) {
         game_state.message = "You pick a many colored mushroom.";
         get_item(game_state, "many colored mushroom");
+        return game_state;
+    },
+
+    "pirates_ruin_song":function(game_state) {
+        game_state.message = "You are joined in song by a gang of " +
+            "drunken pirates. They spill rum on you and ruin your song.";
+        game_state.character.person = "pirates";
+        return game_state;
+    },
+
+    "priestess_takes_offense":function(game_state) {
+        game_state.message = "A priestess finds your lyrics " +
+        random_choice(["blasphemous", "cliché", "crude", "idiotic", "lude", 
+                       "mildly offensive", "uncreative"]) +
+        " and has you thrown out of the church.";
+        move_character(game_state, "streets");
         return game_state;
     },
 
@@ -628,6 +682,51 @@ var outcomes = {
         game_state.message = "You accidently set yourself on fire and " +
         "promptly burn to a crisp.";
         game_state.character.is_dead = true;
+        return game_state;
+    },
+
+    "sing_about_lords":function(game_state) {
+        var messages = [
+            "You sing a song about Lord Arthur, captain of the pirates.",
+            "You sing a song about Lord Bartholomew, leader of the peasants.",
+            "You sing a song about Lord Carlos, kingpin of the assassins.",
+            "You sing a song about Lord Daniel, leader of the guards."
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "sing_at_lord_carlos_manor":function(game_state) {
+        var messages = [
+            "This is no place for merry-making. You are soon assassinated.",
+            "Your singing alerts Lord Carlos' men to your presense. " +
+            "You are soon assassinated.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.is_dead = true;
+        return game_state;
+    },
+
+    "sing_to_greeks":function(game_state) {
+        game_state.message = "As you sing, a ship sails by. The captain is " +
+            "tied to the mast. He is not impressed.";
+        return game_state;
+    },
+
+    "sing_to_mermaid":function(game_state) {
+        game_state.message = "The mermaid enjoys your singing and sings " +
+            "with you.";
+        get_person(game_state).attracted += 1;
+        return game_state;
+    },
+
+    "sing_to_olga":function(game_state) {
+        var messages = [
+            "Olga interupsts your song by kissing you.",
+            "You sing a romantic ballad. Olga is impressed.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        game_state.persons.olga.attracted += 1;
         return game_state;
     },
 
@@ -871,7 +970,8 @@ var outcomes = {
 
     "wake_up_somewhere_else":function(game_state) {
         game_state.message = "You wake up a few hours later."
-        move_character(game_state, get_random_adjacent_destination(game_state));
+        move_character(game_state, 
+                       get_random_adjacent_destination(game_state));
         return game_state;
     },
 
@@ -887,6 +987,21 @@ var outcomes = {
         game_state.message = "You are pleasantly awakened by a cat rubbing " +
             "up against you."; 
         get_item(game_state, "cat");
+        return game_state;
+    },
+
+    "wander_while_singing":function(game_state) {
+        game_state.message = "You wander aimlessly as you work your way " +
+            "through an epic ballad."; 
+        move_character(game_state, 
+                       get_random_adjacent_destination(game_state));
+        return game_state;
+    },
+
+    "wizard_complains":function(game_state) {
+        game_state.message = "The wizard complains that you are singing " +
+            "off-key. He turns you into a toad and stomps on you.";
+        game_state.character.is_dead = true;
         return game_state;
     },
 
