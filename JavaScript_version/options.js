@@ -106,8 +106,8 @@ function get_character_options(game_state, raffle_a, raffle_b, raffle_c,
     }
 
     if (game_state.character.is_threatened === true) {
-        raffle.add(raffle_c, "Run like the Devil.", 100);
-        //raffle.add(raffle_c, "Waddle like God.", 10);
+        raffle.add(raffle_c, "Run like the Devil.", 90);
+        raffle.add(raffle_c, "Waddle like God.", 10);
     }
 
     if (game_state.character.items["many colored mushroom"] > 0) {

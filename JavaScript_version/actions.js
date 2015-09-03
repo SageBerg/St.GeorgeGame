@@ -545,6 +545,20 @@ exports.actions = {
     
     //w
     
+    "Waddle like God.": function(game_state, possible_outcomes) {
+        if (game_state.character.is_threatened) {
+            raffle.add(possible_outcomes, "escaped_like_god", 1);
+            if (game_state.persons[game_state.character.person].prefered_attack
+                === "arrest") {
+                raffle.add(possible_outcomes, 
+                           "caught_and_arrested_like_god", 9);
+            } else {
+                raffle.add(possible_outcomes, "caught_like_god", 9);
+            }
+        }
+        return possible_outcomes;
+    },
+
     //x
 
     //y

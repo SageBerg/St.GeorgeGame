@@ -258,11 +258,29 @@ var outcomes = {
         return game_state;
     },
 
+    "caught_like_god": function(game_state) {
+        game_state.message = 
+            "God is very slow, so you don't manage to get away.";
+        game_state.character.is_dead = true;
+        return game_state;
+    },
+
     "caught_and_arrested": function(game_state) {
         game_state.message = 
             "You run like the Devil, but " + get_name(game_state) +
             " also " + conjugate(game_state, "run") + " like thd Devil and " +
             conjugate(game_state, "overtake") + " you. " +
+            capitalize(get_subject(game_state)) + " " +
+            conjugate(game_state, "arrest") + 
+            " you and throw you in prison with the other lunatics.";
+        move_character(game_state, "prison");
+        game_state.character.person = "other_lunatics";
+        return game_state;
+    },
+
+    "caught_and_arrested_like_god": function(game_state) {
+        game_state.message = 
+            "God is very slow, so you don't manage to get away. " +
             capitalize(get_subject(game_state)) + " " +
             conjugate(game_state, "arrest") + 
             " you and throw you in prison with the other lunatics.";
@@ -415,18 +433,29 @@ var outcomes = {
 
     "escaped": function(game_state) {
         game_state.message = 
-            "The Devil is very fast, so you manage to get away.";
+            "The Devil is pretty fast, so you manage to get away.";
         move_character(game_state, get_random_adjacent_destination(game_state));
+        return game_state;
+    },
+
+    "escaped_like_god": function(game_state) {
+        game_state.message = 
+            "God is very slow, but " + get_name(game_state) + 
+            " also " + conjugate(game_state, "waddle") + " like God, so " +
+            "you manage to get away.";
+        move_character(game_state, 
+                       get_random_adjacent_destination(game_state));
         return game_state;
     },
 
     "escaped_unmarried": function(game_state) {
         game_state.message = 
-            "The Devil is very fast, so you manage to get away unmarried.";
+            "The Devil is pretty fast, so you manage to get away unmarried.";
         if (game_state.character.person === "olga") {
             game_state.persons.olga.attracted = 0;
         }
-        move_character(game_state, get_random_adjacent_destination(game_state));
+        move_character(game_state, 
+                       get_random_adjacent_destination(game_state));
         return game_state;
     },
 
