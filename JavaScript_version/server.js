@@ -33,7 +33,8 @@ function respond_with_initial_world(req, res) {
         "options":     options.starting_options,
         "outcome":     null,
         "persons":     persons,
-        "places":      places
+        "places":      places,
+        "score":       0, 
     };
     res.json(game_state);
 }
@@ -45,5 +46,6 @@ function respond_with_outcome(req, res) {
     game_state.outcome = outcome;
     game_state         = outcomes.apply_outcome(outcome, game_state);
     game_state.options = options.get_options(game_state);
+    game_state.score   = parseInt(game_state.score) + 1;
     res.json(game_state);
 }

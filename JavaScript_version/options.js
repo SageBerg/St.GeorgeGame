@@ -8,12 +8,13 @@ exports.starting_options = {"a": "Ask about assassins.",
                             "d": "Sing a song.",
                             "e": ""};
 
-function burned_everything(game_state) {
+function burned_everything_victory(game_state) {
     for (var place in game_state.places) {
         if (game_state.places[place].burnable) {
             return false;
         }
     }
+    game_state.score = parseInt(game_state.score) + 100;
     return true;
 } 
 
@@ -22,48 +23,52 @@ function lords_victory(game_state) {
         game_state.persons.lord_bartholomew.alive === false ||
         game_state.persons.lord_carlos.alive === false ||
         game_state.persons.lord_daniel.alive === false) {
+        game_state.score = parseInt(game_state.score) + 100;
         return true;
     }
     return false;
 } 
 
+function marriage_victory(game_state) {
+    if (game_state.character.has_found_true_love) {
+        game_state.score = parseInt(game_state.score) + 100;
+        return true;
+    }
+    return false;
+}
+
 function random_int(n) {
     return Math.floor(Math.random() * n);
 }
 
+function set_game_over_options(options) {
+        options.a = "Play again.";
+        options.b = "Don't play again.";
+        options.c = "";
+        options.d = "";
+        options.e = "";
+}
+
 exports.get_options = function get_options(game_state) {
     var options = {"a": {}, "b": {}, "c": {}, "d": {} };
-    if (game_state.character.is_dead || 
-        game_state.character.has_found_true_love) {
-        options.a = "Play again.";
-        options.b = "Don't play again.";
-        options.c = "";
-        options.d = "";
-        options.e = "";
-    } else if (burned_everything(game_state)) {
+    if (game_state.character.is_dead || marriage_victory(game_state)) {
+        set_game_over_options(options);
+    } else if (burned_everything_victory(game_state)) {
         var messages = [
-            "Some people just like to watch the world " +
+            " Some people just like to watch the world " +
             "burn. You are one of them. You win.",
-            "You are satisfied with how everything has been burned. You win.",
+            " You are satisfied with how everything has been burned. You win.",
         ] 
-        game_state.message = messages[random_int(messages.length)];
-        options.a = "Play again.";
-        options.b = "Don't play again.";
-        options.c = "";
-        options.d = "";
-        options.e = "";
+        game_state.message += messages[random_int(messages.length)];
+        set_game_over_options(options);
     } else if (lords_victory(game_state)) {
         var messages = [
-            "With the last of the four lords dead, you have destroyed the " +
+            " With the last of the four lords dead, you have destroyed the " +
             "establishment and brought about a utopian anarchy... " +
             "more or less. You win!",
         ] 
-        game_state.message = messages[random_int(messages.length)];
-        options.a = "Play again.";
-        options.b = "Don't play again.";
-        options.c = "";
-        options.d = "";
-        options.e = "";
+        game_state.message += messages[random_int(messages.length)];
+        set_game_over_options(options);
     } else if (game_state.marriage === true) {
         options.a = "MARRY";
         options.b = "Run like the Devil.";

@@ -85,6 +85,9 @@ function handle_new_world(resp) {
         game_state.message += " You are dead."; 
     }
 
+    //$("#score").innerHTML = game_state.score;
+    document.getElementById("score").innerHTML = "Score: " + game_state.score;
+
     for (var i = 0; i < 5; i++) {
         document.getElementById("abcde"[i]).style.color = "black";
     }
