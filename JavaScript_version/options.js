@@ -212,18 +212,25 @@ function get_place_options(game_state, raffle_a, raffle_b, raffle_c,
 
 function get_person_options(game_state, raffle_a, raffle_b, raffle_c, 
                             raffle_d) {
+
+    if (
+        game_state.character.person === "eve" ||
+        game_state.character.person === "felicty" ||
+        game_state.character.person === "memaid" ||
+        game_state.character.person === "nymph_queen" ||
+        game_state.character.person === "olga"
+       ) {
+        raffle.add(raffle_d, "Flirt with", 10);
+    }
+
+    if (game_state.character.person === "st_george") {
+        raffle.add(raffle_b, "Beg for money.", 10);
+    }
+
     if (game_state.character.person === "war_merchant") {
         raffle.add(raffle_d, "Buy a weapon.", 10000);
     }
 
-    if (game_state.character.person === "olga" ||
-        game_state.character.person === "eve" ||
-        game_state.character.person === "felicty" ||
-        game_state.character.person === "memaid" ||
-        game_state.character.person === "nymph_queen"
-       ) {
-        raffle.add(raffle_d, "Flirt with", 10);
-    }
 }
 
 function get_outcome_options(game_state, raffle_a, raffle_b, raffle_c, 

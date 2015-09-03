@@ -40,6 +40,15 @@ exports.actions = {
 
     //b
 
+    "Beg for money.": function(game_state, possible_outcomes) {
+        game_state.outcome === "st_george_gives_you_money" 
+            ?
+        raffle.add(possible_outcomes, "st_george_kills_you", 1)
+            :
+        raffle.add(possible_outcomes, "st_george_gives_you_money", 1);
+        return possible_outcomes;
+    },
+
     "BURN": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "burn", 3);
         raffle.add(possible_outcomes, "set_self_on_fire", 1);
@@ -169,10 +178,10 @@ exports.actions = {
     //f
 
     "Flaunt your wealth.": function(game_state, possible_outcomes) {
-        //raffle.add(possible_outcomes, "guards_stop_you_rich", 1);
-        //raffle.add(possible_outcomes, "st_george_warns_you", 1);
+        raffle.add(possible_outcomes, "guards_stop_you_rich", 1);
+        raffle.add(possible_outcomes, "st_george_warns_you", 1);
         raffle.add(possible_outcomes, "wealthy_people_sneer", 1);
-        //raffle.add(possible_outcomes, "you_get_mobbed", 1);
+        raffle.add(possible_outcomes, "you_get_mobbed", 1);
         return possible_outcomes;
     },
 

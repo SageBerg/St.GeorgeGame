@@ -1079,9 +1079,30 @@ var outcomes = {
         return game_state;
     },
 
+    "st_george_gives_you_money":function(game_state) {
+        var money = random_choice(["pittance", "small_fortune", 
+                                   "large_fortune"]);
+        game_state.message = "St. George gives you " + 
+            items.money_map[money].name + ".";
+        get_money(game_state, money);
+        return game_state;
+    },
+
     "st_george_joins_you_in_prayer":function(game_state) {
         game_state.message = "St. George joins you in prayer."
         game_state.character.person = "st_george";
+        return game_state;
+    },
+
+    "st_george_kills_you":function(game_state) {
+        var messages = [
+            "St. George becomes irritated with your begging and crushes you " +
+            "with his iron hammer.",
+            "St. George smites you with his saintly wrath for being " + 
+            "ungreatful.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
         return game_state;
     },
 
