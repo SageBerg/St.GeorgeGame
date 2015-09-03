@@ -264,6 +264,9 @@ exports.actions = {
     },
 
     "Lick the ground.": function(game_state, possible_outcomes) {
+        if (game_state.outcome === "kill") { 
+            raffle.add(possible_outcomes, "lick_blood", 10000);
+        }
         raffle.add(possible_outcomes, "distasteful", 5);
         raffle.add(possible_outcomes, "infection", 1);
 

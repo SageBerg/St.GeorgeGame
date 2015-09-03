@@ -744,6 +744,11 @@ var outcomes = {
         return game_state;
     },
 
+    "lick_blood": function(game_state) {
+        game_state.message = "You lick the blood off the ground.";
+        return game_state;
+    },
+
     "lick_the_ocean": function(game_state) {
         game_state.message = "You drown swimming towards the ocean floor " +
             "with your tongue extended.";
