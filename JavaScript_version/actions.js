@@ -508,6 +508,13 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Tell a priest you're the chosen one.":
+        function(game_state, possible_outcomes) {
+        //raffle.add(possible_outcomes, "priest_takes_pity", 1);
+        raffle.add(possible_outcomes, "priest_disagrees", 2);
+        return possible_outcomes;
+    },
+
     "TELL_GUARDS": function(game_state, possible_outcomes) {
         game_state.character.excuse === "rich" 
             ? 

@@ -1080,6 +1080,15 @@ var outcomes = {
         return game_state;
     },
 
+    "priest_disagrees": function(game_state) {
+        var messages = [
+            "The priest says he has is doubts.",
+            "The priest says he would know it when he sees it.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
     "priestess_takes_offense": function(game_state) {
         game_state.message = "A priestess finds your lyrics " +
         random_choice(["blasphemous", "cliché", "crude", "idiotic", "lude", 

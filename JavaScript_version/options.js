@@ -173,9 +173,9 @@ function get_place_options(game_state, raffle_a, raffle_b, raffle_c,
     }
 
     if (game_state.character.place === "church") {
-        //raffle.add(raffle_a, "Tell a priest he's fat.", 1);
-        raffle.add(raffle_a, "Tell a priest God doesn't exist.", 2000);
-        //raffle.add(raffle_a, "Tell a priest you're the chosen one.", 1);
+        //raffle.add(raffle_a, "Tell a priest he's fat.", 2);
+        //raffle.add(raffle_a, "Tell a priest God doesn't exist.", 2);
+        raffle.add(raffle_a, "Tell a priest you're the chosen one.", 2000);
         if (items.money_map[game_state.character.money].value > 0) {
             //raffle.add(raffle_d, "Donate to the church.", 6);
         }
@@ -254,6 +254,7 @@ function get_outcome_options(game_state, raffle_a, raffle_b, raffle_c,
         game_state.outcome === "ignored" ||
         game_state.outcome === "think_pirates_laugh" ||
         game_state.outcome === "pirates_ruin_song" ||
+        game_state.outcome === "priest_disagrees" ||
         game_state.outcome === "wake_up_robbed" ||
         game_state.outcome === "wealthy_people_sneer"
        ) {
