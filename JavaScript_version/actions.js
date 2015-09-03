@@ -168,6 +168,14 @@ exports.actions = {
     
     //f
 
+    "Flaunt your wealth.": function(game_state, possible_outcomes) {
+        //raffle.add(possible_outcomes, "guards_stop_you_rich", 1);
+        //raffle.add(possible_outcomes, "st_george_warns_you", 1);
+        raffle.add(possible_outcomes, "wealthy_people_sneer", 1);
+        //raffle.add(possible_outcomes, "you_get_mobbed", 1);
+        return possible_outcomes;
+    },
+
     "Flirt with": function(game_state, possible_outcomes) {
         if (game_state.persons[game_state.character.person].name === 
             "the pretty lady") {
@@ -474,6 +482,10 @@ exports.actions = {
     //t
 
     "TELL_GUARDS": function(game_state, possible_outcomes) {
+        game_state.character.excuse === "rich" 
+            ? 
+        raffle.add(possible_outcomes, "a_rich_lunatic", 1)
+            :
         raffle.add(possible_outcomes, "an_excuse_lunatic", 1);
         return possible_outcomes;
     },
@@ -485,7 +497,7 @@ exports.actions = {
 
     "Think.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "think_about_sex", 1);
-        raffle.add(possible_outcomes, "think_elaborate_scheme", 10000);
+        raffle.add(possible_outcomes, "think_elaborate_scheme", 1);
         raffle.add(possible_outcomes, "think_four_ideas", 1);
         raffle.add(possible_outcomes, "think_get_lost", 1);
         raffle.add(possible_outcomes, "think_reevaluate_life", 1);

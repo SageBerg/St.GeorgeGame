@@ -158,6 +158,13 @@ var outcomes = {
 
     //a
 
+    "a_rich_lunatic": function(game_state) {
+        game_state.message = "\"A " + game_state.character.excuse + 
+            " lunatic,\" one of the guards says as they walk away.";
+        game_state.character.person = null;
+        return game_state;
+    },
+
     "an_excuse_lunatic": function(game_state) {
         game_state.message = "\"A " + game_state.character.excuse + 
             " lunatic,\" one of the guards says. They arrest you " +
@@ -715,6 +722,13 @@ var outcomes = {
         return game_state;
     },
 
+    "guards_stop_you_rich":function(game_state) {
+        game_state.message = "The local guards see you flaunting your " +
+            "wealth and conclude that you must be a lunatic.";
+        game_state.character.person = "guards";
+        return game_state;
+    },
+
     "guards_stop_you_singing":function(game_state) {
         game_state.message = "The local guards see you singing and conclude " +
         "that you must be a lunatic.";
@@ -1071,6 +1085,13 @@ var outcomes = {
         return game_state;
     },
 
+    "st_george_warns_you":function(game_state) {
+        game_state.message = "St. George sees you flaunting your wealth " + 
+            "and warns you about the dangers of flamboyance.";
+        game_state.character.person = "st_george";
+        return game_state;
+    },
+
     "start_tripping":function(game_state) {
         game_state.message = "You start feeling strange."
         game_state.character.is_tripping = true;
@@ -1345,6 +1366,11 @@ var outcomes = {
         return game_state;
     },
 
+    "wealthy_people_sneer":function(game_state) {
+        game_state.message = "Some truly wealthy people see you and sneer.";
+        return game_state;
+    },
+
     "wizard_complains":function(game_state) {
         game_state.message = "The wizard complains that you are singing " +
             "off-key. He turns you into a toad and stomps on you.";
@@ -1404,6 +1430,15 @@ var outcomes = {
     
     //y
     
+    "you_get_mobbed":function(game_state) {
+        var messages = [
+            "The local peasants mob you. They take your money and your life.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
+        return game_state;
+    },
+
     //z
 
     "zone_out":function(game_state) {

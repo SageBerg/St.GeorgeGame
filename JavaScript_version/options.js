@@ -149,6 +149,11 @@ function get_character_options(game_state, raffle_a, raffle_b, raffle_c,
         raffle.add(raffle_d, "Chow down on your many colored mushroom.", 1);
     }
 
+    if (game_state.character.money === "large_fortune" ||
+        game_state.character.money === "small_fortune") {
+        raffle.add(raffle_d, "Flaunt your wealth.", 1000);
+    }
+
 }
 
 function get_place_options(game_state, raffle_a, raffle_b, raffle_c, 
@@ -231,7 +236,8 @@ function get_outcome_options(game_state, raffle_a, raffle_b, raffle_c,
         game_state.outcome === "ignored" ||
         game_state.outcome === "think_pirates_laugh" ||
         game_state.outcome === "pirates_ruin_song" ||
-        game_state.outcome === "wake_up_robbed"
+        game_state.outcome === "wake_up_robbed" ||
+        game_state.outcome === "wealthy_people_sneer"
        ) {
         raffle.add(raffle_a, "Kill yourself in frustration.", 1);
     }
@@ -248,6 +254,11 @@ function get_outcome_options(game_state, raffle_a, raffle_b, raffle_c,
 
     else if (game_state.outcome === "guards_stop_you_licking") {
         game_state.character.excuse = "hungry";
+        raffle.add(raffle_b, "TELL_GUARDS", 10000);
+    }
+
+    else if (game_state.outcome === "guards_stop_you_rich") {
+        game_state.character.excuse = "rich";
         raffle.add(raffle_b, "TELL_GUARDS", 10000);
     }
 
