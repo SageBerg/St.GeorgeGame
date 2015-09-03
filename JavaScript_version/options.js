@@ -17,6 +17,16 @@ function burned_everything(game_state) {
     return true;
 } 
 
+function lords_victory(game_state) {
+    if (game_state.persons.lord_arthur.alive === false ||
+        game_state.persons.lord_bartholomew.alive === false ||
+        game_state.persons.lord_carlos.alive === false ||
+        game_state.persons.lord_daniel.alive === false) {
+        return true;
+    }
+    return false;
+} 
+
 function random_int(n) {
     return Math.floor(Math.random() * n);
 }
@@ -35,6 +45,18 @@ exports.get_options = function get_options(game_state) {
             "Some people just like to watch the world " +
             "burn. You are one of them. You win.",
             "You are satisfied with how everything has been burned. You win.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        options.a = "Play again.";
+        options.b = "Don't play again.";
+        options.c = "";
+        options.d = "";
+        options.e = "";
+    } else if (lords_victory(game_state)) {
+        var messages = [
+            "With the last of the four lords dead, you have destroyed the " +
+            "establishment and brought about a utopian anarchy... " +
+            "more or less. You win!",
         ] 
         game_state.message = messages[random_int(messages.length)];
         options.a = "Play again.";
@@ -91,7 +113,7 @@ exports.get_options = function get_options(game_state) {
 
 function get_default_options(game_state, raffle_a, raffle_b, raffle_c, 
                              raffle_d) {
-    raffle.add(raffle_a, "Think.", 10000);
+    raffle.add(raffle_a, "Think.", 1);
     if (game_state.character.place !== "void") {
         raffle.add(raffle_a, "Lick the ground.", 1);
         raffle.add(raffle_c, "Leave in a puff.", 1);
