@@ -136,13 +136,14 @@ exports.actions = {
 
     "Do some gambling.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "gambling_lose", 1);
-        raffle.add(possible_outcomes, "gambling_win", 1);
+        /*raffle.add(possible_outcomes, "gambling_win", 1);
         if (game_state.character.place === "tavern") {
             raffle.add(possible_outcomes, "gambling_die", 1);
             if (game_state.persons.olga.alive === true) {
                 raffle.add(possible_outcomes, "gambling_lady", 1);
             }
         }
+        */
         return possible_outcomes;
     },
 
@@ -238,6 +239,16 @@ exports.actions = {
     //j
     
     //k
+
+    "Kill everybody in a fit of rage.": function(game_state, 
+                                                 possible_outcomes) {
+        raffle.add(possible_outcomes, "kill_self_in_fit_of_rage", 2);
+        raffle.add(possible_outcomes, "kill_nobody", 1);
+        if (get_place(game_state).town) {
+            raffle.add(possible_outcomes, "guards_stop_you_killing", 1);
+        }
+        return possible_outcomes;
+    },
 
     "Kill yourself in frustration.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "kill_self", 9);

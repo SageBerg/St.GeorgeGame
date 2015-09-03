@@ -619,6 +619,14 @@ var outcomes = {
         return game_state;
     },
 
+    "guards_stop_you_killing":function(game_state) {
+        game_state.message = "The local guards see your killing everybody " +
+            "and conclude that you must be a lunatic.";
+        game_state.character.person = "guards";
+        game_state.character.is_threatened = true;
+        return game_state;
+    },
+
     "guards_stop_you_licking":function(game_state) {
         game_state.message = "The local guards see you licking the ground " +
             "and conclude you must be a lunatic.";
@@ -665,9 +673,27 @@ var outcomes = {
         return game_state;
     },
 
+    "kill_nobody": function(game_state) {
+        var messages = [
+            "You don't see anybody in a fit of rage to kill.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
     "kill_self": function(game_state) {
         var messages = [
             "You perform the ritual of seppuku.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.is_dead = true;
+        return game_state;
+    },
+
+    "kill_self_in_fit_of_rage": function(game_state) {
+        var messages = [
+            "You start with yourself.",
+            "You make no exceptions.",
         ];
         game_state.message = messages[random_int(messages.length)];
         game_state.character.is_dead = true;

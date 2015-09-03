@@ -90,7 +90,7 @@ function get_default_options(raffle_a, raffle_b, raffle_c, raffle_d) {
     raffle.add(raffle_b, "Pray to a higher power.", 1);
     raffle.add(raffle_c, "Go to sleep.", 1);
     raffle.add(raffle_c, "Leave in a puff.", 1);
-    //raffle.add(raffle_d, "Sing a song.", 1);
+    raffle.add(raffle_d, "Sing a song.", 1);
     raffle.add(raffle_d, "Dance a jig.", 1);
 }
 
@@ -148,7 +148,7 @@ function get_place_options(game_state, raffle_a, raffle_b, raffle_c,
     if (game_state.character.place === "tavern") {
         raffle.add(raffle_a, "Ask about assassins.", 1);
         raffle.add(raffle_b, "Buy a drink.", 1);
-        raffle.add(raffle_d, "Do some gambling.", 1);
+        raffle.add(raffle_d, "Do some gambling.", 1000);
         if (game_state.persons.olga.alive &&
             game_state.persons.olga.name === "Olga" &&
             game_state.character.person !== "olga") {
@@ -184,7 +184,9 @@ function get_person_options(game_state, raffle_a, raffle_b, raffle_c,
 
 function get_outcome_options(game_state, raffle_a, raffle_b, raffle_c, 
                             raffle_d) {
+
     if (
+        game_state.outcome === "cannot_afford" ||
         game_state.outcome === "dance_in_puddle" ||
         game_state.outcome === "ignored" ||
         game_state.outcome === "think_pirates_laugh" ||
@@ -193,4 +195,11 @@ function get_outcome_options(game_state, raffle_a, raffle_b, raffle_c,
        ) {
         raffle.add(raffle_a, "Kill yourself in frustration.", 1);
     }
+
+    if (
+        game_state.outcome === "gambling_lose"
+       ) {
+        raffle.add(raffle_a, "Kill everybody in a fit of rage.", 1000);
+    }
+
 }
