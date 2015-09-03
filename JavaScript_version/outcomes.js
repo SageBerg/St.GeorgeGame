@@ -10,6 +10,7 @@ exports.get_outcome = function get_outcome(game_state) {
         game_state.action !== "Attack" &&
         game_state.action !== "Leave in a puff." &&
         game_state.action !== "Run like the Devil." &&
+        game_state.action !== "TELL_GUARDS" &&
         game_state.action !== "Waddle like God.") {
         possible_outcomes = actions["GET_ATTACKED"](game_state, {});
     } else {
@@ -150,6 +151,15 @@ var he_she_they = {
 var outcomes = {
 
     //a
+
+    "an_excuse_lunatic": function(game_state) {
+        game_state.message = "\"A " + game_state.character.excuse + 
+            " lunatic,\" one of the guards says. They arrest you " +
+            "and throw you in prison with the other lunatics.";
+        move_character(game_state, "prison");
+        game_state.character.person = "other_lunatics";
+        return game_state;
+    },
 
     "apocalypse": function(game_state) {
         game_state.message =
@@ -630,6 +640,7 @@ var outcomes = {
     "guards_stop_you_licking":function(game_state) {
         game_state.message = "The local guards see you licking the ground " +
             "and conclude you must be a lunatic.";
+        game_state.character.person = "guards";
         game_state.character.person = "guards";
         game_state.character.is_threatened = true;
         return game_state;

@@ -98,7 +98,7 @@ function get_character_options(game_state, raffle_a, raffle_b, raffle_c,
                                raffle_d) {
 
     if (game_state.places[game_state.character.place].locked === false) {
-        //raffle.add(raffle_c, "GO_TO", 2);
+        raffle.add(raffle_c, "GO_TO", 2);
     }
 
     if (game_state.character.person !== null) {
@@ -148,7 +148,7 @@ function get_place_options(game_state, raffle_a, raffle_b, raffle_c,
     if (game_state.character.place === "tavern") {
         raffle.add(raffle_a, "Ask about assassins.", 1);
         raffle.add(raffle_b, "Buy a drink.", 1);
-        raffle.add(raffle_d, "Do some gambling.", 1000);
+        raffle.add(raffle_d, "Do some gambling.", 1);
         if (game_state.persons.olga.alive &&
             game_state.persons.olga.name === "Olga" &&
             game_state.character.person !== "olga") {
@@ -161,7 +161,7 @@ function get_place_options(game_state, raffle_a, raffle_b, raffle_c,
     }
 
     if (game_state.character.place === "streets") {
-        raffle.add(raffle_b, "Leer at women.", 2000);
+        raffle.add(raffle_b, "Leer at women.", 2);
     }
 
 }
@@ -196,10 +196,30 @@ function get_outcome_options(game_state, raffle_a, raffle_b, raffle_c,
         raffle.add(raffle_a, "Kill yourself in frustration.", 1);
     }
 
+    if (game_state.outcome === "guards_stop_you_dancing") {
+        game_state.character.excuse = "happy";
+        raffle.add(raffle_b, "TELL_GUARDS", 10000);
+    }
+
+    if (game_state.outcome === "guards_stop_you_killing") {
+        game_state.character.excuse = "mad";
+        raffle.add(raffle_b, "TELL_GUARDS", 10000);
+    }
+
+    if (game_state.outcome === "guards_stop_you_licking") {
+        game_state.character.excuse = "hungry";
+        raffle.add(raffle_b, "TELL_GUARDS", 10000);
+    }
+
+    if (game_state.outcome === "guards_stop_you_singing") {
+        game_state.character.excuse = "talented";
+        raffle.add(raffle_b, "TELL_GUARDS", 10000);
+    }
+
     if (
         game_state.outcome === "gambling_lose"
        ) {
-        raffle.add(raffle_a, "Kill everybody in a fit of rage.", 1000);
+        raffle.add(raffle_a, "Kill everybody in a fit of rage.", 1);
     }
 
 }

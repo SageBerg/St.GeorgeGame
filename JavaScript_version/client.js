@@ -109,6 +109,10 @@ function handle_new_world(resp) {
         document.getElementById("b").innerHTML = "b. Burn " + 
             game_state.places[game_state.character.place].name + 
             " to the ground.";
+    } else if (game_state.options.b === "TELL_GUARDS") {
+        document.getElementById("b").innerHTML = "b. Tell them you're " +
+            "not a lunatic, you're just " +
+            game_state.character.excuse + ".";
     } else {
         document.getElementById("b").innerHTML = "b. " + game_state.options.b;
     }

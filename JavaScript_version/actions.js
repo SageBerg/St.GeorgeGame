@@ -278,6 +278,7 @@ exports.actions = {
         if (game_state.outcome === "kill") { 
             raffle.add(possible_outcomes, "lick_blood", 10000);
         }
+
         raffle.add(possible_outcomes, "distasteful", 5);
         raffle.add(possible_outcomes, "infection", 1);
 
@@ -290,7 +291,7 @@ exports.actions = {
         }
 
         if (game_state.character.place === "ocean") {
-            raffle.add(possible_outcomes, "lick_the_ocean", 100000);
+            raffle.add(possible_outcomes, "lick_the_ocean", 10000);
         }
 
         if (game_state.character.place === "wizard_lab") {
@@ -448,6 +449,11 @@ exports.actions = {
     },
 
     //t
+
+    "TELL_GUARDS": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "an_excuse_lunatic", 1);
+        return possible_outcomes;
+    },
 
     "Terrorize the kingdom.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "killed_in_future", 1);

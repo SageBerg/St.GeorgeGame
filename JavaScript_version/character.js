@@ -1,6 +1,7 @@
 "use strict";
 
 exports.character = {
+    "excuse": "",
     "has_found_true_love": false,
     "is_dead": false,
     "is_frog": false,
