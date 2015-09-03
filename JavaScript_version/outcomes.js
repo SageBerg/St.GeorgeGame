@@ -8,6 +8,7 @@ exports.get_outcome = function get_outcome(game_state) {
     var possible_outcomes;
     if (game_state.character.is_threatened === true && 
         game_state.action !== "Attack" &&
+        game_state.action !== "Enter the void." &&
         game_state.action !== "Leave in a puff." &&
         game_state.action !== "Run like the Devil." &&
         game_state.action !== "TELL_GUARDS" &&
@@ -431,6 +432,12 @@ var outcomes = {
         return game_state;
     },
 
+    "enter_the_void": function(game_state) {
+        game_state.message = "";
+        move_character(game_state, "void");
+        return game_state;
+    },
+
     "escaped": function(game_state) {
         game_state.message = 
             "The Devil is pretty fast, so you manage to get away.";
@@ -566,6 +573,23 @@ var outcomes = {
         "four-leaf clover instead.";
         get_item(game_state, "four-leaf clover");
         game_state.character.person = null;
+        return game_state;
+    },
+
+    "get_no_void_dust": function(game_state) {
+        var messages = [
+            "You reach for some void dust, but it's farther away than it " +
+            "seems.",
+            "The void dust slips between your fingers and disperses into " +
+            "nothingness.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "get_void_dust": function(game_state) {
+        game_state.message = "";
+        get_item(game_state, "handful of void dust");
         return game_state;
     },
 

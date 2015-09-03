@@ -136,18 +136,27 @@ exports.actions = {
 
     "Do some gambling.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "gambling_lose", 1);
-        /*raffle.add(possible_outcomes, "gambling_win", 1);
+        raffle.add(possible_outcomes, "gambling_win", 1);
         if (game_state.character.place === "tavern") {
             raffle.add(possible_outcomes, "gambling_die", 1);
             if (game_state.persons.olga.alive === true) {
                 raffle.add(possible_outcomes, "gambling_lady", 1);
             }
         }
-        */
         return possible_outcomes;
     },
 
     //e
+        
+    "Enter the void.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "enter_the_void", 1);
+        return possible_outcomes;
+    },
+
+    "Exit the void.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "left_in_a_puff", 1);
+        return possible_outcomes;
+    },
     
     //f
 
@@ -171,6 +180,12 @@ exports.actions = {
 
     //g
     
+    "Gather void dust.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "get_void_dust", 1);
+        raffle.add(possible_outcomes, "get_no_void_dust", 1);
+        return possible_outcomes;
+    },
+
     //this special action interrupts your action when you're threatened and
     //you don't choose to fight or run away
     "GET_ATTACKED": function(game_state, possible_outcomes) {

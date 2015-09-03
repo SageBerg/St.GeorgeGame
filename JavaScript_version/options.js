@@ -56,7 +56,8 @@ exports.get_options = function get_options(game_state) {
         options.e = "";
     } else {
 
-        get_default_options(options.a, options.b, options.c, options.d);
+        get_default_options(game_state, options.a, options.b, options.c, 
+                            options.d);
         get_character_options(game_state, options.a, options.b, options.c, 
                               options.d);
         get_outcome_options(game_state, options.a, options.b, options.c, 
@@ -71,8 +72,12 @@ exports.get_options = function get_options(game_state) {
         options.c = raffle.get(options.c);
         options.d = raffle.get(options.d);
 
-        if (Math.floor(Math.random() * 250) === 0) {
+        if (Math.floor(Math.random() * 1) === 0 &&
+            game_state.character.place !== "void") {
             options.e = "Enter the void.";
+        } else if (Math.floor(Math.random() * 8) === 0 &&
+                   game_state.character.place === "void") {
+            options.e = "Exit the void.";
         } else {
             options.e = "";
         }
@@ -84,12 +89,15 @@ exports.get_options = function get_options(game_state) {
     return options;
 }
 
-function get_default_options(raffle_a, raffle_b, raffle_c, raffle_d) {
+function get_default_options(game_state, raffle_a, raffle_b, raffle_c, 
+                             raffle_d) {
     raffle.add(raffle_a, "Think.", 1);
-    raffle.add(raffle_a, "Lick the ground.", 1);
+    if (game_state.character.place !== "void") {
+        raffle.add(raffle_a, "Lick the ground.", 1);
+        raffle.add(raffle_c, "Leave in a puff.", 1);
+    }
     raffle.add(raffle_b, "Pray to a higher power.", 1);
     raffle.add(raffle_c, "Go to sleep.", 1);
-    raffle.add(raffle_c, "Leave in a puff.", 1);
     raffle.add(raffle_d, "Sing a song.", 1);
     raffle.add(raffle_d, "Dance a jig.", 1);
 }
@@ -156,12 +164,16 @@ function get_place_options(game_state, raffle_a, raffle_b, raffle_c,
         }
     }
 
-    if (game_state.character.place === "woods") {
-        raffle.add(raffle_a, "Go mushroom picking.", 2);
-    }
-
     if (game_state.character.place === "streets") {
         raffle.add(raffle_b, "Leer at women.", 2);
+    }
+
+    if (game_state.character.place === "void") {
+        raffle.add(raffle_d, "Gather void dust.", 2);
+    }
+
+    if (game_state.character.place === "woods") {
+        raffle.add(raffle_a, "Go mushroom picking.", 2);
     }
 
 }

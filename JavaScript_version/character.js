@@ -21,7 +21,7 @@ exports.character = {
         "bag of jewels": 0,
         "black mushroom": 0,
         "bottle of sap": 0,
-        "bottle of void dust": 0,
+        "handful of void dust": 0,
         "bouquet of flowers": 0,
         "cat": 0,
         "deep-cave newt": 0,
