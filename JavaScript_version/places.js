@@ -25,7 +25,8 @@ exports.places = {
     },
     "church": 
     {
-        "burnable":  true,
+        //"burnable":  true,
+        "burnable":  false,
         "links":     ["market", "streets"],
         "locked":    false,
         "name":      "the church",
@@ -69,7 +70,8 @@ exports.places = {
     },
     "lord_bartholomew_manor": 
     {
-        "burnable":  true,
+        //"burnable":  true,
+        "burnable":  false,
         "links":     ["countryside"],
         "locked":    false,
         "name":      "Lord Bartholomew's Manor",
@@ -80,7 +82,8 @@ exports.places = {
     },
     "lord_carlos_manor": 
     {
-        "burnable":  true,
+        //"burnable":  true,
+        "burnable":  false,
         "links":     ["woods"],
         "locked":    false,
         "name":      "Lord Carlos' Manor",
@@ -91,7 +94,8 @@ exports.places = {
     },
     "market": 
     {
-        "burnable":  true,
+        //"burnable":  true,
+        "burnable":  false,
         "links":     ["church", "streets", "docks", "wizard_lab"],
         "locked":    false,
         "name":      "the market",
@@ -168,7 +172,8 @@ exports.places = {
     },
     "tower":
     {
-        "burnable":  true,
+        //"burnable":  true,
+        "burnable":  false,
         "links":     ["streets"],
         "locked":    false,
         "name":      "the tower",
@@ -201,7 +206,8 @@ exports.places = {
     },
     "wizard_lab": 
     {
-        "burnable":  true,
+        //"burnable":  true,
+        "burnable":  false,
         "links":     ["market"],
         "locked":    false,
         "name":      "the wizard's lab",
@@ -212,7 +218,8 @@ exports.places = {
     },
     "woods": 
     {
-        "burnable":  true,
+        //"burnable":  true,
+        "burnable":  false,
         "links":     ["countryside", "lord_carlos_manor", "ocean", "docks"],
         "locked":    false,
         "name":      "the woods",
