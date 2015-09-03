@@ -468,6 +468,17 @@ var outcomes = {
 
     //f
     
+    "fail_at_new_career": function(game_state) {
+        var messages = [
+            "After a couple of months, you conclude that you don't have " +
+            "what it takes to be a clown.",
+            "After a couple of months, you conclude that you don't have " +
+            "what it takes to be a priest.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
     "find_a_cat": function(game_state) {
         game_state.message = "You find a cat.";
         get_item(game_state, "cat");
@@ -742,6 +753,16 @@ var outcomes = {
         return game_state;
     },
 
+    "kill_lord_carlos": function(game_state) {
+        game_state.message =
+            "You are just about to dump a cauldron of hot soup on Lord " +
+            "Carlos when he looks up and notices you. You then dump the " +
+            "hot soup on him and he dies.",
+        game_state.persons["lord_carlos"].alive = false;
+        move_character(game_state, "lord_carlos_manor");
+        return game_state;
+    },
+
     "kill_nobody": function(game_state) {
         var messages = [
             "You don't see anybody in a fit of rage to kill.",
@@ -765,6 +786,13 @@ var outcomes = {
             "You make no exceptions.",
         ];
         game_state.message = messages[random_int(messages.length)];
+        game_state.character.is_dead = true;
+        return game_state;
+    },
+
+    "killed_by_dragon": function(game_state) {
+        game_state.message = "Everything was going fine until you tried to " +
+            "get a dragon to do your biding.";
         game_state.character.is_dead = true;
         return game_state;
     },
@@ -1055,6 +1083,13 @@ var outcomes = {
             "You smash towns, flatten forests, level mountains, and " +
             "ultimately run out of food.";
         game_state.character.is_dead = true;
+        return game_state;
+    },
+
+    "steal_cutlass":function(game_state) {
+        game_state.message = "Your plan goes swimmingly.";
+        move_character(game_state, "ocean");
+        get_item(game_state, "jeweled cutlass");
         return game_state;
     },
 

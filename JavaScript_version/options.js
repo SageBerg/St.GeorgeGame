@@ -91,7 +91,7 @@ exports.get_options = function get_options(game_state) {
 
 function get_default_options(game_state, raffle_a, raffle_b, raffle_c, 
                              raffle_d) {
-    raffle.add(raffle_a, "Think.", 1);
+    raffle.add(raffle_a, "Think.", 10000);
     if (game_state.character.place !== "void") {
         raffle.add(raffle_a, "Lick the ground.", 1);
         raffle.add(raffle_c, "Leave in a puff.", 1);
@@ -200,6 +200,7 @@ function get_outcome_options(game_state, raffle_a, raffle_b, raffle_c,
     if (
         game_state.outcome === "cannot_afford" ||
         game_state.outcome === "dance_in_puddle" ||
+        game_state.outcome === "fail_at_new_career" ||
         game_state.outcome === "ignored" ||
         game_state.outcome === "think_pirates_laugh" ||
         game_state.outcome === "pirates_ruin_song" ||
@@ -208,30 +209,36 @@ function get_outcome_options(game_state, raffle_a, raffle_b, raffle_c,
         raffle.add(raffle_a, "Kill yourself in frustration.", 1);
     }
 
-    if (game_state.outcome === "guards_stop_you_dancing") {
+    else if (game_state.outcome === "guards_stop_you_dancing") {
         game_state.character.excuse = "happy";
         raffle.add(raffle_b, "TELL_GUARDS", 10000);
     }
 
-    if (game_state.outcome === "guards_stop_you_killing") {
+    else if (game_state.outcome === "guards_stop_you_killing") {
         game_state.character.excuse = "mad";
         raffle.add(raffle_b, "TELL_GUARDS", 10000);
     }
 
-    if (game_state.outcome === "guards_stop_you_licking") {
+    else if (game_state.outcome === "guards_stop_you_licking") {
         game_state.character.excuse = "hungry";
         raffle.add(raffle_b, "TELL_GUARDS", 10000);
     }
 
-    if (game_state.outcome === "guards_stop_you_singing") {
+    else if (game_state.outcome === "guards_stop_you_singing") {
         game_state.character.excuse = "talented";
         raffle.add(raffle_b, "TELL_GUARDS", 10000);
     }
 
-    if (
-        game_state.outcome === "gambling_lose"
-       ) {
+    else if (
+             game_state.outcome === "gambling_lose"
+            ) {
         raffle.add(raffle_a, "Kill everybody in a fit of rage.", 1);
+    }
+
+    else if (
+             game_state.outcome === "think_elaborate_scheme"
+            ) {
+        raffle.add(raffle_b, "Enact your elaborate scheme.", 10000);
     }
 
 }

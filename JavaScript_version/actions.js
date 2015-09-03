@@ -148,6 +148,14 @@ exports.actions = {
 
     //e
         
+    "Enact your elaborate scheme.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "steal_cutlass", 1);
+        raffle.add(possible_outcomes, "fail_at_new_career", 2);
+        raffle.add(possible_outcomes, "kill_lord_carlos", 1);
+        raffle.add(possible_outcomes, "killed_by_dragon", 1);
+        return possible_outcomes;
+    },
+
     "Enter the void.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "enter_the_void", 1);
         return possible_outcomes;
@@ -477,7 +485,7 @@ exports.actions = {
 
     "Think.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "think_about_sex", 1);
-        raffle.add(possible_outcomes, "think_elaborate_scheme", 1);
+        raffle.add(possible_outcomes, "think_elaborate_scheme", 10000);
         raffle.add(possible_outcomes, "think_four_ideas", 1);
         raffle.add(possible_outcomes, "think_get_lost", 1);
         raffle.add(possible_outcomes, "think_reevaluate_life", 1);
@@ -579,4 +587,5 @@ exports.actions = {
     //y
 
     //z
+
 }
