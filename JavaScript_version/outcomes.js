@@ -661,14 +661,14 @@ var outcomes = {
         return game_state;
     },
 
-    "go_upstairs_and_die":function(game_state) {
+    "go_upstairs_and_die": function(game_state) {
         game_state.message = "Olga invites you to her room upstairs. " +
             "When you get there, lots of passionate stabbing ensues.";
         game_state.character.is_dead = true;
         return game_state;
     },
 
-    "go_upstairs_with_olga":function(game_state) {
+    "go_upstairs_with_olga": function(game_state) {
         var messages = [
             "After dancing with Olga for a couple of hours, she takes " +
             "you upstairs to see the view from her window.",
@@ -685,7 +685,7 @@ var outcomes = {
         return game_state;
     },
 
-    "god_commits_arson":function(game_state) {
+    "god_commits_arson": function(game_state) {
         burn(game_state); //the order matters here since burn() 
                           //overwrites the message
         game_state.message = "Your prayers are answered. " + 
@@ -693,14 +693,14 @@ var outcomes = {
         return game_state;
     },
 
-    "god_gives_you_a_wife":function(game_state) {
+    "god_gives_you_a_wife": function(game_state) {
         game_state.message = 
             "Your prayers for a beautiful wife are answered, but she soon " +
             "leaves you.";
         return game_state;
     },
 
-    "god_gives_you_jewels":function(game_state) {
+    "god_gives_you_jewels": function(game_state) {
         game_state.message = 
             "God does nothing for you, but you " +
             "find a bag of jewels someone left on the counter.";
@@ -708,37 +708,45 @@ var outcomes = {
         return game_state;
     },
 
-    "god_shows_you_the_way":function(game_state) {
+    "god_shows_you_the_way": function(game_state) {
         game_state.message = 
             "God speaks to you and shows you the way.";
         return game_state;
     },
 
-    "god_showers_you_with_gold":function(game_state) {
+    "god_showers_you_with_gold": function(game_state) {
         game_state.message = "God rewards your devotion with a large fortune.";
         get_money(game_state, "large_fortune");
         return game_state;
     },
 
-    "god_tells_you_to_marry":function(game_state) {
+    "god_smites_you": function(game_state) {
+        game_state.message = "God smites you for your " + 
+            random_choice(["arrogance", "faithlessness", "foolishness",
+                           "heresy", "rudeness", "tactlessness"]) + ".";
+        clover(game_state);
+        return game_state;
+    },
+
+    "god_tells_you_to_marry": function(game_state) {
         game_state.message = 
             "God tells you to get married.";
         return game_state;
     },
 
-    "god_tests_you":function(game_state) {
+    "god_tests_you": function(game_state) {
         game_state.message = 
             "God decides to test you.";
         lose_all_items(game_state);
         return game_state;
     },
 
-    "ground_tastes_cold":function(game_state) {
+    "ground_tastes_cold": function(game_state) {
         game_state.message = "The ground tastes really cold.";
         return game_state;
     },
 
-    "guards_stop_you_dancing":function(game_state) {
+    "guards_stop_you_dancing": function(game_state) {
         game_state.message = "The local guards see your jig and conclude " +
         "that you must be a lunatic.";
         game_state.character.person = "guards";
@@ -746,7 +754,7 @@ var outcomes = {
         return game_state;
     },
 
-    "guards_stop_you_killing":function(game_state) {
+    "guards_stop_you_killing": function(game_state) {
         game_state.message = "The local guards see your killing everybody " +
             "and conclude that you must be a lunatic.";
         game_state.character.person = "guards";
@@ -754,7 +762,7 @@ var outcomes = {
         return game_state;
     },
 
-    "guards_stop_you_licking":function(game_state) {
+    "guards_stop_you_licking": function(game_state) {
         game_state.message = "The local guards see you licking the ground " +
             "and conclude you must be a lunatic.";
         game_state.character.person = "guards";
@@ -763,14 +771,14 @@ var outcomes = {
         return game_state;
     },
 
-    "guards_stop_you_rich":function(game_state) {
+    "guards_stop_you_rich": function(game_state) {
         game_state.message = "The local guards see you flaunting your " +
             "wealth and conclude that you must be a lunatic.";
         game_state.character.person = "guards";
         return game_state;
     },
 
-    "guards_stop_you_singing":function(game_state) {
+    "guards_stop_you_singing": function(game_state) {
         game_state.message = "The local guards see you singing and conclude " +
         "that you must be a lunatic.";
         game_state.character.person = "guards";
@@ -996,14 +1004,14 @@ var outcomes = {
         return game_state;
     },
 
-    "mermaid_dislikes_your_song":function(game_state) {
+    "mermaid_dislikes_your_song": function(game_state) {
         game_state.message = "The mermaid is annoyed by your song and " +
             "pushes you into the ocean.";
         move_character(game_state, "ocean");
         return game_state;
     },
 
-    "mermaid_likes_your_dance":function(game_state) {
+    "mermaid_likes_your_dance": function(game_state) {
         game_state.message = "The mermaid laughs and claps her hands. " +
             "She is completely in awe of your legs.";
         get_person(game_state).attracted += 1;
@@ -1027,12 +1035,12 @@ var outcomes = {
 
     //n
 
-    "no_one_cares":function(game_state) {
+    "no_one_cares": function(game_state) {
         game_state.message = "You sing your favorite song. No one cares.";
         return game_state;
     },
 
-    "not_impressed":function(game_state) {
+    "not_impressed": function(game_state) {
         game_state.message = capitalize(get_person(game_state).name) + 
             " is not impressed.";
         return game_state;
@@ -1042,20 +1050,37 @@ var outcomes = {
     
     //p
 
-    "pick_many_colored_mushroom":function(game_state) {
+    "pick_many_colored_mushroom": function(game_state) {
         game_state.message = "You pick a many colored mushroom.";
         get_item(game_state, "many colored mushroom");
         return game_state;
     },
 
-    "pirates_ruin_song":function(game_state) {
+    "pirates_ruin_song": function(game_state) {
         game_state.message = "You are joined in song by a gang of " +
             "drunken pirates. They spill rum on you and ruin your song.";
         game_state.character.person = "pirates";
         return game_state;
     },
 
-    "priestess_takes_offense":function(game_state) {
+    "priest_agrees": function(game_state) {
+        var messages = [
+            "The priest thinks for a moment and realizes you're right. " +
+            "\"What a fool I've been,\" he says. \"I'll go and " +
+            random_choice(["become a peasant", "get a wife",]) + ".\"",
+            "You get in a " +
+            random_choice(["heated", "horrible", "protracted", "spirited"]) +
+            " argument with the preist, but you eventually both agree that " +
+            "there are at least 17 gods and that " +
+            random_choice(["Lord Bartholomew", "St. George",]) + 
+            " is a good man.",
+        ];
+
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "priestess_takes_offense": function(game_state) {
         game_state.message = "A priestess finds your lyrics " +
         random_choice(["blasphemous", "cliché", "crude", "idiotic", "lude", 
                        "mildly offensive", "uncreative"]) +
@@ -1068,7 +1093,7 @@ var outcomes = {
     
     //r
 
-    "rebuffed_by_olga":function(game_state) {
+    "rebuffed_by_olga": function(game_state) {
         game_state.message = "Her eyes glaze over while you struggle make " +
             "yourself sound interesting.";
         return game_state;
@@ -1076,14 +1101,14 @@ var outcomes = {
 
     //s
 
-    "set_self_on_fire":function(game_state) {
+    "set_self_on_fire": function(game_state) {
         game_state.message = "You accidently set yourself on fire and " +
         "promptly burn to a crisp.";
         game_state.character.is_dead = true;
         return game_state;
     },
 
-    "sing_about_lords":function(game_state) {
+    "sing_about_lords": function(game_state) {
         var messages = [
             "You sing a song about Lord Arthur, captain of the pirates.",
             "You sing a song about Lord Bartholomew, leader of the peasants.",
@@ -1094,7 +1119,7 @@ var outcomes = {
         return game_state;
     },
 
-    "sing_at_lord_carlos_manor":function(game_state) {
+    "sing_at_lord_carlos_manor": function(game_state) {
         var messages = [
             "This is no place for merry-making. You are soon assassinated.",
             "Your singing alerts Lord Carlos' men to your presense. " +
@@ -1105,20 +1130,20 @@ var outcomes = {
         return game_state;
     },
 
-    "sing_to_greeks":function(game_state) {
+    "sing_to_greeks": function(game_state) {
         game_state.message = "As you sing, a ship sails by. The captain is " +
             "tied to the mast. He is not impressed.";
         return game_state;
     },
 
-    "sing_to_mermaid":function(game_state) {
+    "sing_to_mermaid": function(game_state) {
         game_state.message = "The mermaid enjoys your singing and sings " +
             "with you.";
         get_person(game_state).attracted += 1;
         return game_state;
     },
 
-    "sing_to_olga":function(game_state) {
+    "sing_to_olga": function(game_state) {
         var messages = [
             "Olga interupsts your song by kissing you.",
             "You sing a romantic ballad. Olga is impressed.",
@@ -1128,7 +1153,7 @@ var outcomes = {
         return game_state;
     },
 
-    "st_george_gives_you_money":function(game_state) {
+    "st_george_gives_you_money": function(game_state) {
         var money = random_choice(["pittance", "small_fortune", 
                                    "large_fortune"]);
         game_state.message = "St. George gives you " + 
@@ -1137,13 +1162,13 @@ var outcomes = {
         return game_state;
     },
 
-    "st_george_joins_you_in_prayer":function(game_state) {
+    "st_george_joins_you_in_prayer": function(game_state) {
         game_state.message = "St. George joins you in prayer."
         game_state.character.person = "st_george";
         return game_state;
     },
 
-    "st_george_kills_you":function(game_state) {
+    "st_george_kills_you": function(game_state) {
         var messages = [
             "St. George becomes irritated with your begging and crushes you " +
             "with his iron hammer.",
@@ -1155,14 +1180,14 @@ var outcomes = {
         return game_state;
     },
 
-    "st_george_warns_you":function(game_state) {
+    "st_george_warns_you": function(game_state) {
         game_state.message = "St. George sees you flaunting your wealth " + 
             "and warns you about the dangers of flamboyance.";
         game_state.character.person = "st_george";
         return game_state;
     },
 
-    "start_tripping":function(game_state) {
+    "start_tripping": function(game_state) {
         game_state.message = "You start feeling strange."
         game_state.character.is_tripping = true;
         game_state.character.items["many colored mushroom"] -= 1;
@@ -1177,7 +1202,7 @@ var outcomes = {
         return game_state;
     },
 
-    "steal_cutlass":function(game_state) {
+    "steal_cutlass": function(game_state) {
         game_state.message = "Your plan goes swimmingly.";
         move_character(game_state, "ocean");
         get_item(game_state, "jeweled cutlass");
@@ -1191,19 +1216,19 @@ var outcomes = {
 
     //t
 
-    "think_about_lord_arthur":function(game_state) {
+    "think_about_lord_arthur": function(game_state) {
         game_state.message = "You think it would be a bad idea to join " +
         "Lord Arthur's crew. He gives no choice.";
         move_character(game_state, "pirate_ship");
         return game_state;
     },
 
-    "think_about_lord_bartholomew":function(game_state) {
+    "think_about_lord_bartholomew": function(game_state) {
         game_state.message = "You think about Lord Bartholomew.";
         return game_state;
     },
 
-    "think_about_olga":function(game_state) {
+    "think_about_olga": function(game_state) {
         if (game_state.persons.olga.name === "the pretty lady") {
             game_state.message = "You think about a pretty lady you saw at " +
                 "the tavern.";
@@ -1213,130 +1238,130 @@ var outcomes = {
         return game_state;
     },
 
-    "think_about_sex":function(game_state) {
+    "think_about_sex": function(game_state) {
         game_state.message = "Since you're a man, you think about sex.";
         return game_state;
     },
 
-    "think_ax":function(game_state) {
+    "think_ax": function(game_state) {
         game_state.message = "While you're thinking, a guard hands you an ax " +
         "and tells you to chop some firewood for the cooks.";
         get_item(game_state, "ax");
         return game_state;
     },
 
-    "think_bad_smell":function(game_state) {
+    "think_bad_smell": function(game_state) {
         game_state.message = "You think the bad smell might be coming from " + 
         "you.";
         return game_state;
     },
 
-    "think_bats":function(game_state) {
+    "think_bats": function(game_state) {
         game_state.message = "You think you hear bats, but you also think " + 
         "you might be crazy.";
         return game_state;
     },
 
-    "think_cold":function(game_state) {
+    "think_cold": function(game_state) {
         game_state.message = "You can't think about much besides how cold " +
         "you are.";
         return game_state;
     },
 
-    "think_darkness":function(game_state) {
+    "think_darkness": function(game_state) {
         game_state.message = "You think about the darkness that is crushing " +
         "in on you from all sides.";
         return game_state;
     },
 
-    "think_death":function(game_state) {
+    "think_death": function(game_state) {
         game_state.message = "You think about death.";
         return game_state;
     },
 
-    "think_elaborate_scheme":function(game_state) {
+    "think_elaborate_scheme": function(game_state) {
         game_state.message = "You concoct an elaborate scheme.";
         return game_state;
     },
 
-    "think_fire":function(game_state) {
+    "think_fire": function(game_state) {
         game_state.message = "You think about fire.";
         return game_state;
     },
 
-    "think_four_ideas":function(game_state) {
+    "think_four_ideas": function(game_state) {
         game_state.message = "You come up with four brilliant ideas.";
         return game_state;
     },
 
-    "think_get_lost":function(game_state) {
+    "think_get_lost": function(game_state) {
         game_state.message = "You get lost in your thoughts."; 
         return game_state;
     },
 
-    "think_ice":function(game_state) {
+    "think_ice": function(game_state) {
         game_state.message = "You think about ice."; 
         return game_state;
     },
 
-    "think_jump":function(game_state) {
+    "think_jump": function(game_state) {
         game_state.message = "You think you can survive the jump from the " +
         "top of the tower."; 
         game_state.character.is_dead = true;
         return game_state;
     },
 
-    "think_meaning_of_life":function(game_state) {
+    "think_meaning_of_life": function(game_state) {
         game_state.message = "You ponder the meaning of life and " +
         "feel smug for being so philosophical.";
         return game_state;
     },
 
-    "think_ocean_is_big":function(game_state) {
+    "think_ocean_is_big": function(game_state) {
         game_state.message = "You think the ocean is really big."; 
         return game_state;
     },
 
-    "think_of_getting_stabbed":function(game_state) {
+    "think_of_getting_stabbed": function(game_state) {
         game_state.message = "You think about how painful it would be to " +
         "get stabbed. You soon find out.";
         game_state.character.is_dead = true;
         return game_state;
     },
 
-    "think_peasant_women":function(game_state) {
+    "think_peasant_women": function(game_state) {
         game_state.message = "You wonder if any peasant women would go for " +
         "a man like you.";
         return game_state;
     },
 
-    "think_pirates_laugh":function(game_state) {
+    "think_pirates_laugh": function(game_state) {
         game_state.message = "Some pirates laugh at you for thinking.";
         return game_state;
     },
 
-    "think_reevaluate_life":function(game_state) {
+    "think_reevaluate_life": function(game_state) {
         game_state.message = "You spend some time reevaluating your life " +
             "and conclude that you need to stay the course.";
         return game_state;
     },
 
-    "think_suffocation":function(game_state) {
+    "think_suffocation": function(game_state) {
         game_state.message = "You think about suffocation.";
         return game_state;
     },
 
-    "think_think_think":function(game_state) {
+    "think_think_think": function(game_state) {
         game_state.message = "All you can think is \"Think. Think. Think.\""; 
         return game_state;
     },
 
-    "think_you_shouldnt_be_here":function(game_state) {
+    "think_you_shouldnt_be_here": function(game_state) {
         game_state.message = "You think you probably shouldn't be here."; 
         return game_state;
     },
 
-    "trip_over_a_cat":function(game_state) {
+    "trip_over_a_cat": function(game_state) {
         game_state.message = "You trip over a cat and break your neck.";
         clover(game_state);
         return game_state;
@@ -1348,7 +1373,7 @@ var outcomes = {
 
     //w
 
-    "wake_up":function(game_state) {
+    "wake_up": function(game_state) {
         var messages = [
             "You wake up well-rested some hours later.",
             "You have a nightmare about weasels.",
@@ -1360,32 +1385,32 @@ var outcomes = {
         return game_state;
     },
 
-    "wake_up_assassinated":function(game_state) {
+    "wake_up_assassinated": function(game_state) {
         game_state.message = "You are rudely awakened by an assassin's dagger.";
         clover(game_state);
         return game_state;
     },
 
-    "wake_up_dead":function(game_state) {
+    "wake_up_dead": function(game_state) {
         game_state.message = "You wake up dead."; 
         clover(game_state);
         return game_state;
     },
 
-    "wake_up_drown":function(game_state) {
+    "wake_up_drown": function(game_state) {
         game_state.message = "You drown in your sleep.";
         game_state.character.is_dead = true;
         return game_state;
     },
 
-    "wake_up_in_dungeon":function(game_state) {
+    "wake_up_in_dungeon": function(game_state) {
         game_state.message = "You wake up in Lord Carlos' dungeon " +
             "and eventually die there.";
         game_state.character.is_dead = true;
         return game_state;
     },
 
-    "wake_up_in_prison":function(game_state) {
+    "wake_up_in_prison": function(game_state) {
         game_state.message = "You are rousted by some guards who toss you in " +
             "prison with the other lunatics.";
         move_character(game_state, "prison");
@@ -1393,27 +1418,27 @@ var outcomes = {
         return game_state;
     },
 
-    "wake_up_richer":function(game_state) {
+    "wake_up_richer": function(game_state) {
         game_state.message = "You wake with a few coins on your cloak."; 
         get_money(game_state, "pittance");
         return game_state;
     },
 
-    "wake_up_robbed":function(game_state) {
+    "wake_up_robbed": function(game_state) {
         game_state.message = "You wake up robbed of all your wordly " +
             "possessions."; 
         lose_all_items(game_state);
         return game_state;
     },
 
-    "wake_up_somewhere_else":function(game_state) {
+    "wake_up_somewhere_else": function(game_state) {
         game_state.message = "You wake up a few hours later."
         move_character(game_state, 
                        get_random_adjacent_destination(game_state));
         return game_state;
     },
 
-    "wake_up_weasel":function(game_state) {
+    "wake_up_weasel": function(game_state) {
         game_state.message = "You wake up just in time to see an assassin " +
             "slip a weasel through the bars of your cell. " +
             "The weasal kills you.";
@@ -1421,14 +1446,14 @@ var outcomes = {
         return game_state;
     },
 
-    "wake_up_with_cat":function(game_state) {
+    "wake_up_with_cat": function(game_state) {
         game_state.message = "You are pleasantly awakened by a cat rubbing " +
             "up against you."; 
         get_item(game_state, "cat");
         return game_state;
     },
 
-    "wander_while_singing":function(game_state) {
+    "wander_while_singing": function(game_state) {
         game_state.message = "You wander aimlessly as you work your way " +
             "through an epic ballad."; 
         move_character(game_state, 
@@ -1436,19 +1461,19 @@ var outcomes = {
         return game_state;
     },
 
-    "wealthy_people_sneer":function(game_state) {
+    "wealthy_people_sneer": function(game_state) {
         game_state.message = "Some truly wealthy people see you and sneer.";
         return game_state;
     },
 
-    "wizard_complains":function(game_state) {
+    "wizard_complains": function(game_state) {
         game_state.message = "The wizard complains that you are singing " +
             "off-key. He turns you into a toad and stomps on you.";
         game_state.character.is_dead = true;
         return game_state;
     },
 
-    "wowed_olga":function(game_state) {
+    "wowed_olga": function(game_state) {
         var messages = [
             "You play a game of darts together. " +
             "She is delighted when she beats you.",
@@ -1477,7 +1502,7 @@ var outcomes = {
         return game_state;
     },
 
-    "wowed_olga_upstairs":function(game_state) {
+    "wowed_olga_upstairs": function(game_state) {
         var messages = [
             "You make passionate love together.",
             "You sleep together.",
@@ -1500,7 +1525,7 @@ var outcomes = {
     
     //y
     
-    "you_get_mobbed":function(game_state) {
+    "you_get_mobbed": function(game_state) {
         var messages = [
             "The local peasants mob you. They take your money and your life.",
         ] 
@@ -1511,7 +1536,7 @@ var outcomes = {
 
     //z
 
-    "zone_out":function(game_state) {
+    "zone_out": function(game_state) {
         var messages = [
             "You zone out while " + 
             get_name(game_state) + " " + conjugate(game_state, "talk") +

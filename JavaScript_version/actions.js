@@ -501,6 +501,13 @@ exports.actions = {
 
     //t
 
+    "Tell a priest God doesn't exist.":
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "god_smites_you", 1);
+        raffle.add(possible_outcomes, "priest_agrees", 2);
+        return possible_outcomes;
+    },
+
     "TELL_GUARDS": function(game_state, possible_outcomes) {
         game_state.character.excuse === "rich" 
             ? 
