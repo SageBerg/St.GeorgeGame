@@ -198,6 +198,15 @@ exports.persons = {
         "prefered_attack": "kill",
         "type": "group", 
     },
+    "priestess":
+    {
+        "alive": true,
+        "attack": 2,
+        "attracted": 0,
+        "name": "the priestess",
+        "prefered_attack": "kill",
+        "type": "female", 
+    },
     "simple_peasant":
     {
         "alive": true,
