@@ -121,7 +121,7 @@ function handle_new_world(resp) {
         if (game_state.options.c === "GO_TO") {
             var dest = get_destination(game_state);
             document.getElementById("c").innerHTML = "c. Go to " + 
-                game_state.places[dest].name;
+                game_state.places[dest].name + ".";
             game_state.destination = dest;
         } else {
             document.getElementById("c").innerHTML = "c. " + 
