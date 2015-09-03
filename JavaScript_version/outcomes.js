@@ -123,7 +123,9 @@ function lose_all_items(game_state) {
     for (var item in game_state.character.items) {
         game_state.character.items[item] = 0;
     }
+    game_state.character.money = "none";
     game_state.message += " You now have no items.";
+    game_state.message += " You now have no money.";
 }
 
 function random_choice(array) {
@@ -449,6 +451,48 @@ var outcomes = {
     },
 
     //g
+
+    "gambling_die": function(game_state) {
+        game_state.message = "It was a gamble to stay here. " +
+            "The assassins find you.";
+        die(game_state);
+        return game_state;
+    },
+
+    "gambling_lady": function(game_state) {
+        game_state.message = "You get cleaned out by a pretty lady.";
+        game_state.character.person = "olga";
+        lose_all_items(game_state);
+        return game_state;
+    },
+
+    "gambling_lose": function(game_state) {
+        game_state.character.person = null;
+        if (game_state.character.place === "docks") {
+            game_state.message = "You dice with some pirates. " +
+                "They easily beat you.";
+            game_state.character.person = "pirates";
+        } else {
+            game_state.message = "You lose many games of poker.";
+        }
+        lose_all_items(game_state);
+        return game_state;
+    },
+
+    "gambling_win": function(game_state) {
+        game_state.character.person = null;
+        if (game_state.character.place === "docks" && 
+            game_state.persons.lord_arthur.alive === true) {
+            game_state.message = "You dice with Lord Arthur. " +
+                "He whips you soundly, however you also beat him at " +
+                "gambling.";
+            game_state.character.person = "lord_arthur";
+        } else {
+            game_state.message = "You win many games of dice.";
+        }
+        get_money(game_state, "small_fortune");
+        return game_state;
+    },
 
     "get_attacked": function(game_state) {
         var attempted_action = 

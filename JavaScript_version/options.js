@@ -136,6 +136,10 @@ function get_place_options(game_state, raffle_a, raffle_b, raffle_c,
         raffle.add(raffle_b, "Go flower picking.", 2);
     }
 
+    if (game_state.character.place === "docks") {
+        raffle.add(raffle_d, "Do some gambling.", 2);
+    }
+
     if (game_state.character.place === "market" &&
         game_state.character.person !== "war_merchant") {
         raffle.add(raffle_d, "Look for a weapon.", 10);
@@ -144,11 +148,12 @@ function get_place_options(game_state, raffle_a, raffle_b, raffle_c,
     if (game_state.character.place === "tavern") {
         raffle.add(raffle_a, "Ask about assassins.", 1);
         raffle.add(raffle_b, "Buy a drink.", 1);
+        raffle.add(raffle_d, "Do some gambling.", 1);
         if (game_state.persons.olga.alive &&
             game_state.persons.olga.name === "Olga" &&
             game_state.character.person !== "olga") {
-            raffle.add(raffle_d, "Look for Olga.", 10);
-            }
+            raffle.add(raffle_b, "Look for Olga.", 10);
+        }
     }
 
     if (game_state.character.place === "woods") {

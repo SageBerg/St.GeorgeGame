@@ -134,6 +134,18 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Do some gambling.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "gambling_lose", 1);
+        raffle.add(possible_outcomes, "gambling_win", 1);
+        if (game_state.character.place === "tavern") {
+            raffle.add(possible_outcomes, "gambling_die", 1);
+            if (game_state.persons.olga.alive === true) {
+                raffle.add(possible_outcomes, "gambling_lady", 1);
+            }
+        }
+        return possible_outcomes;
+    },
+
     //e
     
     //f
