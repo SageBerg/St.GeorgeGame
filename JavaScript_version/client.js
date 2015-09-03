@@ -50,20 +50,23 @@ function a_or_an(next_letter) {
     return "a";
 }
 
+// CREDITS: funcction based on top answer by community wiki at:
+// http://stackoverflow.com/questions/2450954/
+//        how-to-randomize-shuffle-a-javascript-array
 function scramble(text) {
     for (var i in "?\"\'!.,:;") {
         text = text.replace("?\"\'!.,:;"[i], "");
     }
     text = text.toLowerCase();
     var array = text.split(" ");
-    var currentIndex = array.length, temporaryValue, randomIndex ;
+    var current_index = array.length, temporary_value, random_index ;
 
-    while (0 !== currentIndex) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
+    while (0 !== current_index) {
+        random_index = Math.floor(Math.random() * current_index);
+        current_index -= 1;
+        temporary_value = array[current_index];
+        array[current_index] = array[random_index];
+        array[random_index] = temporary_value;
     }
 
     var return_text = "";
