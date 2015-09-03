@@ -116,8 +116,13 @@ function move_character(game_state, destination) {
     game_state.character.place = destination;
     game_state.character.is_threatened = false;
     game_state.character.person = null;
-    game_state.message += " You find yourself in " + 
-        game_state.places[destination].name + ".";
+    if (destination === "mermaid_rock" || destination === "pirate_ship") {
+        game_state.message += " You find yourself on " + 
+            game_state.places[destination].name + ".";
+    } else {
+        game_state.message += " You find yourself in " + 
+            game_state.places[destination].name + ".";
+    }
 }
 
 function lose_all_items(game_state) {
