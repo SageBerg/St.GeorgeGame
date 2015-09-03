@@ -23,7 +23,7 @@ exports.actions = {
     "Ask about assassins.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "assassinated", 1);
         if (game_state.persons.olga.alive) {
-            raffle.add(possible_outcomes, "meet_olga", 1000); //TODO fix prob
+            raffle.add(possible_outcomes, "meet_olga", 1);
         }
         return possible_outcomes;
     },
@@ -31,9 +31,9 @@ exports.actions = {
     "Attack": function(game_state, possible_outcomes) {
         if (game_state.character.strength > 
             game_state.persons[game_state.character.person].attack) {
-            raffle.add(possible_outcomes, "kill", 10000);
+            raffle.add(possible_outcomes, "kill", 1);
         } else {
-            raffle.add(possible_outcomes, "lose_fight", 10000);
+            raffle.add(possible_outcomes, "lose_fight", 1);
         }
         return possible_outcomes;
     },
@@ -151,6 +151,17 @@ exports.actions = {
             if (game_state.persons.olga.alive === true) {
                 raffle.add(possible_outcomes, "gambling_lady", 1);
             }
+        }
+        return possible_outcomes;
+    },
+
+    "Donate to the church.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "assassinated_in_church", 1);
+        raffle.add(possible_outcomes, "blessed", 2);
+        raffle.add(possible_outcomes, "feel_bad_about_donation", 3);
+        raffle.add(possible_outcomes, "feel_good_about_donation", 5);
+        if (game_state.persons.st_george.alive) {
+            raffle.add(possible_outcomes, "hammer_from_st_george", 1);
         }
         return possible_outcomes;
     },

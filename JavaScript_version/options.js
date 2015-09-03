@@ -1,6 +1,8 @@
 "use strict";
 
 var raffle = require("./raffle");
+var items  = require("./items");
+
 
 exports.starting_options = {"a": "Ask about assassins.",
                             "b": "Buy a drink.",
@@ -151,7 +153,7 @@ function get_character_options(game_state, raffle_a, raffle_b, raffle_c,
 
     if (game_state.character.money === "large_fortune" ||
         game_state.character.money === "small_fortune") {
-        raffle.add(raffle_d, "Flaunt your wealth.", 1000);
+        raffle.add(raffle_d, "Flaunt your wealth.", 1);
     }
 
 }
@@ -167,6 +169,15 @@ function get_place_options(game_state, raffle_a, raffle_b, raffle_c,
         raffle.add(raffle_c, "Look for a cat.", 1);
         if (game_state.character.person !== "st_george") {
             raffle.add(raffle_d, "Look for St. George.", 1);
+        }
+    }
+
+    if (game_state.character.place === "church") {
+        //raffle.add(raffle_a, "Tell a priest he's fat.", 1);
+        //raffle.add(raffle_a, "Tell a priest God doesn't exist.", 1);
+        //raffle.add(raffle_a, "Tell a priest you're the chosen one.", 1);
+        if (items.money_map[game_state.character.money].value > 0) {
+            raffle.add(raffle_d, "Donate to the church.", 2000);
         }
     }
 

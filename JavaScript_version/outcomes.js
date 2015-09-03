@@ -190,8 +190,15 @@ var outcomes = {
     },
 
     "assassinated": function(game_state) {
-        game_state.message = "The first woman you talk to turns out to be an " +
-        "assasin. She assassinates you.";
+        game_state.message = "The first woman you talk to turns out to be " +
+        "an assasin. She assassinates you.";
+        game_state.character.is_dead = true;
+        return game_state;
+    },
+
+    "assassinated_in_church": function(game_state) {
+        game_state.message = "It was a good time to make peace with God. " +
+        "Lord Carlos steps out from behind a pillar and assassinates you.";
         game_state.character.is_dead = true;
         return game_state;
     },
@@ -212,6 +219,12 @@ var outcomes = {
     },
 
     //b
+
+    "blessed": function(game_state) {
+        game_state.message = "A priestess blesses you.";
+        game_state.character.person = "priestess";
+        return game_state;
+    },
 
     "bought_a_weapon": function(game_state) {
         game_state.message = "";
@@ -486,6 +499,34 @@ var outcomes = {
         return game_state;
     },
 
+    "feel_bad_about_donation": function(game_state) {
+        var messages = [
+            "You feel " + random_choice([
+                "like the church will waste your donation",
+                "like you wasted your money",
+                "like you've been cheated",
+                "unfulfilled",
+                ]) + ".",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "feel_good_about_donation": function(game_state) {
+        var messages = [
+            "You feel " + random_choice([
+                "fulfilled",
+                "holier",
+                "holy",
+                "like a good person",
+                "like your donation brought you closer to God",
+                "like your sins will be pardoned",
+                ]) + ".",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
     "find_a_cat": function(game_state) {
         game_state.message = "You find a cat.";
         get_item(game_state, "cat");
@@ -739,6 +780,14 @@ var outcomes = {
 
     //h
     
+    "hammer_from_st_george": function(game_state) {
+        game_state.message = "St. George sees that you are a righteous man " +
+            "and gives you a weapon to do God's work.";
+        get_item(game_state, "iron hammer");
+        game_state.character.person = "st_george";
+        return game_state;
+    },
+
     //i
     
     "infection": function(game_state) {
