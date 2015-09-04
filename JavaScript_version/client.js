@@ -115,6 +115,9 @@ function handle_new_world(resp) {
         document.getElementById("b").innerHTML = "b. Burn " + 
             game_state.places[game_state.character.place].name + 
             " to the ground.";
+    } else if (game_state.options.b === "LOVE_POTION") {
+        document.getElementById("b").innerHTML = "b. Use your love potion " +
+            "on " + game_state.persons[game_state.character.person].name + ".";
     } else if (game_state.options.b === "TELL_GUARDS") {
         document.getElementById("b").innerHTML = "b. Tell them you're " +
             "not a lunatic, you're just " +

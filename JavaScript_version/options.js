@@ -53,6 +53,8 @@ exports.get_options = function get_options(game_state) {
                             options.d);
         get_character_options(game_state, options.a, options.b, options.c, 
                               options.d);
+        get_item_options(game_state, options.a, options.b, options.c, 
+                         options.d);
         get_outcome_options(game_state, options.a, options.b, options.c, 
                             options.d);
         get_place_options(game_state, options.a, options.b, options.c, 
@@ -159,13 +161,31 @@ function get_character_options(game_state, raffle_a, raffle_b, raffle_c,
         raffle.add(raffle_c, "Waddle like God.", 10);
     }
 
+    if (game_state.character.money === "large_fortune" ||
+        game_state.character.money === "small_fortune" ||
+        game_state.places[game_state.character.place].town === true
+        ) {
+        raffle.add(raffle_d, "Flaunt your wealth.", 1);
+    }
+
+}
+
+
+function get_item_options(game_state, raffle_a, raffle_b, raffle_c, 
+                           raffle_d) {
+
     if (game_state.character.items["many colored mushroom"] > 0) {
         raffle.add(raffle_d, "Chow down on your many colored mushroom.", 1);
     }
 
-    if (game_state.character.money === "large_fortune" ||
-        game_state.character.money === "small_fortune") {
-        raffle.add(raffle_d, "Flaunt your wealth.", 1);
+    if (game_state.character.items["potion of love"] > 0 && 
+        game_state.character.person === "mermaid"
+        //TODO figure out how to use jquery on the server side
+        //$.inArray(game_state.character.person, ["eve", "felicity", "mermaid",
+        //                                        "nymph_queen", "olga", 
+        //                                        "priestess"]) > -1
+       ) {
+        raffle.add(raffle_b, "LOVE_POTION", 10000);
     }
 
 }

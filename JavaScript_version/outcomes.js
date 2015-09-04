@@ -1243,6 +1243,19 @@ var outcomes = {
         return game_state;
     },
 
+    "potion_mermaid": function(game_state) {
+        var messages = [
+            "The mermaid falls madly in love with you. You run into the " +
+            "mermaid problem but, she " + 
+            random_choice(["has a mouth", "has breasts", 
+                           "is fun to be around"]) +
+            " so you still live happily ever after.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.has_found_true_love = true;
+        return game_state;
+    },
+
     //q
     
     //r

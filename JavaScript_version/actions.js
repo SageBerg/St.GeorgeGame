@@ -401,6 +401,31 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "LOVE_POTION": function(game_state, possible_outcomes) {
+        switch (game_state.character.person) {
+            case "eve":
+                raffle.add(possible_outcomes, "", 1);
+                break;
+            case "felicity":
+                raffle.add(possible_outcomes, "", 1);
+                break;
+            case "mermaid":
+                console.log("worked");
+                raffle.add(possible_outcomes, "potion_mermaid", 1);
+                break;
+            case "nymph_queen":
+                raffle.add(possible_outcomes, "", 1);
+                break;
+            case "olga":
+                raffle.add(possible_outcomes, "", 1);
+                break;
+            case "priestess":
+                raffle.add(possible_outcomes, "", 1);
+                break;
+        }
+        return possible_outcomes;
+    },
+
     "Look for a cat.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "find_a_cat", 1);
         return possible_outcomes;
