@@ -79,7 +79,7 @@ exports.persons = {
     {
         "alive": true,
         //"alive": false,
-        "attack": 7,
+        "attack": 6,
         "attracted": 0,
         "name": "Lord Arthur",
         "prefered_attack": "walk_the_plank",
@@ -90,7 +90,7 @@ exports.persons = {
     {
         "alive": true,
         //"alive": false,
-        "attack": 6,
+        "attack": 4,
         "attracted": 0,
         "name": "Lord Bartholomew",
         "prefered_attack": "kill",
@@ -112,7 +112,7 @@ exports.persons = {
     {
         "alive": true,
         //"alive": false,
-        "attack": 8,
+        "attack": 7,
         "attracted": 0,
         "name": "Lord Daniel",
         "prefered_attack": "arrest",
