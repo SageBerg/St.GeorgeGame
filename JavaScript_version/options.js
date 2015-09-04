@@ -135,7 +135,8 @@ function get_default_options(game_state, raffle_a, raffle_b, raffle_c,
 function get_character_options(game_state, raffle_a, raffle_b, raffle_c, 
                                raffle_d) {
 
-    if (game_state.places[game_state.character.place].locked === false) {
+    if (game_state.places[game_state.character.place].locked === false &&
+        game_state.character.is_threatened === false) {
         raffle.add(raffle_c, "GO_TO", 2);
     }
 
