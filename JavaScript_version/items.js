@@ -8,6 +8,11 @@ exports.money_map = {
 }
 
 exports.weapons_map = {
+    "pitchfork": {
+        "name": "pitchfork", 
+        "attack": 1, 
+        "cost": "pittance"
+    },
     "dagger": {
         "name": "dagger", 
         "attack": 2, 
@@ -21,6 +26,11 @@ exports.weapons_map = {
     "hammer": { 
         "name": "hammer", 
         "attack": 4, 
+        "cost": "pittance"
+    },
+    "long_pitchfork": {
+        "name": "long pitchfork", 
+        "attack": 5, 
         "cost": "pittance"
     },
     "poison_dagger": {
