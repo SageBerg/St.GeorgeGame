@@ -57,7 +57,7 @@ exports.actions = {
 
     "Buy a drink.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "meet_blind_bartender", 1);
-        //raffle.add(possible_outcomes, "", 10000);
+        raffle.add(possible_outcomes, "frog", 10000);
         return possible_outcomes;
     },
 
@@ -72,6 +72,12 @@ exports.actions = {
     },
 
     //c
+
+    "Croak.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "croak", 4);
+        raffle.add(possible_outcomes, "attract_lady_frog", 1);
+        return possible_outcomes;
+    },
 
     "Chow down on your many colored mushroom.": 
     function(game_state, possible_outcomes) {
@@ -169,6 +175,15 @@ exports.actions = {
 
     //e
         
+    "Eat a fly.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "fly_tastes_good", 1);
+        raffle.add(possible_outcomes, "human_with_fly_in_mouth", 1);
+        if (get_place(game_state).populated === true) {
+            raffle.add(possible_outcomes, "stepped_on", 1);
+        }
+        return possible_outcomes;
+    },
+
     "Enact your elaborate scheme.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "steal_cutlass", 1);
         raffle.add(possible_outcomes, "fail_at_new_career", 2);
@@ -286,6 +301,15 @@ exports.actions = {
 
     //h
     
+    "Hop.": function(game_state, possible_outcomes) {
+        if (get_place(game_state).outside === true) {
+            raffle.add(possible_outcomes, "eaten_by_bird", 1);
+        }
+        raffle.add(possible_outcomes, "hop", 1);
+        raffle.add(possible_outcomes, "hop_a_lot", 1);
+        return possible_outcomes;
+    },
+
     //i
     
     //j
@@ -374,6 +398,11 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Look for the wizard.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "frog", 1);
+        return possible_outcomes;
+    },
+
     //m
 
     "MARRY": function(game_state, possible_outcomes) {
@@ -416,6 +445,15 @@ exports.actions = {
     
     //r
     
+    "Ribbit.": function(game_state, possible_outcomes) {
+        if (game_state.character.place !== "ocean") {
+            raffle.add(possible_outcomes, "eaten_by_weasel", 1);
+        }
+        raffle.add(possible_outcomes, "human", 1);
+        raffle.add(possible_outcomes, "ribbit", 1);
+        return possible_outcomes;
+    },
+
     "Run like the Devil.": function(game_state, possible_outcomes) {
         if (game_state.character.is_threatened) {
             raffle.add(possible_outcomes, "escaped", 9);
@@ -502,7 +540,7 @@ exports.actions = {
 
     //t
 
-    "Tell a priest God doesn't exist.":
+    "Tell a priest God doesn't exist.": 
         function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "god_smites_you", 1);
         raffle.add(possible_outcomes, "priest_agrees", 2);
@@ -516,7 +554,7 @@ exports.actions = {
         return possible_outcomes;
     },
 
-    "Tell the guards you're a lunatic.":
+    "Tell the guards you're a lunatic.": 
         function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "a_rich_lunatic", 1);
         return possible_outcomes;

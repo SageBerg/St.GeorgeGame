@@ -83,6 +83,12 @@ exports.get_options = function get_options(game_state) {
         options.c = "Go on a rampage.";
         options.d = "Destroy all human civilizations.";
         options.e = "";
+    } else if (game_state.character.is_frog) {
+        options.a = "Ribbit.";
+        options.b = "Hop.";
+        options.c = "Croak.";
+        options.d = "Eat a fly.";
+        options.e = "";
     } else {
 
         get_default_options(game_state, options.a, options.b, options.c, 
@@ -196,6 +202,7 @@ function get_place_options(game_state, raffle_a, raffle_b, raffle_c,
     if (game_state.character.place === "market" &&
         game_state.character.person !== "war_merchant") {
         raffle.add(raffle_d, "Look for a weapon.", 10);
+        raffle.add(raffle_b, "Look for the wizard.", 1);
     }
 
     if (game_state.character.place === "tavern") {

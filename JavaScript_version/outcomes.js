@@ -84,21 +84,6 @@ function get_item(game_state, item) {
     game_state.character.items[item] += 1;
 }
 
-function get_weapon(game_state, weapon) {
-    if (game_state.character.items[weapon] === 0) {
-        game_state.message += " You now have " + 
-        a_or_an(items.weapons_map[weapon].name[0]) + " " +
-        items.weapons_map[weapon].name + ".";
-    } else {
-        game_state.message += " You now have another " +
-        items.weapons_map[weapon].name + ".";
-    }
-    game_state.character.items[weapon] += 1;
-    if (game_state.character.strength <= items.weapons_map[weapon].attack) {
-        game_state.character.strength = items.weapons_map[weapon].attack;
-    }
-}
-
 function get_money(game_state, money) {
     if (items.money_map[game_state.character.money].value < 
         items.money_map[money].value) {
@@ -116,16 +101,45 @@ function get_name(game_state) {
     return game_state.persons[game_state.character.person].name;
 }
 
-function get_place(game_state) {
-    return game_state.places[game_state.character.place];
-}
-
 function get_person(game_state) {
     return game_state.persons[game_state.character.person];
 }
 
+function get_place(game_state) {
+    return game_state.places[game_state.character.place];
+}
+
+function get_random_adjacent_destination(game_state) {
+    var links = game_state.places[game_state.character.place].links;
+    return links[random_int(links.length)];
+}
+
 function get_subject(game_state) {
     return he_she_they[game_state.persons[game_state.character.person].type];
+}
+
+function get_weapon(game_state, weapon) {
+    if (game_state.character.items[weapon] === 0) {
+        game_state.message += " You now have " + 
+        a_or_an(items.weapons_map[weapon].name[0]) + " " +
+        items.weapons_map[weapon].name + ".";
+    } else {
+        game_state.message += " You now have another " +
+        items.weapons_map[weapon].name + ".";
+    }
+    game_state.character.items[weapon] += 1;
+    if (game_state.character.strength <= items.weapons_map[weapon].attack) {
+        game_state.character.strength = items.weapons_map[weapon].attack;
+    }
+}
+
+function lose_all_items(game_state) {
+    for (var item in game_state.character.items) {
+        game_state.character.items[item] = 0;
+    }
+    game_state.character.money = "none";
+    game_state.message += " You now have no items.";
+    game_state.message += " You now have no money.";
 }
 
 function move_character(game_state, destination) {
@@ -141,26 +155,12 @@ function move_character(game_state, destination) {
     }
 }
 
-function lose_all_items(game_state) {
-    for (var item in game_state.character.items) {
-        game_state.character.items[item] = 0;
-    }
-    game_state.character.money = "none";
-    game_state.message += " You now have no items.";
-    game_state.message += " You now have no money.";
-}
-
 function random_choice(array) {
     return array[random_int(array.length)]; 
 }
 
 function random_int(n) {
     return Math.floor(Math.random() * n);
-}
-
-function get_random_adjacent_destination(game_state) {
-    var links = game_state.places[game_state.character.place].links;
-    return links[random_int(links.length)];
 }
 
 var he_she_they = {
@@ -230,6 +230,12 @@ var outcomes = {
     "assassins_notice_dance": function(game_state) {
         game_state.message = "The assassins immediately notice you dancing.";
         game_state.character.is_dead = true;
+        return game_state;
+    },
+
+    "attract_lady_frog": function(game_state) {
+        game_state.message = "Your croaking attracts a lady frog, but " +
+            "you're not sure what to do with her.";
         return game_state;
     },
 
@@ -330,6 +336,12 @@ var outcomes = {
             "The Devil is pretty fast, but Olga is faster and prettier. " +
             "She catches you and strangles you to death.";
         game_state.character.is_dead = true;
+        return game_state;
+    },
+
+    "croak": function(game_state) {
+        game_state.message = "You croak.";
+        die(game_state);
         return game_state;
     },
 
@@ -467,6 +479,18 @@ var outcomes = {
         return game_state;
     },
 
+    "eaten_by_bird": function(game_state) {
+        game_state.message = "A bird swoops down and eats you.";
+        die(game_state);
+        return game_state;
+    },
+
+    "eaten_by_weasel": function(game_state) {
+        game_state.message = "A loose weasel hears you ribbit and eats you.";
+        die(game_state);
+        return game_state;
+    },
+
     "enter_the_void": function(game_state) {
         game_state.message = "";
         move_character(game_state, "void");
@@ -572,6 +596,12 @@ var outcomes = {
     "find_st_george": function(game_state) {
         game_state.message = "You find St. George.";
         game_state.character.person = "st_george";
+        return game_state;
+    },
+
+    "fly_tastes_good": function(game_state) {
+        game_state.message = "The fly tastes better than any human food " +
+            "ever did.";
         return game_state;
     },
 
@@ -808,6 +838,33 @@ var outcomes = {
             "and gives you a weapon to do God's work.";
         get_weapon(game_state, "iron_hammer");
         game_state.character.person = "st_george";
+        return game_state;
+    },
+
+    "hop": function(game_state) {
+        game_state.message = "You hop.";
+        return game_state;
+    },
+
+    "hop_a_lot": function(game_state) {
+        game_state.message = "You hop a lot.";
+        move_character(game_state, 
+                       get_random_adjacent_destination(game_state));
+        return game_state;
+    },
+
+    "human": function(game_state) {
+        game_state.message = "A woman picks you up and kisses you " +
+            "hoping to get a prince, instead she gets you. She is not " +
+            "impresseed.";
+        game_state.character.is_frog = false;
+        return game_state;
+    },
+
+    "human_with_fly_in_mouth": function(game_state) {
+        game_state.message = "The spell wears off as you catch a fly. " +
+            "You turn into a human and spit the fly out of your mouth.";
+        game_state.character.is_frog = false;
         return game_state;
     },
 
@@ -1123,6 +1180,11 @@ var outcomes = {
         return game_state;
     },
 
+    "ribbit": function(game_state) {
+        game_state.message = "You ribbit.";
+        return game_state;
+    },
+
     //s
 
     "set_self_on_fire": function(game_state) {
@@ -1230,6 +1292,13 @@ var outcomes = {
         game_state.message = "Your plan goes swimmingly.";
         move_character(game_state, "ocean");
         get_weapon(game_state, "jeweled_cutlass");
+        return game_state;
+    },
+
+    "stepped_on": function(game_state) {
+        game_state.message = "While you look for flies, someone steps on " +
+            "you.";
+        die(game_state);
         return game_state;
     },
 
@@ -1385,6 +1454,12 @@ var outcomes = {
         return game_state;
     },
 
+    "frog": function(game_state) {
+        game_state.message = "You find the wizard. He turns you into a frog.";
+        game_state.character.is_frog = true;
+        return game_state;
+    },
+
     "trip_over_a_cat": function(game_state) {
         game_state.message = "You trip over a cat and break your neck.";
         clover(game_state);
@@ -1492,7 +1567,7 @@ var outcomes = {
 
     "wizard_complains": function(game_state) {
         game_state.message = "The wizard complains that you are singing " +
-            "off-key. He turns you into a toad and stomps on you.";
+            "off-key. He turns you into a frog and stomps on you.";
         game_state.character.is_dead = true;
         return game_state;
     },
