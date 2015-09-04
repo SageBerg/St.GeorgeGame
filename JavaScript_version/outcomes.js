@@ -241,6 +241,35 @@ var outcomes = {
 
     //b
 
+    "be_shrub": function(game_state) {
+        var messages = [
+            "You continue being a shrub.",
+            "A deer eats your buds in the spring and ruins your growth for " +
+            "the year.",
+            "Heavy rains erode the soil around your roots.",
+            "A hedgehog makes its home amid your roots.",
+            "A hot summer leaves you parched.",
+            "Some of your branches break in a snowstorm.",
+            "A nearby tree falls over. You now have more sunlight and grow " +
+            "stronger.",
+            "Steady rains and a mild winter help you grow stronger.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.person = null;
+        return game_state;
+    },
+
+    "be_shrub_and_die": function(game_state) {
+        var messages = [
+            "A swarm of caterpillars eats all of your leaves.",
+            "You perish in a forest fire.",
+            "You catch a bad case of root rot.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
+        return game_state;
+    },
+
     "blessed": function(game_state) {
         game_state.message = "A priestess blesses you.";
         game_state.character.person = "priestess";
@@ -1063,6 +1092,14 @@ var outcomes = {
         return game_state;
     },
 
+    "meet_nymph_queen": function(game_state) {
+        game_state.message = "You find the nymph queen. " +
+            "She turns you into a shrub.";
+        game_state.character.is_shrub = true;
+        game_state.character.person = "nymph_queen";
+        return game_state;
+    },
+
     "meet_olga": function(game_state) {
         if (game_state.persons.olga.name === "the pretty lady") {
             game_state.message = 
@@ -1186,6 +1223,14 @@ var outcomes = {
     },
 
     //s
+
+    "saved_by_witch": function(game_state) {
+        game_state.message = "A witch notices you and turns you back into " +
+            "a human.";
+        game_state.character.is_shrub = false;
+        game_state.character.person = "witch";
+        return game_state;
+    },
 
     "set_self_on_fire": function(game_state) {
         game_state.message = "You accidently set yourself on fire and " +

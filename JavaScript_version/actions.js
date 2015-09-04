@@ -57,7 +57,7 @@ exports.actions = {
 
     "Buy a drink.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "meet_blind_bartender", 1);
-        raffle.add(possible_outcomes, "frog", 10000);
+        raffle.add(possible_outcomes, "meet_nymph_queen", 10000);
         return possible_outcomes;
     },
 
@@ -73,15 +73,23 @@ exports.actions = {
 
     //c
 
-    "Croak.": function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "croak", 4);
-        raffle.add(possible_outcomes, "attract_lady_frog", 1);
-        return possible_outcomes;
-    },
-
     "Chow down on your many colored mushroom.": 
     function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "start_tripping", 1);
+        return possible_outcomes;
+    },
+
+    "Continue being a shrub.": 
+    function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "be_shrub", 8);
+        raffle.add(possible_outcomes, "be_shrub_and_die", 3);
+        raffle.add(possible_outcomes, "saved_by_witch", 2);
+        return possible_outcomes;
+    },
+
+    "Croak.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "croak", 4);
+        raffle.add(possible_outcomes, "attract_lady_frog", 1);
         return possible_outcomes;
     },
 
@@ -395,6 +403,11 @@ exports.actions = {
     "Look for St. George.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "find_st_george", 5);
         raffle.add(possible_outcomes, "trip_over_a_cat", 1);
+        return possible_outcomes;
+    },
+
+    "Look for the nymph queen.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "meet_nymph_queen", 1);
         return possible_outcomes;
     },
 

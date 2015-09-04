@@ -3,6 +3,84 @@
 var raffle = require("./raffle");
 var items  = require("./items");
 
+exports.get_options = function get_options(game_state) {
+    var options = {"a": {}, "b": {}, "c": {}, "d": {} };
+    if (game_state.character.is_dead || marriage_victory(game_state)) {
+        set_game_over_options(options);
+    } else if (game_state.character.is_frog) {
+        options.a = "Ribbit.";
+        options.b = "Hop.";
+        options.c = "Croak.";
+        options.d = "Eat a fly.";
+        options.e = "";
+    } else if (game_state.character.is_monstrosity) {
+        options.a = "Annihilate everything.";
+        options.b = "Terrorize the kingdom.";
+        options.c = "Go on a rampage.";
+        options.d = "Destroy all human civilizations.";
+        options.e = "";
+    } else if (game_state.character.is_shrub) {
+        options.a = "Continue being a shrub.";
+        options.b = "Continue being a shrub.";
+        options.c = "Continue being a shrub.";
+        options.d = "Continue being a shurb.";
+        options.e = "";
+    } else if (game_state.marriage === true) {
+        options.a = "MARRY";
+        options.b = "Run like the Devil.";
+        options.c = "";
+        options.d = "";
+        options.e = "";
+    } else if (burned_everything_victory(game_state)) {
+        var messages = [
+            " Some people just like to watch the world " +
+            "burn. You are one of them. You win.",
+            " You are satisfied with how everything has been burned. You win.",
+        ] 
+        game_state.message += messages[random_int(messages.length)];
+        set_game_over_options(options);
+    } else if (lords_victory(game_state)) {
+        var messages = [
+            " With the last of the four lords dead, you have destroyed the " +
+            "establishment and brought about a utopian anarchy... " +
+            "more or less. You win!",
+        ] 
+        game_state.message += messages[random_int(messages.length)];
+        set_game_over_options(options);
+    } else {
+
+        get_default_options(game_state, options.a, options.b, options.c, 
+                            options.d);
+        get_character_options(game_state, options.a, options.b, options.c, 
+                              options.d);
+        get_outcome_options(game_state, options.a, options.b, options.c, 
+                            options.d);
+        get_place_options(game_state, options.a, options.b, options.c, 
+                          options.d);
+        get_person_options(game_state, options.a, options.b, options.c, 
+                           options.d);
+
+        options.a = raffle.get(options.a);
+        options.b = raffle.get(options.b);
+        options.c = raffle.get(options.c);
+        options.d = raffle.get(options.d);
+
+        if (Math.floor(Math.random() * 1) === 0 &&
+            game_state.outcome !== "think_four_ideas" &&
+            game_state.character.place !== "void") {
+            options.e = "Enter the void.";
+        } else if (Math.floor(Math.random() * 8) === 0 &&
+                   game_state.character.place === "void") {
+            options.e = "Exit the void.";
+        } else {
+            options.e = "";
+        }
+    }
+
+    game_state.marriage = false;
+
+    return options;
+}
 
 exports.starting_options = {"a": "Ask about assassins.",
                             "b": "Buy a drink.",
@@ -49,80 +127,6 @@ function set_game_over_options(options) {
         options.c = "";
         options.d = "";
         options.e = "";
-}
-
-exports.get_options = function get_options(game_state) {
-    var options = {"a": {}, "b": {}, "c": {}, "d": {} };
-    if (game_state.character.is_dead || marriage_victory(game_state)) {
-        set_game_over_options(options);
-    } else if (burned_everything_victory(game_state)) {
-        var messages = [
-            " Some people just like to watch the world " +
-            "burn. You are one of them. You win.",
-            " You are satisfied with how everything has been burned. You win.",
-        ] 
-        game_state.message += messages[random_int(messages.length)];
-        set_game_over_options(options);
-    } else if (lords_victory(game_state)) {
-        var messages = [
-            " With the last of the four lords dead, you have destroyed the " +
-            "establishment and brought about a utopian anarchy... " +
-            "more or less. You win!",
-        ] 
-        game_state.message += messages[random_int(messages.length)];
-        set_game_over_options(options);
-    } else if (game_state.marriage === true) {
-        options.a = "MARRY";
-        options.b = "Run like the Devil.";
-        options.c = "";
-        options.d = "";
-        options.e = "";
-    } else if (game_state.character.is_monstrosity) {
-        options.a = "Annihilate everything.";
-        options.b = "Terrorize the kingdom.";
-        options.c = "Go on a rampage.";
-        options.d = "Destroy all human civilizations.";
-        options.e = "";
-    } else if (game_state.character.is_frog) {
-        options.a = "Ribbit.";
-        options.b = "Hop.";
-        options.c = "Croak.";
-        options.d = "Eat a fly.";
-        options.e = "";
-    } else {
-
-        get_default_options(game_state, options.a, options.b, options.c, 
-                            options.d);
-        get_character_options(game_state, options.a, options.b, options.c, 
-                              options.d);
-        get_outcome_options(game_state, options.a, options.b, options.c, 
-                            options.d);
-        get_place_options(game_state, options.a, options.b, options.c, 
-                          options.d);
-        get_person_options(game_state, options.a, options.b, options.c, 
-                           options.d);
-
-        options.a = raffle.get(options.a);
-        options.b = raffle.get(options.b);
-        options.c = raffle.get(options.c);
-        options.d = raffle.get(options.d);
-
-        if (Math.floor(Math.random() * 1) === 0 &&
-            game_state.outcome !== "think_four_ideas" &&
-            game_state.character.place !== "void") {
-            options.e = "Enter the void.";
-        } else if (Math.floor(Math.random() * 8) === 0 &&
-                   game_state.character.place === "void") {
-            options.e = "Exit the void.";
-        } else {
-            options.e = "";
-        }
-
-    }
-
-    game_state.marriage = false;
-
-    return options;
 }
 
 function get_default_options(game_state, raffle_a, raffle_b, raffle_c, 
@@ -225,6 +229,7 @@ function get_place_options(game_state, raffle_a, raffle_b, raffle_c,
     }
 
     if (game_state.character.place === "woods") {
+        raffle.add(raffle_d, "Look for the nymph queen.", 2);
         raffle.add(raffle_a, "Go mushroom picking.", 2);
     }
 
