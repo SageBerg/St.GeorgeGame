@@ -557,6 +557,13 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Swim.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "no_progress_swimming", 3);
+        raffle.add(possible_outcomes, "see_ship", 1);
+        raffle.add(possible_outcomes, "swim_and_die", 2);
+        return possible_outcomes;
+    },
+
     //t
 
     "Tell a priest God doesn't exist.": 

@@ -275,6 +275,7 @@ function get_outcome_options(game_state, raffle_a, raffle_b, raffle_c,
         game_state.outcome === "ignored" ||
         game_state.outcome === "think_pirates_laugh" ||
         game_state.outcome === "pirates_ruin_song" ||
+        game_state.outcome === "see_ship" ||
         game_state.outcome === "priest_disagrees" ||
         game_state.outcome === "wake_up_robbed" ||
         game_state.outcome === "wealthy_people_sneer"

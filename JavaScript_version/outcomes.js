@@ -1155,6 +1155,16 @@ var outcomes = {
         return game_state;
     },
 
+    "no_progress_swimming": function(game_state) {
+        var messages = [
+            "You keep your head up.",
+            "You make very little progress.",
+            "You manage to stay afloat.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
     "not_impressed": function(game_state) {
         game_state.message = capitalize(get_person(game_state).name) + 
             " is not impressed.";
@@ -1243,6 +1253,14 @@ var outcomes = {
             "a human.";
         game_state.character.is_shrub = false;
         game_state.character.person = "witch";
+        return game_state;
+    },
+
+    "see_ship": function(game_state) {
+        var messages = [
+            "You see a ship in the distance. You are unable to reach it.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
         return game_state;
     },
 
@@ -1363,6 +1381,18 @@ var outcomes = {
 
     "swim_a_jig": function(game_state) {
         game_state.message = "You swim a jig.";
+        return game_state;
+    },
+
+    "swim_and_die": function(game_state) {
+        var messages = [
+            "You die of dehydration.",
+            "You become exhausted and sink into the depths.",
+            "You're in way over your head.",
+            "You get eaten by a swarm of sharks.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
         return game_state;
     },
 
