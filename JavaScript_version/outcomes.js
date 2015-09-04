@@ -84,6 +84,21 @@ function get_item(game_state, item) {
     game_state.character.items[item] += 1;
 }
 
+function get_weapon(game_state, weapon) {
+    if (game_state.character.items[weapon] === 0) {
+        game_state.message += " You now have " + 
+        a_or_an(items.weapons_map[weapon].name[0]) + " " +
+        items.weapons_map[weapon].name + ".";
+    } else {
+        game_state.message += " You now have another " +
+        items.weapons_map[weapon].name + ".";
+    }
+    game_state.character.items[weapon] += 1;
+    if (game_state.character.strength <= items.weapons_map[weapon].attack) {
+        game_state.character.strength = items.weapons_map[weapon].attack;
+    }
+}
+
 function get_money(game_state, money) {
     if (items.money_map[game_state.character.money].value < 
         items.money_map[money].value) {
@@ -791,7 +806,7 @@ var outcomes = {
     "hammer_from_st_george": function(game_state) {
         game_state.message = "St. George sees that you are a righteous man " +
             "and gives you a weapon to do God's work.";
-        get_item(game_state, "iron hammer");
+        get_weapon(game_state, "iron_hammer");
         game_state.character.person = "st_george";
         return game_state;
     },
@@ -1214,7 +1229,7 @@ var outcomes = {
     "steal_cutlass": function(game_state) {
         game_state.message = "Your plan goes swimmingly.";
         move_character(game_state, "ocean");
-        get_item(game_state, "jeweled cutlass");
+        get_weapon(game_state, "jeweled_cutlass");
         return game_state;
     },
 
