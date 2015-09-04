@@ -5174,7 +5174,6 @@ class DouseHerWithYourLovePotion(Action):
                     "she has a mouth",
                     "she has breasts",
                     "she is fun to be around",
-                    "helps you adjust to life at sea",
                     ])),
                 win=True,
             ), weight=1)
