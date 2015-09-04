@@ -279,7 +279,7 @@ function get_outcome_options(game_state, raffle_a, raffle_b, raffle_c,
 
     else if (game_state.outcome === "guards_stop_you_rich") {
         game_state.character.excuse = "rich";
-        raffle.add(raffle_b, "TELL_GUARDS", 10000);
+        raffle.add(raffle_b, "Tell the guards you're a lunatic.", 10000);
     }
 
     else if (game_state.outcome === "guards_stop_you_singing") {

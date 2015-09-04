@@ -701,8 +701,8 @@ var outcomes = {
     },
 
     "god_commits_arson": function(game_state) {
-        burn(game_state); //the order matters here since burn() 
-                          //overwrites the message
+        burn(game_state); // the order matters here since burn() 
+                          // overwrites the message
         game_state.message = "Your prayers are answered. " + 
             game_state.message;
         return game_state;
@@ -788,7 +788,7 @@ var outcomes = {
 
     "guards_stop_you_rich": function(game_state) {
         game_state.message = "The local guards see you flaunting your " +
-            "wealth and conclude that you must be a lunatic.";
+            "wealth and conclude that you must be rich.";
         game_state.character.person = "guards";
         return game_state;
     },
