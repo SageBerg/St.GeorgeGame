@@ -320,4 +320,17 @@ function get_outcome_options(game_state, raffle_a, raffle_b, raffle_c,
         raffle.add(raffle_b, "Enact your elaborate scheme.", 10000);
     }
 
+    else if (
+             game_state.outcome === "no_progress_swimming" ||
+             game_state.outcome === "see_ship"
+            ) {
+        raffle.add(raffle_c, "Keep swimming.", 10000);
+    }
+
+    else if (
+             game_state.outcome === "keep_swimming"
+            ) {
+        raffle.add(raffle_c, "Just keep swimming.", 10000);
+    }
+
 }

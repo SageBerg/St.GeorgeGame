@@ -197,6 +197,13 @@ var outcomes = {
         return game_state;
     },
 
+    "arrive_at_mermaid_rock": function(game_state) {
+        game_state.message = "A mermaid guides you to a rocky island.";
+        move_character(game_state, "mermaid_rock");
+        game_state.character.person = "mermaid";
+        return game_state;
+    },
+
     "assassin_prayer_answered": function(game_state) {
         game_state.message = 
             "Your prayers aren't answered, but the assassins' are.",
@@ -921,6 +928,19 @@ var outcomes = {
     
     //k
 
+    "keep_swimming": function(game_state) {
+        var messages = [
+            "You swim past several islands but keep looking for a better " +
+            "one.",
+            "You become so tired you start hallucinating that assassins " +
+            "are swimming after you.",
+            "As you swim, you start resenting the fact that God hasn't " +
+            "saved you yet.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
     "kill": function(game_state) {
         game_state.message =
             "You kill " +
@@ -1230,6 +1250,13 @@ var outcomes = {
     "rebuffed_by_olga": function(game_state) {
         game_state.message = "Her eyes glaze over while you struggle make " +
             "yourself sound interesting.";
+        return game_state;
+    },
+
+    "rescued_by_lord_arthur": function(game_state) {
+        game_state.message = "You are picked up by Lord Arthur's pirate " +
+            "ship.";
+        move_character(game_state, "pirate_ship");
         return game_state;
     },
 
