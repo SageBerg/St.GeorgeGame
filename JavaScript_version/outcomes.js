@@ -1423,6 +1423,25 @@ var outcomes = {
         return game_state;
     },
 
+    "swim_to_arctic": function(game_state) {
+        game_state.message = "You notice the water getting colder and soon " +
+            "find ice.";
+        move_character(game_state, "arctic");
+        return game_state;
+    },
+
+    "swim_to_the_end": function(game_state) {
+        game_state.message = "You swim to the edge of the world and fall off.";
+        die(game_state);
+        return game_state;
+    },
+
+    "swim_to_woods": function(game_state) {
+        game_state.message = "At long last, you see land and swim to shore.";
+        move_character(game_state, "woods");
+        return game_state;
+    },
+
     //t
 
     "think_about_lord_arthur": function(game_state) {

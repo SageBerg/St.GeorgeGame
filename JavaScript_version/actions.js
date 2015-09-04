@@ -322,13 +322,21 @@ exports.actions = {
     
     //j
     
+    "Just keep swimming.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "swim_to_arctic", 2);
+        raffle.add(possible_outcomes, "swim_to_woods", 2);
+        raffle.add(possible_outcomes, "swim_to_the_end", 1);
+        raffle.add(possible_outcomes, "swim_and_die", 1);
+        return possible_outcomes;
+    },
+
     //k
 
     "Keep swimming.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "keep_swimming", 2);
-        //raffle.add(possible_outcomes, "arrive_at_mermaid_rock", 1);
-        //raffle.add(possible_outcomes, "rescued_by_lord_arthur", 1);
-        //raffle.add(possible_outcomes, "swim_and_die", 2);
+        raffle.add(possible_outcomes, "arrive_at_mermaid_rock", 1);
+        raffle.add(possible_outcomes, "rescued_by_lord_arthur", 1);
+        raffle.add(possible_outcomes, "swim_and_die", 2);
         return possible_outcomes;
     },
 
@@ -568,7 +576,7 @@ exports.actions = {
     "Swim.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "no_progress_swimming", 3);
         raffle.add(possible_outcomes, "see_ship", 1);
-        //raffle.add(possible_outcomes, "swim_and_die", 2);
+        raffle.add(possible_outcomes, "swim_and_die", 2);
         return possible_outcomes;
     },
 
