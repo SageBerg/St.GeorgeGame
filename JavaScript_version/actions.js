@@ -551,6 +551,12 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Sink.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "drown", 3);
+        raffle.add(possible_outcomes, "saved_by_mermaid", 1);
+        return possible_outcomes;
+    },
+
     //t
 
     "Tell a priest God doesn't exist.": 

@@ -209,6 +209,13 @@ function get_place_options(game_state, raffle_a, raffle_b, raffle_c,
         raffle.add(raffle_b, "Look for the wizard.", 1);
     }
 
+    if (game_state.character.place === "ocean") {
+        //raffle.add(raffle_a, "Look for mermaids.", 10);
+        raffle.add(raffle_c, "Swim.", 20);
+        raffle.add(raffle_b, "Sink.", 10);
+        //raffle.add(raffle_b, "Dive for pearls.", 5);
+    }
+
     if (game_state.character.place === "tavern") {
         raffle.add(raffle_a, "Ask about assassins.", 1);
         raffle.add(raffle_b, "Buy a drink.", 1);

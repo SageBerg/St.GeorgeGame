@@ -498,6 +498,12 @@ var outcomes = {
         return game_state;
     },
 
+    "drown": function(game_state) {
+        game_state.message = "You drown.";
+        die(game_state);
+        return game_state;
+    },
+
     //e
 
     "earn_small_fortune_in_coins": function(game_state) {
@@ -1223,6 +1229,14 @@ var outcomes = {
     },
 
     //s
+
+    "saved_by_mermaid": function(game_state) {
+        game_state.message = "You sink into the depths and black out. " +
+            "A mermaid is playing with your hair.";
+        move_character(game_state, "mermaid_rock");
+        game_state.character.person = "mermaid";
+        return game_state;
+    },
 
     "saved_by_witch": function(game_state) {
         game_state.message = "A witch notices you and turns you back into " +
