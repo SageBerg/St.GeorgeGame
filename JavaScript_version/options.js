@@ -179,9 +179,13 @@ function get_item_options(game_state, raffle_a, raffle_b, raffle_c,
     }
 
     if (game_state.character.items["potion of love"] > 0 && 
-        game_state.character.person === "mermaid"
+        game_state.character.person === "eve" ||
+        game_state.character.person === "mermaid" ||
+        game_state.character.person === "olga" ||
+        game_state.character.person === "nymph_queen" ||
+        game_state.character.person === "priestess" 
         //TODO figure out how to use jquery on the server side
-        //$.inArray(game_state.character.person, ["eve", "felicity", "mermaid",
+        //$.inArray(game_state.character.person, ["eve", "mermaid", 
         //                                        "nymph_queen", "olga", 
         //                                        "priestess"]) > -1
        ) {
@@ -293,10 +297,11 @@ function get_outcome_options(game_state, raffle_a, raffle_b, raffle_c,
         game_state.outcome === "dance_in_puddle" ||
         game_state.outcome === "fail_at_new_career" ||
         game_state.outcome === "ignored" ||
-        game_state.outcome === "think_pirates_laugh" ||
+        game_state.outcome === "miss_olga" ||
         game_state.outcome === "pirates_ruin_song" ||
-        game_state.outcome === "see_ship" ||
         game_state.outcome === "priest_disagrees" ||
+        game_state.outcome === "see_ship" ||
+        game_state.outcome === "think_pirates_laugh" ||
         game_state.outcome === "wake_up_robbed" ||
         game_state.outcome === "wealthy_people_sneer"
        ) {
