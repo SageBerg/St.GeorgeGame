@@ -40,6 +40,12 @@ function add_move_message(game_state) {
         game_state.places[game_state.character.place].name + ".";
 }
 
+function arrested(game_state) {
+    lose_all_items(game_state);
+    move_character(game_state, "prison");
+    game_state.character.person = "other_lunatics";
+}
+
 function burn(game_state) {
     game_state.places[game_state.character.place].burnable = false;
     game_state.places[game_state.character.place].name = 
@@ -140,6 +146,17 @@ function lose_all_items(game_state) {
     game_state.character.money = "none";
     game_state.message += " You now have no items.";
     game_state.message += " You now have no money.";
+}
+
+function lose_item(game_state, item) {
+    game_state.character.items[item] -= 1;
+
+    game_state.character.items[item] === 0
+        ?
+    game_state.message += " You no longer have " + a_or_an(item[0]) + 
+        " " + item + "."
+        :
+    game_state.message += " You have one less " + item + ".";
 }
 
 function move_character(game_state, destination) {
@@ -1153,6 +1170,41 @@ var outcomes = {
         return game_state;
     },
 
+    "miss_eve": function(game_state) {
+        game_state.message = "Eve dodges your love potion and throws a " +
+            "dagger at you. You don't dodge.";
+        die(game_state);
+        return game_state;
+    },
+
+    "miss_nymph_queen": function(game_state) {
+        game_state.message = "Your lack of organization hinders your " +
+            "efforts as you fumble around in your bag looking for your " +
+            "love potion. Meanwhile, the nymph queen turns you into a shrub.";
+        lose_all_items(game_state);
+        game_state.character.is_shrub = true;
+        return game_state;
+    },
+
+    "miss_olga": function(game_state) {
+        game_state.message = "You buy her a drink and manage to slip your " +
+            "love potion into it, but she isn't looking at you when she " +
+            "takes a sip and falls madly in love the blind bartender."
+        game_state.persons.olga.attracted = 1;
+        lose_item(game_state, "potion of love");
+        game_state.character.person = null;
+        return game_state;
+    },
+
+    "miss_priestess": function(game_state) {
+        game_state.message = "You douse the priestess with your love " +
+            "potion, but she doesn't fall in love with you. She tells you " +
+            "she's already in love with God and turns you over to the " +
+            "guards. You are thrown in prison with the other lunatics.";
+        arrested(game_state);
+        return game_state;
+    },
+
     "monstrosity": function(game_state) {
         game_state.message = 
             "You lick some spilled potion off the floor and start " +
@@ -1243,6 +1295,20 @@ var outcomes = {
         return game_state;
     },
 
+    "potion_eve": function(game_state) {
+        var messages = [
+            "Lord Carlos' daughter falls madly in love with you. " +
+            "You flee to another country and get married. She is fun " +
+            "to be around since she's magically enchanted to always be " +
+            "nice to you. However, she is still horrible to everyone " +
+            "else, so your life is always filled with adventure and " +
+            "danger.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.has_found_true_love = true;
+        return game_state;
+    },
+
     "potion_mermaid": function(game_state) {
         var messages = [
             "The mermaid falls madly in love with you. You run into the " +
@@ -1250,6 +1316,45 @@ var outcomes = {
             random_choice(["has a mouth", "has breasts", 
                            "is fun to be around"]) +
             " so you still live happily ever after.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.has_found_true_love = true;
+        return game_state;
+    },
+
+    "potion_nymph_queen": function(game_state) {
+        var messages = [
+            "The nymph queen falls madly in love with you. All of the " +
+            "woodland creatures attend your wedding.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.has_found_true_love = true;
+        return game_state;
+    },
+
+    "potion_olga": function(game_state) {
+        var messages = [
+            "You buy her a drink and manage to slip the love potion into " +
+            "it. However, when you propose a toast to St. George and you " +
+            "both take a drink, you fall madly in love with her. She " +
+            "laughs and tells you she switched the drinks. You then get " +
+            "married, have a dozen kids, and she makes you do all the " +
+            "chores. It's still a good life though. You both live happily " +
+            "ever after.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.has_found_true_love = true;
+        return game_state;
+    },
+
+    "potion_priestess": function(game_state) {
+        var messages = [
+            "The priestess falls madly in love with you. Since she's " +
+            "ordained to conduct weddings, she conducts your own wedding. " +
+            "She is then excommunicated from the church for taking a " +
+            "husband. The priestess responds by starting her own church, " +
+            "which eventually leads to dozens of religious wars, however " +
+            "you still both live happily ever after.",
         ];
         game_state.message = messages[random_int(messages.length)];
         game_state.character.has_found_true_love = true;
