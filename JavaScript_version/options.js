@@ -212,6 +212,7 @@ function get_place_options(game_state, raffle_a, raffle_b, raffle_c,
         raffle.add(raffle_a, "Tell a priest he's fat.", 2);
         raffle.add(raffle_a, "Tell a priest God doesn't exist.", 2);
         raffle.add(raffle_a, "Tell a priest you're the chosen one.", 2);
+        raffle.add(raffle_b, "Pray to a higher power.", 1);
         if (items.money_map[game_state.character.money].value > 0) {
             raffle.add(raffle_d, "Donate to the church.", 6);
         }
@@ -220,24 +221,35 @@ function get_place_options(game_state, raffle_a, raffle_b, raffle_c,
     if (game_state.character.place === "countryside" || 
         game_state.character.place === "woods" ||
         game_state.character.place === "lord_bartholomew_manor") {
-        raffle.add(raffle_b, "Go flower picking.", 2);
+        raffle.add(raffle_a, "Go flower picking.", 2);
+        //raffle.add(raffle_b, "Tip a cow.", 2);
+        //raffle.add(raffle_c, "Wander the countryside.", 20);
+        //raffle.add(raffle_d, "Do some farm work.", 2);
     }
 
     if (game_state.character.place === "docks") {
+        //raffle.add(raffle_c, "Go fishing.", 2);
         raffle.add(raffle_d, "Do some gambling.", 2);
     }
 
     if (game_state.character.place === "market" &&
         game_state.character.person !== "war_merchant") {
-        raffle.add(raffle_d, "Look for a weapon.", 10);
+        raffle.add(raffle_a, "Look for a weapon.", 10);
         raffle.add(raffle_b, "Look for the wizard.", 1);
+        //raffle.add(raffle_c, "Go shopping.", 2);
+        //raffle.add(raffle_d, "Watch a play.", 2);
     }
 
     if (game_state.character.place === "ocean") {
         //raffle.add(raffle_a, "Look for mermaids.", 10);
         raffle.add(raffle_c, "Swim.", 20);
         raffle.add(raffle_b, "Sink.", 10);
-        //raffle.add(raffle_b, "Dive for pearls.", 5);
+        //raffle.add(raffle_d, "Dive for pearls.", 5);
+        //raffle.add(raffle_d, "Drown.", 10000);
+    }
+
+    if (game_state.character.place === "streets") {
+        raffle.add(raffle_b, "Leer at women.", 2);
     }
 
     if (game_state.character.place === "tavern") {
@@ -251,23 +263,34 @@ function get_place_options(game_state, raffle_a, raffle_b, raffle_c,
         }
     }
 
-    if (game_state.character.place === "streets") {
-        raffle.add(raffle_b, "Leer at women.", 2);
-    }
-
     if (game_state.character.place === "void") {
         raffle.add(raffle_d, "Gather void dust.", 2);
     }
 
     if (game_state.character.place === "woods") {
-        raffle.add(raffle_d, "Look for the nymph queen.", 2);
         raffle.add(raffle_a, "Go mushroom picking.", 2);
+        //raffle.add(raffle_b, "Look for witches.", 2);
+        if (game_state.character.items.ax > 0) {
+            //raffle.add(raffle_c, "Chop down a tree with your ax.", 2);
+        }
+        raffle.add(raffle_d, "Look for the nymph queen.", 2);
+    }
+
+    if (game_state.character.place === "wizards_lab") {
+        //raffle.add(raffle_a, "Trash the place.", 2);
+        //raffle.add(raffle_b, "Read a spellbook.", 2);
+        //raffle.add(raffle_c, "Sneak around.", 2);
+        //raffle.add(raffle_d, "Drink a random potion.", 2);
     }
 
 }
 
 function get_person_options(game_state, raffle_a, raffle_b, raffle_c, 
                             raffle_d) {
+
+    if (game_state.character.person !== null) {
+        //raffle.add(raffle_b, "Boast of your bravery.", 1);
+    }
 
     if (
         game_state.character.person === "eve" ||
