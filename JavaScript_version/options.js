@@ -245,7 +245,7 @@ function get_place_options(game_state, raffle_a, raffle_b, raffle_c,
         raffle.add(raffle_c, "Swim.", 20);
         raffle.add(raffle_b, "Sink.", 10);
         //raffle.add(raffle_d, "Dive for pearls.", 5);
-        //raffle.add(raffle_d, "Drown.", 10000);
+        raffle.add(raffle_d, "Drown.", 1);
     }
 
     if (game_state.character.place === "streets") {

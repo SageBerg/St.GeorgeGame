@@ -181,6 +181,11 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Drown.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "drown", 1);
+        return possible_outcomes;
+    },
+
     //e
         
     "Eat a fly.": function(game_state, possible_outcomes) {
