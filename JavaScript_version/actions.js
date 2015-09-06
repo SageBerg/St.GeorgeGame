@@ -49,6 +49,11 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Boast of your bravery.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "not_impressed", 1);
+        return possible_outcomes;
+    },
+
     "BURN": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "burn", 3);
         raffle.add(possible_outcomes, "set_self_on_fire", 1);

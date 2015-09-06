@@ -289,7 +289,7 @@ function get_person_options(game_state, raffle_a, raffle_b, raffle_c,
                             raffle_d) {
 
     if (game_state.character.person !== null) {
-        //raffle.add(raffle_b, "Boast of your bravery.", 1);
+        raffle.add(raffle_b, "Boast of your bravery.", 10000);
     }
 
     if (
@@ -333,27 +333,27 @@ function get_outcome_options(game_state, raffle_a, raffle_b, raffle_c,
 
     else if (game_state.outcome === "guards_stop_you_dancing") {
         game_state.character.excuse = "happy";
-        raffle.add(raffle_b, "TELL_GUARDS", 10000);
+        raffle.add(raffle_d, "TELL_GUARDS", 10000);
     }
 
     else if (game_state.outcome === "guards_stop_you_killing") {
         game_state.character.excuse = "mad";
-        raffle.add(raffle_b, "TELL_GUARDS", 10000);
+        raffle.add(raffle_d, "TELL_GUARDS", 10000);
     }
 
     else if (game_state.outcome === "guards_stop_you_licking") {
         game_state.character.excuse = "hungry";
-        raffle.add(raffle_b, "TELL_GUARDS", 10000);
+        raffle.add(raffle_d, "TELL_GUARDS", 10000);
     }
 
     else if (game_state.outcome === "guards_stop_you_rich") {
         game_state.character.excuse = "rich";
-        raffle.add(raffle_b, "Tell the guards you're a lunatic.", 10000);
+        raffle.add(raffle_d, "Tell the guards you're a lunatic.", 10000);
     }
 
     else if (game_state.outcome === "guards_stop_you_singing") {
         game_state.character.excuse = "talented";
-        raffle.add(raffle_b, "TELL_GUARDS", 10000);
+        raffle.add(raffle_d, "TELL_GUARDS", 10000);
     }
 
     else if (
