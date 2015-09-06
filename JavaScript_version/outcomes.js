@@ -1286,6 +1286,27 @@ var outcomes = {
         return game_state;
     },
 
+    "priest_fat": function(game_state) {
+        var messages = [
+            "The priest runs off crying.",
+            "\"Food is my only indulgence,\" he says proudly.",
+            "He says \"Only God can judge me.\"",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "priest_takes_pity": function(game_state) {
+        var messages = [
+            "The priest finds your argument so pitiful that he gives you " + 
+            "a pittance and sends you on your way.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        get_money(game_state, "pittance");
+        move_character(game_state, "streets");
+        return game_state;
+    },
+
     "priestess_takes_offense": function(game_state) {
         game_state.message = "A priestess finds your lyrics " +
         random_choice(["blasphemous", "cliché", "crude", "idiotic", "lude", 

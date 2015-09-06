@@ -209,11 +209,11 @@ function get_place_options(game_state, raffle_a, raffle_b, raffle_c,
     }
 
     if (game_state.character.place === "church") {
-        //raffle.add(raffle_a, "Tell a priest he's fat.", 2);
-        //raffle.add(raffle_a, "Tell a priest God doesn't exist.", 2);
-        raffle.add(raffle_a, "Tell a priest you're the chosen one.", 2000);
+        raffle.add(raffle_a, "Tell a priest he's fat.", 2);
+        raffle.add(raffle_a, "Tell a priest God doesn't exist.", 2);
+        raffle.add(raffle_a, "Tell a priest you're the chosen one.", 2);
         if (items.money_map[game_state.character.money].value > 0) {
-            //raffle.add(raffle_d, "Donate to the church.", 6);
+            raffle.add(raffle_d, "Donate to the church.", 6);
         }
     }
 

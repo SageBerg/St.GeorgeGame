@@ -57,7 +57,7 @@ exports.actions = {
 
     "Buy a drink.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "meet_blind_bartender", 1);
-        raffle.add(possible_outcomes, "meet_nymph_queen", 10000);
+        raffle.add(possible_outcomes, "priest_fat", 10000);
         return possible_outcomes;
     },
 
@@ -617,9 +617,15 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Tell a priest he's fat.": 
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "priest_fat", 1);
+        return possible_outcomes;
+    },
+
     "Tell a priest you're the chosen one.":
         function(game_state, possible_outcomes) {
-        //raffle.add(possible_outcomes, "priest_takes_pity", 1);
+        raffle.add(possible_outcomes, "priest_takes_pity", 1);
         raffle.add(possible_outcomes, "priest_disagrees", 2);
         return possible_outcomes;
     },
