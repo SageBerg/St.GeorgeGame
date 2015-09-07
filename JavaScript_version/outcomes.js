@@ -4,6 +4,10 @@ var actions = require("./actions").actions;
 var items   = require("./items");
 var raffle  = require("./raffle");
 
+exports.apply_outcome = function apply_outcome(outcome, game_state) {
+    return outcomes[outcome](game_state);
+}
+
 exports.get_outcome = function get_outcome(game_state) {
     var possible_outcomes;
     if (game_state.character.is_threatened === true && 
@@ -18,10 +22,6 @@ exports.get_outcome = function get_outcome(game_state) {
         possible_outcomes = actions[game_state.action](game_state, {});
     }
     return raffle.get(possible_outcomes);
-}
-
-exports.apply_outcome = function apply_outcome(outcome, game_state) {
-    return outcomes[outcome](game_state);
 }
 
 function a_or_an(next_letter) {
@@ -60,6 +60,7 @@ function capitalize(string) {
     return string[0].toUpperCase() + string.slice(1);
 }
 
+//kills character if he or she doesn't have a four-leaf clover
 function clover(game_state) {
     if (game_state.character.items["four-leaf clover"] < 1) {
         game_state.character.is_dead = true;
@@ -69,6 +70,7 @@ function clover(game_state) {
     }
 }
 
+//conjugates a verb to singular or plural
 function conjugate(game_state, word) {
     if (game_state.persons[game_state.character.person].type !== "group") {
         return word + "s"; 
@@ -76,6 +78,7 @@ function conjugate(game_state, word) {
     return word
 } 
 
+//kills character
 function die(game_state) {
     game_state.character.is_dead = true;
 }
