@@ -31,7 +31,7 @@ exports.character = {
         "frog": 0,
         "many colored mushroom": 0,
         "pearl": 0,
-        "potion of love": 0,
+        "potion of love": 1,
         "potion of strength": 0,
         "potion of tail growth": 0,
         "sailor peg": 0,
