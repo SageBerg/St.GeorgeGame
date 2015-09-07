@@ -169,6 +169,7 @@ function get_person_options(game_state, options) {
 function get_outcome_options(game_state, options) {
     if (
         game_state.outcome === "cannot_afford" ||
+        game_state.outcome === "cannot_tip_cow" ||
         game_state.outcome === "dance_in_puddle" ||
         game_state.outcome === "fail_at_new_career" ||
         game_state.outcome === "ignored" ||
@@ -249,7 +250,7 @@ function get_place_options(game_state, options) {
         game_state.character.place === "woods" ||
         game_state.character.place === "lord_bartholomew_manor") {
         raffle.add(options.a, "Go flower picking.", 2);
-        //raffle.add(options.b, "Tip a cow.", 2);
+        raffle.add(options.b, "Tip a cow.", 2);
         //raffle.add(options.c, "Wander the countryside.", 20);
         //raffle.add(options.d, "Do some farm work.", 2);
     }

@@ -733,6 +733,13 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Tip a cow.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "cannot_tip_cow", 4);
+        raffle.add(possible_outcomes, "tip_cow_and_die", 1);
+        raffle.add(possible_outcomes, "tip_cow_and_lynch_mob", 1);
+        return possible_outcomes;
+    },
+
     //u
 
     //v

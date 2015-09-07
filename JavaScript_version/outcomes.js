@@ -347,6 +347,19 @@ var outcomes = {
         return game_state;
     },
 
+    "cannot_tip_cow": function(game_state) {
+        var messages = [
+            "Some peasants see you trying to tip a cow and laugh at you.",
+            "You are disappointed to find out that cows can easily get " +
+            "back up.",
+            "You can't find any cows. Only sheep.",
+            "You're not strong enough to push the cow over.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.person = null;
+        return game_state;
+    },
+
     "caught": function(game_state) {
         game_state.message = 
             "You run like the Devil, but " + get_name(game_state) +
@@ -1747,6 +1760,22 @@ var outcomes = {
 
     "think_you_shouldnt_be_here": function(game_state) {
         game_state.message = "You think you probably shouldn't be here."; 
+        return game_state;
+    },
+
+    "tip_cow_and_die": function(game_state) {
+        game_state.message = "You pull a cow on top of yourself and it " +
+            "crushes you.",
+        game_state.character.person = null;
+        clover(game_state);
+        return game_state;
+    },
+
+    "tip_cow_and_lynch_mob": function(game_state) {
+        game_state.message = "Some peasants mistake you for a cow thief and " +
+            "form a lynch mob.",
+        game_state.character.person = "mob";
+        game_state.character.is_threatened = true;
         return game_state;
     },
 
