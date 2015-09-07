@@ -742,6 +742,20 @@ var outcomes = {
         return game_state;
     },
 
+    "get_a_bouquet": function(game_state) {
+        var messages = [
+            "You find many pretty flowers.",
+            "A peasant girl picks flowers with you. She tells you she " +
+            "wants to be like Lord Bartholomew when she grows up.",
+            "You spend all day looking for flowers, but it was worth it.",
+            "You get stung by a bee, but you still find many pretty flowers.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        get_item(game_state, "bouquet of flowers");
+        game_state.character.person = null;
+        return game_state;
+    },
+
     "get_no_void_dust": function(game_state) {
         var messages = [
             "You reach for some void dust, but it's farther away than it " +
@@ -1224,6 +1238,11 @@ var outcomes = {
     },
 
     //n
+
+    "no_flowers": function(game_state) {
+        game_state.message = "You can't find any flowers. Only grass.";
+        return game_state;
+    },
 
     "no_one_cares": function(game_state) {
         game_state.message = "You sing your favorite song. No one cares.";

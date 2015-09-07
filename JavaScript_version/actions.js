@@ -54,7 +54,7 @@ exports.actions = {
 
     "Buy a drink.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "meet_blind_bartender", 1);
-        raffle.add(possible_outcomes, "priest_fat", 10000);
+        raffle.add(possible_outcomes, "no_flowers", 10000);
         return possible_outcomes;
     },
 
@@ -261,7 +261,9 @@ exports.actions = {
     },
 
     "Go flower picking.": function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "get_a_four-leaf_clover", 1);
+        raffle.add(possible_outcomes, "get_a_four-leaf_clover", 2);
+        raffle.add(possible_outcomes, "get_a_bouquet", 4);
+        raffle.add(possible_outcomes, "no_flowers", 1);
         return possible_outcomes;
     },
 

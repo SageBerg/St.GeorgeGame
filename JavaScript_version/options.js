@@ -173,6 +173,7 @@ function get_outcome_options(game_state, options) {
         game_state.outcome === "fail_at_new_career" ||
         game_state.outcome === "ignored" ||
         game_state.outcome === "miss_olga" ||
+        game_state.outcome === "no_flowers" ||
         game_state.outcome === "pirates_ruin_song" ||
         game_state.outcome === "priest_disagrees" ||
         game_state.outcome === "see_ship" ||
