@@ -3,14 +3,6 @@
 var raffle = require("./raffle");
 var items   = require("./items");
 
-function get_place(game_state) {
-    return game_state.places[game_state.character.place];
-}
-
-function get_person(game_state) {
-    return game_state.persons[game_state.character.person];
-}
-
 exports.actions = {
 
     //a
@@ -766,3 +758,12 @@ exports.actions = {
     //z
 
 }
+
+function get_place(game_state) {
+    return game_state.places[game_state.character.place];
+}
+
+function get_person(game_state) {
+    return game_state.persons[game_state.character.person];
+}
+
