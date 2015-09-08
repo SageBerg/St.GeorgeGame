@@ -180,6 +180,7 @@ function get_outcome_options(game_state, options) {
         game_state.outcome === "priest_disagrees" ||
         game_state.outcome === "see_ship" ||
         game_state.outcome === "think_pirates_laugh" ||
+        game_state.outcome === "train_thrown_out" ||
         game_state.outcome === "wake_up_robbed" ||
         game_state.outcome === "wealthy_people_sneer"
        ) {
@@ -286,6 +287,10 @@ function get_place_options(game_state, options) {
             game_state.character.person !== "olga") {
             raffle.add(options.b, "Look for Olga.", 10);
         }
+    }
+    if (game_state.character.place === "tower") {
+        //raffle.add(options.c, "Sneak around.", 4);
+        raffle.add(options.d, "Train with the guards.", 4);
     }
     if (game_state.character.place === "void") {
         raffle.add(options.d, "Gather void dust.", 2);

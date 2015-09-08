@@ -757,6 +757,12 @@ var outcomes = {
         return game_state;
     },
 
+    "frog": function(game_state) {
+        game_state.message = "You find the wizard. He turns you into a frog.";
+        game_state.character.is_frog = true;
+        return game_state;
+    },
+
     //g
 
     "gambling_die": function(game_state) {
@@ -1933,15 +1939,58 @@ var outcomes = {
         return game_state;
     },
 
-    "frog": function(game_state) {
-        game_state.message = "You find the wizard. He turns you into a frog.";
-        game_state.character.is_frog = true;
-        return game_state;
-    },
-
     "trip_over_a_cat": function(game_state) {
         game_state.message = "You trip over a cat and break your neck.";
         clover(game_state);
+        return game_state;
+    },
+
+    "train_and_die": function(game_state) {
+        var messages = [
+            "You accidently put your helmet on backwards and trip over a " +
+            "balcony railing.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
+        return game_state;
+    },
+
+    "train_and_win": function(game_state) {
+        var messages = [
+            "You beat the captain of the guards at wooden swordplay. " +
+            "\"Not bad for a " + random_choice(["lunatic", "peasant", 
+                                                "simpleton"]) +
+            ",\" he says.",
+            "You run like the Devil and outrun the other guards during " +
+            "running practice.", 
+            "You hit the bulls eye during archery practice.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        game_state.message += " Training has made you stronger.";
+        game_state.character.person = "guards";
+        game_state.character.strength += 1;
+        return game_state;
+    },
+
+    "train_stronger": function(game_state) {
+        var messages = [
+            "You are badly beaten at wooden swordplay, but you grow " +
+            "stronger.",
+            "You miss many marks practicing archery, but failure leads " +
+            "to success. You grow stronger.",
+            "The guards leave you in the dust during running practice, but " +
+            "you grow stronger.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.person = "guards";
+        game_state.character.strength += 1;
+        return game_state;
+    },
+
+    "train_thrown_out": function(game_state) {
+        game_state.message = "The guards throw you out for not filling out " +
+        "the proper paperwork.";
+        move_character(game_state, "streets");
         return game_state;
     },
 

@@ -768,6 +768,16 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Train with the guards.": function(game_state, possible_outcomes) {
+        if (game_state.character.strength > 3) {
+            raffle.add(possible_outcomes, "train_and_win", 2);
+        }
+        raffle.add(possible_outcomes, "train_and_die", 1);
+        raffle.add(possible_outcomes, "train_stronger", 3);
+        raffle.add(possible_outcomes, "train_thrown_out", 1);
+        return possible_outcomes;
+    },
+
     //u
 
     //v
