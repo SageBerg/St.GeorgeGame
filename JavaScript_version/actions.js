@@ -70,6 +70,15 @@ exports.actions = {
 
     //c
 
+    "Chop down a tree with your ax.": 
+    function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "chop_down_tree", 2);
+        raffle.add(possible_outcomes, "chop_down_tree_and_die", 2);
+        raffle.add(possible_outcomes, "get_sap", 2);
+        raffle.add(possible_outcomes, "lose_ax", 1);
+        return possible_outcomes;
+    },
+
     "Chow down on your many colored mushroom.": 
     function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "start_tripping", 1);
@@ -469,6 +478,11 @@ exports.actions = {
 
     "Look for the wizard.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "frog", 1);
+        return possible_outcomes;
+    },
+
+    "Look for witches.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "meet_witch", 1);
         return possible_outcomes;
     },
 

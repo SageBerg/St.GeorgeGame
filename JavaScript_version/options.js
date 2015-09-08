@@ -173,6 +173,7 @@ function get_outcome_options(game_state, options) {
         game_state.outcome === "dance_in_puddle" ||
         game_state.outcome === "fail_at_new_career" ||
         game_state.outcome === "ignored" ||
+        game_state.outcome === "lose_ax" ||
         game_state.outcome === "miss_olga" ||
         game_state.outcome === "no_flowers" ||
         game_state.outcome === "pirates_ruin_song" ||
@@ -183,6 +184,9 @@ function get_outcome_options(game_state, options) {
         game_state.outcome === "wealthy_people_sneer"
        ) {
         raffle.add(options.a, "Kill yourself in frustration.", 1);
+    }
+    else if (game_state.outcome === "chop_down_tree") {
+        raffle.add(options.a, "Thump yourself on the chest.", 1);
     }
     else if (game_state.outcome === "guards_stop_you_dancing") {
         game_state.character.excuse = "happy";
@@ -246,9 +250,7 @@ function get_place_options(game_state, options) {
             raffle.add(options.d, "Donate to the church.", 6);
         }
     }
-    if (game_state.character.place === "countryside" || 
-        game_state.character.place === "woods" ||
-        game_state.character.place === "lord_bartholomew_manor") {
+    if (game_state.character.place === "countryside") {
         raffle.add(options.a, "Go flower picking.", 2);
         raffle.add(options.b, "Tip a cow.", 2);
         raffle.add(options.c, "Wander the countryside.", 20);
@@ -290,9 +292,9 @@ function get_place_options(game_state, options) {
     }
     if (game_state.character.place === "woods") {
         raffle.add(options.a, "Go mushroom picking.", 2);
-        //raffle.add(options.b, "Look for witches.", 2);
+        raffle.add(options.b, "Look for witches.", 2);
         if (game_state.character.items.ax > 0) {
-            //raffle.add(options.c, "Chop down a tree with your ax.", 2);
+            raffle.add(options.c, "Chop down a tree with your ax.", 20000);
         }
         raffle.add(options.d, "Look for the nymph queen.", 2);
     }

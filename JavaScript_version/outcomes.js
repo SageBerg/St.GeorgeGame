@@ -418,6 +418,26 @@ var outcomes = {
         return game_state;
     },
 
+    "chop_down_tree": function(game_state) {
+        var messages = [
+            "A tree falls in the forest. You hear it.",
+            "The tree crashes to the ground.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "chop_down_tree_and_die": function(game_state) {
+        var messages = [
+            "The tree falls on you.",
+            "A nymph hexes you. Throwing yourself in a pond suddenly seems " +
+            "like a good idea.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        clover(game_state);
+        return game_state;
+    },
+
     "croak": function(game_state) {
         game_state.message = "You croak.";
         die(game_state);
@@ -837,6 +857,12 @@ var outcomes = {
         return game_state;
     },
 
+    "get_sap": function(game_state) {
+        game_state.message = "You fall a tree and scrape the sap off your ax.";
+        get_item(game_state, "ball of sap");
+        return game_state;
+    },
+
     "get_void_dust": function(game_state) {
         game_state.message = "";
         get_item(game_state, "handful of void dust");
@@ -1185,11 +1211,18 @@ var outcomes = {
         return game_state;
     },
 
+    "lose_ax": function(game_state) {
+        game_state.message = "You get your ax stuck in a tree and can't " +
+        "get it back out.";
+        lose_item(game_state, "ax");
+        return game_state;
+    },
+
     "lose_fight": function(game_state) {
         game_state.message = 
             "You get killed by " + 
             game_state.persons[game_state.character.person].name + ".";
-        game_state.character.is_dead = true;
+        die(game_state);
         return game_state;
     },
 
@@ -1357,6 +1390,7 @@ var outcomes = {
 
     "pick_many_colored_mushroom": function(game_state) {
         game_state.message = "You pick a many colored mushroom.";
+        game_state.character.person = null;
         get_item(game_state, "many colored mushroom");
         return game_state;
     },
