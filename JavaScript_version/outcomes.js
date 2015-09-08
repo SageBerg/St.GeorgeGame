@@ -360,6 +360,16 @@ var outcomes = {
         return game_state;
     },
 
+    "cat_burning": function(game_state) {
+        var messages = [
+            "You find a mob of peasant children about to perform a cat " +
+            "burning.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.person = null;
+        return game_state;
+    },
+
     "caught": function(game_state) {
         game_state.message = 
             "You run like the Devil, but " + get_name(game_state) +
@@ -613,7 +623,7 @@ var outcomes = {
         return game_state;
     },
 
-    "farm_work": function(game_pstate) {
+    "farm_work": function(game_state) {
         var messages = [
             "You spend a season picking apples.",
             "You spend a season milking cows for a farmer woman. " +
@@ -1067,6 +1077,10 @@ var outcomes = {
         var messages = [
             "You perform the ritual of seppuku.",
         ];
+        if (game_state.character.place !== ocean) {
+            messages.push("You set yourself on fire and promptly burn to a " +
+                "crisp.");
+        }
         game_state.message = messages[random_int(messages.length)];
         game_state.character.is_dead = true;
         return game_state;
@@ -1230,6 +1244,18 @@ var outcomes = {
             "During your invstigation, you find yourself talking with Olga.";
         }
         game_state.character.person = "olga";
+        return game_state;
+    },
+
+    "meet_peasant_lass": function(game_state) {
+        game_state.message = "You find a peasant lass.";
+        game_state.character.person = "peasant_lass";
+        return game_state;
+    },
+
+    "meet_simple_peasant": function(game_state) {
+        game_state.message = "You find a simple peasant man.";
+        game_state.character.person = "simple_peasant";
         return game_state;
     },
 
@@ -1924,6 +1950,22 @@ var outcomes = {
         return game_state;
     },
 
+    "wander_the_countryside": function(game_state) {
+        var messages = [
+            "All of the peasants you meet talk about Lord Bartholomew like " +
+            "he's God's gift to the world.",
+            "Not all those who wander are lost, but you are.",
+            "You find a fork in the road and take it.",
+            "You find a mob of peasants burning Lord Daniel in effigy.",
+            "You see a beautiful peasant woman, unfortunately she also has " +
+            "a beautiful husband.",
+            "A traveling fortune teller says you will meet a fiery end.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.person = null;
+        return game_state;
+    },
+
     "wander_while_singing": function(game_state) {
         game_state.message = "You wander aimlessly as you work your way " +
             "through an epic ballad."; 
@@ -1934,6 +1976,15 @@ var outcomes = {
 
     "wealthy_people_sneer": function(game_state) {
         game_state.message = "Some truly wealthy people see you and sneer.";
+        return game_state;
+    },
+
+    "witch_burning": function(game_state) {
+        var messages = [
+            "You find a mob of peasants about to perform a witch burning.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.person = null;
         return game_state;
     },
 

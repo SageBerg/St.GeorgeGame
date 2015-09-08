@@ -768,6 +768,15 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Wander the countryside.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "cat_burning", 1);
+        raffle.add(possible_outcomes, "meet_peasant_lass", 1);
+        raffle.add(possible_outcomes, "meet_simple_peasant", 1);
+        raffle.add(possible_outcomes, "wander_the_countryside", 6);
+        raffle.add(possible_outcomes, "witch_burning", 1);
+        return possible_outcomes;
+    },
+
     //x
 
     //y
