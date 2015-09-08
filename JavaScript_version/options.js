@@ -47,6 +47,9 @@ exports.get_options = function get_options(game_state) {
         ] 
         game_state.message += messages[random_int(messages.length)];
         set_game_over_options(options);
+    } else if (Math.floor(Math.random() * 128) === 0 && 
+               game_state.places[game_state.character.place].burnable === true)
+    { set_pyro_options(options);
     } else {
         
         get_character_options(game_state, options);
@@ -61,7 +64,7 @@ exports.get_options = function get_options(game_state) {
         options.c = raffle.get(options.c);
         options.d = raffle.get(options.d);
 
-        if (Math.floor(Math.random() * 1) === 0 &&
+        if (Math.floor(Math.random() * 256) === 0 &&
             game_state.outcome !== "think_four_ideas" &&
             game_state.character.place !== "void") {
             options.e = "Enter the void.";
@@ -311,7 +314,7 @@ function get_place_options(game_state, options) {
         raffle.add(options.a, "Go mushroom picking.", 2);
         raffle.add(options.b, "Look for witches.", 2);
         if (game_state.character.items.ax > 0) {
-            raffle.add(options.c, "Chop down a tree with your ax.", 20000);
+            raffle.add(options.c, "Chop down a tree with your ax.", 10);
         }
         raffle.add(options.d, "Look for the nymph queen.", 2);
     }
@@ -349,9 +352,17 @@ function random_int(n) {
 }
 
 function set_game_over_options(options) {
-        options.a = "Play again.";
-        options.b = "Don't play again.";
-        options.c = "";
-        options.d = "";
-        options.e = "";
+    options.a = "Play again.";
+    options.b = "Don't play again.";
+    options.c = "";
+    options.d = "";
+    options.e = "";
+}
+
+function set_pyro_options(options) {
+    options.a = "Fill the place with fire.";
+    options.b = "Ignite an inferno.";
+    options.c = "Release your inner arsonist.";
+    options.d = "Engulf everything in flames.";
+    options.e = "";
 }

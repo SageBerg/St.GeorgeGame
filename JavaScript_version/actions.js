@@ -237,6 +237,11 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Engulf everything in flames.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "burn", 1);
+        return possible_outcomes;
+    },
+
     "Enter the void.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "enter_the_void", 1);
         return possible_outcomes;
@@ -248,6 +253,11 @@ exports.actions = {
     },
     
     //f
+
+    "Fill the place with fire.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "burn", 1);
+        return possible_outcomes;
+    },
 
     "Flaunt your wealth.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "guards_stop_you_rich", 1);
@@ -380,6 +390,11 @@ exports.actions = {
 
     //i
     
+    "Ignite an inferno.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "burn", 1);
+        return possible_outcomes;
+    },
+
     //j
     
     "Just keep swimming.": function(game_state, possible_outcomes) {
@@ -571,6 +586,11 @@ exports.actions = {
         raffle.add(possible_outcomes, "read_and_die", 1);
         raffle.add(possible_outcomes, "read_clover", 1);
         raffle.add(possible_outcomes, "read_spell_book", 7);
+        return possible_outcomes;
+    },
+
+    "Release your inner arsonist.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "burn", 1);
         return possible_outcomes;
     },
 
