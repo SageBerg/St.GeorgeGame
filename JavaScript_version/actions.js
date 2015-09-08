@@ -275,6 +275,13 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Freeze to death.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "freeze", 3);
+        raffle.add(possible_outcomes, "saved_by_inuits", 1);
+        raffle.add(possible_outcomes, "see_wizard_with_penguins", 1);
+        return possible_outcomes;
+    },
+
     //g
     
     "Gather void dust.": function(game_state, possible_outcomes) {
@@ -829,6 +836,12 @@ exports.actions = {
     //x
 
     //y
+
+    "Yell \"Don't leave without me!\"": 
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "wizard_leaves_without_you", 1);
+        return possible_outcomes;
+    },
 
     //z
 

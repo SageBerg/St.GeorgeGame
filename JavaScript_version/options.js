@@ -183,7 +183,8 @@ function get_outcome_options(game_state, options) {
         game_state.outcome === "train_thrown_out" ||
         game_state.outcome === "waiting_for_seal" ||
         game_state.outcome === "wake_up_robbed" ||
-        game_state.outcome === "wealthy_people_sneer"
+        game_state.outcome === "wealthy_people_sneer" ||
+        game_state.outcome === "wizard_leaves_without_you"
        ) {
         raffle.add(options.a, "Kill yourself in frustration.", 1);
     }
@@ -231,6 +232,9 @@ function get_outcome_options(game_state, options) {
             ) {
         raffle.add(options.c, "Just keep swimming.", 10000);
     }
+    else if (game_state.outcome === "see_wizard_with_penguins") {
+        raffle.add(options.a, "Yell \"Don't leave without me!\"", 10000);
+    }
 }
 
 function get_place_options(game_state, options) {
@@ -244,8 +248,10 @@ function get_place_options(game_state, options) {
         }
     }
     if (game_state.character.place === "arctic") {
+        raffle.add(options.a, "Go fishing.", 2);
         raffle.add(options.b, "Build an igloo.", 4);
         raffle.add(options.c, "Club a seal.", 4);
+        raffle.add(options.d, "Freeze to death.", 2000); //TODO
     }
     if (game_state.character.place === "church") {
         raffle.add(options.a, "Tell a priest he's fat.", 2);

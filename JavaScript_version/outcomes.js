@@ -807,6 +807,20 @@ var outcomes = {
         return game_state;
     },
 
+    "freeze": function(game_state) {
+        var messages = [
+            "It's easy.",
+            "You do.",
+            "You freeze to death.",
+            "You get mauled by a polar bear before you get a chance to " +
+            "freeze to death.",
+            "You get sleepy.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
+        return game_state;
+    },
+
     "frog": function(game_state) {
         game_state.message = "You find the wizard. He turns you into a frog.";
         game_state.character.is_frog = true;
@@ -1651,6 +1665,14 @@ var outcomes = {
 
     //s
 
+    "saved_by_inuits": function(game_state) {
+        game_state.message = "Some Inuits save you from the cold and take " +
+            "you back to land in a kayak. They also give you a fish.";
+        get_item(game_state, "fish");
+        move_character(game_state, "countryside");
+        return game_state;
+    },
+
     "saved_by_mermaid": function(game_state) {
         game_state.message = "You sink into the depths and black out. " +
             "A mermaid is playing with your hair.";
@@ -1670,6 +1692,15 @@ var outcomes = {
     "see_ship": function(game_state) {
         var messages = [
             "You see a ship in the distance. You are unable to reach it.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "see_wizard_with_penguins": function(game_state) {
+        var messages = [
+            "While you are waiting to freeze to death, you notice " +
+            "the wizard dropping off a boatload of penguins.",
         ] 
         game_state.message = messages[random_int(messages.length)];
         return game_state;
@@ -2195,6 +2226,16 @@ var outcomes = {
         game_state.message = "The wizard complains that you are singing " +
             "off-key. He turns you into a frog and stomps on you.";
         game_state.character.is_dead = true;
+        return game_state;
+    },
+
+    "wizard_leaves_without_you": function(game_state) {
+        var messages = [
+            "The wizard ignores you and sails away before you can " +
+            "get to his boat.",
+            "The wizard leaves without you.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
         return game_state;
     },
 
