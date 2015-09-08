@@ -5,7 +5,7 @@ exports.places = {
     {
         "burnable":  false,
         "links":     [],
-        "locked":    false,
+        "locked":    true,
         "name":      "the Arctic",
         "outside":   true,
         "populated": false,
