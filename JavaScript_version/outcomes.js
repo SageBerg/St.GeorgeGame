@@ -613,6 +613,53 @@ var outcomes = {
         return game_state;
     },
 
+    "farm_work": function(game_pstate) {
+        var messages = [
+            "You spend a season picking apples.",
+            "You spend a season milking cows for a farmer woman. " +
+            "She keeps trying to marry you to her attractive " +
+            "daughter, but her daughter is having none of it.",
+            "You spend a season harvesting wheat. You enjoy the change of " +
+            "pace.",
+            "During your duties, you get kicked by a mule. You somehow " +
+            "don't die.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        get_money(game_state, "pittance");
+        return game_state;
+    },
+  
+    "farm_work_and_coin": function(game_state) {
+        var messages = [
+            "You spend a season slaughtering hogs. You find a shiny " +
+            "foreign coin in one of the hogs.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        get_item(game_state, "shiny foreign coin");
+        get_money(game_state, "pittance");
+        return game_state;
+    },
+  
+    "farm_work_and_die": function(game_state) {
+        var messages = [
+            "You find farm work, but the assassins find you.",
+            "You slip on a fallen apple and drown in an irrigation ditch.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        clover(game_state);
+        return game_state;
+    },
+  
+    "farm_work_and_pitchfork": function(game_state) {
+        var messages = [
+            "You spend a season bailing hay.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        get_weapon(game_state, "pitchfork");
+        get_money(game_state, "pittance");
+        return game_state;
+    },
+  
     "feel_bad_about_donation": function(game_state) {
         var messages = [
             "You feel " + random_choice([

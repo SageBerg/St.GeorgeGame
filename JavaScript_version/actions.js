@@ -155,6 +155,14 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Do some farm work.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "farm_work", 4);
+        raffle.add(possible_outcomes, "farm_work_and_coin", 1);
+        raffle.add(possible_outcomes, "farm_work_and_die", 1);
+        raffle.add(possible_outcomes, "farm_work_and_pitchfork", 1);
+        return possible_outcomes;
+    },
+
     "Do some gambling.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "gambling_lose", 1);
         raffle.add(possible_outcomes, "gambling_win", 1);

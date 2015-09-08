@@ -252,7 +252,7 @@ function get_place_options(game_state, options) {
         raffle.add(options.a, "Go flower picking.", 2);
         raffle.add(options.b, "Tip a cow.", 2);
         //raffle.add(options.c, "Wander the countryside.", 20);
-        //raffle.add(options.d, "Do some farm work.", 2);
+        raffle.add(options.d, "Do some farm work.", 2);
     }
     if (game_state.character.place === "docks") {
         //raffle.add(options.c, "Go fishing.", 2);
