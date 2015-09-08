@@ -254,6 +254,13 @@ var outcomes = {
         return game_state;
     },
 
+    "assassins_catch_you_fishing": function(game_state) {
+        game_state.message = "You don't catch any fish, but the assassins " +
+            "catch you.";
+        clover(game_state);
+        return game_state;
+    },
+
     "assassins_notice_dance": function(game_state) {
         game_state.message = "The assassins immediately notice you dancing.";
         game_state.character.is_dead = true;
@@ -376,6 +383,37 @@ var outcomes = {
             "burning.",
         ] 
         game_state.message = messages[random_int(messages.length)];
+        game_state.character.person = null;
+        return game_state;
+    },
+
+    "catch_a_lot_of_fish": function(game_state) {
+        var messages = [
+            "You catch a lot of fish.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.items.fish += 3;
+        game_state.character.person = null;
+        return game_state;
+    },
+
+    "catch_big_fish": function(game_state) {
+        var messages = [
+            "You hook a big fish, but it pulls you into the water. " +
+            "You are soon lost amid the waves and lose sight of land.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        move_character(game_state, "ocean");
+        return game_state;
+    },
+
+    "catch_fish": function(game_state) {
+        var messages = [
+            "Your efforts prove successful.",
+            "You feed yourself for a day.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        get_item(game_state, "fish");
         game_state.character.person = null;
         return game_state;
     },
@@ -798,6 +836,28 @@ var outcomes = {
     "find_st_george": function(game_state) {
         game_state.message = "You find St. George.";
         game_state.character.person = "st_george";
+        return game_state;
+    },
+
+    "fish_pirates_laugh": function(game_state) {
+        game_state.message = "Some pirates notice you fishing. One of them " +
+            "says \"You'll never get a large fortune like that.\" The " +
+            "pirates laugh.";
+        game_state.character.person = "pirates";
+        return game_state;
+    },
+
+    "fish_up_ax": function(game_state) {
+        game_state.message = "You fish up a rusty ax.";
+        game_state.character.person = null;
+        get_item(game_state, "ax");
+        return game_state;
+    },
+
+    "fish_up_pitchfork": function(game_state) {
+        game_state.message = "You fish up a fancy pitchfork.";
+        game_state.character.person = null;
+        get_weapon(game_state, "pitchfork");
         return game_state;
     },
 
@@ -1427,6 +1487,14 @@ var outcomes = {
     },
 
     //n
+
+    "no_fish": function(game_state) {
+        var messages = [
+            "You don't catch any fish.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
 
     "no_flowers": function(game_state) {
         game_state.message = "You can't find any flowers. Only grass.";

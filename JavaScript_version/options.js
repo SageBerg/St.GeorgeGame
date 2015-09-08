@@ -172,6 +172,7 @@ function get_outcome_options(game_state, options) {
         game_state.outcome === "cannot_tip_cow" ||
         game_state.outcome === "dance_in_puddle" ||
         game_state.outcome === "fail_at_new_career" ||
+        game_state.outcome === "fish_pirates_laugh" ||
         game_state.outcome === "ignored" ||
         game_state.outcome === "lose_ax" ||
         game_state.outcome === "miss_olga" ||
@@ -248,10 +249,10 @@ function get_place_options(game_state, options) {
         }
     }
     if (game_state.character.place === "arctic") {
-        raffle.add(options.a, "Go fishing.", 2);
+        raffle.add(options.a, "Go fishing.", 4);
         raffle.add(options.b, "Build an igloo.", 4);
         raffle.add(options.c, "Club a seal.", 4);
-        raffle.add(options.d, "Freeze to death.", 2000); //TODO
+        raffle.add(options.d, "Freeze to death.", 2);
     }
     if (game_state.character.place === "church") {
         raffle.add(options.a, "Tell a priest he's fat.", 2);
@@ -269,7 +270,7 @@ function get_place_options(game_state, options) {
         raffle.add(options.d, "Do some farm work.", 2);
     }
     if (game_state.character.place === "docks") {
-        //raffle.add(options.c, "Go fishing.", 2);
+        raffle.add(options.c, "Go fishing.", 20000); //TODO
         raffle.add(options.d, "Do some gambling.", 2);
     }
     if (game_state.character.place === "market" &&

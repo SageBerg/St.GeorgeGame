@@ -302,6 +302,20 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Go fishing.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "catch_a_lot_of_fish", 1);
+        raffle.add(possible_outcomes, "catch_big_fish", 1);
+        raffle.add(possible_outcomes, "catch_fish", 4);
+        raffle.add(possible_outcomes, "no_fish", 4);
+        if (game_state.character.place === "docks") {
+            raffle.add(possible_outcomes, "fish_up_ax", 1);
+            raffle.add(possible_outcomes, "fish_up_pitchfork", 1);
+            raffle.add(possible_outcomes, "fish_pirates_laugh", 2);
+            raffle.add(possible_outcomes, "assassins_catch_you_fishing", 1);
+        }
+        return possible_outcomes;
+    },
+
     "Go flower picking.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "get_a_four-leaf_clover", 2);
         raffle.add(possible_outcomes, "get_a_bouquet", 4);
