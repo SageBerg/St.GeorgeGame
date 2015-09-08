@@ -4,7 +4,7 @@ exports.places = {
     "arctic": 
     {
         "burnable":  false,
-        "links":     ["ocean"],
+        "links":     [],
         "locked":    false,
         "name":      "the Arctic",
         "outside":   true,
@@ -15,7 +15,7 @@ exports.places = {
     "cave": 
     {
         "burnable":  false,
-        "links":     ["ocean"],
+        "links":     [],
         "locked":    true,
         "name":      "a dark cave",
         "outside":   true,
@@ -60,7 +60,7 @@ exports.places = {
     "docks": 
     {
         "burnable":  false,
-        "links":     ["market", "ocean", "streets", "woods"],
+        "links":     ["market", "streets", "woods"],
         "locked":    false,
         "name":      "the docks",
         "outside":   true,
@@ -107,8 +107,8 @@ exports.places = {
     "mermaid_rock":
     {
         "burnable":  false,
-        "links":     ["ocean"],
-        "locked":    false,
+        "links":     [],
+        "locked":    true,
         "name":      "a mermaid rock",
         "outside":   true,
         "populated": false,
@@ -220,7 +220,7 @@ exports.places = {
     {
         //"burnable":  true,
         "burnable":  false,
-        "links":     ["countryside", "lord_carlos_manor", "ocean", "docks"],
+        "links":     ["countryside", "lord_carlos_manor"],
         "locked":    false,
         "name":      "the woods",
         "outside":   true,
