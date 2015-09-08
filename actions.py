@@ -3839,7 +3839,7 @@ class ChopDownATree(Action):
             "The tree starts to bleed and you collect its blood.",
             add_item=items.bottle_of_sap,
             succeed=True,
-        ), weight=100)
+        ), weight=1)
 
         self.outcomes.add(Outcome(state,
             "You get your ax stuck in the tree and can't get it out.",
