@@ -84,6 +84,13 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Club a seal.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "club_a_seal", 2);
+        raffle.add(possible_outcomes, "die_waiting_for_seal", 2);
+        raffle.add(possible_outcomes, "waiting_for_seal", 2);
+        return possible_outcomes;
+    },
+
     "Continue being a shrub.": 
     function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "be_shrub", 8);
@@ -148,7 +155,7 @@ exports.actions = {
         }
 
         if (game_state.character.person === "mermaid") {
-            raffle.add(possible_outcomes, "mermaid_likes_your_dance", 8000);
+            raffle.add(possible_outcomes, "mermaid_likes_your_dance", 8);
         }
 
         if (game_state.character.person !== null) {

@@ -438,6 +438,16 @@ var outcomes = {
         return game_state;
     },
 
+    "club_a_seal": function(game_state) {
+        var messages = [
+            "After a few days of waiting at a hole in the ice, you manage " +
+            "to club a seal.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        get_item(game_state, "seal carcass");
+        return game_state;
+    },
+
     "croak": function(game_state) {
         game_state.message = "You croak.";
         die(game_state);
@@ -560,6 +570,18 @@ var outcomes = {
             ".",
         ] 
         game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "die_waiting_for_seal": function(game_state) {
+        var messages = [
+            "The local polar bears aren't happy with you on their turf. " +
+            "You are soon mauled.",
+            "After a few days of waiting at a hole in the ice, you freeze " +
+            "do death.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        clover(game_state);
         return game_state;
     },
 
@@ -1999,6 +2021,15 @@ var outcomes = {
     //v
 
     //w
+
+    "waiting_for_seal": function(game_state) {
+        var messages = [
+            "You manage to club a seal, but it swims away.",
+            "While waiting for a seal, you get very cold.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
 
     "wake_up": function(game_state) {
         var messages = [

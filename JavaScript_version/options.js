@@ -181,6 +181,7 @@ function get_outcome_options(game_state, options) {
         game_state.outcome === "see_ship" ||
         game_state.outcome === "think_pirates_laugh" ||
         game_state.outcome === "train_thrown_out" ||
+        game_state.outcome === "waiting_for_seal" ||
         game_state.outcome === "wake_up_robbed" ||
         game_state.outcome === "wealthy_people_sneer"
        ) {
@@ -241,6 +242,10 @@ function get_place_options(game_state, options) {
         if (game_state.character.person !== "st_george") {
             raffle.add(options.d, "Look for St. George.", 1);
         }
+    }
+    if (game_state.character.place === "arctic") {
+        raffle.add(options.b, "Build an Igloo", 4);
+        raffle.add(options.c, "Club a seal.", 4);
     }
     if (game_state.character.place === "church") {
         raffle.add(options.a, "Tell a priest he's fat.", 2);
