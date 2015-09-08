@@ -121,10 +121,6 @@ function handle_new_world(resp) {
     } else if (game_state.options.b === "LOVE_POTION") {
         document.getElementById("b").innerHTML = "b. Use your love potion " +
             "on " + game_state.persons[game_state.character.person].name + ".";
-    } else if (game_state.options.b === "TELL_GUARDS") {
-        document.getElementById("b").innerHTML = "b. Tell them you're " +
-            "not a lunatic, you're just " +
-            game_state.character.excuse + ".";
     } else {
         document.getElementById("b").innerHTML = "b. " + game_state.options.b;
     }
@@ -154,6 +150,10 @@ function handle_new_world(resp) {
         } else if (game_state.options.d === "Flirt with") {
             document.getElementById("d").innerHTML = "d. Flirt with " +
                 game_state.persons[game_state.character.person].name + ".";
+        } else if (game_state.options.d === "TELL_GUARDS") {
+            document.getElementById("d").innerHTML = "d. Tell the guards " +
+                "you're not a lunatic, you're just " +
+                game_state.character.excuse + ".";
         } else {
             document.getElementById("d").innerHTML = "d. " +
                 game_state.options.d;
