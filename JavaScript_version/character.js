@@ -7,7 +7,7 @@ exports.character = {
     "is_frog": false,
     "is_monstrosity": false,
     "is_threatened": false,
-    "is_tripping_on_mushrooms": false,
+    "is_tripping": false,
     "items": 
     {
         "dagger": 0,
