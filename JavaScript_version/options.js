@@ -298,11 +298,13 @@ function get_place_options(game_state, options) {
         }
         raffle.add(options.d, "Look for the nymph queen.", 2);
     }
-    if (game_state.character.place === "wizards_lab") {
-        //raffle.add(options.a, "Trash the place.", 2);
-        //raffle.add(options.b, "Read a spellbook.", 2);
-        //raffle.add(options.c, "Sneak around.", 2);
-        //raffle.add(options.d, "Drink a random potion.", 2);
+    if (game_state.character.place === "wizard_lab") {
+        if (game_state.places.wizard_lab.trashable) {
+            raffle.add(options.a, "Trash the place.", 4);
+        }
+        raffle.add(options.b, "Read a spellbook.", 4);
+        //raffle.add(options.c, "Sneak around.", 4);
+        //raffle.add(options.d, "Drink a random potion.", 4);
     }
 }
 

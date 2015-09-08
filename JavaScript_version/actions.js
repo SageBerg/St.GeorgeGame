@@ -54,7 +54,6 @@ exports.actions = {
 
     "Buy a drink.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "meet_blind_bartender", 1);
-        raffle.add(possible_outcomes, "no_flowers", 10000);
         return possible_outcomes;
     },
 
@@ -528,6 +527,13 @@ exports.actions = {
     
     //r
     
+    "Read a spellbook.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "read_and_die", 1);
+        raffle.add(possible_outcomes, "read_clover", 1);
+        raffle.add(possible_outcomes, "read_spell_book", 7);
+        return possible_outcomes;
+    },
+
     "Ribbit.": function(game_state, possible_outcomes) {
         if (game_state.character.place !== "ocean") {
             raffle.add(possible_outcomes, "eaten_by_weasel", 1);

@@ -1528,6 +1528,53 @@ var outcomes = {
     
     //r
 
+    "read_and_die": function(game_state) {
+        var messages = [
+            "You open a cursed book.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        clover(game_state);
+        return game_state;
+    },
+
+    "read_clover": function(game_state) {
+        var messages = [
+            "It's all Greek to you, but you find a " +
+            "dried four-leaf clover between the pages.",
+            "After reading a sentence or two, you realize you're out of " +
+            "your depth, but you find a dried four-leaf clover between the " +
+            "pages.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        get_item(game_state, "four-leaf clover");
+        return game_state;
+    },
+
+    "read_spell_book": function(game_state) {
+        var messages = [
+            "You learn that it takes sap, flowers, and a many-colored " +
+            "mushroom to brew a love potion.",
+            "You learn that it takes a cat and a pearl " +
+            "to brew a potion of tail growth.",
+            "You learn that it takes a white mushroom and a deep-cave " +
+            "newt to brew a potion of strength.",
+            "You find the book arcane and boring.",
+            "You learn a spell to set things on fire, unfortunatley it " +
+            "requires a focused mind.",
+            "The wizard's handwriting is terrible.",
+            "The first book you open appears to be the wizard's diary. " +
+            "It's mostly math proofs.",
+            "The first book you open appears to be the wizard's diary. " +
+            "He appears to be obsessed with void dust, but doesn't know " +
+            "how to get any.",
+            "The first book you open appears to be the wizard's diary. " +
+            "It's full of accounts about how he's too chicken to ask out " +
+            "a woman he often sees in the market.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
     "rebuffed_by_olga": function(game_state) {
         game_state.message = "Her eyes glaze over while you struggle make " +
             "yourself sound interesting.";
@@ -1913,17 +1960,20 @@ var outcomes = {
             "You dream of fire.",
         ] 
         game_state.message = messages[random_int(messages.length)];
+        game_state.character.person = null;
         return game_state;
     },
 
     "wake_up_assassinated": function(game_state) {
         game_state.message = "You are rudely awakened by an assassin's dagger.";
+        game_state.character.person = null;
         clover(game_state);
         return game_state;
     },
 
     "wake_up_dead": function(game_state) {
         game_state.message = "You wake up dead."; 
+        game_state.character.person = null;
         clover(game_state);
         return game_state;
     },
@@ -1951,6 +2001,7 @@ var outcomes = {
 
     "wake_up_richer": function(game_state) {
         game_state.message = "You wake with a few coins on your cloak."; 
+        game_state.character.person = null;
         get_money(game_state, "pittance");
         return game_state;
     },
@@ -1958,6 +2009,7 @@ var outcomes = {
     "wake_up_robbed": function(game_state) {
         game_state.message = "You wake up robbed of all your wordly " +
             "possessions."; 
+        game_state.character.person = null;
         lose_all_items(game_state);
         return game_state;
     },
@@ -1966,6 +2018,7 @@ var outcomes = {
         game_state.message = "You wake up a few hours later."
         move_character(game_state, 
                        get_random_adjacent_destination(game_state));
+        game_state.character.person = null;
         return game_state;
     },
 
@@ -1980,6 +2033,7 @@ var outcomes = {
     "wake_up_with_cat": function(game_state) {
         game_state.message = "You are pleasantly awakened by a cat rubbing " +
             "up against you."; 
+        game_state.character.person = null;
         get_item(game_state, "cat");
         return game_state;
     },
