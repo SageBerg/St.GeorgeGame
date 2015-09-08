@@ -1863,7 +1863,9 @@ var outcomes = {
     "start_tripping": function(game_state) {
         game_state.message = "You start feeling strange."
         game_state.character.is_tripping = true;
-        game_state.character.items["many colored mushroom"] -= 1;
+        if (game_state.action === "Chow down on your many colored mushroom.") {
+            game_state.character.items["many colored mushroom"] -= 1;
+        }
         return game_state;
     },
 

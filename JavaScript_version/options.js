@@ -324,7 +324,7 @@ function get_place_options(game_state, options) {
         }
         raffle.add(options.b, "Read a spellbook.", 4);
         //raffle.add(options.c, "Sneak around.", 4);
-        //raffle.add(options.d, "Drink a random potion.", 4);
+        raffle.add(options.d, "Drink a random potion.", 4);
     }
 }
 
