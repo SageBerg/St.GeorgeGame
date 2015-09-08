@@ -13,9 +13,11 @@ exports.character = {
         "dagger": 0,
         "cutlass": 0,
         "hammer": 0,
-        "poison_dagger": 0,
-        "jeweled_cutlass": 0,
         "iron_hammer": 0,
+        "jeweled_cutlass": 0,
+        "long_pitchfork": 0,
+        "pitchfork": 0,
+        "poison_dagger": 0,
 
         "ax": 0,
         "bag of jewels": 0,
