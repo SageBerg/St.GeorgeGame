@@ -46,6 +46,18 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Build an igloo.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "cannot_build_igloo", 1);
+        if (game_state.character.items["seal carcass"] >= 1) {
+            raffle.add(possible_outcomes, "eat_seal_in_igloo", 20);
+        } else if (game_state.character.items["fish"] >= 3) {
+            raffle.add(possible_outcomes, "eat_fish_in_igloo", 20);
+        }else { 
+            raffle.add(possible_outcomes, "starve_in_igloo", 1);
+        }
+        return possible_outcomes;
+    },
+
     "BURN": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "burn", 3);
         raffle.add(possible_outcomes, "set_self_on_fire", 1);

@@ -244,7 +244,7 @@ function get_place_options(game_state, options) {
         }
     }
     if (game_state.character.place === "arctic") {
-        raffle.add(options.b, "Build an Igloo", 4);
+        raffle.add(options.b, "Build an igloo.", 4);
         raffle.add(options.c, "Club a seal.", 4);
     }
     if (game_state.character.place === "church") {

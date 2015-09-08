@@ -227,21 +227,21 @@ var outcomes = {
     "assassin_prayer_answered": function(game_state) {
         game_state.message = 
             "Your prayers aren't answered, but the assassins' are.",
-        game_state.character.is_dead = true;
+        clover(game_state);
         return game_state;
     },
 
     "assassinated": function(game_state) {
         game_state.message = "The first woman you talk to turns out to be " +
         "an assasin. She assassinates you.";
-        game_state.character.is_dead = true;
+        die(game_state);
         return game_state;
     },
 
     "assassinated_in_church": function(game_state) {
         game_state.message = "It was a good time to make peace with God. " +
         "Lord Carlos steps out from behind a pillar and assassinates you.";
-        game_state.character.is_dead = true;
+        die(game_state);
         return game_state;
     },
 
@@ -332,6 +332,16 @@ var outcomes = {
 
     "cannot_afford": function(game_state) {
         game_state.message = "You cannot afford this item." 
+        return game_state;
+    },
+
+    "cannot_build_igloo": function(game_state) {
+        var messages = [
+            "You can't figure out how to build an igloo.",
+            "You build an igloo, but it collapses after a snowstorm.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.person = null;
         return game_state;
     },
 
@@ -603,6 +613,24 @@ var outcomes = {
             "A crowd gathers to hear your singing and " + 
             "tosses you a small fortune in coins.";
         get_money(game_state, "small_fortune");
+        return game_state;
+    },
+
+    "eat_fish_in_igloo": function(game_state) {
+        game_state.message = "You survive in your igloo until winter by " +
+            "eating your fish. The winter ice sheet allows you to get back " +
+            "to land.",
+        game_state.character.items["fish"] -= 3;
+        move_character(game_state, "woods");
+        return game_state;
+    },
+
+    "eat_seal_in_igloo": function(game_state) {
+        game_state.message = "You survive in your igloo until winter by " +
+            "eating your seal carcass. The winter ice sheet allows you to " +
+            "get back to land.",
+        game_state.character.items["seal carcass"] -= 1;
+        move_character(game_state, "woods");
         return game_state;
     },
 
@@ -1744,7 +1772,14 @@ var outcomes = {
         game_state.message =
             "You smash towns, flatten forests, level mountains, and " +
             "ultimately run out of food.";
-        game_state.character.is_dead = true;
+        die(game_state);
+        return game_state;
+    },
+
+    "starve_in_igloo": function(game_state) {
+        game_state.message = "Your igloo protects you from the elements, " +
+            "but not from your hunger.",
+        die(game_state);
         return game_state;
     },
 
