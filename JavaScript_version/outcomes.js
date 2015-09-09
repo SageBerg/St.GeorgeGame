@@ -14,6 +14,7 @@ exports.get_outcome = function get_outcome(game_state) {
         game_state.action !== "Attack" &&
         game_state.action !== "Enter the void." &&
         game_state.action !== "Leave in a puff." &&
+        game_state.action !== "Play dead." &&
         game_state.action !== "Run like the Devil." &&
         game_state.action !== "TELL_GUARDS" &&
         game_state.action !== "Waddle like God.") {
@@ -1658,6 +1659,29 @@ var outcomes = {
         return game_state;
     },
 
+    "play_dead_and_die": function(game_state) {
+        var messages = [
+            "Just to be sure, " + get_name(game_state) + " " +
+            conjugate(game_state, "kill") + " you.",
+            "You go the extra mile to make it realistic.",
+            "You soon are.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
+        return game_state;
+    },
+
+    "play_dead_works": function(game_state) {
+        var messages = [
+            capitalize(get_name(game_state)) + " " + 
+            conjugate(game_state, "decide") + " you are too pathetic to " +
+            "kill.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
+        return game_state;
+    },
+
     "priest_agrees": function(game_state) {
         var messages = [
             "The priest thinks for a moment and realizes you're right. " +
@@ -1670,7 +1694,6 @@ var outcomes = {
             random_choice(["Lord Bartholomew", "St. George",]) + 
             " is a good man.",
         ];
-
         game_state.message = messages[random_int(messages.length)];
         return game_state;
     },

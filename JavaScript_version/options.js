@@ -53,7 +53,7 @@ exports.get_options = function get_options(game_state) {
         ] 
         game_state.message += messages[random_int(messages.length)];
         set_game_over_options(options);
-    } else if (Math.floor(Math.random() * 1) === 0 && 
+    } else if (Math.floor(Math.random() * 128) === 0 && 
                game_state.places[game_state.character.place].burnable === true)
     { set_pyro_options(options);
     } else {
@@ -109,6 +109,9 @@ function get_character_options(game_state, options) {
         raffle.add(options.c, "GO_TO", 2);
     }
     if (game_state.character.is_threatened === true) {
+        if (game_state.character.person !== "guards") {
+            raffle.add(options.b, "Play dead.", 5);
+        }
         raffle.add(options.c, "Run like the Devil.", 90);
         raffle.add(options.c, "Waddle like God.", 10);
     }
@@ -156,7 +159,7 @@ function get_person_options(game_state, options) {
         raffle.add(options.a, "Attack", 10);
     }
     if (game_state.character.person !== null) {
-        raffle.add(options.b, "Boast of your bravery.", 10000);
+        raffle.add(options.b, "Boast of your bravery.", 1);
     }
     if (
         game_state.character.person === "eve" ||
