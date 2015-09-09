@@ -361,6 +361,11 @@ var outcomes = {
         return game_state;
     },
 
+    "bronzed": function(game_state) {
+        game_state.message = "You get bronzed.";
+        return game_state;
+    },
+
     "burn": function(game_state) {
         burn(game_state);
         return game_state;
@@ -748,9 +753,17 @@ var outcomes = {
         return game_state;
     },
 
+    "eaten_by_roc": function(game_state) {
+        game_state.message = "While you're sunbathing, a roc swoops down " +
+            "and snatches you up in its talons. It carries you 2000 miles " +
+            "and feeds you to its hatchlings.",
+        clover(game_state);
+        return game_state;
+    },
+
     "eaten_by_weasel": function(game_state) {
         game_state.message = "A loose weasel hears you ribbit and eats you.";
-        die(game_state);
+        clover(game_state);
         return game_state;
     },
 
@@ -2110,6 +2123,18 @@ var outcomes = {
         game_state.message = "While you look for flies, someone steps on " +
             "you.";
         die(game_state);
+        return game_state;
+    },
+
+    "sunbathe_with_mermaid": function(game_state) {
+        game_state.message = "When you open your eyes, you see a mermaid " +
+            "sunbathing next to you.";
+        game_state.character.person = "mermaid";
+        return game_state;
+    },
+
+    "sunburnt": function(game_state) {
+        game_state.message = "You get sunburnt.";
         return game_state;
     },
 

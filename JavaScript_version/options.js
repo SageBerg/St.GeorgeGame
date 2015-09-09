@@ -194,6 +194,11 @@ function get_person_options(game_state, options) {
 function get_outcome_options(game_state, options) {
 
     switch (game_state.outcome) {
+        case "bronzed":
+        case "chop_down_tree":
+            //raffle.add(options.a, "Thump yourself on the chest.", 1);
+            //raffle.add(options.c, "Celebrate your success.", 1);
+            break;
         case "cannot_afford":
         case "cannot_tip_cow":
         case "dance_in_puddle":
@@ -207,6 +212,7 @@ function get_outcome_options(game_state, options) {
         case "pirates_ruin_song":
         case "priest_disagrees":
         case "see_ship":
+        case "sunburnt":
         case "think_pirates_laugh":
         case "train_thrown_out":
         case "waiting_for_seal":
@@ -218,11 +224,6 @@ function get_outcome_options(game_state, options) {
                 false) {
                 raffle.add(options.c, "Leave in a huff.", 1);
             }
-            break;
-
-        case "chop_down_tree":
-            //raffle.add(options.a, "Thump yourself on the chest.", 1);
-            //raffle.add(options.c, "Celebrate your success.", 1);
             break;
 
         case "guards_stop_you_dancing":
@@ -345,7 +346,7 @@ function get_place_options(game_state, options) {
         case "mermaid_rock":
             //raffle.add(options.a, "Look for mermaids.", 10);
             raffle.add(options.c, "Go fishing.", 4);
-            //raffle.add(options.d, "Sun yourself on a rock.", 4);
+            raffle.add(options.d, "Sun yourself on a rock.", 4);
             break;
         case "ocean":
             //raffle.add(options.a, "Look for mermaids.", 10);

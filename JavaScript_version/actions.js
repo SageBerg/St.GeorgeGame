@@ -792,6 +792,14 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Sun yourself on a rock.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "bronzed", 1);
+        raffle.add(possible_outcomes, "eaten_by_roc", 1);
+        raffle.add(possible_outcomes, "sunburnt", 1);
+        raffle.add(possible_outcomes, "sunbathe_with_mermaid", 1);
+        return possible_outcomes;
+    },
+
     "Swim.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "no_progress_swimming", 3);
         raffle.add(possible_outcomes, "see_ship", 1);
