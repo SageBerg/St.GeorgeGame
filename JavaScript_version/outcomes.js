@@ -216,6 +216,11 @@ var outcomes = {
         return game_state;
     },
 
+    "alley_is_clear": function(game_state) {
+        game_state.message = "The dark alley appears to be safe.";
+        return game_state;
+    },
+
     "an_excuse_lunatic": function(game_state) {
         game_state.message = "\"A " + game_state.character.excuse + 
             " lunatic,\" one of the guards says. They arrest you " +
@@ -710,6 +715,12 @@ var outcomes = {
         game_state.message = messages[random_int(messages.length)];
         move_character(game_state, "mermaid_rock");
         game_state.character.person = "mermaid";
+        return game_state;
+    },
+
+    "do_not_see_assassins": function(game_state) {
+        game_state.message = "You don't see one.";
+        die(game_state);
         return game_state;
     },
 

@@ -541,31 +541,9 @@ exports.actions = {
         return possible_outcomes;
     },
 
-    "LOVE_POTION": function(game_state, possible_outcomes) {
-        switch (game_state.character.person) {
-            case "eve":
-                raffle.add(possible_outcomes, "miss_eve", 1);
-                raffle.add(possible_outcomes, "potion_eve", 1);
-                break;
-            case "mermaid":
-                raffle.add(possible_outcomes, "potion_mermaid", 2);
-                break;
-            case "nymph_queen":
-                raffle.add(possible_outcomes, "miss_nymph_queen", 1);
-                raffle.add(possible_outcomes, "potion_nymph_queen", 1);
-                break;
-            case "olga":
-                raffle.add(possible_outcomes, "potion_olga", 1);
-                if (game_state.character.place === "tavern" &&
-                    game_state.persons.blind_bartender.alive) {
-                    raffle.add(possible_outcomes, "miss_olga", 1);
-                }
-                break;
-            case "priestess":
-                raffle.add(possible_outcomes, "miss_priestess", 1);
-                raffle.add(possible_outcomes, "potion_priestess", 1);
-                break;
-        }
+    "Look for assassins.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "alley_is_clear", 1);
+        raffle.add(possible_outcomes, "do_not_see_assassins", 1);
         return possible_outcomes;
     },
 
@@ -613,6 +591,34 @@ exports.actions = {
 
     "Look for witches.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "meet_witch", 1);
+        return possible_outcomes;
+    },
+
+    "LOVE_POTION": function(game_state, possible_outcomes) {
+        switch (game_state.character.person) {
+            case "eve":
+                raffle.add(possible_outcomes, "miss_eve", 1);
+                raffle.add(possible_outcomes, "potion_eve", 1);
+                break;
+            case "mermaid":
+                raffle.add(possible_outcomes, "potion_mermaid", 2);
+                break;
+            case "nymph_queen":
+                raffle.add(possible_outcomes, "miss_nymph_queen", 1);
+                raffle.add(possible_outcomes, "potion_nymph_queen", 1);
+                break;
+            case "olga":
+                raffle.add(possible_outcomes, "potion_olga", 1);
+                if (game_state.character.place === "tavern" &&
+                    game_state.persons.blind_bartender.alive) {
+                    raffle.add(possible_outcomes, "miss_olga", 1);
+                }
+                break;
+            case "priestess":
+                raffle.add(possible_outcomes, "miss_priestess", 1);
+                raffle.add(possible_outcomes, "potion_priestess", 1);
+                break;
+        }
         return possible_outcomes;
     },
 

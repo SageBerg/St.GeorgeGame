@@ -317,7 +317,7 @@ function get_place_options(game_state, options) {
             raffle.add(options.d, "Do some farm work.", 2);
             break;
         case "dark_alley":
-            //raffle.add(options.a, "Look for assassins.", 4);
+            raffle.add(options.a, "Look for assassins.", 4);
             //raffle.add(options.b, "Make a shady deal.", 4);
             //raffle.add(options.c, "Hide.", 4);
             //raffle.add(options.d, "Look through some trash.", 4);
@@ -328,6 +328,7 @@ function get_place_options(game_state, options) {
             break;
         case "lord_bartholomew_manor":
             //raffle.add(options.a, "Ask for an audience with Lord Bartholomew.", 4);
+            //raffle.add(options.d, "Sneak around.", 4);
             break;
         case "lord_carlos_manor":
             //raffle.add(options.a, "Ask for an audience with Lord Carlos.", 4);
@@ -349,9 +350,10 @@ function get_place_options(game_state, options) {
             raffle.add(options.d, "Sun yourself on a rock.", 4);
             break;
         case "ocean":
-            //raffle.add(options.a, "Look for mermaids.", 10);
-            raffle.add(options.c, "Swim.", 20);
+            //raffle.add(options.a, "Look for mermaids.", 5);
+            //raffle.add(options.a, "Look for sea turtles.", 5);
             raffle.add(options.b, "Sink.", 10);
+            raffle.add(options.c, "Swim.", 20);
             raffle.add(options.d, "Dive for pearls.", 5);
             raffle.add(options.d, "Drown.", 1);
             break;
