@@ -179,8 +179,7 @@ function get_person_options(game_state, options) {
 }
 
 function get_outcome_options(game_state, options) {
-    if (
-        game_state.outcome === "cannot_afford" ||
+    if (game_state.outcome === "cannot_afford" ||
         game_state.outcome === "cannot_tip_cow" ||
         game_state.outcome === "dance_in_puddle" ||
         game_state.outcome === "fail_at_new_career" ||
@@ -197,56 +196,39 @@ function get_outcome_options(game_state, options) {
         game_state.outcome === "waiting_for_seal" ||
         game_state.outcome === "wake_up_robbed" ||
         game_state.outcome === "wealthy_people_sneer" ||
-        game_state.outcome === "wizard_leaves_without_you"
-       ) {
+        game_state.outcome === "wizard_leaves_without_you") {
         raffle.add(options.a, "Kill yourself in frustration.", 1);
-    }
-    else if (game_state.outcome === "chop_down_tree") {
-        raffle.add(options.a, "Thump yourself on the chest.", 1);
-    }
-    else if (game_state.outcome === "guards_stop_you_dancing") {
+    } else if (game_state.outcome === "chop_down_tree") {
+        //raffle.add(options.a, "Thump yourself on the chest.", 1);
+        //raffle.add(options.c, "Celebrate your success.", 1);
+    } else if (game_state.outcome === "guards_stop_you_dancing") {
         game_state.character.excuse = "happy";
         raffle.add(options.d, "TELL_GUARDS", 10000);
-    }
-    else if (game_state.outcome === "guards_stop_you_killing") {
+    } else if (game_state.outcome === "guards_stop_you_killing") {
         game_state.character.excuse = "mad";
         raffle.add(options.d, "TELL_GUARDS", 10000);
-    }
-    else if (game_state.outcome === "guards_stop_you_licking") {
+    } else if (game_state.outcome === "guards_stop_you_licking") {
         game_state.character.excuse = "hungry";
         raffle.add(options.d, "TELL_GUARDS", 10000);
-    }
-    else if (game_state.outcome === "guards_stop_you_rich") {
+    } else if (game_state.outcome === "guards_stop_you_rich") {
         game_state.character.excuse = "rich";
         raffle.add(options.d, "Tell the guards you're a lunatic.", 10000);
-    }
-    else if (game_state.outcome === "guards_stop_you_singing") {
+    } else if (game_state.outcome === "guards_stop_you_singing") {
         game_state.character.excuse = "talented";
         raffle.add(options.d, "TELL_GUARDS", 10000);
-    }
-    else if (
-             game_state.outcome === "gambling_lose"
-            ) {
+    } else if (game_state.outcome === "gambling_lose") {
         raffle.add(options.a, "Kill everybody in a fit of rage.", 1);
-    }
-    else if (
-             game_state.outcome === "think_elaborate_scheme"
-            ) {
+    } else if (game_state.outcome === "think_elaborate_scheme") {
         raffle.add(options.b, "Enact your elaborate scheme.", 10000);
-    }
-    else if (
-             game_state.outcome === "no_progress_swimming" ||
-             game_state.outcome === "see_ship"
-            ) {
+    } else if (game_state.outcome === "no_progress_swimming" ||
+               game_state.outcome === "see_ship") {
         raffle.add(options.c, "Keep swimming.", 10000);
-    }
-    else if (
-             game_state.outcome === "keep_swimming"
-            ) {
+    } else if (game_state.outcome === "keep_swimming") {
         raffle.add(options.c, "Just keep swimming.", 10000);
-    }
-    else if (game_state.outcome === "see_wizard_with_penguins") {
+    } else if (game_state.outcome === "see_wizard_with_penguins") {
         raffle.add(options.a, "Yell \"Don't leave without me!\"", 10000);
+    } else if (game_state.outcome === "wizard_wants_mushroom") {
+        raffle.add(options.a, "Give the wizard what he wants.", 10000);
     }
 }
 
@@ -295,7 +277,10 @@ function get_place_options(game_state, options) {
     if (game_state.character.place === "market" &&
         game_state.character.person !== "war_merchant") {
         raffle.add(options.a, "Look for a weapon.", 10);
-        raffle.add(options.b, "Look for the wizard.", 1);
+        if (game_state.persons.wizard.alive === true && 
+            game_state.character.person !== "wizard") {
+            raffle.add(options.b, "Look for the wizard.", 1000); //TODO
+        }
         //raffle.add(options.c, "Go shopping.", 2);
         //raffle.add(options.d, "Watch a play.", 2);
     }

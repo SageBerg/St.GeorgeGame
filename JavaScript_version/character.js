@@ -40,7 +40,7 @@ exports.character = {
         "seal carcass": 0,
         "shiny foreign coin": 0,
         "white mushroom": 0,
-        "yellow mushroom": 0,
+        "yellow mushroom": 1,
     },
     "money": "none",
     "person": "",

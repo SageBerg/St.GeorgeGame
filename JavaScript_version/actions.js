@@ -360,8 +360,11 @@ exports.actions = {
         return possible_outcomes;
     },
 
-    "Go mushroom picking.": function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "pick_many_colored_mushroom", 1);
+    "Give the wizard what he wants.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "wizard_compensates_you", 1);
+        raffle.add(possible_outcomes, "wizard_dies", 1);
+        raffle.add(possible_outcomes, "wizard_eats_mushroom", 2);
+        raffle.add(possible_outcomes, "wizard_unjust", 1);
         return possible_outcomes;
     },
 
@@ -383,6 +386,11 @@ exports.actions = {
         raffle.add(possible_outcomes, "get_a_four-leaf_clover", 2);
         raffle.add(possible_outcomes, "get_a_bouquet", 4);
         raffle.add(possible_outcomes, "no_flowers", 1);
+        return possible_outcomes;
+    },
+
+    "Go mushroom picking.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "pick_many_colored_mushroom", 1);
         return possible_outcomes;
     },
 
@@ -584,7 +592,10 @@ exports.actions = {
     },
 
     "Look for the wizard.": function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "frog", 1);
+        //raffle.add(possible_outcomes, "frog", 1);
+        if (game_state.character.items["yellow mushroom"] > 0) {
+            raffle.add(possible_outcomes, "wizard_wants_mushroom", 10);
+        }
         return possible_outcomes;
     },
 

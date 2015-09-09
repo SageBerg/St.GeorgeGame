@@ -2452,10 +2452,46 @@ var outcomes = {
         return game_state;
     },
 
+    "wizard_compensates_you": function(game_state) {
+        var messages = [
+            "The wizard compensates you.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.items["yellow mushroom"] -= 1;
+        get_item(game_state, random_choice(["potion of love", 
+                                            "potion of tail growth", 
+                                            "four-leaf clover"]));
+        return game_state;
+    },
+
     "wizard_complains": function(game_state) {
         game_state.message = "The wizard complains that you are singing " +
             "off-key. He turns you into a frog and stomps on you.";
         game_state.character.is_dead = true;
+        return game_state;
+    },
+
+    "wizard_dies": function(game_state) {
+        var messages = [
+            "The wizard choaks on the mushroom and dies.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.items["yellow mushroom"] -= 1;
+        game_state.character.person = null;
+        game_state.persons.wizard.alive = false;
+        return game_state;
+    },
+
+    "wizard_eats_mushroom": function(game_state) {
+        var messages = [
+            "The wizard chews the mushroom with this mouth open.",
+            "The wizard swallows the mushroom whole.",
+            "The wizard eats the mushroom and belches.",
+            "The wizard chows down on the mushroom, then complains he has " +
+            "a stomach ache.",
+        ];
+        game_state.character.items["yellow mushroom"] -= 1;
+        game_state.message = messages[random_int(messages.length)];
         return game_state;
     },
 
@@ -2466,6 +2502,27 @@ var outcomes = {
             "The wizard leaves without you.",
         ];
         game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "wizard_unjust": function(game_state) {
+        var messages = [
+            "Having no further use for you, the wizard turns you into a " +
+            "frog.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.is_frog = true;
+        game_state.character.items["yellow mushroom"] -= 1;
+        return game_state;
+    },
+
+    "wizard_wants_mushroom": function(game_state) {
+        var messages = [
+            "You find the wizard. He says he can smell that you have a " + 
+            "yellow mushroom and asks if he can have it.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.person = "wizard";
         return game_state;
     },
 
