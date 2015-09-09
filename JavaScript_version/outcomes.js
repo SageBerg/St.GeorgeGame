@@ -1477,6 +1477,11 @@ var outcomes = {
         return game_state;
     },
 
+    "lick_the_salt": function(game_state) {
+        game_state.message = "The ground tastes really salty.";
+        return game_state;
+    },
+
     "lose_ax": function(game_state) {
         game_state.message = "You get your ax stuck in a tree and can't " +
         "get it back out.";

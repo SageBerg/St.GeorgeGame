@@ -526,6 +526,10 @@ exports.actions = {
             raffle.add(possible_outcomes, "ground_tastes_cold", 6);
         }
 
+        if (game_state.character.place === "mermaid_rock") {
+            raffle.add(possible_outcomes, "lick_the_salt", 6);
+        }
+
         if (game_state.character.place === "ocean") {
             raffle.add(possible_outcomes, "lick_the_ocean", 10000);
         }
