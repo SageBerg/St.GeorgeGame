@@ -910,6 +910,19 @@ var outcomes = {
         return game_state;
     },
 
+    "find_a_way_out": function(game_state) {
+        game_state.message = "You find a way out of the cave.";
+        move_character(game_state, "woods");
+        return game_state;
+    },
+
+    "find_deep_cave_newt": function(game_state) {
+        game_state.message = "You don't find a way out, but you find a " +
+            "deep-cave newt.";
+        get_item(game_state, "deep-cave newt");
+        return game_state;
+    },
+
     "find_olga": function(game_state) {
         if (game_state.persons.olga.attracted < 1) {
             game_state.message = "You find Olga laughing with her friends. " +
@@ -1640,6 +1653,17 @@ var outcomes = {
         return game_state;
     },
 
+    "no_way_out": function(game_state) {
+        var messages = [
+            "You fumble around in the darkness.",
+            "You think you're going around in circles.",
+            "You can't see anything, so you only manage to bump your head " +
+            "on a rock.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
     "not_impressed": function(game_state) {
         game_state.message = capitalize(get_person(game_state).name) + 
             " is not impressed.";
@@ -1991,6 +2015,15 @@ var outcomes = {
         ];
         game_state.message = messages[random_int(messages.length)];
         game_state.persons.olga.attracted += 1;
+        return game_state;
+    },
+
+    "slip_and_die": function(game_state) {
+        var messages = [
+            "You slip on a slippery slope and fall to your death.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
         return game_state;
     },
 

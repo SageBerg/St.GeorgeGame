@@ -203,6 +203,7 @@ function get_outcome_options(game_state, options) {
         case "lose_ax":
         case "miss_olga":
         case "no_flowers":
+        case "no_way_out":
         case "pirates_ruin_song":
         case "priest_disagrees":
         case "see_ship":
@@ -213,7 +214,10 @@ function get_outcome_options(game_state, options) {
         case "wealthy_people_sneer":
         case "wizard_leaves_without_you":
             raffle.add(options.a, "Kill yourself in frustration.", 1);
-            raffle.add(options.c, "Leave in a huff.", 1);
+            if (game_state.places[game_state.character.place].locked === 
+                false) {
+                raffle.add(options.c, "Leave in a huff.", 1);
+            }
             break;
 
         case "chop_down_tree":
@@ -289,6 +293,9 @@ function get_place_options(game_state, options) {
         raffle.add(options.b, "Build an igloo.", 4);
         raffle.add(options.c, "Club a seal.", 4);
         raffle.add(options.d, "Freeze to death.", 2);
+    }
+    if (game_state.character.place === "cave") {
+        raffle.add(options.c, "Look for a way out.", 10);
     }
     if (game_state.character.place === "church") {
         raffle.add(options.a, "Tell a priest he's fat.", 2);

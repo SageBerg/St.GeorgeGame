@@ -540,15 +540,15 @@ exports.actions = {
     "LOVE_POTION": function(game_state, possible_outcomes) {
         switch (game_state.character.person) {
             case "eve":
-                raffle.add(possible_outcomes, "potion_eve", 1);
                 raffle.add(possible_outcomes, "miss_eve", 1);
+                raffle.add(possible_outcomes, "potion_eve", 1);
                 break;
             case "mermaid":
                 raffle.add(possible_outcomes, "potion_mermaid", 2);
                 break;
             case "nymph_queen":
-                raffle.add(possible_outcomes, "potion_nymph_queen", 1);
                 raffle.add(possible_outcomes, "miss_nymph_queen", 1);
+                raffle.add(possible_outcomes, "potion_nymph_queen", 1);
                 break;
             case "olga":
                 raffle.add(possible_outcomes, "potion_olga", 1);
@@ -558,8 +558,8 @@ exports.actions = {
                 }
                 break;
             case "priestess":
-                raffle.add(possible_outcomes, "potion_priestess", 1);
                 raffle.add(possible_outcomes, "miss_priestess", 1);
+                raffle.add(possible_outcomes, "potion_priestess", 1);
                 break;
         }
         return possible_outcomes;
@@ -567,6 +567,14 @@ exports.actions = {
 
     "Look for a cat.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "find_a_cat", 1);
+        return possible_outcomes;
+    },
+
+    "Look for a way out.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "find_a_way_out", 1);
+        raffle.add(possible_outcomes, "find_deep_cave_newt", 1);
+        raffle.add(possible_outcomes, "no_way_out", 3);
+        raffle.add(possible_outcomes, "slip_and_die", 1);
         return possible_outcomes;
     },
 
