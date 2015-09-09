@@ -353,8 +353,8 @@ exports.actions = {
         return possible_outcomes;
     },
 
-    //this special action interrupts your action when you're threatened and
-    //you don't choose to fight or run away
+    // this special action interrupts your action when you're threatened and
+    // you don't choose to fight or run away
     "GET_ATTACKED": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "get_attacked", 1);
         return possible_outcomes;
@@ -814,6 +814,15 @@ exports.actions = {
         raffle.add(possible_outcomes, "no_progress_swimming", 3);
         raffle.add(possible_outcomes, "see_ship", 1);
         raffle.add(possible_outcomes, "swim_and_die", 2);
+        return possible_outcomes;
+    },
+
+    "Swing your cat.": function(game_state, possible_outcomes) {
+        //raffle.add(possible_outcomes, "cat_escapes", 1);
+        raffle.add(possible_outcomes, "hit_assassin_with_cat", 2);
+        if (game_state.places[game_state.character.place].town === true) {
+            //raffle.add(possible_outcomes, "guards_stop_you_swinging_cat", 1);
+        }
         return possible_outcomes;
     },
 

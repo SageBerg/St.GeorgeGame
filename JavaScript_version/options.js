@@ -55,8 +55,9 @@ exports.get_options = function get_options(game_state) {
         game_state.message += messages[random_int(messages.length)];
         set_game_over_options(options);
     } else if (Math.floor(Math.random() * 256) === 0 && 
-               game_state.places[game_state.character.place].burnable === true)
-    { set_pyro_options(options);
+               game_state.places[game_state.character.place].burnable 
+               === true) {
+        set_pyro_options(options);
     } else {
         
         get_character_options(game_state, options);
@@ -147,6 +148,7 @@ function get_item_options(game_state, options) {
     if (game_state.character.items["many colored mushroom"] > 0) {
         raffle.add(options.d, "Chow down on your many colored mushroom.", 1);
     }
+
     if (game_state.character.items["potion of love"] > 0 && 
         game_state.character.person === "eve" ||
         game_state.character.person === "mermaid" ||
@@ -160,6 +162,11 @@ function get_item_options(game_state, options) {
        ) {
         raffle.add(options.b, "LOVE_POTION", 10000);
     }
+
+    if (game_state.character.items["cat"] > 0) {
+        raffle.add(options.d, "Swing your cat.", 1); // TODO
+    }
+
 }
 
 function get_person_options(game_state, options) {
@@ -179,7 +186,7 @@ function get_person_options(game_state, options) {
         game_state.character.person === "nymph_queen" ||
         game_state.character.person === "olga"
        ) {
-        raffle.add(options.d, "Flirt with", 10000); //TODO
+        raffle.add(options.d, "Flirt with", 10000); // TODO
     }
 
     if (game_state.character.person === "st_george") {

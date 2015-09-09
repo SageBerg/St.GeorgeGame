@@ -1292,6 +1292,13 @@ var outcomes = {
         return game_state;
     },
 
+    "hit_assassin_with_cat": function(game_state) {
+        game_state.message = "You hit an assassin with your cat.";
+        game_state.character.person = "assassin";
+        game_state.character.is_threatened = true;
+        return game_state;
+    },
+
     "hop": function(game_state) {
         game_state.message = "You hop.";
         return game_state;
