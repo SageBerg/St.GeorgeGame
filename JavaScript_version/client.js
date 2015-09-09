@@ -2,40 +2,13 @@
 
 var game_state = {};
 
-function random_int(n) {
-    return Math.floor(Math.random() * n);
-}
-
-function request_initial_world() {
-    $.get("request_initial_world.json", {}, handle_new_world);
-}
-
-function request_outcome_of_action(action) {
-    game_state.action = action;
-    $.get("request_outcome_of_action.json", 
-           game_state,
-           handle_new_world);
-}
-
-function get_destination(game_sate) {
-    var links = game_state.places[game_state.character.place].links;
-    var destination = links[random_int(links.length)];
-    return destination;
-}
-
-function get_weapon(game_state) {
-    var weapons = game_state.persons[game_state.character.person].sells   
-    var weapon  = weapons[random_int(weapons.length)];
-    return weapon;
-}
-
-var weapons_map = {
-    "dagger": "dagger",
-    "poison_dagger": "poison dagger",
-    "cutlass": "cutlass",
-    "jeweled_cutlass": "jeweled cutlass",
-    "hammer": "hammer",
-    "iron_hammer": "iron hammer"
+function a_execute() {
+    document.getElementById("a").style.color = "white";
+    if (game_state.options.a === "Play again.") {
+        request_initial_world();
+    } else {
+        request_outcome_of_action(game_state.options.a);
+    }
 }
 
 //TODO factor this out to helper_functions.js
@@ -50,31 +23,50 @@ function a_or_an(next_letter) {
     return "a";
 }
 
-// CREDITS: funcction based on top answer by community wiki at:
-// http://stackoverflow.com/questions/2450954/
-//        how-to-randomize-shuffle-a-javascript-array
-function scramble(text) {
-    for (var i in "?\"\'!.,:;") {
-        text = text.replace("?\"\'!.,:;"[i], "");
+function b_execute() {
+    document.getElementById("b").style.color = "white";
+    if (game_state.options.b === "Don't play again.") {
+        window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+    } else {
+        request_outcome_of_action(game_state.options.b);
     }
-    text = text.toLowerCase();
-    var array = text.split(" ");
-    var current_index = array.length, temporary_value, random_index ;
+}
 
-    while (0 !== current_index) {
-        random_index = Math.floor(Math.random() * current_index);
-        current_index -= 1;
-        temporary_value = array[current_index];
-        array[current_index] = array[random_index];
-        array[random_index] = temporary_value;
+function bind_keys() {
+    document.onkeypress = function(event) {
+        var ascii = event.which;
+        if (ascii == 49 || ascii == 65 || ascii == 97) {
+            a_execute();
+        } else if (ascii == 50 || ascii == 66 || ascii == 98) {
+            b_execute();
+        } else if (ascii == 51 || ascii == 67 || ascii == 99 
+                   && game_state.options.c !== "") {
+            execute("c");
+        } else if (ascii == 52 || ascii == 68 || ascii == 100
+                   && game_state.options.d !== "") {
+            execute("d");
+        } else if (ascii == 53 || ascii == 69 || ascii == 101
+                   && game_state.options.e !== "") {
+            execute("e");
+        }
     }
+}
 
-    var return_text = "";
-    for (var i = 0; i < array.length; i++) {
-        return_text += array[i] + " ";
-    }
+function execute(letter) {
+    document.getElementById(letter).style.color = "white";
+    request_outcome_of_action(game_state.options[letter]);
+}
 
-    return return_text;
+function get_weapon(game_state) {
+    var weapons = game_state.persons[game_state.character.person].sells   
+    var weapon  = weapons[random_int(weapons.length)];
+    return weapon;
+}
+
+function get_destination(game_sate) {
+    var links = game_state.places[game_state.character.place].links;
+    var destination = links[random_int(links.length)];
+    return destination;
 }
 
 function handle_new_world(resp) {
@@ -85,7 +77,6 @@ function handle_new_world(resp) {
         game_state.message += " You are dead."; 
     }
 
-    //$("#score").innerHTML = game_state.score;
     document.getElementById("score").innerHTML = "Score: " + game_state.score;
 
     for (var i = 0; i < 5; i++) {
@@ -124,6 +115,7 @@ function handle_new_world(resp) {
     } else {
         document.getElementById("b").innerHTML = "b. " + game_state.options.b;
     }
+    
 //Option c.
     if (game_state.options.c !== "") {
         if (game_state.options.c === "GO_TO") {
@@ -169,51 +161,59 @@ function handle_new_world(resp) {
         document.getElementById("e").innerHTML = "";
     }
 
+    bind_keys();
+
 }
 
-function main() {
-    request_initial_world();
-    //TODO see if you can break it by punching a key before the initial world has loaded 
-    document.onkeypress = function(event) {
-        var ascii = event.which;
-        if (ascii == 49 || ascii == 65 || ascii == 97) {
-            a_execute();
-        } else if (ascii == 50 || ascii == 66 || ascii == 98) {
-            b_execute();
-        } else if (ascii == 51 || ascii == 67 || ascii == 99 
-                   && game_state.options.c !== "") {
-            execute("c");
-        } else if (ascii == 52 || ascii == 68 || ascii == 100
-                   && game_state.options.d !== "") {
-            execute("d");
-        } else if (ascii == 53 || ascii == 69 || ascii == 101
-                   && game_state.options.e !== "") {
-            execute("e");
-        }
+function random_int(n) {
+    return Math.floor(Math.random() * n);
+}
+
+function request_initial_world() {
+    $.get("request_initial_world.json", {}, handle_new_world);
+}
+
+function request_outcome_of_action(action) {
+    game_state.action = action;
+    $.get("request_outcome_of_action.json", 
+           game_state,
+           handle_new_world);
+}
+
+// CREDITS: funcction based on top answer by community wiki at:
+// http://stackoverflow.com/questions/2450954/
+//        how-to-randomize-shuffle-a-javascript-array
+function scramble(text) {
+    for (var i in "?\"\'!.,:;") {
+        text = text.replace("?\"\'!.,:;"[i], "");
     }
-}
+    text = text.toLowerCase();
+    var array = text.split(" ");
+    var current_index = array.length, temporary_value, random_index ;
 
-function a_execute() {
-    document.getElementById("a").style.color = "white";
-    if (game_state.options.a === "Play again.") {
-        request_initial_world();
-    } else {
-        request_outcome_of_action(game_state.options.a);
+    while (0 !== current_index) {
+        random_index = Math.floor(Math.random() * current_index);
+        current_index -= 1;
+        temporary_value = array[current_index];
+        array[current_index] = array[random_index];
+        array[random_index] = temporary_value;
     }
-}
 
-function b_execute() {
-    document.getElementById("b").style.color = "white";
-    if (game_state.options.b === "Don't play again.") {
-        window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
-    } else {
-        request_outcome_of_action(game_state.options.b);
+    var return_text = "";
+    for (var i = 0; i < array.length; i++) {
+        return_text += array[i] + " ";
     }
+
+    return return_text;
 }
 
-function execute(letter) {
-    document.getElementById(letter).style.color = "white";
-    request_outcome_of_action(game_state.options[letter]);
+var weapons_map = {
+    "dagger": "dagger",
+    "poison_dagger": "poison dagger",
+    "cutlass": "cutlass",
+    "jeweled_cutlass": "jeweled cutlass",
+    "hammer": "hammer",
+    "iron_hammer": "iron hammer"
 }
 
-$(document).ready(main);
+$(document).ready(request_initial_world);
