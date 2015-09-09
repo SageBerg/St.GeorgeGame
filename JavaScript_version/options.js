@@ -179,56 +179,84 @@ function get_person_options(game_state, options) {
 }
 
 function get_outcome_options(game_state, options) {
-    if (game_state.outcome === "cannot_afford" ||
-        game_state.outcome === "cannot_tip_cow" ||
-        game_state.outcome === "dance_in_puddle" ||
-        game_state.outcome === "fail_at_new_career" ||
-        game_state.outcome === "fish_pirates_laugh" ||
-        game_state.outcome === "ignored" ||
-        game_state.outcome === "lose_ax" ||
-        game_state.outcome === "miss_olga" ||
-        game_state.outcome === "no_flowers" ||
-        game_state.outcome === "pirates_ruin_song" ||
-        game_state.outcome === "priest_disagrees" ||
-        game_state.outcome === "see_ship" ||
-        game_state.outcome === "think_pirates_laugh" ||
-        game_state.outcome === "train_thrown_out" ||
-        game_state.outcome === "waiting_for_seal" ||
-        game_state.outcome === "wake_up_robbed" ||
-        game_state.outcome === "wealthy_people_sneer" ||
-        game_state.outcome === "wizard_leaves_without_you") {
-        raffle.add(options.a, "Kill yourself in frustration.", 1);
-    } else if (game_state.outcome === "chop_down_tree") {
-        //raffle.add(options.a, "Thump yourself on the chest.", 1);
-        //raffle.add(options.c, "Celebrate your success.", 1);
-    } else if (game_state.outcome === "guards_stop_you_dancing") {
-        game_state.character.excuse = "happy";
-        raffle.add(options.d, "TELL_GUARDS", 10000);
-    } else if (game_state.outcome === "guards_stop_you_killing") {
-        game_state.character.excuse = "mad";
-        raffle.add(options.d, "TELL_GUARDS", 10000);
-    } else if (game_state.outcome === "guards_stop_you_licking") {
-        game_state.character.excuse = "hungry";
-        raffle.add(options.d, "TELL_GUARDS", 10000);
-    } else if (game_state.outcome === "guards_stop_you_rich") {
-        game_state.character.excuse = "rich";
-        raffle.add(options.d, "Tell the guards you're a lunatic.", 10000);
-    } else if (game_state.outcome === "guards_stop_you_singing") {
-        game_state.character.excuse = "talented";
-        raffle.add(options.d, "TELL_GUARDS", 10000);
-    } else if (game_state.outcome === "gambling_lose") {
-        raffle.add(options.a, "Kill everybody in a fit of rage.", 1);
-    } else if (game_state.outcome === "think_elaborate_scheme") {
-        raffle.add(options.b, "Enact your elaborate scheme.", 10000);
-    } else if (game_state.outcome === "no_progress_swimming" ||
-               game_state.outcome === "see_ship") {
-        raffle.add(options.c, "Keep swimming.", 10000);
-    } else if (game_state.outcome === "keep_swimming") {
-        raffle.add(options.c, "Just keep swimming.", 10000);
-    } else if (game_state.outcome === "see_wizard_with_penguins") {
-        raffle.add(options.a, "Yell \"Don't leave without me!\"", 10000);
-    } else if (game_state.outcome === "wizard_wants_mushroom") {
-        raffle.add(options.a, "Give the wizard what he wants.", 10000);
+
+    switch (game_state.outcome) {
+        case "cannot_afford":
+        case "cannot_tip_cow":
+        case "dance_in_puddle":
+        case "fail_at_new_career":
+        case "fish_pirates_laugh":
+        case "ignored":
+        case "lose_ax":
+        case "miss_olga":
+        case "no_flowers":
+        case "pirates_ruin_song":
+        case "priest_disagrees":
+        case "see_ship":
+        case "think_pirates_laugh":
+        case "train_thrown_out":
+        case "waiting_for_seal":
+        case "wake_up_robbed":
+        case "wealthy_people_sneer":
+        case "wizard_leaves_without_you":
+            raffle.add(options.a, "Kill yourself in frustration.", 1);
+            raffle.add(options.c, "Leave in a huff.", 1);
+            break;
+
+        case "chop_down_tree":
+            //raffle.add(options.a, "Thump yourself on the chest.", 1);
+            //raffle.add(options.c, "Celebrate your success.", 1);
+            break;
+
+        case "guards_stop_you_dancing":
+            game_state.character.excuse = "happy";
+            raffle.add(options.d, "TELL_GUARDS", 10000);
+            break;
+
+        case "guards_stop_you_killing":
+            game_state.character.excuse = "mad";
+            raffle.add(options.d, "TELL_GUARDS", 10000);
+            break;
+
+        case "guards_stop_you_licking":
+            game_state.character.excuse = "hungry";
+            raffle.add(options.d, "TELL_GUARDS", 10000);
+            break;
+
+        case "guards_stop_you_rich":
+            game_state.character.excuse = "rich";
+            raffle.add(options.d, "Tell the guards you're a lunatic.", 10000);
+            break;
+
+        case "guards_stop_you_singing":
+            game_state.character.excuse = "talented";
+            raffle.add(options.d, "TELL_GUARDS", 10000);
+            break;
+
+        case "gambling_lose":
+            raffle.add(options.a, "Kill everybody in a fit of rage.", 1);
+            break;
+
+        case "think_elaborate_scheme":
+            raffle.add(options.b, "Enact your elaborate scheme.", 10000);
+            break;
+
+        case "no_progress_swimming":
+        case "see_ship":
+            raffle.add(options.c, "Keep swimming.", 10000);
+            break;
+
+        case "keep_swimming":
+            raffle.add(options.c, "Just keep swimming.", 10000);
+            break;
+
+        case "see_wizard_with_penguins":
+            raffle.add(options.a, "Yell \"Don't leave without me!\"", 10000);
+            break;
+
+        case "wizard_wants_mushroom":
+            raffle.add(options.a, "Give the wizard what he wants.", 10000);
+            break;
     }
 }
 
