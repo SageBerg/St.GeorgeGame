@@ -1668,6 +1668,12 @@ var outcomes = {
             "You manage to stay afloat.",
         ] 
         game_state.message = messages[random_int(messages.length)];
+        if (game_state.character.items.cat === 1) {
+            game_state.message += " Your cat drowns.";
+        } else if (game_state.character.items.cat > 1) {
+            game_state.message += " Your cats drown.";
+        }
+        game_state.character.items.cat = 0;
         return game_state;
     },
 
