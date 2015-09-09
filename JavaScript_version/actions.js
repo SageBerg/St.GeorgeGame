@@ -617,6 +617,12 @@ exports.actions = {
     
     //p
 
+    "Panic!": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "panic_and_die", 2);
+        raffle.add(possible_outcomes, "panic_and_escape", 1);
+        return possible_outcomes;
+    },
+
     "Play dead.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "play_dead_and_die", 3);
         raffle.add(possible_outcomes, "play_dead_works", 1);

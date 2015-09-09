@@ -4,6 +4,7 @@ var raffle = require("./raffle");
 var items  = require("./items");
 
 exports.get_options = function get_options(game_state) {
+
     var options = {"a": {}, "b": {}, "c": {}, "d": {} };
     if (game_state.character.is_dead || marriage_victory(game_state)) {
         set_game_over_options(options);
@@ -53,7 +54,7 @@ exports.get_options = function get_options(game_state) {
         ] 
         game_state.message += messages[random_int(messages.length)];
         set_game_over_options(options);
-    } else if (Math.floor(Math.random() * 128) === 0 && 
+    } else if (Math.floor(Math.random() * 256) === 0 && 
                game_state.places[game_state.character.place].burnable === true)
     { set_pyro_options(options);
     } else {
@@ -94,6 +95,7 @@ exports.starting_options = {"a": "Ask about assassins.",
                             "e": ""};
 
 function burned_everything_victory(game_state) {
+
     for (var place in game_state.places) {
         if (game_state.places[place].burnable) {
             return false;
@@ -104,17 +106,21 @@ function burned_everything_victory(game_state) {
 } 
 
 function get_character_options(game_state, options) {
+
     if (game_state.places[game_state.character.place].locked === false &&
         game_state.character.is_threatened === false) {
         raffle.add(options.c, "GO_TO", 2);
     }
+
     if (game_state.character.is_threatened === true) {
         if (game_state.character.person !== "guards") {
             raffle.add(options.b, "Play dead.", 5);
+            raffle.add(options.d, "Panic!", 1);
         }
         raffle.add(options.c, "Run like the Devil.", 90);
         raffle.add(options.c, "Waddle like God.", 10);
     }
+
     if (game_state.character.money === "large_fortune" ||
         game_state.character.money === "small_fortune" ||
         game_state.places[game_state.character.place].town === true
@@ -124,6 +130,7 @@ function get_character_options(game_state, options) {
 }
 
 function get_default_options(game_state, options) {
+
     raffle.add(options.a, "Think.", 1);
     if (game_state.character.place !== "void") {
         raffle.add(options.a, "Lick the ground.", 1);
@@ -136,6 +143,7 @@ function get_default_options(game_state, options) {
 }
 
 function get_item_options(game_state, options) {
+
     if (game_state.character.items["many colored mushroom"] > 0) {
         raffle.add(options.d, "Chow down on your many colored mushroom.", 1);
     }
@@ -155,12 +163,15 @@ function get_item_options(game_state, options) {
 }
 
 function get_person_options(game_state, options) {
+
     if (game_state.character.person !== null) {
         raffle.add(options.a, "Attack", 10);
     }
+
     if (game_state.character.person !== null) {
         raffle.add(options.b, "Boast of your bravery.", 1);
     }
+
     if (
         game_state.character.person === "eve" ||
         game_state.character.person === "felicty" ||
@@ -170,9 +181,11 @@ function get_person_options(game_state, options) {
        ) {
         raffle.add(options.d, "Flirt with", 10000); //TODO
     }
+
     if (game_state.character.person === "st_george") {
         raffle.add(options.b, "Beg for money.", 10);
     }
+
     if (game_state.character.person === "war_merchant") {
         raffle.add(options.d, "Buy a weapon.", 10000);
     }
@@ -261,6 +274,7 @@ function get_outcome_options(game_state, options) {
 }
 
 function get_place_options(game_state, options) {
+
     if (game_state.places[game_state.character.place].burnable) {
         raffle.add(options.b, "BURN", 1);
     }
@@ -307,7 +321,7 @@ function get_place_options(game_state, options) {
         raffle.add(options.a, "Look for a weapon.", 10);
         if (game_state.persons.wizard.alive === true && 
             game_state.character.person !== "wizard") {
-            raffle.add(options.b, "Look for the wizard.", 1000); //TODO
+            raffle.add(options.b, "Look for the wizard.", 1);
         }
         //raffle.add(options.c, "Go shopping.", 2);
         //raffle.add(options.d, "Watch a play.", 2);
@@ -358,6 +372,7 @@ function get_place_options(game_state, options) {
 }
 
 function lords_victory(game_state) {
+
     if (game_state.persons.lord_arthur.alive === false ||
         game_state.persons.lord_bartholomew.alive === false ||
         game_state.persons.lord_carlos.alive === false ||
@@ -369,6 +384,7 @@ function lords_victory(game_state) {
 } 
 
 function marriage_victory(game_state) {
+
     if (game_state.character.has_found_true_love) {
         game_state.score = parseInt(game_state.score) + 100;
         return true;
@@ -377,10 +393,12 @@ function marriage_victory(game_state) {
 }
 
 function random_int(n) {
+
     return Math.floor(Math.random() * n);
 }
 
 function set_game_over_options(options) {
+
     options.a = "Play again.";
     options.b = "Don't play again.";
     options.c = "";
@@ -389,6 +407,7 @@ function set_game_over_options(options) {
 }
 
 function set_pyro_options(options) {
+
     options.a = "Fill the place with fire.";
     options.b = "Ignite an inferno.";
     options.c = "Release your inner arsonist.";

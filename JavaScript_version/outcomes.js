@@ -14,6 +14,7 @@ exports.get_outcome = function get_outcome(game_state) {
         game_state.action !== "Attack" &&
         game_state.action !== "Enter the void." &&
         game_state.action !== "Leave in a puff." &&
+        game_state.action !== "Panic!" &&
         game_state.action !== "Play dead." &&
         game_state.action !== "Run like the Devil." &&
         game_state.action !== "TELL_GUARDS" &&
@@ -182,6 +183,20 @@ function random_choice(array) {
 
 function random_int(n) {
     return Math.floor(Math.random() * n);
+}
+
+function teleport(game_state) {
+    var place_list = [];
+    for (var place in game_state.places) {
+        if (game_state.places[place] !== 
+            game_state.places[game_state.character.place] &&
+            place !== "void") {
+            place_list.push(place);
+        }
+    }
+    var roll = random_int(place_list.length);
+    var destination = place_list[roll];
+    move_character(game_state, destination);
 }
 
 var he_she_they = {
@@ -1393,17 +1408,7 @@ var outcomes = {
 
     "left_in_a_puff": function(game_state) {
         game_state.message = "";
-        var place_list = [];
-        for (var place in game_state.places) {
-            if (game_state.places[place] !== 
-                game_state.places[game_state.character.place] &&
-                place !== "void") {
-                place_list.push(place);
-            }
-        }
-        var roll = random_int(place_list.length);
-        var destination = place_list[roll];
-        move_character(game_state, destination);
+        teleport(game_state);
         return game_state;
     },
 
@@ -1644,6 +1649,23 @@ var outcomes = {
     //o
     
     //p
+
+    "panic_and_die": function(game_state) {
+        var messages = [
+            "Panicking doesn't save you.",
+            "Panicking doesn't help.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
+        return game_state;
+    },
+
+    "panic_and_escape": function(game_state) {
+        game_state.message = "You don't remember what you did, but you " +
+            "somehow escaped.";
+        teleport(game_state);
+        return game_state;
+    },
 
     "pick_many_colored_mushroom": function(game_state) {
         game_state.message = "You pick a many colored mushroom.";
