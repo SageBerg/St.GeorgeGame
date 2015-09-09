@@ -47,7 +47,7 @@ exports.get_options = function get_options(game_state) {
         ] 
         game_state.message += messages[random_int(messages.length)];
         set_game_over_options(options);
-    } else if (Math.floor(Math.random() * 128) === 0 && 
+    } else if (Math.floor(Math.random() * 1) === 0 && 
                game_state.places[game_state.character.place].burnable === true)
     { set_pyro_options(options);
     } else {
@@ -276,6 +276,13 @@ function get_place_options(game_state, options) {
         raffle.add(options.c, "Go fishing.", 20000); //TODO
         raffle.add(options.d, "Do some gambling.", 2);
     }
+    if (game_state.character.place === "lord_bartholomew_manor") {
+        //raffle.add(options.a, "Ask for an audience with Lord Bartholomew.", 4);
+    }
+    if (game_state.character.place === "lord_carlos_manor") {
+        //raffle.add(options.a, "Ask for an audience with Lord Carlos.", 4);
+        //raffle.add(options.d, "Sneak around.", 4);
+    }
     if (game_state.character.place === "market" &&
         game_state.character.person !== "war_merchant") {
         raffle.add(options.a, "Look for a weapon.", 10);
@@ -287,7 +294,7 @@ function get_place_options(game_state, options) {
         //raffle.add(options.a, "Look for mermaids.", 10);
         raffle.add(options.c, "Swim.", 20);
         raffle.add(options.b, "Sink.", 10);
-        //raffle.add(options.d, "Dive for pearls.", 5);
+        raffle.add(options.d, "Dive for pearls.", 5);
         raffle.add(options.d, "Drown.", 1);
     }
     if (game_state.character.place === "streets") {
@@ -304,7 +311,7 @@ function get_place_options(game_state, options) {
         }
     }
     if (game_state.character.place === "tower") {
-        //raffle.add(options.c, "Sneak around.", 4);
+        //raffle.add(options.a, "Ask for an audience with Lord Daniel.", 4);
         raffle.add(options.d, "Train with the guards.", 4);
     }
     if (game_state.character.place === "void") {

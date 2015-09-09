@@ -287,7 +287,7 @@ var outcomes = {
             "A nearby tree falls over. You now have more sunlight and grow " +
             "stronger.",
             "Steady rains and a mild winter help you grow stronger.",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         game_state.character.person = null;
         return game_state;
@@ -298,7 +298,7 @@ var outcomes = {
             "A swarm of caterpillars eats all of your leaves.",
             "You perish in a forest fire.",
             "You catch a bad case of root rot.",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         die(game_state);
         return game_state;
@@ -346,7 +346,7 @@ var outcomes = {
         var messages = [
             "You can't figure out how to build an igloo.",
             "You build an igloo, but it collapses after a snowstorm.",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         game_state.character.person = null;
         return game_state;
@@ -371,7 +371,7 @@ var outcomes = {
             "back up.",
             "You can't find any cows. Only sheep.",
             "You're not strong enough to push the cow over.",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         game_state.character.person = null;
         return game_state;
@@ -381,7 +381,7 @@ var outcomes = {
         var messages = [
             "You find a mob of peasant children about to perform a cat " +
             "burning.",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         game_state.character.person = null;
         return game_state;
@@ -390,7 +390,7 @@ var outcomes = {
     "catch_a_lot_of_fish": function(game_state) {
         var messages = [
             "You catch a lot of fish.",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         game_state.character.items.fish += 3;
         game_state.character.person = null;
@@ -401,7 +401,7 @@ var outcomes = {
         var messages = [
             "You hook a big fish, but it pulls you into the water. " +
             "You are soon lost amid the waves and lose sight of land.",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         move_character(game_state, "ocean");
         return game_state;
@@ -411,7 +411,7 @@ var outcomes = {
         var messages = [
             "Your efforts prove successful.",
             "You feed yourself for a day.",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         get_item(game_state, "fish");
         game_state.character.person = null;
@@ -470,7 +470,7 @@ var outcomes = {
         var messages = [
             "A tree falls in the forest. You hear it.",
             "The tree crashes to the ground.",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         return game_state;
     },
@@ -480,7 +480,7 @@ var outcomes = {
             "The tree falls on you.",
             "A nymph hexes you. Throwing yourself in a pond suddenly seems " +
             "like a good idea.",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         clover(game_state);
         return game_state;
@@ -490,7 +490,7 @@ var outcomes = {
         var messages = [
             "After a few days of waiting at a hole in the ice, you manage " +
             "to club a seal.",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         get_item(game_state, "seal carcass");
         return game_state;
@@ -514,7 +514,7 @@ var outcomes = {
         var messages = [
             "You have a grand old time.",
             "You get sweaty.",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         return game_state;
     },
@@ -525,7 +525,7 @@ var outcomes = {
             "ground, try to catch yourself, but break your wrist, " +
             "hit your head on the ground and break your neck.",
             "You dance so vigorously you become exhausted and die.",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         clover(game_state);
         return game_state;
@@ -534,7 +534,7 @@ var outcomes = {
     "dance_and_drown": function(game_state) {
         var messages = [
             "You drown trying to dance a jig.",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         die(game_state);
         return game_state;
@@ -546,7 +546,7 @@ var outcomes = {
             "death.",
             "You fall through the ice while dancing. You quickly freeze to " +
             "death.",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         die(game_state);
         return game_state;
@@ -555,7 +555,7 @@ var outcomes = {
     "dance_and_slip": function(game_state) {
         var messages = [
             "You slip on a rock and fall to your death in the darkness.",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         die(game_state);
         return game_state;
@@ -564,7 +564,7 @@ var outcomes = {
     "dance_fails_to_cheer": function(game_state) {
         var messages = [
             "Dancing fails to cheer you up.",
-        ] 
+        ]; 
         game_state.message = messages[random_int(messages.length)];
         return game_state;
     },
@@ -574,7 +574,7 @@ var outcomes = {
             "The locals are entertained by your antics and toss " +
             "you some coins.",
             "A noble takes pitty on you and gives some money.",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         get_money(game_state, "pittance");
         return game_state;
@@ -583,7 +583,7 @@ var outcomes = {
     "dance_in_puddle": function(game_state) {
         var messages = [
             "You dance through a puddle and get your britches wet.",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         return game_state;
     },
@@ -591,7 +591,7 @@ var outcomes = {
     "dance_with_goblins": function(game_state) {
         var messages = [
             "Some goblins dance with you and then kill you.",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         die(game_state);
         return game_state;
@@ -603,7 +603,7 @@ var outcomes = {
             random_choice(["an ode to", "about", "a song about",
                            "the praises of"]) +
             " Lord Bartholomew.",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         return game_state;
     },
@@ -616,7 +616,7 @@ var outcomes = {
             " dance with you and then " +
             random_choice(["fade away", "disappear", "scatter"]) +
             ".",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         return game_state;
     },
@@ -627,7 +627,7 @@ var outcomes = {
             "You are soon mauled.",
             "After a few days of waiting at a hole in the ice, you freeze " +
             "do death.",
-        ] 
+        ]; 
         game_state.message = messages[random_int(messages.length)];
         clover(game_state);
         return game_state;
@@ -635,6 +635,31 @@ var outcomes = {
 
     "distasteful": function(game_state) {
         game_state.message = "You find the flavor of the ground distasteful.";
+        return game_state;
+    },
+
+    "dive_and_die": function(game_state) {
+        var messages = [
+            "You die on a fool's errand.",
+            "You find a beautiful pearl in an oyster. It's so beautiful in " +
+            "fact, that you drown while staring at it.",
+            "You run out of air and black out right before you get back to " +
+            "the surface.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
+        return game_state;
+    },
+
+    "dive_saved_by_mermaid": function(game_state) {
+        var messages = [
+            "You become exhausted diving for pearls and are about to pass " +
+            "out when a beautiful mermaid grabs ahold of you and takes you " +
+            "to land.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        move_character(game_state, "mermaid_rock");
+        game_state.character.person = "mermaid";
         return game_state;
     },
 
@@ -984,6 +1009,12 @@ var outcomes = {
             "nothingness.",
         ] 
         game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "get_pearl": function(game_state) {
+        game_state.message = "You soon find a pearl in an oyster.";
+        get_item(game_state, "pearl");
         return game_state;
     },
 
@@ -1760,7 +1791,7 @@ var outcomes = {
     "see_ship": function(game_state) {
         var messages = [
             "You see a ship in the distance. You are unable to reach it.",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         return game_state;
     },
@@ -1769,7 +1800,7 @@ var outcomes = {
         var messages = [
             "While you are waiting to freeze to death, you notice " +
             "the wizard dropping off a boatload of penguins.",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         return game_state;
     },
@@ -1787,7 +1818,7 @@ var outcomes = {
             "You sing a song about Lord Bartholomew, leader of the peasants.",
             "You sing a song about Lord Carlos, kingpin of the assassins.",
             "You sing a song about Lord Daniel, leader of the guards."
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         return game_state;
     },
@@ -1797,7 +1828,7 @@ var outcomes = {
             "This is no place for merry-making. You are soon assassinated.",
             "Your singing alerts Lord Carlos' men to your presense. " +
             "You are soon assassinated.",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         game_state.character.is_dead = true;
         return game_state;
@@ -1820,7 +1851,7 @@ var outcomes = {
         var messages = [
             "Olga interupsts your song by kissing you.",
             "You sing a romantic ballad. Olga is impressed.",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         game_state.persons.olga.attracted += 1;
         return game_state;
@@ -1847,7 +1878,7 @@ var outcomes = {
             "with his iron hammer.",
             "St. George smites you with his saintly wrath for being " + 
             "ungreatful.",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         die(game_state);
         return game_state;
@@ -1909,7 +1940,7 @@ var outcomes = {
             "You become exhausted and sink into the depths.",
             "You're in way over your head.",
             "You get eaten by a swarm of sharks.",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         die(game_state);
         return game_state;
@@ -2107,7 +2138,7 @@ var outcomes = {
         var messages = [
             "You accidently put your helmet on backwards and trip over a " +
             "balcony railing.",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         die(game_state);
         return game_state;
@@ -2122,7 +2153,7 @@ var outcomes = {
             "You run like the Devil and outrun the other guards during " +
             "running practice.", 
             "You hit the bulls eye during archery practice.",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         game_state.message += " Training has made you stronger.";
         game_state.character.person = "guards";
@@ -2138,7 +2169,7 @@ var outcomes = {
             "to success. You grow stronger.",
             "The guards leave you in the dust during running practice, but " +
             "you grow stronger.",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         game_state.character.person = "guards";
         game_state.character.strength += 1;
@@ -2162,7 +2193,7 @@ var outcomes = {
         var messages = [
             "You manage to club a seal, but it swims away.",
             "While waiting for a seal, you get very cold.",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         return game_state;
     },
@@ -2174,7 +2205,7 @@ var outcomes = {
             "You have a wonderful dream that you are in bed with Lord " +
             "Carlos' daughter.",
             "You dream of fire.",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         game_state.character.person = null;
         return game_state;
@@ -2286,7 +2317,7 @@ var outcomes = {
     "witch_burning": function(game_state) {
         var messages = [
             "You find a mob of peasants about to perform a witch burning.",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         game_state.character.person = null;
         return game_state;
@@ -2304,7 +2335,7 @@ var outcomes = {
             "The wizard ignores you and sails away before you can " +
             "get to his boat.",
             "The wizard leaves without you.",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         return game_state;
     },
@@ -2326,7 +2357,7 @@ var outcomes = {
             "is not pleased.",
             "You have a meal together.",
             "She plays with your hair while you talk of your exploits."
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         game_state.persons["olga"].attracted += 1;
         if (game_state.persons["olga"].attracted > 2 && 
@@ -2346,7 +2377,7 @@ var outcomes = {
             "Olga whispers that she's been stalking you.",
             "You both stay up late talking by candlelight.",
             "Olga tells you her life story. Half of it seems made up.",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         game_state.persons["olga"].attracted += 1;
         if (game_state.persons["olga"].attracted > 5) {
@@ -2364,7 +2395,7 @@ var outcomes = {
     "you_get_mobbed": function(game_state) {
         var messages = [
             "The local peasants mob you. They take your money and your life.",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         die(game_state);
         return game_state;
@@ -2380,7 +2411,7 @@ var outcomes = {
             "You space out while " + 
             get_name(game_state) + " " + conjugate(game_state, "talk") +
             " about Lord Bartholomew.",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         return game_state;
     },
