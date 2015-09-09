@@ -151,7 +151,8 @@ exports.places = {
     "streets":
     {
         "burnable":  false,
-        "links":     ["church", "countryside", "market", "tavern", "tower"],
+        "links":     ["church", "countryside", "dark_alley", "market", 
+                      "tavern", "tower"],
         "locked":    false,
         "name":      "the streets",
         "outside":   true,
