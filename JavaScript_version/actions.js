@@ -7,6 +7,11 @@ exports.actions = {
 
     //a
 
+    "Anna.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "anna_death", 1);
+        return possible_outcomes;
+    },
+
     "Annihilate everything.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "apocalypse", 1);
         return possible_outcomes;
@@ -38,6 +43,11 @@ exports.actions = {
         raffle.add(possible_outcomes, "st_george_kills_you", 1)
             :
         raffle.add(possible_outcomes, "st_george_gives_you_money", 1);
+        return possible_outcomes;
+    },
+
+    "Beth.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "beth_death", 1);
         return possible_outcomes;
     },
 
@@ -80,6 +90,11 @@ exports.actions = {
     },
 
     //c
+
+    "Cass.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "cass_answer", 1);
+        return possible_outcomes;
+    },
 
     "Chop down a tree with your ax.": 
     function(game_state, possible_outcomes) {
@@ -182,6 +197,11 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Dina.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "dina_death", 1);
+        return possible_outcomes;
+    },
+
     "Dive for pearls.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "dive_and_die", 3);
         raffle.add(possible_outcomes, "get_pearl", 1);
@@ -264,6 +284,11 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Eve.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "right_name", 1);
+        return possible_outcomes;
+    },
+
     "Exit the void.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "left_in_a_puff", 1);
         return possible_outcomes;
@@ -298,7 +323,18 @@ exports.actions = {
             } else {
                 raffle.add(possible_outcomes, "wowed_olga_upstairs", 1);
             }
+        } else if (game_state.character.person === "eve") {
+            raffle.add(possible_outcomes, "wowed_eve", 8);
+            raffle.add(possible_outcomes, "killed_by_eve", 1);
+            raffle.add(possible_outcomes, "eve_name", 1);
+            raffle.add(possible_outcomes, "eve_loses_you_in_woods", 1);
         }
+
+        if (game_state.character.person === "eve" && 
+            game_state.persons.eve.attracted >= 4) {
+            raffle.add(possible_outcomes, "forced_to_marry_eve", 100);
+        }
+
         return possible_outcomes;
     },
 
@@ -707,6 +743,21 @@ exports.actions = {
     "Sink.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "drown", 3);
         raffle.add(possible_outcomes, "saved_by_mermaid", 1);
+        return possible_outcomes;
+    },
+
+    "Sneak around.": function(game_state, possible_outcomes) {
+        if (game_state.character.place === "lord_carlos_manor") {
+            //raffle.add(possible_outcomes, "sneak_and_die", 4);
+            //raffle.add(possible_outcomes, "get_poison_dagger", 1);
+            if (game_state.persons.lord_carlos.alive === true) {
+                //raffle.add(possible_outcomes, "killed_by_lord_carlos", 1);
+                //raffle.add(possible_outcomes, "meet_lord_carlos", 1);
+            }
+            if (game_state.persons.eve.alive === true) {
+                raffle.add(possible_outcomes, "meet_eve", 4);
+            }
+        }
         return possible_outcomes;
     },
 

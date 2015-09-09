@@ -7,6 +7,12 @@ exports.get_options = function get_options(game_state) {
     var options = {"a": {}, "b": {}, "c": {}, "d": {} };
     if (game_state.character.is_dead || marriage_victory(game_state)) {
         set_game_over_options(options);
+    } else if (game_state.outcome === "eve_name") {
+        options.a = "Anna.";
+        options.b = "Beth.";
+        options.c = "Cass.";
+        options.d = "Dina.";
+        options.e = "Eve.";
     } else if (game_state.character.is_frog) {
         options.a = "Ribbit.";
         options.b = "Hop.";
@@ -159,7 +165,7 @@ function get_person_options(game_state, options) {
         game_state.character.person === "nymph_queen" ||
         game_state.character.person === "olga"
        ) {
-        raffle.add(options.d, "Flirt with", 10);
+        raffle.add(options.d, "Flirt with", 10000); //TODO
     }
     if (game_state.character.person === "st_george") {
         raffle.add(options.b, "Beg for money.", 10);
@@ -273,7 +279,7 @@ function get_place_options(game_state, options) {
         raffle.add(options.d, "Do some farm work.", 2);
     }
     if (game_state.character.place === "docks") {
-        raffle.add(options.c, "Go fishing.", 20000); //TODO
+        raffle.add(options.c, "Go fishing.", 2);
         raffle.add(options.d, "Do some gambling.", 2);
     }
     if (game_state.character.place === "lord_bartholomew_manor") {
@@ -281,7 +287,7 @@ function get_place_options(game_state, options) {
     }
     if (game_state.character.place === "lord_carlos_manor") {
         //raffle.add(options.a, "Ask for an audience with Lord Carlos.", 4);
-        //raffle.add(options.d, "Sneak around.", 4);
+        raffle.add(options.d, "Sneak around.", 4);
     }
     if (game_state.character.place === "market" &&
         game_state.character.person !== "war_merchant") {

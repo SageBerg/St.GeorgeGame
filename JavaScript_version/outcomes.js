@@ -209,6 +209,13 @@ var outcomes = {
         return game_state;
     },
 
+    "anna_death": function(game_state) {
+        game_state.message = "Wrong answer. Lord Carlos' daughter " +
+            "assassinates you.";
+        game_state.character.is_dead = true;
+        return game_state;
+    },
+
     "apocalypse": function(game_state) {
         game_state.message =
             "You start annihilating everything, but the Four Horsemen of " +
@@ -304,6 +311,14 @@ var outcomes = {
         return game_state;
     },
 
+    "beth_death": function(game_state) {
+        game_state.message = "Lord Carlos' daughter shakes her head. \"" +
+            "What a shame, I was beginning to like you,\" she says before " +
+            "assassinating you.";
+        game_state.character.is_dead = true;
+        return game_state;
+    },
+
     "blessed": function(game_state) {
         game_state.message = "A priestess blesses you.";
         game_state.character.person = "priestess";
@@ -374,6 +389,13 @@ var outcomes = {
         ];
         game_state.message = messages[random_int(messages.length)];
         game_state.character.person = null;
+        return game_state;
+    },
+
+    "cass_answer": function(game_state) {
+        game_state.message = "Lord Carlos' daughter wrinkles her nose in " +
+            "disgust. \"Not even close.\" she says.";
+        game_state.character.is_threatened = true;
         return game_state;
     },
 
@@ -633,6 +655,13 @@ var outcomes = {
         return game_state;
     },
 
+    "dina_death": function(game_state) {
+        game_state.message = "Lord Carlos' daughter is appalled. \"Dina " +
+            "is my mother,\" she says. You are soon assassinated.";
+        die(game_state);
+        return game_state;
+    },
+
     "distasteful": function(game_state) {
         game_state.message = "You find the flavor of the ground distasteful.";
         return game_state;
@@ -740,6 +769,26 @@ var outcomes = {
         }
         move_character(game_state, 
                        get_random_adjacent_destination(game_state));
+        return game_state;
+    },
+
+    "eve_loses_you_in_woods": function(game_state) {
+        var messages = [
+            "She says she wants to make love to you in the woods, " +
+            "but when you go out in the woods, you lose track of her. " +
+            "She doesn't come back for you.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        move_character(game_state, "woods");
+        return game_state;
+    },
+
+    "eve_name": function(game_state) {
+        var messages = [
+            "She asks if you even remember her name. " +
+            "You say, \"Of course I remember your name. It's...\"",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
         return game_state;
     },
 
@@ -866,7 +915,7 @@ var outcomes = {
 
     "fish_pirates_laugh": function(game_state) {
         game_state.message = "Some pirates notice you fishing. One of them " +
-            "says \"You'll never get a large fortune like that.\" The " +
+            "says, \"You'll never get a large fortune like that.\" The " +
             "pirates laugh.";
         game_state.character.person = "pirates";
         return game_state;
@@ -889,6 +938,22 @@ var outcomes = {
     "fly_tastes_good": function(game_state) {
         game_state.message = "The fly tastes better than any human food " +
             "ever did.";
+        return game_state;
+    },
+
+    "forced_to_marry_eve": function(game_state) {
+        game_state.message = 
+            "Your suave advances lead to several rounds of passionate " +
+            "sex with Lord Carlos' daughter that night. Unfortunately, " +
+            "you don't wake up at " +
+            "dawn. You wake up in the middle of the night when two " +
+            "hooded assassins kidnap you take you to a dungeon full " +
+            "of torture devices. They are about to put you in an " +
+            "iron maiden when they take off their hoods and reveal " +
+            "that they are Lord Carlos' daughter and a priest. The " +
+            "priest officiates your wedding. You and Lord Carlos' " +
+            "daughter live happily ever after.";
+        game_state.character.has_found_true_love = true;
         return game_state;
     },
 
@@ -1269,7 +1334,7 @@ var outcomes = {
                 "crisp.");
         }
         game_state.message = messages[random_int(messages.length)];
-        game_state.character.is_dead = true;
+        die(game_state);
         return game_state;
     },
 
@@ -1279,14 +1344,22 @@ var outcomes = {
             "You make no exceptions.",
         ];
         game_state.message = messages[random_int(messages.length)];
-        game_state.character.is_dead = true;
+        die(game_state);
         return game_state;
     },
 
     "killed_by_dragon": function(game_state) {
         game_state.message = "Everything was going fine until you tried to " +
             "get a dragon to do your biding.";
-        game_state.character.is_dead = true;
+        die(game_state);
+        return game_state;
+    },
+
+    "killed_by_eve": function(game_state) {
+        game_state.message = "Lord Carlos' daughter laughs at your jokes " +
+            "and serves you some wine. The wine is actually just a bunch " +
+            "poison.";
+        die(game_state);
         return game_state;
     },
 
@@ -1294,7 +1367,7 @@ var outcomes = {
         game_state.message =
             "You throw out your arm destroying the first three " + 
             "civilizations and an opportunistic hero slays you.";
-        game_state.character.is_dead = true;
+        die(game_state);
         return game_state;
     },
 
@@ -1302,7 +1375,7 @@ var outcomes = {
         game_state.message =
             "When you squeeze her butt, she stabs you in the heart with a " +
             "poisoned dagger.";
-        game_state.character.is_dead = true;
+        die(game_state);
         return game_state;
     },
 
@@ -1311,7 +1384,7 @@ var outcomes = {
             "You wreak havoc on a titanic scale, but you eventually fall " +
             "asleep. By the time you wake up, science has advanced so much " +
             "that the world government simply nukes you into oblivion.";
-        game_state.character.is_dead = true;
+        die(game_state);
         return game_state;
     },
 
@@ -1420,6 +1493,20 @@ var outcomes = {
         return game_state;
     },
 
+    "meet_eve": function(game_state) {
+        game_state.message = "You manage to sneak into Lord Carlos' " +
+            "daughter's bedroom. She is " + 
+            random_choice(["brushing her hair", 
+                           "painting a picture of you getting assassinated",
+                           "petting her cat", "polishing a pearl",
+                           "putting on jewelry", "reading on her bed", 
+                           "sharpening a dagger",
+                           "squinting at herself in the mirror",
+            ]) + ".";
+        game_state.character.person = "eve";
+        return game_state;
+    },
+
     "meet_nymph_queen": function(game_state) {
         game_state.message = "You find the nymph queen. " +
             "She turns you into a shrub.";
@@ -1468,7 +1555,7 @@ var outcomes = {
     },
 
     "miss_eve": function(game_state) {
-        game_state.message = "Eve dodges your love potion and throws a " +
+        game_state.message = "She dodges your love potion and throws a " +
             "dagger at you. You don't dodge.";
         die(game_state);
         return game_state;
@@ -1601,7 +1688,7 @@ var outcomes = {
         var messages = [
             "The priest runs off crying.",
             "\"Food is my only indulgence,\" he says proudly.",
-            "He says \"Only God can judge me.\"",
+            "He says, \"Only God can judge me.\"",
         ];
         game_state.message = messages[random_int(messages.length)];
         return game_state;
@@ -1762,6 +1849,11 @@ var outcomes = {
         return game_state;
     },
 
+    "right_name": function(game_state) {
+        game_state.message = "Lord Carlos' daughter smirks.";
+        return game_state;
+    },
+
     //s
 
     "saved_by_inuits": function(game_state) {
@@ -1854,6 +1946,20 @@ var outcomes = {
         ];
         game_state.message = messages[random_int(messages.length)];
         game_state.persons.olga.attracted += 1;
+        return game_state;
+    },
+
+    "sneak_and_die": function(game_state) {
+        var messages = [
+            "One of the assassin guards sees you tiptoeing around in " +
+            "broad daylight. He assassinates you.",
+            "Your smell gives you away. You are soon assassinated.",
+            "You get the hiccups. You are soon assassinated.",
+            "You are sneaking through the stables when a man too fat to " +
+            "avoid bumps into you. You are soon assassinated.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
         return game_state;
     },
 
@@ -2337,6 +2443,30 @@ var outcomes = {
             "The wizard leaves without you.",
         ];
         game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "wowed_eve": function(game_state) {
+        var messages = [
+            "She asks you to prove your devotion to her by cleaning her " +
+            "room. She seems pleased with your work.",
+            "She ignores your innuendos, but lets you come to the river " +
+            "with her so she can drown a bag of kittens.",
+            "She lets you live with her for a few months under the " +
+            "condition that she gets to treat you poorly.",
+            "She tells you to hide in a chest, because she thinks her " +
+            "father is coming. She locks you in the chest and doesn't " +
+            "let you out for a week.",
+            "When you try to get close to her, she trips you and laughs.",
+            "You look at her bookshelf and compliment her on her choice " +
+            "of books. She casts doubt on your ability to read.",
+            "You say she has pretty lips. She says your lips are only " +
+            "pretty when they're shut.",
+            "You tell her she looks pretty in her dress. \"Of course I " +
+            "do,\" she snaps. \"Tell me something I don't already know.\".",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        game_state.persons.eve.attracted += 1;
         return game_state;
     },
 
