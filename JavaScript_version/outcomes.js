@@ -1389,7 +1389,7 @@ var outcomes = {
         var messages = [
             "You perform the ritual of seppuku.",
         ];
-        if (game_state.character.place !== ocean) {
+        if (game_state.character.place !== "ocean") {
             messages.push("You set yourself on fire and promptly burn to a " +
                 "crisp.");
         }
