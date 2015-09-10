@@ -29,7 +29,7 @@ exports.character = {
         "fancy red cloak": 0,
         "fish": 0,
         "four-leaf clover": 0,
-        "frog": 0,
+        "frog": 1,
         "handful of void dust": 0,
         "many colored mushroom": 0,
         "pearl": 0,

@@ -164,7 +164,11 @@ function get_item_options(game_state, options) {
     }
 
     if (game_state.character.items["cat"] > 0) {
-        raffle.add(options.d, "Swing your cat.", 1); // TODO
+        raffle.add(options.d, "Swing your cat.", 1);
+    }
+
+    if (game_state.character.items["frog"] > 0) {
+        raffle.add(options.d, "Kiss your frog.", 10000); // TODO 
     }
 
 }

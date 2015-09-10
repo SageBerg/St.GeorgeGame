@@ -1448,6 +1448,40 @@ var outcomes = {
         return game_state;
     },
 
+    "kiss_frog_jewels": function(game_state) {
+        var messages = [
+            "Your frog turns into a prince. He rewards you for freeing him.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        get_item(game_state, "bag of jewels");
+        lose_item(game_state, "frog");
+        return game_state;
+    },
+
+    "kiss_frog_lose_frog": function(game_state) {
+        var messages = [
+            "The frog turns into a peasant woman. \"Oh blessed be Lord " +
+            "Bartholomew!\" she exclaims.",
+            "The frog turns into an ugly fat man. He starts shaking you " +
+            "violently. \"I liked being a frog!\" he yells before storming " +
+            "off.",
+            "The frog turns into a guard. He says, \"You must be a lunatic for " +
+            "kissing a frog, but I'll let this one slide.\"",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        lose_item(game_state, "frog");
+        return game_state;
+    },
+
+    "kiss_frog_no_effect": function(game_state) {
+        var messages = [
+            "The frog seems to be into it.",
+            "You feel stupid kissing a frog.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
     //l
 
     "left_in_a_puff": function(game_state) {
