@@ -177,28 +177,20 @@ function get_person_options(game_state, options) {
 
     if (game_state.character.person !== null) {
         raffle.add(options.a, "Attack", 10);
-    }
-
-    if (game_state.character.person !== null) {
         raffle.add(options.b, "Boast of your bravery.", 1);
     }
 
-    if (
-        game_state.character.person === "eve" ||
-        game_state.character.person === "felicty" ||
-        game_state.character.person === "memaid" ||
-        game_state.character.person === "nymph_queen" ||
-        game_state.character.person === "olga"
-       ) {
-        raffle.add(options.d, "Flirt with", 10000); // TODO
-    }
-
-    if (game_state.character.person === "st_george") {
-        raffle.add(options.b, "Beg for money.", 10);
-    }
-
-    if (game_state.character.person === "war_merchant") {
-        raffle.add(options.d, "Buy a weapon.", 10000);
+    switch (game_state.character.person) {
+        case "eve":
+        case "felicity":
+        case "mermaid":
+        case "nymph_queen":
+        case "olga":
+            raffle.add(options.d, "Flirt with", 10000); // TODO
+        case "st_george":
+            raffle.add(options.b, "Beg for money.", 10);
+        case "war_merchant":
+            raffle.add(options.d, "Buy a weapon.", 10000);
     }
 }
 
