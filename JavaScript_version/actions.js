@@ -604,6 +604,15 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Look through the trash.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "guards_stop_you_trash", 1);
+        raffle.add(possible_outcomes, "trash_ax", 1);
+        raffle.add(possible_outcomes, "trash_cat", 1);
+        raffle.add(possible_outcomes, "trash_die", 1);
+        raffle.add(possible_outcomes, "trash_nothing", 3);
+        return possible_outcomes;
+    },
+
     "LOVE_POTION": function(game_state, possible_outcomes) {
         switch (game_state.character.person) {
             case "eve":

@@ -1282,6 +1282,14 @@ var outcomes = {
         return game_state;
     },
 
+    "guards_stop_you_trash": function(game_state) {
+        game_state.message = "The local guards see you looking through the " +
+            "trash and accuse you of being a lunatic.";
+        game_state.character.person = "guards";
+        game_state.character.is_threatened = true;
+        return game_state;
+    },
+
     //h
     
     "hammer_from_st_george": function(game_state) {
@@ -2487,6 +2495,44 @@ var outcomes = {
         game_state.message = "The guards throw you out for not filling out " +
         "the proper paperwork.";
         move_character(game_state, "streets");
+        return game_state;
+    },
+
+    "trash_ax": function(game_state) {
+        var messages = [
+            "You find an old ax.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        get_item(game_state, "ax");
+        return game_state;
+    },
+
+    "trash_cat": function(game_state) {
+        var messages = [
+            "You find a somewhat agreeable cat.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        get_item(game_state, "cat");
+        return game_state;
+    },
+
+    "trash_die": function(game_state) {
+        var messages = [
+            "You attempt to look through the trash, but an assassin takes " + 
+            "it out.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
+        return game_state;
+    },
+
+    "trash_nothing": function(game_state) {
+        var messages = [
+            "You don't find anything useful in the trash.",
+            "You find a bad smell.",
+            "You find a mirror in the trash. You see nothing of value.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
         return game_state;
     },
 

@@ -115,7 +115,7 @@ function get_character_options(game_state, options) {
 
     if (game_state.character.is_threatened === true) {
         if (game_state.character.person !== "guards") {
-            raffle.add(options.b, "Play dead.", 5);
+            raffle.add(options.b, "Play dead.", 1);
             raffle.add(options.d, "Panic!", 1);
         }
         raffle.add(options.c, "Run like the Devil.", 90);
@@ -328,10 +328,10 @@ function get_place_options(game_state, options) {
             raffle.add(options.d, "Do some farm work.", 2);
             break;
         case "dark_alley":
-            raffle.add(options.a, "Look for assassins.", 4);
-            //raffle.add(options.b, "Make a shady deal.", 4);
+            raffle.add(options.a, "Look for assassins.", 6);
+            //raffle.add(options.b, "Make a shady deal.", 6);
             //raffle.add(options.c, "Hide.", 4);
-            //raffle.add(options.d, "Look through some trash.", 4);
+            raffle.add(options.d, "Look through the trash.", 6);
             break;
         case "docks":
             raffle.add(options.c, "Go fishing.", 2);
