@@ -40,15 +40,19 @@ function respond_with_initial_world(req, res) {
 }
 
 function respond_with_outcome(req, res) {
-    var game_state     = req.query;
-    game_state         = destringify(game_state);
-    var outcome        = outcomes.get_outcome(game_state);
-    game_state.outcome = outcome;
-    game_state         = outcomes.apply_outcome(outcome, game_state);
-    game_state.options = options.get_options(game_state);
-    game_state.score   = parseInt(game_state.score) + 1;
-    stop_tripping(game_state);
-    res.json(game_state);
+    if (validate_input(req.query) === true) { 
+        var game_state     = req.query;
+        game_state         = destringify(game_state);
+        var outcome        = outcomes.get_outcome(game_state);
+        game_state.outcome = outcome;
+        game_state         = outcomes.apply_outcome(outcome, game_state);
+        game_state.options = options.get_options(game_state);
+        game_state.score   = parseInt(game_state.score) + 1;
+        stop_tripping(game_state);
+        res.json(game_state);
+    } else {
+        res.json({"message": "invalid input"});
+    }
 }
 
 function stop_tripping(game_state) {
@@ -56,4 +60,15 @@ function stop_tripping(game_state) {
         Math.floor(Math.random() * 4) === 0) {
         game_state.character.is_tripping = false; 
     }
+}
+
+function validate_input(game_state) {
+    if (
+        game_state === null ||
+        typeof(game_state) !== 'object' ||
+        typeof(game_state.score) === 'undefined'
+       ) {
+        return false;
+    } 
+    return true;
 }

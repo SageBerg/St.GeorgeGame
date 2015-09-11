@@ -71,6 +71,11 @@ function get_destination(game_sate) {
 
 function handle_new_world(resp) {
 
+    if (resp.message === "invalid input") {
+        alert("please refresh the page");
+        return;
+    }
+
     game_state = resp;
 
     if (game_state.character.is_dead) {
