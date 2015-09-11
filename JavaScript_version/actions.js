@@ -492,12 +492,12 @@ exports.actions = {
     },
 
     "Kiss your frog.": function(game_state, possible_outcomes) {
-        //raffle.add(possible_outcomes, "kiss_frog_and_die", 2);
-        //raffle.add(possible_outcomes, "kiss_frog_cat", 1);
+        raffle.add(possible_outcomes, "kiss_frog_and_die", 2);
+        raffle.add(possible_outcomes, "kiss_frog_cat", 1);
         raffle.add(possible_outcomes, "kiss_frog_jewels", 1);
-        //raffle.add(possible_outcomes, "kiss_frog_mushrooms", 1);
-        //raffle.add(possible_outcomes, "kiss_frog_lose_frog", 3);
-        //raffle.add(possible_outcomes, "kiss_frog_no_effect", 2);
+        raffle.add(possible_outcomes, "kiss_frog_mushrooms", 1);
+        raffle.add(possible_outcomes, "kiss_frog_lose_frog", 3);
+        raffle.add(possible_outcomes, "kiss_frog_no_effect", 2);
         return possible_outcomes;
     },
 

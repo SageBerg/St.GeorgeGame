@@ -168,7 +168,7 @@ function get_item_options(game_state, options) {
     }
 
     if (game_state.character.items["frog"] > 0) {
-        raffle.add(options.d, "Kiss your frog.", 10000); // TODO 
+        raffle.add(options.b, "Kiss your frog.", 1);
     }
 
 }

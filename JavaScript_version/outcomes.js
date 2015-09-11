@@ -1448,6 +1448,27 @@ var outcomes = {
         return game_state;
     },
 
+    "kiss_frog_and_die": function(game_state) {
+        var messages = [
+            "Your frog turns into a prince. He is disgusted to be kissing " +
+            "man and has you put to death.",
+            "Your frog turns into an assassin. He assassinates you.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
+        return game_state;
+    },
+
+    "kiss_frog_cat": function(game_state) {
+        var messages = [
+            "Your frog turns into a cat. ",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        get_item(game_state, "cat");
+        lose_item(game_state, "frog");
+        return game_state;
+    },
+
     "kiss_frog_jewels": function(game_state) {
         var messages = [
             "Your frog turns into a prince. He rewards you for freeing him.",
@@ -1470,6 +1491,20 @@ var outcomes = {
         ];
         game_state.message = messages[random_int(messages.length)];
         lose_item(game_state, "frog");
+        return game_state;
+    },
+
+    "kiss_frog_mushrooms": function(game_state) {
+        var messages = [
+            "Your frog turns into an old woman. She thanks you and gives " +
+            "a bunch of mushrooms.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        lose_item(game_state, "frog");
+        get_item(game_state, "black mushroom");
+        get_item(game_state, "many colored mushroom");
+        get_item(game_state, "white mushroom");
+        get_item(game_state, "yellow mushroom");
         return game_state;
     },
 
