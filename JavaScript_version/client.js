@@ -58,7 +58,7 @@ function execute(letter) {
 }
 
 function get_weapon(game_state) {
-    var weapons = game_state.persons[game_state.character.person].sells   
+    var weapons = game_state.persons[game_state.character.person].sells;
     var weapon  = weapons[random_int(weapons.length)];
     return weapon;
 }
@@ -72,7 +72,7 @@ function get_destination(game_sate) {
 function handle_new_world(resp) {
 
     if (resp.message === "invalid input") {
-        alert("please refresh the page");
+        alert("invalid input: please refresh the page");
         return;
     }
 
@@ -97,73 +97,68 @@ function handle_new_world(resp) {
 
 //Option a.
     if (game_state.options.a === "Attack") {
-        document.getElementById("a").innerHTML = 
-            "a. Attack " + resp.persons[resp.character.person].name + ".";
+        $("#a").text("a. Attack " + 
+                resp.persons[resp.character.person].name + ".");
     } else if (game_state.options.a === "MARRY") {
-        document.getElementById("a").innerHTML = "a. Marry " +
-            game_state.persons[game_state.character.person].name + ".";
+        $("#a").text("a. Marry " + 
+            game_state.persons[game_state.character.person].name + ".");
     } else if (game_state.options.a === "Think." &&
                game_state.action === "Think.") {
-        document.getElementById("a").innerHTML = "a. Think some more.";
+        $("#a").text("a. Think some more.");
     } else {
-        document.getElementById("a").innerHTML = "a. " + game_state.options.a;
+        $("#a").text("a. " + game_state.options.a);
     }
 
 //Option b.
     if (game_state.options.b === "BURN") {
-        document.getElementById("b").innerHTML = "b. Burn " + 
+        $("#b").text("b. Burn " + 
             game_state.places[game_state.character.place].name + 
-            " to the ground.";
+            " to the ground.");
     } else if (game_state.options.b === "LOVE_POTION") {
-        document.getElementById("b").innerHTML = "b. Use your love potion " +
-            "on " + game_state.persons[game_state.character.person].name + ".";
+        $("#b").text("b. Use your love potion on " +
+            game_state.persons[game_state.character.person].name + ".");
     } else {
-        document.getElementById("b").innerHTML = "b. " + game_state.options.b;
+        $("#b").text("b. " + game_state.options.b);
     }
     
 //Option c.
     if (game_state.options.c !== "") {
         if (game_state.options.c === "GO_TO") {
             var dest = get_destination(game_state);
-            document.getElementById("c").innerHTML = "c. Go to " + 
-                game_state.places[dest].name + ".";
+            $("#c").text("c. Go to " + game_state.places[dest].name + ".");
             game_state.destination = dest;
         } else {
-            document.getElementById("c").innerHTML = "c. " + 
-                game_state.options.c;
+            $("#c").text("c. " + game_state.options.c);
         }
     } else {
-        document.getElementById("c").innerHTML = "";
+        $("#c").text("");
     }
 
 //Option d.
     if (game_state.options.d !== "") {
         if (game_state.options.d === "Buy a weapon.") {
             var weapon = get_weapon(game_state);
-            document.getElementById("d").innerHTML = 
-                "d. Buy " + a_or_an(weapons_map[weapon][0]) + " " +
-                weapons_map[weapon] + ".";
+            $("#d").text("d. Buy " + a_or_an(weapons_map[weapon][0]) + " " +
+                weapons_map[weapon] + ".");
             game_state.for_sell = weapon;
         } else if (game_state.options.d === "Flirt with") {
-            document.getElementById("d").innerHTML = "d. Flirt with " +
-                game_state.persons[game_state.character.person].name + ".";
+            $("#d").text("d. Flirt with " +
+                game_state.persons[game_state.character.person].name + ".");
         } else if (game_state.options.d === "TELL_GUARDS") {
-            document.getElementById("d").innerHTML = "d. Tell the guards " +
-                "you're not a lunatic, you're just " +
-                game_state.character.excuse + ".";
+            $("#d").text("d. Tell the guards you're not a lunatic, you're " +
+                "just " + game_state.character.excuse + ".");
         } else {
-            document.getElementById("d").innerHTML = "d. " +
-                game_state.options.d;
+            $("#d").text("d. " + game_state.options.d);
         }
     } else {
-        document.getElementById("d").innerHTML = "";
+        $("#d").text("");
     }
 
 //Option e.
     if (game_state.options.e !== "") {
-        document.getElementById("e").innerHTML = "e. " + game_state.options.e;
+        $("#e").text("e. " + game_state.options.e);
     } else {
-        document.getElementById("e").innerHTML = "";
+        $("#e").text("");
     }
 
     bind_keys();
