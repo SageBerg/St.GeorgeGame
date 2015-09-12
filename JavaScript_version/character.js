@@ -45,6 +45,5 @@ exports.character = {
     "money": "none",
     "person": "",
     "place": "tavern",
-    "score": 0,
     "strength": 0
 }

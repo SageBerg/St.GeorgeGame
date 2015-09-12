@@ -145,8 +145,20 @@ function get_default_options(game_state, options) {
 
 function get_item_options(game_state, options) {
 
+    if (game_state.character.items["black mushroom"] > 0) {
+        raffle.add(options.c, "Chow down on your black mushroom.", 1);
+    }
+
     if (game_state.character.items["many colored mushroom"] > 0) {
-        raffle.add(options.d, "Chow down on your many colored mushroom.", 1);
+        raffle.add(options.c, "Chow down on your many colored mushroom.", 1);
+    }
+
+    if (game_state.character.items["white mushroom"] > 0) {
+        raffle.add(options.c, "Chow down on your white mushroom.", 1);
+    }
+
+    if (game_state.character.items["yellow mushroom"] > 0) {
+        raffle.add(options.c, "Chow down on your yellow mushroom.", 1);
     }
 
     if (game_state.character.items["potion of love"] > 0 && 

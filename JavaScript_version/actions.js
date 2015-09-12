@@ -105,9 +105,31 @@ exports.actions = {
         return possible_outcomes;
     },
 
-    "Chow down on your many colored mushroom.": 
+    "Chow down on your black mushroom.":
+    function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "mushroom_kills_you", 1);
+        return possible_outcomes;
+    },
+
+    "Chow down on your many colored mushroom.":
     function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "start_tripping", 1);
+        return possible_outcomes;
+    },
+
+    "Chow down on your white mushroom.":
+    function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "mushroom_makes_you_bigger", 1);
+        if (game_state.character.place === "countryside" ||
+            game_state.character.place === "woods") {
+            raffle.add(possible_outcomes, "mushroom_makes_you_smaller", 1);
+        }
+        return possible_outcomes;
+    },
+
+    "Chow down on your yellow mushroom.":
+    function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "mushroom_tastes_bad", 1);
         return possible_outcomes;
     },
 

@@ -1736,6 +1736,44 @@ var outcomes = {
         return game_state;
     },
 
+    "mushroom_kills_you": function(game_state) {
+        var messages = [
+            "The mushroom tastes bittersweet.",
+        ]; 
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
+        return game_state;
+    },
+
+    "mushroom_makes_you_bigger": function(game_state) {
+        var messages = [
+            "You grow larger.",
+        ]; 
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.strength += 1;
+        lose_item(game_state, "white mushroom");
+        return game_state;
+    },
+
+    "mushroom_makes_you_smaller": function(game_state) {
+        var messages = [
+            "You shrink to the size of a peanut. A weasel soons comes " +
+            "and eats you.",
+        ]; 
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
+        return game_state;
+    },
+
+    "mushroom_tastes_bad": function(game_state) {
+        var messages = [
+            "You find the mushroom distasteful.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        lose_item(game_state, "yellow mushroom");
+        return game_state;
+    },
+
     //n
 
     "no_fish": function(game_state) {
