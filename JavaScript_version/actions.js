@@ -859,10 +859,10 @@ exports.actions = {
     },
 
     "Swing your cat.": function(game_state, possible_outcomes) {
-        //raffle.add(possible_outcomes, "cat_escapes", 1);
-        raffle.add(possible_outcomes, "hit_assassin_with_cat", 2);
+        raffle.add(possible_outcomes, "cat_escapes", 1);
         if (game_state.places[game_state.character.place].town === true) {
-            //raffle.add(possible_outcomes, "guards_stop_you_swinging_cat", 1);
+            raffle.add(possible_outcomes, "hit_assassin_with_cat", 2);
+            raffle.add(possible_outcomes, "guards_stop_you_swinging_cat", 1);
         }
         return possible_outcomes;
     },
