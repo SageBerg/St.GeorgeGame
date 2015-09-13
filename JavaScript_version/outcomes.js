@@ -2197,6 +2197,14 @@ var outcomes = {
         return game_state;
     },
 
+    "sing_in_deep_voice": function(game_state) {
+        var messages = [
+            "You sing in an uncharacteristically deep voice.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
     "sing_to_greeks": function(game_state) {
         game_state.message = "As you sing, a ship sails by. The captain is " +
             "tied to the mast. He is not impressed.";

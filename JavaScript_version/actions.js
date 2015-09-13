@@ -3,6 +3,10 @@
 var raffle = require("./raffle");
 var items   = require("./items");
 
+function random_int(n) {
+    return Math.floor(Math.random() * n);
+}
+
 exports.actions = {
 
     //a
@@ -769,6 +773,9 @@ exports.actions = {
     "Sing a song.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "no_one_cares", 2);
         raffle.add(possible_outcomes, "sing_about_lords", 1);
+        if (random_int(1000) === 0) {
+            raffle.add(possible_outcomes, "sing_in_deep_voice", 1000);
+        }
 
         if (game_state.character.place === "streets" || 
             game_state.character.place === "market") {

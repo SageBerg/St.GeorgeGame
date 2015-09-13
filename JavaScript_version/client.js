@@ -78,6 +78,10 @@ function handle_new_world(resp) {
 
     game_state = resp;
 
+    if (game_state.outcome === "sing_in_deep_voice") {
+        window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+    }
+
     if (game_state.character.is_dead) {
         game_state.message += " You are dead."; 
     }
