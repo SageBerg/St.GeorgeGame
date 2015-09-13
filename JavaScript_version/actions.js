@@ -7,6 +7,16 @@ exports.actions = {
 
     //a
 
+    "Admire your jewels.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "admire_jewels", 2);
+        raffle.add(possible_outcomes, "admire_jewels_and_die", 1);
+        raffle.add(possible_outcomes, "find_pearl_in_jewels", 1);
+        if (game_state.places[game_state.character.place].town === true) {
+            raffle.add(possible_outcomes, "guards_stop_you_naked", 1);
+        }
+        return possible_outcomes;
+    },
+
     "Anna.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "anna_death", 1);
         return possible_outcomes;

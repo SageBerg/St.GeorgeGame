@@ -145,6 +145,10 @@ function get_default_options(game_state, options) {
 
 function get_item_options(game_state, options) {
 
+    if (game_state.character.items["bag of jewels"] > 0) {
+        raffle.add(options.a, "Admire your jewels.", 1);
+    }
+
     if (game_state.character.items["black mushroom"] > 0) {
         raffle.add(options.c, "Chow down on your black mushroom.", 1);
     }

@@ -217,6 +217,27 @@ var outcomes = {
         return game_state;
     },
 
+    "admire_jewels": function(game_state) {
+        var messages = [
+            "You conclude that your jewels outclass everything else you own.",
+            "You notice an inperfection in your largest diamond and can't " +
+            "unsee it.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.person = null;
+        return game_state;
+    },
+
+    "admire_jewels_and_die": function(game_state) {
+        var messages = [
+            "You notice the reflection of a dagger in a jewel, just after " +
+            "it's too late.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
+        return game_state;
+    },
+
     "alley_is_clear": function(game_state) {
         game_state.message = "The dark alley appears to be safe.";
         return game_state;
@@ -961,6 +982,12 @@ var outcomes = {
         return game_state;
     },
 
+    "find_pearl_in_jewels": function(game_state) {
+        game_state.message = "You find a pearl in your bag of jewels.";
+        get_item(game_state, "pearl");
+        return game_state;
+    },
+
     "find_st_george": function(game_state) {
         game_state.message = "You find St. George.";
         game_state.character.person = "st_george";
@@ -1263,6 +1290,14 @@ var outcomes = {
         game_state.message = "The local guards see you licking the ground " +
             "and conclude you must be a lunatic.";
         game_state.character.person = "guards";
+        game_state.character.person = "guards";
+        game_state.character.is_threatened = true;
+        return game_state;
+    },
+
+    "guards_stop_you_naked": function(game_state) {
+        game_state.message = "The guards catch you with your pants " +
+            "down and conclude you must be a lunatic.";
         game_state.character.person = "guards";
         game_state.character.is_threatened = true;
         return game_state;
@@ -2110,7 +2145,7 @@ var outcomes = {
 
     "saved_by_witch": function(game_state) {
         game_state.message = "A witch notices you and turns you back into " +
-            "a human.";
+            "a human. You have failed to continue being a shrub.";
         game_state.character.is_shrub = false;
         game_state.character.person = "witch";
         return game_state;
