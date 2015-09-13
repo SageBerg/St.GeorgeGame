@@ -3,6 +3,7 @@
 var actions = require("./actions").actions;
 var items   = require("./items");
 var raffle  = require("./raffle");
+var NONE = "none";
 
 exports.apply_outcome = function apply_outcome(outcome, game_state) {
     return outcomes[outcome](game_state);
@@ -148,7 +149,7 @@ function lose_all_items(game_state) {
     for (var item in game_state.character.items) {
         game_state.character.items[item] = 0;
     }
-    game_state.character.money = "none";
+    game_state.character.money = NONE;
     game_state.message += " You now have no items.";
     game_state.message += " You now have no money.";
 }
