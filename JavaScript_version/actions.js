@@ -422,11 +422,16 @@ exports.actions = {
         raffle.add(possible_outcomes, "get_a_four-leaf_clover", 2);
         raffle.add(possible_outcomes, "get_a_bouquet", 4);
         raffle.add(possible_outcomes, "no_flowers", 1);
+        raffle.add(possible_outcomes, "no_flowers_frog", 1);
         return possible_outcomes;
     },
 
     "Go mushroom picking.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "pick_black_mushroom", 1);
         raffle.add(possible_outcomes, "pick_many_colored_mushroom", 1);
+        raffle.add(possible_outcomes, "pick_white_mushroom", 1);
+        raffle.add(possible_outcomes, "pick_yellow_mushroom", 1);
+        raffle.add(possible_outcomes, "no_mushroom_frog", 1);
         return possible_outcomes;
     },
 
@@ -773,7 +778,8 @@ exports.actions = {
     "Sing a song.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "no_one_cares", 2);
         raffle.add(possible_outcomes, "sing_about_lords", 1);
-        if (random_int(1000) === 0) {
+
+        if (random_int(1024) === 0) {
             raffle.add(possible_outcomes, "sing_in_deep_voice", 1000);
         }
 

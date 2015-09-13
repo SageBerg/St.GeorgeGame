@@ -1815,13 +1815,31 @@ var outcomes = {
     "no_fish": function(game_state) {
         var messages = [
             "You don't catch any fish.",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         return game_state;
     },
 
     "no_flowers": function(game_state) {
         game_state.message = "You can't find any flowers. Only grass.";
+        return game_state;
+    },
+
+    "no_flowers_frog": function(game_state) {
+        var messages = [
+            "You don't find any flowers, but you find a frog.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        get_item(game_state, "frog");
+        return game_state;
+    },
+
+    "no_mushroom_frog": function(game_state) {
+        var messages = [
+            "You don't find a single mushroom, but you find a single frog.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        get_item(game_state, "frog");
         return game_state;
     },
 
@@ -1893,10 +1911,31 @@ var outcomes = {
         return game_state;
     },
 
+    "pick_black_mushroom": function(game_state) {
+        game_state.message = "You pick a black mushroom.";
+        game_state.character.person = null;
+        get_item(game_state, "black mushroom");
+        return game_state;
+    },
+
     "pick_many_colored_mushroom": function(game_state) {
         game_state.message = "You pick a many colored mushroom.";
         game_state.character.person = null;
         get_item(game_state, "many colored mushroom");
+        return game_state;
+    },
+
+    "pick_white_mushroom": function(game_state) {
+        game_state.message = "You pick a white mushroom.";
+        game_state.character.person = null;
+        get_item(game_state, "white mushroom");
+        return game_state;
+    },
+
+    "pick_yellow_mushroom": function(game_state) {
+        game_state.message = "You pick a yellow mushroom.";
+        game_state.character.person = null;
+        get_item(game_state, "yellow mushroom");
         return game_state;
     },
 
