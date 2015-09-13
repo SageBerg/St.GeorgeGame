@@ -203,41 +203,63 @@ function get_person_options(game_state, options) {
     switch (game_state.character.person) {
         case "blind_bartender":
             //raffle.add(options.c, "Chat with the blind bartender.", 10);
+            break;
+
         case "eve":
         case "felicity":
         case "mermaid":
         case "nymph_queen":
         case "olga":
             raffle.add(options.d, "Flirt with", 10000); // TODO
+            break;
+
         case "lord_arthur":
             //raffle.add(options.c, "Chat with Lord Arthur.", 10);
+            break;
+
         case "lord_bartholomew":
             //raffle.add(options.c, "Chat with Lord Bartholomew.", 10);
             //raffle.add(options.d, 
             //    "Challenge Lord Bartholomew to a game of chess.", 10);
+            break;
+
         case "lord_carlos":
             //raffle.add(options.b, 
             //    "Challenge Lord Carlose to a game of chess.", 10);
             //raffle.add(options.d, "Tell Lord Carlos you're sorry.", 10);
+            break;
+
         case "lord_daniel":
             //raffle.add(options.c, "Complain about unfair inprisonment.", 10);
+            break;
+
         case "mermaid":
             //raffle.add(options.a, 
             //    "Ask the mermaid to take you back to land.", 100);
-        case "peasant_lass":
+            break;
+
         case "peasant_lass":
         case "simple_peasant":
             //raffle.add(options.b, "Ask for directions.", 10);
+            break;
+
         case "pirates":
             //raffle.add(options.d, 
             //    "Challenge the pirates to a game of chess.", 10);
+            break;
+
         case "st_george":
             raffle.add(options.b, "Beg for money.", 100);
             //raffle.add(options.c, "Chat with St. George.", 10);
+            break;
+
         case "war_merchant":
             raffle.add(options.d, "Buy a weapon.", 10000);
+            break;
+
         case "witch":
             //raffle.add(options.d, "Ask the witch to brew you a potion.", 100);
+            break;
     }
 }
 
@@ -409,6 +431,7 @@ function get_place_options(game_state, options) {
             raffle.add(options.d, "Drown.", 1);
             break;
         case "pirate_ship":
+            raffle.add(options.a, "YELL_A_PIRATE_PHRASE", 6);
             break;
         case "streets":
             raffle.add(options.b, "Leer at women.", 2);

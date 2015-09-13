@@ -105,6 +105,24 @@ function handle_new_world(resp) {
     } else if (game_state.options.a === "Think." &&
                game_state.action === "Think.") {
         $("#a").text("a. Think some more.");
+    } else if (game_state.options.a === "YELL_A_PIRATE_PHRASE") {
+        $("#a").text("a. Yell, \"" + 
+            random_choice([
+                "Ahoy",
+                "All hands on deck",
+                "Arr Matey",
+                "Avast",
+                "Aye Aye",
+                "Dead men tell no tales",
+                "Hoist the Jolly Roger",
+                "Land ho",
+                "Send 'em to Davy Jones' locker",
+                "Shiver me timbers",
+                "Thare she blows",
+                "Walk the plank",
+                "X marks the spot",
+                "Yo, ho, ho, and a bottle of rum",
+            ]) + "!\"");
     } else {
         $("#a").text("a. " + game_state.options.a);
     }
@@ -163,6 +181,10 @@ function handle_new_world(resp) {
 
     bind_keys();
 
+}
+
+function random_choice(array) {
+    return array[random_int(array.length)]; 
 }
 
 function random_int(n) {

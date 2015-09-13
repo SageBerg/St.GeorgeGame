@@ -1038,6 +1038,13 @@ exports.actions = {
 
     //y
 
+    "YELL_A_PIRATE_PHRASE": function(game_state, possible_outcomes) {
+        if (game_state.persons.lord_arthur.alive === true) {
+            raffle.add(possible_outcomes, "no_true_pirate_says_that", 1);
+        }
+        return possible_outcomes;
+    },
+
     "Yell \"Don't leave without me!\"": 
         function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "wizard_leaves_without_you", 1);

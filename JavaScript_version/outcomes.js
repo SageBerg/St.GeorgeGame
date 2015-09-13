@@ -1811,13 +1811,22 @@ var outcomes = {
         return game_state;
     },
 
+    "no_true_pirate_says_that": function(game_state) {
+        var messages = [
+            "Lord Arthur tells you that no true pirate says that.",
+        ]; 
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.person = "lord_arthur";
+        return game_state;
+    },
+
     "no_way_out": function(game_state) {
         var messages = [
             "You fumble around in the darkness.",
             "You think you're going around in circles.",
             "You can't see anything, so you only manage to bump your head " +
             "on a rock.",
-        ] 
+        ]; 
         game_state.message = messages[random_int(messages.length)];
         return game_state;
     },
@@ -1836,7 +1845,7 @@ var outcomes = {
         var messages = [
             "Panicking doesn't save you.",
             "Panicking doesn't help.",
-        ] 
+        ]; 
         game_state.message = messages[random_int(messages.length)];
         die(game_state);
         return game_state;
