@@ -122,8 +122,8 @@ function get_character_options(game_state, options) {
         raffle.add(options.c, "Waddle like God.", 10);
     }
 
-    if (game_state.character.money === "large_fortune" ||
-        game_state.character.money === "small_fortune" ||
+    if ((game_state.character.money === "large_fortune" ||
+        game_state.character.money === "small_fortune") &&
         game_state.places[game_state.character.place].town === true
         ) {
         raffle.add(options.d, "Flaunt your wealth.", 1);
@@ -183,6 +183,14 @@ function get_item_options(game_state, options) {
         raffle.add(options.b, "Kiss your frog.", 1);
     }
 
+    if (game_state.character.items["shiny foreign coin"] > 0 &&
+        (game_state.character.person === "lord_arthur" ||
+         game_state.character.person === "lord_bartholomew" ||
+         game_state.character.person === "lord_carlos" ||
+         game_state.character.person === "lord_daniel")) {
+        //raffle.add(options.b, "SHOW_COIN.", 1);
+    }
+
 }
 
 function get_person_options(game_state, options) {
@@ -193,16 +201,43 @@ function get_person_options(game_state, options) {
     }
 
     switch (game_state.character.person) {
+        case "blind_bartender":
+            //raffle.add(options.c, "Chat with the blind bartender.", 10);
         case "eve":
         case "felicity":
         case "mermaid":
         case "nymph_queen":
         case "olga":
             raffle.add(options.d, "Flirt with", 10000); // TODO
+        case "lord_arthur":
+            //raffle.add(options.c, "Chat with Lord Arthur.", 10);
+        case "lord_bartholomew":
+            //raffle.add(options.c, "Chat with Lord Bartholomew.", 10);
+            //raffle.add(options.d, 
+            //    "Challenge Lord Bartholomew to a game of chess.", 10);
+        case "lord_carlos":
+            //raffle.add(options.b, 
+            //    "Challenge Lord Carlose to a game of chess.", 10);
+            //raffle.add(options.d, "Tell Lord Carlos you're sorry.", 10);
+        case "lord_daniel":
+            //raffle.add(options.c, "Complain about unfair inprisonment.", 10);
+        case "mermaid":
+            //raffle.add(options.a, 
+            //    "Ask the mermaid to take you back to land.", 100);
+        case "peasant_lass":
+        case "peasant_lass":
+        case "simple_peasant":
+            //raffle.add(options.b, "Ask for directions.", 10);
+        case "pirates":
+            //raffle.add(options.d, 
+            //    "Challenge the pirates to a game of chess.", 10);
         case "st_george":
-            raffle.add(options.b, "Beg for money.", 10);
+            raffle.add(options.b, "Beg for money.", 100);
+            //raffle.add(options.c, "Chat with St. George.", 10);
         case "war_merchant":
             raffle.add(options.d, "Buy a weapon.", 10000);
+        case "witch":
+            //raffle.add(options.d, "Ask the witch to brew you a potion.", 100);
     }
 }
 
@@ -342,7 +377,8 @@ function get_place_options(game_state, options) {
             raffle.add(options.d, "Do some gambling.", 2);
             break;
         case "lord_bartholomew_manor":
-            //raffle.add(options.a, "Ask for an audience with Lord Bartholomew.", 4);
+            //raffle.add(options.a, 
+            //    "Ask for an audience with Lord Bartholomew.", 4);
             //raffle.add(options.d, "Sneak around.", 4);
             break;
         case "lord_carlos_manor":
