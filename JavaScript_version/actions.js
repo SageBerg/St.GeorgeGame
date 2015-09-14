@@ -39,6 +39,21 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Ask for an audience with Lord Bartholomew.": 
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, 
+            "denied_audience_with_lord_bartholomew", 1);
+        raffle.add(possible_outcomes, "audience_with_lord_bartholomew", 2);
+        return possible_outcomes;
+    },
+
+    "Ask for an audience with Lord Daniel.": 
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "denied_audience_with_lord_daniel", 1);
+        raffle.add(possible_outcomes, "audience_with_lord_daniel", 1);
+        return possible_outcomes;
+    },
+
     "Attack": function(game_state, possible_outcomes) {
         if (game_state.character.strength > 
             game_state.persons[game_state.character.person].attack) {

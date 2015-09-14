@@ -323,6 +323,26 @@ var outcomes = {
         return game_state;
     },
 
+    "audience_with_lord_bartholomew": function(game_state) {
+        var messages = [
+            "The first person you meet is Lord Bartholomew.",
+            "You are granted one.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.person = "lord_bartholomew";
+        return game_state;
+    },
+
+    "audience_with_lord_daniel": function(game_state) {
+        var messages = [
+            "The guards mistake you for someone important and take you " +
+            "to Lord Daniel.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.person = "lord_daniel";
+        return game_state;
+    },
+
     //b
 
     "be_shrub": function(game_state) {
@@ -686,6 +706,30 @@ var outcomes = {
             " dance with you and then " +
             random_choice(["fade away", "disappear", "scatter"]) +
             ".",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "denied_audience_with_lord_bartholomew": function(game_state) {
+        var messages = [
+            "The line to meet Lord Bartholomew is very long, " +
+            "so you lose patience and wander off.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        move_character(game_state, "countryside");
+        return game_state;
+    },
+
+    "denied_audience_with_lord_daniel": function(game_state) {
+        var messages = [
+            "The guards laugh. \"" + random_choice([
+                "He has no time for peasants.", 
+                "Such audacity",]) +
+            ",\" one of the guards says.",
+            "The amount of paperwork required to get an audience with Lord " +
+            "Daniel is " + random_choice([
+                "insurmountable", "too tedious", "unreasonable",]) + ".",
         ];
         game_state.message = messages[random_int(messages.length)];
         return game_state;
@@ -1588,7 +1632,7 @@ var outcomes = {
             "You fair woman notices you and hastens away.",
             "You stop leering when you realize it isn't a woman.",
             "An equally creepy woman stares back at you before " +
-            "disappearing into the crowd",
+            "disappearing into the crowd.",
             "A woman becomes annoyed with your leering and throws salt in " +
             "your eyes.",
         ] 

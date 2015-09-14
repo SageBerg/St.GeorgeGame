@@ -403,12 +403,14 @@ function get_place_options(game_state, options) {
             raffle.add(options.d, "Do some gambling.", 2);
             break;
         case "lord_bartholomew_manor":
-            //raffle.add(options.a, 
-            //    "Ask for an audience with Lord Bartholomew.", 4);
+            if (game_state.persons.lord_bartholomew.alive === true && 
+                game_state.character.person !== "lord_bartholomew") {
+                raffle.add(options.a, 
+                    "Ask for an audience with Lord Bartholomew.", 4);
+            }
             //raffle.add(options.d, "Sneak around.", 4);
             break;
         case "lord_carlos_manor":
-            //raffle.add(options.a, "Ask for an audience with Lord Carlos.", 4);
             raffle.add(options.d, "Sneak around.", 4);
             break;
         case "market" &&
@@ -451,7 +453,10 @@ function get_place_options(game_state, options) {
             }
             break;
         case "tower":
-            //raffle.add(options.a, "Ask for an audience with Lord Daniel.", 4);
+            if (game_state.persons.lord_daniel.alive === true && 
+                game_state.character.person !== "lord_daniel") {
+                raffle.add(options.a, "Ask for an audience with Lord Daniel.", 4);
+            }
             raffle.add(options.d, "Train with the guards.", 4);
             break;
         case "void":
