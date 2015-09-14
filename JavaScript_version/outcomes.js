@@ -813,7 +813,7 @@ var outcomes = {
         return game_state;
     },
 
-    "dive_saved_by_mermaid": function(game_state) {
+    "diving_saved_by_mermaid": function(game_state) {
         var messages = [
             "You become exhausted diving for pearls and are about to pass " +
             "out when a beautiful mermaid grabs ahold of you and takes you " +
@@ -952,6 +952,16 @@ var outcomes = {
         return game_state;
     },
 
+    "fail_to_find_mermaids": function(game_state) {
+        var messages = [
+            "After a days of searching, you're not sure mermaids exist.",
+            "You aren't sure where to look.",
+            "You find a sea turtle instead.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
     "farm_work": function(game_state) {
         var messages = [
             "You spend a season picking apples.",
@@ -1054,6 +1064,21 @@ var outcomes = {
         return game_state;
     },
 
+    "find_lost_treasure": function(game_state) {
+        game_state.message = "You don't find any mermaids, but you find a " +
+            "small fortune in lost treasure.";
+        get_money(game_state, "small_fortune");
+        return game_state;
+    },
+
+    "find_mermaid_rock": function(game_state) {
+        game_state.message = "You find a mermaid. She leads you back to " +
+            "her rock.";
+        move_character(game_state, "mermaid_rock");
+        game_state.character.person = "mermaid";
+        return game_state;
+    },
+
     "find_olga": function(game_state) {
         if (game_state.persons.olga.attracted < 1) {
             game_state.message = "You find Olga laughing with her friends. " +
@@ -1073,9 +1098,23 @@ var outcomes = {
         return game_state;
     },
 
+    "find_shiny_coin": function(game_state) {
+        game_state.message = "You don't find any mermaids, but you find a " +
+            "find shiny amid the rocks.";
+        get_item(game_state, "shiny foreign coin");
+        return game_state;
+    },
+
     "find_st_george": function(game_state) {
         game_state.message = "You find St. George.";
         game_state.character.person = "st_george";
+        return game_state;
+    },
+
+    "find_wooden_mermaid": function(game_state) {
+        game_state.message = "You find a wooden mermaid figurehead on the " +
+            "front of a ship. The crew hoists you abroad.";
+        move_character(game_state, "pirate_ship");
         return game_state;
     },
 
@@ -1716,6 +1755,15 @@ var outcomes = {
         return game_state;
     },
 
+    "lick_ash": function(game_state) {
+        var messages = [
+            "You burn your tongue on an ember.",
+            "You find the taste of ashes unpleasant.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
     "lick_blood": function(game_state) {
         game_state.message = "You lick the blood off the ground.";
         return game_state;
@@ -1730,6 +1778,19 @@ var outcomes = {
 
     "lick_the_salt": function(game_state) {
         game_state.message = "The ground tastes really salty.";
+        return game_state;
+    },
+
+    "look_for_mermaids_and_die": function(game_state) {
+        game_state.message = "You slip on a rock.";
+        die(game_state);
+        return game_state;
+    },
+
+    "look_for_mermaids_and_drown": function(game_state) {
+        game_state.message = "You get taken out by a storm during your " +
+            "search.";
+        die(game_state);
         return game_state;
     },
 
@@ -1766,7 +1827,7 @@ var outcomes = {
                 "an alley behind the church. Olga asks the priestess if she " +
                 "would like to come along for the honeymoon, but the priestess " +
                 "declines.",
-            ] 
+            ];
             game_state.message = messages[random_int(messages.length)];
             game_state.character.has_found_true_love = true;
             game_state.message += " You and Olga live happily ever after.";
@@ -1803,6 +1864,26 @@ var outcomes = {
                      "training a weasel.", "pacing around."]),
         game_state.character.person = "lord_carlos";
         game_state.character.is_threatened = true;
+        return game_state;
+    },
+
+    "meet_mermaid": function(game_state) {
+        var messages = [
+            "You almost step on one",
+            "You find one putting seashells in her hair.",
+            "There are mermaids everywhere, there's one next to you.",
+            "After hours of climbing around on the rocks you find one.",
+        ];
+        var second_messages = [
+            "She gives you some nasty tasting seaweed.",
+            "She sings a song about Lord Arthur.",
+            "She spits water in your face and laughs.",
+            "She trips you with her fish tail.",
+            "She's beautiful, but smells terrible.",
+        ];
+        game_state.message = messages[random_int(messages.length)] + " " +
+            second_messages[random_int(second_messages.length)];
+        game_state.character.person = "mermaid";
         return game_state;
     },
 

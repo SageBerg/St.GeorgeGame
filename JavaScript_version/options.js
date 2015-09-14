@@ -279,6 +279,7 @@ function get_outcome_options(game_state, options) {
         case "cannot_tip_cow":
         case "dance_in_puddle":
         case "fail_at_new_career":
+        case "fail_to_find_mermaids":
         case "fish_pirates_laugh":
         case "ignored":
         case "lose_ax":
@@ -372,9 +373,11 @@ function get_place_options(game_state, options) {
             raffle.add(options.c, "Club a seal.", 4);
             raffle.add(options.d, "Freeze to death.", 2);
             break;
+
         case "cave":
             raffle.add(options.c, "Look for a way out.", 10);
             break;
+
         case "church":
             raffle.add(options.a, "Tell a priest he's fat.", 2);
             raffle.add(options.a, "Tell a priest God doesn't exist.", 2);
@@ -383,22 +386,26 @@ function get_place_options(game_state, options) {
                 raffle.add(options.d, "Donate to the church.", 6);
             }
             break;
+
         case "countryside":
             raffle.add(options.a, "Go flower picking.", 2);
             raffle.add(options.b, "Tip a cow.", 2);
             raffle.add(options.c, "Wander the countryside.", 10);
             raffle.add(options.d, "Do some farm work.", 2);
             break;
+
         case "dark_alley":
             raffle.add(options.a, "Look for assassins.", 6);
             raffle.add(options.b, "Make a shady deal.", 6);
             raffle.add(options.c, "Hide.", 4);
             raffle.add(options.d, "Look through the trash.", 6);
             break;
+
         case "docks":
             raffle.add(options.c, "Go fishing.", 2);
             raffle.add(options.d, "Do some gambling.", 2);
             break;
+
         case "lord_bartholomew_manor":
             if (game_state.persons.lord_bartholomew.alive === true && 
                 game_state.character.person !== "lord_bartholomew") {
@@ -407,9 +414,11 @@ function get_place_options(game_state, options) {
             }
             raffle.add(options.d, "Sneak around.", 4);
             break;
+
         case "lord_carlos_manor":
             raffle.add(options.d, "Sneak around.", 8);
             break;
+
         case "market":
             if (game_state.character.person !== "war_merchant") {
                 raffle.add(options.a, "Look for a weapon.", 10);
@@ -423,32 +432,40 @@ function get_place_options(game_state, options) {
             }
             raffle.add(options.d, "Watch a play.", 2);
             break;
+
         case "mermaid_rock":
-            //raffle.add(options.a, "Look for mermaids.", 10);
+            if (game_state.character.person !== "mermaid") {
+                raffle.add(options.a, "Look for mermaids.", 10);
+            }
             raffle.add(options.c, "Go fishing.", 4);
             raffle.add(options.d, "Sun yourself on a rock.", 4);
             break;
+
         case "ocean":
-            //raffle.add(options.a, "Look for mermaids.", 5);
+            raffle.add(options.a, "Look for mermaids.", 5);
             //raffle.add(options.a, "Look for sea turtles.", 5);
             raffle.add(options.b, "Sink.", 10);
             raffle.add(options.c, "Swim.", 20);
             raffle.add(options.d, "Dive for pearls.", 5);
             raffle.add(options.d, "Drown.", 1);
             break;
+
         case "pirate_ship":
             raffle.add(options.a, "YELL_A_PIRATE_PHRASE", 6);
             //raffle.add(options.b, "Raise a sail.", 6);
             //raffle.add(options.c, "Climb into the crow's nest.", 6);
             //raffle.add(options.c, "Walk the plank.", 2);
-            //raffle.add(options.d, "Drop anchor.", 6);
+            //raffle.add(options.d, "Drop anchor.", 4);
+            //raffle.add(options.c, "Scrub the deck.", 4);
             break;
+
         case "streets":
             raffle.add(options.b, "Leer at women.", 2);
             if (game_state.character.person !== "st_george") {
                 raffle.add(options.d, "Look for St. George.", 1);
             }
             break;
+
         case "tavern":
             raffle.add(options.a, "Ask about assassins.", 1);
             raffle.add(options.b, "Buy a drink.", 1);
@@ -459,6 +476,7 @@ function get_place_options(game_state, options) {
                 raffle.add(options.b, "Look for Olga.", 10);
             }
             break;
+
         case "tower":
             if (game_state.persons.lord_daniel.alive === true && 
                 game_state.character.person !== "lord_daniel") {
@@ -466,9 +484,11 @@ function get_place_options(game_state, options) {
             }
             raffle.add(options.d, "Train with the guards.", 4);
             break;
+
         case "void":
             raffle.add(options.d, "Gather void dust.", 2);
             break;
+
         case "woods":
             raffle.add(options.a, "Go mushroom picking.", 2);
             raffle.add(options.b, "Look for witches.", 2);
@@ -477,6 +497,7 @@ function get_place_options(game_state, options) {
             }
             raffle.add(options.d, "Look for the nymph queen.", 2);
             break;
+
         case "wizard_lab":
             if (game_state.places.wizard_lab.trashable) {
                 //raffle.add(options.a, "Trash the place.", 4);
@@ -485,6 +506,7 @@ function get_place_options(game_state, options) {
             //raffle.add(options.c, "Snoop around.", 4);
             raffle.add(options.d, "Drink a random potion.", 4);
             break;
+
     }
 }
 

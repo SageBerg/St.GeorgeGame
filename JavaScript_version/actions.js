@@ -597,7 +597,15 @@ exports.actions = {
     },
 
     "Lick the ground.": function(game_state, possible_outcomes) {
-        if (game_state.outcome === "kill") { 
+
+        if (game_state.outcome === "burn") {
+            raffle.add(possible_outcomes, "lick_ash", 10000);
+        }
+
+        raffle.add(possible_outcomes, "distasteful", 5);
+        raffle.add(possible_outcomes, "infection", 1);
+
+        if (game_state.outcome === "kill") {
             raffle.add(possible_outcomes, "lick_blood", 10000);
         }
 
@@ -651,13 +659,32 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Look for mermaids.": function(game_state, possible_outcomes) {
+        switch (game_state.character.place) {
+            case "mermaid_rock":
+                raffle.add(possible_outcomes, "meet_mermaid", 4);
+                raffle.add(possible_outcomes, "look_for_mermaids_and_die", 1);
+                raffle.add(possible_outcomes, "find_lost_treasure", 1);
+                raffle.add(possible_outcomes, "find_shiny_coin", 1);
+                break;
+            case "ocean":
+                raffle.add(possible_outcomes, "fail_to_find_mermaids", 3);
+                raffle.add(possible_outcomes, "find_mermaid_rock", 1);
+                raffle.add(possible_outcomes, "find_wooden_mermaid", 1);
+                raffle.add(possible_outcomes, "look_for_mermaids_and_drown", 1);
+                break;
+        }
+        return possible_outcomes;
+    },
+
     "Look for Olga.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "find_olga", 1);
         return possible_outcomes;
     },
 
     "Look for St. George.": function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "find_st_george", 5);
+        raffle.add(possible_outcomes, "find_st_george", 4);
+        //raffle.add(possible_outcomes, "find_st_george_in_church", 5);
         raffle.add(possible_outcomes, "trip_over_a_cat", 1);
         return possible_outcomes;
     },
@@ -668,7 +695,7 @@ exports.actions = {
     },
 
     "Look for the wizard.": function(game_state, possible_outcomes) {
-        //raffle.add(possible_outcomes, "frog", 1);
+        raffle.add(possible_outcomes, "frog", 1);
         if (game_state.character.items["yellow mushroom"] > 0) {
             raffle.add(possible_outcomes, "wizard_wants_mushroom", 10);
         }
