@@ -408,10 +408,10 @@ function get_place_options(game_state, options) {
                 raffle.add(options.a, 
                     "Ask for an audience with Lord Bartholomew.", 4);
             }
-            //raffle.add(options.d, "Sneak around.", 4);
+            raffle.add(options.d, "Sneak around.", 4);
             break;
         case "lord_carlos_manor":
-            raffle.add(options.d, "Sneak around.", 4);
+            raffle.add(options.d, "Sneak around.", 8);
             break;
         case "market" &&
             game_state.character.person !== "war_merchant":
@@ -438,6 +438,10 @@ function get_place_options(game_state, options) {
             break;
         case "pirate_ship":
             raffle.add(options.a, "YELL_A_PIRATE_PHRASE", 6);
+            //raffle.add(options.b, "Raise a sail.", 6);
+            //raffle.add(options.c, "Climb into the crow's nest.", 6);
+            //raffle.add(options.c, "Walk the plank.", 2);
+            //raffle.add(options.d, "Drop anchor.", 6);
             break;
         case "streets":
             raffle.add(options.b, "Leer at women.", 2);

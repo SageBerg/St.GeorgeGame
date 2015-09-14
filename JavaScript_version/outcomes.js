@@ -1243,6 +1243,12 @@ var outcomes = {
         return game_state;
     },
 
+    "get_poison_dagger": function(game_state) {
+        game_state.message = "You find a poisoned dagger in a glass case.";
+        get_weapon(game_state, "poison_dagger");
+        return game_state;
+    },
+
     "get_sap": function(game_state) {
         game_state.message = "You fall a tree and scrape the sap off your ax.";
         get_item(game_state, "ball of sap");
@@ -1576,6 +1582,13 @@ var outcomes = {
         return game_state;
     },
 
+    "killed_by_lord_carlos": function(game_state) {
+        game_state.message = "Lord Carlos jumps down from some rafters and " +
+            "assassinates you.";
+        die(game_state);
+        return game_state;
+    },
+
     "killed_by_olga": function(game_state) {
         game_state.message =
             "When you squeeze her butt, she stabs you in the heart with a " +
@@ -1773,6 +1786,17 @@ var outcomes = {
                            "squinting at herself in the mirror",
             ]) + ".";
         game_state.character.person = "eve";
+        return game_state;
+    },
+
+    "meet_lord_carlos": function(game_state) {
+        game_state.message = "You manage to sneak into Lord Carlos' study. " +
+                    "He is " + random_choice(
+                    ["writing a letter.", "reading a book.",
+                     "looking straight at you.", "eating a heart.",
+                     "training a weasel.", "pacing around."]),
+        game_state.character.person = "lord_carlos";
+        game_state.character.is_threatened = true;
         return game_state;
     },
 
@@ -2388,6 +2412,40 @@ var outcomes = {
         ];
         game_state.message = messages[random_int(messages.length)];
         die(game_state);
+        return game_state;
+    },
+
+    "sneak_and_die_bartholomew": function(game_state) {
+        var messages = [
+            "An old man notices you skulking around and starts yelling " +
+            "about an assassin. You look behind you, but the old " +
+            "man stabs you in the front.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
+        return game_state;
+    },
+
+    "sneak_bartholomew": function(game_state) {
+        var messages = [
+            "While prowling in the shadows of a hallway, you stub your " +
+            "pinkie toe.",
+            "While lurking in a shrub, you catch sight of the fair Lady " +
+            "Beatrice.",
+            "While hiding behind a door, you overhear Lord Bartholomew " +
+            "and his men plotting insurrection.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "sneak_pitchfork": function(game_state) {
+        var messages = [
+            "While creeping around in the stables, you find a long " +
+            "pitchfork.",
+        ];
+        get_weapon(game_state, "long_pitchfork");
+        game_state.message = messages[random_int(messages.length)];
         return game_state;
     },
 

@@ -881,15 +881,19 @@ exports.actions = {
 
     "Sneak around.": function(game_state, possible_outcomes) {
         if (game_state.character.place === "lord_carlos_manor") {
-            //raffle.add(possible_outcomes, "sneak_and_die", 4);
-            //raffle.add(possible_outcomes, "get_poison_dagger", 1);
+            raffle.add(possible_outcomes, "sneak_and_die", 4);
+            raffle.add(possible_outcomes, "get_poison_dagger", 1);
             if (game_state.persons.lord_carlos.alive === true) {
-                //raffle.add(possible_outcomes, "killed_by_lord_carlos", 1);
-                //raffle.add(possible_outcomes, "meet_lord_carlos", 1);
+                raffle.add(possible_outcomes, "killed_by_lord_carlos", 1);
+                raffle.add(possible_outcomes, "meet_lord_carlos", 4);
             }
             if (game_state.persons.eve.alive === true) {
                 raffle.add(possible_outcomes, "meet_eve", 4);
             }
+        } else if (game_state.character.place === "lord_bartholomew_manor") {
+            raffle.add(possible_outcomes, "sneak_and_die_bartholomew", 1);
+            raffle.add(possible_outcomes, "sneak_bartholomew", 3);
+            raffle.add(possible_outcomes, "sneak_pitchfork", 1);
         }
         return possible_outcomes;
     },
