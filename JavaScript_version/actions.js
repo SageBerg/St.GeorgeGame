@@ -3,6 +3,10 @@
 var raffle = require("./raffle");
 var items   = require("./items");
 
+function random_choice(array) {
+    return array[random_int(array.length)]; 
+}
+
 function random_int(n) {
     return Math.floor(Math.random() * n);
 }
@@ -453,6 +457,15 @@ exports.actions = {
 
     "Go on a rampage.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "starve", 1);
+        return possible_outcomes;
+    },
+
+    "GO_SHOPPING": function(game_state, possible_outcomes, destination) {
+        if (game_state.character.money !== "none") { 
+            raffle.add(possible_outcomes, "bought_an_item", 1);
+        } else {
+            raffle.add(possible_outcomes, "cannot_afford", 1);
+        }
         return possible_outcomes;
     },
 

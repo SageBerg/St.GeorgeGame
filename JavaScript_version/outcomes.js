@@ -408,6 +408,12 @@ var outcomes = {
         return game_state;
     },
 
+    "bought_an_item": function(game_state) {
+        game_state.message = "";
+        get_item(game_state, game_state.for_sell);
+        return game_state;
+    },
+
     "bronzed": function(game_state) {
         game_state.message = "You get bronzed.";
         return game_state;

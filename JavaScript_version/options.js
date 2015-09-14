@@ -413,14 +413,15 @@ function get_place_options(game_state, options) {
         case "lord_carlos_manor":
             raffle.add(options.d, "Sneak around.", 8);
             break;
-        case "market" &&
-            game_state.character.person !== "war_merchant":
-            raffle.add(options.a, "Look for a weapon.", 10);
+        case "market":
+            if (game_state.character.person !== "war_merchant") {
+                raffle.add(options.a, "Look for a weapon.", 10);
+            }
             if (game_state.persons.wizard.alive === true && 
                 game_state.character.person !== "wizard") {
                 raffle.add(options.b, "Look for the wizard.", 1);
             }
-            //raffle.add(options.c, "Go shopping.", 2);
+            raffle.add(options.c, "GO_SHOPPING", 6);
             //raffle.add(options.d, "Watch a play.", 2);
             break;
         case "mermaid_rock":

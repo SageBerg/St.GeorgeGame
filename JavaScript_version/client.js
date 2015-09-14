@@ -57,16 +57,22 @@ function execute(letter) {
     request_outcome_of_action(game_state.options[letter]);
 }
 
-function get_weapon(game_state) {
-    var weapons = game_state.persons[game_state.character.person].sells;
-    var weapon  = weapons[random_int(weapons.length)];
-    return weapon;
-}
-
 function get_destination(game_sate) {
     var links = game_state.places[game_state.character.place].links;
     var destination = links[random_int(links.length)];
     return destination;
+}
+
+function get_item(game_state) {
+    var items = ["ax", "bouquet of flowers", "fish", "pearl", "sailor peg"];
+    var item  = items[random_int(items.length)];
+    return item;
+}
+
+function get_weapon(game_state) {
+    var weapons = game_state.persons[game_state.character.person].sells;
+    var weapon  = weapons[random_int(weapons.length)];
+    return weapon;
 }
 
 function handle_new_world(resp) {
@@ -149,6 +155,10 @@ function handle_new_world(resp) {
             var dest = get_destination(game_state);
             $("#c").text("c. Go to " + game_state.places[dest].name + ".");
             game_state.destination = dest;
+        } else if (game_state.options.c === "GO_SHOPPING") {
+            var item = get_item(game_state);
+            $("#c").text("c. Buy " + a_or_an(item[0]) + " " + item + ".");
+            game_state.for_sell = item;
         } else {
             $("#c").text("c. " + game_state.options.c);
         }
