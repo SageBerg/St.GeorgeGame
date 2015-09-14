@@ -1102,6 +1102,12 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Watch a play.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "watch_play", 3);
+        raffle.add(possible_outcomes, "riot", 1);
+        return possible_outcomes;
+    },
+
     //x
 
     //y

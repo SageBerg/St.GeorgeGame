@@ -2295,6 +2295,13 @@ var outcomes = {
         return game_state;
     },
 
+    "riot": function(game_state) {
+        game_state.message = "The play is put on by some Lord Daniel's " +
+            "guards, the acting is terrible and the play portrays Lord " +
+            "Bartholomew in a negative light. The audience starts a riot.";
+        return game_state;
+    },
+
     //s
 
     "saved_by_inuits": function(game_state) {
@@ -2943,7 +2950,7 @@ var outcomes = {
             "You see a beautiful peasant woman, unfortunately she also has " +
             "a beautiful husband.",
             "A traveling fortune teller says you will meet a fiery end.",
-        ] 
+        ];
         game_state.message = messages[random_int(messages.length)];
         game_state.character.person = null;
         return game_state;
@@ -2954,6 +2961,20 @@ var outcomes = {
             "through an epic ballad."; 
         move_character(game_state, 
                        get_random_adjacent_destination(game_state));
+        return game_state;
+    },
+
+    "watch_play": function(game_state) {
+        var messages = [
+            "The play satirizes Lord Daniel's lunacy policy. The actors " +
+            "are arrested at the end of the play.",
+            "The play portrays Lord Bartholomew in a glorious light. The " +
+            "audience is very pleased and claps for so long that it becomes " +
+            "awkward.",
+            "The wedding at the end of the play makes you feel lonely.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.person = null;
         return game_state;
     },
 

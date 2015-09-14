@@ -363,9 +363,6 @@ function get_place_options(game_state, options) {
 
     if (game_state.places[game_state.character.place].town) {
         raffle.add(options.c, "Look for a cat.", 1);
-        if (game_state.character.person !== "st_george") {
-            raffle.add(options.d, "Look for St. George.", 1);
-        }
     }
 
     switch (game_state.character.place) {
@@ -421,8 +418,10 @@ function get_place_options(game_state, options) {
                 game_state.character.person !== "wizard") {
                 raffle.add(options.b, "Look for the wizard.", 1);
             }
-            raffle.add(options.c, "GO_SHOPPING", 6);
-            //raffle.add(options.d, "Watch a play.", 2);
+            if (game_state.character.person === null) {
+                raffle.add(options.c, "GO_SHOPPING", 6);
+            }
+            raffle.add(options.d, "Watch a play.", 2);
             break;
         case "mermaid_rock":
             //raffle.add(options.a, "Look for mermaids.", 10);
@@ -446,6 +445,9 @@ function get_place_options(game_state, options) {
             break;
         case "streets":
             raffle.add(options.b, "Leer at women.", 2);
+            if (game_state.character.person !== "st_george") {
+                raffle.add(options.d, "Look for St. George.", 1);
+            }
             break;
         case "tavern":
             raffle.add(options.a, "Ask about assassins.", 1);
@@ -477,7 +479,7 @@ function get_place_options(game_state, options) {
             break;
         case "wizard_lab":
             if (game_state.places.wizard_lab.trashable) {
-                raffle.add(options.a, "Trash the place.", 4);
+                //raffle.add(options.a, "Trash the place.", 4);
             }
             raffle.add(options.b, "Read a spellbook.", 4);
             //raffle.add(options.c, "Snoop around.", 4);
