@@ -496,6 +496,12 @@ exports.actions = {
 
     //h
     
+    "Hide.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "hide", 2);
+        raffle.add(possible_outcomes, "hide_and_die", 2);
+        return possible_outcomes;
+    },
+
     "Hop.": function(game_state, possible_outcomes) {
         if (get_place(game_state).outside === true) {
             raffle.add(possible_outcomes, "eaten_by_bird", 1);

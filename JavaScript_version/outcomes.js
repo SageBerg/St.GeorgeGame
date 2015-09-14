@@ -1380,6 +1380,28 @@ var outcomes = {
         return game_state;
     },
 
+    "hide": function(game_state) {
+        var messages = [
+            "You hide from the assassins, but not from your own " +
+            "dark thoughts.",
+            "You hide for a couple of days, long enough " +
+            "that you think the whole assassin thing has probably " +
+            "blown over.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "hide_and_die": function(game_state) {
+        var messages = [
+            "You try to hide in a sewer, but you get killed by a rat.",
+            "You trip in the darkness and break your neck.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        clover(game_state);
+        return game_state;
+    },
+
     "hit_assassin_with_cat": function(game_state) {
         game_state.message = "You hit an assassin with your cat.";
         game_state.character.person = "assassin";
