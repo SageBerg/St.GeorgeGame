@@ -394,8 +394,8 @@ function get_place_options(game_state, options) {
             break;
         case "dark_alley":
             raffle.add(options.a, "Look for assassins.", 6);
-            //raffle.add(options.b, "Make a shady deal.", 6);
-            //raffle.add(options.c, "Hide.", 4);
+            raffle.add(options.b, "Make a shady deal.", 6);
+            raffle.add(options.c, "Hide.", 4);
             raffle.add(options.d, "Look through the trash.", 6);
             break;
         case "docks":
