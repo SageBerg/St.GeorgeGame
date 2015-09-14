@@ -119,16 +119,6 @@ exports.persons = {
         "sells": [],
         "type": "male",
     },
-    "merchant":
-    {
-        "alive": true,
-        "attack": 3,
-        "attracted": 0,
-        "name": "the merchant woman",
-        "prefered_attack": "drown",
-        "sells": ["ax", "flowers", "sailor_peg", "pearl", "fish"],
-        "type": "female",
-    },
     "mermaid":
     {
         "alive": true,
