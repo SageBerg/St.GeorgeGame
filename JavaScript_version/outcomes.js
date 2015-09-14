@@ -418,6 +418,31 @@ var outcomes = {
         return game_state;
     },
 
+    "buy_black_market_item": function(game_state) {
+        var item = random_choice(["deep-cave newt", "potion of love", 
+                                  "many colored mushroom", "white mushroom", 
+                                  "black mushroom", "fancy red cloak", 
+                                  "potion of strength",]);
+        var messages;
+        if (game_state.character.money === "small_fortune" ||
+            game_state.character.money === "large_fortune") {
+            messages = [
+                "You you cut a deal with a " +
+                random_choice(["black market peddler", "merchant witch",
+                               "monger of rare items",]) + ".",
+            ];
+            game_state.message = messages[random_int(messages.length)];
+            get_item(game_state, item);
+        } else {
+            messages = [
+                "You cannot afford to make a shady deal.",
+                "You're too poor to make a shady deal.",
+            ];
+            game_state.message = messages[random_int(messages.length)];
+        }
+        return game_state;
+    },
+
     //c
 
     "cannot_afford": function(game_state) {
@@ -615,6 +640,7 @@ var outcomes = {
             "ground, try to catch yourself, but break your wrist, " +
             "hit your head on the ground and break your neck.",
             "You dance so vigorously you become exhausted and die.",
+            "You dance to death.",
         ];
         game_state.message = messages[random_int(messages.length)];
         clover(game_state);
@@ -708,6 +734,15 @@ var outcomes = {
             ".",
         ];
         game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "deal_with_assassin": function(game_state) {
+        var messages = [
+            "You find an assassin posing as a black market dealer.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        clover(game_state);
         return game_state;
     },
 

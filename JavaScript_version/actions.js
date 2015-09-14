@@ -104,7 +104,8 @@ exports.actions = {
     },
 
     "Buy a drink.": function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "meet_blind_bartender", 1);
+        //raffle.add(possible_outcomes, "meet_blind_bartender", 1);
+        raffle.add(possible_outcomes, "think_think_think", 1);
         return possible_outcomes;
     },
 
@@ -704,6 +705,12 @@ exports.actions = {
     },
 
     //m
+
+    "Make a shady deal.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "deal_with_assassin", 2);
+        raffle.add(possible_outcomes, "buy_black_market_item", 7);
+        return possible_outcomes;
+    },
 
     "MARRY": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "married", 1);
