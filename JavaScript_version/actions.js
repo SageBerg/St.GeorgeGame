@@ -682,6 +682,14 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Look for sea turtles.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "find_sea_turtle", 1);
+        raffle.add(possible_outcomes, "find_mermaid_instead", 1);
+        raffle.add(possible_outcomes, "find_sea_turtle_and_drown", 1);
+        raffle.add(possible_outcomes, "no_sea_turtle", 3);
+        return possible_outcomes;
+    },
+
     "Look for St. George.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "find_st_george", 4);
         //raffle.add(possible_outcomes, "find_st_george_in_church", 5);

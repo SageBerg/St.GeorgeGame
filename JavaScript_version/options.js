@@ -285,6 +285,7 @@ function get_outcome_options(game_state, options) {
         case "lose_ax":
         case "miss_olga":
         case "no_flowers":
+        case "no_sea_turtle":
         case "no_way_out":
         case "pirates_ruin_song":
         case "priest_disagrees":
@@ -443,7 +444,7 @@ function get_place_options(game_state, options) {
 
         case "ocean":
             raffle.add(options.a, "Look for mermaids.", 5);
-            //raffle.add(options.a, "Look for sea turtles.", 5);
+            raffle.add(options.a, "Look for sea turtles.", 5);
             raffle.add(options.b, "Sink.", 10);
             raffle.add(options.c, "Swim.", 20);
             raffle.add(options.d, "Dive for pearls.", 5);
@@ -457,6 +458,12 @@ function get_place_options(game_state, options) {
             //raffle.add(options.c, "Walk the plank.", 2);
             //raffle.add(options.d, "Drop anchor.", 4);
             //raffle.add(options.c, "Scrub the deck.", 4);
+            break;
+
+        case "prison":
+            //raffle.add(options.b, "Bide your time.", 6);
+            //raffle.add(options.c, "Pace around.", 10);
+            //raffle.add(options.d, "Dig a sceret tunnel.", 6);
             break;
 
         case "streets":

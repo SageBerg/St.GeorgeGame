@@ -1057,7 +1057,7 @@ var outcomes = {
         return game_state;
     },
 
-    "find_deep_cave_newt": function(game_state) {
+    "pfind_deep_cave_newt": function(game_state) {
         game_state.message = "You don't find a way out, but you find a " +
             "deep-cave newt.";
         get_item(game_state, "deep-cave newt");
@@ -1095,6 +1095,27 @@ var outcomes = {
     "find_pearl_in_jewels": function(game_state) {
         game_state.message = "You find a pearl in your bag of jewels.";
         get_item(game_state, "pearl");
+        return game_state;
+    },
+
+    "find_mermaid_instead": function(game_state) {
+        game_state.message = "You find a mermaid instead. She leads you back to " +
+            "her rock.";
+        move_character(game_state, "mermaid_rock");
+        game_state.character.person = "mermaid";
+        return game_state;
+    },
+
+    "find_sea_turtle": function(game_state) {
+        game_state.message = "You find a sea turtle and follow it to shore.";
+        move_character(game_state, "countryside");
+        return game_state;
+    },
+
+    "find_sea_turtle_and_drown": function(game_state) {
+        game_state.message = "You find one. You also drown because you're " +
+            "in the ocean.";
+        clover(game_state);
         return game_state;
     },
 
@@ -2073,6 +2094,16 @@ var outcomes = {
             game_state.message += " Your cats drown.";
         }
         game_state.character.items.cat = 0;
+        return game_state;
+    },
+
+    "no_sea_turtle": function(game_state) {
+        var messages = [
+            "You can't find a sea turtle. Everywhere looks the same.",
+            "You find a shark instead. It minds its own business.",
+            "Your efforts to find a sea turtle are fruitless.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
         return game_state;
     },
 
