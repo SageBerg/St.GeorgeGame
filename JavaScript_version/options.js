@@ -254,7 +254,6 @@ function get_person_options(game_state, options) {
 
         case "st_george":
             raffle.add(options.b, "Beg for money.", 100);
-            //raffle.add(options.c, "Chat with St. George.", 10);
             break;
 
         case "war_merchant":
@@ -275,6 +274,7 @@ function get_outcome_options(game_state, options) {
             //raffle.add(options.a, "Thump yourself on the chest.", 1);
             //raffle.add(options.c, "Celebrate your success.", 1);
             break;
+
         case "cannot_afford":
         case "cannot_tip_cow":
         case "dance_in_puddle":
@@ -285,6 +285,7 @@ function get_outcome_options(game_state, options) {
         case "lose_ax":
         case "miss_olga":
         case "no_flowers":
+        case "no_one_wants_to_talk":
         case "no_sea_turtle":
         case "no_way_out":
         case "pirates_ruin_song":
@@ -417,6 +418,8 @@ function get_place_options(game_state, options) {
             break;
 
         case "lord_carlos_manor":
+            raffle.add(options.a, "Ask about assassins.", 4);
+            raffle.add(options.b, "BURN", 2);
             raffle.add(options.d, "Sneak around.", 8);
             break;
 

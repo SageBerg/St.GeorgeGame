@@ -2081,6 +2081,16 @@ var outcomes = {
         return game_state;
     },
 
+    "no_one_wants_to_talk": function(game_state) {
+        var messages = [
+            "You ask around, but nobody has heard anything about " +
+            "assassins.",
+            "Nobody wants to talk to you.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
     "no_progress_swimming": function(game_state) {
         var messages = [
             "You keep your head up.",
@@ -2955,6 +2965,15 @@ var outcomes = {
     //v
 
     //w
+
+    "wait_here": function(game_state) {
+        var messages = [
+            "You ask a servant about assassins. She asks you to wait where " +
+            "you are.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
 
     "waiting_for_seal": function(game_state) {
         var messages = [

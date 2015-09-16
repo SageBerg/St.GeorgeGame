@@ -37,8 +37,14 @@ exports.actions = {
 
     "Ask about assassins.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "assassinated", 1);
-        if (game_state.persons.olga.alive) {
-            raffle.add(possible_outcomes, "meet_olga", 1);
+        if (game_state.character.place === "tavern") {
+            raffle.add(possible_outcomes, "no_one_wants_to_talk", 2);
+            if (game_state.persons.olga.alive) {
+                raffle.add(possible_outcomes, "meet_olga", 1);
+            }
+        }
+        if (game_state.character.place === "lord_carlos_manor") {
+            raffle.add(possible_outcomes, "wait_here", 3);
         }
         return possible_outcomes;
     },
