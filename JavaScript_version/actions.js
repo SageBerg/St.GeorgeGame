@@ -114,8 +114,10 @@ exports.actions = {
     },
 
     "Buy a drink.": function(game_state, possible_outcomes) {
-        //raffle.add(possible_outcomes, "meet_blind_bartender", 1);
-        raffle.add(possible_outcomes, "think_think_think", 1);
+        raffle.add(possible_outcomes, "assassins_sit_down", 1);
+        raffle.add(possible_outcomes, "buy_a_drink_and_die", 2);
+        raffle.add(possible_outcomes, "meet_blind_bartender", 4);
+        raffle.add(possible_outcomes, "overhear_stuff", 2);
         return possible_outcomes;
     },
 

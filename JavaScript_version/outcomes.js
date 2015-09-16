@@ -317,6 +317,14 @@ var outcomes = {
         return game_state;
     },
 
+    "assassins_sit_down": function(game_state) {
+        game_state.message = 
+            "Some men in dark cloaks sit down next to you, but don't seem " +
+            "to notice you.";
+        game_state.character.person = "assassins";
+        return game_state;
+    },
+
     "attract_lady_frog": function(game_state) {
         game_state.message = "Your croaking attracts a lady frog, but " +
             "you're not sure what to do with her.";
@@ -421,6 +429,16 @@ var outcomes = {
 
     "burn": function(game_state) {
         burn(game_state);
+        return game_state;
+    },
+
+    "buy_a_drink_and_die": function(game_state) {
+        var messages = [
+            "The drink is poisoned.",
+            "An assassin walks up and starts hitting on you... very hard.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
         return game_state;
     },
 
@@ -2145,6 +2163,18 @@ var outcomes = {
 
     //o
     
+    "overhear_stuff": function(game_state) {
+        var messages = [
+            "you overhear some peasants excitedly talking about Lord " +
+            "Bartholomew.",
+            "you overhear a woman say a wizard turned her husband into a " +
+            "frog.",
+        ];
+        game_state.message = "While you're drinking, " + 
+            messages[random_int(messages.length)];
+        return game_state;
+    },
+
     //p
 
     "panic_and_die": function(game_state) {
