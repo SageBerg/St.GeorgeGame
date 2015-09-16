@@ -145,6 +145,17 @@ function get_weapon(game_state, weapon) {
     }
 }
 
+function grow_tail(game_state) {
+    if (game_state.character.has_tail === false) {
+        game_state.character.has_tail = true;
+        game_state.message = "You grow a " +
+            random_choice(["alligator", "beaver", "donkey", "horse", "monkey", 
+                           "pig", "rat"]) + " tail.";
+    } else {
+        game_state.message = "The potion has no effect.";
+    }
+}
+
 function lose_all_items(game_state) {
     for (var item in game_state.character.items) {
         game_state.character.items[item] = 0;
@@ -905,6 +916,17 @@ var outcomes = {
         return game_state;
     },
 
+    "drink_piss": function(game_state) {
+        var messages = [
+            "The potion tastes foul and you begin wondering if the wizard " +
+            "pees in some of these bottles.",
+            "You're pretty sure you just drank piss, but it could have been " +
+            "beer.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
     "drown": function(game_state) {
         game_state.message = "You drown.";
         die(game_state);
@@ -1553,6 +1575,11 @@ var outcomes = {
 
     "ground_tastes_cold": function(game_state) {
         game_state.message = "The ground tastes really cold.";
+        return game_state;
+    },
+
+    "grow_tail": function(game_state) {
+        grow_tail(game_state);
         return game_state;
     },
 
@@ -2515,6 +2542,28 @@ var outcomes = {
     //q
     
     //r
+
+    "random_death": function(game_state) {
+        var messages = [
+            "The potion tastes bittersweet.",
+            "The potion has no effect, but when the wizard comes in to the " +
+            "lab, you feel compelled to flirt with him stroke his " +
+            "beard. He is revolted and incinerates you.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
+        return game_state;
+    },
+
+    "random_strength": function(game_state) {
+        var messages = [
+            "The potion gives you washboard abs.",
+            "Your muscles swell with strength.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.strength += 3;
+        return game_state;
+    },
 
     "read_and_die": function(game_state) {
         var messages = [
