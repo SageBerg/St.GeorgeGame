@@ -515,7 +515,7 @@ function get_place_options(game_state, options) {
                 //raffle.add(options.a, "Trash the place.", 4);
             }
             raffle.add(options.b, "Read a spellbook.", 4);
-            //raffle.add(options.c, "Snoop around.", 4);
+            raffle.add(options.c, "Snoop around.", 4);
             raffle.add(options.d, "Drink a random potion.", 4);
             break;
 

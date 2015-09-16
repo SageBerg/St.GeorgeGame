@@ -970,6 +970,14 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Snoop around.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "get_frog", 1);
+        raffle.add(possible_outcomes, "red_cloak", 1);
+        raffle.add(possible_outcomes, "snoop_around_and_die", 1);
+        raffle.add(possible_outcomes, "wizard_sends_you_to_arctic", 1);
+        return possible_outcomes;
+    },
+
     "Sun yourself on a rock.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "bronzed", 1);
         raffle.add(possible_outcomes, "eaten_by_roc", 1);

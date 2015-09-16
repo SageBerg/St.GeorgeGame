@@ -1449,6 +1449,15 @@ var outcomes = {
         return game_state;
     },
 
+    "get_frog": function(game_state) {
+        var messages = [
+            "While you are snooping around, a frog hops onto you.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        get_item(game_state, "frog");
+        return game_state;
+    },
+
     "get_no_void_dust": function(game_state) {
         var messages = [
             "You reach for some void dust, but it's farther away than it " +
@@ -2618,6 +2627,16 @@ var outcomes = {
         return game_state;
     },
 
+    "red_cloak": function(game_state) {
+        var messages = [
+            "While snooping around, you find a red cloak with fire " +
+            "embroidery.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        get_item(game_state, "fancy red cloak");
+        return game_state;
+    },
+
     "rescued_by_lord_arthur": function(game_state) {
         game_state.message = "You are picked up by Lord Arthur's pirate " +
             "ship.";
@@ -2799,6 +2818,15 @@ var outcomes = {
         ];
         get_weapon(game_state, "long_pitchfork");
         game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "snoop_around_and_die": function(game_state) {
+        var messages = [
+            "You accidentally knock over a bottle of roiling black vapor.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        clover(game_state);
         return game_state;
     },
 
@@ -3391,6 +3419,16 @@ var outcomes = {
             "The wizard leaves without you.",
         ];
         game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "wizard_sends_you_to_arctic": function(game_state) {
+        var messages = [
+            "The wizard catches you snooping around and conks you on the " +
+            "head with his staff.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        move_character(game_state, "arctic");
         return game_state;
     },
 
