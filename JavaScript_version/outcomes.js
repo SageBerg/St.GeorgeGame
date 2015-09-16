@@ -500,6 +500,17 @@ var outcomes = {
         return game_state;
     },
 
+    "cannot_find_witch": function(game_state) {
+        if (game_state.places.woods.burnable === true) {
+            game_state.message = "You can't find any witches. Only trees.";
+        } else {
+            game_state.message = "You can't find any witches. Only burnt " +
+                "trees.";
+        }
+        game_state.character.person = null;
+        return game_state;
+    },
+
     "cannot_hear_assassin": function(game_state) {
         game_state.message = "Your singing is too laud for you to hear the " +
             "assassin sneaking up behind you." 
@@ -2020,6 +2031,12 @@ var outcomes = {
     "meet_simple_peasant": function(game_state) {
         game_state.message = "You find a simple peasant man.";
         game_state.character.person = "simple_peasant";
+        return game_state;
+    },
+
+    "meet_witch": function(game_state) {
+        game_state.message = "You find a witch deep in the woods.";
+        game_state.character.person = "witch";
         return game_state;
     },
 

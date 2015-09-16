@@ -727,7 +727,10 @@ exports.actions = {
     },
 
     "Look for witches.": function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "meet_witch", 1);
+        if (game_state.places.woods.burnable === true) {
+            raffle.add(possible_outcomes, "meet_witch", 1);
+        }
+        raffle.add(possible_outcomes, "cannot_find_witch", 1);
         return possible_outcomes;
     },
 
