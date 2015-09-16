@@ -489,6 +489,17 @@ var outcomes = {
         return game_state;
     },
 
+    "cannot_find_cat": function(game_state) {
+        var messages = [
+            "You can't find any cats. Only dogs.",
+            "You chase a cat to no avail.",
+            "Your efforts to find a cat are fruitless.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.person = null;
+        return game_state;
+    },
+
     "cannot_hear_assassin": function(game_state) {
         game_state.message = "Your singing is too laud for you to hear the " +
             "assassin sneaking up behind you." 
@@ -522,6 +533,16 @@ var outcomes = {
             "burning.",
         ];
         game_state.message = messages[random_int(messages.length)];
+        game_state.character.person = null;
+        return game_state;
+    },
+
+    "cat_smells_fish": function(game_state) {
+        var messages = [
+            "A cat smells your fish and approaches you.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        get_item(game_state, "cat");
         game_state.character.person = null;
         return game_state;
     },
@@ -602,6 +623,16 @@ var outcomes = {
             "The Devil is pretty fast, but Olga is faster and prettier. " +
             "She catches you and strangles you to death.";
         game_state.character.is_dead = true;
+        return game_state;
+    },
+
+    "chase_cat_to_dark_alley": function(game_state) {
+        var messages = [
+            "You find a skinny cat. You chase it through the streets and " +
+            "lose track of it.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        move_character(game_state, "dark_alley");
         return game_state;
     },
 
@@ -1056,7 +1087,13 @@ var outcomes = {
     },
 
     "find_a_cat": function(game_state) {
-        game_state.message = "You find a cat.";
+        var messages = [
+            "You find a fat cat. It's too slow to escape you.",
+            "You find one.",
+            "Your efforts to find a cat are fruitful.",
+            "Today is your lucky day.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
         get_item(game_state, "cat");
         game_state.character.person = null;
         return game_state;
@@ -1146,6 +1183,12 @@ var outcomes = {
 
     "find_st_george": function(game_state) {
         game_state.message = "You find St. George.";
+        game_state.character.person = "st_george";
+        return game_state;
+    },
+
+    "find_st_george_instead": function(game_state) {
+        game_state.message = "You find St. George instead.";
         game_state.character.person = "st_george";
         return game_state;
     },

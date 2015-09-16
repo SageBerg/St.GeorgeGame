@@ -244,7 +244,7 @@ function get_person_options(game_state, options) {
 
         case "peasant_lass":
         case "simple_peasant":
-            //raffle.add(options.b, "Ask for directions.", 10);
+            //raffle.add(options.d, "Ask for directions.", 10);
             break;
 
         case "pirates":
@@ -270,16 +270,19 @@ function get_outcome_options(game_state, options) {
 
     switch (game_state.outcome) {
         case "bronzed":
+        case "cat_smells_fish":
         case "chop_down_tree":
             //raffle.add(options.a, "Thump yourself on the chest.", 1);
             //raffle.add(options.c, "Celebrate your success.", 1);
             break;
 
         case "cannot_afford":
+        case "cannot_find_cat":
         case "cannot_tip_cow":
         case "dance_in_puddle":
         case "fail_at_new_career":
         case "fail_to_find_mermaids":
+        case "find_st_george_instead":
         case "fish_pirates_laugh":
         case "ignored":
         case "lose_ax":
@@ -362,10 +365,6 @@ function get_place_options(game_state, options) {
 
     if (game_state.places[game_state.character.place].burnable) {
         raffle.add(options.b, "BURN", 1);
-    }
-
-    if (game_state.places[game_state.character.place].town) {
-        raffle.add(options.c, "Look for a cat.", 1);
     }
 
     switch (game_state.character.place) {
@@ -470,9 +469,10 @@ function get_place_options(game_state, options) {
             break;
 
         case "streets":
+            raffle.add(options.a, "Look for a cat.", 2);
             raffle.add(options.b, "Leer at women.", 2);
             if (game_state.character.person !== "st_george") {
-                raffle.add(options.d, "Look for St. George.", 1);
+                raffle.add(options.d, "Look for St. George.", 2);
             }
             break;
 

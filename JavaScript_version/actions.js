@@ -650,7 +650,14 @@ exports.actions = {
     },
 
     "Look for a cat.": function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "find_a_cat", 1);
+        if (game_state.character.items.fish > 0 &&
+            game_state.character.items.cat === 0) {
+            raffle.add(possible_outcomes, "cat_smells_fish", 20);
+        }
+        raffle.add(possible_outcomes, "cannot_find_cat", 3);
+        raffle.add(possible_outcomes, "chase_cat_to_dark_alley", 1);
+        raffle.add(possible_outcomes, "find_a_cat", 4);
+        raffle.add(possible_outcomes, "find_st_george_instead", 1);
         return possible_outcomes;
     },
 
