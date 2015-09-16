@@ -502,12 +502,12 @@ function get_place_options(game_state, options) {
             break;
 
         case "woods":
-            raffle.add(options.a, "Go mushroom picking.", 2);
-            raffle.add(options.b, "Look for witches.", 2);
+            raffle.add(options.a, "Go mushroom picking.", 4);
+            raffle.add(options.b, "Look for witches.", 4);
             if (game_state.character.items.ax > 0) {
                 raffle.add(options.c, "Chop down a tree with your ax.", 10);
             }
-            raffle.add(options.d, "Look for the nymph queen.", 2);
+            raffle.add(options.d, "Look for nymphs.", 4);
             break;
 
         case "wizard_lab":

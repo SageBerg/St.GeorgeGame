@@ -8,7 +8,7 @@ exports.persons = {
         "alive": true,
         "attack": 6,
         "attracted": 0,
-        "name": "an assassin",
+        "name": "the assassin",
         "prefered_attack": "assassinate",
         "sells": [],
         "type": "female", 
