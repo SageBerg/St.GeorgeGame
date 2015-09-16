@@ -692,6 +692,16 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Look for nymphs.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "cannot_find_nymphs", 2);
+        raffle.add(possible_outcomes, "fall_into_cave", 1);
+        raffle.add(possible_outcomes, "find_assassin_instead", 1);
+        raffle.add(possible_outcomes, "find_nymphs", 2);
+        raffle.add(possible_outcomes, "look_for_nymphs_and_die", 1);
+        raffle.add(possible_outcomes, "meet_nymph_queen", 1);
+        return possible_outcomes;
+    },
+
     "Look for Olga.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "find_olga", 1);
         return possible_outcomes;
@@ -710,11 +720,6 @@ exports.actions = {
         raffle.add(possible_outcomes, "find_st_george_in_church", 5);
         raffle.add(possible_outcomes, "trip_over_a_cat", 1);
         raffle.add(possible_outcomes, "forget_what_you_were_doing", 1);
-        return possible_outcomes;
-    },
-
-    "Look for the nymph queen.": function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "meet_nymph_queen", 1);
         return possible_outcomes;
     },
 

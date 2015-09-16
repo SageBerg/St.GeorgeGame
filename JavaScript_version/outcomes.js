@@ -500,6 +500,20 @@ var outcomes = {
         return game_state;
     },
 
+    "cannot_find_nymphs": function(game_state) {
+        var messages = [
+            "You can't find any nymphs, but you see some of Lord Carlos' " +
+            "men burrying a body.",
+            "You get distracted by a squirrel and forget what you were doing.",
+            "You see a comely woman picking berries, but she's not a nymph.",
+            "Your efforts to find nymphs are fruitless, but you find an " +
+            "apple tree.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.person = null;
+        return game_state;
+    },
+
     "cannot_find_witch": function(game_state) {
         if (game_state.places.woods.burnable === true) {
             game_state.message = "You can't find any witches. Only trees.";
@@ -1017,8 +1031,17 @@ var outcomes = {
             "After a days of searching, you're not sure mermaids exist.",
             "You aren't sure where to look.",
             "You find a sea turtle instead.",
-        ] 
+        ]; 
         game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "fall_into_cave": function(game_state) {
+        var messages = [
+            "You trip on a stick and fall into a hole in the ground.",
+        ]; 
+        game_state.message = messages[random_int(messages.length)];
+        move_character(game_state, "cave");
         return game_state;
     },
 
@@ -1032,7 +1055,7 @@ var outcomes = {
             "pace.",
             "During your duties, you get kicked by a mule. You somehow " +
             "don't die.",
-        ] 
+        ]; 
         game_state.message = messages[random_int(messages.length)];
         get_money(game_state, "pittance");
         return game_state;
@@ -1042,7 +1065,7 @@ var outcomes = {
         var messages = [
             "You spend a season slaughtering hogs. You find a shiny " +
             "foreign coin in one of the hogs.",
-        ] 
+        ]; 
         game_state.message = messages[random_int(messages.length)];
         get_item(game_state, "shiny foreign coin");
         get_money(game_state, "pittance");
@@ -1053,7 +1076,7 @@ var outcomes = {
         var messages = [
             "You find farm work, but the assassins find you.",
             "You slip on a fallen apple and drown in an irrigation ditch.",
-        ] 
+        ]; 
         game_state.message = messages[random_int(messages.length)];
         clover(game_state);
         return game_state;
@@ -1062,7 +1085,7 @@ var outcomes = {
     "farm_work_and_pitchfork": function(game_state) {
         var messages = [
             "You spend a season bailing hay.",
-        ] 
+        ]; 
         game_state.message = messages[random_int(messages.length)];
         get_weapon(game_state, "pitchfork");
         get_money(game_state, "pittance");
@@ -1077,7 +1100,7 @@ var outcomes = {
                 "like you've been cheated",
                 "unfulfilled",
                 ]) + ".",
-        ] 
+        ]; 
         game_state.message = messages[random_int(messages.length)];
         return game_state;
     },
@@ -1092,7 +1115,7 @@ var outcomes = {
                 "like your donation brought you closer to God",
                 "like your sins will be pardoned",
                 ]) + ".",
-        ] 
+        ]; 
         game_state.message = messages[random_int(messages.length)];
         return game_state;
     },
@@ -1103,7 +1126,7 @@ var outcomes = {
             "You find one.",
             "Your efforts to find a cat are fruitful.",
             "Today is your lucky day.",
-        ] 
+        ]; 
         game_state.message = messages[random_int(messages.length)];
         get_item(game_state, "cat");
         game_state.character.person = null;
@@ -1123,7 +1146,15 @@ var outcomes = {
         return game_state;
     },
 
-    "pfind_deep_cave_newt": function(game_state) {
+    "find_assassin_instead": function(game_state) {
+        game_state.message = "You notice a woman in a dark cloak stalking " +
+            "you.";
+        game_state.character.person = "assassin";
+        game_state.character.is_threatened = true;
+        return game_state;
+    },
+
+    "find_deep_cave_newt": function(game_state) {
         game_state.message = "You don't find a way out, but you find a " +
             "deep-cave newt.";
         get_item(game_state, "deep-cave newt");
@@ -1169,6 +1200,17 @@ var outcomes = {
             "her rock.";
         move_character(game_state, "mermaid_rock");
         game_state.character.person = "mermaid";
+        return game_state;
+    },
+
+    "find_nymphs": function(game_state) {
+        var messages = [
+            "You find some nymphs " + random_choice([
+                "dancing slowly in a meadow",
+                "singing among the trees",]) + ", but they disappear when " +
+            "they see you.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
         return game_state;
     },
 
@@ -1908,6 +1950,14 @@ var outcomes = {
         return game_state;
     },
 
+    "look_for_nymphs_and_die": function(game_state) {
+        game_state.message = "You see some nymphs bathing in a waterfall, " +
+            "but they hex you for gawking. You climb a ridge and throw " +
+            "yourself to your death.",
+        clover(game_state);
+        return game_state;
+    },
+
     "lose_ax": function(game_state) {
         game_state.message = "You get your ax stuck in a tree and can't " +
         "get it back out.";
@@ -2002,9 +2052,16 @@ var outcomes = {
     },
 
     "meet_nymph_queen": function(game_state) {
-        game_state.message = "You find the nymph queen. " +
-            "She turns you into a shrub.";
-        game_state.character.is_shrub = true;
+        game_state.message = "You find the nymph queen " +
+            random_choice(["doing tai chi in a meadow", "feeding a stag",
+                           "levitating above a pond",
+                           "tanning in a ray of sunshine",
+                           "teaching a gobling to read",
+                           "watering flowers in a meadow",
+                          ]) + ". Her beauty is " +
+            random_choice(["dazzling", "exhilarating", "intoxicating",
+                           "only rivaled by her attractiveness",
+                           "overwhelming"]) + ".";
         game_state.character.person = "nymph_queen";
         return game_state;
     },
