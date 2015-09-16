@@ -1187,6 +1187,20 @@ var outcomes = {
         return game_state;
     },
 
+    "find_st_george_in_church": function(game_state) {
+        game_state.message = "You find St. George " +
+            random_choice(["absolving a rich man's sins",
+                           "blessing a knight's sword",
+                           "cleaning the feet of a beggar",
+                           "deep in prayer", "eating a holy wafer",
+                           "feeding a poor woman", "giving a sermon",
+                           "helping deliver a baby"])
+            + ".";
+        move_character(game_state, "church");
+        game_state.character.person = "st_george";
+        return game_state;
+    },
+
     "find_st_george_instead": function(game_state) {
         game_state.message = "You find St. George instead.";
         game_state.character.person = "st_george";
@@ -1241,6 +1255,13 @@ var outcomes = {
             "priest officiates your wedding. You and Lord Carlos' " +
             "daughter live happily ever after.";
         game_state.character.has_found_true_love = true;
+        return game_state;
+    },
+
+    "forget_what_you_were_doing": function(game_state) {
+        game_state.message = "You forget what you were trying to do.";
+        move_character(
+                game_state, get_random_adjacent_destination(game_state));
         return game_state;
     },
 
@@ -2062,7 +2083,8 @@ var outcomes = {
 
     "moved": function(game_state) {
         game_state.message = "";
-        move_character(game_state, get_random_adjacent_destination(game_state));
+        move_character(game_state, 
+            get_random_adjacent_destination(game_state));
         return game_state;
     },
 

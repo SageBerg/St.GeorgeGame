@@ -706,9 +706,10 @@ exports.actions = {
     },
 
     "Look for St. George.": function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "find_st_george", 4);
-        //raffle.add(possible_outcomes, "find_st_george_in_church", 5);
+        raffle.add(possible_outcomes, "find_st_george", 3);
+        raffle.add(possible_outcomes, "find_st_george_in_church", 5);
         raffle.add(possible_outcomes, "trip_over_a_cat", 1);
+        raffle.add(possible_outcomes, "forget_what_you_were_doing", 1);
         return possible_outcomes;
     },
 
