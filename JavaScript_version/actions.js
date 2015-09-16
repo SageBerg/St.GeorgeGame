@@ -1140,6 +1140,16 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Trash the place.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "trash_the_place", 4);
+        raffle.add(possible_outcomes, "trash_the_place_and_die", 2);
+        raffle.add(possible_outcomes, "blow_up_the_lab", 1);
+        if (game_state.persons.wizard.alive === true) {
+            raffle.add(possible_outcomes, "wizard_stops_you_trashing", 1);
+        }
+        return possible_outcomes;
+    },
+
     //u
 
     //v

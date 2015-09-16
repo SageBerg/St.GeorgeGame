@@ -211,6 +211,16 @@ function teleport(game_state) {
     move_character(game_state, destination);
 }
 
+function trash(game_state) {
+    game_state.places[game_state.character.place].trashable = false;
+    game_state.places[game_state.character.place].name = 
+        "the trashed remains of " + 
+        game_state.places[game_state.character.place].name;
+    game_state.character.person = null;
+    game_state.message = "You find yourself in " +
+    game_state.places[game_state.character.place].name + ".";
+}
+
 var he_she_they = {
     "female": "she",
     "male": "he",
@@ -404,6 +414,20 @@ var outcomes = {
     "blessed": function(game_state) {
         game_state.message = "A priestess blesses you.";
         game_state.character.person = "priestess";
+        return game_state;
+    },
+
+    "blow_up_the_lab": function(game_state) {
+        burn(game_state);
+        var temp_message = " " + game_state.message;
+        game_state.message =  "One of the potions you smash blows up the lab.";
+        if (game_state.character.items["fancy red cloak"] < 1) {
+            die(game_state);
+        } else {
+            game_state.message += " However, your fancy red cloak protects " +
+                "you from annihilation.";
+            game_state.message += temp_message;
+        }
         return game_state;
     },
 
@@ -3206,6 +3230,29 @@ var outcomes = {
         return game_state;
     },
 
+    "trash_the_place": function(game_state) {
+        trash(game_state);
+        if (random_int(3) === 0) {
+            game_state.message += " You find a red cloak in the wreckage.";
+            get_item(game_state, "fancy red cloak");
+        }
+        return game_state;
+    },
+
+    "trash_the_place_and_die": function(game_state) {
+        var messages = [
+            "When you snap a fancy staff in half, you inadvertently set " + 
+            "a dark spirit free.",
+        ];
+        if (game_state.persons.wizard.alive === true) {
+            messages.push("while you're wrecking stuff, the wizard runs " +
+                "into the lab and incinerates you.");
+        }
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
+        return game_state;
+    },
+
     //u
     
     //v
@@ -3429,6 +3476,17 @@ var outcomes = {
         ];
         game_state.message = messages[random_int(messages.length)];
         move_character(game_state, "arctic");
+        return game_state;
+    },
+
+    "wizard_stops_you_trashing": function(game_state) {
+        var messages = [
+            "The wizard comes in while you're trashing the place and starts " +
+            "yelling obscenities.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.is_threatened = true;
+        game_state.character.person = "wizard";
         return game_state;
     },
 

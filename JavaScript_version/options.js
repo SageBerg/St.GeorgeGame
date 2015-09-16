@@ -511,8 +511,9 @@ function get_place_options(game_state, options) {
             break;
 
         case "wizard_lab":
-            if (game_state.places.wizard_lab.trashable) {
-                //raffle.add(options.a, "Trash the place.", 4);
+            if (game_state.places.wizard_lab.trashable === true &&
+                game_state.outcome !== "wizard_stops_you_trashing") {
+                raffle.add(options.a, "Trash the place.", 4);
             }
             raffle.add(options.b, "Read a spellbook.", 4);
             raffle.add(options.c, "Snoop around.", 4);
