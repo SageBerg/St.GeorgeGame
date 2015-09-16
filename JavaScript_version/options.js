@@ -418,7 +418,9 @@ function get_place_options(game_state, options) {
 
         case "lord_carlos_manor":
             raffle.add(options.a, "Ask about assassins.", 4);
-            raffle.add(options.b, "BURN", 2);
+            if (game_state.places.lord_carlos_manor.burnable === true) {
+                raffle.add(options.b, "BURN", 2);
+            }
             raffle.add(options.d, "Sneak around.", 8);
             break;
 
