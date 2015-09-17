@@ -466,7 +466,15 @@ function get_place_options(game_state, options) {
 
         case "prison":
             raffle.add(options.b, "Bide your time.", 6);
-            //raffle.add(options.c, "Pace around.", 10);
+            raffle.add(options.c, "Pace around.", 10);
+            /*
+            if (game_state.persons.felicity.name === "the fat lady") {
+                raffle.add(options.d, 
+                    "Flirt with the fat lady who feeds you.", 10);
+            } else {
+                raffle.add(options.d, "Flirt with felicity.",10);
+            }
+            */
             break;
 
         case "streets":

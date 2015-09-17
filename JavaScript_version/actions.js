@@ -803,6 +803,11 @@ exports.actions = {
     
     //p
 
+    "Pace around.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "pace", 5);
+        return possible_outcomes;
+    },
+
     "Panic!": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "panic_and_die", 2);
         raffle.add(possible_outcomes, "panic_and_escape", 1);

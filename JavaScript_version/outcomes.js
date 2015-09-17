@@ -2415,6 +2415,18 @@ var outcomes = {
 
     //p
 
+    "pace": function(game_state) {
+        var messages = [
+            "You get a feel for the geography of your cell.",
+            "You get dizzy from going around in circles.",
+            "You get nowhere.",
+            "You walk dozens of miles back and forth.",
+            "Your pacing makes you skinnier.",
+        ]; 
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
     "panic_and_die": function(game_state) {
         var messages = [
             "Panicking doesn't save you.",
