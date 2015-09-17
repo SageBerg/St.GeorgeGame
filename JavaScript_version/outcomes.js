@@ -411,6 +411,36 @@ var outcomes = {
         return game_state;
     },
 
+    "bide_your_time": function(game_state) {
+        var messages = [
+            "As the days drag on, you go insane.",
+            "The days turn to weeks and the weeks turn to months.",
+            "You make a lot of hash marks on the wall, though you're " +
+            "not counting anything.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "bide_your_time_and_die": function(game_state) {
+        var messages = [
+            "You die of old age.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
+        return game_state;
+    },
+
+    "bide_your_time_and_escape": function(game_state) {
+        var messages = [
+            "You eventually manage to dig a secret passage into a cave " +
+            "network.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        move_character(game_state, "cave");
+        return game_state;
+    },
+
     "blessed": function(game_state) {
         game_state.message = "A priestess blesses you.";
         game_state.character.person = "priestess";
@@ -2357,6 +2387,15 @@ var outcomes = {
     "not_impressed": function(game_state) {
         game_state.message = capitalize(get_person(game_state).name) + 
             " is not impressed.";
+        return game_state;
+    },
+
+    "notice_pattern": function(game_state) {
+        game_state.message = 
+            "You notice the warden carries the keys when he " +
+            "inspects the cells. He inspects the cells with " +
+            "an entourage of guards most weekends, but he " +
+            "does it alone on holidays.";
         return game_state;
     },
 

@@ -465,7 +465,7 @@ function get_place_options(game_state, options) {
             break;
 
         case "prison":
-            //raffle.add(options.b, "Bide your time.", 6);
+            raffle.add(options.b, "Bide your time.", 6);
             //raffle.add(options.c, "Pace around.", 10);
             break;
 

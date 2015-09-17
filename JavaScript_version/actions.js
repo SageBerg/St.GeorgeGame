@@ -90,6 +90,14 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Bide your time.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "bide_your_time", 3);
+        raffle.add(possible_outcomes, "bide_your_time_and_die", 1);
+        raffle.add(possible_outcomes, "bide_your_time_and_escape", 1);
+        raffle.add(possible_outcomes, "notice_pattern", 1);
+        return possible_outcomes;
+    },
+
     "Boast of your bravery.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "not_impressed", 1);
         return possible_outcomes;
