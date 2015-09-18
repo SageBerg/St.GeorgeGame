@@ -919,6 +919,17 @@ exports.actions = {
 
     //s
 
+    "Scrub the deck.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "scrub_the_deck", 3);
+        if (game_state.persons.lord_arthur.alive === true) {
+            raffle.add(possible_outcomes, "scrub_get_thrown_off_ship", 1);
+            raffle.add(possible_outcomes, "lord_arthur_tells_scrub", 2);
+            raffle.add(possible_outcomes, "impress_lord_arthur", 1);
+            raffle.add(possible_outcomes, "merchant_ship_scrub", 1);
+        }
+        return possible_outcomes;
+    },
+
     "Sing a song.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "no_one_cares", 2);
         raffle.add(possible_outcomes, "sing_about_lords", 1);

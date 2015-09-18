@@ -1842,10 +1842,18 @@ var outcomes = {
 
     //i
     
+    "impress_lord_arthur": function(game_state) {
+        game_state.message = "Lord Arthur is " +
+            random_choice(["impressed", "pleased"]) +
+            " with your intiative and gives you a cutlass.";
+        get_weapon(game_state, "cutlass");
+        return game_state;
+    },
+
     "infection": function(game_state) {
         game_state.message = "You catch a nasty infection and spend weeks " +
             "fighting it.";
-        game_state.character.is_dead = true;
+        die(game_state);
         return game_state;
     },
 
@@ -2120,6 +2128,24 @@ var outcomes = {
         return game_state;
     },
 
+    "lord_arthur_tells_sail": function(game_state) {
+        var messages = [
+            "Lord Arthur tells you to " +
+            random_choice(["raise the sail faster", "scrub the deck"]) + ".",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "lord_arthur_tells_scrub": function(game_state) {
+        var messages = [
+            "Lord Arthur tells you to " +
+            random_choice(["scrub harder", "raise a sail"]) + ".",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
     "lose_ax": function(game_state) {
         game_state.message = "You get your ax stuck in a tree and can't " +
         "get it back out.";
@@ -2256,6 +2282,13 @@ var outcomes = {
     "meet_witch": function(game_state) {
         game_state.message = "You find a witch deep in the woods.";
         game_state.character.person = "witch";
+        return game_state;
+    },
+
+    "merchant_ship_scrub": function(game_state) {
+        game_state.message = "While you're scrubbing the deck, you hear " +
+            "Lord Arthur calling all hands to raid an approaching " +
+            "merchant ship.";
         return game_state;
     },
 
@@ -2676,7 +2709,7 @@ var outcomes = {
     "potion_mermaid": function(game_state) {
         var messages = [
             "The mermaid falls madly in love with you. You run into the " +
-            "mermaid problem but, she " + 
+            "mermaid problem, but she " + 
             random_choice(["has a mouth", "has breasts", 
                            "is fun to be around"]) +
             " so you still live happily ever after.",
@@ -2879,6 +2912,31 @@ var outcomes = {
             "a human. You have failed to continue being a shrub.";
         game_state.character.is_shrub = false;
         game_state.character.person = "witch";
+        return game_state;
+    },
+
+    "scrub_get_thrown_off_ship": function(game_state) {
+        var messages = [
+            "You dislocate your shoulder scrubbing and Lord Arthur has no " +
+            "further use for you. He has you thrown off the ship.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        move_character(game_state, "ocean");
+        return game_state;
+    },
+
+    "scrub_the_deck": function(game_state) {
+        var messages = [
+            "You get sore scrubbing all day.", 
+            "You scrub the deck until it sparkles, then you scrub it some " +
+            "more.",
+            "While you're scrubbing, the pirates sing a " +
+            random_choice(["bawdy", "dirty", "indecent", "lewd", 
+                           "Rabelaisian", "raunchy", "ribald", "risqué", 
+                           "salacious", "smutty", "vulgar"]) +
+            " pirate song.", 
+        ];
+        game_state.message = messages[random_int(messages.length)];
         return game_state;
     },
 
