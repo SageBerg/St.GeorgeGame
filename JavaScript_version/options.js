@@ -158,8 +158,7 @@ function get_item_options(game_state, options) {
         game_state.character.person === "mermaid" ||
         game_state.character.person === "olga" ||
         game_state.character.person === "nymph_queen" ||
-        game_state.character.person === "priestess" 
-       ) {
+        game_state.character.person === "priestess") {
         //raffle.add(options.b, "GIVE_FLOWERS", 100);
     }
 
