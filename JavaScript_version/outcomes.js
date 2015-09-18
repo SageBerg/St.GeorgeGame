@@ -1953,6 +1953,13 @@ var outcomes = {
         return game_state;
     },
 
+    "killed_by_lord_arthur": function(game_state) {
+        game_state.message = "Lord Arthur has you killed for raising the " +
+            "wrong sail.";
+        clover(game_state);
+        return game_state;
+    },
+
     "killed_by_lord_carlos": function(game_state) {
         game_state.message = "Lord Carlos jumps down from some rafters and " +
             "assassinates you.";
@@ -2282,6 +2289,12 @@ var outcomes = {
     "meet_witch": function(game_state) {
         game_state.message = "You find a witch deep in the woods.";
         game_state.character.person = "witch";
+        return game_state;
+    },
+
+    "merchant_ship_sail": function(game_state) {
+        game_state.message = "While you're raising a sail, you see a " +
+            "merchant ship. A naval battle ensues."
         return game_state;
     },
 
@@ -2761,6 +2774,18 @@ var outcomes = {
     //q
     
     //r
+
+    "raise_sail_and_get_to_land": function(game_state) {
+        var destination = random_choice(["arctic", "docks", "mermaid_rock", 
+                                         "woods",]);
+        var messages = [
+            "Your nautical efforts help the ship sail to " +
+            game_state.places[destination].name + ".",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        move_character(game_state, destination);
+        return game_state;
+    },
 
     "random_death": function(game_state) {
         var messages = [

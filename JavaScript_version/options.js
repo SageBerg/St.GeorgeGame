@@ -458,8 +458,8 @@ function get_place_options(game_state, options) {
 
         case "pirate_ship":
             raffle.add(options.a, "YELL_A_PIRATE_PHRASE", 6);
-            //raffle.add(options.b, "Raise a sail.", 8);
-            raffle.add(options.b, "Scrub the deck.", 8);
+            raffle.add(options.b, "Raise a sail.", 8);
+            //raffle.add(options.b, "Scrub the deck.", 8);
             raffle.add(options.c, "Walk the plank.", 2);
             //raffle.add(options.c, "Climb into the crow's nest.", 6);
             raffle.add(options.d, "Drop anchor.", 7);
@@ -531,9 +531,9 @@ function get_place_options(game_state, options) {
 
 function lords_victory(game_state) {
 
-    if (game_state.persons.lord_arthur.alive === false ||
-        game_state.persons.lord_bartholomew.alive === false ||
-        game_state.persons.lord_carlos.alive === false ||
+    if (game_state.persons.lord_arthur.alive === false && 
+        game_state.persons.lord_bartholomew.alive === false && 
+        game_state.persons.lord_carlos.alive === false && 
         game_state.persons.lord_daniel.alive === false) {
         game_state.score = parseInt(game_state.score) + 100;
         return true;

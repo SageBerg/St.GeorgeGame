@@ -880,6 +880,17 @@ exports.actions = {
     
     //r
     
+    "Raise a sail.": function(game_state, possible_outcomes) {
+        if (game_state.persons.lord_arthur.alive === true) {
+            raffle.add(possible_outcomes, "impress_lord_arthur", 1);
+            raffle.add(possible_outcomes, "killed_by_lord_arthur", 1);
+            raffle.add(possible_outcomes, "lord_arthur_tells_sail", 2);
+            raffle.add(possible_outcomes, "merchant_ship_sail", 1);
+        }
+        raffle.add(possible_outcomes, "raise_sail_and_get_to_land", 4);
+        return possible_outcomes;
+    },
+
     "Read a spellbook.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "read_and_die", 1);
         raffle.add(possible_outcomes, "read_clover", 1);
