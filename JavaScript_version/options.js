@@ -460,7 +460,7 @@ function get_place_options(game_state, options) {
             raffle.add(options.a, "YELL_A_PIRATE_PHRASE", 6);
             //raffle.add(options.b, "Raise a sail.", 8);
             raffle.add(options.b, "Scrub the deck.", 8);
-            //raffle.add(options.c, "Walk the plank.", 2);
+            raffle.add(options.c, "Walk the plank.", 2);
             //raffle.add(options.c, "Climb into the crow's nest.", 6);
             raffle.add(options.d, "Drop anchor.", 7);
             break;

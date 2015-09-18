@@ -1225,6 +1225,12 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Walk the plank.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "walk_across_board", 1);
+        raffle.add(possible_outcomes, "walk_into_ocean", 1);
+        return possible_outcomes;
+    },
+
     "Wander the countryside.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "cat_burning", 1);
         raffle.add(possible_outcomes, "meet_peasant_lass", 1);

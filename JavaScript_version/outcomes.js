@@ -2685,7 +2685,7 @@ var outcomes = {
 
     "priestess_takes_offense": function(game_state) {
         game_state.message = "A priestess finds your lyrics " +
-        random_choice(["blasphemous", "cliché", "crude", "idiotic", "lude", 
+        random_choice(["blasphemous", "cliché", "crude", "idiotic", "lewd", 
                        "mildly offensive", "uncreative"]) +
         " and has you thrown out of the church.";
         move_character(game_state, "streets");
@@ -3590,6 +3590,17 @@ var outcomes = {
             "up against you."; 
         game_state.character.person = null;
         get_item(game_state, "cat");
+        return game_state;
+    },
+
+    "walk_across_board": function(game_state) {
+        game_state.message = "You walk across one of the boards on the deck.";
+        return game_state;
+    },
+
+    "walk_into_ocean": function(game_state) {
+        game_state.message = "";
+        move_character(game_state, "ocean");
         return game_state;
     },
 
