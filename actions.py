@@ -2400,8 +2400,8 @@ class ScrubTheDeck(Action):
 
         if state.persons.persons_dict["lord_arthur"].alive:
             self.outcomes.add(Outcome(state,
-                "As you are scrubbing, the deck you hear Lord Arthur calling all "
-                "hands to raid an approaching merchant ship.",
+                "As you are scrubbing the deck, you hear Lord Arthur calling "
+                "all hands to raid an approaching merchant ship.",
                 actions=[
                     (Swashbuckle(state), 1000),
                     (SwingOnARope(state), 1000),
