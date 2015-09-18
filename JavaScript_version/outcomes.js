@@ -1845,7 +1845,7 @@ var outcomes = {
     "impress_lord_arthur": function(game_state) {
         game_state.message = "Lord Arthur is " +
             random_choice(["impressed", "pleased"]) +
-            " with your intiative and gives you a cutlass.";
+            " with your enthusiasm and gives you a cutlass.";
         get_weapon(game_state, "cutlass");
         return game_state;
     },
@@ -3350,6 +3350,13 @@ var outcomes = {
         return game_state;
     },
 
+    "thrown_off_ship": function(game_state) {
+        game_state.message = "Lord Arthur cringes and has you thrown off " +
+            "the ship.";
+        move_character(game_state, "ocean");
+        return game_state;
+    },
+
     "tip_cow_and_die": function(game_state) {
         game_state.message = "You pull a cow on top of yourself and it " +
             "crushes you.",
@@ -3599,7 +3606,7 @@ var outcomes = {
     },
 
     "walk_into_ocean": function(game_state) {
-        game_state.message = "";
+        game_state.message = ".";
         move_character(game_state, "ocean");
         return game_state;
     },
@@ -3867,6 +3874,14 @@ var outcomes = {
     
     //y
     
+    "you_get_away_with_it": function(game_state) {
+        var messages = [
+            "Since Lord Arthur is dead, you get away with it.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
     "you_get_mobbed": function(game_state) {
         var messages = [
             "The local peasants mob you. They take your money and your life.",

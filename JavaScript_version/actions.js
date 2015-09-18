@@ -1252,7 +1252,11 @@ exports.actions = {
 
     "YELL_A_PIRATE_PHRASE": function(game_state, possible_outcomes) {
         if (game_state.persons.lord_arthur.alive === true) {
+            raffle.add(possible_outcomes, "impress_lord_arthur", 1);
             raffle.add(possible_outcomes, "no_true_pirate_says_that", 1);
+            raffle.add(possible_outcomes, "thrown_off_ship", 1);
+        } else {
+            raffle.add(possible_outcomes, "you_get_away_with_it", 1);
         }
         return possible_outcomes;
     },
