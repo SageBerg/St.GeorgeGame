@@ -1741,6 +1741,14 @@ var outcomes = {
         return game_state;
     },
 
+    "guards_kill_you_for_homocide": function(game_state) {
+        game_state.message = "The prison guards walk by and see all the " +
+            "dead bodies in your cell. \"Let's put this last one out of " +
+            "his misery,\" one of them says. They soon do.";
+        die(game_state); 
+        return game_state;
+    },
+
     "guards_stop_you_dancing": function(game_state) {
         game_state.message = "The local guards see your jig and conclude " +
         "that you must be a lunatic.";
@@ -1794,6 +1802,13 @@ var outcomes = {
             "trash and accuse you of being a lunatic.";
         game_state.character.person = "guards";
         game_state.character.is_threatened = true;
+        return game_state;
+    },
+
+    "guards_take_away_bodies": function(game_state) {
+        game_state.message = "The prison guards remove the dead bodies " +
+            "from you cell.";
+        game_state.persons.other_lunatics.alive = true;
         return game_state;
     },
 
@@ -2389,6 +2404,13 @@ var outcomes = {
             "growing at a monstrous rate. By the time you stop growing, " +
             "you have become a towering monstrosity.";
         game_state.character.is_monstrosity = true;
+        return game_state;
+    },
+
+    "more_lunatics": function(game_state) {
+        game_state.message = "The guards put fresh batch of lunatics in " +
+            "your cell.";
+        game_state.character.person = "other_lunatics";
         return game_state;
     },
 
@@ -3608,8 +3630,8 @@ var outcomes = {
     },
 
     "wake_up_in_prison": function(game_state) {
-        game_state.message = "You are rousted by some guards who toss you in " +
-            "prison with the other lunatics.";
+        game_state.message = "You are rousted by some guards who toss you " +
+            "in prison with the other lunatics.";
         move_character(game_state, "prison");
         game_state.character.person = "other_lunatics";
         return game_state;

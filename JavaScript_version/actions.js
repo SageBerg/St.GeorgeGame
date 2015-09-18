@@ -95,6 +95,11 @@ exports.actions = {
         raffle.add(possible_outcomes, "bide_your_time_and_die", 1);
         raffle.add(possible_outcomes, "bide_your_time_and_escape", 1);
         raffle.add(possible_outcomes, "notice_pattern", 1);
+        dead_lunatic_repercussions(game_state, possible_outcomes);
+        if (game_state.character.person !== "other_lunatics" &&
+            game_state.persons.other_lunatics.alive === true) {
+            raffle.add(possible_outcomes, "more_lunatics", 3);
+        }
         return possible_outcomes;
     },
 
@@ -842,6 +847,11 @@ exports.actions = {
         raffle.add(possible_outcomes, "pace_and_die", 1);
         raffle.add(possible_outcomes, "pace_and_get_frog", 1);
         raffle.add(possible_outcomes, "pace_and_get_mushroom", 1);
+        dead_lunatic_repercussions(game_state, possible_outcomes);
+        if (game_state.character.person !== "other_lunatics" &&
+            game_state.persons.other_lunatics.alive === true) {
+            raffle.add(possible_outcomes, "more_lunatics", 3);
+        }
         return possible_outcomes;
     },
 
@@ -1286,6 +1296,13 @@ exports.actions = {
 
     //z
 
+}
+
+function dead_lunatic_repercussions(game_state, possible_outcomes) {
+    if (game_state.persons.other_lunatics.alive === false) {
+        raffle.add(possible_outcomes, "guards_take_away_bodies", 6);
+        raffle.add(possible_outcomes, "guards_kill_you_for_homocide", 6);
+    }
 }
 
 function get_place(game_state) {
