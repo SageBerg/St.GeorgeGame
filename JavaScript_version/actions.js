@@ -531,7 +531,7 @@ exports.actions = {
         return possible_outcomes;
     },
 
-    "Go to sleep.": function(game_state, possible_outcomes, destination) {
+    "Go to sleep.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "wake_up", 4);
         raffle.add(possible_outcomes, "wake_up_dead", 1);
 
@@ -561,6 +561,7 @@ exports.actions = {
                 break;
         }
 
+        return possible_outcomes;
     },
 
     //h
