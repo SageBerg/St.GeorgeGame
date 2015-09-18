@@ -2407,6 +2407,15 @@ var outcomes = {
         return game_state;
     },
 
+    "monstrosity_potion": function(game_state) {
+        game_state.message = 
+            "You slurp down an odd tasting potion and start " +
+            "growing at a monstrous rate. By the time you stop growing, " +
+            "you have become a towering monstrosity.";
+        game_state.character.is_monstrosity = true;
+        return game_state;
+    },
+
     "more_lunatics": function(game_state) {
         game_state.message = "The guards put fresh batch of lunatics in " +
             "your cell.";

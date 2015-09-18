@@ -328,7 +328,7 @@ exports.actions = {
     "Drink a random potion.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "drink_piss", 2);
         raffle.add(possible_outcomes, "grow_tail", 2);
-        raffle.add(possible_outcomes, "monstrosity", 1);
+        raffle.add(possible_outcomes, "monstrosity_potion", 1);
         raffle.add(possible_outcomes, "random_strength", 2);
         raffle.add(possible_outcomes, "random_death", 2);
         raffle.add(possible_outcomes, "start_tripping", 1);
