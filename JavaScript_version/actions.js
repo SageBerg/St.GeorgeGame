@@ -541,23 +541,21 @@ exports.actions = {
             raffle.add(possible_outcomes, "wake_up_with_cat", 1);
         }
 
-        if (game_state.character.place === "lord_carlos_manor") {
-            raffle.add(possible_outcomes, "wake_up_in_dungeon", 2);
+        switch (game_state.character.place) {
+            case "lord_carlos_manor":
+                raffle.add(possible_outcomes, "wake_up_in_dungeon", 2);
+                break;
+            case "ocean":
+                raffle.add(possible_outcomes, "wake_up_drown", 10000);
+                break;
+            case "prison":
+                raffle.add(possible_outcomes, "wake_up_weasel", 2);
+                break;
+            case "tower":
+                raffle.add(possible_outcomes, "wake_up_in_prison", 2);
+                break;
         }
 
-        if (game_state.character.place === "ocean") {
-            raffle.add(possible_outcomes, "wake_up_drown", 100000);
-        }
-
-        if (game_state.character.place === "prison") {
-            raffle.add(possible_outcomes, "wake_up_weasel", 2);
-        }
-
-        if (game_state.character.place === "tower") {
-            raffle.add(possible_outcomes, "wake_up_in_prison", 2);
-        }
-
-        return possible_outcomes;
     },
 
     //h
