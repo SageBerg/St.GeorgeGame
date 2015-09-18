@@ -95,7 +95,7 @@ function handle_new_world(resp) {
     document.getElementById("score").innerHTML = "Score: " + game_state.score;
 
     for (var i = 0; i < 5; i++) {
-        document.getElementById("abcde"[i]).style.color = "black";
+        document.getElementById("abcde"[i]).style.color = "white";
     }
 
     if (game_state.character.is_tripping) {

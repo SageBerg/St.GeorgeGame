@@ -7,22 +7,29 @@
     </head>
     <body>
         <h1>The St. George Game</h1>
-        <p id="message"></p>
-        <div>
-            <span id="a" class="option" onclick="a_execute()"></span>
+
+        <div class="game_dispaly" id="message_display">
+            <span class="message" id="message"></span>
         </div>
-        <div>
-            <span id="b" class="option" onclick="b_execute()"></span>
+
+        <div class="game_display" id="options_display">
+            <div>
+                <span class="option" id="a" onclick="a_execute()"></span>
+            </div>
+            <div>
+                <span class="option" id="b" onclick="b_execute()"></span>
+            </div>
+            <div>
+                <span class="option" id="c" onclick="execute('c')"></span>
+            </div>
+            <div>
+                <span class="option" id="d" onclick="execute('d')"></span>
+            </div>
+            <div>
+                <span class="option" id="e" onclick="execute('e')"></span>
+            </div>
         </div>
-        <div>
-            <span id="c" class="option" onclick="execute('c')"></span>
-        </div>
-        <div>
-            <span id="d" class="option" onclick="execute('d')"></span>
-        </div>
-        <div>
-            <span id="e" class="option" onclick="execute('e')"></span>
-        </div>
+
         <p id="score">Score: 0<p>
     </body>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
