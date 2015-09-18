@@ -2435,6 +2435,36 @@ var outcomes = {
         return game_state;
     },
 
+    "pace_and_die": function(game_state) {
+        var messages = [
+            "Your pacing drives the prison guards crazy. They kick you to " +
+            "death to restore their sanity.",
+        ]; 
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
+        return game_state;
+    },
+
+    "pace_and_get_frog": function(game_state) {
+        var messages = [
+            "While you're pacing, you notice a frog hopping through you " +
+            "cell.",
+        ]; 
+        game_state.message = messages[random_int(messages.length)];
+        get_item(game_state, "frog");
+        return game_state;
+    },
+
+    "pace_and_get_mushroom": function(game_state) {
+        var messages = [
+            "While you're pacing, you notice a yellow mushroom growing " +
+            "in the filth of your cell."
+        ]; 
+        game_state.message = messages[random_int(messages.length)];
+        get_item(game_state, "yellow mushroom");
+        return game_state;
+    },
+
     "panic_and_die": function(game_state) {
         var messages = [
             "Panicking doesn't save you.",

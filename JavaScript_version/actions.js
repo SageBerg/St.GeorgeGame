@@ -822,6 +822,9 @@ exports.actions = {
 
     "Pace around.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "pace", 5);
+        raffle.add(possible_outcomes, "pace_and_die", 1);
+        raffle.add(possible_outcomes, "pace_and_get_frog", 1);
+        raffle.add(possible_outcomes, "pace_and_get_mushroom", 1);
         return possible_outcomes;
     },
 
