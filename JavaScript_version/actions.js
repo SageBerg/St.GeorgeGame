@@ -183,6 +183,14 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Climb into the crow's nest.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "climb_and_die", 2);
+        raffle.add(possible_outcomes, "climb_and_get_sap", 1);
+        raffle.add(possible_outcomes, "merchant_ship_nest", 1);
+        raffle.add(possible_outcomes, "watch_duty", 4);
+        return possible_outcomes;
+    },
+
     "Club a seal.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "club_a_seal", 2);
         raffle.add(possible_outcomes, "die_waiting_for_seal", 2);

@@ -756,6 +756,29 @@ var outcomes = {
         return game_state;
     },
 
+    "climb_and_die": function(game_state) {
+        var messages = [
+            "A crow in the crow's nest caws in your face, startling " +
+            "you. You fall off the mast and land on the deck.",
+            "You fall asleep during your watch duty and the ship runs " +
+            "into an iceburg. While the ship is sinking, the crew kills " +
+            "you for incompetence.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        clover(game_state);
+        return game_state;
+    },
+
+    "climb_and_get_sap": function(game_state) {
+        var messages = [
+            "Watch duty is so boring you amuse yourself by scraping sap " +
+            "off the wood.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        get_item(game_state, "ball of sap");
+        return game_state;
+    },
+
     "club_a_seal": function(game_state) {
         var messages = [
             "After a few days of waiting at a hole in the ice, you manage " +
@@ -2292,9 +2315,15 @@ var outcomes = {
         return game_state;
     },
 
+    "merchant_ship_nest": function(game_state) {
+        game_state.message = "You spot a merchant ship. A naval battle " +
+            "ensues.";
+        return game_state;
+    },
+
     "merchant_ship_sail": function(game_state) {
         game_state.message = "While you're raising a sail, you see a " +
-            "merchant ship. A naval battle ensues."
+            "merchant ship. Lord Arthur orders you to help raid it."
         return game_state;
     },
 
@@ -3657,6 +3686,19 @@ var outcomes = {
             "through an epic ballad."; 
         move_character(game_state, 
                        get_random_adjacent_destination(game_state));
+        return game_state;
+    },
+
+    "watch_duty": function(game_state) {
+        var messages = [
+            "you don't see anything interesting.",
+            "you see a \"birdle,\" a bird standing on a turtle.",
+            "you see sea in every direction.",
+            "you see some storm clouds.",
+        ];
+        game_state.message = "During your watch duty, " +
+            messages[random_int(messages.length)];
+        game_state.character.person = null;
         return game_state;
     },
 

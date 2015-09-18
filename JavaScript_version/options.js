@@ -459,9 +459,13 @@ function get_place_options(game_state, options) {
         case "pirate_ship":
             raffle.add(options.a, "YELL_A_PIRATE_PHRASE", 6);
             raffle.add(options.b, "Raise a sail.", 8);
-            //raffle.add(options.b, "Scrub the deck.", 8);
+            raffle.add(options.b, "Scrub the deck.", 8);
             raffle.add(options.c, "Walk the plank.", 2);
-            //raffle.add(options.c, "Climb into the crow's nest.", 6);
+            if (game_state.outcome !== "climb_and_get_sap" &&
+                game_state.outcome !== "merchant_ship_nest" &&
+                game_state.outcome !== "watch_duty") {
+                raffle.add(options.c, "Climb into the crow's nest.", 8);
+            }
             raffle.add(options.d, "Drop anchor.", 7);
             break;
 
