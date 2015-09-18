@@ -461,8 +461,8 @@ function get_place_options(game_state, options) {
             //raffle.add(options.b, "Raise a sail.", 6);
             //raffle.add(options.c, "Climb into the crow's nest.", 6);
             //raffle.add(options.c, "Walk the plank.", 2);
-            //raffle.add(options.d, "Drop anchor.", 4);
             //raffle.add(options.c, "Scrub the deck.", 4);
+            raffle.add(options.d, "Drop anchor.", 7);
             break;
 
         case "prison":

@@ -322,6 +322,17 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Drop anchor.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "cannot_drop_anchor", 2);
+        raffle.add(possible_outcomes, "drop_anchor_and_die", 2);
+        if (game_state.persons.lord_arthur.alive === true) {
+            raffle.add(possible_outcomes, "drop_anchor_and_kill_whale", 1);
+            raffle.add(possible_outcomes, "drop_anchor_and_save_ship", 1);
+            raffle.add(possible_outcomes, "get_punished", 5);
+        }
+        return possible_outcomes;
+    },
+
     "Drown.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "drown", 1);
         return possible_outcomes;

@@ -554,6 +554,16 @@ var outcomes = {
         return game_state;
     },
 
+    "cannot_drop_anchor": function(game_state) {
+        var messages = [
+            "You can't find the anchor, but you find Lord Arthur's " +
+            "weird cat. It has eight more tails than a normal cat.",
+            "You're not strong enough to lift the anchor.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
     "cannot_find_cat": function(game_state) {
         var messages = [
             "You can't find any cats. Only dogs.",
@@ -974,10 +984,42 @@ var outcomes = {
         var messages = [
             "The potion tastes foul and you begin wondering if the wizard " +
             "pees in some of these bottles.",
-            "You're pretty sure you just drank piss, but it could have been " +
-            "beer.",
+            "You're pretty sure you just drank piss, but it could have " +
+            "been beer.",
         ];
         game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "drop_anchor_and_die": function(game_state) {
+        var messages = [
+            "You drop anchor and cause the ship to swing into a reef. " +
+            "Everyone perishes including you.",
+            "You drop the anchor through the deck. The ship sinks and " +
+            "everyone dies.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
+        return game_state;
+    },
+
+    "drop_anchor_and_kill_whale": function(game_state) {
+        var messages = [
+            "You drop the anchor and accidently kill a passing whale. " +
+            "Lord Arthur slaps you on the back and says, \"Whale done.\" " +
+            "The crew hauls the whale aboard and sails back to land.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        get_money(game_state, "small_fortune");
+        move_character(game_state, "docks");
+        return game_state;
+    },
+
+    "drop_anchor_and_save_ship": function(game_state) {
+        game_state.message = "You drop anchor and prevent the ship from " +
+            "running into a reef. Lord Arthur rewards you for saving the " +
+            "ship.";
+        get_item(game_state, "bag of jewels");
         return game_state;
     },
 
@@ -1540,6 +1582,28 @@ var outcomes = {
     "get_poison_dagger": function(game_state) {
         game_state.message = "You find a poisoned dagger in a glass case.";
         get_weapon(game_state, "poison_dagger");
+        return game_state;
+    },
+
+    "get_punished": function(game_state) {
+        var messages = [
+            "Lord Arthur punishes you for your " +
+            random_choice(["brashness", "incompetence", "recklessness"]) +
+            " by " + 
+            random_choice([
+                "beating you with his cat. The cat is more traumatized " +
+                "by the experience than you are.",
+                "making you clean the the deck with your tongue. You're " +
+                "pretty good at it.",
+                "tying you to the front of the ship for a week. You find " +
+                "the wooden mermaid figurehead very sexy.",
+                "putting you on kitchen duty with the ship's cook, who " +
+                "bores you with stories about his life.",
+                "putting you in a barrel and letting his men roll you " +
+                "around the deck for a couple of hours.",
+            ]),
+        ];
+        game_state.message = messages[random_int(messages.length)];
         return game_state;
     },
 
