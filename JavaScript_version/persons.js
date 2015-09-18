@@ -78,7 +78,6 @@ exports.persons = {
     "lord_arthur":
     {
         "alive": true,
-        //"alive": false,
         "attack": 6,
         "attracted": 0,
         "name": "Lord Arthur",
@@ -89,7 +88,6 @@ exports.persons = {
     "lord_bartholomew":
     {
         "alive": true,
-        //"alive": false,
         "attack": 4,
         "attracted": 0,
         "name": "Lord Bartholomew",
@@ -100,7 +98,6 @@ exports.persons = {
     "lord_carlos":
     {
         "alive": true,
-        //"alive": false,
         "attack": 5,
         "attracted": 0,
         "name": "Lord Carlos",
@@ -111,7 +108,6 @@ exports.persons = {
     "lord_daniel":
     {
         "alive": true,
-        //"alive": false,
         "attack": 7,
         "attracted": 0,
         "name": "Lord Daniel",
