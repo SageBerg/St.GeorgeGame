@@ -410,6 +410,23 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Flirt with Felicity.": function(game_state, possible_outcomes) {
+        if (game_state.persons.felicity.attracted > 5) { 
+            raffle.add(possible_outcomes, "felicity_loves_you", 1);
+        } else {
+            raffle.add(possible_outcomes, "rebuffed_by_felicity", 1);
+            raffle.add(possible_outcomes, "wowed_felicity", 6);
+        }
+        return possible_outcomes;
+    },
+
+    "Flirt with the fat lady who feeds you.": 
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "rebuffed_by_fat_lady", 2);
+        raffle.add(possible_outcomes, "wowed_fat_lady", 5);
+        return possible_outcomes;
+    },
+
     "Freeze to death.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "freeze", 3);
         raffle.add(possible_outcomes, "saved_by_inuits", 1);

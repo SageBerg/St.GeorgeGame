@@ -1196,6 +1196,14 @@ var outcomes = {
         return game_state;
     },
 
+    "felicity_loves_you": function(game_state) {
+        var messages = [
+            "Felicity whispers that she loves you.",
+        ]; 
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
     "find_a_cat": function(game_state) {
         var messages = [
             "You find a fat cat. It's too slow to escape you.",
@@ -2696,6 +2704,24 @@ var outcomes = {
         return game_state;
     },
 
+    "rebuffed_by_fat_lady": function(game_state) {
+        var messages = [
+            "She ignores your hoots.",
+            "She ignores your whistling.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "rebuffed_by_felicity": function(game_state) {
+        var messages = [
+            "Felicity asks if she looks fat in her new dress. " +
+            "You say, \"Yes.\" She doesn't speak to you for several days.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
     "rebuffed_by_olga": function(game_state) {
         game_state.message = "Her eyes glaze over while you struggle make " +
             "yourself sound interesting.";
@@ -3583,6 +3609,46 @@ var outcomes = {
         ];
         game_state.message = messages[random_int(messages.length)];
         game_state.persons.eve.attracted += 1;
+        return game_state;
+    },
+
+    "wowed_fat_lady": function(game_state) {
+        var messages = [
+            "She ignores you when you say, \"Hello,\" but " +
+            "you catch her glancing at you throughout the day.",
+            "She ignores you, but gives you more food the next day.",
+            "She ignores you, but wears a low-cut blouse the next day.",
+            "She smiles, but doesn't reply to the love " +
+            "poem you recite to her.",
+            "When you say she's beautiful, she blushes and hurries away " +
+            "without feeding you.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        game_state.persons.felicity.attracted += 1;
+        if (game_state.persons["felicity"].attracted > 2 && 
+            game_state.persons["felicity"].name === "the fat lady") {
+            game_state.persons.felicity.name = "Felicity";
+            game_state.message = "You strike up a conversation and learn " +
+                "that her name is Felicity.";
+        }
+        return game_state;
+    },
+
+    "wowed_felicity": function(game_state) {
+        var messages = [
+            "Felicity blows you kisses.",
+            "Felicity laughs at all your jests, even the bad ones.",
+            "Felicity leans in close and kisses your cheek.",
+            "Felicity says she thinks about you a lot.",
+            "Felicity talks with you for hours. She only " +
+            "stops when the warden barks at her to get " +
+            "back to work.",
+            "Felicity tells you she asked the warden to " +
+            "let you out, but he has a strict \"No lunatics " +
+            "on the streets\" policy.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        game_state.persons.felicity.attracted += 1;
         return game_state;
     },
 
