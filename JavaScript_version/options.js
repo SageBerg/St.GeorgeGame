@@ -153,16 +153,39 @@ function get_item_options(game_state, options) {
         raffle.add(options.c, "Chow down on your black mushroom.", 1);
     }
 
+    if (game_state.character.items["bouquet of flowers"] > 0 && 
+        game_state.character.person === "eve" ||
+        game_state.character.person === "mermaid" ||
+        game_state.character.person === "olga" ||
+        game_state.character.person === "nymph_queen" ||
+        game_state.character.person === "priestess" 
+       ) {
+        //raffle.add(options.b, "GIVE_FLOWERS", 100);
+    }
+
+    if (game_state.character.items["cat"] > 0) {
+        raffle.add(options.d, "Swing your cat.", 1);
+    }
+
+    if (game_state.character.items["frog"] > 0 &&
+        game_state.places[game_state.character.place].locked === false) {
+        raffle.add(options.b, "Kiss your frog.", 1);
+    }
+
     if (game_state.character.items["many colored mushroom"] > 0) {
         raffle.add(options.c, "Chow down on your many colored mushroom.", 1);
     }
 
-    if (game_state.character.items["white mushroom"] > 0) {
-        raffle.add(options.c, "Chow down on your white mushroom.", 1);
+    if (game_state.character.items["potion of love"] > 0) {
+        //raffle.add(options.d, "Slurp down your potion of love.", 1);
     }
 
-    if (game_state.character.items["yellow mushroom"] > 0) {
-        raffle.add(options.c, "Chow down on your yellow mushroom.", 1);
+    if (game_state.character.items["potion of strength"] > 0) {
+        //raffle.add(options.d, "Slurp down your potion of strength.", 1);
+    }
+
+    if (game_state.character.items["potion of tail growth"] > 0) {
+        //raffle.add(options.d, "Slurp down your potion of tail growth.", 1);
     }
 
     if (game_state.character.items["potion of love"] > 0 && 
@@ -179,21 +202,20 @@ function get_item_options(game_state, options) {
         raffle.add(options.b, "LOVE_POTION", 10000);
     }
 
-    if (game_state.character.items["cat"] > 0) {
-        raffle.add(options.d, "Swing your cat.", 1);
-    }
-
-    if (game_state.character.items["frog"] > 0 &&
-        game_state.places[game_state.character.place].locked === false) {
-        raffle.add(options.b, "Kiss your frog.", 1);
-    }
-
     if (game_state.character.items["shiny foreign coin"] > 0 &&
         (game_state.character.person === "lord_arthur" ||
          game_state.character.person === "lord_bartholomew" ||
          game_state.character.person === "lord_carlos" ||
          game_state.character.person === "lord_daniel")) {
         //raffle.add(options.b, "SHOW_COIN.", 1);
+    }
+
+    if (game_state.character.items["white mushroom"] > 0) {
+        raffle.add(options.c, "Chow down on your white mushroom.", 1);
+    }
+
+    if (game_state.character.items["yellow mushroom"] > 0) {
+        raffle.add(options.c, "Chow down on your yellow mushroom.", 1);
     }
 
 }
