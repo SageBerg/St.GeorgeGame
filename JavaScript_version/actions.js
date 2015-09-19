@@ -1034,6 +1034,18 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Slurp down your potion of strength.": 
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "grow_stronger_potion", 1);
+        return possible_outcomes;
+    },
+
+    "Slurp down your potion of tail growth.": 
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "grow_tail_potion", 1);
+        return possible_outcomes;
+    },
+
     "Sneak around.": function(game_state, possible_outcomes) {
         if (game_state.character.place === "lord_carlos_manor") {
             raffle.add(possible_outcomes, "sneak_and_die", 4);

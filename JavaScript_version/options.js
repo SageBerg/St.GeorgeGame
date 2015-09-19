@@ -172,19 +172,15 @@ function get_item_options(game_state, options) {
     }
 
     if (game_state.character.items["many colored mushroom"] > 0) {
-        raffle.add(options.c, "Chow down on your many colored mushroom.", 1);
-    }
-
-    if (game_state.character.items["potion of love"] > 0) {
-        //raffle.add(options.d, "Slurp down your potion of love.", 1);
+        raffle.add(options.c, "Chow down on your many colored mushroom.", 2);
     }
 
     if (game_state.character.items["potion of strength"] > 0) {
-        //raffle.add(options.d, "Slurp down your potion of strength.", 1);
+        raffle.add(options.d, "Slurp down your potion of strength.", 2);
     }
 
     if (game_state.character.items["potion of tail growth"] > 0) {
-        //raffle.add(options.d, "Slurp down your potion of tail growth.", 1);
+        raffle.add(options.d, "Slurp down your potion of tail growth.", 2);
     }
 
     if (game_state.character.items["potion of love"] > 0 && 

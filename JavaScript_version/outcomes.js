@@ -1736,8 +1736,21 @@ var outcomes = {
         return game_state;
     },
 
+    "grow_stronger_potion": function(game_state) {
+        game_state.message = "You grow stronger.";
+        game_state.character.strength += 2;
+        lose_item(game_state, "potion of strength");
+        return game_state;
+    },
+
     "grow_tail": function(game_state) {
         grow_tail(game_state);
+        return game_state;
+    },
+
+    "grow_tail_potion": function(game_state) {
+        grow_tail(game_state);
+        lose_item(game_state, "potion of tail growth");
         return game_state;
     },
 
