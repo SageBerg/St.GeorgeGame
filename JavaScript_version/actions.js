@@ -472,6 +472,31 @@ exports.actions = {
         raffle.add(possible_outcomes, "get_attacked", 1);
         return possible_outcomes;
     },
+  
+    "GIVE_FLOWERS": function(game_state, possible_outcomes) {
+        switch (game_state.character.person) {
+            case "eve":
+                raffle.add(possible_outcomes, "give_flowers_eve", 1);
+                break;
+            case "mermaid":
+                raffle.add(possible_outcomes, "give_flowers_mermaid", 1);
+                break;
+            case "nymph_queen":
+                raffle.add(possible_outcomes, "give_flowers_nymph_queen", 1);
+                raffle.add(possible_outcomes, 
+                    "give_flowers_nymph_queen_strub", 1);
+                break;
+            case "olga":
+                raffle.add(possible_outcomes, "give_flowers_olga", 1);
+                break;
+            default:
+                //Felicity is not actually there when you're interacting
+                //with her; if we get here in the logic, the character
+                //should be in the prison
+                raffle.add(possible_outcomes, "give_flowers_felicity", 1);
+        }
+        return possible_outcomes;
+    },
 
     "Give the wizard what he wants.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "wizard_compensates_you", 1);
@@ -1034,13 +1059,13 @@ exports.actions = {
         return possible_outcomes;
     },
 
-    "Slurp down your potion of strength.": 
+    "Slurp down your potion of strength.":
         function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "grow_stronger_potion", 1);
         return possible_outcomes;
     },
 
-    "Slurp down your potion of tail growth.": 
+    "Slurp down your potion of tail growth.":
         function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "grow_tail_potion", 1);
         return possible_outcomes;

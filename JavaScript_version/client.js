@@ -142,6 +142,17 @@ function handle_new_world(resp) {
         $("#b").text("b. Burn " + 
             game_state.places[game_state.character.place].name + 
             " to the ground.");
+    } else if (game_state.options.b === "GIVE_FLOWERS") {
+        if (game_state.character.place === "prison") {
+            if (game_state.persons.felicity.name === "the fat lady") {
+                $("#b").text("b. Give the fat lady who feeds you a bouquet " +
+                    "of flowers.");
+            } else {
+                $("#b").text("b. Give Felicity your bouquet of flowers.");
+            }
+        } else {
+            $("#b").text("b. Give her your bouquet of flowers.");
+        }
     } else if (game_state.options.b === "LOVE_POTION") {
         $("#b").text("b. Use your love potion on " +
             game_state.persons[game_state.character.person].name + ".");

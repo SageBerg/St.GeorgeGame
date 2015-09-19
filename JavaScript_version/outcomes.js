@@ -1642,6 +1642,65 @@ var outcomes = {
         return game_state;
     },
 
+    "give_flowers_eve": function(game_state) {
+        var messages = [
+            "She tosses the flowers out the window.",
+            "She rips the bouquet to shreds.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        get_person(game_state).attracted += 1;
+        lose_item(game_state, "bouquet of flowers");
+        return game_state;
+    },
+
+    "give_flowers_felicity": function(game_state) {
+        var messages = [
+            "She blushes as red as the roses you give her.",
+            "\"Oh, you're so sweet. I can't believe Lord " +
+            "Daniel had you locked up,\" she says.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        game_state.persons.felicity.attracted += 1;
+        lose_item(game_state, "bouquet of flowers");
+        return game_state;
+    },
+
+    "give_flowers_mermaid": function(game_state) {
+        var messages = [
+            "She eats them.",
+            "She isn't sure what the flowers are for, but she is happy " +
+            "with your gift.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        get_person(game_state).attracted += 1;
+        lose_item(game_state, "bouquet of flowers");
+        return game_state;
+    },
+
+    "give_flowers_nymph_queen": function(game_state) {
+        var messages = [
+            "The nymph queen smiles at you and throws the flowers in the " +
+            "air. The flowers float around and slowly circle above the " +
+            "nymph queen.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        lose_item(game_state, "bouquet of flowers");
+        return game_state;
+    },
+
+    "give_flowers_olga": function(game_state) {
+        var messages = [
+            "She gives you a kiss in return.",
+            "She is delighted with your gift and puts one of the flowers " +
+            "in her hair.",
+            "She says she loves the flowers.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        get_person(game_state).attracted += 1;
+        lose_item(game_state, "bouquet of flowers");
+        return game_state;
+    },
+
     "go_to": function(game_state) {
         game_state.message = "";
         game_state.character.place = game_state.destination;
@@ -2279,7 +2338,7 @@ var outcomes = {
 
     "meet_mermaid": function(game_state) {
         var messages = [
-            "You almost step on one",
+            "You almost step on one.",
             "You find one putting seashells in her hair.",
             "There are mermaids everywhere, there's one next to you.",
             "After hours of climbing around on the rocks you find one.",
