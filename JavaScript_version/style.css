@@ -18,22 +18,24 @@ h1 {
     border-width: 2px;
     margin: auto;
     margin-top: 20px;
-    width: 90%;
+    width: 50%;
 }
 
-.message {
+#message {
     font-family: helvetica;
     color: white;
-    margin-left: 50px;
-    margin-right: 50px;
+    display: block;
+    margin: 10px;
 }
 
 .option {
-    font-family: helvetica;
+    border-radius: 5px;
     color: white;
     cursor: pointer;
     display: block;
-    margin: 20px;
+    font-family: helvetica;
+    padding-left: 2px;
+    margin: 10px;
 }
 
 .option:hover {
