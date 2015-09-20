@@ -106,7 +106,7 @@ function handle_new_world(resp) {
     }
 
 //Option a.
-    if (game_state.options.a === "Attack") {
+    if (game_state.options.a === "ATTACK") {
         $("#a").text("a. Attack " + 
                 resp.persons[resp.character.person].name + ".");
     } else if (game_state.options.a === "MARRY") {
