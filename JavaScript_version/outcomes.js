@@ -726,6 +726,14 @@ var outcomes = {
         return game_state;
     },
 
+    "chance_to_escape": function(game_state) {
+        var messages = [
+            "You spit in his eyes.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
     "chase_cat_to_dark_alley": function(game_state) {
         var messages = [
             "You find a skinny cat. You chase it through the streets and " +
@@ -1006,6 +1014,24 @@ var outcomes = {
         return game_state;
     },
 
+    "die_anyway": function(game_state) {
+        var messages = [
+            "He kills you as you try to get into an suit of armor.",
+            "Lord Carlos is better at killing than you are at not being " +
+            "killed.",
+            "Lord Carlos is no slouch, he kills you anyway.",
+            "Screaming gibberish in his face only stuns him for so long.",
+            "You hide behind a painting Lord Carlos that is loathe to " +
+            "destroy. He loathes you more.",
+            "You prevent Lord Carlos from killing you, but he calls in " +
+            "one of his assassins and has her do it.",
+            "You tell Lord Carlos that you're his son, he doesn't care.",
+        ]; 
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
+        return game_state;
+    },
+
     "die_waiting_for_seal": function(game_state) {
         var messages = [
             "The local polar bears aren't happy with you on their turf. " +
@@ -1161,6 +1187,19 @@ var outcomes = {
     "enter_the_void": function(game_state) {
         game_state.message = "";
         move_character(game_state, "void");
+        return game_state;
+    },
+
+    "escape_to_cave": function(game_state) {
+        game_state.message = "You run into the woods and hide deep in a " +
+            "cave... Perhaps a little too deep.";
+        move_character(game_state, "cave");
+        return game_state;
+    },
+
+    "escape_to_arctic": function(game_state) {
+        game_state.message = "You flee the country.";
+        move_character(game_state, "arctic");
         return game_state;
     },
 

@@ -265,9 +265,10 @@ function get_person_options(game_state, options) {
             break;
 
         case "lord_carlos":
-            //raffle.add(options.b, 
+            //raffle.add(options.c, 
             //    "Challenge Lord Carlose to a game of chess.", 10);
-            //raffle.add(options.d, "Tell Lord Carlos you're sorry.", 10);
+            raffle.add(options.d, 
+                "Make it hard for Lord Carlos to kill you.", 15);
             break;
 
         case "lord_daniel":
@@ -343,6 +344,11 @@ function get_outcome_options(game_state, options) {
                 false) {
                 raffle.add(options.c, "Leave in a huff.", 1);
             }
+            break;
+
+        case "chance_to_escape":
+            raffle.add(options.c, "Leave in a puff.", 100);
+            raffle.add(options.c, "Run like the Devil.", 1000);
             break;
 
         case "guards_stop_you_dancing":

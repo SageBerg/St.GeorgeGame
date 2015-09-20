@@ -884,6 +884,15 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Make it hard for Lord Carlos to kill you.":
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "chance_to_escape", 1);
+        raffle.add(possible_outcomes, "die_anyway", 7);
+        raffle.add(possible_outcomes, "escape_to_cave", 1);
+        raffle.add(possible_outcomes, "escape_to_arctic", 1);
+        return possible_outcomes;
+    },
+
     "MARRY": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "married", 1);
         return possible_outcomes;
