@@ -32,7 +32,7 @@ exports.character = {
         "four-leaf clover": 0,
         "frog": 0,
         "handful of void dust": 0,
-        "many colored mushroom": 0,
+        "many-colored mushroom": 0,
         "pearl": 0,
         "potion of love": 0,
         "potion of strength": 0,

@@ -511,7 +511,7 @@ var outcomes = {
 
     "buy_black_market_item": function(game_state) {
         var item = random_choice(["deep-cave newt", "potion of love", 
-                                  "many colored mushroom", "white mushroom", 
+                                  "many-colored mushroom", "white mushroom", 
                                   "black mushroom", "fancy red cloak", 
                                   "potion of strength",]);
         var messages;
@@ -2359,7 +2359,7 @@ var outcomes = {
         game_state.message = messages[random_int(messages.length)];
         lose_item(game_state, "frog");
         get_item(game_state, "black mushroom");
-        get_item(game_state, "many colored mushroom");
+        get_item(game_state, "many-colored mushroom");
         get_item(game_state, "white mushroom");
         get_item(game_state, "yellow mushroom");
         return game_state;
@@ -3035,9 +3035,9 @@ var outcomes = {
     },
 
     "pick_many_colored_mushroom": function(game_state) {
-        game_state.message = "You pick a many colored mushroom.";
+        game_state.message = "You pick a many-colored mushroom.";
         game_state.character.person = null;
-        get_item(game_state, "many colored mushroom");
+        get_item(game_state, "many-colored mushroom");
         return game_state;
     },
 
@@ -3580,8 +3580,8 @@ var outcomes = {
     "start_tripping": function(game_state) {
         game_state.message = "You start feeling strange."
         game_state.character.is_tripping = true;
-        if (game_state.action === "Chow down on your many colored mushroom.") {
-            game_state.character.items["many colored mushroom"] -= 1;
+        if (game_state.action === "Chow down on your many-colored mushroom.") {
+            game_state.character.items["many-colored mushroom"] -= 1;
         }
         return game_state;
     },
@@ -4144,7 +4144,7 @@ var outcomes = {
         game_state.message = messages[random_int(messages.length)];
         lose_item(game_state, "ball of sap");
         lose_item(game_state, "bouquet of flowers");
-        lose_item(game_state, "many colored mushroom");
+        lose_item(game_state, "many-colored mushroom");
         get_item(game_state, "potion of love");
         return game_state;
     },

@@ -84,7 +84,7 @@ exports.actions = {
         raffle.add(possible_outcomes, "witch_says_no", 1);
         if (game_state.character.items["ball of sap"] > 0 &&
             game_state.character.items["bouquet of flowers"] > 0 &&
-            game_state.character.items["many colored mushroom"] > 0) {
+            game_state.character.items["many-colored mushroom"] > 0) {
             raffle.add(possible_outcomes, "witch_makes_potion_love", 5);
         }
         if (game_state.character.items["cat"] > 0 &&
@@ -215,7 +215,7 @@ exports.actions = {
         return possible_outcomes;
     },
 
-    "Chow down on your many colored mushroom.":
+    "Chow down on your many-colored mushroom.":
     function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "start_tripping", 1);
         return possible_outcomes;

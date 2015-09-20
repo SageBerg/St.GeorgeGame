@@ -174,7 +174,7 @@ function get_item_options(game_state, options) {
 
     if (game_state.character.items["ball of sap"] > 0 &&
         game_state.character.items["bouquet of flowers"] > 0 &&
-        game_state.character.items["many colored mushroom"] > 0 &&
+        game_state.character.items["many-colored mushroom"] > 0 &&
         game_state.character.person === "witch") {
         raffle.add(options.b, "Ask the witch to brew you a potion.", 100);
     }
@@ -190,8 +190,8 @@ function get_item_options(game_state, options) {
         raffle.add(options.b, "Kiss your frog.", 1);
     }
 
-    if (game_state.character.items["many colored mushroom"] > 0) {
-        raffle.add(options.c, "Chow down on your many colored mushroom.", 2);
+    if (game_state.character.items["many-colored mushroom"] > 0) {
+        raffle.add(options.c, "Chow down on your many-colored mushroom.", 2);
     }
 
     if (game_state.character.items["potion of strength"] > 0) {
