@@ -243,7 +243,7 @@ function get_person_options(game_state, options) {
 
     switch (game_state.character.person) {
         case "blind_bartender":
-            //raffle.add(options.c, "Chat with the blind bartender.", 10);
+            raffle.add(options.c, "Chat with the blind bartender.", 14);
             break;
 
         case "eve":
@@ -251,7 +251,7 @@ function get_person_options(game_state, options) {
         case "mermaid":
         case "nymph_queen":
         case "olga":
-            raffle.add(options.d, "Flirt with", 10000); // TODO
+            raffle.add(options.d, "Flirt with", 100);
             break;
 
         case "lord_arthur":

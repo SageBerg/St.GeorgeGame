@@ -736,6 +736,64 @@ var outcomes = {
         return game_state;
     },
 
+    //some jokes, CREDIT: reddit's r/jokes 
+    "chat_with_blind_bartender": function(game_state) {
+        var messages = [
+            "The blind bartender leans in close and says, \"Two lawyers " + 
+            "walk into a tavern. They take some sandwitches out of their " +
+            "bags. The barmaid tells them they can't eat their " +
+            "own food in the tavern. The lawyers shrug and exchange " +
+            "sandwitches.\"",
+            "The blind bartender leans in close and says, \"If I had a " +
+            "gold coin every time a woman found me unattractive, women " +
+            "would eventually find me attractive.\"",
+            "The blind bartender pours you another drink and says, \"Food " +
+            "is like dark humor. Not everyone gets it.\"",
+            "The blind bartender says, \"A friend of mine drowned, so at " +
+            "his funeral I made him a wreath in the shape of a lifeboat. " +
+            "It's what he would have wanted.\"",
+            "The blind bartender passes you another drink and says, \"It's " +
+            "a dangerous world out there. I started carrying a knife after " +
+            "a mugging attempt a few years ago. Since then, my mugging " +
+            "attempts have been more successful.\"",
+            "The blind bartender leans in close and says, \"I told my " +
+            "friends that I have a beautiful wife. They told me she must " +
+            "be imaginary, but the joke's on them. They're imaginary too.\"",
+            "The blind bartender says, \"I once saw a poor old woman trip " +
+            "and fall. At least I assumed she was poor, she only had a " +
+            "few coins.\"",
+            "You somehow end up in a fiery argument with him.",
+            "You tell the blind bartender that the whole world's out to " +
+            "get you. He says that's probably true.",
+            "The blind bartender says that everyone's talking about " +
+            "Lord Bartholomew these days.",
+            "You tell the blind bartender about all the mistakes you've " +
+            "made recently. He says asking you about yourself was the " +
+            "only mistake he's made recently.",
+            "The blind bartender says it's best to run from the guards if " +
+            "they accuse you of lunacy.",
+            "The blind bartender says that women are too smart to sleep " +
+            "with most men, but that's why God invented alcohol.",
+            "The blind bartender says that life really just comes down to " +
+            "luck, and that's why it's important to have a four-leaf " +
+            "clover.",
+            "The blind bartender says that assassins like to frequent " +
+            "the tavern.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "chat_with_blind_bartender_and_die": function(game_state) {
+        var messages = [
+            "An assassin overhears you talking about Lord Carlos' " +
+            "daughter and assassinates you.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        clover(game_state);
+        return game_state;
+    },
+
     "chop_down_tree": function(game_state) {
         var messages = [
             "A tree falls in the forest. You hear it.",
