@@ -166,6 +166,25 @@ function get_item_options(game_state, options) {
         raffle.add(options.d, "Swing your cat.", 1);
     }
 
+    if (game_state.character.items["cat"] > 0 &&
+        game_state.character.items["pearl"] > 0 &&
+        game_state.character.person === "witch") {
+        raffle.add(options.b, "Ask the witch to brew you a potion.", 100);
+    }
+
+    if (game_state.character.items["ball of sap"] > 0 &&
+        game_state.character.items["bouquet of flowers"] > 0 &&
+        game_state.character.items["many colored mushroom"] > 0 &&
+        game_state.character.person === "witch") {
+        raffle.add(options.b, "Ask the witch to brew you a potion.", 100);
+    }
+
+    if (game_state.character.items["deep-cave newt"] > 0 &&
+        game_state.character.items["white mushroom"] > 0 &&
+        game_state.character.person === "witch") {
+        raffle.add(options.b, "Ask the witch to brew you a potion.", 100);
+    }
+
     if (game_state.character.items["frog"] > 0 &&
         game_state.places[game_state.character.place].locked === false) {
         raffle.add(options.b, "Kiss your frog.", 1);

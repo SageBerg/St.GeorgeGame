@@ -3877,6 +3877,51 @@ var outcomes = {
         return game_state;
     },
 
+    "witch_makes_potion_love": function(game_state) {
+        var messages = [
+            "The witch takes some of your items and brews you a potion.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        lose_item(game_state, "ball of sap");
+        lose_item(game_state, "bouquet of flowers");
+        lose_item(game_state, "many colored mushroom");
+        get_item(game_state, "potion of love");
+        return game_state;
+    },
+
+    "witch_makes_potion_strength": function(game_state) {
+        var messages = [
+            "The witch takes some of your items and brews you a potion.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        lose_item(game_state, "deep-cave newt");
+        lose_item(game_state, "white mushroom");
+        get_item(game_state, "potion of strength");
+        return game_state;
+    },
+
+    "witch_makes_potion_tail_growth": function(game_state) {
+        var messages = [
+            "The witch takes some of your items and brews you a potion.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        lose_item(game_state, "cat");
+        lose_item(game_state, "pearl");
+        get_item(game_state, "potion of tail growth");
+        return game_state;
+    },
+
+    "witch_says_no": function(game_state) {
+        var messages = [
+            "The witch says she doesn't owe you any favors.",
+            "The witch says she's feeling lazy.",
+            "The witch says she's more the hexing kind of which and not " +
+            "brewing kind of which.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
     "wizard_compensates_you": function(game_state) {
         var messages = [
             "The wizard compensates you.",
