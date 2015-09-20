@@ -282,11 +282,11 @@ function get_person_options(game_state, options) {
 
         case "peasant_lass":
         case "simple_peasant":
-            //raffle.add(options.d, "Ask for directions.", 10);
+            raffle.add(options.d, "Ask for directions.", 10);
             break;
 
         case "pirates":
-            raffle.add(options.d, 
+            raffle.add(options.c, 
                 "Challenge the pirates to a game of chess.", 10);
             break;
 

@@ -1082,6 +1082,58 @@ var outcomes = {
         return game_state;
     },
 
+    "directions_peasant_lass": function(game_state) {
+        var messages = [
+            "She says there's good mushroom picking in the woods and " +
+            "wanders off.",
+            "She babbles incoherently while eating a many-colored " +
+            "mushroom and wanders off.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.person = null;
+        return game_state;
+    },
+
+    "directions_simple_peasant": function(game_state) {
+        var messages = [
+            "He says the town is yonder.",
+            "He tells you the only direction worth going is to Lord " +
+            "Bartholomew's house.",
+            "He tells you there are four directions, north, south, " +
+            "east, and west.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "directions_to_manor": function(game_state) {
+        var messages = [
+            "She tells you how to get to Lord Bartholomew's manor and goes " +
+            "on her way.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.person = null;
+        return game_state;
+    },
+
+    "directions_to_town": function(game_state) {
+        var messages = [
+            "She tells you how to get back to town and goes on her way.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.person = null;
+        return game_state;
+    },
+
+    "directions_to_woods": function(game_state) {
+        var messages = [
+            "She tells you how to get to the woods and goes on her way.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.person = null;
+        return game_state;
+    },
+
     "distasteful": function(game_state) {
         game_state.message = "You find the flavor of the ground distasteful.";
         return game_state;

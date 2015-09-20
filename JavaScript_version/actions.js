@@ -64,6 +64,21 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Ask for directions.": function(game_state, possible_outcomes) {
+        switch (game_state.character.person) {
+            case "peasant_lass":
+                raffle.add(possible_outcomes, "directions_peasant_lass", 1);
+                raffle.add(possible_outcomes, "directions_to_manor", 1);
+                raffle.add(possible_outcomes, "directions_to_town", 1);
+                raffle.add(possible_outcomes, "directions_to_woods", 1);
+                break;
+            case "simple_peasant":
+                raffle.add(possible_outcomes, "directions_simple_peasant", 2);
+                break;
+        }
+        return possible_outcomes;
+    },
+
     "Ask the witch to brew you a potion.": 
         function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "witch_says_no", 1);
