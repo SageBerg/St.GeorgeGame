@@ -180,7 +180,9 @@ function move_character(game_state, destination) {
     game_state.character.place = destination;
     game_state.character.is_threatened = false;
     game_state.character.person = null;
-    if (destination === "mermaid_rock" || destination === "pirate_ship") {
+    if (destination === "docks" || 
+        destination === "mermaid_rock" || 
+        destination === "pirate_ship") {
         game_state.message += " You find yourself on " + 
             game_state.places[destination].name + ".";
     } else {
@@ -2652,10 +2654,36 @@ var outcomes = {
         return game_state;
     },
 
+    "mermaid_gives_you_fish": function(game_state) {
+        game_state.message = "The mermaid doesn't know where land is, but " +
+            "she gives you a fish to console you.";
+        get_item(game_state, "fish");
+        return game_state;
+    },
+
     "mermaid_likes_your_dance": function(game_state) {
         game_state.message = "The mermaid laughs and claps her hands. " +
             "She is completely in awe of your legs.";
         get_person(game_state).attracted += 1;
+        return game_state;
+    },
+
+    "mermaid_refuses": function(game_state) {
+        game_state.message = "\"You're on land, silly!\" she says.";
+        return game_state;
+    },
+
+    "mermaid_strands_you": function(game_state) {
+        game_state.message = "The mermaid takes you out to sea, but gets " +
+            "bored and leaves you there.";
+        move_character(game_state, "ocean");
+        return game_state;
+    },
+
+    "mermaid_takes_you_back_to_land": function(game_state) {
+        game_state.message = "She does.";
+        var destination = random_choice(["countryside", "docks", "woods"]);
+        move_character(game_state, destination);
         return game_state;
     },
 

@@ -248,7 +248,6 @@ function get_person_options(game_state, options) {
 
         case "eve":
         case "felicity":
-        case "mermaid":
         case "nymph_queen":
         case "olga":
             raffle.add(options.d, "Flirt with", 100);
@@ -276,8 +275,9 @@ function get_person_options(game_state, options) {
             break;
 
         case "mermaid":
-            //raffle.add(options.a, 
-            //    "Ask the mermaid to take you back to land.", 100);
+            raffle.add(options.c, 
+                "Ask the mermaid to take you back to land.", 10);
+            raffle.add(options.d, "Flirt with", 100);
             break;
 
         case "peasant_lass":
@@ -299,7 +299,7 @@ function get_person_options(game_state, options) {
             break;
 
         case "witch":
-            //raffle.add(options.d, "Ask the witch to brew you a potion.", 100);
+            raffle.add(options.b, "Ask the witch to brew you a potion.", 10);
             break;
     }
 }

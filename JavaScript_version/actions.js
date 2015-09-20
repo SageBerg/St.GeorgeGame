@@ -98,13 +98,12 @@ exports.actions = {
         return possible_outcomes;
     },
 
-    "Attack": function(game_state, possible_outcomes) {
-        if (game_state.character.strength > 
-            game_state.persons[game_state.character.person].attack) {
-            raffle.add(possible_outcomes, "kill", 1);
-        } else {
-            raffle.add(possible_outcomes, "lose_fight", 1);
-        }
+    "Ask the mermaid to take you back to land.": 
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "mermaid_gives_you_fish", 1);
+        raffle.add(possible_outcomes, "mermaid_refuses", 1);
+        raffle.add(possible_outcomes, "mermaid_strands_you", 1);
+        raffle.add(possible_outcomes, "mermaid_takes_you_back_to_land", 1);
         return possible_outcomes;
     },
 
