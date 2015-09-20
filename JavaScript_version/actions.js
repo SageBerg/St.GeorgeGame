@@ -100,7 +100,7 @@ exports.actions = {
 
     "Ask the mermaid to take you back to land.": 
         function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "mermaid_gives_you_fish", 1);
+        //raffle.add(possible_outcomes, "mermaid_gives_you_fish", 1);
         raffle.add(possible_outcomes, "mermaid_refuses", 1);
         raffle.add(possible_outcomes, "mermaid_strands_you", 1);
         raffle.add(possible_outcomes, "mermaid_takes_you_back_to_land", 1);
@@ -249,6 +249,19 @@ exports.actions = {
         raffle.add(possible_outcomes, "club_a_seal", 2);
         raffle.add(possible_outcomes, "die_waiting_for_seal", 2);
         raffle.add(possible_outcomes, "waiting_for_seal", 2);
+        return possible_outcomes;
+    },
+
+    "Complain about unfair imprisonment.":
+        function(game_state, possible_outcomes) {
+        if (game_state.character.person === "lord_daniel") {
+            raffle.add(possible_outcomes, "lord_daniel_throws_you_out", 1);
+            raffle.add(possible_outcomes, "lord_daniel_lectures_you", 2);
+        } else {
+            raffle.add(possible_outcomes, "complaining_is_useless", 2);
+            raffle.add(possible_outcomes, "guards_argue_with_you", 2);
+            raffle.add(possible_outcomes, "guards_stop_you_complaining", 4);
+        }
         return possible_outcomes;
     },
 

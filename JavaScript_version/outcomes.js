@@ -888,6 +888,17 @@ var outcomes = {
         return game_state;
     },
 
+    "complaining_is_useless": function(game_state) {
+        var messages = [
+            "A bureaucrat says she'll let Lord Daniel know of your " +
+            "concerns.",
+            "A cook assures you that Lord Bartholomew will set things " +
+            "right.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
     "croak": function(game_state) {
         game_state.message = "You croak.";
         die(game_state);
@@ -1909,7 +1920,7 @@ var outcomes = {
             "borrowing from Lord Carlos.",
             "Once you're both quite drunk, Olga takes you upstairs to " + 
             "her room."
-        ] 
+        ];
         game_state.character.place = "upstairs";
         game_state.message = messages[random_int(messages.length)];
         game_state.persons["olga"].attracted += 1;
@@ -1946,7 +1957,8 @@ var outcomes = {
     },
 
     "god_showers_you_with_gold": function(game_state) {
-        game_state.message = "God rewards your devotion with a large fortune.";
+        game_state.message = "God rewards your devotion with a large " +
+            "fortune.";
         get_money(game_state, "large_fortune");
         return game_state;
     },
@@ -1960,14 +1972,12 @@ var outcomes = {
     },
 
     "god_tells_you_to_marry": function(game_state) {
-        game_state.message = 
-            "God tells you to get married.";
+        game_state.message = "God tells you to get married.";
         return game_state;
     },
 
     "god_tests_you": function(game_state) {
-        game_state.message = 
-            "God decides to test you.";
+        game_state.message = "God decides to test you.";
         lose_all_items(game_state);
         return game_state;
     },
@@ -1995,11 +2005,30 @@ var outcomes = {
         return game_state;
     },
 
+    "guards_argue_with_you": function(game_state) {
+        var messages = [
+            "The guards argue with you about the finer points of the " +
+            "justice system.",
+            "The guards say, \"It's fair if Lord Daniel says it's fair.\"",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.person = "guards";
+        return game_state;
+    },
+
     "guards_kill_you_for_homocide": function(game_state) {
         game_state.message = "The prison guards walk by and see all the " +
             "dead bodies in your cell. \"Let's put this last one out of " +
             "his misery,\" one of them says. They soon do.";
         die(game_state); 
+        return game_state;
+    },
+
+    "guards_stop_you_complaining": function(game_state) {
+        game_state.message = "The guards arrest you for " +
+            random_choice(["annoying them", "bringing down the mood",  
+                           "complaining", "dissenting",]) + ".";
+        arrested(game_state);
         return game_state;
     },
 
@@ -2442,6 +2471,28 @@ var outcomes = {
             random_choice(["scrub harder", "raise a sail"]) + ".",
         ] 
         game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "lord_daniel_lectures_you": function(game_state) {
+        var messages = [
+            "Lord Daniel explains to you that your lack of mental " +
+            "capacity would never allow you to understand his complex " +
+            "policies.",
+            "Lord Daniel gives you a lengthy lecture about how life isn't " +
+            "fair.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "lord_daniel_throws_you_out": function(game_state) {
+        var messages = [
+            "Lord Daniel has his guards carry out of the tower and dump " +
+            "in a pile of manure.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        move_character(game_state, "streets");
         return game_state;
     },
 

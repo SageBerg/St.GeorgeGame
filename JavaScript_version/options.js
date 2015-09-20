@@ -271,7 +271,7 @@ function get_person_options(game_state, options) {
             break;
 
         case "lord_daniel":
-            //raffle.add(options.c, "Complain about unfair inprisonment.", 10);
+            raffle.add(options.c, "Complain about unfair imprisonment.", 10);
             break;
 
         case "mermaid":
@@ -554,9 +554,11 @@ function get_place_options(game_state, options) {
         case "tower":
             if (game_state.persons.lord_daniel.alive === true && 
                 game_state.character.person !== "lord_daniel") {
-                raffle.add(options.a, "Ask for an audience with Lord Daniel.", 4);
+                raffle.add(options.a, 
+                    "Ask for an audience with Lord Daniel.", 4);
             }
-            raffle.add(options.d, "Train with the guards.", 4);
+            raffle.add(options.c, "Complain about unfair imprisonment.", 4);
+            raffle.add(options.d, "Train with the guards.", 8);
             break;
 
         case "void":
