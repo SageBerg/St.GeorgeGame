@@ -802,6 +802,37 @@ var outcomes = {
         return game_state;
     },
 
+    "chess_cutlass": function(game_state) {
+        var messages = [
+            "The pirates slash the chessboard in half with a cutlass and " +
+            "leave.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.person = null;
+        get_weapon(game_state, "cutlass");
+        return game_state;
+    },
+
+    "chess_impressment": function(game_state) {
+        var messages = [
+            "You beat all the pirates easily. Lord Arthur says your " +
+            "wits could be invaluable on the high seas. They soon are.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        move_character(game_state, "pirate_ship");
+        return game_state;
+    },
+
+    "chess_lose_to_pirates": function(game_state) {
+        var messages = [
+            "Their opening move is smashing a bottle of rum over your " +
+            "head. You aren't thinking too straight during the game and " +
+            "quickly lose.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
     "chop_down_tree": function(game_state) {
         var messages = [
             "A tree falls in the forest. You hear it.",

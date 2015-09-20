@@ -172,6 +172,14 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Challenge the pirates to a game of chess.":
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "chess_cutlass", 1);
+        raffle.add(possible_outcomes, "chess_impressment", 1);
+        raffle.add(possible_outcomes, "chess_lose_to_pirates", 1);
+        return possible_outcomes;
+    },
+
     "Chat with the blind bartender.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "chat_with_blind_bartender", 15);
         raffle.add(possible_outcomes, "chat_with_blind_bartender_and_die", 1);

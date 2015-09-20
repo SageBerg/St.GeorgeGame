@@ -286,8 +286,8 @@ function get_person_options(game_state, options) {
             break;
 
         case "pirates":
-            //raffle.add(options.d, 
-            //    "Challenge the pirates to a game of chess.", 10);
+            raffle.add(options.d, 
+                "Challenge the pirates to a game of chess.", 10);
             break;
 
         case "st_george":
