@@ -3681,8 +3681,9 @@ var outcomes = {
             "When you snap a fancy staff in half, you inadvertently set " + 
             "a dark spirit free.",
         ];
-        if (game_state.persons.wizard.alive === true) {
-            messages.push("while you're wrecking stuff, the wizard runs " +
+        if (game_state.persons.wizard.alive === true &&
+            game_state.character.items["fancy red cloak"] < 1) {
+            messages.push("While you're wrecking stuff, the wizard runs " +
                 "into the lab and incinerates you.");
         }
         game_state.message = messages[random_int(messages.length)];

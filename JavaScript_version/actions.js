@@ -141,7 +141,9 @@ exports.actions = {
 
     "BURN": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "burn", 3);
-        raffle.add(possible_outcomes, "set_self_on_fire", 1);
+        if (game_state.character.items["fancy red cloak"] < 1) {
+            raffle.add(possible_outcomes, "set_self_on_fire", 1);
+        }
         return possible_outcomes;
     },
 
