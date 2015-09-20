@@ -202,7 +202,7 @@ function get_item_options(game_state, options) {
          game_state.character.person === "lord_bartholomew" ||
          game_state.character.person === "lord_carlos" ||
          game_state.character.person === "lord_daniel")) {
-        //raffle.add(options.b, "SHOW_COIN.", 1);
+        raffle.add(options.b, "SHOW_COIN", 100);
     }
 
     if (game_state.character.items["white mushroom"] > 0) {
@@ -353,6 +353,16 @@ function get_outcome_options(game_state, options) {
 
         case "gambling_lose":
             raffle.add(options.a, "Kill everybody in a fit of rage.", 1);
+            break;
+
+        case "lose_coin_arthur":
+            raffle.add(options.b, "Scrub the deck.", 10000);
+            break;
+
+        case "think_four_ideas":
+            if (game_state.character.place !== "void") {
+                raffle.add(options.a, "Lick the ground.", 10);
+            }
             break;
 
         case "think_elaborate_scheme":

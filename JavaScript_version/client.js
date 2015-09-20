@@ -156,6 +156,10 @@ function handle_new_world(resp) {
     } else if (game_state.options.b === "LOVE_POTION") {
         $("#b").text("b. Use your love potion on " +
             game_state.persons[game_state.character.person].name + ".");
+    } else if (game_state.options.b === "SHOW_COIN") {
+        $("#b").text("b. Show " + 
+            game_state.persons[game_state.character.person].name +
+            " your shiny foreign coin.");
     } else {
         $("#b").text("b. " + game_state.options.b);
     }

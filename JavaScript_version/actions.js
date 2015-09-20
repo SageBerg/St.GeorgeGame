@@ -983,6 +983,24 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "SHOW_COIN": function(game_state, possible_outcomes) {
+        switch (game_state.character.person) {
+            case "lord_arthur":
+                raffle.add(possible_outcomes, "lose_coin_arthur", 1);
+                break;
+            case "lord_bartholomew":
+                raffle.add(possible_outcomes, "lose_coin_bartholomew", 1);
+                break;
+            case "lord_carlos":
+                raffle.add(possible_outcomes, "lose_coin_carlos", 1);
+                break;
+            case "lord_daniel":
+                raffle.add(possible_outcomes, "lose_coin_daniel", 1);
+                break;
+        }
+        return possible_outcomes;
+    },
+
     "Sing a song.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "no_one_cares", 2);
         raffle.add(possible_outcomes, "sing_about_lords", 1);

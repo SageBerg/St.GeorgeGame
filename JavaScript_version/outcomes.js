@@ -2270,6 +2270,50 @@ var outcomes = {
         return game_state;
     },
 
+    "lose_coin_arthur": function(game_state) {
+        var messages = [
+            "Lord arthur takes the coin and tells you to scrub the deck.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        lose_item(game_state, "shiny foreign coin");
+        return game_state;
+    },
+
+    "lose_coin_bartholomew": function(game_state) {
+        var messages = [
+            "\"Damn, son. Where'd you find this?\" Lord Bartholomew asks. " +
+            "He doesn't wait for your answer. Instead he takes your coin, " +
+            "gives you a small fortune, and sends you on your way.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        lose_item(game_state, "shiny foreign coin");
+        get_money(game_state, "small_fortune");
+        move_character(game_state, "countryside");
+        return game_state;
+    },
+
+    "lose_coin_carlos": function(game_state) {
+        var messages = [
+            "\"How did you get that?\" Lord Carlos wonders aloud. He " +
+            "doesn't wait for a reply. He assassinates you.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
+        return game_state;
+    },
+
+    "lose_coin_daniel": function(game_state) {
+        var messages = [
+            "Lord Daniel has his guards seize you and take your coin. " +
+            "They then defenestrate you. Fortunately, you land in a pile " +
+            "hay.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        lose_item(game_state, "shiny foreign coin");
+        move_character(game_state, "streets");
+        return game_state;
+    },
+
     "lose_fight": function(game_state) {
         game_state.message = 
             "You get killed by " + 
