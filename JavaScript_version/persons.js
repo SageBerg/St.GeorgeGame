@@ -133,7 +133,7 @@ exports.persons = {
         "name": "the angry mob",
         "prefered_attack": "burn",
         "sells": [],
-        "type": "group", 
+        "type": "male", 
     },
     "nymph_queen":
     {
