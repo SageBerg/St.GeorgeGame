@@ -250,7 +250,7 @@ function get_person_options(game_state, options) {
         case "felicity":
         case "nymph_queen":
         case "olga":
-            raffle.add(options.d, "Flirt with", 100);
+            raffle.add(options.d, "FLIRT_WITH", 100);
             break;
 
         case "lord_bartholomew":
@@ -273,7 +273,7 @@ function get_person_options(game_state, options) {
         case "mermaid":
             raffle.add(options.c, 
                 "Ask the mermaid to take you back to land.", 10);
-            raffle.add(options.d, "Flirt with", 100);
+            raffle.add(options.d, "FLIRT_WITH", 100);
             break;
 
         case "mob":

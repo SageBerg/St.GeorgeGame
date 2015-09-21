@@ -188,7 +188,7 @@ function handle_new_world(resp) {
             $("#d").text("d. Buy " + a_or_an(weapons_map[weapon][0]) + " " +
                 weapons_map[weapon] + ".");
             game_state.for_sell = weapon;
-        } else if (game_state.options.d === "Flirt with") {
+        } else if (game_state.options.d === "FLIRT_WITH") {
             $("#d").text("d. Flirt with " +
                 game_state.persons[game_state.character.person].name + ".");
         } else if (game_state.options.d === "TELL_GUARDS") {

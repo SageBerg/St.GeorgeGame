@@ -1569,8 +1569,8 @@ var outcomes = {
     },
 
     "find_mermaid_instead": function(game_state) {
-        game_state.message = "You find a mermaid instead. She leads you back to " +
-            "her rock.";
+        game_state.message = "You find a mermaid instead. She leads you " +
+            "back to her rock.";
         move_character(game_state, "mermaid_rock");
         game_state.character.person = "mermaid";
         return game_state;
@@ -1662,6 +1662,26 @@ var outcomes = {
         return game_state;
     },
 
+    "flirt_and_shrub": function(game_state) {
+        game_state.message = "The nymph queen is " +
+            random_choice(["unimpressed by", "uninterested in",]) +
+            " your advances and turns you into a shrub.";
+        game_state.character.is_shrub = true;
+        game_state.character.person = null;
+        return game_state;
+    },
+
+    "flirt_with_mermaid_and_die": function(game_state) {
+        var messages = [
+            "The mermaid accidently knocks you over with her tail.",
+            "A jealous merman sees you flirting with the mermaid and " +
+            "stabs you with his fancy pitchfork.",
+        ]; 
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
+        return game_state;
+    },
+
     "fly_tastes_good": function(game_state) {
         game_state.message = "The fly tastes better than any human food " +
             "ever did.";
@@ -1699,7 +1719,7 @@ var outcomes = {
             "You get mauled by a polar bear before you get a chance to " +
             "freeze to death.",
             "You get sleepy.",
-        ] 
+        ]; 
         game_state.message = messages[random_int(messages.length)];
         die(game_state);
         return game_state;
@@ -4070,7 +4090,8 @@ var outcomes = {
     },
 
     "wake_up_assassinated": function(game_state) {
-        game_state.message = "You are rudely awakened by an assassin's dagger.";
+        game_state.message = 
+            "You are rudely awakened by an assassin's dagger.";
         game_state.character.person = null;
         clover(game_state);
         return game_state;
@@ -4380,6 +4401,27 @@ var outcomes = {
         ];
         game_state.message = messages[random_int(messages.length)];
         game_state.persons.eve.attracted += 1;
+        return game_state;
+    },
+
+    "wowed_mermaid": function(game_state) {
+        var messages = [
+            "The mermaid enjoys hearing about all of the different animals " +
+            "you've seen on land.",
+            "The mermaid giggles at your compliments.",
+            "The mermaid likes hearing about your adventures on land.",
+            "The mermaid takes a liking to you and takes you swimming.",
+            "You and the mermaid eat some seaweed together, it's terrible.",
+            "You are in the middle of a reciting a romantic ballad when a " +
+            "seagul poops on you. The mermaid can't stop laughing.",
+            "You end up talking with her for a while. You ask her if there " +
+            "are any mermen. \"None worth dating,\" she says.",
+            "You make her a crown out of coral. She is delighted with your " +
+            "gift.",
+            "You say you like her tail. She says she likes your butt.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        game_state.persons.mermaid.attracted += 1;
         return game_state;
     },
 

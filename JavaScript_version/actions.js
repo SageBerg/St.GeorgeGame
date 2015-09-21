@@ -523,32 +523,44 @@ exports.actions = {
         return possible_outcomes;
     },
 
-    "Flirt with": function(game_state, possible_outcomes) {
-        if (game_state.persons[game_state.character.person].name === 
-            "the pretty lady") {
-            raffle.add(possible_outcomes, "rebuffed_by_olga", 1);
-            raffle.add(possible_outcomes, "killed_by_olga", 1);
-            raffle.add(possible_outcomes, "wowed_olga", 8);
-        } else if (game_state.persons[game_state.character.person].name ===
-                   "Olga") {
-            if (game_state.character.place === "tavern") {
-                raffle.add(possible_outcomes, "go_upstairs_with_olga", 9);
-                raffle.add(possible_outcomes, "go_upstairs_and_die", 1);
-            } else {
-                raffle.add(possible_outcomes, "wowed_olga_upstairs", 1);
-            }
-        } else if (game_state.character.person === "eve") {
-            raffle.add(possible_outcomes, "wowed_eve", 8);
-            raffle.add(possible_outcomes, "killed_by_eve", 1);
-            raffle.add(possible_outcomes, "eve_name", 1);
-            raffle.add(possible_outcomes, "eve_loses_you_in_woods", 1);
-        }
+    "FLIRT_WITH": function(game_state, possible_outcomes) {
 
-        if (game_state.character.person === "eve" && 
-            game_state.persons.eve.attracted >= 4) {
-            raffle.add(possible_outcomes, "forced_to_marry_eve", 100);
+        switch (game_state.character.person) {
+            case "eve":
+                raffle.add(possible_outcomes, "wowed_eve", 8);
+                raffle.add(possible_outcomes, "killed_by_eve", 1);
+                raffle.add(possible_outcomes, "eve_name", 1);
+                raffle.add(possible_outcomes, "eve_loses_you_in_woods", 1);
+                if (game_state.persons.eve.attracted >= 4) {
+                    raffle.add(possible_outcomes, "forced_to_marry_eve", 100);
+                }
+                break;
+            case "mermaid":
+                raffle.add(possible_outcomes, "wowed_mermaid", 8);
+                raffle.add(possible_outcomes, 
+                    "flirt_with_mermaid_and_die", 2);
+                break;
+            case "nymph_queen":
+                raffle.add(possible_outcomes, "flirt_and_shrub", 1);
+                break;
+            case "olga":
+                var name = 
+                    game_state.persons[game_state.character.person].name;
+                if (name === "the pretty lady") {
+                    raffle.add(possible_outcomes, "rebuffed_by_olga", 1);
+                    raffle.add(possible_outcomes, "killed_by_olga", 1);
+                    raffle.add(possible_outcomes, "wowed_olga", 8);
+                } else if (name === "Olga") {
+                    if (game_state.character.place === "tavern") {
+                        raffle.add(possible_outcomes, 
+                            "go_upstairs_with_olga", 9);
+                        raffle.add(possible_outcomes,
+                            "go_upstairs_and_die", 1);
+                } else {
+                    raffle.add(possible_outcomes, "wowed_olga_upstairs", 1);
+                }
+                break;
         }
-
         return possible_outcomes;
     },
 
