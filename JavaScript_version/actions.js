@@ -229,9 +229,16 @@ exports.actions = {
         return possible_outcomes;
     },
 
-    "Chat with the blind bartender.": function(game_state, possible_outcomes) {
+    "Chat with the blind bartender.": 
+        function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "chat_with_blind_bartender", 15);
         raffle.add(possible_outcomes, "chat_with_blind_bartender_and_die", 1);
+        return possible_outcomes;
+    },
+
+    "Chat with Lord Bartholomew.": 
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "chat_with_lord_bartholomew", 1);
         return possible_outcomes;
     },
 
@@ -1419,6 +1426,12 @@ exports.actions = {
         if (game_state.persons.wizard.alive === true) {
             raffle.add(possible_outcomes, "wizard_stops_you_trashing", 1);
         }
+        return possible_outcomes;
+    },
+
+    "Try to reason with the mob.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "mob_kills_you", 4);
+        raffle.add(possible_outcomes, "mob_lets_you_off_the_hook", 1);
         return possible_outcomes;
     },
 

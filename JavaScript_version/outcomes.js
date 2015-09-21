@@ -804,6 +804,36 @@ var outcomes = {
         return game_state;
     },
 
+    "chat_with_lord_bartholomew": function(game_state) {
+        var messages = [
+            "Lord Bartholomew is genuinly interested in your life story.",
+            "Lord Bartholomew says family is the only thing worth living " +
+            "for.",
+            "Lord Bartholomew says Lord Arthur is a rascal who will be " +
+            "dealt with when the time comes.",
+            "Lord Bartholomew says Lord Carlos is a thug who will be " +
+            "dealt with when the time comes. You couldn't agree more.",
+            "Lord Bartholomew says Lord Daniel is a tyrant who will be " +
+            "dealt with when the time comes.",
+            "Lord Bartholomew says that a cause is the only thing worth " +
+            "dying for.",
+            "Lord Bartholomew says the only man of any value in the town is " +
+            "St. George.",
+            "Lord Bartholomew says the wizard is a dangerous man who will " +
+            "be dealt with when the time comes.",
+            "Lord Bartholomew stresses the value of hard work and the " +
+            "importance of the peasant class.",
+            "Lord Bartholomew talks about the injustices in the world " +
+            "and how action is needed to set them right.",
+            "Lord Bartholomew takes you on a walk and shows you the " +
+            "sights around the countryside. You don't get much of a chance " +
+            "to talk to him because too many peasants are clamoring to get " +
+            "his autograph.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
     "chess_cutlass": function(game_state) {
         var messages = [
             "The pirates slash the chessboard in half with a cutlass and " +
@@ -2494,7 +2524,7 @@ var outcomes = {
                            "he would rather kill you",]) +
             ", but when you " +
             random_choice(["insinuate", "imply", "suggest"]) + 
-            " that he's afraid he'll lose, he has his servants set up a " +
+            " that he's afraid he'd lose, he has his servants set up a " +
             "chessboard.",
         ]; 
         game_state.message = messages[random_int(messages.length)];
@@ -2797,6 +2827,30 @@ var outcomes = {
             "she's already in love with God and turns you over to the " +
             "guards. You are thrown in prison with the other lunatics.";
         arrested(game_state);
+        return game_state;
+    },
+
+    "mob_kills_you": function(game_state) {
+        var messages = [
+            "The mob doesn't stop to listen.",
+            "The mob won't listen to reason.",
+            "There's no reasoning with the mob.",
+            "You get in a heated argument with the mob, which only makes it " +
+            "angrier.",
+        ]; 
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
+        return game_state;
+    },
+
+    "mob_lets_you_off_the_hook": function(game_state) {
+        var messages = [
+            "You manage to convince the mob that this was all just a " +
+            "missunderstanding.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.is_threatened = false;
+        game_state.character.person = null;
         return game_state;
     },
 
