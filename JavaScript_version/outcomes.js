@@ -19,6 +19,7 @@ exports.get_outcome = function get_outcome(game_state) {
         game_state.action !== "Play dead." &&
         game_state.action !== "Run like the Devil." &&
         game_state.action !== "TELL_GUARDS" &&
+        game_state.action !== "Try to reason with the mob." &&
         game_state.action !== "Waddle like God.") {
         possible_outcomes = actions["GET_ATTACKED"](game_state, {});
     } else {
