@@ -3234,22 +3234,22 @@ class ChatWithLordBartholomew(Action):
 
         self.outcomes.add(Outcome(state,
             "Lord Bartholomew says Lord Arthur is a rascal who will be "
-            "delt with when the time comes.",
+            "dealt with when the time comes.",
         ), weight=1)
 
         self.outcomes.add(Outcome(state,
             "Lord Bartholomew says Lord Daniel is a tyrant who will be "
-            "delt with when the time comes.",
+            "dealt with when the time comes.",
         ), weight=1)
 
         self.outcomes.add(Outcome(state,
             "Lord Bartholomew says Lord Carlos is a thug who will be "
-            "delt with when the time comes. You couldn't agree more.",
+            "dealt with when the time comes. You couldn't agree more.",
         ), weight=1)
 
         self.outcomes.add(Outcome(state,
             "Lord Bartholomew says the wizard is a dangerous man who will be "
-            "delt with when the time comes.",
+            "dealt with when the time comes.",
         ), weight=1)
 
         self.outcomes.add(Outcome(state,
