@@ -2460,7 +2460,7 @@ var outcomes = {
         var messages = [
             "Lord Arthur tells you to " +
             random_choice(["raise the sail faster", "scrub the deck"]) + ".",
-        ] 
+        ]; 
         game_state.message = messages[random_int(messages.length)];
         return game_state;
     },
@@ -2469,7 +2469,34 @@ var outcomes = {
         var messages = [
             "Lord Arthur tells you to " +
             random_choice(["scrub harder", "raise a sail"]) + ".",
-        ] 
+        ]; 
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "lord_bartholomew_chess": function(game_state) {
+        var messages = [
+            "Lord Bartholomew says " +
+            random_choice(["he likes chess and wouldn't mind playing with you",
+                           "his children recently taught him to play",
+                           "there's always time for a little fun in life",]) +
+            ". He takes you to his chess parlor and sets up a board.",
+        ]; 
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "lord_carlos_chess": function(game_state) {
+        var messages = [
+            "Lord Carlos says " +
+            random_choice(["he doesn't play games", 
+                           "he has no time to waste on fools",
+                           "he would rather kill you",]) +
+            ", but when you " +
+            random_choice(["insinuate", "imply", "suggest"]) + 
+            " that he's afraid he'll lose, he has his servants set up a " +
+            "chessboard.",
+        ]; 
         game_state.message = messages[random_int(messages.length)];
         return game_state;
     },
@@ -2481,7 +2508,7 @@ var outcomes = {
             "policies.",
             "Lord Daniel gives you a lengthy lecture about how life isn't " +
             "fair.",
-        ] 
+        ]; 
         game_state.message = messages[random_int(messages.length)];
         return game_state;
     },
@@ -2490,7 +2517,7 @@ var outcomes = {
         var messages = [
             "Lord Daniel has his guards carry out of the tower and dump " +
             "in a pile of manure.",
-        ] 
+        ]; 
         game_state.message = messages[random_int(messages.length)];
         move_character(game_state, "streets");
         return game_state;

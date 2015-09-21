@@ -253,19 +253,15 @@ function get_person_options(game_state, options) {
             raffle.add(options.d, "Flirt with", 100);
             break;
 
-        case "lord_arthur":
-            //raffle.add(options.c, "Chat with Lord Arthur.", 10);
-            break;
-
         case "lord_bartholomew":
             //raffle.add(options.c, "Chat with Lord Bartholomew.", 10);
-            //raffle.add(options.d, 
-            //    "Challenge Lord Bartholomew to a game of chess.", 10);
+            raffle.add(options.d, 
+                "Challenge Lord Bartholomew to a game of chess.", 10);
             break;
 
         case "lord_carlos":
-            //raffle.add(options.c, 
-            //    "Challenge Lord Carlose to a game of chess.", 10);
+            raffle.add(options.c,  
+                "Challenge Lord Carlose to a game of chess.", 15);
             raffle.add(options.d, 
                 "Make it hard for Lord Carlos to kill you.", 15);
             break;
@@ -278,6 +274,10 @@ function get_person_options(game_state, options) {
             raffle.add(options.c, 
                 "Ask the mermaid to take you back to land.", 10);
             raffle.add(options.d, "Flirt with", 100);
+            break;
+
+        case "mob":
+            //raffle.add(options.d, "Try to reason with the mob.", 10);
             break;
 
         case "peasant_lass":
@@ -378,6 +378,21 @@ function get_outcome_options(game_state, options) {
 
         case "gambling_lose":
             raffle.add(options.a, "Kill everybody in a fit of rage.", 1);
+            break;
+  
+        case "lord_bartholmew_chess":
+            raffle.add(options.a, "A3.", 10000);
+            raffle.add(options.b, "Nf3.", 10000);
+            raffle.add(options.c, "E4.", 10000);
+            raffle.add(options.d, 
+                "Turn the board around once you're losing.", 10000);
+            break;
+
+        case "lord_carlos_chess":
+            raffle.add(options.a, "A3.", 10000);
+            raffle.add(options.b, "Nf3.", 10000);
+            raffle.add(options.c, "E4.", 10000);
+            raffle.add(options.d, "Ask for a draw.", 10000);
             break;
 
         case "lose_coin_arthur":
