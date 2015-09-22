@@ -2866,7 +2866,7 @@ class BoastOfYourBravery(Action):
 
                 self.outcomes.add(Outcome(state,
                     "You tell St. George about the time you burnt a house "
-                    "down and hey slays you for your wicked ways.",
+                    "down and he slays you for your wicked ways.",
                     die=True,
                 ), weight=1)
 
