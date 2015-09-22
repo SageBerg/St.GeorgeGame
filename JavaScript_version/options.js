@@ -314,6 +314,10 @@ function get_outcome_options(game_state, options) {
             //raffle.add(options.c, "Celebrate your success.", 1);
             break;
 
+        case "cat_burning":
+            //raffle.add(options.a, "Save the cat.", 100);
+            break;
+
         case "cannot_afford":
         case "cannot_find_cat":
         case "cannot_tip_cow":
@@ -351,6 +355,18 @@ function get_outcome_options(game_state, options) {
             raffle.add(options.c, "Run like the Devil.", 1000);
             break;
 
+        case "directions_to_manor":
+            //raffle.add(options.c, ".", 100);
+            break;
+
+        case "directions_to_town":
+            //raffle.add(options.c, ".", 100);
+            break;
+
+        case "directions_to_woods":
+            //raffle.add(options.c, ".", 100);
+            break;
+
         case "guards_stop_you_dancing":
             game_state.character.excuse = "happy";
             raffle.add(options.d, "TELL_GUARDS", 10000);
@@ -380,6 +396,14 @@ function get_outcome_options(game_state, options) {
             raffle.add(options.a, "Kill everybody in a fit of rage.", 1);
             break;
   
+        case "hit_assassin_with_cat":
+            raffle.add(options.a, "Apologize.", 100);
+            break;
+  
+        case "keep_swimming":
+            raffle.add(options.c, "Just keep swimming.", 10000);
+            break;
+
         case "lord_bartholomew_chess":
             raffle.add(options.a, "A3.", 10000);
             raffle.add(options.b, "Nf3.", 10000);
@@ -399,6 +423,31 @@ function get_outcome_options(game_state, options) {
             raffle.add(options.b, "Scrub the deck.", 10000);
             break;
 
+        case "merchant_ship_nest":
+        case "merchant_ship_sail":
+        case "merchant_ship_scrub":
+            //raffle.add(options.a, "Fire a cannon.", 10000);
+            //raffle.add(options.b, "Hide beneath the deck.", 10000);
+            //raffle.add(options.c, "Swing on a rope.", 10000);
+            //raffle.add(options.d, "Do some swashbuckling.", 10000);
+            break;
+
+        case "no_progress_swimming":
+        case "see_ship":
+            raffle.add(options.c, "Keep swimming.", 10000);
+            break;
+
+        case "riot":
+            //raffle.add(options.a, "ATTACK.", 10000);
+            //raffle.add(options.b, "BURN.", 10000);
+            //raffle.add(options.c, "Trash the place.", 10000);
+            //raffle.add(options.d, "Loot.", 10000);
+            break;
+
+        case "see_wizard_with_penguins":
+            raffle.add(options.a, "Yell \"Don't leave without me!\"", 10000);
+            break;
+
         case "think_four_ideas":
             if (game_state.character.place !== "void") {
                 raffle.add(options.a, "Lick the ground.", 10);
@@ -409,17 +458,12 @@ function get_outcome_options(game_state, options) {
             raffle.add(options.b, "Enact your elaborate scheme.", 10000);
             break;
 
-        case "no_progress_swimming":
-        case "see_ship":
-            raffle.add(options.c, "Keep swimming.", 10000);
+        case "wait_here":
+            //raffle.add(options.a, "Wait where you are.", 10000);
             break;
 
-        case "keep_swimming":
-            raffle.add(options.c, "Just keep swimming.", 10000);
-            break;
-
-        case "see_wizard_with_penguins":
-            raffle.add(options.a, "Yell \"Don't leave without me!\"", 10000);
+        case "witch_burning":
+            raffle.add(options.a, "Save the witch.", 100);
             break;
 
         case "wizard_wants_mushroom":
