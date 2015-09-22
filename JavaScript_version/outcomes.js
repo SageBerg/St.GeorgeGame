@@ -12,6 +12,7 @@ exports.apply_outcome = function apply_outcome(outcome, game_state) {
 exports.get_outcome = function get_outcome(game_state) {
     var possible_outcomes;
     if (game_state.character.is_threatened === true && 
+        game_state.action !== "Apologize." &&
         game_state.action !== "ATTACK" &&
         game_state.action !== "Enter the void." &&
         game_state.action !== "Leave in a puff." &&
@@ -2498,8 +2499,8 @@ var outcomes = {
             "The frog turns into an ugly fat man. He starts shaking you " +
             "violently. \"I liked being a frog!\" he yells before storming " +
             "off.",
-            "The frog turns into a guard. He says, \"You must be a lunatic for " +
-            "kissing a frog, but I'll let this one slide.\"",
+            "The frog turns into a guard. He says, \"You must be a lunatic " +
+            "for kissing a frog, but I'll let this one slide.\"",
         ];
         game_state.message = messages[random_int(messages.length)];
         lose_item(game_state, "frog");
@@ -2742,19 +2743,19 @@ var outcomes = {
     "married": function(game_state) {
         if (game_state.character.person === "olga") {
             var messages = [
-                "Lord Bartholomew performs a wedding for you and Olga in the " +
-                "countryside. 20,000 people attend your wedding, but you " +
-                "suspect they just wanted to see Lord Bartholomew.",
-                "The wizard performs a wedding for you and Olga in the market." +
-                " He turns you both into sheep after the vows, but it's much " +
-                "safer being sheep.",
-                "Lord Arthur performs a wedding for you and Olga on the deck " +
-                "of his pirate ship. By the time the ceremony is over, the " +
-                "ship has sailed. You are now both members of the crew.",
-                "A bleary-eyed priestess performs a wedding for you and Olga in " +
-                "an alley behind the church. Olga asks the priestess if she " +
-                "would like to come along for the honeymoon, but the priestess " +
-                "declines.",
+                "Lord Bartholomew performs a wedding for you and Olga in " +
+                "the countryside. 20,000 people attend your wedding, but " +
+                "you suspect they just wanted to see Lord Bartholomew.",
+                "The wizard performs a wedding for you and Olga in the " +
+                "market. He turns you both into sheep after the vows, but " 
+                "it's much safer being sheep.",
+                "Lord Arthur performs a wedding for you and Olga on the " +
+                "deck of his pirate ship. By the time the ceremony is over, " +
+                "the ship has sailed. You are now both members of the crew.",
+                "A bleary-eyed priestess performs a wedding for you and " +
+                "Olga in an alley behind the church. Olga asks the " +
+                "priestess if she would like to come along for the " +
+                "honeymoon, but the priestess declines.",
             ];
             game_state.message = messages[random_int(messages.length)];
             game_state.character.has_found_true_love = true;
@@ -3555,6 +3556,7 @@ var outcomes = {
         game_state.message = "The play is put on by some Lord Daniel's " +
             "guards, the acting is terrible and the play portrays Lord " +
             "Bartholomew in a negative light. The audience starts a riot.";
+        game_state.character.person = "guards";
         return game_state;
     },
 
