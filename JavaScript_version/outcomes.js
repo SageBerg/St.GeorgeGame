@@ -12,7 +12,7 @@ exports.apply_outcome = function apply_outcome(outcome, game_state) {
 exports.get_outcome = function get_outcome(game_state) {
     var possible_outcomes;
     if (game_state.character.is_threatened === true && 
-        game_state.action !== "Attack" &&
+        game_state.action !== "ATTACK" &&
         game_state.action !== "Enter the void." &&
         game_state.action !== "Leave in a puff." &&
         game_state.action !== "Panic!" &&
@@ -283,6 +283,80 @@ var outcomes = {
         return game_state;
     },
 
+    "annoy_blind_bartender": function(game_state) {
+        var messages = [
+            "\"All drunks claim to be brave,\" the blind bartender says.",
+            "The blind bartender says he doubts you killed a dragon.",
+            "The blind bartender starts pretending to also be deaf.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "annoy_eve": function(game_state) {
+        var messages = [
+            "Lord Carlos' daughter points out several inconsistencies in " +
+            "your story.",
+            "By the time you're done boasting, you realize Lord Carlos' " +
+            "daughter wasn't listening.",
+            "Lord Carlos' daughter says if you were really brave you " +
+            "wouldn't be hiding here in her bedroom.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "annoy_olga": function(game_state) {
+        var messages = [
+            "Her eyes glaze over as you struggle to remember times you " +
+            "were brave.",
+            "She sees through your lies.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "annoy_simple_peasant": function(game_state) {
+        var messages = [
+            "Even the simple peasant thinks you're full of it.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "annoy_st_george": function(game_state) {
+        var messages = [
+            "St. George warns you of the dangers of " +
+            random_choice(["arrogance", "hubris", "pride", 
+                           "self-importance",]) +
+            ".",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "annoy_st_george_and_die": function(game_state) {
+        var messages = [
+            "You tell St. George about the time you burnt a house down. " +
+            "He slays you for your wicked ways.",
+            "St. George becomes irate when you claim to have slain a " +
+            "dragon. He obliterates you.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
+        return game_state;
+    },
+
+    "annoy_wizard": function(game_state) {
+        var messages = [
+            "Part way through your story, the wizard makes you more " +
+            "interesting by turning you into a frog.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.is_frog = true;
+        return game_state;
+    },
+
     "apocalypse": function(game_state) {
         game_state.message =
             "You start annihilating everything, but the Four Horsemen of " +
@@ -461,6 +535,13 @@ var outcomes = {
                 "you from annihilation.";
             game_state.message += temp_message;
         }
+        return game_state;
+    },
+
+    "boast_and_get_money": function(game_state) {
+        game_state.message = "St. George is impressed with your noble " +
+            "deeds and rewards you.",
+        get_money(game_state, "large_fortune");
         return game_state;
     },
 
@@ -770,9 +851,6 @@ var outcomes = {
             "The blind bartender leans in close and says, \"I told my " +
             "friends that I have a beautiful wife. They told me she must " +
             "be imaginary, but the joke's on them. They're imaginary too.\"",
-            "The blind bartender says, \"I once saw a poor old woman trip " +
-            "and fall. At least I assumed she was poor, she only had a " +
-            "few coins.\"",
             "You somehow end up in a fiery argument with him.",
             "You tell the blind bartender that the whole world's out to " +
             "get you. He says that's probably true.",
@@ -788,8 +866,9 @@ var outcomes = {
             "The blind bartender says that life really just comes down to " +
             "luck, and that's why it's important to have a four-leaf " +
             "clover.",
-            "The blind bartender says that assassins like to frequent " +
-            "the tavern.",
+            "The blind bartender says assassins like to frequent the tavern.",
+            "The blind bartender tells you a story about how he was " +
+            "blinded by the nymph queen.",
         ];
         game_state.message = messages[random_int(messages.length)];
         return game_state;
@@ -2222,6 +2301,31 @@ var outcomes = {
         return game_state;
     },
 
+    "impress_lord_arthur_brave": function(game_state) {
+        game_state.message = "Lord Arthur says, \"Your bravery would be " +
+            "useful on the high seas.\" It soon is.";
+        move_character(game_state, "pirate_ship");
+        return game_state;
+    },
+
+    "impress_olga": function(game_state) {
+        var messages = [
+            capitalize(game_state.persons.olga.name) + " is enthralled by " +
+            "your story.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "impress_simple_peasant": function(game_state) {
+        var messages = [
+            "The peasant agrees that you are a great man.",
+            "You impress the simple peasant.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
     "infection": function(game_state) {
         game_state.message = "You catch a nasty infection and spend weeks " +
             "fighting it.";
@@ -3040,8 +3144,11 @@ var outcomes = {
     },
 
     "not_impressed": function(game_state) {
-        game_state.message = capitalize(get_person(game_state).name) + 
-            " is not impressed.";
+        var messages = [
+            capitalize(get_person(game_state).name) + " is not impressed.",
+            "You're the only one who's impressed.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
         return game_state;
     },
 

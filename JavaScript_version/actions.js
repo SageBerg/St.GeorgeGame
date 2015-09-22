@@ -161,6 +161,32 @@ exports.actions = {
 
     "Boast of your bravery.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "not_impressed", 1);
+        switch (game_state.character.person) {
+            case "blind_bartender":
+                raffle.add(possible_outcomes, "annoy_blind_bartender", 3);
+                break;
+            case "eve":
+                raffle.add(possible_outcomes, "annoy_eve", 3);
+                break;
+            case "lord_arthur":
+                raffle.add(possible_outcomes, "impress_lord_arthur_brave", 3);
+                break;
+            case "olga":
+                raffle.add(possible_outcomes, "annoy_olga", 2);
+                raffle.add(possible_outcomes, "impress_olga", 1);
+                break;
+            case "simple_peasant":
+                raffle.add(possible_outcomes, "annoy_simple_peasant", 1);
+                raffle.add(possible_outcomes, "impress_simple_peasant", 2);
+                break;
+            case "st_george":
+                raffle.add(possible_outcomes, "annoy_st_george", 3);
+                raffle.add(possible_outcomes, "annoy_st_george_and_die", 2);
+                raffle.add(possible_outcomes, "boast_and_get_money", 1);
+                break;
+            case "wizard":
+                raffle.add(possible_outcomes, "annoy_wizard", 3);
+        }
         return possible_outcomes;
     },
 
@@ -524,7 +550,6 @@ exports.actions = {
     },
 
     "FLIRT_WITH": function(game_state, possible_outcomes) {
-
         switch (game_state.character.person) {
             case "eve":
                 raffle.add(possible_outcomes, "wowed_eve", 8);
@@ -556,8 +581,10 @@ exports.actions = {
                             "go_upstairs_with_olga", 9);
                         raffle.add(possible_outcomes,
                             "go_upstairs_and_die", 1);
-                } else {
-                    raffle.add(possible_outcomes, "wowed_olga_upstairs", 1);
+                    } else {
+                        raffle.add(possible_outcomes, 
+                            "wowed_olga_upstairs", 1);
+                    }
                 }
                 break;
         }
