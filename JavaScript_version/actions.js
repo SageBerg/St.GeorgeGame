@@ -57,7 +57,7 @@ exports.actions = {
             }
         }
         if (game_state.character.place === "lord_carlos_manor") {
-            raffle.add(possible_outcomes, "wait_here", 3);
+            raffle.add(possible_outcomes, "wait_here_please", 3);
         }
         return possible_outcomes;
     },
@@ -1529,6 +1529,13 @@ exports.actions = {
                 raffle.add(possible_outcomes, "caught_like_god", 9);
             }
         }
+        return possible_outcomes;
+    },
+
+    "Wait where you are.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "wait_and_die", 2);
+        raffle.add(possible_outcomes, "wait_and_meet_eve", 1);
+        raffle.add(possible_outcomes, "wait_and_meet_lord_carlos", 1);
         return possible_outcomes;
     },
 

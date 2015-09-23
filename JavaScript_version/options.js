@@ -485,8 +485,8 @@ function get_outcome_options(game_state, options) {
             raffle.add(options.b, "Enact your elaborate scheme.", 10000);
             break;
 
-        case "wait_here":
-            //raffle.add(options.a, "Wait where you are.", 10000);
+        case "wait_here_please":
+            raffle.add(options.a, "Wait where you are.", 10000);
             break;
 
         case "witch_burning":

@@ -4293,7 +4293,43 @@ var outcomes = {
 
     //w
 
-    "wait_here": function(game_state) {
+    "wait_and_die": function(game_state) {
+        var messages = [
+            "You wait until the assassins come and take you out.",
+            "You wait long enough to get surrounded by Lord Carlos' " +
+            "assassins.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
+        return game_state;
+    },
+
+    "wait_and_meet_eve": function(game_state) {
+        var messages = [
+            "You quickly get bored of waiting and wander into the Lord " +
+            "Carlos' daughter's bedroom, where you find her sharpening a " +
+            "dagger. She looks up and says, \"You again?\"",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.person = "eve";
+        return game_state;
+    },
+
+    "wait_and_meet_lord_carlos": function(game_state) {
+        var messages = [
+            "A few minutes later you see Lord Carlos striding toward you. " +
+            "\"You have a lot of " +
+            random_choice(["audacity", "balls", "chutzpah", "gall",
+                           "nerve",]) +
+            " to come back here,\" he says.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.is_threatened = true;
+        game_state.character.person = "lord_carlos";
+        return game_state;
+    },
+
+    "wait_here_please": function(game_state) {
         var messages = [
             "You ask a servant about assassins. She asks you to wait where " +
             "you are.",
