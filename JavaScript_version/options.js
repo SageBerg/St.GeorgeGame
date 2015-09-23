@@ -379,15 +379,9 @@ function get_outcome_options(game_state, options) {
             break;
 
         case "directions_to_manor":
-            //raffle.add(options.c, ".", 100);
-            break;
-
         case "directions_to_town":
-            //raffle.add(options.c, ".", 100);
-            break;
-
         case "directions_to_woods":
-            //raffle.add(options.c, ".", 100);
+            raffle.add(options.c, "GO_TO", 1000);
             break;
 
         case "fish_pirates_laugh":
@@ -496,7 +490,7 @@ function get_outcome_options(game_state, options) {
             break;
 
         case "witch_burning":
-            raffle.add(options.a, "Save the witch.", 100);
+            //raffle.add(options.a, "Save the witch.", 100);
             break;
 
         case "wizard_wants_mushroom":
