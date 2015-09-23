@@ -1002,6 +1002,13 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Look up into the sky and yell, \"NOOOOOOOOOOOOO!\"": 
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "god_resurrects_cat", 1);
+        raffle.add(possible_outcomes, "yelling_doesnt_help", 2);
+        return possible_outcomes;
+    },
+
     "LOVE_POTION": function(game_state, possible_outcomes) {
         switch (game_state.character.person) {
             case "eve":
@@ -1509,6 +1516,13 @@ exports.actions = {
     "Try to reason with the mob.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "mob_kills_you", 4);
         raffle.add(possible_outcomes, "mob_lets_you_off_the_hook", 1);
+        return possible_outcomes;
+    },
+
+    "Try to save the cat.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "fail_to_save_cat", 1);
+        raffle.add(possible_outcomes, "beat_up_by_kids", 1);
+        raffle.add(possible_outcomes, "save_cat", 1);
         return possible_outcomes;
     },
 

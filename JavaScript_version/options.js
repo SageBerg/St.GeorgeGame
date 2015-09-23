@@ -384,6 +384,12 @@ function get_outcome_options(game_state, options) {
             raffle.add(options.c, "GO_TO", 1000);
             break;
 
+        case "fail_to_save_cat":
+            raffle.add(options.a, "Kill yourself in frustration.", 1);
+            raffle.add(options.d, 
+                "Look up into the sky and yell, \"NOOOOOOOOOOOOO!\"", 100);
+            break;
+
         case "fish_pirates_laugh":
         case "gambling_lose":
         case "peasants_laugh_at_you":

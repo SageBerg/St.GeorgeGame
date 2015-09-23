@@ -481,6 +481,16 @@ var outcomes = {
         return game_state;
     },
 
+    "beat_up_by_kids": function(game_state) {
+        var messages = [
+            "You charge into the midst of the children. The cat escapes in " +
+            "the ensuing chaos, but you do not. The children beat you " +
+            "mercilessly and leave you for dead.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
     "beth_death": function(game_state) {
         game_state.message = "Lord Carlos' daughter shakes her head. \"" +
             "What a shame, I was beginning to like you,\" she says before " +
@@ -1551,6 +1561,16 @@ var outcomes = {
         return game_state;
     },
 
+    "fail_to_save_cat": function(game_state) {
+        var messages = [
+            "While you're running to save the cat, you trip on some gravel " +
+            "and knock yourself out. When you wake up, all you find is the " +
+            "smoldering remains of the cat.",
+        ]; 
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
     "fall_into_cave": function(game_state) {
         var messages = [
             "You trip on a stick and fall into a hole in the ground.",
@@ -2158,6 +2178,13 @@ var outcomes = {
             "God does nothing for you, but you " +
             "find a bag of jewels someone left on the counter.";
         get_item(game_state, "bag of jewels");
+        return game_state;
+    },
+
+    "god_resurrects_cat": function(game_state) {
+        game_state.message = "God hears your distress and brings the cat " +
+            "back to life.";
+        get_item(game_state, "cat");
         return game_state;
     },
 
@@ -4822,6 +4849,15 @@ var outcomes = {
     
     //y
     
+    "yelling_doesnt_help": function(game_state) {
+        var messages = [
+            "Your shout echoes around the countryside.",
+            "A flock of startled birds flys away.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
     "you_get_away_with_it": function(game_state) {
         var messages = [
             "Since Lord Arthur is dead, you get away with it.",
