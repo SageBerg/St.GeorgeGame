@@ -1413,7 +1413,8 @@ var outcomes = {
     "escaped": function(game_state) {
         game_state.message = 
             "The Devil is pretty fast, so you manage to get away.";
-        move_character(game_state, get_random_adjacent_destination(game_state));
+        move_character(game_state, 
+            get_random_adjacent_destination(game_state));
         return game_state;
     },
 
@@ -1560,6 +1561,16 @@ var outcomes = {
                 "like your donation brought you closer to God",
                 "like your sins will be pardoned",
                 ]) + ".",
+        ]; 
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "feel_manly": function(game_state) {
+        var messages = [
+            "You feel " + 
+            random_choice(["extremely", "quite", "really", "very",]) + " " +
+            random_choice(["heroic", "macho", "manly"]) + ".",
         ]; 
         game_state.message = messages[random_int(messages.length)];
         return game_state;
@@ -2747,7 +2758,7 @@ var outcomes = {
                 "the countryside. 20,000 people attend your wedding, but " +
                 "you suspect they just wanted to see Lord Bartholomew.",
                 "The wizard performs a wedding for you and Olga in the " +
-                "market. He turns you both into sheep after the vows, but " 
+                "market. He turns you both into sheep after the vows, but " +
                 "it's much safer being sheep.",
                 "Lord Arthur performs a wedding for you and Olga on the " +
                 "deck of his pirate ship. By the time the ceremony is over, " +
@@ -3237,6 +3248,20 @@ var outcomes = {
         return game_state;
     },
 
+    "peasant_woman_impressed": function(game_state) {
+        game_state.message = "A peasant woman sees you thump your chest and " +
+            "is impressed. Unfortunately, her husband is not. He ushers her " +
+            "away.";
+        return game_state;
+    },
+
+
+    "peasants_laugh_at_you": function(game_state) {
+        game_state.message = "Some peasants laugh at you for acting like a " +
+            "gorilla.";
+        return game_state;
+    },
+
     "pick_black_mushroom": function(game_state) {
         game_state.message = "You pick a black mushroom.";
         game_state.character.person = null;
@@ -3561,6 +3586,21 @@ var outcomes = {
     },
 
     //s
+
+    "save_cat": function(game_state) {
+        game_state.message = "You manage to save the cat and run like the " +
+            "Devil.";
+        get_item(game_state, "cat");
+        return game_state;
+    },
+
+    "save_witch": function(game_state) {
+        game_state.message = "You manage to save the witch and escape with " +
+            "her to the woods.";
+        move_character(game_state, "woods");
+        game_state.character.person = "witch";
+        return game_state;
+    },
 
     "saved_by_inuits": function(game_state) {
         game_state.message = "Some Inuits save you from the cold and take " +
@@ -3904,8 +3944,8 @@ var outcomes = {
     },
 
     "think_ax": function(game_state) {
-        game_state.message = "While you're thinking, a guard hands you an ax " +
-        "and tells you to chop some firewood for the cooks.";
+        game_state.message = "While you're thinking, a guard hands you an " +
+        "ax and tells you to chop some firewood for the cooks.";
         get_item(game_state, "ax");
         return game_state;
     },
@@ -4025,6 +4065,12 @@ var outcomes = {
         game_state.message = "Lord Arthur cringes and has you thrown off " +
             "the ship.";
         move_character(game_state, "ocean");
+        return game_state;
+    },
+
+    "thump_self_and_die": function(game_state) {
+        game_state.message = "You thump yourself a bit too hard.";
+        die(game_state);
         return game_state;
     },
 
@@ -4433,6 +4479,17 @@ var outcomes = {
             "a stomach ache.",
         ];
         game_state.character.items["yellow mushroom"] -= 1;
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "wizard_gorilla": function(game_state) {
+        var messages = [
+            "The wizard says, \"If you like behaving like a gorilla so " +
+            "much, why not be a gorilla?\" He tries to turn you into a " +
+            "gorilla, but his spell only makes you " +
+            random_choice(["feel", "smell", "walk",]) + " like a gorilla.",
+        ];
         game_state.message = messages[random_int(messages.length)];
         return game_state;
     },

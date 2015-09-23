@@ -308,9 +308,29 @@ function get_outcome_options(game_state, options) {
 
     switch (game_state.outcome) {
         case "bronzed":
-        case "cat_smells_fish":
+        case "boast_and_get_money":
         case "chop_down_tree":
-            //raffle.add(options.a, "Thump yourself on the chest.", 1);
+        case "impress_simple_peasant":
+        case "kill":
+        case "kill_lord_carlos":
+        case "panic_and_escape":
+        case "save_cat":
+        case "swim_to_woods":
+        case "train_and_win":
+        case "you_get_away_with_it":
+            raffle.add(options.a, "Thump yourself on the chest.", 1);
+            break;
+
+        case "cat_smells_fish":
+        case "club_a_seal":
+        case "eat_fish_in_igloo":
+        case "eat_seal_in_igloo":
+        case "find_sea_turtle":
+        case "gambling_win":
+        case "god_showers_you_with_gold":
+        case "pace_and_get_frog":
+        case "raise_sail_and_get_to_land":
+        case "wake_up_richer":
             //raffle.add(options.c, "Celebrate your success.", 1);
             break;
 
@@ -338,7 +358,9 @@ function get_outcome_options(game_state, options) {
         case "see_ship":
         case "sunburnt":
         case "think_pirates_laugh":
+        case "think_think_think":
         case "train_thrown_out":
+        case "trash_nothing":
         case "waiting_for_seal":
         case "wake_up_robbed":
         case "wealthy_people_sneer":
@@ -367,6 +389,12 @@ function get_outcome_options(game_state, options) {
             //raffle.add(options.c, ".", 100);
             break;
 
+        case "fish_pirates_laugh":
+        case "gambling_lose":
+        case "peasants_laugh_at_you":
+            raffle.add(options.a, "Kill everybody in a fit of rage.", 1);
+            break;
+  
         case "guards_stop_you_dancing":
             game_state.character.excuse = "happy";
             raffle.add(options.d, "TELL_GUARDS", 10000);
@@ -392,10 +420,6 @@ function get_outcome_options(game_state, options) {
             raffle.add(options.d, "TELL_GUARDS", 10000);
             break;
 
-        case "gambling_lose":
-            raffle.add(options.a, "Kill everybody in a fit of rage.", 1);
-            break;
-  
         case "hit_assassin_with_cat":
             raffle.add(options.a, "Apologize.", 100);
             break;
@@ -435,6 +459,14 @@ function get_outcome_options(game_state, options) {
         case "no_progress_swimming":
         case "see_ship":
             raffle.add(options.c, "Keep swimming.", 10000);
+            break;
+
+        case "notice_pattern":
+            //raffle.add(options.a, 
+            //    "Laugh about the warden doing it alone on holidays.", 10000);
+            //raffle.add(options.b, 
+            //    "Try to snatch the keys the first chance you get.", 10000);
+            //raffle.add(options.d, "Wait for a holiday.", 10000);
             break;
 
         case "riot":

@@ -1441,6 +1441,20 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Thump yourself on the chest.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "feel_manly", 9);
+        raffle.add(possible_outcomes, "thump_self_and_die", 1);
+        if (game_state.places[game_state.character.place].populated === true
+            || game_state.character.place === "countryside") {
+            raffle.add(possible_outcomes, "peasant_woman_impressed", 1);
+            raffle.add(possible_outcomes, "peasants_laugh_at_you", 2);
+        }
+        if (game_state.character.person === "wizard") {
+            raffle.add(possible_outcomes, "wizard_gorilla", 20);
+        }
+        return possible_outcomes;
+    },
+
     "Tip a cow.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "cannot_tip_cow", 4);
         raffle.add(possible_outcomes, "tip_cow_and_die", 1);
