@@ -2524,6 +2524,13 @@ var outcomes = {
         return game_state;
     },
 
+    "killed_by_mob": function(game_state) {
+        game_state.message = "You try to save the witch, but the peasants " +
+            "kill you for meddling.";
+        die(game_state);
+        return game_state;
+    },
+
     "killed_by_olga": function(game_state) {
         game_state.message =
             "When you squeeze her butt, she stabs you in the heart with a " +
@@ -3400,61 +3407,6 @@ var outcomes = {
         return game_state;
     },
 
-    "priest_agrees": function(game_state) {
-        var messages = [
-            "The priest thinks for a moment and realizes you're right. " +
-            "\"What a fool I've been,\" he says. \"I'll go and " +
-            random_choice(["become a peasant", "get a wife",]) + ".\"",
-            "You get in a " +
-            random_choice(["heated", "horrible", "protracted", "spirited"]) +
-            " argument with the preist, but you eventually both agree that " +
-            "there are at least 17 gods and that " +
-            random_choice(["Lord Bartholomew", "St. George",]) + 
-            " is a good man.",
-        ];
-        game_state.message = messages[random_int(messages.length)];
-        return game_state;
-    },
-
-    "priest_disagrees": function(game_state) {
-        var messages = [
-            "The priest says he has is doubts.",
-            "The priest says he would know it when he sees it.",
-        ];
-        game_state.message = messages[random_int(messages.length)];
-        return game_state;
-    },
-
-    "priest_fat": function(game_state) {
-        var messages = [
-            "The priest runs off crying.",
-            "\"Food is my only indulgence,\" he says proudly.",
-            "He says, \"Only God can judge me.\"",
-        ];
-        game_state.message = messages[random_int(messages.length)];
-        return game_state;
-    },
-
-    "priest_takes_pity": function(game_state) {
-        var messages = [
-            "The priest finds your argument so pitiful that he gives you " + 
-            "a pittance and sends you on your way.",
-        ];
-        game_state.message = messages[random_int(messages.length)];
-        get_money(game_state, "pittance");
-        move_character(game_state, "streets");
-        return game_state;
-    },
-
-    "priestess_takes_offense": function(game_state) {
-        game_state.message = "A priestess finds your lyrics " +
-        random_choice(["blasphemous", "cliché", "crude", "idiotic", "lewd", 
-                       "mildly offensive", "uncreative"]) +
-        " and has you thrown out of the church.";
-        move_character(game_state, "streets");
-        return game_state;
-    },
-
     "potion_eve": function(game_state) {
         var messages = [
             "Lord Carlos' daughter falls madly in love with you. " +
@@ -3518,6 +3470,74 @@ var outcomes = {
         ];
         game_state.message = messages[random_int(messages.length)];
         game_state.character.has_found_true_love = true;
+        return game_state;
+    },
+
+    "priest_agrees": function(game_state) {
+        var messages = [
+            "The priest thinks for a moment and realizes you're right. " +
+            "\"What a fool I've been,\" he says. \"I'll go and " +
+            random_choice(["become a peasant", "get a wife",]) + ".\"",
+            "You get in a " +
+            random_choice(["heated", "horrible", "protracted", "spirited"]) +
+            " argument with the preist, but you eventually both agree that " +
+            "there are at least 17 gods and that " +
+            random_choice(["Lord Bartholomew", "St. George",]) + 
+            " is a good man.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "priest_disagrees": function(game_state) {
+        var messages = [
+            "The priest says he has is doubts.",
+            "The priest says he would know it when he sees it.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "priest_fat": function(game_state) {
+        var messages = [
+            "The priest runs off crying.",
+            "\"Food is my only indulgence,\" he says proudly.",
+            "He says, \"Only God can judge me.\"",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "priest_takes_pity": function(game_state) {
+        var messages = [
+            "The priest finds your argument so pitiful that he gives you " + 
+            "a pittance and sends you on your way.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        get_money(game_state, "pittance");
+        move_character(game_state, "streets");
+        return game_state;
+    },
+
+    "priestess_takes_offense": function(game_state) {
+        game_state.message = "A priestess finds your lyrics " +
+        random_choice(["blasphemous", "cliché", "crude", "idiotic", "lewd", 
+                       "mildly offensive", "uncreative"]) +
+        " and has you thrown out of the church.";
+        move_character(game_state, "streets");
+        return game_state;
+    },
+
+    "provoke_the_mob": function(game_state) {
+        var messages = [
+            "You try to distract the peasants by throwing stones at them " +
+            "and insulting their mothers, but they burn the witch anyway. " +
+            "Once they're done, they start charging at you with their " +
+            "torches and pitchforks.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.is_threatened = true;
+        game_state.character.person = "mob";
         return game_state;
     },
 
@@ -3675,8 +3695,11 @@ var outcomes = {
     },
 
     "save_witch": function(game_state) {
-        game_state.message = "You manage to save the witch and escape with " +
-            "her to the woods.";
+        game_state.message = "You manage to save the witch and escape into " +
+            "the woods with her. The witch rewards you for saving her.";
+        var item = random_choice(["deep-cave newt", "four-leaf clover",
+                                  "potion of love",]);
+        get_item(game_state, item);
         move_character(game_state, "woods");
         game_state.character.person = "witch";
         return game_state;

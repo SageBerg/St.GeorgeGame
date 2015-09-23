@@ -335,7 +335,7 @@ function get_outcome_options(game_state, options) {
             break;
 
         case "cat_burning":
-            //raffle.add(options.a, "Save the cat.", 100);
+            //raffle.add(options.a, "Try to save the cat.", 100);
             break;
 
         case "cannot_afford":
@@ -490,7 +490,7 @@ function get_outcome_options(game_state, options) {
             break;
 
         case "witch_burning":
-            //raffle.add(options.a, "Save the witch.", 100);
+            raffle.add(options.a, "Try to save the witch.", 100);
             break;
 
         case "wizard_wants_mushroom":

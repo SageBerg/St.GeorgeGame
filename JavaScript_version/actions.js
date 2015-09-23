@@ -1512,6 +1512,13 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Try to save the witch.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "provoke_the_mob", 1);
+        raffle.add(possible_outcomes, "killed_by_mob", 1);
+        raffle.add(possible_outcomes, "save_witch", 1);
+        return possible_outcomes;
+    },
+
     //u
 
     //v
