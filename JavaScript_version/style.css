@@ -41,3 +41,10 @@ h1 {
 .option:hover {
     background-color:red; 
 }
+
+#score {
+    color: white;
+    display: block;
+    font-family: helvetica;
+    margin: 10px;
+}
