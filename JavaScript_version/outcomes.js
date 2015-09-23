@@ -519,6 +519,38 @@ var outcomes = {
         return game_state;
     },
 
+    "black_out_and_become_pirate": function(game_state) {
+        game_state.message = "You drink until you black out. " +
+            "Lord Arthur wakes you by yelling that you need to get on " +
+            "with your duties.",
+        move_character(game_state, "pirate_ship");
+        game_state.character.person = "lord_arthur";
+        return game_state;
+    },
+
+    "black_out_and_die": function(game_state) {
+        game_state.message = "You drink until you black out.";
+        die(game_state);
+        return game_state;
+    },
+
+    "black_out_and_move": function(game_state) {
+        game_state.message = "You drink until you black out. You wake up " +
+            "horribly hung over.";
+        teleport(game_state);
+        return game_state;
+    },
+
+    "black_out_and_win": function(game_state) {
+        game_state.message = 
+            "You drink until you black out. " +
+            "You wake up in bed next to a peasant woman. " +
+            "Once the hangover wears off, you " +
+            "both live happily ever after.";
+        game_state.character.has_found_true_love = true;
+        return game_state;
+    },
+
     "blessed": function(game_state) {
         game_state.message = "A priestess blesses you.";
         game_state.character.person = "priestess";
@@ -807,7 +839,44 @@ var outcomes = {
         game_state.message = 
             "The Devil is pretty fast, but Olga is faster and prettier. " +
             "She catches you and strangles you to death.";
-        game_state.character.is_dead = true;
+        die(game_state);
+        return game_state;
+    },
+
+    "celebrate": function(game_state) {
+        var messages = [
+            "You dance a jig.",
+            "You sing a song.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "celebrate_at_brothel": function(game_state) {
+        var messages = [
+            "You celebrate at a brothel, but you feel sad that the women " +
+            "there are just pretending to like you.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        move_character(game_state, "streets");
+        return game_state;
+    },
+
+    "celebrate_at_market": function(game_state) {
+        var messages = [
+            "You celebrate by watching a play in the market.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        move_character(game_state, "market");
+        return game_state;
+    },
+
+    "celebrate_uncreatively": function(game_state) {
+        var messages = [
+            "You can't come up with a better way of celebrating than " +
+            "twiddling your thumbs.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
         return game_state;
     },
 
@@ -2750,6 +2819,17 @@ var outcomes = {
     },
 
     //m
+
+    "make_it_rain": function(game_state) {
+        var messages = [
+            "You celebrate by wandering around town throwing all of your " +
+            "money in the air.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        game_state.character.money = NONE;
+        move_character(game_state, "streets");
+        return game_state;
+    },
 
     "married": function(game_state) {
         if (game_state.character.person === "olga") {

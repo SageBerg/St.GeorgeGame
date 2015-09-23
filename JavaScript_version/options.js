@@ -331,7 +331,7 @@ function get_outcome_options(game_state, options) {
         case "pace_and_get_frog":
         case "raise_sail_and_get_to_land":
         case "wake_up_richer":
-            //raffle.add(options.c, "Celebrate your success.", 1);
+            raffle.add(options.c, "Celebrate your success.", 1);
             break;
 
         case "cat_burning":
@@ -341,6 +341,7 @@ function get_outcome_options(game_state, options) {
         case "cannot_afford":
         case "cannot_find_cat":
         case "cannot_tip_cow":
+        case "celebrate_uncreatively":
         case "dance_in_puddle":
         case "fail_at_new_career":
         case "fail_to_find_mermaids":

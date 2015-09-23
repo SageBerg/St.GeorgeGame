@@ -235,6 +235,30 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Celebrate your success.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "celebrate", 2);
+        raffle.add(possible_outcomes, "celebrate_uncreatively", 1);
+        if (game_state.places[game_state.character.place].burnable === true) {
+            raffle.add(possible_outcomes, "burn", 2);
+        }
+        if (game_state.places[game_state.character.place].town === true) {
+            raffle.add(possible_outcomes, "celebrate_at_brothel", 1);
+            if (game_state.places.market.burnable) {
+                raffle.add(possible_outcomes, "celebrate_at_market", 1);
+            }
+            if (game_state.character.money !== "none") {
+                raffle.add(possible_outcomes, "make_it_rain", 1);
+            }
+        }
+        if (game_state.character.place === "tavern") {
+            raffle.add(possible_outcomes, "black_out_and_become_pirate", 1);
+            raffle.add(possible_outcomes, "black_out_and_die", 1);
+            raffle.add(possible_outcomes, "black_out_and_move", 1);
+            raffle.add(possible_outcomes, "black_out_and_win", 1);
+        }
+        return possible_outcomes;
+    },
+
     "Challenge Lord Bartholomew to a game of chess.":
         function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "lord_bartholomew_chess", 1);
