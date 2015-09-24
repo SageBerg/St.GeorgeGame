@@ -2726,6 +2726,53 @@ var outcomes = {
         return game_state;
     },
 
+    "loot_and_die": function(game_state) {
+        game_state.message = "You are killed by a merchant defending her " +
+            "shop.";
+        die(game_state);
+        return game_state;
+    },
+
+    "loot_arrested": function(game_state) {
+        game_state.message = "You are arrested for attempting to steal " +
+            random_choice(["apple", "cart", "chicken", "goat", "grape",]) + 
+            ".";
+        arrested(game_state);
+        return game_state;
+    },
+
+    "loot_item": function(game_state) {
+        var item = random_choice(["ax", "cat", "fish", "pearl", "sailor peg"]);
+        game_state.message = "You get away with " + a_or_an(item[0]) + " " +
+            item + ".";
+        get_item(game_state, item);
+        move_character(game_state, "streets");
+        return game_state;
+    },
+
+    "loot_items": function(game_state) {
+        var item_one = random_choice(["fancy red cloak", "fish", 
+                                      "many-colored mushroom" ]);
+        var item_two = random_choice(["bouquet of flowers", "frog", 
+                                      "white mushroom"]);
+        game_state.message = "You grab some stuff and flee the market."
+        get_item(game_state, item_one);
+        get_item(game_state, item_two);
+        move_character(game_state, 
+            get_random_adjacent_destination(game_state));
+        return game_state;
+    },
+
+    "loot_weapon": function(game_state) {
+        var weapon = random_choice(["dagger", "pitchfork", "cutlass", 
+                                    "hammer", "iron_hammer", 
+                                    "jeweled_cutlass"]);
+        game_state.message = "You swipe " + a_or_an(weapon[0]) + " " +
+            weapon + ".";
+        get_weapon(game_state, weapon);
+        return game_state;
+    },
+
     "lord_arthur_tells_sail": function(game_state) {
         var messages = [
             "Lord Arthur tells you to " +

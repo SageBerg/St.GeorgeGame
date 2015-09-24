@@ -335,7 +335,7 @@ function get_outcome_options(game_state, options) {
             break;
 
         case "cat_burning":
-            //raffle.add(options.a, "Try to save the cat.", 100);
+            raffle.add(options.a, "Try to save the cat.", 100);
             break;
 
         case "cannot_afford":
@@ -385,7 +385,7 @@ function get_outcome_options(game_state, options) {
             break;
 
         case "fail_to_save_cat":
-            raffle.add(options.a, "Kill yourself in frustration.", 1);
+            raffle.add(options.a, "Kill yourself in frustration.", 2);
             raffle.add(options.d, 
                 "Look up into the sky and yell, \"NOOOOOOOOOOOOO!\"", 100);
             break;
@@ -471,10 +471,10 @@ function get_outcome_options(game_state, options) {
             break;
 
         case "riot":
-            //raffle.add(options.a, "ATTACK.", 10000);
-            //raffle.add(options.b, "BURN.", 10000);
-            //raffle.add(options.c, "Trash the place.", 10000);
-            //raffle.add(options.d, "Loot.", 10000);
+            raffle.add(options.a, "ATTACK", 10000);
+            raffle.add(options.b, "BURN", 10000);
+            raffle.add(options.c, "Trash the place.", 10000);
+            raffle.add(options.d, "Loot.", 10000);
             break;
 
         case "see_wizard_with_penguins":
