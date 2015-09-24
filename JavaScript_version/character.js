@@ -3,6 +3,7 @@
 exports.character = {
     "excuse": "",
     "has_found_true_love": false,
+    "has_lost_leg": false,
     "has_tail": false,
     "is_dead": false,
     "is_frog": false,

@@ -431,7 +431,8 @@ exports.actions = {
         return possible_outcomes;
     },
 
-    "Destroy all human civilizations.": function(game_state, possible_outcomes) {
+    "Destroy all human civilizations.": 
+        function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "killed_by_hero", 1);
         return possible_outcomes;
     },
@@ -465,6 +466,20 @@ exports.actions = {
                 raffle.add(possible_outcomes, "gambling_lady", 1);
             }
         }
+        return possible_outcomes;
+    },
+
+    "Do some swashbuckling.": function(game_state, possible_outcomes) {
+        if (game_state.character.items.cutlass > 0) {
+            raffle.add(possible_outcomes, "kill_merchants", 1);
+        } else {
+            raffle.add(possible_outcomes, "no_cutlass", 1);
+        }
+        raffle.add(possible_outcomes, "swashbuckle_and_die", 1);
+        if (game_state.character.has_lost_leg === false) {
+            raffle.add(possible_outcomes, "lose_leg", 2);
+        }
+        raffle.add(possible_outcomes, "hold_your_own", 1);
         return possible_outcomes;
     },
 

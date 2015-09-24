@@ -454,7 +454,7 @@ function get_outcome_options(game_state, options) {
             raffle.add(options.a, "Fire a cannon.", 10000);
             raffle.add(options.b, "Hide beneath the deck.", 10000);
             raffle.add(options.c, "Swing on a rope.", 10000);
-            //raffle.add(options.d, "Do some swashbuckling.", 10000);
+            raffle.add(options.d, "Do some swashbuckling.", 10000);
             break;
 
         case "no_progress_swimming":

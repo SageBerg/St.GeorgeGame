@@ -2421,6 +2421,13 @@ var outcomes = {
         return game_state;
     },
 
+    "hold_your_own": function(game_state) {
+        game_state.message = "You manage to hold your own during the " +
+            "battle. You are given your share of the loot.";
+        get_money(game_state, "pittance");
+        return game_state;
+    },
+
     "hop": function(game_state) {
         game_state.message = "You hop.";
         return game_state;
@@ -2529,6 +2536,17 @@ var outcomes = {
             "hot soup on him and he dies.",
         game_state.persons["lord_carlos"].alive = false;
         move_character(game_state, "lord_carlos_manor");
+        return game_state;
+    },
+
+    "kill_merchants": function(game_state) {
+        game_state.message = "You manage to kill several innocent " +
+            "merchants.";
+        if (game_state.persons.lord_arthur.alive === true) {
+            game_state.message += " Lord Arthur is pleased and gives you a " +
+                "large share the loot.";
+            get_money(game_state, "small_fortune");
+        }
         return game_state;
     },
 
@@ -2948,6 +2966,14 @@ var outcomes = {
         return game_state;
     },
 
+    "lose_leg": function(game_state) {
+        game_state.message = "You lose a leg in the battle, but Lord " +
+            "Arthur gives you a replacement.";
+        game_state.character.has_lost_leg = true;
+        get_item(game_state, "sailor peg");
+        return game_state;
+    },
+
     //m
 
     "make_it_rain": function(game_state) {
@@ -3272,6 +3298,16 @@ var outcomes = {
     },
 
     //n
+
+    "no_cutlass": function(game_state) {
+        var messages = [
+            "You find it difficult to swashbuckle without a cutlass. You " +
+            "are soon cut down.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
+        return game_state;
+    },
 
     "no_fish": function(game_state) {
         var messages = [
@@ -4101,6 +4137,13 @@ var outcomes = {
 
     "sunburnt": function(game_state) {
         game_state.message = "You get sunburnt.";
+        return game_state;
+    },
+
+    "swashbuckle_and_die": function(game_state) {
+        game_state.message = "A cabin boy stabs you in the back during " +
+            "the fight.",
+        die(game_state);
         return game_state;
     },
 
