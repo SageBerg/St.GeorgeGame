@@ -1820,6 +1820,28 @@ var outcomes = {
         return game_state;
     },
 
+    "fire_cannon_and_die": function(game_state) {
+        game_state.message = "You manage to shoot the merchant ship's mast " +
+            "down. It falls on you."
+        die(game_state);
+        return game_state;
+    },
+
+    "fire_cannon_and_get_flogged": function(game_state) {
+        game_state.message = "You sink the merchant ship, treasure and all." +
+            " Lord Arthur is not pleased. Nor are you after he teaches " +
+            "you a lesson by giving you 101 lashes accross the back.";
+        return game_state;
+    },
+
+    "fire_cannon_and_get_rewarded": function(game_state) {
+        game_state.message = "You fumble around with the cannon and never " +
+            "figure out how it works, but Lord Arthur is convinced you " +
+            "contributed to his victory and rewards you.",
+        get_item(game_state, "bag of jewels");
+        return game_state;
+    },
+
     "fish_pirates_laugh": function(game_state) {
         game_state.message = "Some pirates notice you fishing. One of them " +
             "says, \"You'll never get a large fortune like that.\" The " +

@@ -565,6 +565,15 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Fire a cannon.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "fire_cannon_and_die", 1);
+        if (game_state.persons.lord_arthur.alive === true) {
+            raffle.add(possible_outcomes, "fire_cannon_and_get_flogged", 1);
+            raffle.add(possible_outcomes, "fire_cannon_and_get_rewarded", 1);
+        }
+        return possible_outcomes;
+    },
+
     "Flaunt your wealth.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "guards_stop_you_rich", 1);
         raffle.add(possible_outcomes, "st_george_warns_you", 1);
