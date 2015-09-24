@@ -236,6 +236,11 @@ function get_item_options(game_state, options) {
         raffle.add(options.b, "SHOW_COIN", 100);
     }
 
+    if (game_state.character.items["handful of void dust"] > 0 &&
+        game_state.character.person === "wizard") {
+        raffle.add(options.d, "Trade your void dust to the wizard.", 10000);
+    }
+
     if (game_state.character.items["white mushroom"] > 0) {
         raffle.add(options.c, "Chow down on your white mushroom.", 1);
     }

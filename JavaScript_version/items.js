@@ -47,6 +47,10 @@ exports.weapons_map = {
         "name": "iron hammer", 
         "attack": 8, 
         "cost": "small_fortune"
-    }
+    },
+    "sword_of_great_evil": {
+        "name": "sword of great evil", 
+        "attack": 101, 
+        "cost": "large_fortune"
+    },
 }
-

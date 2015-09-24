@@ -2218,6 +2218,14 @@ var outcomes = {
         return game_state;
     },
 
+    "get_sword_of_great_evil": function(game_state) {
+        game_state.message = "The wizard eagarly trades you his most " +
+            "valuable item.";
+        lose_item(game_state, "handful of void dust");
+        get_weapon(game_state, "sword_of_great_evil");
+        return game_state;
+    },
+
     "get_void_dust": function(game_state) {
         game_state.message = "";
         get_item(game_state, "handful of void dust");

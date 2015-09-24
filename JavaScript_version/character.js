@@ -20,6 +20,7 @@ exports.character = {
         "long_pitchfork": 0,
         "pitchfork": 0,
         "poison_dagger": 0,
+        "sword_of_great_evil": 0,
 
         "ax": 0,
         "bag of jewels": 0,

@@ -1172,6 +1172,12 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Play poorly and turn the board around once you're losing.": 
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "turn_board_around", 3);
+        return possible_outcomes;
+    },
+
     "Pray to a higher power.": function(game_state, possible_outcomes) {
 
         raffle.add(possible_outcomes, "assassin_prayer_answered", 1);
@@ -1585,6 +1591,12 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Trade your void dust to the wizard.":
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "get_sword_of_great_evil", 1);
+        return possible_outcomes;
+    },
+
     "Train with the guards.": function(game_state, possible_outcomes) {
         if (game_state.character.strength > 3) {
             raffle.add(possible_outcomes, "train_and_win", 2);
@@ -1635,12 +1647,6 @@ exports.actions = {
         raffle.add(possible_outcomes, "beat_up_by_guards", 3);
         raffle.add(possible_outcomes, "steal_keys_and_die", 1);
         raffle.add(possible_outcomes, "steal_keys_and_escape", 1);
-        return possible_outcomes;
-    },
-
-    "Play poorly and turn the board around once you're losing.": 
-        function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "turn_board_around", 3);
         return possible_outcomes;
     },
 
