@@ -1489,6 +1489,22 @@ var outcomes = {
         return game_state;
     },
 
+    "enrage_lord_carlos": function(game_state) {
+        game_state.message = "Lord carlos is " +
+            random_choice(["enraged", "infuriated",]) +
+            " by your " +
+            random_choice(["impudence", "insolence",]) +
+            ".";
+        return game_state;
+    },
+
+    "enrage_lord_carlos_and_die": function(game_state) {
+        game_state.message = "Lord carlos is not pleased. He kills you " +
+            "before you can do anything else to annoy him.";
+        die(game_state);
+        return game_state;
+    },
+
     "enter_the_void": function(game_state) {
         game_state.message = "";
         move_character(game_state, "void");
@@ -4637,6 +4653,18 @@ var outcomes = {
         }
         game_state.message = messages[random_int(messages.length)];
         die(game_state);
+        return game_state;
+    },
+
+    "turn_board_around": function(game_state) {
+        var messages = [
+            "Lord Bartholomew beats you anyway.", 
+            "Lord Bartholomew laughs and says, \"Well, it looks like you " +
+            "got me.\"",
+            "Lord Bartholomew laughs and says, \"I'll have to try that one " +
+            "on my kids.\"",
+        ];
+        game_state.message = messages[random_int(messages.length)];
         return game_state;
     },
 

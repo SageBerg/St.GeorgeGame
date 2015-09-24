@@ -451,7 +451,8 @@ function get_outcome_options(game_state, options) {
             raffle.add(options.b, "Nf3.", 10000);
             raffle.add(options.c, "E4.", 10000);
             raffle.add(options.d, 
-                "Turn the board around once you're losing.", 10000);
+                "Play poorly and turn the board around once you're losing.", 
+                10000);
             break;
 
         case "lord_carlos_chess":

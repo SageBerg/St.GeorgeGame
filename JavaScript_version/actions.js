@@ -77,6 +77,13 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Ask for a draw.": 
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "enrage_lord_carlos", 1);
+        raffle.add(possible_outcomes, "enrage_lord_carlos_and_die", 1);
+        return possible_outcomes;
+    },
+
     "Ask for directions.": function(game_state, possible_outcomes) {
         switch (game_state.character.person) {
             case "peasant_lass":
@@ -1628,6 +1635,12 @@ exports.actions = {
         raffle.add(possible_outcomes, "beat_up_by_guards", 3);
         raffle.add(possible_outcomes, "steal_keys_and_die", 1);
         raffle.add(possible_outcomes, "steal_keys_and_escape", 1);
+        return possible_outcomes;
+    },
+
+    "Play poorly and turn the board around once you're losing.": 
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "turn_board_around", 3);
         return possible_outcomes;
     },
 
