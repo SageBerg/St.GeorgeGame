@@ -345,6 +345,7 @@ function get_outcome_options(game_state, options) {
         case "dance_in_puddle":
         case "fail_at_new_career":
         case "fail_to_find_mermaids":
+        case "fail_to_steal_keys":
         case "find_st_george_instead":
         case "fish_pirates_laugh":
         case "ignored":
@@ -467,7 +468,8 @@ function get_outcome_options(game_state, options) {
                 "Laugh about the warden doing it alone on holidays.", 10000);
             raffle.add(options.b, 
                 "Try to snatch the keys the first chance you get.", 10000);
-            raffle.add(options.d, "Wait for a holiday.", 10000);
+            raffle.add(options.d, 
+                "Wait for a holiday to make your move.", 10000);
             break;
 
         case "riot":

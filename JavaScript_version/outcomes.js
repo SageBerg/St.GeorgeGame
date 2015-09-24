@@ -716,7 +716,8 @@ var outcomes = {
         var messages = [
             "You can't find any nymphs, but you see some of Lord Carlos' " +
             "men burrying a body.",
-            "You get distracted by a squirrel and forget what you were doing.",
+            "You get distracted by a squirrel and forget what you were " +
+            "doing.",
             "You see a comely woman picking berries, but she's not a nymph.",
             "Your efforts to find nymphs are fruitless, but you find an " +
             "apple tree.",
@@ -754,6 +755,13 @@ var outcomes = {
         ];
         game_state.message = messages[random_int(messages.length)];
         game_state.character.person = null;
+        return game_state;
+    },
+
+    "carefully_steal_keys": function(game_state) {
+        game_state.message = "You manage to swipe the keys off the warden " +
+            "during his inspection. You soon make your escape.";
+        move_character(game_state, "dark_alley");
         return game_state;
     },
 
@@ -1576,6 +1584,14 @@ var outcomes = {
             "While you're running to save the cat, you trip on some gravel " +
             "and knock yourself out. When you wake up, all you find is the " +
             "smoldering remains of the cat.",
+        ]; 
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "fail_to_steal_keys": function(game_state) {
+        var messages = [
+            "You almost get the keys off the warden.",
         ]; 
         game_state.message = messages[random_int(messages.length)];
         return game_state;
@@ -3890,6 +3906,15 @@ var outcomes = {
             "you back to land in a kayak. They also give you a fish.";
         get_item(game_state, "fish");
         move_character(game_state, "countryside");
+        return game_state;
+    },
+
+    "saved_by_lord_bartholomew": function(game_state) {
+        game_state.message =  "You manage to snatch the keys off the " +
+            "warden, but he notices and has you thrown in a deep dark " +
+            "dungeon. However, you end up in a cell with some of Lord " +
+            "Bartholomew's men. They are soon rescued and so are you.";
+        move_character(game_state, "lord_bartholomew_manor");
         return game_state;
     },
 

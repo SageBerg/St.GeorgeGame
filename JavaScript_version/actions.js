@@ -1623,6 +1623,14 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Wait for a holiday to make your move.":
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "carefully_steal_keys", 1);
+        raffle.add(possible_outcomes, "fail_to_steal_keys", 1);
+        raffle.add(possible_outcomes, "saved_by_lord_bartholomew", 1);
+        return possible_outcomes;
+    },
+
     "Wait where you are.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "wait_and_die", 2);
         raffle.add(possible_outcomes, "wait_and_meet_eve", 1);
