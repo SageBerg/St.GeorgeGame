@@ -1153,6 +1153,11 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Play in the snow.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "play_in_the_snow", 4);
+        return possible_outcomes;
+    },
+
     "Pray to a higher power.": function(game_state, possible_outcomes) {
 
         raffle.add(possible_outcomes, "assassin_prayer_answered", 1);

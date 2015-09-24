@@ -524,6 +524,7 @@ function get_place_options(game_state, options) {
         case "arctic":
             raffle.add(options.a, "Go fishing.", 4);
             raffle.add(options.b, "Build an igloo.", 4);
+            raffle.add(options.b, "Play in the snow.", 2);
             raffle.add(options.c, "Club a seal.", 4);
             raffle.add(options.d, "Freeze to death.", 2);
             break;

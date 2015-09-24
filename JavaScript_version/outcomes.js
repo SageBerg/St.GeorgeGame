@@ -3624,6 +3624,17 @@ var outcomes = {
         return game_state;
     },
 
+    "play_in_the_snow": function(game_state) {
+        var messages = [
+            "You make a snow woman.",
+            "You make a snow angel.",
+            "You make some yellow snow.",
+            "Slide on your belly like a penguin.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
     "potion_eve": function(game_state) {
         var messages = [
             "Lord Carlos' daughter falls madly in love with you. " +
