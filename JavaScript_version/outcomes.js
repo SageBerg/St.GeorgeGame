@@ -1569,6 +1569,19 @@ var outcomes = {
         return game_state;
     },
 
+    "fail_to_die": function(game_state) {
+        var messages = [
+            "You eat some old apple seeds from your pocket, but you don't " +
+            "die.",
+            "You pray to God to strike you down so you can end your life " +
+            "on a high note, but he appears to have no such plan for you.",
+            "You try to kill yourself by holding your breath, but you " +
+            "just pass out and wake up feeling exhausted later.",
+        ] 
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
     "fail_to_find_mermaids": function(game_state) {
         var messages = [
             "After a days of searching, you're not sure mermaids exist.",
@@ -1696,6 +1709,14 @@ var outcomes = {
             "Felicity whispers that she loves you.",
         ]; 
         game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "ferocious_cat": function(game_state) {
+        var messages = [
+            "You find a ferocious cat. It kills you.",
+        ]; 
+        clover(game_state);
         return game_state;
     },
 

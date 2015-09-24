@@ -108,6 +108,12 @@ function burned_everything_victory(game_state) {
 
 function get_character_options(game_state, options) {
 
+    if (game_state.character.money === "large_fortune" &&
+        game_state.character.strength > 5 &&
+        Math.floor(Math.random() * 3) === 0) {
+        raffle.add(options.c, "Quit while you're ahead.", 1);
+    }
+
     if (game_state.places[game_state.character.place].locked === false &&
         game_state.character.is_threatened === false) {
         raffle.add(options.c, "GO_TO", 2);
