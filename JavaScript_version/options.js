@@ -38,6 +38,12 @@ exports.get_options = function get_options(game_state) {
         options.c = "";
         options.d = "";
         options.e = "";
+    } else if (game_state.outcome === "felicity_loves_you") {
+        options.a = "Say you love her too.";
+        options.b = "Blow her off.";
+        options.c = "";
+        options.d = "";
+        options.e = "";
     } else if (burned_everything_victory(game_state)) {
         var messages = [
             " Some people just like to watch the world " +
@@ -54,7 +60,7 @@ exports.get_options = function get_options(game_state) {
         ] 
         game_state.message += messages[random_int(messages.length)];
         set_game_over_options(options);
-    } else if (Math.floor(Math.random() * 256) === 0 && 
+    } else if (Math.floor(Math.random() * 250) === 0 && 
                game_state.places[game_state.character.place].burnable 
                === true) {
         set_pyro_options(options);
@@ -72,7 +78,7 @@ exports.get_options = function get_options(game_state) {
         options.c = raffle.get(options.c);
         options.d = raffle.get(options.d);
 
-        if (Math.floor(Math.random() * 256) === 0 &&
+        if (Math.floor(Math.random() * 250) === 0 &&
             game_state.outcome !== "think_four_ideas" &&
             game_state.character.place !== "void") {
             options.e = "Enter the void.";
@@ -397,6 +403,10 @@ function get_outcome_options(game_state, options) {
                 "Look up into the sky and yell, \"NOOOOOOOOOOOOO!\"", 100);
             break;
 
+        case "felicity_loves_you":
+            raffle.add(options.a, "Say you love her too.", 10000);
+            break;
+
         case "fish_pirates_laugh":
         case "gambling_lose":
         case "peasants_laugh_at_you":
@@ -625,11 +635,13 @@ function get_place_options(game_state, options) {
         case "prison":
             raffle.add(options.b, "Bide your time.", 6);
             raffle.add(options.c, "Pace around.", 10);
-            if (game_state.persons.felicity.name === "the fat lady") {
-                raffle.add(options.d, 
-                    "Flirt with the fat lady who feeds you.", 10);
-            } else {
-                raffle.add(options.d, "Flirt with Felicity.",10);
+            if (game_state.persons.felicity.attracted > 0) {
+                if (game_state.persons.felicity.name === "the fat lady") {
+                    raffle.add(options.d, 
+                        "Flirt with the fat lady who feeds you.", 10);
+                } else {
+                    raffle.add(options.d, "Flirt with Felicity.",10);
+                }
             }
             break;
 

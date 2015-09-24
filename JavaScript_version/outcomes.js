@@ -14,6 +14,7 @@ exports.get_outcome = function get_outcome(game_state) {
     if (game_state.character.is_threatened === true && 
         game_state.action !== "Apologize." &&
         game_state.action !== "ATTACK" &&
+        game_state.action !== "Challenge Lord Carlos to a game of chess." &&
         game_state.action !== "Enter the void." &&
         game_state.action !== "Leave in a puff." &&
         game_state.action !== "Panic!" &&
@@ -513,7 +514,7 @@ var outcomes = {
         var messages = [
             "As the days drag on, you go insane.",
             "The days turn to weeks and the weeks turn to months.",
-            "You make a lot of hash marks on the wall, though you're " +
+            "You make a lot of hash marks on the wall, but you're " +
             "not counting anything.",
         ];
         game_state.message = messages[random_int(messages.length)];
@@ -1526,10 +1527,18 @@ var outcomes = {
     },
 
     "escaped_unmarried": function(game_state) {
-        game_state.message = 
-            "The Devil is pretty fast, so you manage to get away unmarried.";
-        if (game_state.character.person === "olga") {
-            game_state.persons.olga.attracted = 0;
+        switch (game_state.character.person) {
+            case "felicity":
+                game_state.message = "The Devil is pretty fast and not " +
+                    "very fat, so you manage to get away unmarried.";
+                game_state.persons.felicity.attracted = 0;
+                //you can't find her again if her attracted is less than 1
+                break;
+            case "olga":
+                game_state.message = "The Devil is pretty fast, so you " +
+                    "manage to get away unmarried.";
+                game_state.persons.olga.attracted = 0;
+                break;
         }
         move_character(game_state, 
                        get_random_adjacent_destination(game_state));
@@ -1701,6 +1710,28 @@ var outcomes = {
             random_choice(["heroic", "macho", "manly"]) + ".",
         ]; 
         game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "felicity_gone": function(game_state) {
+        var messages = [
+            "Felicity looks embarrassed and disappointed. She leaves.",
+        ]; 
+        game_state.message = messages[random_int(messages.length)];
+        game_state.persons.felicity.attracted = 0;
+        //you can't find her in the game if her attracted is less than 1
+        return game_state;
+    },
+
+    "felicity_lets_you_out": function(game_state) {
+        var messages = [
+            "Felicity is overjoyed and secretly lets you out of prison " +
+            "that night. \"Let's get married!\" she says.",
+        ]; 
+        game_state.message = messages[random_int(messages.length)];
+        move_character(game_state, "streets");
+        game_state.character.person = "felicity";
+        game_state.marriage = true;
         return game_state;
     },
 
@@ -3065,6 +3096,15 @@ var outcomes = {
             game_state.message = messages[random_int(messages.length)];
             game_state.character.has_found_true_love = true;
             game_state.message += " You and Olga live happily ever after.";
+        }
+
+        if (game_state.character.person === "felicity") {
+            var messages = [
+                "St. George secretly performs your wedding.",
+            ];
+            game_state.message = messages[random_int(messages.length)];
+            game_state.character.has_found_true_love = true;
+            game_state.message += " You and Felicity live happily ever after.";
         }
         return game_state;
     },
@@ -4662,11 +4702,13 @@ var outcomes = {
 
     "wake_up": function(game_state) {
         var messages = [
-            "You wake up well-rested some hours later.",
+            "You dream of fire.",
             "You have a nightmare about weasels.",
             "You have a wonderful dream that you are in bed with Lord " +
             "Carlos' daughter.",
-            "You dream of fire.",
+            "You wake up after a long sleep and are unsure what day of the " +
+            "week it is.",
+            "You wake up well-rested some hours later.",
         ];
         game_state.message = messages[random_int(messages.length)];
         game_state.character.person = null;
@@ -4731,7 +4773,7 @@ var outcomes = {
         game_state.character.person = null;
         return game_state;
     },
-
+ 
     "wake_up_weasel": function(game_state) {
         game_state.message = "You wake up just in time to see an assassin " +
             "slip a weasel through the bars of your cell. " +
@@ -4812,6 +4854,14 @@ var outcomes = {
 
     "wealthy_people_sneer": function(game_state) {
         game_state.message = "Some truly wealthy people see you and sneer.";
+        return game_state;
+    },
+
+    "what_a_shame": function(game_state) {
+        game_state.message = "\"What a shame,\" an assassins says as he " +
+            "steps into the room. He shoots you with a crossbow and leaves " +
+            "you to die in Felicity's arms.";
+        die(game_state);
         return game_state;
     },
 

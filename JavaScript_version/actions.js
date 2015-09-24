@@ -159,6 +159,11 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Blow her off.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "felicity_gone", 1);
+        return possible_outcomes;
+    },
+
     "Boast of your bravery.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "not_impressed", 1);
         switch (game_state.character.person) {
@@ -211,10 +216,12 @@ exports.actions = {
     },
 
     "Buy a drink.": function(game_state, possible_outcomes) {
-        //raffle.add(possible_outcomes, "assassins_sit_down", 1);
-        //raffle.add(possible_outcomes, "buy_a_drink_and_die", 2);
-        raffle.add(possible_outcomes, "meet_blind_bartender", 4);
-        //raffle.add(possible_outcomes, "overhear_stuff", 2);
+        raffle.add(possible_outcomes, "assassins_sit_down", 1);
+        raffle.add(possible_outcomes, "buy_a_drink_and_die", 2);
+        if (game_state.character.person !== "blind_bartender") {
+            raffle.add(possible_outcomes, "meet_blind_bartender", 4);
+        }
+        raffle.add(possible_outcomes, "overhear_stuff", 2);
         return possible_outcomes;
     },
 
@@ -762,7 +769,7 @@ exports.actions = {
     },
 
     "Go to sleep.": function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "wake_up", 4);
+        raffle.add(possible_outcomes, "wake_up", 5);
         raffle.add(possible_outcomes, "wake_up_dead", 1);
 
         if (get_place(game_state).locked === false) {
@@ -1228,8 +1235,9 @@ exports.actions = {
     "Run like the Devil.": function(game_state, possible_outcomes) {
         if (game_state.character.is_threatened) {
             raffle.add(possible_outcomes, "escaped", 9);
-            if (game_state.persons[game_state.character.person].prefered_attack
-                === "arrest") {
+            if (game_state.persons[
+                    game_state.character.person
+                ].prefered_attack === "arrest") {
                 raffle.add(possible_outcomes, "caught_and_arrested", 1);
             } else {
                 raffle.add(possible_outcomes, "caught", 1);
@@ -1237,11 +1245,19 @@ exports.actions = {
         } else if (game_state.character.person === "olga") {
             raffle.add(possible_outcomes, "escaped_unmarried", 1);
             raffle.add(possible_outcomes, "caught_by_olga", 1);
+        } else if (game_state.character.person === "felicity") {
+            raffle.add(possible_outcomes, "escaped_unmarried", 1);
         }
         return possible_outcomes;
     },
 
     //s
+
+    "Say you love her too.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "felicity_lets_you_out", 9);
+        raffle.add(possible_outcomes, "what_a_shame", 1);
+        return possible_outcomes;
+    },
 
     "Scrub the deck.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "scrub_the_deck", 3);
