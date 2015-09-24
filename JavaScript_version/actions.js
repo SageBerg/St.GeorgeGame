@@ -787,6 +787,15 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Hide beneath the deck.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "hide_and_fight_rat", 1);
+        raffle.add(possible_outcomes, "hide_and_miss_out", 2);
+        if (game_state.persons.lord_arthur.alive === true) {
+            raffle.add(possible_outcomes, "hide_beneath_deck_and_die", 1);
+        }
+        return possible_outcomes;
+    },
+
     "Hop.": function(game_state, possible_outcomes) {
         if (get_place(game_state).outside === true) {
             raffle.add(possible_outcomes, "eaten_by_bird", 1);

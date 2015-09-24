@@ -2387,6 +2387,33 @@ var outcomes = {
         return game_state;
     },
 
+    "hide_and_fight_rat": function(game_state) {
+        var messages = [
+            "You fight an epic battle against one of the rats on the " +
+            "lower decks.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "hide_and_miss_out": function(game_state) {
+        var messages = [
+            "You miss all of the action.",
+            "You don't get any of the treasure.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "hide_beneath_deck_and_die": function(game_state) {
+        var messages = [
+            "Lord Arthur has you killed for your cowardice.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
+        return game_state;
+    },
+
     "hit_assassin_with_cat": function(game_state) {
         game_state.message = "You hit an assassin with your cat.";
         game_state.character.person = "assassin";

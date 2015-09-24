@@ -452,7 +452,7 @@ function get_outcome_options(game_state, options) {
         case "merchant_ship_sail":
         case "merchant_ship_scrub":
             raffle.add(options.a, "Fire a cannon.", 10000);
-            //raffle.add(options.b, "Hide beneath the deck.", 10000);
+            raffle.add(options.b, "Hide beneath the deck.", 10000);
             raffle.add(options.c, "Swing on a rope.", 10000);
             //raffle.add(options.d, "Do some swashbuckling.", 10000);
             break;
