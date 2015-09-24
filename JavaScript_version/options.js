@@ -463,11 +463,11 @@ function get_outcome_options(game_state, options) {
             break;
 
         case "notice_pattern":
-            //raffle.add(options.a, 
-            //    "Laugh about the warden doing it alone on holidays.", 10000);
-            //raffle.add(options.b, 
-            //    "Try to snatch the keys the first chance you get.", 10000);
-            //raffle.add(options.d, "Wait for a holiday.", 10000);
+            raffle.add(options.a, 
+                "Laugh about the warden doing it alone on holidays.", 10000);
+            raffle.add(options.b, 
+                "Try to snatch the keys the first chance you get.", 10000);
+            raffle.add(options.d, "Wait for a holiday.", 10000);
             break;
 
         case "riot":

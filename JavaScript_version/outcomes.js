@@ -481,6 +481,16 @@ var outcomes = {
         return game_state;
     },
 
+    "beat_up_by_guards": function(game_state) {
+        var messages = [
+            "When you try to take the warden's keys, the guards notice and " +
+            "beat the " + random_choice(["crap", "snot", "tar"]) + 
+            " out of you.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
     "beat_up_by_kids": function(game_state) {
         var messages = [
             "You charge into the midst of the children. The cat escapes in " +
@@ -2713,6 +2723,17 @@ var outcomes = {
 
     //l
 
+    "laugh_about_warden": function(game_state) {
+        var messages = [
+            "One of the prison guards pokes you with an eleven-foot pole. " +
+            "\"No laughing,\" he says.",
+            "You feel good for a second, then you remember you're " +
+            "in prison.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
     "left_in_a_puff": function(game_state) {
         game_state.message = "";
         teleport(game_state);
@@ -4118,6 +4139,19 @@ var outcomes = {
         game_state.message = "Your plan goes swimmingly.";
         move_character(game_state, "ocean");
         get_weapon(game_state, "jeweled_cutlass");
+        return game_state;
+    },
+
+    "steal_keys_and_die": function(game_state) {
+        game_state.message = "When you try to take the warden's keys, the " +
+            "guards notice and beat the life out of you.";
+        die(game_state);
+        return game_state;
+    },
+
+    "steal_keys_and_escape": function(game_state) {
+        game_state.message = "It's surprisingly easy to steal the keys.";
+        move_character(game_state, "streets");
         return game_state;
     },
 

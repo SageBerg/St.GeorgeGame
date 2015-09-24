@@ -874,6 +874,12 @@ exports.actions = {
 
     //l
 
+    "Laugh about the warden doing it alone on holidays.": 
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "laugh_about_warden", 1);
+        return possible_outcomes;
+    },
+
     "Leave in a huff.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "moved", 10);
         return possible_outcomes;
@@ -1586,6 +1592,14 @@ exports.actions = {
         raffle.add(possible_outcomes, "provoke_the_mob", 1);
         raffle.add(possible_outcomes, "killed_by_mob", 1);
         raffle.add(possible_outcomes, "save_witch", 1);
+        return possible_outcomes;
+    },
+
+    "Try to snatch the keys the first chance you get.": 
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "beat_up_by_guards", 3);
+        raffle.add(possible_outcomes, "steal_keys_and_die", 1);
+        raffle.add(possible_outcomes, "steal_keys_and_escape", 1);
         return possible_outcomes;
     },
 
