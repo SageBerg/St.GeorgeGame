@@ -1360,6 +1360,15 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Swing on a rope.": function(game_state, possible_outcomes) {
+        if (game_state.persons.lord_arthur.alive === true) {
+            raffle.add(possible_outcomes, "swing_into_captain", 1);
+        }
+        raffle.add(possible_outcomes, "swing_into_ocean", 1);
+        raffle.add(possible_outcomes, "swing_on_rope_and_die", 1);
+        return possible_outcomes;
+    },
+
     "Swing your cat.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "cat_escapes", 1);
         if (game_state.places[game_state.character.place].town === true) {

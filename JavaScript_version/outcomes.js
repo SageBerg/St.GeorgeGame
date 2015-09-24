@@ -4113,6 +4113,28 @@ var outcomes = {
         return game_state;
     },
 
+    "swing_into_captain": function(game_state) {
+        game_state.message = "You crash into the captain of the merchant " +
+            "ship and knock him into the ocean. Lord Arthur rewards you " +
+            "for your bravey after the battle.";
+        get_item(game_state, "fish");
+        return game_state;
+    },
+
+    "swing_into_ocean": function(game_state) {
+        game_state.message = "You fall into the ocean and no one bothers " +
+            "to save you after the battle.";
+        move_character(game_state, "ocean");
+        return game_state;
+    },
+
+    "swing_on_rope_and_die": function(game_state) {
+        game_state.message = "You swing accross to the other ship only to " +
+            "impale yourself on a merchant's sword.";
+        die(game_state);
+        return game_state;
+    },
+
     //t
 
     "think_about_lord_arthur": function(game_state) {
