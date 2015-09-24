@@ -4369,6 +4369,17 @@ var outcomes = {
         return game_state;
     },
 
+    "trash_the_market_and_die": function(game_state) {
+        var messages = [
+            "You get trampled by a spooked horse.",
+            "While you're trashing the place, a bunch of rioting peasants " +
+            "overturn a cart on top of you.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
+        return game_state;
+    },
+
     "trash_the_place_and_die": function(game_state) {
         var messages = [
             "When you snap a fancy staff in half, you inadvertently set " + 
