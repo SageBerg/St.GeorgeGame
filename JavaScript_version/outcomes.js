@@ -12,11 +12,14 @@ exports.apply_outcome = function apply_outcome(outcome, game_state) {
 exports.get_outcome = function get_outcome(game_state) {
     var possible_outcomes;
     if (game_state.character.is_threatened === true && 
+        game_state.action !== "A3." &&
         game_state.action !== "Apologize." &&
         game_state.action !== "ATTACK" &&
         game_state.action !== "Challenge Lord Carlos to a game of chess." &&
+        game_state.action !== "E4." &&
         game_state.action !== "Enter the void." &&
         game_state.action !== "Leave in a puff." &&
+        game_state.action !== "Nf3." &&
         game_state.action !== "Panic!" &&
         game_state.action !== "Play dead." &&
         game_state.action !== "Run like the Devil." &&
@@ -1442,6 +1445,45 @@ var outcomes = {
     },
 
     //e
+
+    "e4_lose_bartholomew": function(game_state) {
+        var messages = [
+            "Lord Bartholomew gets you drunk on fine wines and beats you " +
+            "easily.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "e4_lose_carlos": function(game_state) {
+        var messages = [
+            "You lose the game. Lord Carlos celebrates his victory by " +
+            "assassinating you.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
+        return game_state;
+    },
+
+    "e4_win_bartholomew": function(game_state) {
+        var messages = [
+            "Lord bartholomew doesn't pay much attention during the game, " +
+            "because peasants keep coming in and getting his advice about " +
+            "things. You win the game, but you're not sure he noticed.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "e4_win_carlos": function(game_state) {
+        var messages = [
+            "You manage to trick Lord Carlos into an early checkmate. " +
+            "\"This is what I get for playing black,\" he says. He rushes " +
+            "at you with a poisoned dagger.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
 
     "earn_small_fortune_in_coins": function(game_state) {
         game_state.message = 
@@ -3413,6 +3455,42 @@ var outcomes = {
 
     //n
 
+    "nf3_lose_bartholomew": function(game_state) {
+        var messages = [
+            "It quickly becomes obvious that Lord Bartholomew has played " +
+            "the game more than six times. You are soon defeated.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "nf3_lose_carlos": function(game_state) {
+        var messages = [
+            "Lord Carlos soon has you backed into a corner. Checkmate.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        die(game_state);
+        return game_state;
+    },
+
+    "nf3_win_bartholomew": function(game_state) {
+        var messages = [
+            "Lord bartholomew talks about politics during the whole game, " +
+            "but at least you manage to beat him.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
+    "nf3_win_carlos": function(game_state) {
+        var messages = [
+            "You eventually checkmate Lord Carlos. He tosses the chessboard " +
+            "on the floor and pulls out a dagger.",
+        ];
+        game_state.message = messages[random_int(messages.length)];
+        return game_state;
+    },
+
     "no_cutlass": function(game_state) {
         var messages = [
             "You find it difficult to swashbuckle without a cutlass. You " +
@@ -4272,6 +4350,26 @@ var outcomes = {
         game_state.message = "While you look for flies, someone steps on " +
             "you.";
         die(game_state);
+        return game_state;
+    },
+
+    "stupid_move_and_lose": function(game_state) {
+        game_state.message = "You never recover from that first move. You " +
+            "lose the game.";
+        return game_state;
+    },
+
+    "stupid_move_and_die": function(game_state) {
+        game_state.message = "After seeing you make this move, Lord Carlos " +
+            "is no longer concerned that you might beat him. He " +
+            "assassinates you.";
+        die(game_state);
+        return game_state;
+    },
+
+    "stupid_move_and_win": function(game_state) {
+        game_state.message = "You somehow manage to recover from your first " +
+            "move and win the game. Lord Carlos is not pleased.";
         return game_state;
     },
 

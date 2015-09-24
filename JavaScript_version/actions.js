@@ -77,7 +77,7 @@ exports.actions = {
         return possible_outcomes;
     },
 
-    "Ask for a draw.": 
+    "Ask for a draw.":
         function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "enrage_lord_carlos", 1);
         raffle.add(possible_outcomes, "enrage_lord_carlos_and_die", 1);
@@ -539,7 +539,7 @@ exports.actions = {
     "E4.": function(game_state, possible_outcomes) {
         switch (game_state.character.person) {
             case "lord_bartholomew":
-                raffle.add(possible_outcomes, "e4_lose_bartholmew", 1);
+                raffle.add(possible_outcomes, "e4_lose_bartholomew", 1);
                 raffle.add(possible_outcomes, "e4_win_bartholomew", 1);
                 break;
             case "lord_carlos":
@@ -1127,7 +1127,7 @@ exports.actions = {
     "Nf3.": function(game_state, possible_outcomes) {
         switch (game_state.character.person) {
             case "lord_bartholomew":
-                raffle.add(possible_outcomes, "nf3_lose_bartholmew", 1);
+                raffle.add(possible_outcomes, "nf3_lose_bartholomew", 1);
                 raffle.add(possible_outcomes, "nf3_win_bartholomew", 1);
                 break;
             case "lord_carlos":
