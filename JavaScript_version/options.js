@@ -551,11 +551,14 @@ function get_place_options(game_state, options) {
             break;
 
         case "church":
-            raffle.add(options.a, "Tell a priest he's fat.", 2);
-            raffle.add(options.a, "Tell a priest God doesn't exist.", 2);
-            raffle.add(options.a, "Tell a priest you're the chosen one.", 2);
-            if (items.money_map[game_state.character.money].value > 0) {
-                raffle.add(options.d, "Donate to the church.", 6);
+            if (functions.get_place(game_state).burnable === true) {
+                raffle.add(options.a, "Tell a priest he's fat.", 2);
+                raffle.add(options.a, "Tell a priest God doesn't exist.", 2);
+                raffle.add(options.a, 
+                    "Tell a priest you're the chosen one.", 2);
+                if (items.money_map[game_state.character.money].value > 0) {
+                    raffle.add(options.d, "Donate to the church.", 6);
+                }
             }
             break;
 
@@ -579,34 +582,41 @@ function get_place_options(game_state, options) {
             break;
 
         case "lord_bartholomew_manor":
-            if (game_state.persons.lord_bartholomew.alive === true && 
-                game_state.character.person !== "lord_bartholomew") {
-                raffle.add(options.a, 
-                    "Ask for an audience with Lord Bartholomew.", 4);
+            if (functions.get_place(game_state).burnable === true) {
+                if (game_state.persons.lord_bartholomew.alive === true && 
+                    game_state.character.person !== "lord_bartholomew") {
+                    raffle.add(options.a, 
+                        "Ask for an audience with Lord Bartholomew.", 4);
+                }
+                raffle.add(options.d, "Sneak around.", 4);
             }
-            raffle.add(options.d, "Sneak around.", 4);
             break;
 
         case "lord_carlos_manor":
-            raffle.add(options.a, "Ask about assassins.", 4);
-            if (game_state.places.lord_carlos_manor.burnable === true) {
-                raffle.add(options.b, "BURN", 2);
+            if (functions.get_place(game_state).burnable === true) {
+                raffle.add(options.a, "Ask about assassins.", 4);
+                if (game_state.places.lord_carlos_manor.burnable === true) {
+                    raffle.add(options.b, "BURN", 2);
+                }
+                raffle.add(options.d, "Sneak around.", 8);
             }
-            raffle.add(options.d, "Sneak around.", 8);
             break;
 
         case "market":
-            if (game_state.character.person !== "war_merchant") {
-                raffle.add(options.a, "Look for a weapon.", 10);
+            if (functions.get_place(game_state).burnable === true &&
+                functions.get_place(game_state).trashable === true) {
+                if (game_state.character.person !== "war_merchant") {
+                    raffle.add(options.a, "Look for a weapon.", 10);
+                }
+                if (game_state.persons.wizard.alive === true && 
+                    game_state.character.person !== "wizard") {
+                    raffle.add(options.b, "Look for the wizard.", 1);
+                }
+                if (game_state.character.person === null) {
+                    raffle.add(options.c, "GO_SHOPPING", 6);
+                }
+                raffle.add(options.d, "Watch a play.", 2);
             }
-            if (game_state.persons.wizard.alive === true && 
-                game_state.character.person !== "wizard") {
-                raffle.add(options.b, "Look for the wizard.", 1);
-            }
-            if (game_state.character.person === null) {
-                raffle.add(options.c, "GO_SHOPPING", 6);
-            }
-            raffle.add(options.d, "Watch a play.", 2);
             break;
 
         case "mermaid_rock":
@@ -661,24 +671,28 @@ function get_place_options(game_state, options) {
             break;
 
         case "tavern":
-            raffle.add(options.a, "Ask about assassins.", 1);
-            raffle.add(options.b, "Buy a drink.", 1);
-            raffle.add(options.d, "Do some gambling.", 1);
-            if (game_state.persons.olga.alive &&
-                game_state.persons.olga.name === "Olga" &&
-                game_state.character.person !== "olga") {
-                raffle.add(options.b, "Look for Olga.", 10);
+            if (functions.get_place(game_state).burnable === true) {
+                raffle.add(options.a, "Ask about assassins.", 1);
+                raffle.add(options.b, "Buy a drink.", 1);
+                raffle.add(options.d, "Do some gambling.", 1);
+                if (game_state.persons.olga.alive &&
+                    game_state.persons.olga.name === "Olga" &&
+                    game_state.character.person !== "olga") {
+                    raffle.add(options.b, "Look for Olga.", 10);
+                }
             }
             break;
 
         case "tower":
-            if (game_state.persons.lord_daniel.alive === true && 
-                game_state.character.person !== "lord_daniel") {
-                raffle.add(options.a, 
-                    "Ask for an audience with Lord Daniel.", 4);
+            if (functions.get_place(game_state).burnable === true) {
+                if (game_state.persons.lord_daniel.alive === true && 
+                    game_state.character.person !== "lord_daniel") {
+                    raffle.add(options.a, 
+                        "Ask for an audience with Lord Daniel.", 4);
+                }
+                raffle.add(options.c, "Complain about unfair imprisonment.", 4);
+                raffle.add(options.d, "Train with the guards.", 8);
             }
-            raffle.add(options.c, "Complain about unfair imprisonment.", 4);
-            raffle.add(options.d, "Train with the guards.", 8);
             break;
 
         case "void":
@@ -686,22 +700,26 @@ function get_place_options(game_state, options) {
             break;
 
         case "woods":
-            raffle.add(options.a, "Go mushroom picking.", 4);
-            raffle.add(options.b, "Look for witches.", 4);
-            if (game_state.character.items.ax > 0) {
-                raffle.add(options.c, "Chop down a tree with your ax.", 10);
+            if (functions.get_place(game_state).burnable === true) {
+                raffle.add(options.a, "Go mushroom picking.", 4);
+                if (game_state.character.items.ax > 0) {
+                    raffle.add(options.c, "Chop down a tree with your ax.", 10);
+                }
+                raffle.add(options.d, "Look for nymphs.", 4);
             }
-            raffle.add(options.d, "Look for nymphs.", 4);
+            raffle.add(options.b, "Look for witches.", 4);
             break;
 
         case "wizard_lab":
-            if (game_state.places.wizard_lab.trashable === true &&
-                game_state.outcome !== "wizard_stops_you_trashing") {
-                raffle.add(options.a, "Trash the place.", 4);
+            if (functions.get_place(game_state).burnable === true) {
+                if (game_state.places.wizard_lab.trashable === true &&
+                    game_state.outcome !== "wizard_stops_you_trashing") {
+                    raffle.add(options.a, "Trash the place.", 4);
+                }
+                raffle.add(options.b, "Read a spellbook.", 4);
+                raffle.add(options.c, "Snoop around.", 4);
+                raffle.add(options.d, "Drink a random potion.", 4);
             }
-            raffle.add(options.b, "Read a spellbook.", 4);
-            raffle.add(options.c, "Snoop around.", 4);
-            raffle.add(options.d, "Drink a random potion.", 4);
             break;
 
     }
