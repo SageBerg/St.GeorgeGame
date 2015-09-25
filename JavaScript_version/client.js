@@ -160,7 +160,7 @@ function scramble(text) {
 function set_a(game_state) {
     if (game_state.options.a === "ATTACK") {
         $("#a").text("a. Attack " + 
-                resp.persons[resp.character.person].name + ".");
+            game_state.persons[game_state.character.person].name + ".");
     } else if (game_state.options.a === "MARRY") {
         $("#a").text("a. Marry " + 
             game_state.persons[game_state.character.person].name + ".");

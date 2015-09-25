@@ -55,6 +55,13 @@ function arrested(game_state) {
     game_state.character.person = "other_lunatics";
 }
 
+function are_or_is(game_state) {
+    if (game_state.persons[game_state.character.person].type === "group") {
+        return "are";
+    }
+    return "is";
+}
+
 function burn(game_state) {
     game_state.places[game_state.character.place].burnable = false;
     game_state.places[game_state.character.place].name = 
@@ -78,7 +85,7 @@ function clover(game_state) {
         "would have happened if you didn't have a lucky four-leaf clover.";
     }
 }
-
+ 
 //conjugates a verb to singular or plural
 function conjugate(game_state, word) {
     if (game_state.persons[game_state.character.person].type !== "group") {
@@ -249,7 +256,7 @@ var outcomes = {
     "admire_jewels": function(game_state) {
         var messages = [
             "You conclude that your jewels outclass everything else you own.",
-            "You notice an inperfection in your largest diamond and can't " +
+            "You notice an imperfection in your largest diamond and can't " +
             "unsee it.",
         ];
         game_state.message = messages[random_int(messages.length)];
@@ -386,7 +393,7 @@ var outcomes = {
 
     "assassinated": function(game_state) {
         game_state.message = "The first woman you talk to turns out to be " +
-        "an assasin. She assassinates you.";
+        "an assassin. She assassinates you.";
         die(game_state);
         return game_state;
     },
@@ -719,7 +726,7 @@ var outcomes = {
     "cannot_find_nymphs": function(game_state) {
         var messages = [
             "You can't find any nymphs, but you see some of Lord Carlos' " +
-            "men burrying a body.",
+            "men burying a body.",
             "You get distracted by a squirrel and forget what you were " +
             "doing.",
             "You see a comely woman picking berries, but she's not a nymph.",
@@ -830,7 +837,7 @@ var outcomes = {
     "caught": function(game_state) {
         game_state.message = 
             "You run like the Devil, but " + get_name(game_state) +
-            " also " + conjugate(game_state, "run") + " like thd Devil and " +
+            " also " + conjugate(game_state, "run") + " like the Devil and " +
             conjugate(game_state, "overtake") + " you.";
         game_state.character.is_dead = true;
         return game_state;
@@ -846,7 +853,7 @@ var outcomes = {
     "caught_and_arrested": function(game_state) {
         game_state.message = 
             "You run like the Devil, but " + get_name(game_state) +
-            " also " + conjugate(game_state, "run") + " like thd Devil and " +
+            " also " + conjugate(game_state, "run") + " like the Devil and " +
             conjugate(game_state, "overtake") + " you. " +
             capitalize(get_subject(game_state)) + " " +
             conjugate(game_state, "arrest") + 
@@ -934,10 +941,10 @@ var outcomes = {
     "chat_with_blind_bartender": function(game_state) {
         var messages = [
             "The blind bartender leans in close and says, \"Two lawyers " + 
-            "walk into a tavern. They take some sandwitches out of their " +
+            "walk into a tavern. They take some sandwiches out of their " +
             "bags. The barmaid tells them they can't eat their " +
             "own food in the tavern. The lawyers shrug and exchange " +
-            "sandwitches.\"",
+            "sandwiches.\"",
             "The blind bartender leans in close and says, \"If I had a " +
             "gold coin every time a woman found me unattractive, women " +
             "would eventually find me attractive.\"",
@@ -988,7 +995,7 @@ var outcomes = {
 
     "chat_with_lord_bartholomew": function(game_state) {
         var messages = [
-            "Lord Bartholomew is genuinly interested in your life story.",
+            "Lord Bartholomew is genuinely interested in your life story.",
             "Lord Bartholomew says family is the only thing worth living " +
             "for.",
             "Lord Bartholomew says Lord Arthur is a rascal who will be " +
@@ -1072,7 +1079,7 @@ var outcomes = {
             "A crow in the crow's nest caws in your face, startling " +
             "you. You fall off the mast and land on the deck.",
             "You fall asleep during your watch duty and the ship runs " +
-            "into an iceburg. While the ship is sinking, the crew kills " +
+            "into an iceberg. While the ship is sinking, the crew kills " +
             "you for incompetence.",
         ];
         game_state.message = messages[random_int(messages.length)];
@@ -1189,7 +1196,7 @@ var outcomes = {
         var messages = [
             "The locals are entertained by your antics and toss " +
             "you some coins.",
-            "A noble takes pitty on you and gives some money.",
+            "A noble takes pity on you and gives some money.",
         ];
         game_state.message = messages[random_int(messages.length)];
         get_money(game_state, "pittance");
@@ -1380,8 +1387,8 @@ var outcomes = {
     "diving_saved_by_mermaid": function(game_state) {
         var messages = [
             "You become exhausted diving for pearls and are about to pass " +
-            "out when a beautiful mermaid grabs ahold of you and takes you " +
-            "to land.",
+            "out when a beautiful mermaid grabs a hold of you and takes " +
+            "you to land.",
         ];
         game_state.message = messages[random_int(messages.length)];
         move_character(game_state, "mermaid_rock");
@@ -1420,7 +1427,7 @@ var outcomes = {
 
     "drop_anchor_and_kill_whale": function(game_state) {
         var messages = [
-            "You drop the anchor and accidently kill a passing whale. " +
+            "You drop the anchor and accidentally kill a passing whale. " +
             "Lord Arthur slaps you on the back and says, \"Whale done.\" " +
             "The crew hauls the whale aboard and sails back to land.",
         ];
@@ -1966,7 +1973,7 @@ var outcomes = {
     "fire_cannon_and_get_flogged": function(game_state) {
         game_state.message = "You sink the merchant ship, treasure and all." +
             " Lord Arthur is not pleased. Nor are you after he teaches " +
-            "you a lesson by giving you 101 lashes accross the back.";
+            "you a lesson by giving you 101 lashes across the back.";
         return game_state;
     },
 
@@ -2011,7 +2018,7 @@ var outcomes = {
 
     "flirt_with_mermaid_and_die": function(game_state) {
         var messages = [
-            "The mermaid accidently knocks you over with her tail.",
+            "The mermaid accidentally knocks you over with her tail.",
             "A jealous merman sees you flirting with the mermaid and " +
             "stabs you with his fancy pitchfork.",
         ]; 
@@ -2117,8 +2124,9 @@ var outcomes = {
         var attempted_action = 
             game_state.action[0].toLowerCase() +
             game_state.action.slice(1, game_state.action.length - 1);
-        if (game_state.persons[game_state.character.person].prefered_attack ===
-            "arrest") {
+        if (game_state.persons[
+                game_state.character.person
+            ].preferred_attack === "arrest") {
             game_state.message = 
                 "You try to " + attempted_action + ", but " + 
                 get_name(game_state) + " " +
@@ -2219,7 +2227,7 @@ var outcomes = {
     },
 
     "get_sword_of_great_evil": function(game_state) {
-        game_state.message = "The wizard eagarly trades you his most " +
+        game_state.message = "The wizard eagerly trades you his most " +
             "valuable item.";
         lose_item(game_state, "handful of void dust");
         get_weapon(game_state, "sword_of_great_evil");
@@ -2420,7 +2428,7 @@ var outcomes = {
         return game_state;
     },
 
-    "guards_kill_you_for_homocide": function(game_state) {
+    "guards_kill_you_for_homicide": function(game_state) {
         game_state.message = "The prison guards walk by and see all the " +
             "dead bodies in your cell. \"Let's put this last one out of " +
             "his misery,\" one of them says. They soon do.";
@@ -2587,7 +2595,7 @@ var outcomes = {
     "human": function(game_state) {
         game_state.message = "A woman picks you up and kisses you " +
             "hoping to get a prince, instead she gets you. She is not " +
-            "impresseed.";
+            "impressed.";
         game_state.character.is_frog = false;
         return game_state;
     },
@@ -3232,7 +3240,7 @@ var outcomes = {
             random_choice(["doing tai chi in a meadow", "feeding a stag",
                            "levitating above a pond",
                            "tanning in a ray of sunshine",
-                           "teaching a gobling to read",
+                           "teaching a goblin to read",
                            "watering flowers in a meadow",
                           ]) + ". Her beauty is " +
             random_choice(["dazzling", "exhilarating", "intoxicating",
@@ -3245,11 +3253,11 @@ var outcomes = {
     "meet_olga": function(game_state) {
         if (game_state.persons.olga.name === "the pretty lady") {
             game_state.message = 
-            "During your invstigation, you strike up a conversation with " +                
+            "During your investigation, you strike up a conversation with " +                
             "a pretty lady.";
         } else {
             game_state.message = 
-            "During your invstigation, you find yourself talking with Olga.";
+            "During your investigation, you find yourself talking with Olga.";
         }
         game_state.character.person = "olga";
         return game_state;
@@ -3383,7 +3391,7 @@ var outcomes = {
     "mob_lets_you_off_the_hook": function(game_state) {
         var messages = [
             "You manage to convince the mob that this was all just a " +
-            "missunderstanding.",
+            "misunderstanding.",
         ];
         game_state.message = messages[random_int(messages.length)];
         game_state.character.is_threatened = false;
@@ -3444,7 +3452,7 @@ var outcomes = {
 
     "mushroom_makes_you_smaller": function(game_state) {
         var messages = [
-            "You shrink to the size of a peanut. A weasel soons comes " +
+            "You shrink to the size of a peanut. A weasel soon comes " +
             "and eats you.",
         ]; 
         game_state.message = messages[random_int(messages.length)];
@@ -3603,7 +3611,8 @@ var outcomes = {
 
     "not_impressed": function(game_state) {
         var messages = [
-            capitalize(get_person(game_state).name) + " is not impressed.",
+            capitalize(get_person(game_state).name) + " " +
+            are_or_is(game_state) + " not impressed.",
             "You're the only one who's impressed.",
         ];
         game_state.message = messages[random_int(messages.length)];
@@ -3850,7 +3859,7 @@ var outcomes = {
             random_choice(["become a peasant", "get a wife",]) + ".\"",
             "You get in a " +
             random_choice(["heated", "horrible", "protracted", "spirited"]) +
-            " argument with the preist, but you eventually both agree that " +
+            " argument with the priest, but you eventually both agree that " +
             "there are at least 17 gods and that " +
             random_choice(["Lord Bartholomew", "St. George",]) + 
             " is a good man.",
@@ -3980,7 +3989,7 @@ var outcomes = {
             "You learn that it takes a white mushroom and a deep-cave " +
             "newt to brew a potion of strength.",
             "You find the book arcane and boring.",
-            "You learn a spell to set things on fire, unfortunatley it " +
+            "You learn a spell to set things on fire, unfortunately it " +
             "requires a focused mind.",
             "The wizard's handwriting is terrible.",
             "The first book you open appears to be the wizard's diary. " +
@@ -4151,7 +4160,7 @@ var outcomes = {
     },
 
     "set_self_on_fire": function(game_state) {
-        game_state.message = "You accidently set yourself on fire and " +
+        game_state.message = "You accidentally set yourself on fire and " +
         "promptly burn to a crisp.";
         game_state.character.is_dead = true;
         return game_state;
@@ -4171,19 +4180,11 @@ var outcomes = {
     "sing_at_lord_carlos_manor": function(game_state) {
         var messages = [
             "This is no place for merry-making. You are soon assassinated.",
-            "Your singing alerts Lord Carlos' men to your presense. " +
+            "Your singing alerts Lord Carlos' men to your presence. " +
             "You are soon assassinated.",
         ];
         game_state.message = messages[random_int(messages.length)];
         game_state.character.is_dead = true;
-        return game_state;
-    },
-
-    "sing_in_deep_voice": function(game_state) {
-        var messages = [
-            "You sing in an uncharacteristically deep voice.",
-        ];
-        game_state.message = messages[random_int(messages.length)];
         return game_state;
     },
 
@@ -4202,7 +4203,7 @@ var outcomes = {
 
     "sing_to_olga": function(game_state) {
         var messages = [
-            "Olga interupsts your song by kissing you.",
+            "Olga interrupts your song by kissing you.",
             "You sing a romantic ballad. Olga is impressed.",
         ];
         game_state.message = messages[random_int(messages.length)];
@@ -4293,10 +4294,10 @@ var outcomes = {
 
     "st_george_kills_you": function(game_state) {
         var messages = [
-            "St. George becomes irritated with your begging and crushes you " +
-            "with his iron hammer.",
+            "St. George becomes irritated with your begging and crushes " +
+            "you with his iron hammer.",
             "St. George smites you with his saintly wrath for being " + 
-            "ungreatful.",
+            "ungrateful.",
         ];
         game_state.message = messages[random_int(messages.length)];
         die(game_state);
@@ -4313,7 +4314,8 @@ var outcomes = {
     "start_tripping": function(game_state) {
         game_state.message = "You start feeling strange."
         game_state.character.is_tripping = true;
-        if (game_state.action === "Chow down on your many-colored mushroom.") {
+        if (game_state.action === 
+            "Chow down on your many-colored mushroom.") {
             game_state.character.items["many-colored mushroom"] -= 1;
         }
         return game_state;
@@ -4439,7 +4441,7 @@ var outcomes = {
     "swing_into_captain": function(game_state) {
         game_state.message = "You crash into the captain of the merchant " +
             "ship and knock him into the ocean. Lord Arthur rewards you " +
-            "for your bravey after the battle.";
+            "for your bravery after the battle.";
         get_item(game_state, "fish");
         return game_state;
     },
@@ -4452,7 +4454,7 @@ var outcomes = {
     },
 
     "swing_on_rope_and_die": function(game_state) {
-        game_state.message = "You swing accross to the other ship only to " +
+        game_state.message = "You swing across to the other ship only to " +
             "impale yourself on a merchant's sword.";
         die(game_state);
         return game_state;
@@ -4642,7 +4644,7 @@ var outcomes = {
 
     "train_and_die": function(game_state) {
         var messages = [
-            "You accidently put your helmet on backwards and trip over a " +
+            "You accidentally put your helmet on backwards and trip over a " +
             "balcony railing.",
         ];
         game_state.message = messages[random_int(messages.length)];
@@ -4893,7 +4895,7 @@ var outcomes = {
     },
 
     "wake_up_robbed": function(game_state) {
-        game_state.message = "You wake up robbed of all your wordly " +
+        game_state.message = "You wake up robbed of all your worldly " +
             "possessions."; 
         game_state.character.person = null;
         lose_all_items(game_state);
@@ -4911,7 +4913,7 @@ var outcomes = {
     "wake_up_weasel": function(game_state) {
         game_state.message = "You wake up just in time to see an assassin " +
             "slip a weasel through the bars of your cell. " +
-            "The weasal kills you.";
+            "The weasel kills you.";
         game_state.character.is_dead = true;
         return game_state;
     },
@@ -5074,7 +5076,7 @@ var outcomes = {
 
     "wizard_dies": function(game_state) {
         var messages = [
-            "The wizard choaks on the mushroom and dies.",
+            "The wizard chokes on the mushroom and dies.",
         ];
         game_state.message = messages[random_int(messages.length)];
         game_state.character.items["yellow mushroom"] -= 1;
@@ -5192,7 +5194,7 @@ var outcomes = {
             "The mermaid takes a liking to you and takes you swimming.",
             "You and the mermaid eat some seaweed together, it's terrible.",
             "You are in the middle of a reciting a romantic ballad when a " +
-            "seagul poops on you. The mermaid can't stop laughing.",
+            "seagull poops on you. The mermaid can't stop laughing.",
             "You end up talking with her for a while. You ask her if there " +
             "are any mermen. \"None worth dating,\" she says.",
             "You make her a crown out of coral. She is delighted with your " +
@@ -5250,7 +5252,7 @@ var outcomes = {
             "She is delighted when she beats you.",
             "You find out that you both like " +
             "cats. She says her cat loves being petted.",
-            "You amuse her with realistic impreesions of bird " +
+            "You amuse her with realistic impressions of bird " +
             "songs. She says she likes a man who's good with his tongue.",
             "She is impressed with your juggling and says she likes a man " +
             "with skilled hands.", 

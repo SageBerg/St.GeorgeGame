@@ -30,7 +30,7 @@ exports.get_options = function get_options(game_state) {
         options.a = "Continue being a shrub.";
         options.b = "Continue being a shrub.";
         options.c = "Continue being a shrub.";
-        options.d = "Continue being a shurb.";
+        options.d = "Continue being a shrub.";
         options.e = "";
     } else if (game_state.marriage === true) {
         options.a = "MARRY";
@@ -55,7 +55,7 @@ exports.get_options = function get_options(game_state) {
     } else if (lords_victory(game_state)) {
         var messages = [
             " With the last of the four lords dead, you have destroyed the " +
-            "establishment and brought about a utopian anarchy... " +
+            "establishment and brought about a Utopian anarchy... " +
             "more or less. You win!",
         ] 
         game_state.message += messages[random_int(messages.length)];

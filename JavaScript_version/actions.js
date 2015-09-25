@@ -702,8 +702,6 @@ exports.actions = {
                 break;
             case "nymph_queen":
                 raffle.add(possible_outcomes, "give_flowers_nymph_queen", 1);
-                raffle.add(possible_outcomes, 
-                    "give_flowers_nymph_queen_strub", 1);
                 break;
             case "olga":
                 raffle.add(possible_outcomes, "give_flowers_olga", 1);
@@ -1250,7 +1248,7 @@ exports.actions = {
             raffle.add(possible_outcomes, "escaped", 9);
             if (game_state.persons[
                     game_state.character.person
-                ].prefered_attack === "arrest") {
+                ].preferred_attack === "arrest") {
                 raffle.add(possible_outcomes, "caught_and_arrested", 1);
             } else {
                 raffle.add(possible_outcomes, "caught", 1);
@@ -1304,10 +1302,6 @@ exports.actions = {
     "Sing a song.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "no_one_cares", 2);
         raffle.add(possible_outcomes, "sing_about_lords", 1);
-
-        if (random_int(1024) === 0) {
-            raffle.add(possible_outcomes, "sing_in_deep_voice", 1000);
-        }
 
         if (game_state.character.place === "streets" || 
             game_state.character.place === "market") {
@@ -1659,8 +1653,9 @@ exports.actions = {
     "Waddle like God.": function(game_state, possible_outcomes) {
         if (game_state.character.is_threatened) {
             raffle.add(possible_outcomes, "escaped_like_god", 1);
-            if (game_state.persons[game_state.character.person].prefered_attack
-                === "arrest") {
+            if (game_state.persons[
+                    game_state.character.person
+                ].preferred_attack === "arrest") {
                 raffle.add(possible_outcomes, 
                            "caught_and_arrested_like_god", 9);
             } else {
@@ -1734,7 +1729,7 @@ exports.actions = {
 function dead_lunatic_repercussions(game_state, possible_outcomes) {
     if (game_state.persons.other_lunatics.alive === false) {
         raffle.add(possible_outcomes, "guards_take_away_bodies", 6);
-        raffle.add(possible_outcomes, "guards_kill_you_for_homocide", 6);
+        raffle.add(possible_outcomes, "guards_kill_you_for_homicide", 6);
     }
 }
 
