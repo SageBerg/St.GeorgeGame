@@ -155,6 +155,8 @@ exports.actions = {
         if (game_state.character.person !== "other_lunatics" &&
             game_state.persons.other_lunatics.alive === true) {
             raffle.add(possible_outcomes, "more_lunatics", 3);
+        } else {
+            raffle.add(possible_outcomes, "lunatics_laugh_at_you", 1);
         }
         return possible_outcomes;
     },
@@ -667,6 +669,9 @@ exports.actions = {
         function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "rebuffed_by_fat_lady", 2);
         raffle.add(possible_outcomes, "wowed_fat_lady", 5);
+        if (game_state.character.person = "other_lunatics") {
+            raffle.add(possible_outcomes, "lunatics_jeer", 2);
+        }
         return possible_outcomes;
     },
 
@@ -1152,6 +1157,8 @@ exports.actions = {
         if (game_state.character.person !== "other_lunatics" &&
             game_state.persons.other_lunatics.alive === true) {
             raffle.add(possible_outcomes, "more_lunatics", 3);
+        } else {
+            raffle.add(possible_outcomes, "lunatics_trip_you", 1);
         }
         return possible_outcomes;
     },

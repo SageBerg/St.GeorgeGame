@@ -3174,6 +3174,34 @@ var outcomes = {
         return game_state;
     },
 
+    "lunatics_jeer": function(game_state) {
+        var messages = [
+            "You try to flirt with the fat lady, but the other lunatics " +
+            "make kissing noises and laugh at you.",
+            "You try to flirt with the fat lady, but the other lunatics " +
+            "also start hitting on her.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
+    "lunatics_laugh_at_you": function(game_state) {
+        var messages = [
+            "The other lunatics laugh at you for biding your time.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
+    "lunatics_trip_you": function(game_state) {
+        var messages = [
+            "While you're pacing around, one of the other lunatics trips " +
+            "you and yells, \"STOP PACING!\"", 
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
     //m
 
     "make_it_rain": function(game_state) {
