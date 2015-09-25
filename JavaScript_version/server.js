@@ -63,7 +63,7 @@ function respond_with_outcome(req, res) {
         stop_tripping(game_state);
         res.json(game_state);
     } else {
-        res.json({"message": "invalid input"});
+        res.json({"message": "error"});
     }
 }
 

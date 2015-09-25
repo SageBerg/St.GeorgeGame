@@ -70,139 +70,45 @@ function get_weapon(game_state) {
 }
 
 function handle_new_world(resp) {
-
-    if (resp.message === "invalid input") {
-        alert("invalid input: please refresh the page");
-        return;
-    }
-
-    game_state = resp;
-
-    if (game_state.outcome === "sing_in_deep_voice") {
-        window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
-    }
-
-    if (game_state.character.is_dead) {
-        game_state.message += " You are dead."; 
-    }
-
-    document.getElementById("score").innerHTML = "Score: " + game_state.score;
-
-    for (var i = 0; i < 5; i++) {
-        document.getElementById("abcde"[i]).style.color = "white";
-    }
-
-    if (game_state.character.is_tripping) {
-        document.getElementById("message").innerHTML = 
-        scramble(game_state.message);
+    if (resp.message === "error") {
+        handle_world_error(game_state);
     } else {
-        document.getElementById("message").innerHTML = game_state.message;
-    }
+        game_state = resp;
 
-//Option a.
-    if (game_state.options.a === "ATTACK") {
-        $("#a").text("a. Attack " + 
-                resp.persons[resp.character.person].name + ".");
-    } else if (game_state.options.a === "MARRY") {
-        $("#a").text("a. Marry " + 
-            game_state.persons[game_state.character.person].name + ".");
-    } else if (game_state.options.a === "Think." &&
-               game_state.action === "Think.") {
-        $("#a").text("a. Think some more.");
-    } else if (game_state.options.a === "YELL_A_PIRATE_PHRASE") {
-        $("#a").text("a. Yell, \"" + 
-            random_choice([
-                "Ahoy",
-                "All hands on deck",
-                "Arr Matey",
-                "Avast",
-                "Aye Aye",
-                "Dead men tell no tales",
-                "Hoist the Jolly Roger",
-                "Land ho",
-                "Send 'em to Davy Jones' locker",
-                "Shiver me timbers",
-                "Thare she blows",
-                "Walk the plank",
-                "X marks the spot",
-                "Yo, ho, ho, and a bottle of rum",
-            ]) + "!\"");
-    } else {
-        $("#a").text("a. " + game_state.options.a);
-    }
-
-//Option b.
-    if (game_state.options.b === "BURN") {
-        $("#b").text("b. Burn " + 
-            game_state.places[game_state.character.place].name + 
-            " to the ground.");
-    } else if (game_state.options.b === "GIVE_FLOWERS") {
-        if (game_state.character.place === "prison") {
-            if (game_state.persons.felicity.name === "the fat lady") {
-                $("#b").text("b. Give the fat lady who feeds you a bouquet " +
-                    "of flowers.");
-            } else {
-                $("#b").text("b. Give Felicity your bouquet of flowers.");
-            }
-        } else {
-            $("#b").text("b. Give her your bouquet of flowers.");
+        for (var i = 0; i < 5; i++) {
+            document.getElementById("abcde"[i]).style.color = "white";
         }
-    } else if (game_state.options.b === "LOVE_POTION") {
-        $("#b").text("b. Use your love potion on " +
-            game_state.persons[game_state.character.person].name + ".");
-    } else if (game_state.options.b === "SHOW_COIN") {
-        $("#b").text("b. Show " + 
-            game_state.persons[game_state.character.person].name +
-            " your shiny foreign coin.");
-    } else {
-        $("#b").text("b. " + game_state.options.b);
-    }
-    
-//Option c.
-    if (game_state.options.c !== "") {
-        if (game_state.options.c === "GO_TO") {
-            var dest = game_state.destination;
-            $("#c").text("c. Go to " + game_state.places[dest].name + ".");
-        } else if (game_state.options.c === "GO_SHOPPING") {
-            var item = get_item(game_state);
-            $("#c").text("c. Buy " + a_or_an(item[0]) + " " + item + ".");
-            game_state.for_sell = item;
-        } else {
-            $("#c").text("c. " + game_state.options.c);
+
+        if (game_state.character.is_dead) {
+            game_state.message += " You are dead."; 
         }
-    } else {
-        $("#c").text("");
-    }
 
-//Option d.
-    if (game_state.options.d !== "") {
-        if (game_state.options.d === "Buy a weapon.") {
-            var weapon = get_weapon(game_state);
-            $("#d").text("d. Buy " + a_or_an(weapons_map[weapon][0]) + " " +
-                weapons_map[weapon] + ".");
-            game_state.for_sell = weapon;
-        } else if (game_state.options.d === "FLIRT_WITH") {
-            $("#d").text("d. Flirt with " +
-                game_state.persons[game_state.character.person].name + ".");
-        } else if (game_state.options.d === "TELL_GUARDS") {
-            $("#d").text("d. Tell the guards you're not a lunatic, you're " +
-                "just " + game_state.character.excuse + ".");
-        } else {
-            $("#d").text("d. " + game_state.options.d);
-        }
-    } else {
-        $("#d").text("");
-    }
+        set_message(game_state);
 
-//Option e.
-    if (game_state.options.e !== "") {
-        $("#e").text("e. " + game_state.options.e);
-    } else {
-        $("#e").text("");
-    }
+        set_a(game_state);
+        set_b(game_state);
+        set_c(game_state);
+        set_d(game_state);
+        set_e(game_state);
 
+        $("#score").text("Score: " + game_state.score);
+
+    }
     bind_keys();
+}
 
+function handle_world_error(game_state) {
+    $("#message").text("The universe rips apart and everyone dies.");
+    $("#a").text("Play again.");
+    $("#b").text("Don't play again.");
+    $("#c").text("");
+    $("#d").text("");
+    $("#e").text("");
+    game_state.options.a = "Play again.";
+    game_state.options.b = "Don't play again.";
+    game_state.options.c = "";
+    game_state.options.d = "";
+    game_state.options.e = "";
 }
 
 function random_choice(array) {
@@ -249,6 +155,122 @@ function scramble(text) {
     }
 
     return return_text;
+}
+
+function set_a(game_state) {
+    if (game_state.options.a === "ATTACK") {
+        $("#a").text("a. Attack " + 
+                resp.persons[resp.character.person].name + ".");
+    } else if (game_state.options.a === "MARRY") {
+        $("#a").text("a. Marry " + 
+            game_state.persons[game_state.character.person].name + ".");
+    } else if (game_state.options.a === "Think." &&
+               game_state.action === "Think.") {
+        $("#a").text("a. Think some more.");
+    } else if (game_state.options.a === "YELL_A_PIRATE_PHRASE") {
+        $("#a").text("a. Yell, \"" + 
+            random_choice([
+                "Ahoy",
+                "All hands on deck",
+                "Arr Matey",
+                "Avast",
+                "Aye Aye",
+                "Dead men tell no tales",
+                "Hoist the Jolly Roger",
+                "Land ho",
+                "Send 'em to Davy Jones' locker",
+                "Shiver me timbers",
+                "Thare she blows",
+                "Walk the plank",
+                "X marks the spot",
+                "Yo, ho, ho, and a bottle of rum",
+            ]) + "!\"");
+    } else {
+        $("#a").text("a. " + game_state.options.a);
+    }
+}
+
+function set_b(game_state) {
+    if (game_state.options.b === "BURN") {
+        $("#b").text("b. Burn " + 
+            game_state.places[game_state.character.place].name + 
+            " to the ground.");
+    } else if (game_state.options.b === "GIVE_FLOWERS") {
+        if (game_state.character.place === "prison") {
+            if (game_state.persons.felicity.name === "the fat lady") {
+                $("#b").text("b. Give the fat lady who feeds you a bouquet " +
+                    "of flowers.");
+            } else {
+                $("#b").text("b. Give Felicity your bouquet of flowers.");
+            }
+        } else {
+            $("#b").text("b. Give her your bouquet of flowers.");
+        }
+    } else if (game_state.options.b === "LOVE_POTION") {
+        $("#b").text("b. Use your love potion on " +
+            game_state.persons[game_state.character.person].name + ".");
+    } else if (game_state.options.b === "SHOW_COIN") {
+        $("#b").text("b. Show " + 
+            game_state.persons[game_state.character.person].name +
+            " your shiny foreign coin.");
+    } else {
+        $("#b").text("b. " + game_state.options.b);
+    }
+}
+
+function set_c(game_state) {
+    if (game_state.options.c !== "") {
+        if (game_state.options.c === "GO_TO") {
+            var dest = game_state.destination;
+            $("#c").text("c. Go to " + game_state.places[dest].name + ".");
+        } else if (game_state.options.c === "GO_SHOPPING") {
+            var item = get_item(game_state);
+            $("#c").text("c. Buy " + a_or_an(item[0]) + " " + item + ".");
+            game_state.for_sell = item;
+        } else {
+            $("#c").text("c. " + game_state.options.c);
+        }
+    } else {
+        $("#c").text("");
+    }
+}
+
+function set_d(game_state) {
+    if (game_state.options.d !== "") {
+        if (game_state.options.d === "Buy a weapon.") {
+            var weapon = get_weapon(game_state);
+            $("#d").text("d. Buy " + a_or_an(weapons_map[weapon][0]) + " " +
+                weapons_map[weapon] + ".");
+            game_state.for_sell = weapon;
+        } else if (game_state.options.d === "FLIRT_WITH") {
+            $("#d").text("d. Flirt with " +
+                game_state.persons[game_state.character.person].name + ".");
+        } else if (game_state.options.d === "TELL_GUARDS") {
+            $("#d").text("d. Tell the guards you're not a lunatic, you're " +
+                "just " + game_state.character.excuse + ".");
+        } else {
+            $("#d").text("d. " + game_state.options.d);
+        }
+    } else {
+        $("#d").text("");
+    }
+}
+
+function set_e(game_state) {
+    if (game_state.options.e !== "") {
+        $("#e").text("e. " + game_state.options.e);
+    } else {
+        $("#e").text("");
+    }
+}
+
+function set_message(game_state) {
+    if (game_state.character.is_tripping) {
+        document.getElementById("message").innerHTML = 
+        scramble(game_state.message);
+    } else {
+        document.getElementById("message").innerHTML = game_state.message;
+    }
 }
 
 var weapons_map = {
