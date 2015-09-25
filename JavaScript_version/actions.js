@@ -228,7 +228,7 @@ exports.actions = {
     "Buy a weapon.": function(game_state, possible_outcomes) {
         if (items.money_map[items.weapons_map[game_state.for_sell].cost].value 
             <= items.money_map[game_state.character.money].value) {
-            raffle.add(possible_outcomes, "bought_a_weapon", 1);
+            raffle.add(possible_outcomes, "buy_a_weapon", 1);
         } else {
             raffle.add(possible_outcomes, "cannot_afford", 1);
         }
@@ -576,7 +576,7 @@ exports.actions = {
     },
 
     "Exit the void.": function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "left_in_a_puff", 1);
+        raffle.add(possible_outcomes, "leave_in_a_puff", 1);
         return possible_outcomes;
     },
     
@@ -754,7 +754,7 @@ exports.actions = {
 
     "GO_SHOPPING": function(game_state, possible_outcomes, destination) {
         if (game_state.character.money !== "none") { 
-            raffle.add(possible_outcomes, "bought_an_item", 1);
+            raffle.add(possible_outcomes, "buy_an_item", 1);
         } else {
             raffle.add(possible_outcomes, "cannot_afford", 1);
         }
@@ -886,12 +886,12 @@ exports.actions = {
     },
 
     "Leave in a huff.": function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "moved", 10);
+        raffle.add(possible_outcomes, "random_move", 10);
         return possible_outcomes;
     },
 
     "Leave in a puff.": function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "left_in_a_puff", 10000);
+        raffle.add(possible_outcomes, "leave_in_a_puff", 10000);
         return possible_outcomes;
     },
 
@@ -1238,7 +1238,7 @@ exports.actions = {
 
     "Run like the Devil.": function(game_state, possible_outcomes) {
         if (game_state.character.is_threatened) {
-            raffle.add(possible_outcomes, "escaped", 9);
+            raffle.add(possible_outcomes, "escape", 9);
             if (game_state.persons[
                     game_state.character.person
                 ].preferred_attack === "arrest") {
@@ -1247,10 +1247,10 @@ exports.actions = {
                 raffle.add(possible_outcomes, "caught", 1);
             }
         } else if (game_state.character.person === "olga") {
-            raffle.add(possible_outcomes, "escaped_unmarried", 1);
+            raffle.add(possible_outcomes, "escape_unmarried", 1);
             raffle.add(possible_outcomes, "caught_by_olga", 1);
         } else if (game_state.character.person === "felicity") {
-            raffle.add(possible_outcomes, "escaped_unmarried", 1);
+            raffle.add(possible_outcomes, "escape_unmarried", 1);
         }
         return possible_outcomes;
     },
@@ -1645,7 +1645,7 @@ exports.actions = {
     
     "Waddle like God.": function(game_state, possible_outcomes) {
         if (game_state.character.is_threatened) {
-            raffle.add(possible_outcomes, "escaped_like_god", 1);
+            raffle.add(possible_outcomes, "escape_like_god", 1);
             if (game_state.persons[
                     game_state.character.person
                 ].preferred_attack === "arrest") {

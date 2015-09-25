@@ -595,7 +595,7 @@ var outcomes = {
         return game_state;
     },
 
-    "bought_a_weapon": function(game_state) {
+    "buy_a_weapon": function(game_state) {
         game_state.message = "";
         if (game_state.character.items[game_state.for_sell] === 0) {
             game_state.message += " You now have " + 
@@ -615,7 +615,7 @@ var outcomes = {
         return game_state;
     },
 
-    "bought_an_item": function(game_state) {
+    "buy_an_item": function(game_state) {
         game_state.message = "";
         get_item(game_state, game_state.for_sell);
         return game_state;
@@ -651,8 +651,9 @@ var outcomes = {
             game_state.character.money === "large_fortune") {
             messages = [
                 "You you cut a deal with a " +
-                functions.random_choice(["black market peddler", "merchant witch",
-                               "monger of rare items",]) + ".",
+                functions.random_choice(["black market peddler", 
+                                         "merchant witch",
+                                         "monger of rare items",]) + ".",
             ];
             game_state.message = functions.random_choice(messages);
             get_item(game_state, item);
@@ -1559,7 +1560,7 @@ var outcomes = {
         return game_state;
     },
 
-    "escaped": function(game_state) {
+    "escape": function(game_state) {
         game_state.message = 
             "The Devil is pretty fast, so you manage to get away.";
         move_character(game_state, 
@@ -1567,7 +1568,7 @@ var outcomes = {
         return game_state;
     },
 
-    "escaped_like_god": function(game_state) {
+    "escape_like_god": function(game_state) {
         game_state.message = 
             "God is very slow, but " + get_name(game_state) + 
             " also " + conjugate(game_state, "waddle") + " like God, so " +
@@ -1577,7 +1578,7 @@ var outcomes = {
         return game_state;
     },
 
-    "escaped_unmarried": function(game_state) {
+    "escape_unmarried": function(game_state) {
         switch (game_state.character.person) {
             case "felicity":
                 game_state.message = "The Devil is pretty fast and not " +
@@ -2862,7 +2863,7 @@ var outcomes = {
         return game_state;
     },
 
-    "left_in_a_puff": function(game_state) {
+    "leave_in_a_puff": function(game_state) {
         game_state.message = "";
         teleport(game_state);
         return game_state;
@@ -3410,13 +3411,6 @@ var outcomes = {
         return game_state;
     },
 
-    "moved": function(game_state) {
-        game_state.message = "";
-        move_character(game_state, 
-            get_random_adjacent_destination(game_state));
-        return game_state;
-    },
-
     "mushroom_kills_you": function(game_state) {
         var messages = [
             "The mushroom tastes bittersweet.",
@@ -3684,15 +3678,15 @@ var outcomes = {
 
     "panic_and_escape": function(game_state) {
         game_state.message = "You don't remember what you did, but you " +
-            "somehow escaped.";
+            "somehow managed to escape.";
         teleport(game_state);
         return game_state;
     },
 
     "peasant_woman_impressed": function(game_state) {
-        game_state.message = "A peasant woman sees you thump your chest and " +
-            "is impressed. Unfortunately, her husband is not. He ushers her " +
-            "away.";
+        game_state.message = "A peasant woman sees you thump your chest " +
+            "and is impressed. Unfortunately, her husband is not. He " +
+            "ushers her away.";
         return game_state;
     },
 
@@ -3911,8 +3905,9 @@ var outcomes = {
     //r
 
     "raise_sail_and_get_to_land": function(game_state) {
-        var destination = functions.random_choice(["arctic", "docks", "mermaid_rock", 
-                                         "woods",]);
+        var destination = functions.random_choice(["arctic", "docks", 
+                                                   "mermaid_rock", 
+                                                   "woods",]);
         var messages = [
             "Your nautical efforts help the ship sail to " +
             game_state.places[destination].name + ".",
@@ -3931,6 +3926,13 @@ var outcomes = {
         ];
         game_state.message = functions.random_choice(messages);
         die(game_state);
+        return game_state;
+    },
+
+    "random_move": function(game_state) {
+        game_state.message = "";
+        move_character(game_state, 
+            get_random_adjacent_destination(game_state));
         return game_state;
     },
 
