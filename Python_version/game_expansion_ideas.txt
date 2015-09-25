@@ -1,0 +1,30 @@
+followers:
+  foment revolution
+    gain follower
+    gain right-hand-man
+    gain left-hand-man
+  wage war
+    you now have a kingdom
+    you win the war and become a tyrant, the local peasants hate you
+    you win the battle but lose the war
+  flaunt your wealth
+    gain henchmen
+    you now have a right-hand man
+    you now have a follower
+    you now have an entourage
+    you now have a sidekick
+  start revolution 
+    the revolution has begun (does nothing)
+  kill everybody in a fit of rage
+    you manage to kill your entourage, but can't find any other low hanging fruit
+  outcomes:
+    You thought you would live happily ever after, but someone steals your wife, you are now playing as a previous character.
+    You trained your right-hand man well, you are now playing as your right-hand man
+    Your right hand man decides to make a move and seize power
+    You live happily ever, but the journey has just begun for your right-hand man
+
+dogs:
+  work like a dog
+  kick him like a dog
+  dog him
+  you pant like a dog

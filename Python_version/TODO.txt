@@ -1,0 +1,22 @@
+1.0 (not all-inclusive list yet)
+
+CONTENT
+-add Lord Bartholomew chess
+-A normal lunatic
+-pretend you're crazy (You don't have to)
+-create alternative wordings for common outcomes
+-ChatWithBlindBartender (Says four leaf clovers are lucky)
+-Have women take revenge on you if you bail on them
+
+TESTING
+-run a test to see how much each action gets executed
+
+FIXES
+-fix LeaveInAPuff for new system
+-fix pyro victory
+-fix lord vicotry
+-fix buying system (buying anything takes all your money right now)
+
+STYLE
+-reduce all lines to 79 characters or less
+-run a spell check on the project
