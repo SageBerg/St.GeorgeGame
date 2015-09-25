@@ -445,7 +445,7 @@ function get_outcome_options(game_state, options) {
             break;
 
         case "hit_assassin_with_cat":
-            raffle.add(options.a, "Apologize.", 100);
+            raffle.add(options.a, "Tell her you're sorry.", 100);
             break;
   
         case "keep_swimming":

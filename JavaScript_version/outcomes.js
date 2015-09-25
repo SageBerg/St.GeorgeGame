@@ -359,7 +359,25 @@ var outcomes = {
         game_state.message =
             "You start annihilating everything, but the Four Horsemen of " +
             "the Apocalypse steal your thunder. You perish in the chaos.";
-        game_state.character.is_dead = true;
+        die(game_state);
+        return game_state;
+    },
+
+    "apologize": function(game_state) {
+        var messages = [
+            "\"Oh, you're not sorry yet,\" she says as she steps toward you.",
+            "A bystander notices the assassin threatening you. "+
+            "\"The man said he was sorry, isn't that enough?\" " +
+            "he says. \"No,\" the assassin replies.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
+    "apologize_and_die": function(game_state) {
+        game_state.message = "\"I'm afraid 'sorry' won't cut it.\" Her " +
+            "knife does.",
+        die(game_state);
         return game_state;
     },
 
@@ -1943,6 +1961,31 @@ var outcomes = {
         return game_state;
     },
 
+    "find_wizard": function(game_state) {
+        var messages = [
+            "You find the wizard buying a map of the Arctic from a merchant.",
+            "You find the wizard strutting around the market naked.",
+            "You find the wizard trying to stomp on a frantic frog.",
+            "You find the wizard. He is telling a woman about a " +
+            "mesmerizing pearl.",
+            "You find the wizard. He is flirting awkwardly with a woman.",
+            "You see the wizard emptying a flask into a well.",
+        ]; 
+        game_state.message = functions.random_choice(messages);
+        game_state.character.person = "wizard";
+        return game_state;
+    },
+
+    "find_wizard_get_frog": function(game_state) {
+        var messages = [
+            "You find the wizard. He gives you a frog."
+        ]; 
+        game_state.message = functions.random_choice(messages);
+        game_state.character.person = "wizard";
+        get_item(game_state, "frog");
+        return game_state;
+    },
+
     "find_wooden_mermaid": function(game_state) {
         game_state.message = "You find a wooden mermaid figurehead on the " +
             "front of a ship. The crew hoists you abroad.";
@@ -2060,6 +2103,13 @@ var outcomes = {
     "frog": function(game_state) {
         game_state.message = "You find the wizard. He turns you into a frog.";
         game_state.character.is_frog = true;
+        return game_state;
+    },
+
+    "frog_and_die": function(game_state) {
+        game_state.message = "You find the wizard. He turns you into a " +
+            "and steps on you.";
+        clover(game_state);
         return game_state;
     },
 

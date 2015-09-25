@@ -1030,10 +1030,13 @@ exports.actions = {
     },
 
     "Look for the wizard.": function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "frog", 1);
+        raffle.add(possible_outcomes, "frog", 2);
+        raffle.add(possible_outcomes, "frog_and_die", 1);
         if (game_state.character.items["yellow mushroom"] > 0) {
             raffle.add(possible_outcomes, "wizard_wants_mushroom", 10);
         }
+        raffle.add(possible_outcomes, "find_wizard", 6);
+        raffle.add(possible_outcomes, "find_wizard_get_frog", 1);
         return possible_outcomes;
     },
 
@@ -1437,7 +1440,7 @@ exports.actions = {
     "Swing your cat.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "cat_escapes", 1);
         if (game_state.places[game_state.character.place].town === true) {
-            raffle.add(possible_outcomes, "hit_assassin_with_cat", 2);
+            raffle.add(possible_outcomes, "hit_assassin_with_cat", 3);
             raffle.add(possible_outcomes, "guards_stop_you_swinging_cat", 1);
         }
         return possible_outcomes;
@@ -1462,6 +1465,12 @@ exports.actions = {
         function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "priest_takes_pity", 1);
         raffle.add(possible_outcomes, "priest_disagrees", 2);
+        return possible_outcomes;
+    },
+
+    "Tell her you're sorry.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "apologize", 2);
+        raffle.add(possible_outcomes, "apologize_and_die", 1);
         return possible_outcomes;
     },
 
