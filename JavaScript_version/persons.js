@@ -23,18 +23,6 @@ exports.persons = {
         "sells": [],
         "type": "group", 
     },
-    "black_market_merchant":
-    {
-        "alive": true,
-        "attack": 4,
-        "attracted": 0,
-        "name": "a merchant of ill repute",
-        "preferred_attack": "kill",
-        "sells": ["deep_cave_newt", "love_potion", "many_colored_mushroom", 
-                  "white_mushroom", "black_mushroom", "fire_proof_cloak",
-                  "strength_potion"],
-        "type": "female",
-    },
     "blind_bartender":
     {
         "alive": true,
