@@ -4265,6 +4265,20 @@ var outcomes = {
         return game_state;
     },
 
+    "someone_stops_you_burning": function(game_state) {
+        var messages = [
+            capitalize(functions.get_person(game_state).name) + " " +
+            conjugate(game_state, "notice") +
+            " you trying to burn " +
+            functions.get_place(game_state).name + 
+            " to the ground and " +
+            conjugate(game_state, "kill") + " you.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        die(game_state);
+        return game_state;
+    },
+
     "st_george_gives_you_money": function(game_state) {
         var money = functions.random_choice(["pittance", "small_fortune", 
                                    "large_fortune"]);

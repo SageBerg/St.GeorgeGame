@@ -208,9 +208,16 @@ exports.actions = {
     },
 
     "BURN": function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "burn", 3);
-        if (game_state.character.items["fancy red cloak"] < 1) {
-            raffle.add(possible_outcomes, "set_self_on_fire", 1);
+        //people will stop you from burning things if you're interacting 
+        //with them, except for the blind bartender, since he's blind
+        if (game_state.character.person === null ||
+            game_state.character.person === "blind_bartender") {
+            raffle.add(possible_outcomes, "burn", 3);
+            if (game_state.character.items["fancy red cloak"] < 1) {
+                raffle.add(possible_outcomes, "set_self_on_fire", 1);
+            }
+        } else {
+            raffle.add(possible_outcomes, "someone_stops_you_burning", 1);
         }
         return possible_outcomes;
     },
