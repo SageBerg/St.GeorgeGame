@@ -84,17 +84,23 @@ function handle_new_world(resp) {
         }
 
         set_message(game_state);
-
         set_a(game_state);
         set_b(game_state);
         set_c(game_state);
         set_d(game_state);
         set_e(game_state);
-
         $("#score").text("Score: " + game_state.score);
 
+        if (parseInt(game_state.score) === 0) {
+        //we only need to bind the keys if this is the first frame of the game
+        //and the player has a score of 0 at the first frame of the game
+        
+        //I am binding the keys at the end of the handle_new_world function
+        //to prevent the client from being able to make a bad server request
+        //before the server has given the client the initial game state 
+            bind_keys();
+        }
     }
-    bind_keys();
 }
 
 function handle_world_error(game_state) {
