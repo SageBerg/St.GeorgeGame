@@ -2,6 +2,7 @@
 
 var character   = require("./character").character;
 var destringify = require("./destringify_http").destringify;
+var functions   = require("./functions");
 var options     = require("./options");
 var outcomes    = require("./outcomes");
 var persons     = require("./persons").persons;
@@ -24,12 +25,8 @@ server.listen(port);
 
 function get_destination(game_state) {
     var links = game_state.places[game_state.character.place].links;
-    var destination = links[random_int(links.length)];
+    var destination = links[functions.random_int(links.length)];
     return destination;
-}
-
-function random_int(n) {
-    return Math.floor(Math.random() * n);
 }
 
 function respond_with_initial_world(req, res) {
@@ -45,6 +42,7 @@ function respond_with_initial_world(req, res) {
         "persons":     persons,
         "places":      places,
         "score":       0, 
+        "topic":       null, 
     };
     res.json(game_state);
 }
@@ -98,7 +96,7 @@ function validate_input(game_state) {
     if (
         game_state === null ||
         typeof(game_state) !== 'object' ||
-        typeof(game_state.score) === 'undefined'
+        typeof(game_state.score) !== 'string'
        ) {
         return false;
     } 

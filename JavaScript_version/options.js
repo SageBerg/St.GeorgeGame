@@ -1,7 +1,8 @@
 "use strict";
 
-var raffle = require("./raffle");
-var items  = require("./items");
+var functions = require("./functions");
+var items     = require("./items");
+var raffle    = require("./raffle");
 
 exports.get_options = function get_options(game_state) {
 
@@ -50,7 +51,7 @@ exports.get_options = function get_options(game_state) {
             "burn. You are one of them. You win.",
             " You are satisfied with how everything has been burned. You win.",
         ] 
-        game_state.message += messages[random_int(messages.length)];
+        game_state.message += messages[functions.random_int(messages.length)];
         set_game_over_options(options);
     } else if (lords_victory(game_state)) {
         var messages = [
@@ -58,7 +59,7 @@ exports.get_options = function get_options(game_state) {
             "establishment and brought about a Utopian anarchy... " +
             "more or less. You win!",
         ] 
-        game_state.message += messages[random_int(messages.length)];
+        game_state.message += messages[functions.random_int(messages.length)];
         set_game_over_options(options);
     } else if (Math.floor(Math.random() * 250) === 0 && 
                game_state.places[game_state.character.place].burnable 
@@ -725,11 +726,6 @@ function marriage_victory(game_state) {
         return true;
     }
     return false;
-}
-
-function random_int(n) {
-
-    return Math.floor(Math.random() * n);
 }
 
 function set_game_over_options(options) {

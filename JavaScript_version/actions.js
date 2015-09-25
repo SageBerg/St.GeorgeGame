@@ -1,15 +1,8 @@
 "use strict";
 
-var raffle = require("./raffle");
-var items   = require("./items");
-
-function random_choice(array) {
-    return array[random_int(array.length)]; 
-}
-
-function random_int(n) {
-    return Math.floor(Math.random() * n);
-}
+var functions = require("./functions");
+var items     = require("./items");
+var raffle    = require("./raffle");
 
 exports.actions = {
 
@@ -393,7 +386,7 @@ exports.actions = {
         if (game_state.character.place !== "void" &&
             game_state.character.place !== "ocean") {
                 raffle.add(possible_outcomes, "dance_and_die", 1);
-            if (get_place(game_state).outside === true) {
+            if (functions.get_place(game_state).outside === true) {
                 raffle.add(possible_outcomes, "dance_in_puddle", 1);
             }
         }
@@ -425,12 +418,12 @@ exports.actions = {
 
         if (game_state.character.place === "countryside" ||
             game_state.character.place === "lord_bartholomew_manor" ||
-            get_place(game_state).town === true) {
+            functions.get_place(game_state).town === true) {
             raffle.add(possible_outcomes, "dance_with_peasants", 2);
             raffle.add(possible_outcomes, "dance_for_coin", 2);
         }
 
-        if (get_place(game_state).town === true) {
+        if (functions.get_place(game_state).town === true) {
             raffle.add(possible_outcomes, "guards_stop_you_dancing", 2);
         }
 
@@ -553,7 +546,7 @@ exports.actions = {
     "Eat a fly.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "fly_tastes_good", 1);
         raffle.add(possible_outcomes, "human_with_fly_in_mouth", 1);
-        if (get_place(game_state).populated === true) {
+        if (functions.get_place(game_state).populated === true) {
             raffle.add(possible_outcomes, "stepped_on", 1);
         }
         return possible_outcomes;
@@ -777,11 +770,11 @@ exports.actions = {
         raffle.add(possible_outcomes, "wake_up", 5);
         raffle.add(possible_outcomes, "wake_up_dead", 1);
 
-        if (get_place(game_state).locked === false) {
+        if (functions.get_place(game_state).locked === false) {
             raffle.add(possible_outcomes, "wake_up_somewhere_else", 1);
         }
 
-        if (get_place(game_state).populated) {
+        if (functions.get_place(game_state).populated) {
             raffle.add(possible_outcomes, "wake_up_assassinated", 1);
             raffle.add(possible_outcomes, "wake_up_richer", 1);
             raffle.add(possible_outcomes, "wake_up_robbed", 1);
@@ -824,7 +817,7 @@ exports.actions = {
     },
 
     "Hop.": function(game_state, possible_outcomes) {
-        if (get_place(game_state).outside === true) {
+        if (functions.get_place(game_state).outside === true) {
             raffle.add(possible_outcomes, "eaten_by_bird", 1);
         }
         raffle.add(possible_outcomes, "hop", 1);
@@ -863,7 +856,7 @@ exports.actions = {
                                                  possible_outcomes) {
         raffle.add(possible_outcomes, "kill_self_in_fit_of_rage", 2);
         raffle.add(possible_outcomes, "kill_nobody", 1);
-        if (get_place(game_state).town) {
+        if (functions.get_place(game_state).town) {
             raffle.add(possible_outcomes, "guards_stop_you_killing", 1);
         }
         return possible_outcomes;
@@ -925,7 +918,7 @@ exports.actions = {
         raffle.add(possible_outcomes, "distasteful", 5);
         raffle.add(possible_outcomes, "infection", 1);
 
-        if (get_place(game_state).town) {
+        if (functions.get_place(game_state).town) {
             raffle.add(possible_outcomes, "guards_stop_you_licking", 6);
         }
 
@@ -1315,7 +1308,7 @@ exports.actions = {
             raffle.add(possible_outcomes, "crowd_hates_your_voice", 1);
         }
 
-        if (get_place(game_state).town) {
+        if (functions.get_place(game_state).town) {
             raffle.add(possible_outcomes, "cannot_hear_assassin", 1);
         }
 
@@ -1340,7 +1333,7 @@ exports.actions = {
             raffle.add(possible_outcomes, "sing_at_lord_carlos_manor", 10);
         }
 
-        if (get_place(game_state).locked === false) {
+        if (functions.get_place(game_state).locked === false) {
             raffle.add(possible_outcomes, "wander_while_singing", 1);
         }
 
@@ -1354,7 +1347,7 @@ exports.actions = {
         }
 
         if (game_state.character.person === "olga" && 
-            get_person(game_state).name === "Olga") {
+            functions.get_person(game_state).name === "Olga") {
             raffle.add(possible_outcomes, "sing_to_olga", 100);
         }
 
@@ -1732,12 +1725,3 @@ function dead_lunatic_repercussions(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "guards_kill_you_for_homicide", 6);
     }
 }
-
-function get_place(game_state) {
-    return game_state.places[game_state.character.place];
-}
-
-function get_person(game_state) {
-    return game_state.persons[game_state.character.person];
-}
-
