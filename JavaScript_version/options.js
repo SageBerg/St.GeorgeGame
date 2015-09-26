@@ -373,6 +373,7 @@ function get_outcome_options(game_state, options) {
         case "no_one_wants_to_talk":
         case "no_sea_turtle":
         case "no_way_out":
+        case "pinguins_dont_care":
         case "pirates_ruin_song":
         case "priest_disagrees":
         case "see_ship":
@@ -497,6 +498,11 @@ function get_outcome_options(game_state, options) {
                 "Try to snatch the keys the first chance you get.", 10000);
             raffle.add(options.d, 
                 "Wait for a holiday to make your move.", 10000);
+            break;
+
+        case "penguins":
+            raffle.add(options.a, "Yell that there aren't penguins in the " +
+                    "Arctic.", 10000);
             break;
 
         case "riot":

@@ -3843,6 +3843,17 @@ var outcomes = {
         return game_state;
     },
 
+    "penguins": function(game_state) {
+        game_state.message = "While you're playing in the snow, you notice " +
+            "some penguins.";
+        return game_state;
+    },
+
+    "penguins_dont_care": function(game_state) {
+        game_state.message = "The penguins don't care.";
+        return game_state;
+    },
+
     "pick_black_mushroom": function(game_state) {
         game_state.message = "You pick a black mushroom.";
         game_state.character.person = null;
@@ -3906,7 +3917,7 @@ var outcomes = {
             "You make a snow woman.",
             "You make a snow angel.",
             "You make some yellow snow.",
-            "Slide on your belly like a penguin.",
+            "You slide on your belly like a penguin.",
         ];
         game_state.message = functions.random_choice(messages);
         return game_state;

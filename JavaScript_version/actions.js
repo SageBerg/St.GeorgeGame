@@ -1194,6 +1194,7 @@ exports.actions = {
 
     "Play in the snow.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "play_in_the_snow", 4);
+        raffle.add(possible_outcomes, "penguins", 2);
         return possible_outcomes;
     },
 
@@ -1760,6 +1761,12 @@ exports.actions = {
     //x
 
     //y
+
+    "Yell that there aren't penguins in the Arctic.": 
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "penguins_dont_care", 1);
+        return possible_outcomes;
+    },
 
     "YELL_A_PIRATE_PHRASE": function(game_state, possible_outcomes) {
         if (game_state.persons.lord_arthur.alive === true) {
