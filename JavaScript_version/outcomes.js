@@ -3013,14 +3013,15 @@ var outcomes = {
 
     "loot_arrested": function(game_state) {
         game_state.message = "You are arrested for attempting to steal " +
-            functions.random_choice(["apple", "cart", "chicken", "goat", "grape",]) + 
-            ".";
+            functions.random_choice(["apple", "cart", "chicken", "goat", 
+                                     "grape",]) + ".";
         arrested(game_state);
         return game_state;
     },
 
     "loot_item": function(game_state) {
-        var item = functions.random_choice(["ax", "cat", "fish", "pearl", "sailor peg"]);
+        var item = functions.random_choice(["ax", "cat", "fish", "pearl", 
+                                            "sailor peg"]);
         game_state.message = "You get away with " + a_or_an(item[0]) + " " +
             item + ".";
         get_item(game_state, item);
@@ -3042,19 +3043,30 @@ var outcomes = {
     },
 
     "loot_weapon": function(game_state) {
-        var weapon = functions.random_choice(["dagger", "pitchfork", "cutlass", 
-                                    "hammer", "iron_hammer", 
-                                    "jeweled_cutlass"]);
+        var weapon = functions.random_choice(["dagger", "pitchfork", 
+                                              "cutlass", "hammer", 
+                                              "iron_hammer", 
+                                              "jeweled_cutlass"]);
         game_state.message = "You swipe " + a_or_an(weapon[0]) + " " +
             weapon + ".";
         get_weapon(game_state, weapon);
         return game_state;
     },
 
+    "lord_arthur_helps": function(game_state) {
+        var messages = [
+            "Lord Arthur says he knows of a town where you can find " +
+            "a new wooden leg.",
+        ]; 
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
     "lord_arthur_tells_sail": function(game_state) {
         var messages = [
             "Lord Arthur tells you to " +
-            functions.random_choice(["raise the sail faster", "scrub the deck"]) + ".",
+            functions.random_choice(["raise the sail faster", 
+                                     "scrub the deck"]) + ".",
         ]; 
         game_state.message = functions.random_choice(messages);
         return game_state;
@@ -3072,7 +3084,8 @@ var outcomes = {
     "lord_bartholomew_chess": function(game_state) {
         var messages = [
             "Lord Bartholomew says " +
-            functions.random_choice(["he likes chess and wouldn't mind playing with you",
+            functions.random_choice(["he likes chess and wouldn't mind " +
+                           "playing with you",
                            "his children recently taught him to play",
                            "there's always time for a little fun in life",]) +
             ". He takes you to his chess parlor and sets up a board.",
@@ -3182,6 +3195,13 @@ var outcomes = {
             "Arthur gives you a replacement.";
         game_state.character.has_lost_leg = true;
         get_item(game_state, "sailor peg");
+        return game_state;
+    },
+
+    "lose_peg": function(game_state) {
+        game_state.message = "While you're climbing up the top sails, your " +
+            "sailor peg falls into the ocean.";
+        lose_item(game_state, "sailor peg");
         return game_state;
     },
 
@@ -3619,6 +3639,11 @@ var outcomes = {
 
     "no_one_cares": function(game_state) {
         game_state.message = "You sing your favorite song. No one cares.";
+        return game_state;
+    },
+
+    "no_one_cares_about_your_leg": function(game_state) {
+        game_state.message = "No one cares.";
         return game_state;
     },
 

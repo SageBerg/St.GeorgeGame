@@ -472,6 +472,10 @@ function get_outcome_options(game_state, options) {
             raffle.add(options.b, "Scrub the deck.", 10000);
             break;
 
+        case "lose_peg":
+            raffle.add(options.a, "Yell, \"I've lost my leg!\"", 10000);
+            break;
+
         case "merchant_ship_nest":
         case "merchant_ship_sail":
         case "merchant_ship_scrub":
@@ -503,7 +507,7 @@ function get_outcome_options(game_state, options) {
             break;
 
         case "see_wizard_with_penguins":
-            raffle.add(options.a, "Yell \"Don't leave without me!\"", 10000);
+            raffle.add(options.a, "Yell, \"Don't leave without me!\"", 10000);
             break;
 
         case "think_four_ideas":
@@ -641,11 +645,14 @@ function get_place_options(game_state, options) {
             raffle.add(options.b, "Raise a sail.", 8);
             raffle.add(options.b, "Scrub the deck.", 8);
             raffle.add(options.c, "Walk the plank.", 2);
+            if (game_state.character.items["sailor peg"] > 0) {
+                raffle.add(options.c, "Climb up the top sails.", 10);
+            }
             if (game_state.outcome !== "climb_and_get_sap" &&
                 game_state.outcome !== "merchant_ship_nest" &&
                 game_state.outcome !== "watch_duty") {
                 raffle.add(options.c, "Climb into the crow's nest.", 8);
-            }
+            } 
             raffle.add(options.d, "Drop anchor.", 7);
             break;
 

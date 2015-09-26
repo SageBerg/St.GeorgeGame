@@ -353,6 +353,11 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Climb up the top sails.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "lose_peg", 1);
+        return possible_outcomes;
+    },
+
     "Club a seal.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "club_a_seal", 2);
         raffle.add(possible_outcomes, "die_waiting_for_seal", 2);
@@ -1758,9 +1763,17 @@ exports.actions = {
         return possible_outcomes;
     },
 
-    "Yell \"Don't leave without me!\"": 
+    "Yell, \"Don't leave without me!\"": 
         function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "wizard_leaves_without_you", 1);
+        return possible_outcomes;
+    },
+
+    "Yell, \"I've lost my leg!\"": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "no_one_care_about_your_leg", 1);
+        if (game_state.persons.lord_arthur.alive === true) {
+            raffle.add(possible_outcomes, "lord_arthur_helps", 1);
+        }
         return possible_outcomes;
     },
 
