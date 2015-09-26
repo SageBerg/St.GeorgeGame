@@ -623,11 +623,17 @@ exports.actions = {
                 if (game_state.persons.eve.attracted >= 4) {
                     raffle.add(possible_outcomes, "forced_to_marry_eve", 100);
                 }
+                if (game_state.character.has_tail === true) {
+                    raffle.add(possible_outcomes, "tail_eve", 1);
+                }
                 break;
             case "mermaid":
                 raffle.add(possible_outcomes, "wowed_mermaid", 8);
                 raffle.add(possible_outcomes, 
                     "flirt_with_mermaid_and_die", 2);
+                if (game_state.character.has_tail === true) {
+                    raffle.add(possible_outcomes, "tail_mermaid", 1);
+                }
                 break;
             case "nymph_queen":
                 raffle.add(possible_outcomes, "flirt_and_shrub", 1);
@@ -639,6 +645,9 @@ exports.actions = {
                     raffle.add(possible_outcomes, "rebuffed_by_olga", 1);
                     raffle.add(possible_outcomes, "killed_by_olga", 1);
                     raffle.add(possible_outcomes, "wowed_olga", 8);
+                    if (game_state.character.has_tail === true) {
+                        raffle.add(possible_outcomes, "tail_olga", 1);
+                    }
                 } else if (name === "Olga") {
                     if (game_state.character.place === "tavern") {
                         raffle.add(possible_outcomes, 
@@ -907,10 +916,13 @@ exports.actions = {
         return possible_outcomes;
     },
 
-    "Leer at women.": function(game_state, possible_outcomes) {
+    "Gawk at women.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "leer_at_cat", 1);
         raffle.add(possible_outcomes, "leer_and_get_assassinated", 1);
         raffle.add(possible_outcomes, "leer_at_women", 4);
+        if (game_state.character.has_tail === true) {
+            raffle.add(possible_outcomes, "women_gawk_at_you", 2);
+        }
         return possible_outcomes;
     },
 
@@ -1256,12 +1268,16 @@ exports.actions = {
     "Run like the Devil.": function(game_state, possible_outcomes) {
         if (game_state.character.is_threatened) {
             raffle.add(possible_outcomes, "escape", 9);
-            if (game_state.persons[
-                    game_state.character.person
-                ].preferred_attack === "arrest") {
-                raffle.add(possible_outcomes, "caught_and_arrested", 1);
+            if (game_state.character.has_tail === true) {
+                raffle.add(possible_outcomes, "caught_by_tail_and_die", 1);
             } else {
-                raffle.add(possible_outcomes, "caught", 1);
+                if (game_state.persons[
+                        game_state.character.person
+                    ].preferred_attack === "arrest") {
+                    raffle.add(possible_outcomes, "caught_and_arrested", 1);
+                } else {
+                    raffle.add(possible_outcomes, "caught_and_die", 1);
+                }
             }
         } else if (game_state.character.person === "olga") {
             raffle.add(possible_outcomes, "escape_unmarried", 1);
@@ -1326,7 +1342,11 @@ exports.actions = {
         }
 
         if (functions.get_place(game_state).town) {
-            raffle.add(possible_outcomes, "cannot_hear_assassin", 1);
+            if (game_state.character.has_tail === false) {
+                raffle.add(possible_outcomes, "cannot_hear_assassin", 1);
+            } else {
+                raffle.add(possible_outcomes, "saved_by_tail", 1);
+            }
         }
 
         if (game_state.character.place === "tavern") {
@@ -1432,6 +1452,9 @@ exports.actions = {
         raffle.add(possible_outcomes, "no_progress_swimming", 3);
         raffle.add(possible_outcomes, "see_ship", 1);
         raffle.add(possible_outcomes, "swim_and_die", 2);
+        if (game_state.character.has_tail === true) {
+            raffle.add(possible_outcomes, "tail_helps_you_swim", 2);
+        }
         return possible_outcomes;
     },
 
@@ -1708,11 +1731,14 @@ exports.actions = {
         raffle.add(possible_outcomes, "meet_simple_peasant", 1);
         raffle.add(possible_outcomes, "wander_the_countryside", 6);
         raffle.add(possible_outcomes, "witch_burning", 1);
+        if (game_state.character.has_tail === true) {
+            raffle.add(possible_outcomes, "peasants_laugh_at_tail", 1);
+        }
         return possible_outcomes;
     },
 
     "Watch a play.": function(game_state, possible_outcomes) {
-        //raffle.add(possible_outcomes, "watch_play", 3);
+        raffle.add(possible_outcomes, "watch_play", 3);
         raffle.add(possible_outcomes, "riot", 1);
         return possible_outcomes;
     },

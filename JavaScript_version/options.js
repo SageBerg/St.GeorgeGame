@@ -664,7 +664,8 @@ function get_place_options(game_state, options) {
 
         case "streets":
             raffle.add(options.a, "Look for a cat.", 2);
-            raffle.add(options.b, "Leer at women.", 2);
+            raffle.add(options.b, "Gawk at women.", 2);
+            raffle.add(options.c, "GO_TO", 2);
             if (game_state.character.person !== "st_george") {
                 raffle.add(options.d, "Look for St. George.", 2);
             }

@@ -839,12 +839,23 @@ var outcomes = {
         return game_state;
     },
 
-    "caught": function(game_state) {
+    "caught_and_die": function(game_state) {
         game_state.message = 
             "You run like the Devil, but " + get_name(game_state) +
             " also " + conjugate(game_state, "run") + " like the Devil and " +
             conjugate(game_state, "overtake") + " you.";
-        game_state.character.is_dead = true;
+        die(game_state);
+        return game_state;
+    },
+
+    "caught_by_tail_and_die": function(game_state) {
+        game_state.message = 
+            "You run like the Devil, but " + get_name(game_state) +
+            " also " + conjugate(game_state, "run") + " like the Devil and " +
+            conjugate(game_state, "overtake") + " you and " +
+            conjugate(game_state, "manage") + " to stop you by grabbing " +
+            "your tail.";
+        die(game_state);
         return game_state;
     },
 
@@ -2927,8 +2938,8 @@ var outcomes = {
     },
 
     "leer_at_cat": function(game_state) {
-        game_state.message = "You don't see any woman worth leering at, " +
-            "but you do see a cat worth leering at.";
+        game_state.message = "You don't see any woman worth gawking at, " +
+            "but you do see a cat worth gawking at.";
         get_item(game_state, "cat");
         return game_state;
     },
@@ -2936,10 +2947,10 @@ var outcomes = {
     "leer_at_women": function(game_state) {
         var messages = [
             "You fair woman notices you and hastens away.",
-            "You stop leering when you realize it isn't a woman.",
+            "You stop gawking when you realize it isn't a woman.",
             "An equally creepy woman stares back at you before " +
             "disappearing into the crowd.",
-            "A woman becomes annoyed with your leering and throws salt in " +
+            "A woman becomes annoyed with your gawking and throws salt in " +
             "your eyes.",
         ] 
         game_state.message = functions.random_choice(messages);
@@ -3768,6 +3779,11 @@ var outcomes = {
         return game_state;
     },
 
+    "peasants_laugh_at_tail": function(game_state) {
+        game_state.message = "During your travels, some peasants laugh at " +
+            "your outlandish tail.";
+        return game_state;
+    },
 
     "peasants_laugh_at_you": function(game_state) {
         game_state.message = "Some peasants laugh at you for acting like a " +
@@ -4142,8 +4158,9 @@ var outcomes = {
     "save_witch": function(game_state) {
         game_state.message = "You manage to save the witch and escape into " +
             "the woods with her. The witch rewards you for saving her.";
-        var item = functions.random_choice(["deep-cave newt", "four-leaf clover",
-                                  "potion of love",]);
+        var item = functions.random_choice(["deep-cave newt", 
+                                            "four-leaf clover",
+                                            "potion of love",]);
         get_item(game_state, item);
         move_character(game_state, "woods");
         game_state.character.person = "witch";
@@ -4172,6 +4189,15 @@ var outcomes = {
             "A mermaid is playing with your hair.";
         move_character(game_state, "mermaid_rock");
         game_state.character.person = "mermaid";
+        return game_state;
+    },
+
+    "saved_by_tail": function(game_state) {
+        game_state.message = "While you're singing, you feel your tail hit " +
+            "something behind you. You turn around just in time to see " +
+            "an assassin.";
+        game_state.character.is_threatened = true;
+        game_state.character.person = "assassin";
         return game_state;
     },
 
@@ -4541,6 +4567,30 @@ var outcomes = {
     },
 
     //t
+
+    "tail_eve": function(game_state) {
+        game_state.message = "Lord Carlos' daughter says your tail is gaudy.";
+        return game_state;
+    },
+
+    "tail_helps_you_swim": function(game_state) {
+        game_state.message = "Your tail helps you swim back to land.";
+        move_character(game_state, "countryside");
+        return game_state;
+    },
+
+    "tail_mermaid": function(game_state) {
+        game_state.message = "The mermaid says she likes your tail.";
+        game_state.persons.mermaid.attracted += 1;
+        return game_state;
+    },
+
+    "tail_olga": function(game_state) {
+        game_state.message = "She says your tail is freaky and she likes " +
+            "a lot.";
+        game_state.persons.olga.attracted += 1;
+        return game_state;
+    },
 
     "think_about_lord_arthur": function(game_state) {
         game_state.message = "You think it would be a bad idea to join " +
@@ -5183,7 +5233,8 @@ var outcomes = {
             "The wizard says, \"If you like behaving like a gorilla so " +
             "much, why not be a gorilla?\" He tries to turn you into a " +
             "gorilla, but his spell only makes you " +
-            functions.random_choice(["feel", "smell", "walk",]) + " like a gorilla.",
+            functions.random_choice(["feel", "smell", "walk",]) + 
+            " like a gorilla.",
         ];
         game_state.message = functions.random_choice(messages);
         return game_state;
@@ -5211,8 +5262,8 @@ var outcomes = {
 
     "wizard_stops_you_trashing": function(game_state) {
         var messages = [
-            "The wizard comes in while you're trashing the place and starts " +
-            "yelling obscenities.",
+            "The wizard comes in while you're trashing the place and " +
+            "starts yelling obscenities.",
         ];
         game_state.message = functions.random_choice(messages);
         game_state.character.is_threatened = true;
@@ -5238,6 +5289,14 @@ var outcomes = {
         ];
         game_state.message = functions.random_choice(messages);
         game_state.character.person = "wizard";
+        return game_state;
+    },
+
+    "women_gawk_at_you": function(game_state) {
+        var messages = [
+            "The women also gawk at you since you have have a tail.",
+        ];
+        game_state.message = functions.random_choice(messages);
         return game_state;
     },
 
