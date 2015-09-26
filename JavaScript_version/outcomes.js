@@ -78,7 +78,7 @@ function capitalize(string) {
     return string[0].toUpperCase() + string.slice(1);
 }
 
-//kills character if he or she doesn't have a four-leaf clover
+// kills character if he or she doesn't have a four-leaf clover
 function clover(game_state) {
     if (game_state.character.items["four-leaf clover"] < 1) {
         game_state.character.is_dead = true;
@@ -88,7 +88,7 @@ function clover(game_state) {
     }
 }
  
-//conjugates a verb to singular or plural
+// conjugates a verb to singular or plural
 function conjugate(game_state, word) {
     if (game_state.persons[game_state.character.person].type !== "group") {
         return word + "s"; 
@@ -96,7 +96,7 @@ function conjugate(game_state, word) {
     return word
 } 
 
-//kills character
+// kills character
 function die(game_state) {
     game_state.character.is_dead = true;
 }
@@ -247,6 +247,7 @@ var outcomes = {
         ];
         game_state.message = functions.random_choice(messages);
         game_state.character.person = null;
+        game_state.topic = "your jewels";
         return game_state;
     },
 
@@ -395,6 +396,12 @@ var outcomes = {
         return game_state;
     },
 
+    "assassin_song": function(game_state) {
+        game_state.message = "Some assassins overhear you singing about them.";
+        clover(game_state);
+        return game_state;
+    },
+
     "assassinated": function(game_state) {
         game_state.message = "The first woman you talk to turns out to be " +
         "an assassin. She assassinates you.";
@@ -503,6 +510,7 @@ var outcomes = {
             " out of you.",
         ];
         game_state.message = functions.random_choice(messages);
+        game_state.topic = "the guards";
         return game_state;
     },
 
@@ -513,6 +521,7 @@ var outcomes = {
             "mercilessly and leave you for dead.",
         ];
         game_state.message = functions.random_choice(messages);
+        game_state.topic = "heroism";
         return game_state;
     },
 
@@ -532,6 +541,7 @@ var outcomes = {
             "not counting anything.",
         ];
         game_state.message = functions.random_choice(messages);
+        game_state.topic = "boredom";
         return game_state;
     },
 
@@ -589,6 +599,7 @@ var outcomes = {
     "blessed": function(game_state) {
         game_state.message = "A priestess blesses you.";
         game_state.character.person = "priestess";
+        game_state.topic = "God";
         return game_state;
     },
 
@@ -610,6 +621,7 @@ var outcomes = {
         game_state.message = "St. George is impressed with your noble " +
             "deeds and rewards you.",
         get_money(game_state, "large_fortune");
+        game_state.topic = "how rich your are";
         return game_state;
     },
 
@@ -626,7 +638,7 @@ var outcomes = {
         game_state.character.items[game_state.for_sell] += 1;
         if (game_state.character.strength <= 
             items.weapons_map[game_state.for_sell].attack) {
-            //TODO made white mushrooms and weapons stack in this way
+            // TODO made white mushrooms and weapons stack in this way
             game_state.character.strength = 
             items.weapons_map[game_state.for_sell].attack;
         }
@@ -660,10 +672,13 @@ var outcomes = {
     },
 
     "buy_black_market_item": function(game_state) {
-        var item = functions.random_choice(["deep-cave newt", "potion of love", 
-                                  "many-colored mushroom", "white mushroom", 
-                                  "black mushroom", "fancy red cloak", 
-                                  "potion of strength",]);
+        var item = functions.random_choice(["deep-cave newt", 
+                                            "potion of love", 
+                                            "many-colored mushroom", 
+                                            "white mushroom", 
+                                            "black mushroom", 
+                                            "fancy red cloak", 
+                                            "potion of strength",]);
         var messages;
         if (game_state.character.money === "small_fortune" ||
             game_state.character.money === "large_fortune") {
@@ -689,6 +704,7 @@ var outcomes = {
 
     "cannot_afford": function(game_state) {
         game_state.message = "You cannot afford this item." 
+        game_state.topic = "poverty";
         return game_state;
     },
 
@@ -725,6 +741,7 @@ var outcomes = {
         ];
         game_state.message = functions.random_choice(messages);
         game_state.character.person = null;
+        game_state.topic = "cats";
         return game_state;
     },
 
@@ -914,6 +931,7 @@ var outcomes = {
         ];
         game_state.message = functions.random_choice(messages);
         move_character(game_state, "streets");
+        game_state.topic = "ladies of the night";
         return game_state;
     },
 
@@ -953,7 +971,7 @@ var outcomes = {
         return game_state;
     },
 
-    //some jokes, CREDIT: reddit's r/jokes 
+    // some jokes, CREDIT: reddit's r/jokes 
     "chat_with_blind_bartender": function(game_state) {
         var messages = [
             "The blind bartender leans in close and says, \"Two lawyers " + 
@@ -1076,6 +1094,7 @@ var outcomes = {
             "The tree crashes to the ground.",
         ];
         game_state.message = functions.random_choice(messages);
+        game_state.topic = "lumber";
         return game_state;
     },
 
@@ -1613,7 +1632,7 @@ var outcomes = {
                 game_state.message = "The Devil is pretty fast and not " +
                     "very fat, so you manage to get away unmarried.";
                 game_state.persons.felicity.attracted = 0;
-                //you can't find her again if her attracted is less than 1
+                // you can't find her again if her attracted is less than 1
                 break;
             case "olga":
                 game_state.message = "The Devil is pretty fast, so you " +
@@ -1791,6 +1810,7 @@ var outcomes = {
             functions.random_choice(["heroic", "macho", "manly"]) + ".",
         ]; 
         game_state.message = functions.random_choice(messages);
+        game_state.topic = "yourself";
         return game_state;
     },
 
@@ -1800,7 +1820,7 @@ var outcomes = {
         ]; 
         game_state.message = functions.random_choice(messages);
         game_state.persons.felicity.attracted = 0;
-        //you can't find her in the game if her attracted is less than 1
+        // you can't find her in the game if her attracted is less than 1
         return game_state;
     },
 
@@ -1870,6 +1890,7 @@ var outcomes = {
         game_state.message = "You don't find a way out, but you find a " +
             "deep-cave newt.";
         get_item(game_state, "deep-cave newt");
+        game_state.topic = "finding slimy things in the dark";
         return game_state;
     },
 
@@ -1928,6 +1949,7 @@ var outcomes = {
 
     "find_sea_turtle": function(game_state) {
         game_state.message = "You find a sea turtle and follow it to shore.";
+        game_state.topic = "sea turtles";
         move_character(game_state, "countryside");
         return game_state;
     },
@@ -2165,6 +2187,7 @@ var outcomes = {
             game_state.message = "You win many games of dice.";
         }
         get_money(game_state, "small_fortune");
+        game_state.topic = "how rich you are";
         return game_state;
     },
 
@@ -2271,6 +2294,7 @@ var outcomes = {
     "get_sap": function(game_state) {
         game_state.message = "You fall a tree and scrape the sap off your ax.";
         get_item(game_state, "ball of sap");
+        game_state.topic = "sap";
         return game_state;
     },
 
@@ -2425,8 +2449,9 @@ var outcomes = {
 
     "god_smites_you": function(game_state) {
         game_state.message = "God smites you for your " + 
-            functions.random_choice(["arrogance", "faithlessness", "foolishness",
-                           "heresy", "rudeness", "tactlessness"]) + ".";
+            functions.random_choice(["arrogance", "faithlessness", 
+                                     "foolishness", "heresy", "rudeness", 
+                                     "tactlessness"]) + ".";
         clover(game_state);
         return game_state;
     },
@@ -2699,6 +2724,7 @@ var outcomes = {
 
     "ignored": function(game_state) {
         game_state.message = "God ignores your prayers.";
+        game_state.topic = "God to try to get his attention";
         return game_state;
     },
 
@@ -3654,6 +3680,7 @@ var outcomes = {
             "Nobody wants to talk to you.",
         ];
         game_state.message = functions.random_choice(messages);
+        game_state.topic = "assassins";
         return game_state;
     },
 
@@ -4414,6 +4441,7 @@ var outcomes = {
         game_state.message = "St. George gives you " + 
             items.money_map[money].name + ".";
         get_money(game_state, money);
+        game_state.topic = "St George";
         return game_state;
     },
 
@@ -4677,6 +4705,7 @@ var outcomes = {
 
     "think_death": function(game_state) {
         game_state.message = "You think about death.";
+        game_state.topic = "death";
         return game_state;
     },
 

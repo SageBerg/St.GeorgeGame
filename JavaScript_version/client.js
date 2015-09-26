@@ -251,6 +251,9 @@ function set_d(game_state) {
         } else if (game_state.options.d === "FLIRT_WITH") {
             $("#d").text("d. Flirt with " +
                 game_state.persons[game_state.character.person].name + ".");
+        } else if (game_state.options.d === "Sing a song." &&
+                   game_state.topic !== null) {
+            $("#d").text("d. Sing a song about " + game_state.topic + ".");
         } else if (game_state.options.d === "TELL_GUARDS") {
             $("#d").text("d. Tell the guards you're not a lunatic, you're " +
                 "just " + game_state.character.excuse + ".");

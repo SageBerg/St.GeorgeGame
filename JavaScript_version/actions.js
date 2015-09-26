@@ -210,8 +210,8 @@ exports.actions = {
     },
 
     "BURN": function(game_state, possible_outcomes) {
-        //people will stop you from burning things if you're interacting 
-        //with them, except for the blind bartender, since he's blind
+        // people will stop you from burning things if you're interacting 
+        // with them, except for the blind bartender, since he's blind
         if (game_state.character.person === null ||
             game_state.character.person === "blind_bartender") {
             raffle.add(possible_outcomes, "burn", 3);
@@ -726,9 +726,9 @@ exports.actions = {
                 raffle.add(possible_outcomes, "give_flowers_olga", 1);
                 break;
             default:
-                //Felicity is not actually there when you're interacting
-                //with her; if we get here in the logic, the character
-                //should be in the prison
+                // Felicity is not actually there when you're interacting
+                // with her; if we get here in the logic, the character
+                // should be in the prison
                 raffle.add(possible_outcomes, "give_flowers_felicity", 1);
         }
         return possible_outcomes;
@@ -1331,6 +1331,11 @@ exports.actions = {
     },
 
     "Sing a song.": function(game_state, possible_outcomes) {
+        
+        if (game_state.topic === "assassins") {
+            raffle.add(possible_outcomes, "assassin_song", 10000);
+        }
+
         raffle.add(possible_outcomes, "no_one_cares", 2);
         raffle.add(possible_outcomes, "sing_about_lords", 1);
 
@@ -1396,6 +1401,10 @@ exports.actions = {
         if (game_state.character.person !== null) {
             raffle.add(possible_outcomes, "not_impressed", 1);
         }
+        
+        // clear the topic after singing a song to prevent you singing
+        // about things that happened a while ago
+        game_state.topic = null;
 
         return possible_outcomes;
     },
