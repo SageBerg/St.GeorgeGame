@@ -156,8 +156,8 @@ function grow_tail(game_state) {
     if (game_state.character.has_tail === false) {
         game_state.character.has_tail = true;
         game_state.message = "You grow a " +
-            functions.random_choice(["alligator", "beaver", "donkey", "horse", "monkey", 
-                           "pig", "rat"]) + " tail.";
+            functions.random_choice(["alligator", "beaver", "donkey", "horse", 
+                                     "monkey", "pig", "rat"]) + " tail.";
     } else {
         game_state.message = "The potion has no effect.";
     }
@@ -638,7 +638,6 @@ var outcomes = {
         game_state.character.items[game_state.for_sell] += 1;
         if (game_state.character.strength <= 
             items.weapons_map[game_state.for_sell].attack) {
-            // TODO made white mushrooms and weapons stack in this way
             game_state.character.strength = 
             items.weapons_map[game_state.for_sell].attack;
         }
@@ -667,7 +666,7 @@ var outcomes = {
             "An assassin walks up and starts hitting on you... very hard.",
         ];
         game_state.message = functions.random_choice(messages);
-        die(game_state);
+        clover(game_state);
         return game_state;
     },
 
@@ -2150,7 +2149,7 @@ var outcomes = {
     },
 
     "frog_and_die": function(game_state) {
-        game_state.message = "You find the wizard. He turns you into a " +
+        game_state.message = "You find the wizard. He turns you into a frog " +
             "and steps on you.";
         clover(game_state);
         return game_state;
@@ -5562,3 +5561,5 @@ var outcomes = {
     },
 
 }
+
+exports.outcomes = outcomes;
