@@ -815,6 +815,15 @@ var outcomes = {
         return game_state;
     },
 
+    "cat_escapes": function(game_state) {
+        var messages = [
+            "Your cat escapes.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        lose_item(game_state, "cat");
+        return game_state;
+    },
+
     "cat_smells_fish": function(game_state) {
         var messages = [
             "A cat smells your fish and approaches you.",
@@ -1806,7 +1815,8 @@ var outcomes = {
     "feel_manly": function(game_state) {
         var messages = [
             "You feel " + 
-            functions.random_choice(["extremely", "quite", "really", "very",]) + " " +
+            functions.random_choice(["extremely", "quite", "really", 
+                                     "very",]) + " " +
             functions.random_choice(["heroic", "macho", "manly"]) + ".",
         ]; 
         game_state.message = functions.random_choice(messages);
@@ -2560,6 +2570,14 @@ var outcomes = {
     "guards_stop_you_singing": function(game_state) {
         game_state.message = "The local guards see you singing and conclude " +
         "that you must be a lunatic.";
+        game_state.character.person = "guards";
+        game_state.character.is_threatened = true;
+        return game_state;
+    },
+
+    "guards_stop_you_swinging": function(game_state) {
+        game_state.message = "The local guards see you swinging your cat " +
+            "and conclude that you must be a lunatic.";
         game_state.character.person = "guards";
         game_state.character.is_threatened = true;
         return game_state;
