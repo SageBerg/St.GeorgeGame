@@ -49,7 +49,7 @@ function respond_with_initial_world(req, res) {
 }
 
 function respond_with_outcome(req, res) {
-    if (validate_input(req.query) === true) { 
+    if (validate(req.query) === true) { 
         var game_state     = req.query;
         game_state         = destringify(game_state);
         var old_outcome    = game_state.outcome;
@@ -93,10 +93,58 @@ function stop_tripping(game_state) {
     }
 }
 
-function validate_input(game_state) {
+function validate(game_state, conditions) {
     var conditions = [
         typeof(game_state) === "object",
         
+        typeof(game_state.destination) === "string" &&
+        (game_state.destination === "" ||
+         typeof(places[game_state.destination]) === "object"), 
+
+        // TODO fix for_sell system and its validation
+        typeof(game_state.for_sell)    === "string",
+
+        typeof(game_state.message) === "string",
+
+        typeof(game_state.outcome) === "string" &&
+        (game_state.outcome === "" ||
+         typeof(outcomes.outcomes[game_state.outcome]) === "function"),
+
+        typeof(game_state.persons) === "object",
+        typeof(game_state.places)  === "object",
+
+        typeof(game_state.score) === "string" &&
+        !isNaN(parseInt(game_state.score)),
+
+        typeof(game_state.topic) === "string",
+    ];
+
+    if (validate_character(game_state) === false ||
+        validate_options(game_state) === false) {
+        return false;
+    }
+
+    //return a boolean that says if all conditions in the list are true or not
+    return conditions.every(function(condition) {
+        return condition;
+    });
+}
+
+function validate_character(game_state) {
+
+    var character_keys = Object.keys(character);
+    var input_character_keys = Object.keys(game_state.character);
+    if (character_keys.length === input_character_keys.length) {
+        for (var i in character_keys) {
+            if (character_keys[i] !== input_character_keys[i]) {
+                return false;
+            }
+        }
+    } else {
+        return false;
+    }
+
+    var conditions = [
         typeof(game_state.character)        === "object",
         typeof(game_state.character.excuse) === "string",
 
@@ -129,45 +177,26 @@ function validate_input(game_state) {
         game_state.character.place === "",
     
         !isNaN(parseInt(game_state.character.strength)),
-
-        typeof(game_state.destination) === "string" &&
-        (game_state.destination === "" ||
-         typeof(places[game_state.destination]) === "object"), 
-
-        // TODO fix for_sell system and its validation
-        typeof(game_state.for_sell)    === "string",
-
-        typeof(game_state.message) === "string",
-
-        typeof(game_state.options)             === "object" &&
-        typeof(actions[game_state.options.a])  === "function" &&
-        typeof(actions[game_state.options.b])  === "function" &&
-        (typeof(actions[game_state.options.c]) === "function" ||
-         game_state.options.c === "") &&
-        (typeof(actions[game_state.options.d]) === "function" || 
-         game_state.options.d === "") &&
-        (typeof(actions[game_state.options.e]) === "function" || 
-         game_state.options.e === "") &&
-
-        typeof(game_state.outcome) === "string" &&
-        (game_state.outcome === "" ||
-         typeof(outcomes.outcomes[game_state.outcome]) === "function"),
-
-        typeof(game_state.persons) === "object",
-        typeof(game_state.places)  === "object",
-
-        typeof(game_state.score) === "string" &&
-        !isNaN(parseInt(game_state.score)),
-
-        typeof(game_state.topic) === "string",
     ];
 
     for (var item in game_state.character.items) {
         conditions.push(!isNaN(parseInt(game_state.character.items[item])));
     }
-   
-    //return a boolean that says if all conditions in the list are true or not
+
     return conditions.every(function(condition) {
         return condition;
     });
+
+}
+
+function validate_options(game_state) {
+    return typeof(game_state.options)             === "object" &&
+           typeof(actions[game_state.options.a])  === "function" &&
+           typeof(actions[game_state.options.b])  === "function" &&
+           (typeof(actions[game_state.options.c]) === "function" ||
+            game_state.options.c === "") &&
+           (typeof(actions[game_state.options.d]) === "function" || 
+            game_state.options.d === "") &&
+           (typeof(actions[game_state.options.e]) === "function" || 
+            game_state.options.e === "");
 }
