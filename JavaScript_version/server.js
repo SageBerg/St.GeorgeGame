@@ -1,5 +1,6 @@
 "use strict";
 
+var actions     = require("./actions").actions;
 var character   = require("./character").character;
 var destringify = require("./destringify_http").destringify;
 var functions   = require("./functions");
@@ -8,8 +9,8 @@ var outcomes    = require("./outcomes");
 var persons     = require("./persons").persons;
 var places      = require("./places").places;
 
-var express     = require('express');
-var http        = require('http');
+var express     = require("express");
+var http        = require("http");
 var port        = 3000;
 var app;
 var server;
@@ -41,8 +42,8 @@ function respond_with_initial_world(req, res) {
         "outcome":     null,
         "persons":     persons,
         "places":      places,
-        "score":       0, 
-        "topic":       null, 
+        "score":       0,
+        "topic":       null,
     };
     res.json(game_state);
 }
@@ -93,12 +94,80 @@ function stop_tripping(game_state) {
 }
 
 function validate_input(game_state) {
-    if (
-        game_state === null ||
-        typeof(game_state) !== 'object' ||
-        typeof(game_state.score) !== 'string'
-       ) {
-        return false;
-    } 
-    return true;
+    var conditions = [
+        typeof(game_state) === "object",
+        
+        typeof(game_state.character)        === "object",
+        typeof(game_state.character.excuse) === "string",
+
+        game_state.character.has_found_true_love === "false" ||
+        game_state.character.has_found_true_love === "true",
+        game_state.character.has_lost_leg        === "false" ||
+        game_state.character.has_lost_leg        === "true",
+        game_state.character.has_tail            === "false" ||
+        game_state.character.has_tail            === "true",
+        game_state.character.is_dead             === "false" ||
+        game_state.character.is_dead             === "true",
+        game_state.character.is_frog             === "false" ||
+        game_state.character.is_frog             === "true",
+        game_state.character.is_monstrosity      === "false" ||
+        game_state.character.is_monstrosity      === "true",
+        game_state.character.is_threatened       === "false" ||
+        game_state.character.is_threatened       === "true",
+        game_state.character.is_tripping         === "false" ||
+        game_state.character.is_tripping         === "true",
+
+        game_state.character.money === "none" ||
+        game_state.character.money === "pittance" ||
+        game_state.character.money === "small_fortune" ||
+        game_state.character.money === "large_fortune",
+
+        typeof(persons[game_state.character.person]) === "object" ||
+        game_state.character.person === "",
+
+        typeof(places[game_state.character.place]) === "object" ||
+        game_state.character.place === "",
+    
+        !isNaN(parseInt(game_state.character.strength)),
+
+        typeof(game_state.destination) === "string" &&
+        (game_state.destination === "" ||
+         typeof(places[game_state.destination]) === "object"), 
+
+        // TODO fix for_sell system and its validation
+        typeof(game_state.for_sell)    === "string",
+
+        typeof(game_state.message) === "string",
+
+        typeof(game_state.options)             === "object" &&
+        typeof(actions[game_state.options.a])  === "function" &&
+        typeof(actions[game_state.options.b])  === "function" &&
+        (typeof(actions[game_state.options.c]) === "function" ||
+         game_state.options.c === "") &&
+        (typeof(actions[game_state.options.d]) === "function" || 
+         game_state.options.d === "") &&
+        (typeof(actions[game_state.options.e]) === "function" || 
+         game_state.options.e === "") &&
+
+        typeof(game_state.outcome) === "string" &&
+        (game_state.outcome === "" ||
+         typeof(outcomes.outcomes[game_state.outcome]) === "function"),
+
+        typeof(game_state.persons) === "object",
+        typeof(game_state.places)  === "object",
+
+        typeof(game_state.score) === "string" &&
+        !isNaN(parseInt(game_state.score)),
+
+        typeof(game_state.topic) === "string",
+    ];
+
+    for (var item in game_state.character.items) {
+        conditions.push(!isNaN(parseInt(game_state.character.items[item])));
+    }
+   
+    //return a boolean that says if all conditions in the list are true or not
+    return conditions.every(function(condition) {
+        return condition;
+    });
 }
