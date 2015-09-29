@@ -185,6 +185,12 @@ function get_item_options(game_state, options) {
         raffle.add(options.b, "Ask the witch to brew you a potion.", 100);
     }
 
+    if (game_state.character.items["cat"] > 0 &&
+        (game_state.character.person === "eve" ||
+         game_state.character.person === "olga")) {
+        raffle.add(options.a, "GIVE_HER_CAT", 5);
+    }
+
     if (game_state.character.items["ball of sap"] > 0 &&
         game_state.character.items["bouquet of flowers"] > 0 &&
         game_state.character.items["many-colored mushroom"] > 0 &&
@@ -265,13 +271,13 @@ function get_person_options(game_state, options) {
             break;
 
         case "eve":
-        case "felicity":
         case "nymph_queen":
         case "olga":
             raffle.add(options.d, "FLIRT_WITH", 100);
             break;
 
         case "lord_bartholomew":
+            raffle.add(options.c, "Ask for asylum.", 10);
             raffle.add(options.c, "Chat with Lord Bartholomew.", 10);
             raffle.add(options.d, 
                 "Challenge Lord Bartholomew to a game of chess.", 10);

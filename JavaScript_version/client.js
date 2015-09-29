@@ -167,6 +167,13 @@ function set_a(game_state) {
     if (game_state.options.a === "ATTACK") {
         $("#a").text("a. Attack " + 
             game_state.persons[game_state.character.person].name + ".");
+    } else if (game_state.options.a === "GIVE_HER_CAT") {
+        var cat = "your cat";
+        if (game_state.character.items["cat"] > 1) {
+            cat = "one of your cats";
+        }
+        $("#a").text("a. Give " + 
+            game_state.persons[game_state.character.person].name + cat + ".");
     } else if (game_state.options.a === "MARRY") {
         $("#a").text("a. Marry " + 
             game_state.persons[game_state.character.person].name + ".");

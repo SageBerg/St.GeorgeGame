@@ -55,6 +55,13 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Ask for a draw.":
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "enrage_lord_carlos", 1);
+        raffle.add(possible_outcomes, "enrage_lord_carlos_and_die", 1);
+        return possible_outcomes;
+    },
+
     "Ask for an audience with Lord Bartholomew.": 
         function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, 
@@ -70,10 +77,9 @@ exports.actions = {
         return possible_outcomes;
     },
 
-    "Ask for a draw.":
-        function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "enrage_lord_carlos", 1);
-        raffle.add(possible_outcomes, "enrage_lord_carlos_and_die", 1);
+    "Ask for asylum.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "get_asylum_and_win", 1);
+        raffle.add(possible_outcomes, "get_asylum_and_get_arrested", 1);
         return possible_outcomes;
     },
 
@@ -730,6 +736,20 @@ exports.actions = {
                 // with her; if we get here in the logic, the character
                 // should be in the prison
                 raffle.add(possible_outcomes, "give_flowers_felicity", 1);
+        }
+        return possible_outcomes;
+    },
+
+    "GIVE_HER_CAT": function(game_state, possible_outcomes) {
+        switch (game_state.character.person) {
+            case "eve":
+                raffle.add(possible_outcomes, "give_cat_eve", 1);
+                break;
+            case "olga":
+                raffle.add(possible_outcomes, "give_cat_olga", 1);
+                break;
+            default:
+                raffle.add(possible_outcomes, "universe_blows_up", 1);
         }
         return possible_outcomes;
     },

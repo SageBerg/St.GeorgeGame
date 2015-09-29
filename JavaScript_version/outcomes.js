@@ -2200,6 +2200,29 @@ var outcomes = {
         return game_state;
     },
 
+    "get_asylum_and_get_arrested": function(game_state) {
+
+        game_state.message = "Lord Bartholomew grants you asylum, but his " +
+            "manor is soon stormed by Lord Daniel's men. You are arrested " +
+            "for treason.";
+        if (game_state.places.lord_bartholomew_manor.burnable === true) {
+            game_state.places.lord_bartholomew_manor.burnable = false;
+            game_state.places.lord_bartholomew_manor.name = "the smoldering " +
+                "remains of Lord Bartholomew's manor";
+        }
+        arrested(game_state);
+        return game_state;
+    },
+
+    "get_asylum_and_win": function(game_state) {
+        game_state.message = "Lord Bartholomew grants you asylum and gives " +
+            "you work shoveling coal into ovens. After a few years, you " +
+            "fall in love with a cook who also works in the kitchens. " +
+            "You eventually win her heart and live happily ever after.";
+        game_state.character.has_found_true_love = true;
+        return game_state;
+    },
+
     "get_attacked": function(game_state) {
         var attempted_action = 
             game_state.action[0].toLowerCase() +
@@ -2318,6 +2341,26 @@ var outcomes = {
     "get_void_dust": function(game_state) {
         game_state.message = "";
         get_item(game_state, "handful of void dust");
+        return game_state;
+    },
+
+    "give_cat_eve": function(game_state) {
+        var messages = [
+            "Lord Carlos' daughter kills the cat.",
+        ] 
+        game_state.message = functions.random_choice(messages);
+        functions.get_person(game_state).attracted += 1;
+        lose_item(game_state, "cat");
+        return game_state;
+    },
+
+    "give_cat_olga": function(game_state) {
+        var messages = [
+            "She thinks the cat is adorable.",
+        ] 
+        game_state.message = functions.random_choice(messages);
+        functions.get_person(game_state).attracted += 1;
+        lose_item(game_state, "cat");
         return game_state;
     },
 
@@ -4990,6 +5033,15 @@ var outcomes = {
 
     //u
     
+    "universe_blows_up": function(game_state) {
+        var messages = [
+            "The universe blows up.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        die(game_state);
+        return game_state;
+    },
+
     //v
 
     //w
