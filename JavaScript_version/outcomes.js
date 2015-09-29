@@ -2524,6 +2524,26 @@ var outcomes = {
         return game_state;
     },
 
+    "grovel_and_die": function(game_state) {
+        var messages = [
+            "Lord Carlos is having none of it.",
+            "Lord Carlos isn't interested in your tired excuses.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        die(game_state);
+        return game_state;
+    },
+
+    "grovel_and_go_to_woods": function(game_state) {
+        var messages = [
+            "He asks a servant to get you out of his sight. You are " +
+            "unceremoniously thrown out of the manor.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        move_character(game_state, "woods");
+        return game_state;
+    },
+
     "grow_stronger_potion": function(game_state) {
         game_state.message = "You grow stronger.";
         game_state.character.strength += 2;

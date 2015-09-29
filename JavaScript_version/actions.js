@@ -852,6 +852,12 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Grovel.": function(game_state, possible_outcomes, destination) {
+        raffle.add(possible_outcomes, "grovel_and_die", 2);
+        raffle.add(possible_outcomes, "grovel_and_go_to_woods", 1);
+        return possible_outcomes;
+    },
+
     //h
     
     "Hide.": function(game_state, possible_outcomes) {

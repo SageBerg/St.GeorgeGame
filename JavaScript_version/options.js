@@ -284,6 +284,7 @@ function get_person_options(game_state, options) {
             break;
 
         case "lord_carlos":
+            raffle.add(options.b, "Grovel.", 10);
             raffle.add(options.c,  
                 "Challenge Lord Carlos to a game of chess.", 15);
             raffle.add(options.d, 
