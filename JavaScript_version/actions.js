@@ -17,6 +17,8 @@ exports.actions = {
                 raffle.add(possible_outcomes, "stupid_move_and_die", 4);
                 raffle.add(possible_outcomes, "stupid_move_and_win", 1);
                 break;
+            default:
+                raffle.add(possible_outcomes, "universe_blows_up", 1);
         }
         return possible_outcomes;
     },
@@ -55,8 +57,7 @@ exports.actions = {
         return possible_outcomes;
     },
 
-    "Ask for a draw.":
-        function(game_state, possible_outcomes) {
+    "Ask for a draw.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "enrage_lord_carlos", 1);
         raffle.add(possible_outcomes, "enrage_lord_carlos_and_die", 1);
         return possible_outcomes;
@@ -94,6 +95,8 @@ exports.actions = {
             case "simple_peasant":
                 raffle.add(possible_outcomes, "directions_simple_peasant", 2);
                 break;
+            default:
+                raffle.add(possible_outcomes, "universe_blows_up", 1);
         }
         return possible_outcomes;
     },
@@ -559,6 +562,8 @@ exports.actions = {
                 raffle.add(possible_outcomes, "e4_lose_carlos", 1);
                 raffle.add(possible_outcomes, "e4_win_carlos", 1);
                 break;
+            default:
+                raffle.add(possible_outcomes, "universe_blows_up", 1);
         }
         return possible_outcomes;
     },
@@ -671,6 +676,8 @@ exports.actions = {
                     }
                 }
                 break;
+            default:
+                raffle.add(possible_outcomes, "universe_blows_up", 1);
         }
         return possible_outcomes;
     },
@@ -1036,6 +1043,8 @@ exports.actions = {
                 raffle.add(possible_outcomes, "find_wooden_mermaid", 1);
                 raffle.add(possible_outcomes, "look_for_mermaids_and_drown", 1);
                 break;
+            default:
+                raffle.add(possible_outcomes, "universe_blows_up", 1);
         }
         return possible_outcomes;
     },
@@ -1139,6 +1148,8 @@ exports.actions = {
                 raffle.add(possible_outcomes, "miss_priestess", 1);
                 raffle.add(possible_outcomes, "potion_priestess", 1);
                 break;
+            default:
+                raffle.add(possible_outcomes, "universe_blows_up", 1);
         }
         return possible_outcomes;
     },
@@ -1177,6 +1188,8 @@ exports.actions = {
                 raffle.add(possible_outcomes, "nf3_lose_carlos", 1);
                 raffle.add(possible_outcomes, "nf3_win_carlos", 1);
                 break;
+            default:
+                raffle.add(possible_outcomes, "universe_blows_up", 1);
         }
         return possible_outcomes;
     },
@@ -1310,6 +1323,9 @@ exports.actions = {
             raffle.add(possible_outcomes, "caught_by_olga", 1);
         } else if (game_state.character.person === "felicity") {
             raffle.add(possible_outcomes, "escape_unmarried", 1);
+        } else {
+            //there must always be at least one outcome added to the raffle
+            raffle.add(possible_outcomes, "universe_blows_up", 1);
         }
         return possible_outcomes;
     },
@@ -1347,6 +1363,8 @@ exports.actions = {
             case "lord_daniel":
                 raffle.add(possible_outcomes, "lose_coin_daniel", 1);
                 break;
+            default:
+                raffle.add(possible_outcomes, "universe_blows_up", 1);
         }
         return possible_outcomes;
     },
@@ -1423,10 +1441,6 @@ exports.actions = {
             raffle.add(possible_outcomes, "not_impressed", 1);
         }
         
-        // clear the topic after singing a song to prevent you singing
-        // about things that happened a while ago
-        game_state.topic = null;
-
         return possible_outcomes;
     },
 
@@ -1735,6 +1749,9 @@ exports.actions = {
             } else {
                 raffle.add(possible_outcomes, "caught_like_god", 9);
             }
+        } else {
+            //there must always be at least one outcome added to the raffle
+            raffle.add(possible_outcomes, "universe_blows_up", 1);
         }
         return possible_outcomes;
     },

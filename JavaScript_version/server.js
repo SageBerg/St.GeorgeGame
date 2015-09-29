@@ -52,6 +52,7 @@ function respond_with_outcome(req, res) {
     if (validate(req.query) === true) { 
         var game_state     = req.query;
         game_state         = destringify(game_state);
+        game_state.topic   = null;
         var old_outcome    = game_state.outcome;
         var outcome        = outcomes.get_outcome(game_state);
         game_state.outcome = outcome;
