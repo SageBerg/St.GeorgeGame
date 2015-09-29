@@ -4264,6 +4264,26 @@ var outcomes = {
         return game_state;
     },
 
+    "repay_and_die": function(game_state) {
+        var messages = [
+            "Lord Carlos informs you that your death is the only form of " +
+            "repayment he will accept. Your debts are soon settled.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        die(game_state);
+        return game_state;
+    },
+
+    "repay_and_live": function(game_state) {
+        var messages = [
+            "He takes your money but says, \"No amount of money can make " +
+            "up for what you've done.\"",
+        ];
+        game_state.message = functions.random_choice(messages);
+        game_state.character.money = "none";
+        return game_state;
+    },
+
     "rescued_by_lord_arthur": function(game_state) {
         game_state.message = "You are picked up by Lord Arthur's pirate " +
             "ship.";

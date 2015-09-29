@@ -284,6 +284,10 @@ function get_person_options(game_state, options) {
             break;
 
         case "lord_carlos":
+            if (game_state.character.money === "large_fortune" && 
+                game_state.character.money === "small_fortune") {
+                raffle.add(options.a, "Repay your debts.", 10);
+            }
             raffle.add(options.b, "Grovel.", 10);
             raffle.add(options.c,  
                 "Challenge Lord Carlos to a game of chess.", 15);

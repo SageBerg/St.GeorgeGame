@@ -1301,6 +1301,12 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Repay your debts.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "repay_and_die", 1);
+        raffle.add(possible_outcomes, "repay_and_live", 1);
+        return possible_outcomes;
+    },
+
     "Ribbit.": function(game_state, possible_outcomes) {
         if (game_state.character.place !== "ocean") {
             raffle.add(possible_outcomes, "eaten_by_weasel", 1);

@@ -1,30 +1,32 @@
 content:
-    repay your debts
-    grovel
-
     add suck up to
     tell someone you're so-and-so
 
-    ask for asylum
-
     more deaths for kill yourself
     arm wrestle pirates
-    barter with Inuits
-    give cat to Olga, Eve
 
 technical:
     host on AWS
-    bootstrap it so it looks nice on all screens
+
     make a suite of unit tests
     test the game with Selenium
+
+    bootstrap it so it looks nice on all screens
     make the mouse over work on the phone
+
     write a whitelist data validating function for the server
     do exception handling so the server doesn't go down
+    try a bunch of stuff to bring the server down
+
+    remove the for_sell system from the client and fix it up
     fix weapon system?
     fix weapon system as it relates to increasing your strength
+    have get_weapon say you got the weapon
+    remove extra punctuation from the tripping messages 
 
 good form:
     make sure you can't meet most dead people
+    fix capitalization for options that have special rendering on the client 
 
 play testing:
     make it feasible to win each of the ways
