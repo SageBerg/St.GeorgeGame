@@ -2891,6 +2891,8 @@ var outcomes = {
         if (game_state.character.place !== "ocean") {
             messages.push("You set yourself on fire and promptly burn to a " +
                 "crisp.");
+        } else {
+            messages.push("You drown trying to set yourself on fire.");
         }
         game_state.message = functions.random_choice(messages);
         die(game_state);
@@ -2901,6 +2903,16 @@ var outcomes = {
         var messages = [
             "You start with yourself.",
             "You make no exceptions.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        die(game_state);
+        return game_state;
+    },
+
+    "kill_self_in_ocean": function(game_state) {
+        var messages = [
+            "You walk into the ocean and are suddenly inspired to write a " +
+            "novel. You drown.",
         ];
         game_state.message = functions.random_choice(messages);
         die(game_state);
@@ -4372,6 +4384,15 @@ var outcomes = {
             "A mermaid is playing with your hair.";
         move_character(game_state, "mermaid_rock");
         game_state.character.person = "mermaid";
+        return game_state;
+    },
+
+    "saved_by_st_george": function(game_state) {
+        game_state.message = "You throw yourself off a rooftop, but St. " +
+            "George catches you and gives you a large fortune.",
+        move_character(game_state, "streets");
+        game_state.character.person = "st_george";
+        get_money(game_state, "large_fortune");
         return game_state;
     },
 

@@ -931,6 +931,20 @@ exports.actions = {
 
     "Kill yourself in frustration.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "kill_self", 9);
+        switch (game_state.character.place) {
+            case "arctic":
+            case "docks":
+            case "mermaid_rock":
+                raffle.add(possible_outcomes, "kill_self_in_ocean", 10);
+                break;
+            case "church":
+            case "market":
+            case "streets":
+                if (game_state.persons.st_george.alive === true) {
+                    raffle.add(possible_outcomes, "saved_by_st_george", 5);
+                }
+                break;
+        }
         return possible_outcomes;
     },
 
