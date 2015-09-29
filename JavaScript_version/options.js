@@ -387,6 +387,7 @@ function get_outcome_options(game_state, options) {
         case "lose_ax":
         case "miss_olga":
         case "no_flowers":
+        case "no_one_believes_you":
         case "no_one_wants_to_talk":
         case "no_sea_turtle":
         case "no_way_out":
@@ -625,6 +626,18 @@ function get_place_options(game_state, options) {
             break;
 
         case "lord_bartholomew_manor":
+            if (game_state.character.person === null) {
+                raffle.add(options.b, "Tell the first person you meet that " +
+                        "you're Lord Arthur.", 1);
+                raffle.add(options.b, "Tell the first person you meet that " +
+                        "you're Lord Bartholomew.", 1);
+                raffle.add(options.b, "Tell the first person you meet that " +
+                        "you're Lord Daniel.", 1);
+                raffle.add(options.b, "Tell the first person you meet that " +
+                        "you're Lord Carlos.", 1);
+                raffle.add(options.b, "Tell the first person you meet that " +
+                        "you're St. George.", 1);
+            }
             if (functions.get_place(game_state).burnable === true) {
                 if (game_state.persons.lord_bartholomew.alive === true && 
                     game_state.character.person !== "lord_bartholomew") {
@@ -636,6 +649,18 @@ function get_place_options(game_state, options) {
             break;
 
         case "lord_carlos_manor":
+            if (game_state.character.person === null) {
+                raffle.add(options.b, "Tell the first person you meet that " +
+                        "you're Lord Arthur.", 1);
+                raffle.add(options.b, "Tell the first person you meet that " +
+                        "you're Lord Bartholomew.", 1);
+                raffle.add(options.b, "Tell the first person you meet that " +
+                        "you're Lord Daniel.", 1);
+                raffle.add(options.b, "Tell the first person you meet that " +
+                        "you're Lord Carlos.", 1);
+                raffle.add(options.b, "Tell the first person you meet that " +
+                        "you're St. George.", 1);
+            }
             if (functions.get_place(game_state).burnable === true) {
                 raffle.add(options.a, "Ask about assassins.", 4);
                 if (game_state.places.lord_carlos_manor.burnable === true) {
@@ -731,6 +756,18 @@ function get_place_options(game_state, options) {
             break;
 
         case "tower":
+            if (game_state.character.person === null) {
+                raffle.add(options.b, "Tell the first person you meet that " +
+                        "you're Lord Arthur.", 1);
+                raffle.add(options.b, "Tell the first person you meet that " +
+                        "you're Lord Bartholomew.", 1);
+                raffle.add(options.b, "Tell the first person you meet that " +
+                        "you're Lord Daniel.", 1);
+                raffle.add(options.b, "Tell the first person you meet that " +
+                        "you're Lord Carlos.", 1);
+                raffle.add(options.b, "Tell the first person you meet that " +
+                        "you're St. George.", 1);
+            }
             if (functions.get_place(game_state).burnable === true) {
                 if (game_state.persons.lord_daniel.alive === true && 
                     game_state.character.person !== "lord_daniel") {

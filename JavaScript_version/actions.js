@@ -1358,7 +1358,7 @@ exports.actions = {
         } else if (game_state.character.person === "felicity") {
             raffle.add(possible_outcomes, "escape_unmarried", 1);
         } else {
-            //there must always be at least one outcome added to the raffle
+            // there must always be at least one outcome added to the raffle
             raffle.add(possible_outcomes, "universe_blows_up", 1);
         }
         return possible_outcomes;
@@ -1620,6 +1620,91 @@ exports.actions = {
     "Tell her you're sorry.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "apologize", 2);
         raffle.add(possible_outcomes, "apologize_and_die", 1);
+        return possible_outcomes;
+    },
+
+    "Tell the first person you meet that you're Lord Arthur.": 
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "no_one_believes_you", 1);
+        switch (game_state.character.place) {
+            case "lord_bartholomew_manor":
+                raffle.add(possible_outcomes, "", 1);
+                break;
+            case "lord_carlos_manor":
+                raffle.add(possible_outcomes, "", 1);
+                break;
+            case "tower":
+                raffle.add(possible_outcomes, "", 1);
+                break;
+        }
+        return possible_outcomes;
+    },
+
+    "Tell the first person you meet that you're Lord Bartholomew.": 
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "no_one_believes_you", 1);
+        switch (game_state.character.place) {
+            case "lord_bartholomew_manor":
+                raffle.add(possible_outcomes, "", 1);
+                break;
+            case "lord_carlos_manor":
+                raffle.add(possible_outcomes, "", 1);
+                break;
+            case "tower":
+                raffle.add(possible_outcomes, "", 1);
+                break;
+        }
+        return possible_outcomes;
+    },
+
+    "Tell the first person you meet that you're Lord Carlos.": 
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "no_one_believes_you", 1);
+        switch (game_state.character.place) {
+            case "lord_bartholomew_manor":
+                raffle.add(possible_outcomes, "", 1);
+                break;
+            case "lord_carlos_manor":
+                raffle.add(possible_outcomes, "", 1);
+                break;
+            case "tower":
+                raffle.add(possible_outcomes, "", 1);
+                break;
+        }
+        return possible_outcomes;
+    },
+
+    "Tell the first person you meet that you're Lord Daniel.": 
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "no_one_believes_you", 1);
+        switch (game_state.character.place) {
+            case "lord_bartholomew_manor":
+                raffle.add(possible_outcomes, "", 1);
+                break;
+            case "lord_carlos_manor":
+                raffle.add(possible_outcomes, "", 1);
+                break;
+            case "tower":
+                raffle.add(possible_outcomes, "", 1);
+                break;
+        }
+        return possible_outcomes;
+    },
+
+    "Tell the first person you meet that you're St. George.": 
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "no_one_believes_you", 1);
+        switch (game_state.character.place) {
+            case "lord_bartholomew_manor":
+                raffle.add(possible_outcomes, "", 1);
+                break;
+            case "lord_carlos_manor":
+                raffle.add(possible_outcomes, "", 1);
+                break;
+            case "tower":
+                raffle.add(possible_outcomes, "", 1);
+                break;
+        }
         return possible_outcomes;
     },
 

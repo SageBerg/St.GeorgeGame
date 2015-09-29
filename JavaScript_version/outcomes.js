@@ -3775,6 +3775,11 @@ var outcomes = {
         return game_state;
     },
 
+    "no_one_believes_you": function(game_state) {
+        game_state.message = "No one believes you.";
+        return game_state;
+    },
+
     "no_one_cares": function(game_state) {
         game_state.message = "You sing your favorite song. No one cares.";
         return game_state;

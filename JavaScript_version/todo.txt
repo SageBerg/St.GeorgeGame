@@ -1,9 +1,5 @@
 content:
-    add suck up to
     tell someone you're so-and-so
-
-    more deaths for kill yourself
-    arm wrestle pirates
 
 technical:
     host on AWS
@@ -35,4 +31,4 @@ play testing:
 style: (do at the end)
     lint the game
     spell check the game
-    make sure my style is consistent accross the board
+    make sure my code style is consistent accross the board
