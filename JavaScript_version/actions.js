@@ -43,6 +43,14 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Challenge them to an arm wrestling match to reclaim your dignity.":
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "arm_wrestle_and_impressment", 1);
+        raffle.add(possible_outcomes, "arm_wrestle_pirates", 1);
+        raffle.add(possible_outcomes, "arm_wrestle_pirates_ocean", 1);
+        return possible_outcomes;
+    },
+
     "Ask about assassins.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "assassinated", 1);
         if (game_state.character.place === "tavern") {

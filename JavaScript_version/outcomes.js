@@ -382,6 +382,26 @@ var outcomes = {
         return game_state;
     },
 
+    "arm_wrestle_and_impressment": function(game_state) {
+        game_state.message = "You manage to hold out long enough for Lord " +
+            "Arthur to bark orders at his men to press-gang hands for the " +
+            "voyage.";
+        move_character(game_state, "pirate_ship");
+        return game_state;
+    },
+
+    "arm_wrestle_pirates": function(game_state) {
+        game_state.message = "You lose what little dignity you had left.";
+        return game_state;
+    },
+
+    "arm_wrestle_pirates_ocean": function(game_state) {
+        game_state.message = "Even the lady pirates can easily beat you. " +
+            "They toss you in the ocean when they're done humiliating you.";
+        move_character(game_state, "ocean");
+        return game_state;
+    },
+
     "arrive_at_mermaid_rock": function(game_state) {
         game_state.message = "A mermaid guides you to a rocky island.";
         move_character(game_state, "mermaid_rock");

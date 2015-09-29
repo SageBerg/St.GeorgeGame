@@ -376,7 +376,6 @@ function get_outcome_options(game_state, options) {
         case "fail_to_find_mermaids":
         case "fail_to_steal_keys":
         case "find_st_george_instead":
-        case "fish_pirates_laugh":
         case "ignored":
         case "lose_ax":
         case "miss_olga":
@@ -389,7 +388,6 @@ function get_outcome_options(game_state, options) {
         case "priest_disagrees":
         case "see_ship":
         case "sunburnt":
-        case "think_pirates_laugh":
         case "think_think_think":
         case "train_thrown_out":
         case "trash_nothing":
@@ -409,6 +407,15 @@ function get_outcome_options(game_state, options) {
             raffle.add(options.c, "Run like the Devil.", 1000);
             break;
 
+        case "chess_lose_to_pirates":
+        case "fish_pirates_laugh":
+        case "think_pirates_laugh":
+            raffle.add(options.a, "Kill yourself in frustration.", 1);
+            raffle.add(options.a, "Kill everybody in a fit of rage.", 1);
+            raffle.add(options.d, "Challenge them to an arm wrestling match " +
+                "to reclaim your dignity.", 15);
+            break;
+
         case "directions_to_manor":
         case "directions_to_town":
         case "directions_to_woods":
@@ -425,7 +432,6 @@ function get_outcome_options(game_state, options) {
             raffle.add(options.a, "Say you love her too.", 10000);
             break;
 
-        case "fish_pirates_laugh":
         case "gambling_lose":
         case "peasants_laugh_at_you":
             raffle.add(options.a, "Kill everybody in a fit of rage.", 1);
