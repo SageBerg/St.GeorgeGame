@@ -226,6 +226,9 @@ function set_b(game_state) {
         $("#b").text("b. Show " + 
             game_state.persons[game_state.character.person].name +
             " your shiny foreign coin.");
+    } else if (game_state.options.b === "SUCK_UP") {
+        $("#b").text("b. Suck up to " + 
+            game_state.persons[game_state.character.person].name + ".");
     } else {
         $("#b").text("b. " + game_state.options.b);
     }

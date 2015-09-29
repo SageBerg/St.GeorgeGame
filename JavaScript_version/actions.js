@@ -1523,6 +1523,42 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "SUCK_UP": function(game_state, possible_outcomes) {
+        switch (game_state.character.person) {
+            case "lord_arthur":
+                raffle.add(possible_outcomes, 
+                    "suck_up_to_lord_arthur_cutlass", 1);
+                raffle.add(possible_outcomes, 
+                    "suck_up_to_lord_arthur_ocean", 1);
+                break;
+            case "lord_bartholomew":
+                raffle.add(possible_outcomes, 
+                    "suck_up_to_lord_bartholomew", 1);
+                raffle.add(possible_outcomes, 
+                    "suck_up_to_lord_bartholomew_countryside", 1);
+                raffle.add(possible_outcomes, 
+                    "suck_up_to_lord_bartholomew_pitchfork", 1);
+                break;
+            case "lord_carlos":
+                raffle.add(possible_outcomes, 
+                    "suck_up_to_lord_carlos_and_die", 1);
+                raffle.add(possible_outcomes, 
+                    "suck_up_to_lord_carlos_woods", 1);
+                break;
+            case "lord_daniel":
+                raffle.add(possible_outcomes, 
+                    "suck_up_to_lord_daniel", 1);
+                raffle.add(possible_outcomes, 
+                    "suck_up_to_lord_daniel_hammer", 1);
+                raffle.add(possible_outcomes, 
+                    "suck_up_to_lord_daniel_streets", 1);
+                break;
+            default:
+                raffle.add(possible_outcomes, "universe_blows_up", 1);
+        }
+        return possible_outcomes;
+    },
+
     "Sun yourself on a rock.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "bronzed", 1);
         raffle.add(possible_outcomes, "eaten_by_roc", 1);
@@ -1784,7 +1820,7 @@ exports.actions = {
                 raffle.add(possible_outcomes, "caught_like_god", 9);
             }
         } else {
-            //there must always be at least one outcome added to the raffle
+            // there must always be at least one outcome added to the raffle
             raffle.add(possible_outcomes, "universe_blows_up", 1);
         }
         return possible_outcomes;

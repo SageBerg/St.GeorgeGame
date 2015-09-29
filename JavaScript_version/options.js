@@ -276,8 +276,13 @@ function get_person_options(game_state, options) {
             raffle.add(options.d, "FLIRT_WITH", 100);
             break;
 
+        case "lord_arthur":
+            raffle.add(options.b, "SUCK_UP", 10);
+            break;
+
         case "lord_bartholomew":
-            raffle.add(options.c, "Ask for asylum.", 10);
+            raffle.add(options.a, "Ask for asylum.", 10);
+            raffle.add(options.b, "SUCK_UP", 10);
             raffle.add(options.c, "Chat with Lord Bartholomew.", 10);
             raffle.add(options.d, 
                 "Challenge Lord Bartholomew to a game of chess.", 10);
@@ -288,6 +293,7 @@ function get_person_options(game_state, options) {
                 game_state.character.money === "small_fortune") {
                 raffle.add(options.a, "Repay your debts.", 10);
             }
+            raffle.add(options.b, "SUCK_UP", 5);
             raffle.add(options.b, "Grovel.", 10);
             raffle.add(options.c,  
                 "Challenge Lord Carlos to a game of chess.", 15);
@@ -296,6 +302,7 @@ function get_person_options(game_state, options) {
             break;
 
         case "lord_daniel":
+            raffle.add(options.b, "SUCK_UP", 10);
             raffle.add(options.c, "Complain about unfair imprisonment.", 10);
             break;
 
@@ -536,6 +543,10 @@ function get_outcome_options(game_state, options) {
 
         case "see_wizard_with_penguins":
             raffle.add(options.a, "Yell, \"Don't leave without me!\"", 10000);
+            break;
+
+        case "suck_up_to_lord_arthur_ocean":
+            raffle.add(options.a, "Look for sea turtles.", 10000);
             break;
 
         case "think_four_ideas":

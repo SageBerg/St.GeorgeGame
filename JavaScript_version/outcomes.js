@@ -4694,6 +4694,75 @@ var outcomes = {
         return game_state;
     },
 
+    "suck_up_to_lord_arthur_cutlass": function(game_state) {
+        game_state.message = "Lord Arthur rewards you for your subservience.";
+        get_weapon(game_state, "cutlass");
+        return game_state;
+    },
+
+    "suck_up_to_lord_arthur_ocean": function(game_state) {
+        game_state.message = "Lord Arthur sends you on a special mission to " +
+            "to find sea turtles.";
+        move_character(game_state, "ocean");
+        return game_state;
+    },
+
+    "suck_up_to_lord_bartholomew": function(game_state) {
+        game_state.message = "Lord Bartholomew tells you that you need to " +
+            "take more pride in yourself.";
+        return game_state;
+    },
+
+    "suck_up_to_lord_bartholomew_countryside": function(game_state) {
+        game_state.message = "Lord Bartholomew wishes you well and sends " +
+            "you on your way.";
+        move_character(game_state, "countryside");
+        return game_state;
+    },
+
+    "suck_up_to_lord_bartholomew_pitchfork": function(game_state) {
+        game_state.message = "Lord Bartholomew takes a liking to you " +
+            "and gives you a weapon to defend yourself against Lord " +
+            "Daniel's men.";
+        get_weapon(game_state, "long_pitchfork");
+        return game_state;
+    },
+
+    "suck_up_to_lord_carlos_and_die": function(game_state) {
+        game_state.message = "Lord Carlos is not flattered."
+        die(game_state);
+        return game_state;
+    },
+
+    "suck_up_to_lord_carlos_woods": function(game_state) {
+        game_state.message = "Lord Carlos is disgusted by your subservience " +
+            "and has his men throw you out a window."
+        move_character(game_state, "woods");
+        return game_state;
+    },
+
+    "suck_up_to_lord_daniel": function(game_state) {
+        game_state.message = "Lord Daniel is annoyed that you're wasting " +
+            "his time.";
+        return game_state;
+    },
+
+    "suck_up_to_lord_daniel_hammer": function(game_state) {
+        game_state.message = "Lord Daniel takes a liking to you and gives " +
+            "you a job as a guard. He tells you to arrest any lunatics you " +
+            "find, but his definition of \"lunatic\" is a little unclear.";
+        get_weapon(game_state, "hammer");
+        move_character(game_state, "streets");
+        return game_state;
+    },
+
+    "suck_up_to_lord_daniel_streets": function(game_state) {
+        game_state.message = "Lord Daniel sees through your brown-nosing " +
+            "and sends you away.";
+        move_character(game_state, "streets");
+        return game_state;
+    },
+
     "sunbathe_with_mermaid": function(game_state) {
         game_state.message = "When you open your eyes, you see a mermaid " +
             "sunbathing next to you.";
