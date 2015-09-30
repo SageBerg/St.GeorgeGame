@@ -88,7 +88,7 @@ function set_destination(game_state, outcome) {
 
 function stop_tripping(game_state) {
     if (game_state.character.is_tripping && 
-        Math.floor(Math.random() * 4) === 0) {
+        Math.floor(Math.random() * 8) === 0) {
         game_state.character.is_tripping = false; 
     }
 }
@@ -102,7 +102,7 @@ function validate(game_state, conditions) {
          typeof(places[game_state.destination]) === "object"), 
 
         // TODO fix for_sell system and its validation
-        typeof(game_state.for_sell)    === "string",
+        typeof(game_state.for_sell) === "string",
 
         typeof(game_state.message) === "string",
 

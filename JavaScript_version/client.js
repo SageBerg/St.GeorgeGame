@@ -148,9 +148,12 @@ function request_outcome_of_action(action) {
 // http://stackoverflow.com/questions/2450954/
 //        how-to-randomize-shuffle-a-javascript-array
 function scramble(text) {
-    for (var i in "?\"\'!.,:;") {
-        text = text.replace("?\"\'!.,:;"[i], "");
-    }
+    text = text.replace(/\./g, "");
+    text = text.replace(/,/g, "");
+    text = text.replace(/\?/g, "");
+    text = text.replace(/!/g, "");
+    text = text.replace(/"/g, "");
+
     text = text.toLowerCase();
     var array = text.split(" ");
     var current_index = array.length, temporary_value, random_index ;
@@ -330,20 +333,21 @@ function set_e(game_state) {
 
 function set_message(game_state) {
     if (game_state.character.is_tripping) {
-        document.getElementById("message").innerHTML = 
-        scramble(game_state.message);
+        $("#message").text(scramble(game_state.message));
     } else {
-        document.getElementById("message").innerHTML = game_state.message;
+        $("#message").text(game_state.message);
     }
 }
 
 var weapons_map = {
-    "dagger": "dagger",
-    "poison_dagger": "poison dagger",
     "cutlass": "cutlass",
-    "jeweled_cutlass": "jeweled cutlass",
+    "dagger": "dagger",
     "hammer": "hammer",
-    "iron_hammer": "iron hammer"
+    "iron_hammer": "iron hammer",
+    "jeweled_cutlass": "jeweled cutlass",
+    "pitchfork": "pitchfork",
+    "long_pitchfork": "long pitchfork",
+    "poison_dagger": "poison dagger",
 }
 
 $(document).ready(request_initial_world);
