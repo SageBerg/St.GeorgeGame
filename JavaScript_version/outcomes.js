@@ -205,7 +205,8 @@ function teleport(game_state) {
     for (var place in game_state.places) {
         if (game_state.places[place] !== 
             game_state.places[game_state.character.place] &&
-            place !== "void") {
+            place !== "upstairs" &&
+            place !== "void") { 
             place_list.push(place);
         }
     }
