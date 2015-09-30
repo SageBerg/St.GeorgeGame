@@ -251,7 +251,7 @@ exports.actions = {
         return possible_outcomes;
     },
 
-    "Buy a weapon.": function(game_state, possible_outcomes) {
+    "BUY_WEAPON": function(game_state, possible_outcomes) {
         if (items.money_map[items.weapons_map[game_state.for_sell].cost].value 
             <= items.money_map[game_state.character.money].value) {
             raffle.add(possible_outcomes, "buy_a_weapon", 1);
