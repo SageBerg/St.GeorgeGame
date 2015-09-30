@@ -63,6 +63,14 @@ function get_item(game_state) {
     return item;
 }
 
+function get_person_name(game_state) {
+    return game_state.persons[game_state.character.person].name;
+}
+
+function get_place_name(game_state) {
+    return game_state.places[game_state.character.place].name;
+}
+
 function get_weapon(game_state) {
     var weapons = game_state.persons[game_state.character.person].sells;
     var weapon  = weapons[random_int(weapons.length)];
@@ -164,87 +172,111 @@ function scramble(text) {
 }
 
 function set_a(game_state) {
-    if (game_state.options.a === "ATTACK") {
-        $("#a").text("a. Attack " + 
-            game_state.persons[game_state.character.person].name + ".");
-    } else if (game_state.options.a === "GIVE_HER_CAT") {
-        var cat = "your cat";
-        if (game_state.character.items["cat"] > 1) {
-            cat = "one of your cats";
-        }
-        $("#a").text("a. Give " + 
-            game_state.persons[game_state.character.person].name + cat + ".");
-    } else if (game_state.options.a === "MARRY") {
-        $("#a").text("a. Marry " + 
-            game_state.persons[game_state.character.person].name + ".");
-    } else if (game_state.options.a === "Think." &&
-               game_state.action === "Think.") {
-        $("#a").text("a. Think some more.");
-    } else if (game_state.options.a === "YELL_A_PIRATE_PHRASE") {
-        $("#a").text("a. Yell, \"" + 
-            random_choice([
-                "Ahoy",
-                "All hands on deck",
-                "Arr Matey",
-                "Avast",
-                "Aye Aye",
-                "Dead men tell no tales",
-                "Hoist the Jolly Roger",
-                "Land ho",
-                "Send 'em to Davy Jones' locker",
-                "Shiver me timbers",
-                "Thare she blows",
-                "Walk the plank",
-                "X marks the spot",
-                "Yo, ho, ho, and a bottle of rum",
-            ]) + "!\"");
-    } else {
-        $("#a").text("a. " + game_state.options.a);
+    switch (game_state.options.a) {
+        case "ATTACK":
+            $("#a").text("a. Attack " + get_person_name(game_state) + ".");
+            break;
+
+        case "GIVE_HER_CAT":
+            var cat = "your cat";
+            if (game_state.character.items["cat"] > 1) {
+                cat = "one of your cats";
+            }
+            $("#a").text("a. Give " + get_person_name(game_state) + cat + ".");
+            break;
+
+        case "MARRY":
+            $("#a").text("a. Marry " + get_person_name(game_state) + ".");
+            break;
+
+        case "Think.":
+            if (game_state.action === "Think.") {
+                $("#a").text("a. Think some more.");
+            } else {
+                $("#a").text("a. Think.");
+            }
+            break;
+
+        case "YELL_A_PIRATE_PHRASE":
+            $("#a").text("a. Yell, \"" + 
+                random_choice([
+                    "Ahoy",
+                    "All hands on deck",
+                    "Arr Matey",
+                    "Avast",
+                    "Aye Aye",
+                    "Dead men tell no tales",
+                    "Hoist the Jolly Roger",
+                    "Land ho",
+                    "Send 'em to Davy Jones' locker",
+                    "Shiver me timbers",
+                    "Thare she blows",
+                    "Walk the plank",
+                    "X marks the spot",
+                    "Yo, ho, ho, and a bottle of rum",
+                ]) + "!\"");
+            break;
+
+        default:
+            $("#a").text("a. " + game_state.options.a);
     }
 }
 
 function set_b(game_state) {
-    if (game_state.options.b === "BURN") {
-        $("#b").text("b. Burn " + 
-            game_state.places[game_state.character.place].name + 
-            " to the ground.");
-    } else if (game_state.options.b === "GIVE_FLOWERS") {
-        if (game_state.character.place === "prison") {
-            if (game_state.persons.felicity.name === "the fat lady") {
-                $("#b").text("b. Give the fat lady who feeds you a bouquet " +
-                    "of flowers.");
+    switch (game_state.options.b) {
+        case "BURN":
+            $("#b").text("b. Burn " +  get_place_name(game_state) +
+                " to the ground.");
+            break;
+
+        case "GIVE_FLOWERS":
+            if (game_state.character.place === "prison") {
+                if (game_state.persons.felicity.name === "the fat lady") {
+                    $("#b").text("b. Give the fat lady who feeds you a " +
+                        "bouquet of flowers.");
+                } else {
+                    $("#b").text("b. Give Felicity your bouquet of flowers.");
+                }
             } else {
-                $("#b").text("b. Give Felicity your bouquet of flowers.");
+                $("#b").text("b. Give her your bouquet of flowers.");
             }
-        } else {
-            $("#b").text("b. Give her your bouquet of flowers.");
-        }
-    } else if (game_state.options.b === "LOVE_POTION") {
-        $("#b").text("b. Use your love potion on " +
-            game_state.persons[game_state.character.person].name + ".");
-    } else if (game_state.options.b === "SHOW_COIN") {
-        $("#b").text("b. Show " + 
-            game_state.persons[game_state.character.person].name +
-            " your shiny foreign coin.");
-    } else if (game_state.options.b === "SUCK_UP") {
-        $("#b").text("b. Suck up to " + 
-            game_state.persons[game_state.character.person].name + ".");
-    } else {
-        $("#b").text("b. " + game_state.options.b);
+            break;
+
+        case "LOVE_POTION":
+            $("#b").text("b. Use your love potion on " + 
+                get_person_name(game_state) + ".");
+            break;
+
+        case "SHOW_COIN":
+            $("#b").text("b. Show " + get_person_name(game_state) + 
+                " your shiny foreign coin.");
+            break;
+
+        case "SUCK_UP":
+            $("#b").text("b. Suck up to " + get_person_name(game_state) + ".");
+            break;
+
+        default:
+            $("#b").text("b. " + game_state.options.b);
     }
 }
 
 function set_c(game_state) {
     if (game_state.options.c !== "") {
-        if (game_state.options.c === "GO_TO") {
-            var dest = game_state.destination;
-            $("#c").text("c. Go to " + game_state.places[dest].name + ".");
-        } else if (game_state.options.c === "GO_SHOPPING") {
-            var item = get_item(game_state);
-            $("#c").text("c. Buy " + a_or_an(item[0]) + " " + item + ".");
-            game_state.for_sell = item;
-        } else {
-            $("#c").text("c. " + game_state.options.c);
+        switch (game_state.options.c) {
+            case "GO_TO":
+                var dest = game_state.destination;
+                $("#c").text("c. Go to " + game_state.places[dest].name + ".");
+                break;
+
+            case "GO_SHOPPING":
+                var item = get_item(game_state);
+                $("#c").text("c. Buy " + a_or_an(item[0]) + " " + item + ".");
+                game_state.for_sell = item;
+                break;
+
+            default:
+                $("#c").text("c. " + game_state.options.c);
         }
     } else {
         $("#c").text("");
@@ -253,22 +285,35 @@ function set_c(game_state) {
 
 function set_d(game_state) {
     if (game_state.options.d !== "") {
-        if (game_state.options.d === "Buy a weapon.") {
-            var weapon = get_weapon(game_state);
-            $("#d").text("d. Buy " + a_or_an(weapons_map[weapon][0]) + " " +
-                weapons_map[weapon] + ".");
-            game_state.for_sell = weapon;
-        } else if (game_state.options.d === "FLIRT_WITH") {
-            $("#d").text("d. Flirt with " +
-                game_state.persons[game_state.character.person].name + ".");
-        } else if (game_state.options.d === "Sing a song." &&
-                   game_state.topic !== null) {
-            $("#d").text("d. Sing a song about " + game_state.topic + ".");
-        } else if (game_state.options.d === "TELL_GUARDS") {
-            $("#d").text("d. Tell the guards you're not a lunatic, you're " +
-                "just " + game_state.character.excuse + ".");
-        } else {
-            $("#d").text("d. " + game_state.options.d);
+        switch (game_state.options.d) {
+            case "BUY_WEAPON": 
+                var weapon = get_weapon(game_state);
+                $("#d").text("d. Buy " + a_or_an(weapons_map[weapon][0]) + " " +
+                    weapons_map[weapon] + ".");
+                game_state.for_sell = weapon;
+                break;
+
+            case "FLIRT_WITH":
+                $("#d").text("d. Flirt with " + 
+                    get_person_name(game_state) + ".");
+                break;
+
+            case "Sing a song.":
+                if (game_state.topic !== null) {
+                    $("#d").text("d. Sing a song about " + 
+                        game_state.topic + ".");
+                } else {
+                    $("#d").text("d. Sing a song.");
+                }
+                break;
+
+            case "TELL_GUARDS":
+                $("#d").text("d. Tell the guards you're not a lunatic, " +
+                    "you're just " + game_state.character.excuse + ".");
+                break;
+
+            default:
+                $("#d").text("d. " + game_state.options.d);
         }
     } else {
         $("#d").text("");
