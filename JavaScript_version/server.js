@@ -53,12 +53,11 @@ function respond_with_outcome(req, res) {
         var game_state     = req.query;
         game_state         = destringify(game_state);
         game_state.topic   = null;
-        var old_outcome    = game_state.outcome;
         var outcome        = outcomes.get_outcome(game_state);
         game_state.outcome = outcome;
         game_state         = outcomes.apply_outcome(outcome, game_state);
         game_state.options = options.get_options(game_state);
-        set_destination(game_state, old_outcome);
+        set_destination(game_state, outcome);
         game_state.score   = parseInt(game_state.score) + 1;
         stop_tripping(game_state);
         res.json(game_state);
@@ -67,9 +66,9 @@ function respond_with_outcome(req, res) {
     }
 }
 
-function set_destination(game_state, old_outcome) {
+function set_destination(game_state, outcome) {
     if (game_state.options.c === "GO_TO") {
-        switch (old_outcome) {
+        switch (outcome) {
             case "directions_to_manor":
                 game_state.destination = "lord_bartholomew_manor";
                 break;
