@@ -1429,6 +1429,57 @@ var outcomes = {
         return game_state;
     },
 
+    "disguise_and_arrested": function(game_state) {
+        game_state.message = "The guards tell you that you must be a " +
+            "lunatic to say you're Lord Bartholomew. They arrest you and " +
+            "throw you in prison with the other lunatics.";
+        arrested(game_state);
+        return game_state;
+    },
+
+    "disguise_daniel_die": function(game_state) {
+        game_state.message = "You tell a group of servants that you're Lord " +
+            "Daniel. Unfortunately, they believe you.";
+        die(game_state);
+        return game_state;
+    },
+
+    "disguise_and_die": function(game_state) {
+        game_state.message = "You tell an assassin that you're Lord " +
+            "Carlos. He isn't fooled for a second.";
+        die(game_state);
+        return game_state;
+    },
+
+    "disguise_guards_laugh": function(game_state) {
+        game_state.message = "The guards laugh at you. \"You don't look " +
+            "anything like him,\" one of the guards says.";
+        return game_state;
+    },
+
+    "disguise_meet_lord_bartholomew": function(game_state) {
+        game_state.message = "You are quickly granted an audience with Lord " +
+            "Bartholomew, he's annoyed that you tricked him, but he " +
+            "forgives you.";
+        game_state.character.person = "lord_bartholomew";
+        return game_state;
+    },
+
+    "disguise_meet_lord_carlos": function(game_state) {
+        game_state.message = "You are soon taken to Lord Carlos. He is " +
+            "livid when he discovers you're an imposter.";
+        game_state.character.is_threatened = true;
+        game_state.character.person = "lord_carlos";
+        return game_state;
+    },
+
+    "disguise_meet_lord_daniel": function(game_state) {
+        game_state.message = "The guards take you to Lord Daniel. He is not " +
+            "pleased to discover that you're a fraud.";
+        game_state.character.person = "lord_daniel";
+        return game_state;
+    },
+
     "distasteful": function(game_state) {
         game_state.message = "You find the flavor of the ground distasteful.";
         return game_state;
@@ -3776,7 +3827,16 @@ var outcomes = {
     },
 
     "no_one_believes_you": function(game_state) {
-        game_state.message = "No one believes you.";
+        var messages = [
+            "No one believes you.",
+            "You can't convince anyone, not even yourself.",
+            "You tell a servant, but she doesn't believe you.",
+            "You tell a servant, but your cringeworthy acting isn't " +
+            "fooling anyone.",
+            "You tell a small child, but she says you're stupid and runs " +
+            "away yelling, \"na-na na na-na.\"",
+        ];
+        game_state.message = functions.random_choice(messages);
         return game_state;
     },
 

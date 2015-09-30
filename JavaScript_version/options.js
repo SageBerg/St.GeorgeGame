@@ -168,10 +168,10 @@ function get_item_options(game_state, options) {
 
     if (game_state.character.items["bouquet of flowers"] > 0 && 
         (game_state.character.person === "eve" ||
-        game_state.character.person === "mermaid" ||
-        game_state.character.person === "nymph_queen" ||
-        game_state.character.person === "olga" ||
-        game_state.character.place === "prison")) {
+         game_state.character.person === "mermaid" ||
+         game_state.character.person === "nymph_queen" ||
+         game_state.character.person === "olga" ||
+         game_state.character.place === "prison")) {
         raffle.add(options.b, "GIVE_FLOWERS", 100);
     }
 
@@ -430,6 +430,12 @@ function get_outcome_options(game_state, options) {
             raffle.add(options.c, "GO_TO", 1000);
             break;
 
+        case "disguise_guards_laugh":
+        case "gambling_lose":
+        case "peasants_laugh_at_you":
+            raffle.add(options.a, "Kill everybody in a fit of rage.", 1);
+            break;
+  
         case "fail_to_save_cat":
             raffle.add(options.a, "Kill yourself in frustration.", 2);
             raffle.add(options.d, 
@@ -440,11 +446,6 @@ function get_outcome_options(game_state, options) {
             raffle.add(options.a, "Say you love her too.", 10000);
             break;
 
-        case "gambling_lose":
-        case "peasants_laugh_at_you":
-            raffle.add(options.a, "Kill everybody in a fit of rage.", 1);
-            break;
-  
         case "guards_stop_you_dancing":
             game_state.character.excuse = "happy";
             raffle.add(options.d, "TELL_GUARDS", 10000);

@@ -1628,13 +1628,22 @@ exports.actions = {
         raffle.add(possible_outcomes, "no_one_believes_you", 1);
         switch (game_state.character.place) {
             case "lord_bartholomew_manor":
-                raffle.add(possible_outcomes, "", 1);
+                if (game_state.persons.lord_bartholomew.alive === true) {
+                    raffle.add(possible_outcomes, 
+                        "disguise_meet_lord_bartholomew", 1);
+                }
                 break;
             case "lord_carlos_manor":
-                raffle.add(possible_outcomes, "", 1);
+                if (game_state.persons.lord_carlos.alive === true) {
+                raffle.add(possible_outcomes, 
+                    "disguise_meet_lord_carlos", 1);
+                }
                 break;
             case "tower":
-                raffle.add(possible_outcomes, "", 1);
+                if (game_state.persons.lord_daniel.alive === true) {
+                    raffle.add(possible_outcomes,
+                        "disguise_meet_lord_daniel", 1);
+                }
                 break;
         }
         return possible_outcomes;
@@ -1644,14 +1653,14 @@ exports.actions = {
         function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "no_one_believes_you", 1);
         switch (game_state.character.place) {
-            case "lord_bartholomew_manor":
-                raffle.add(possible_outcomes, "", 1);
-                break;
             case "lord_carlos_manor":
-                raffle.add(possible_outcomes, "", 1);
+                if (game_state.persons.lord_bartholomew.alive === true) {
+                    raffle.add(possible_outcomes, 
+                        "disguise_meet_lord_carlos", 1);
+                }
                 break;
             case "tower":
-                raffle.add(possible_outcomes, "", 1);
+                raffle.add(possible_outcomes, "disguise_and_arrested", 1);
                 break;
         }
         return possible_outcomes;
@@ -1662,13 +1671,19 @@ exports.actions = {
         raffle.add(possible_outcomes, "no_one_believes_you", 1);
         switch (game_state.character.place) {
             case "lord_bartholomew_manor":
-                raffle.add(possible_outcomes, "", 1);
+                if (game_state.persons.lord_bartholomew.alive === true) {
+                    raffle.add(possible_outcomes, 
+                        "disguise_meet_lord_bartholomew", 1);
+                }
                 break;
             case "lord_carlos_manor":
-                raffle.add(possible_outcomes, "", 1);
+                raffle.add(possible_outcomes, "disguise_and_die", 3);
                 break;
             case "tower":
-                raffle.add(possible_outcomes, "", 1);
+                if (game_state.persons.lord_daniel.alive === true) {
+                    raffle.add(possible_outcomes,
+                        "disguise_meet_lord_daniel", 1);
+                }
                 break;
         }
         return possible_outcomes;
@@ -1679,13 +1694,13 @@ exports.actions = {
         raffle.add(possible_outcomes, "no_one_believes_you", 1);
         switch (game_state.character.place) {
             case "lord_bartholomew_manor":
-                raffle.add(possible_outcomes, "", 1);
+                raffle.add(possible_outcomes, "disguise_daniel_die", 1);
                 break;
             case "lord_carlos_manor":
-                raffle.add(possible_outcomes, "", 1);
+                raffle.add(possible_outcomes, "disguise_meet_lord_carlos", 1);
                 break;
             case "tower":
-                raffle.add(possible_outcomes, "", 1);
+                raffle.add(possible_outcomes, "disguise_guards_laugh", 1);
                 break;
         }
         return possible_outcomes;
@@ -1696,13 +1711,22 @@ exports.actions = {
         raffle.add(possible_outcomes, "no_one_believes_you", 1);
         switch (game_state.character.place) {
             case "lord_bartholomew_manor":
-                raffle.add(possible_outcomes, "", 1);
+                if (game_state.persons.lord_bartholomew.alive === true) {
+                    raffle.add(possible_outcomes, 
+                        "disguise_meet_lord_bartholomew", 1);
+                }
                 break;
             case "lord_carlos_manor":
-                raffle.add(possible_outcomes, "", 1);
+                if (game_state.persons.lord_carlos.alive === true) {
+                raffle.add(possible_outcomes, 
+                    "disguise_meet_lord_carlos", 1);
+                }
                 break;
             case "tower":
-                raffle.add(possible_outcomes, "", 1);
+                if (game_state.persons.lord_daniel.alive === true) {
+                    raffle.add(possible_outcomes,
+                        "disguise_meet_lord_daniel", 1);
+                }
                 break;
         }
         return possible_outcomes;
