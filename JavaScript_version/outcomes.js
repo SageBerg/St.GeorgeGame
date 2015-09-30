@@ -20,10 +20,12 @@ exports.get_outcome = function get_outcome(game_state) {
         game_state.action !== "Challenge Lord Carlos to a game of chess." &&
         game_state.action !== "E4." &&
         game_state.action !== "Enter the void." &&
+        game_state.action !== "Grovel." &&
         game_state.action !== "Leave in a puff." &&
         game_state.action !== "Nf3." &&
         game_state.action !== "Panic!" &&
         game_state.action !== "Play dead." &&
+        game_state.action !== "Repay your debts." &&
         game_state.action !== "Run like the Devil." &&
         game_state.action !== "TELL_GUARDS" &&
         game_state.action !== "Try to reason with the mob." &&
@@ -1172,11 +1174,14 @@ var outcomes = {
 
     "complaining_is_useless": function(game_state) {
         var messages = [
-            "A bureaucrat says she'll let Lord Daniel know of your " +
-            "concerns.",
             "A cook assures you that Lord Bartholomew will set things " +
             "right.",
         ];
+        if (game_state.persons.lord_daniel.alive === true) {
+            messages.push(
+            "A bureaucrat says she'll let Lord Daniel know of your " +
+            "concerns.");
+        }
         game_state.message = functions.random_choice(messages);
         return game_state;
     },
@@ -2375,7 +2380,8 @@ var outcomes = {
     "get_punished": function(game_state) {
         var messages = [
             "Lord Arthur punishes you for your " +
-            functions.random_choice(["brashness", "incompetence", "recklessness"]) +
+            functions.random_choice(["brashness", "incompetence", 
+                                     "recklessness"]) +
             " by " + 
             functions.random_choice([
                 "beating you with his cat. The cat is more traumatized " +
@@ -3438,29 +3444,44 @@ var outcomes = {
     "married": function(game_state) {
         if (game_state.character.person === "olga") {
             var messages = [
-                "Lord Bartholomew performs a wedding for you and Olga in " +
-                "the countryside. 20,000 people attend your wedding, but " +
-                "you suspect they just wanted to see Lord Bartholomew.",
-                "The wizard performs a wedding for you and Olga in the " +
-                "market. He turns you both into sheep after the vows, but " +
-                "it's much safer being sheep.",
-                "Lord Arthur performs a wedding for you and Olga on the " +
-                "deck of his pirate ship. By the time the ceremony is over, " +
-                "the ship has sailed. You are now both members of the crew.",
                 "A bleary-eyed priestess performs a wedding for you and " +
                 "Olga in an alley behind the church. Olga asks the " +
                 "priestess if she would like to come along for the " +
                 "honeymoon, but the priestess declines.",
             ];
+            if (game_state.persons.lord_arthur.alive === true) {
+                messages.push(
+                "Lord Arthur performs a wedding for you and Olga on the " +
+                "deck of his pirate ship. By the time the ceremony is over, " +
+                "the ship has sailed. You are now both members of the crew."
+                );
+            }
+            if (game_state.persons.lord_bartholomew.alive === true) {
+                messages.push(
+                "Lord Bartholomew performs a wedding for you and Olga in " +
+                "the countryside. 20,000 people attend your wedding, but " +
+                "you suspect they just wanted to see Lord Bartholomew."
+                );
+            }
+            if (game_state.persons.wizard.alive === true) {
+                messages.push(
+                "The wizard performs a wedding for you and Olga in the " +
+                "market. He turns you both into sheep after the vows, but " +
+                "it's much safer being sheep."
+                );
+            }
             game_state.message = functions.random_choice(messages);
             game_state.character.has_found_true_love = true;
             game_state.message += " You and Olga live happily ever after.";
         }
 
         if (game_state.character.person === "felicity") {
-            var messages = [
-                "St. George secretly performs your wedding.",
-            ];
+            var messages = [];
+            if (game_state.persons.st_george.alive === true) {
+                messages.push("St. George secretly performs your wedding.");
+            } else {
+                messages.push("A priestess secretly performs your wedding.");
+            }
             game_state.message = functions.random_choice(messages);
             game_state.character.has_found_true_love = true;
             game_state.message += " You and Felicity live happily ever after.";
@@ -3522,7 +3543,8 @@ var outcomes = {
 
     "meet_nymph_queen": function(game_state) {
         game_state.message = "You find the nymph queen " +
-            functions.random_choice(["doing tai chi in a meadow", "feeding a stag",
+            functions.random_choice(["doing tai chi in a meadow", 
+                           "feeding a stag",
                            "levitating above a pond",
                            "tanning in a ray of sunshine",
                            "teaching a goblin to read",
@@ -3538,7 +3560,7 @@ var outcomes = {
     "meet_olga": function(game_state) {
         if (game_state.persons.olga.name === "the pretty lady") {
             game_state.message = 
-            "During your investigation, you strike up a conversation with " +                
+            "During your investigation, you strike up a conversation with " +
             "a pretty lady.";
         } else {
             game_state.message = 
@@ -4172,7 +4194,8 @@ var outcomes = {
             "\"What a fool I've been,\" he says. \"I'll go and " +
             functions.random_choice(["become a peasant", "get a wife",]) + ".\"",
             "You get in a " +
-            functions.random_choice(["heated", "horrible", "protracted", "spirited"]) +
+            functions.random_choice(["heated", "horrible", "protracted", 
+                                     "spirited"]) +
             " argument with the priest, but you eventually both agree that " +
             "there are at least 17 gods and that " +
             functions.random_choice(["Lord Bartholomew", "St. George",]) + 
@@ -4612,9 +4635,13 @@ var outcomes = {
             "pinkie toe.",
             "While lurking in a shrub, you catch sight of the fair Lady " +
             "Beatrice.",
-            "While hiding behind a door, you overhear Lord Bartholomew " +
-            "and his men plotting insurrection.",
         ];
+        if (game_state.persons.lord_bartholomew.alive === true) {
+            messages.push(
+                "While hiding behind a door, you overhear Lord Bartholomew " +
+                "and his men plotting insurrection."
+            );
+        }
         game_state.message = functions.random_choice(messages);
         return game_state;
     },

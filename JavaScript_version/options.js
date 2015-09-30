@@ -674,7 +674,8 @@ function get_place_options(game_state, options) {
         case "market":
             if (functions.get_place(game_state).burnable === true &&
                 functions.get_place(game_state).trashable === true) {
-                if (game_state.character.person !== "war_merchant") {
+                if (game_state.character.person !== "war_merchant" &&
+                    game_state.persons.war_merchant.alive === true) {
                     raffle.add(options.a, "Look for a weapon.", 10);
                 }
                 if (game_state.persons.wizard.alive === true && 
@@ -738,7 +739,8 @@ function get_place_options(game_state, options) {
             raffle.add(options.a, "Look for a cat.", 2);
             raffle.add(options.b, "Gawk at women.", 2);
             raffle.add(options.c, "GO_TO", 2);
-            if (game_state.character.person !== "st_george") {
+            if (game_state.character.person !== "st_george" && 
+                game_state.persons.st_george.alive === true) {
                 raffle.add(options.d, "Look for St. George.", 2);
             }
             break;
@@ -748,7 +750,7 @@ function get_place_options(game_state, options) {
                 raffle.add(options.a, "Ask about assassins.", 1);
                 raffle.add(options.b, "Buy a drink.", 1);
                 raffle.add(options.d, "Do some gambling.", 1);
-                if (game_state.persons.olga.alive &&
+                if (game_state.persons.olga.alive === true &&
                     game_state.persons.olga.name === "Olga" &&
                     game_state.character.person !== "olga") {
                     raffle.add(options.b, "Look for Olga.", 10);
