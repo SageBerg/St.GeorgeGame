@@ -101,7 +101,6 @@ function validate(game_state, conditions) {
         (game_state.destination === "" ||
          typeof(places[game_state.destination]) === "object"), 
 
-        // TODO fix for_sell system and its validation
         typeof(game_state.for_sell) === "string",
 
         typeof(game_state.message) === "string",

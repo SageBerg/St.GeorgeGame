@@ -140,7 +140,13 @@ exports.actions = {
     },
  
     "ATTACK": function(game_state, possible_outcomes) {
-        if (game_state.character.strength > 
+        var weapon_bonus = 0; 
+        if (game_state.character.equipped_weapon !== "") {
+            weapon_bonus = items.weapons_map[
+                game_state.character.equipped_weapon
+            ].attack;
+        }
+        if (game_state.character.strength + weapon_bonus > 
             game_state.persons[game_state.character.person].attack) {
             raffle.add(possible_outcomes, "kill", 1);
         } else {
@@ -877,7 +883,6 @@ exports.actions = {
                 raffle.add(possible_outcomes, "wake_up_in_prison", 2);
                 break;
         }
-
         return possible_outcomes;
     },
 

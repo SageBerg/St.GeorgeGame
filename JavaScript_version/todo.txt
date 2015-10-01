@@ -1,6 +1,3 @@
-content:
-    tell someone you're so-and-so
-
 technical:
     host on AWS
 
@@ -18,11 +15,6 @@ technical:
     fix weapon system?
     fix weapon system as it relates to increasing your strength
     have get_weapon say you got the weapon
-    remove extra punctuation from the tripping messages 
-
-good form:
-    make sure you can't meet most dead people
-    fix capitalization for options that have special rendering on the client 
 
 play testing:
     make it feasible to win each of the ways

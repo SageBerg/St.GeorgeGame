@@ -1,6 +1,7 @@
 "use strict";
 
 exports.character = {
+    "equipped_weapon": "",
     "excuse": "",
     "has_found_true_love": false,
     "has_lost_leg": false,

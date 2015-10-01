@@ -103,6 +103,27 @@ function die(game_state) {
     game_state.character.is_dead = true;
 }
 
+function equip_best_weapon(game_state) {
+    var found_weapon_flag = false;
+    var keys = Object.keys(items.weapons_map);
+    for (var i = 0; i < keys.length; i++) {
+        console.log(keys[i]);
+        if (game_state.character.equipped_weapon === "") {
+            game_state.character.equipped_weapon = keys[i];
+        } else if (game_state.character.items[keys[i]] > 0 &&
+                   items.weapons_map[keys[i]].attack > 
+                   items.weapons_map[
+                       game_state.character.equipped_weapon
+                   ].attack) {
+            game_state.character.equipped_weapon = keys[i];
+            found_weapon_flag = true;
+        }
+    }
+    if (found_weapon_flag === false) {
+        game_state.character.equipped_weapon = "";
+    }
+}
+
 function get_item(game_state, item) {
     if (game_state.character.items[item] === 0) {
         game_state.message += " You now have " + a_or_an(item[0]) + " " + 
@@ -149,16 +170,14 @@ function get_weapon(game_state, weapon) {
         items.weapons_map[weapon].name + ".";
     }
     game_state.character.items[weapon] += 1;
-    if (game_state.character.strength <= items.weapons_map[weapon].attack) {
-        game_state.character.strength = items.weapons_map[weapon].attack;
-    }
+    equip_best_weapon(game_state);
 }
 
 function grow_tail(game_state) {
     if (game_state.character.has_tail === false) {
         game_state.character.has_tail = true;
         game_state.message = "You grow a " +
-            functions.random_choice(["alligator", "beaver", "donkey", "horse", 
+            functions.random_choice(["alligator", "beaver", "donkey", "horse",
                                      "monkey", "pig", "rat"]) + " tail.";
     } else {
         game_state.message = "The potion has no effect.";
@@ -169,6 +188,7 @@ function lose_all_items(game_state) {
     for (var item in game_state.character.items) {
         game_state.character.items[item] = 0;
     }
+    equip_best_weapon(game_state);
     game_state.character.money = NONE;
     game_state.message += " You now have no items.";
     game_state.message += " You now have no money.";
@@ -650,20 +670,7 @@ var outcomes = {
 
     "buy_a_weapon": function(game_state) {
         game_state.message = "";
-        if (game_state.character.items[game_state.for_sell] === 0) {
-            game_state.message += " You now have " + 
-            a_or_an(items.weapons_map[game_state.for_sell].name[0]) + " " +
-            items.weapons_map[game_state.for_sell].name + ".";
-        } else {
-            game_state.message += " You now have another " +
-            items.weapons_map[game_state.for_sell].name + ".";
-        }
-        game_state.character.items[game_state.for_sell] += 1;
-        if (game_state.character.strength <= 
-            items.weapons_map[game_state.for_sell].attack) {
-            game_state.character.strength = 
-            items.weapons_map[game_state.for_sell].attack;
-        }
+        get_weapon(game_state, game_state.for_sell);
         return game_state;
     },
 
