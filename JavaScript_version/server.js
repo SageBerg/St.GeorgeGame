@@ -144,8 +144,9 @@ function validate_character(game_state) {
     }
 
     var conditions = [
-        typeof(game_state.character)        === "object",
-        typeof(game_state.character.excuse) === "string",
+        typeof(game_state.character)                 === "object",
+        typeof(game_state.character.equipped_weapon) === "string",
+        typeof(game_state.character.excuse)          === "string",
 
         game_state.character.has_found_true_love === "false" ||
         game_state.character.has_found_true_love === "true",
