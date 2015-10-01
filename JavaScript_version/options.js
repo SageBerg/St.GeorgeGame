@@ -446,6 +446,12 @@ function get_outcome_options(game_state, options) {
             raffle.add(options.a, "Say you love her too.", 10000);
             break;
 
+        case "god_shows_you_the_way":
+            if (get_place(game_state).locked === false) {
+                raffle.add(options.c, "GO_TO", 10000);
+            }
+            break;
+
         case "guards_stop_you_dancing":
             game_state.character.excuse = "happy";
             raffle.add(options.d, "TELL_GUARDS", 10000);
@@ -608,10 +614,10 @@ function get_place_options(game_state, options) {
             break;
 
         case "countryside":
-            raffle.add(options.a, "Go flower picking.", 2);
-            raffle.add(options.b, "Tip a cow.", 2);
+            raffle.add(options.a, "Go flower picking.", 4);
+            raffle.add(options.b, "Tip a cow.", 4);
             raffle.add(options.c, "Wander the countryside.", 10);
-            raffle.add(options.d, "Do some farm work.", 2);
+            raffle.add(options.d, "Do some farm work.", 4);
             break;
 
         case "dark_alley":

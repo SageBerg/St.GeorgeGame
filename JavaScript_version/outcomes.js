@@ -111,7 +111,7 @@ function equip_best_weapon(game_state) {
         if (game_state.character.equipped_weapon === "") {
             game_state.character.equipped_weapon = keys[i];
         } else if (game_state.character.items[keys[i]] > 0 &&
-                   items.weapons_map[keys[i]].attack > 
+                   items.weapons_map[keys[i]].attack >= 
                    items.weapons_map[
                        game_state.character.equipped_weapon
                    ].attack) {
@@ -692,11 +692,20 @@ var outcomes = {
 
     "buy_a_drink_and_die": function(game_state) {
         var messages = [
-            "The drink is poisoned.",
             "An assassin walks up and starts hitting on you... very hard.",
         ];
         game_state.message = functions.random_choice(messages);
         clover(game_state);
+        return game_state;
+    },
+
+    "buy_a_drink_and_meet_olga": function(game_state) {
+        var messages = [
+            "While you're drinking, you strike up a conversation with a " +
+            "pretty lady.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        game_state.character.person = "olga";
         return game_state;
     },
 
@@ -886,7 +895,7 @@ var outcomes = {
     "catch_fish": function(game_state) {
         var messages = [
             "Your efforts prove successful.",
-            "You feed yourself for a day.",
+            "Your efforts are fruitful.",
         ];
         game_state.message = functions.random_choice(messages);
         get_item(game_state, "fish");
@@ -2242,8 +2251,8 @@ var outcomes = {
     //g
 
     "gambling_die": function(game_state) {
-        game_state.message = "It was a gamble to stay here. " +
-            "The assassins find you.";
+        game_state.message =  "The assassins see you gambling and " +
+            "assassinate you.";
         die(game_state);
         return game_state;
     },
@@ -2916,6 +2925,9 @@ var outcomes = {
             game_state.persons[game_state.character.person].name + ".";
         game_state.persons[game_state.character.person].alive = false;
         game_state.character.is_threatened = false;
+        if (game_state.character.person === "wizard") {
+            get_item(game_state, "fancy red cloak");
+        }
         game_state.character.person = null;
         return game_state;
     },
@@ -4608,7 +4620,7 @@ var outcomes = {
             "You slip on a slippery slope and fall to your death.",
         ];
         game_state.message = functions.random_choice(messages);
-        die(game_state);
+        clover(game_state);
         return game_state;
     },
 

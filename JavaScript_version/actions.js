@@ -239,11 +239,12 @@ exports.actions = {
         // with them, except for the blind bartender, since he's blind
         if (game_state.character.person === null ||
             game_state.character.person === "blind_bartender") {
-            raffle.add(possible_outcomes, "burn", 3);
+            raffle.add(possible_outcomes, "burn", 5);
             if (game_state.character.items["fancy red cloak"] < 1) {
                 raffle.add(possible_outcomes, "set_self_on_fire", 1);
             }
         } else {
+            raffle.add(possible_outcomes, "burn", 1);
             raffle.add(possible_outcomes, "someone_stops_you_burning", 1);
         }
         return possible_outcomes;
@@ -251,10 +252,11 @@ exports.actions = {
 
     "Buy a drink.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "assassins_sit_down", 1);
-        raffle.add(possible_outcomes, "buy_a_drink_and_die", 2);
+        raffle.add(possible_outcomes, "buy_a_drink_and_die", 1);
+        raffle.add(possible_outcomes, "buy_a_drink_and_meet_olga", 2);
         if (game_state.character.person !== "blind_bartender" &&
             game_state.persons.blind_bartender.alive === true) {
-            raffle.add(possible_outcomes, "meet_blind_bartender", 4);
+            raffle.add(possible_outcomes, "meet_blind_bartender", 6);
         }
         raffle.add(possible_outcomes, "overhear_stuff", 2);
         return possible_outcomes;
