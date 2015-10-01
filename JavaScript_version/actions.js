@@ -872,6 +872,9 @@ exports.actions = {
         }
 
         switch (game_state.character.place) {
+            case "arctic":
+                raffle.add(possible_outcomes, "freeze_in_sleep", 6);
+                break;
             case "lord_carlos_manor":
                 raffle.add(possible_outcomes, "wake_up_in_dungeon", 2);
                 break;

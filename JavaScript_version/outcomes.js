@@ -2235,6 +2235,15 @@ var outcomes = {
         return game_state;
     },
 
+    "freeze_in_sleep": function(game_state) {
+        var messages = [
+            "You freeze to death in your sleep.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        die(game_state);
+        return game_state;
+    },
+
     "frog": function(game_state) {
         game_state.message = "You find the wizard. He turns you into a frog.";
         game_state.character.is_frog = true;
