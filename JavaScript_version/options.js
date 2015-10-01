@@ -798,9 +798,13 @@ function get_place_options(game_state, options) {
                 if (game_state.character.items.ax > 0) {
                     raffle.add(options.c, "Chop down a tree with your ax.", 10);
                 }
-                raffle.add(options.d, "Look for nymphs.", 4);
+                if (game_state.character.person !== "nymph_queen") {
+                    raffle.add(options.d, "Look for nymphs.", 4);
+                }
             }
-            raffle.add(options.b, "Look for witches.", 4);
+            if (game_state.character.person !== "witch") {
+                raffle.add(options.b, "Look for witches.", 4);
+            }
             break;
 
         case "wizard_lab":
