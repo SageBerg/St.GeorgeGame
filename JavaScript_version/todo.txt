@@ -1,20 +1,22 @@
 technical:
     host on AWS
 
+testing:
     make a suite of unit tests
     test the game with Selenium
 
+npm:
+    use npm to install jQuery
+    use npm to install bootstrap 
+
+appearance:
     bootstrap it so it looks nice on all screens
     make the mouse over work on the phone
 
+security:
     write a whitelist data validating function for the server
     do exception handling so the server doesn't go down
     try a bunch of stuff to bring the server down
-
-    remove the for_sell system from the client and fix it up
-    fix weapon system?
-    fix weapon system as it relates to increasing your strength
-    have get_weapon say you got the weapon
 
 play testing:
     make it feasible to win each of the ways
