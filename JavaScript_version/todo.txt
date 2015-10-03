@@ -1,28 +1,31 @@
-technical:
-    host on AWS
-
 testing:
     make a suite of unit tests
     test the game with Selenium
-
-npm:
-    use npm to install jQuery
-    use npm to install bootstrap 
-
-appearance:
-    bootstrap it so it looks nice on all screens
-    make the mouse over work on the phone
 
 security:
     write a whitelist data validating function for the server
     do exception handling so the server doesn't go down
     try a bunch of stuff to bring the server down
 
-play testing:
-    make it feasible to win each of the ways
-    get feedback from a dozen or so people 
+npm:
+    use npm to install jQuery
+    use npm to install bootstrap 
+    put dependencies in package.json file
+
+appearance:
+    bootstrap it so it looks nice on all screens
+    make the mouse over work on the phone
 
 style: (do at the end)
     lint the game
     spell check the game
     make sure my code style is consistent accross the board
+
+IT:
+    host on AWS
+
+play testing:
+    make it feasible to win each of the ways
+    get feedback from a dozen or so people 
+        (Jon, Cheryl, Taylor, Kyle, Tony, Jackson, 
+         Melissa, Josh, Max, Skyler, Clayton, Jeff)
