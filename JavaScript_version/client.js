@@ -11,7 +11,6 @@ function a_execute() {
     }
 }
 
-//TODO factor this out to helper_functions.js
 function a_or_an(next_letter) {
     if (next_letter === "a" ||
         next_letter === "e" ||

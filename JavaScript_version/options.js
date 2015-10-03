@@ -226,12 +226,7 @@ function get_item_options(game_state, options) {
         game_state.character.person === "mermaid" ||
         game_state.character.person === "olga" ||
         game_state.character.person === "nymph_queen" ||
-        game_state.character.person === "priestess")
-        //TODO figure out how to use jquery on the server side
-        //$.inArray(game_state.character.person, ["eve", "mermaid", 
-        //                                        "nymph_queen", "olga", 
-        //                                        "priestess"]) > -1
-       ) {
+        game_state.character.person === "priestess")) {
         raffle.add(options.b, "LOVE_POTION", 10000);
     }
 

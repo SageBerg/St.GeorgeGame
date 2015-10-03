@@ -7,11 +7,6 @@ security:
     do exception handling so the server doesn't go down
     try a bunch of stuff to bring the server down
 
-npm:
-    use npm to install jQuery
-    use npm to install bootstrap 
-    put dependencies in package.json file
-
 appearance:
     bootstrap it so it looks nice on all screens
     make the mouse over work on the phone
@@ -23,6 +18,7 @@ style: (do at the end)
 
 IT:
     host on AWS
+    minify code
 
 play testing:
     make it feasible to win each of the ways

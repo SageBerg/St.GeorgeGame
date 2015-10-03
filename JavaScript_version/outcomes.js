@@ -107,7 +107,6 @@ function equip_best_weapon(game_state) {
     var found_weapon_flag = false;
     var keys = Object.keys(items.weapons_map);
     for (var i = 0; i < keys.length; i++) {
-        console.log(keys[i]);
         if (game_state.character.equipped_weapon === "") {
             game_state.character.equipped_weapon = keys[i];
         } else if (game_state.character.items[keys[i]] > 0 &&
