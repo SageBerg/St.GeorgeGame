@@ -288,7 +288,7 @@ exports.actions = {
         }
         if (game_state.places[game_state.character.place].town === true) {
             raffle.add(possible_outcomes, "celebrate_at_brothel", 1);
-            if (game_state.places.market.burnable) {
+            if (game_state.places.market.burnable === true) {
                 raffle.add(possible_outcomes, "celebrate_at_market", 1);
             }
             if (game_state.character.money !== "none") {
@@ -439,8 +439,10 @@ exports.actions = {
             }
         }
 
-        if (game_state.character.place === "tavern" ||
-            game_state.character.place === "lord_carlos_manor") {
+        if ((game_state.character.place === "tavern" && 
+             game_state.places.tavern.burnable === true) || 
+            (game_state.character.place === "lord_carlos_manor" &&
+             game_state.places.lord_carlos_manor.burnable === true)) {
             raffle.add(possible_outcomes, "assassins_notice_dance", 4);
         }
 
@@ -450,8 +452,10 @@ exports.actions = {
             raffle.add(possible_outcomes, "cannot_dance", 1);
         }
 
-        if (game_state.character.place === "woods") {
-            raffle.add(possible_outcomes, "dance_with_woodland_creatures", 12);
+        if (game_state.character.place === "woods" &&
+            game_state.places.woods.burnable === true) {
+            raffle.add(possible_outcomes, 
+                "dance_with_woodland_creatures", 12);
             raffle.add(possible_outcomes, "dance_with_goblins", 2);
         }
 
@@ -877,7 +881,9 @@ exports.actions = {
                 raffle.add(possible_outcomes, "freeze_in_sleep", 6);
                 break;
             case "lord_carlos_manor":
-                raffle.add(possible_outcomes, "wake_up_in_dungeon", 2);
+                if (game_state.places.lord_carlos_manor.burnable === true) {
+                    raffle.add(possible_outcomes, "wake_up_in_dungeon", 2);
+                }
                 break;
             case "ocean":
                 raffle.add(possible_outcomes, "wake_up_drown", 10000);
@@ -1052,7 +1058,8 @@ exports.actions = {
             raffle.add(possible_outcomes, "lick_the_ocean", 10000);
         }
 
-        if (game_state.character.place === "wizard_lab") {
+        if (game_state.character.place === "wizard_lab" &&
+            game_state.places.wizard_lab.burnable === true) {
             raffle.add(possible_outcomes, "monstrosity", 6);
         }
 
@@ -1140,7 +1147,9 @@ exports.actions = {
 
     "Look for St. George.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "find_st_george", 3);
-        raffle.add(possible_outcomes, "find_st_george_in_church", 5);
+        if (game_state.places.church.burnable === true) {
+            raffle.add(possible_outcomes, "find_st_george_in_church", 5);
+        }
         raffle.add(possible_outcomes, "trip_over_a_cat", 1);
         raffle.add(possible_outcomes, "forget_what_you_were_doing", 1);
         return possible_outcomes;
@@ -1317,7 +1326,8 @@ exports.actions = {
             raffle.add(possible_outcomes, "god_commits_arson", 2);
         }
 
-        if (game_state.character.place === "tavern") {
+        if (game_state.character.place === "tavern" &&
+            game_state.places.tavern.burnable === true) {
             raffle.add(possible_outcomes, "god_gives_you_jewels", 2);
         }
 
@@ -1471,11 +1481,13 @@ exports.actions = {
             }
         }
 
-        if (game_state.character.place === "tavern") {
+        if (game_state.character.place === "tavern" &&
+            game_state.places.tavern.burnable === true) {
             raffle.add(possible_outcomes, "assassins_approach", 10);
         }
 
-        if (game_state.character.place === "church") {
+        if (game_state.character.place === "church" &&
+            game_state.places.church.burnable === true) {
             raffle.add(possible_outcomes, "priestess_takes_offense", 10);
         }
 
@@ -1488,7 +1500,8 @@ exports.actions = {
             raffle.add(possible_outcomes, "sing_to_greeks", 10);
         }
 
-        if (game_state.character.place === "lord_carlos_manor") {
+        if (game_state.character.place === "lord_carlos_manor" &&
+            game_state.places.lord_carlos_manor.burnable === true) {
             raffle.add(possible_outcomes, "sing_at_lord_carlos_manor", 10);
         }
 
@@ -1840,7 +1853,8 @@ exports.actions = {
             raffle.add(possible_outcomes, "think_about_lord_arthur", 2);
         }
 
-        if (game_state.character.place === "tower") {
+        if (game_state.character.place === "tower" &&
+            game_state.places.tower.burnable === true) {
             raffle.add(possible_outcomes, "think_ax", 2);
             raffle.add(possible_outcomes, "think_jump", 2);
         }
