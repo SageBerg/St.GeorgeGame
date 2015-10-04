@@ -28,6 +28,8 @@ exports.get_outcome = function get_outcome(game_state) {
         game_state.action !== "Play dead." &&
         game_state.action !== "Repay your debts." &&
         game_state.action !== "Run like the Devil." &&
+        game_state.action !== "SHOW_COIN" &&
+        game_state.action !== "SUCK_UP" &&
         game_state.action !== "TELL_GUARDS" &&
         game_state.action !== "Try to reason with the mob." &&
         game_state.action !== "Waddle like God.") {
@@ -2335,9 +2337,19 @@ var outcomes = {
     },
 
     "get_attacked": function(game_state) {
-        var attempted_action = 
-            game_state.action[0].toLowerCase() +
-            game_state.action.slice(1, game_state.action.length - 1);
+        var attempted_action;
+        switch (game_state.action) {
+            case "BURN":
+                attempted_action = "start a fire";
+                break;
+            case "GO_TO":
+                attempted_action = "leave";
+                break;
+            default:
+                attempted_action = game_state.action[0].toLowerCase() +
+                    game_state.action.slice(1, game_state.action.length - 1);
+        }
+
         if (game_state.persons[
                 game_state.character.person
             ].preferred_attack === "arrest") {
