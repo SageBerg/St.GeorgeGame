@@ -442,7 +442,7 @@ function get_outcome_options(game_state, options) {
             break;
 
         case "god_shows_you_the_way":
-            if (get_place(game_state).locked === false) {
+            if (functions.get_place(game_state).locked === false) {
                 raffle.add(options.c, "GO_TO", 10000);
             }
             break;
