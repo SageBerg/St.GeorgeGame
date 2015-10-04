@@ -263,6 +263,15 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "BUY_ITEM": function(game_state, possible_outcomes, destination) {
+        if (game_state.character.money !== "none") { 
+            raffle.add(possible_outcomes, "buy_an_item", 1);
+        } else {
+            raffle.add(possible_outcomes, "cannot_afford", 1);
+        }
+        return possible_outcomes;
+    },
+
     "BUY_WEAPON": function(game_state, possible_outcomes) {
         if (items.money_map[items.weapons_map[game_state.for_sell].cost].value 
             <= items.money_map[game_state.character.money].value) {
@@ -844,15 +853,6 @@ exports.actions = {
 
     "Go on a rampage.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "starve", 1);
-        return possible_outcomes;
-    },
-
-    "GO_SHOPPING": function(game_state, possible_outcomes, destination) {
-        if (game_state.character.money !== "none") { 
-            raffle.add(possible_outcomes, "buy_an_item", 1);
-        } else {
-            raffle.add(possible_outcomes, "cannot_afford", 1);
-        }
         return possible_outcomes;
     },
 

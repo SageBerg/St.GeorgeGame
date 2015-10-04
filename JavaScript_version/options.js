@@ -326,6 +326,11 @@ function get_person_options(game_state, options) {
             break;
 
         case "war_merchant":
+            var weapons = ["cutlass", "dagger", "hammer", "iron_hammer", 
+                           "jeweled_cutlass", "long_pitchfork", "pitchfork",
+                           "poison_dagger", ];
+            var weapon = functions.random_choice(weapons);
+            game_state.for_sell = weapon;
             raffle.add(options.d, "BUY_WEAPON", 10000);
             break;
 
@@ -684,7 +689,11 @@ function get_place_options(game_state, options) {
                     raffle.add(options.b, "Look for the wizard.", 1);
                 }
                 if (game_state.character.person === null) {
-                    raffle.add(options.c, "GO_SHOPPING", 6);
+                    var items = ["ax", "bouquet of flowers", "fish", "pearl", 
+                                 "sailor peg"];
+                    var item  = functions.random_choice(items);
+                    game_state.for_sell = item;
+                    raffle.add(options.c, "BUY_ITEM", 6);
                 }
                 raffle.add(options.d, "Watch a play.", 2);
             }

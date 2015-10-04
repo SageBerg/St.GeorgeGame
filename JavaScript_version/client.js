@@ -53,24 +53,12 @@ function execute(letter) {
     request_outcome_of_action(game_state.options[letter]);
 }
 
-function get_item(game_state) {
-    var items = ["ax", "bouquet of flowers", "fish", "pearl", "sailor peg"];
-    var item  = items[random_int(items.length)];
-    return item;
-}
-
 function get_person_name(game_state) {
     return game_state.persons[game_state.character.person].name;
 }
 
 function get_place_name(game_state) {
     return game_state.places[game_state.character.place].name;
-}
-
-function get_weapon(game_state) {
-    var weapons = game_state.persons[game_state.character.person].sells;
-    var weapon  = weapons[random_int(weapons.length)];
-    return weapon;
 }
 
 function handle_new_world(resp) {
@@ -92,12 +80,12 @@ function handle_new_world(resp) {
         $("#score").text("Score: " + game_state.score);
 
         if (parseInt(game_state.score) === 0) {
-        //we only need to bind the keys if this is the first frame of the game
-        //and the player has a score of 0 at the first frame of the game
+        // we only need to bind the keys if this is the first frame of the game
+        // and the player has a score of 0 at the first frame of the game
         
-        //I am binding the keys at the end of the handle_new_world function
-        //to prevent the client from being able to make a bad server request
-        //before the server has given the client the initial game state 
+        // I am binding the keys at the end of the handle_new_world function
+        // to prevent the client from being able to make a bad server request
+        // before the server has given the client the initial game state 
             bind_keys();
         }
     }
@@ -264,10 +252,9 @@ function set_c(game_state) {
                 $("#c").text("c. Go to " + game_state.places[dest].name + ".");
                 break;
 
-            case "GO_SHOPPING":
-                var item = get_item(game_state);
+            case "BUY_ITEM":
+                var item = game_state.for_sell;
                 $("#c").text("c. Buy " + a_or_an(item[0]) + " " + item + ".");
-                game_state.for_sell = item;
                 break;
 
             default:
@@ -282,10 +269,10 @@ function set_d(game_state) {
     if (game_state.options.d !== "") {
         switch (game_state.options.d) {
             case "BUY_WEAPON": 
-                var weapon = get_weapon(game_state);
-                $("#d").text("d. Buy " + a_or_an(weapons_map[weapon][0]) + " " +
+                var weapon = game_state.for_sell;
+                $("#d").text("d. Buy " + a_or_an(weapons_map[weapon][0]) + 
+                    " " +
                     weapons_map[weapon] + ".");
-                game_state.for_sell = weapon;
                 break;
 
             case "FLIRT_WITH":
