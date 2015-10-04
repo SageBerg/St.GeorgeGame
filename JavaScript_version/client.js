@@ -3,7 +3,6 @@
 var game_state = {};
 
 function a_execute() {
-    document.getElementById("a").style.color = "white";
     if (game_state.options.a === "Play again.") {
         request_initial_world();
     } else {
@@ -23,7 +22,6 @@ function a_or_an(next_letter) {
 }
 
 function b_execute() {
-    document.getElementById("b").style.color = "white";
     if (game_state.options.b === "Don't play again.") {
         window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
     } else {
@@ -52,7 +50,6 @@ function bind_keys() {
 }
 
 function execute(letter) {
-    document.getElementById(letter).style.color = "white";
     request_outcome_of_action(game_state.options[letter]);
 }
 
@@ -81,10 +78,6 @@ function handle_new_world(resp) {
         handle_world_error(game_state);
     } else {
         game_state = resp;
-
-        for (var i = 0; i < 5; i++) {
-            document.getElementById("abcde"[i]).style.color = "white";
-        }
 
         if (game_state.character.is_dead) {
             game_state.message += " You are dead."; 
