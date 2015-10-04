@@ -663,8 +663,8 @@ function get_place_options(game_state, options) {
                             "that you're Lord Carlos.", 1);
                     raffle.add(options.b, "Tell the first person you meet " +
                             "that you're St. George.", 1);
+                    raffle.add(options.a, "Ask about assassins.", 4);
                 }
-                raffle.add(options.a, "Ask about assassins.", 4);
                 if (game_state.places.lord_carlos_manor.burnable === true) {
                     raffle.add(options.b, "BURN", 2);
                 }

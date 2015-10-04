@@ -22,6 +22,7 @@ exports.get_outcome = function get_outcome(game_state) {
         game_state.action !== "Enter the void." &&
         game_state.action !== "Grovel." &&
         game_state.action !== "Leave in a puff." &&
+        game_state.action !== "Make it hard for Lord Carlos to kill you." &&
         game_state.action !== "Nf3." &&
         game_state.action !== "Panic!" &&
         game_state.action !== "Play dead." &&
@@ -1025,7 +1026,7 @@ var outcomes = {
         return game_state;
     },
 
-    // some jokes, CREDIT: reddit's r/jokes 
+    // some jokes, CREDITS: reddit's r/jokes 
     "chat_with_blind_bartender": function(game_state) {
         var messages = [
             "The blind bartender leans in close and says, \"Two lawyers " + 
@@ -2053,6 +2054,7 @@ var outcomes = {
             "they see you.",
         ] 
         game_state.message = functions.random_choice(messages);
+        game_state.character.person = null;
         return game_state;
     },
 
@@ -2936,9 +2938,14 @@ var outcomes = {
     },
 
     "kill": function(game_state) {
+        var weapon = "bare hands";
+        if (game_state.character.equipped_weapon !== "") {
+            weapon = game_state.character.equipped_weapon;
+        }
         game_state.message =
             "You kill " +
-            game_state.persons[game_state.character.person].name + ".";
+            game_state.persons[game_state.character.person].name + " with " +
+            "your " + weapon + ".";
         game_state.persons[game_state.character.person].alive = false;
         game_state.character.is_threatened = false;
         if (game_state.character.person === "wizard") {
@@ -3080,7 +3087,7 @@ var outcomes = {
             "Your frog turns into an assassin. He assassinates you.",
         ];
         game_state.message = functions.random_choice(messages);
-        die(game_state);
+        clover(game_state);
         return game_state;
     },
 
@@ -3232,6 +3239,7 @@ var outcomes = {
             "but they hex you for gawking. You climb a ridge and throw " +
             "yourself to your death.",
         clover(game_state);
+        game_state.character.person = null;
         return game_state;
     },
 
@@ -5206,8 +5214,8 @@ var outcomes = {
         var messages = [
             "You are badly beaten at wooden swordplay, but you grow " +
             "stronger.",
-            "You miss many marks practicing archery, but failure leads " +
-            "to success. You grow stronger.",
+            "You miss many marks practicing archery, but failure is the " +
+            "road to success. You grow stronger.",
             "The guards leave you in the dust during running practice, but " +
             "you grow stronger.",
         ];
@@ -5590,8 +5598,8 @@ var outcomes = {
         var messages = [
             "The witch says she doesn't owe you any favors.",
             "The witch says she's feeling lazy.",
-            "The witch says she's more the hexing kind of which and not " +
-            "brewing kind of which.",
+            "The witch says she's more the hexing kind of witch and not " +
+            "the brewing kind of witch.",
         ];
         game_state.message = functions.random_choice(messages);
         return game_state;

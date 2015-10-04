@@ -1127,7 +1127,7 @@ exports.actions = {
         raffle.add(possible_outcomes, "find_nymphs", 2);
         raffle.add(possible_outcomes, "look_for_nymphs_and_die", 1);
         if (game_state.persons.nymph_queen.alive === true) {
-            raffle.add(possible_outcomes, "meet_nymph_queen", 1);
+            raffle.add(possible_outcomes, "meet_nymph_queen", 2);
         } 
         return possible_outcomes;
     },
@@ -1483,7 +1483,7 @@ exports.actions = {
 
         if (game_state.character.place === "tavern" &&
             game_state.places.tavern.burnable === true) {
-            raffle.add(possible_outcomes, "assassins_approach", 10);
+            raffle.add(possible_outcomes, "assassins_approach", 5);
         }
 
         if (game_state.character.place === "church" &&
