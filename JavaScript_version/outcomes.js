@@ -431,6 +431,14 @@ var outcomes = {
         return game_state;
     },
 
+    "ask_eve": function(game_state) {
+        game_state.message = "You find Lord Carlos' daughter in her bedroom " +
+            "and ask her about assassins. She says they've all been looking " +
+            "for you since they found out about you and her.";
+        game_state.character.person = "eve";
+        return game_state;
+    },
+
     "assassin_prayer_answered": function(game_state) {
         game_state.message = 
             "Your prayers aren't answered, but the assassins' are.",

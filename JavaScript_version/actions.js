@@ -63,6 +63,7 @@ exports.actions = {
         }
         if (game_state.character.place === "lord_carlos_manor") {
             raffle.add(possible_outcomes, "wait_here_please", 3);
+            raffle.add(possible_outcomes, "ask_eve", 1);
         }
         return possible_outcomes;
     },
