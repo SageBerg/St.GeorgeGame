@@ -49,19 +49,25 @@ function respond_with_initial_world(req, res) {
 }
 
 function respond_with_outcome(req, res) {
-    if (validate(req.query) === true) { 
-        var game_state     = req.query;
-        game_state         = destringify(game_state);
-        game_state.topic   = null;
-        var outcome        = outcomes.get_outcome(game_state);
-        game_state.outcome = outcome;
-        game_state         = outcomes.apply_outcome(outcome, game_state);
-        game_state.options = options.get_options(game_state);
-        set_destination(game_state, outcome);
-        game_state.score   = parseInt(game_state.score) + 1;
-        stop_tripping(game_state);
-        res.json(game_state);
-    } else {
+    try {
+        if (validate(req.query) === true) { 
+            var game_state     = req.query;
+            game_state         = destringify(game_state);
+            game_state.topic   = null;
+            var outcome        = outcomes.get_outcome(game_state);
+            game_state.outcome = outcome;
+            game_state         = outcomes.apply_outcome(outcome, game_state);
+            game_state.options = options.get_options(game_state);
+            set_destination(game_state, outcome);
+            game_state.score   = parseInt(game_state.score) + 1;
+            stop_tripping(game_state);
+            res.json(game_state);
+        } else { // if input validation fails
+            res.json({"message": "error"});
+        }
+    } catch(err) { // if bad input would bring down the server
+        console.log("\nUser input that would break the server was entered: ");
+        console.log(err);
         res.json({"message": "error"});
     }
 }
@@ -109,8 +115,8 @@ function validate(game_state, conditions) {
         (game_state.outcome === "" ||
          typeof(outcomes.outcomes[game_state.outcome]) === "function"),
 
-        typeof(game_state.persons) === "object",
-        typeof(game_state.places)  === "object",
+        validate_persons(game_state),
+        //validate_places(game_state),
 
         typeof(game_state.score) === "string" &&
         !isNaN(parseInt(game_state.score)),
@@ -146,7 +152,17 @@ function validate_character(game_state) {
     var conditions = [
         typeof(game_state.character)                 === "object",
         typeof(game_state.character.equipped_weapon) === "string",
-        typeof(game_state.character.excuse)          === "string",
+        game_state.character.equipped_weapon === "" ||
+        game_state.character.equipped_weapon === "pitchfork" ||
+        game_state.character.equipped_weapon === "dagger" ||
+        game_state.character.equipped_weapon === "cutlass" ||
+        game_state.character.equipped_weapon === "hammer" ||
+        game_state.character.equipped_weapon === "long_pitchfork" ||
+        game_state.character.equipped_weapon === "poison_dagger" ||
+        game_state.character.equipped_weapon === "jeweled_cutlass" ||
+        game_state.character.equipped_weapon === "iron_hammer" ||
+        game_state.character.equipped_weapon === "sword_of_great_evil",
+        typeof(game_state.character.excuse)  === "string",
 
         game_state.character.has_found_true_love === "false" ||
         game_state.character.has_found_true_love === "true",
@@ -170,11 +186,13 @@ function validate_character(game_state) {
         game_state.character.money === "small_fortune" ||
         game_state.character.money === "large_fortune",
 
-        typeof(persons[game_state.character.person]) === "object" ||
-        game_state.character.person === "",
+        typeof(game_state.character.person) === "string" &&
+        (typeof(persons[game_state.character.person]) === "object" ||
+         game_state.character.person === ""),
 
-        typeof(places[game_state.character.place]) === "object" ||
-        game_state.character.place === "",
+        typeof(game_state.character.person) === "string" &&
+        (typeof(places[game_state.character.place]) === "object" ||
+         game_state.character.place === ""),
     
         !isNaN(parseInt(game_state.character.strength)),
     ];
@@ -192,6 +210,8 @@ function validate_character(game_state) {
 function validate_options(game_state) {
     return typeof(game_state.options)             === "object" &&
            typeof(actions[game_state.options.a])  === "function" &&
+           Object.keys(game_state.options).length ===  
+               Object.keys(options.starting_options).length &&
            typeof(actions[game_state.options.b])  === "function" &&
            (typeof(actions[game_state.options.c]) === "function" ||
             game_state.options.c === "") &&
@@ -200,3 +220,54 @@ function validate_options(game_state) {
            (typeof(actions[game_state.options.e]) === "function" || 
             game_state.options.e === "");
 }
+
+function validate_persons(game_state) {
+    if (typeof(game_state.persons) !== "object" &&
+        input_persons.length !== default_persons.length) {
+        return false;
+    }
+
+    var input_persons = Object.keys(game_state.persons);
+    var default_persons    = Object.keys(persons);
+    var person_traits   = ["alive", "attack", "attracted", "name", 
+                           "preferred_attack", "type"];
+    var input_trait;
+    var default_trait;
+
+    for (var i = 0; i < default_persons.length; i++) {
+
+        if (typeof(persons[input_persons[i]]) !== "object" ||
+            Object.keys(persons[default_persons[i]]).length !==
+            Object.keys(game_state.persons[input_persons[i]]).length) {
+            return false;
+        }
+
+        for (var j = 0; j < person_traits.length; j++) {
+            input_trait = 
+                game_state.persons[input_persons[i]][person_traits[j]];
+            default_trait = persons[default_persons[i]][person_traits[j]];
+            if ((person_traits[j] === "alive" && 
+                 input_trait !== "false" && 
+                 input_trait !== "true") ||
+                (person_traits[j] === "attack" && 
+                 isNaN(parseInt(input_trait))) ||
+                (person_traits[j] === "attracted" && 
+                 isNaN(parseInt(input_trait))) ||
+                (person_traits[j] === "type" && 
+                 input_trait !== "female" &&
+                 input_trait !== "group" &&
+                 input_trait !== "male")) {
+                return false;
+            }
+        } //end for loop j
+    } //end for loop i
+
+    return true;
+}
+
+/*
+function validate_places(game_state) {
+    return typeof(game_state.places)             === "object" &&
+            game_state.options.e === "");
+}
+*/
