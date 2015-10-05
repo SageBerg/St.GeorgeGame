@@ -1,15 +1,9 @@
 testing:
-    make a suite of unit tests
+    make some unit tests
     test the game with Selenium
 
 security:
     write a whitelist data validating function for the server
-    do exception handling so the server doesn't go down
-    try a bunch of stuff to bring the server down
-
-appearance:
-    bootstrap it so it looks nice on all screens
-    make the mouse over work on the phone
 
 style: (do at the end)
     lint the game
@@ -21,7 +15,10 @@ IT:
     minify code
 
 play testing:
-    make it feasible to win each of the ways
-    get feedback from a dozen or so people 
+    love potion the priestess, mermaid, nymph_queen
+    get feedback from a dozen or so people
         (Jon, Cheryl, Taylor, Kyle, Tony, Jackson, 
          Melissa, Josh, Max, Skyler, Clayton, Jeff)
+
+general:
+    have the mermaid fall in love with you from flirting
