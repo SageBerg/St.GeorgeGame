@@ -583,7 +583,6 @@ function get_outcome_options(game_state, options) {
 
 function get_place_options(game_state, options) {
 
-
     if (game_state.places[game_state.character.place].burnable) {
         raffle.add(options.b, "BURN", 1);
     }
@@ -689,9 +688,9 @@ function get_place_options(game_state, options) {
                     raffle.add(options.b, "Look for the wizard.", 1);
                 }
                 if (game_state.character.person === null) {
-                    var items = ["ax", "bouquet of flowers", "fish", "pearl", 
+                    var stuff = ["ax", "bouquet of flowers", "fish", "pearl", 
                                  "sailor peg"];
-                    var item  = functions.random_choice(items);
+                    var item  = functions.random_choice(stuff);
                     game_state.for_sell = item;
                     raffle.add(options.c, "BUY_ITEM", 6);
                 }
