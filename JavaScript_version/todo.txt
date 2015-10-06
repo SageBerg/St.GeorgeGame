@@ -2,9 +2,6 @@ testing:
     make some unit tests
     test the game with Selenium
 
-security:
-    write a whitelist data validating function for the server
-
 style: (do at the end)
     lint the game
     spell check the game
@@ -16,9 +13,8 @@ IT:
 
 play testing:
     love potion the priestess, mermaid, nymph_queen
+    lords victory
+    pyro victory
     get feedback from a dozen or so people
         (Jon, Cheryl, Taylor, Kyle, Tony, Jackson, 
          Melissa, Josh, Max, Skyler, Clayton, Jeff)
-
-general:
-    have the mermaid fall in love with you from flirting

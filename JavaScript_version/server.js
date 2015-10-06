@@ -116,7 +116,7 @@ function validate(game_state, conditions) {
          typeof(outcomes.outcomes[game_state.outcome]) === "function"),
 
         validate_persons(game_state),
-        //validate_places(game_state),
+        validate_places(game_state),
 
         typeof(game_state.score) === "string" &&
         !isNaN(parseInt(game_state.score)),
@@ -222,8 +222,7 @@ function validate_options(game_state) {
 }
 
 function validate_persons(game_state) {
-    if (typeof(game_state.persons) !== "object" &&
-        input_persons.length !== default_persons.length) {
+    if (typeof(game_state.persons) !== "object") {
         return false;
     }
 
@@ -233,6 +232,10 @@ function validate_persons(game_state) {
                            "preferred_attack", "type"];
     var input_trait;
     var default_trait;
+
+    if (input_persons.length !== default_persons.length) {
+        return false;
+    }
 
     for (var i = 0; i < default_persons.length; i++) {
 
@@ -265,9 +268,71 @@ function validate_persons(game_state) {
     return true;
 }
 
-/*
 function validate_places(game_state) {
-    return typeof(game_state.places)             === "object" &&
-            game_state.options.e === "");
+
+    if (typeof(game_state.places) !== "object") {
+        return false;
+    }
+
+    var input_places   = Object.keys(game_state.places);
+    var default_places = Object.keys(places);
+
+    var input_trait;
+    var default_trait;
+    var place_traits = ["burnable", "links", "locked", "name", "outside",
+                        "populated", "town", "trashable",];
+
+    if (input_places.length !== default_places.length) {
+        return false;
+    }
+
+    for (var i = 0; i < default_places.length; i++) {
+
+        if (typeof(places[input_places[i]]) !== "object") {
+            return false;
+        }
+
+        if (places[input_places[i]].links.length > 0) {
+            for (var p = 0; 
+                 p < game_state.places[input_places[i]].links.length; 
+                 p++) {
+                if (typeof(places[
+                    game_state.places[input_places[i]].links[p]
+                    ]) !== "object") {
+                    return false;
+                }
+            }
+        }
+
+        for (var j = 0; j < place_traits.length; j++) {
+            input_trait = 
+                game_state.places[input_places[i]][place_traits[j]];
+            default_trait = places[default_places[i]][place_traits[j]];
+            if ((place_traits[j] === "burnable" && 
+                 input_trait !== "false" && 
+                 input_trait !== "true") ||
+                (place_traits[j] === "locked" && 
+                 input_trait !== "false" && 
+                 input_trait !== "true") ||
+                (place_traits[j] === "outside" && 
+                 input_trait !== "false" && 
+                 input_trait !== "true") ||
+                (place_traits[j] === "populated" && 
+                 input_trait !== "false" && 
+                 input_trait !== "true") ||
+                (place_traits[j] === "town" && 
+                 input_trait !== "false" && 
+                 input_trait !== "true") ||
+                (place_traits[j] === "trashable" && 
+                 input_trait !== "false" && 
+                 input_trait !== "true") ||
+                (place_traits[j] === "name" &&
+                 typeof(game_state.places[input_places[i]].name) !== "string")
+                ) {
+                return false;
+            }
+        } //end for loop j
+    } //end for loop i
+
+    return true;
 }
-*/
