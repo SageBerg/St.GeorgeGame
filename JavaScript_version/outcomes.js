@@ -4606,12 +4606,18 @@ var outcomes = {
         return game_state;
     },
 
-    "sing_about_lords": function(game_state) {
+    "sing_about_stuff": function(game_state) {
         var messages = [
+            "You sing a song about cats.",
+            "You sing a song about dragons.",
+            "You sing a song about God.",
             "You sing a song about Lord Arthur, captain of the pirates.",
             "You sing a song about Lord Bartholomew, leader of the peasants.",
             "You sing a song about Lord Carlos, kingpin of the assassins.",
-            "You sing a song about Lord Daniel, leader of the guards."
+            "You sing a song about Lord Daniel, leader of the guards.",
+            "You sing a song about setting stuff on fire.",
+            "You sing a song about St. George.",
+            "You sing a song about your loneliness.",
         ];
         game_state.message = functions.random_choice(messages);
         return game_state;

@@ -1459,7 +1459,7 @@ exports.actions = {
         }
 
         raffle.add(possible_outcomes, "no_one_cares", 2);
-        raffle.add(possible_outcomes, "sing_about_lords", 1);
+        raffle.add(possible_outcomes, "sing_about_stuff", 5);
 
         if (game_state.character.place === "streets" || 
             game_state.character.place === "market") {
@@ -1469,7 +1469,7 @@ exports.actions = {
         if (game_state.character.place === "streets" || 
             game_state.character.place === "market" ||
             game_state.character.place === "tavern") {
-            raffle.add(possible_outcomes, "earn_small_fortune_in_coins", 2);
+            raffle.add(possible_outcomes, "earn_small_fortune_in_coins", 3);
             raffle.add(possible_outcomes, "crowd_hates_your_voice", 1);
         }
 
