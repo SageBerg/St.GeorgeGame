@@ -13,8 +13,13 @@ IT:
 
 play testing:
     love potion the priestess, mermaid, nymph_queen
+    flirt with Olga, Eve
     lords victory
     pyro victory
     get feedback from a dozen or so people
         (Jon, Cheryl, Taylor, Kyle, Tony, Jackson, 
-         Melissa, Josh, Max, Skyler, Clayton, Jeff)
+         Melissa, Josh, Max, Skyler, Clayton, Jeff, Raleigh)
+
+css:
+    upload rest of bootstrap file
+    delete old style.css
