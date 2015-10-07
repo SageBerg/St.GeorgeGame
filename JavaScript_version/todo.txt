@@ -1,4 +1,4 @@
-testing:
+testing: (optional)
     make some unit tests
     test the game with Selenium
 
@@ -22,4 +22,26 @@ play testing:
 
 css:
     upload rest of bootstrap file
-    delete old style.css
+
+content: (optional)
+    the smoking volcano  
+        look for dragons
+            show dragon your foreign coin
+                get sword of great good
+            chat with dragon
+                dragon burns stuff
+            try to steal treasure
+                bag of jewels
+                pearl
+                fancy red cloak 
+        choke on fumes
+            die
+            nothing
+            saved by blue dragon
+        climb to the top of the volcano 
+            get exercise
+            get a good view
+            killed by red dragon
+        go swimming in a pool of lava
+            you can't find one
+            die

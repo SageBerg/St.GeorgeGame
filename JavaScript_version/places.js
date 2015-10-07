@@ -70,7 +70,7 @@ exports.places = {
     "lord_bartholomew_manor": 
     {
         "burnable":  true,
-        "links":     ["countryside"],
+        "links":     ["countryside", "smoking_volcano"],
         "locked":    false,
         "name":      "Lord Bartholomew's Manor",
         "outside":   false,
@@ -92,7 +92,8 @@ exports.places = {
     "market": 
     {
         "burnable":  true,
-        "links":     ["church", "streets", "docks", "wizard_lab"],
+        "links":     ["church", "countryside", "streets", "docks", 
+                      "wizard_lab"],
         "locked":    false,
         "name":      "the market",
         "outside":   true,
@@ -141,6 +142,17 @@ exports.places = {
         "name":      "prison",
         "outside":   false,
         "populated": true,
+        "town":      false,
+        "trashable": false,
+    },
+    "smoking_volcano":
+    {
+        "burnable":  false,
+        "links":     ["countryside", "lord_bartholomew_manor"],
+        "locked":    false,
+        "name":      "the smoking volcano",
+        "outside":   true,
+        "populated": false,
         "town":      false,
         "trashable": false,
     },

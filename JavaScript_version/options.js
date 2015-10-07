@@ -744,6 +744,13 @@ function get_place_options(game_state, options) {
             }
             break;
 
+        case "smoking_volcano":
+            raffle.add(options.a, "Look for dragons.", 4);
+            raffle.add(options.b, "Choke on fumes.", 2);
+            raffle.add(options.b, "Climb to the top of the volcano.", 4);
+            raffle.add(options.d, "Go swimming in a pool of lava.", 2);
+            break;
+
         case "streets":
             raffle.add(options.a, "Look for a cat.", 2);
             raffle.add(options.b, "Gawk at women.", 2);
@@ -756,9 +763,9 @@ function get_place_options(game_state, options) {
 
         case "tavern":
             if (functions.get_place(game_state).burnable === true) {
-                raffle.add(options.a, "Ask about assassins.", 1);
-                raffle.add(options.b, "Buy a drink.", 1);
-                raffle.add(options.d, "Do some gambling.", 1);
+                raffle.add(options.a, "Ask about assassins.", 4);
+                raffle.add(options.b, "Buy a drink.", 4);
+                raffle.add(options.d, "Do some gambling.", 4);
                 if (game_state.persons.olga.alive === true &&
                     game_state.persons.olga.name === "Olga" &&
                     game_state.character.person !== "olga") {
