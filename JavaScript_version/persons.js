@@ -31,7 +31,7 @@ exports.persons = {
     "dragon_blue":
     {
         "alive": true,
-        "attack": 101,
+        "attack": 100,
         "attracted": 0,
         "name": "the blue dragon",
         "preferred_attack": "kill",
