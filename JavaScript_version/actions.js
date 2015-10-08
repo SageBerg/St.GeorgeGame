@@ -352,9 +352,9 @@ exports.actions = {
     },
 
     "Choke on fumes.": function(game_state, possible_outcomes) {
-        //raffle.add(possible_outcomes, "choke_on_fumes", 1);
-        //raffle.add(possible_outcomes, "choke_on_fumes_and_die", 1);
-        //raffle.add(possible_outcomes, "choke_and_saved_by_blue_dragon", 1);
+        raffle.add(possible_outcomes, "choke_on_fumes", 1);
+        raffle.add(possible_outcomes, "choke_on_fumes_and_die", 1);
+        raffle.add(possible_outcomes, "choke_and_saved_by_blue_dragon", 1);
         return possible_outcomes;
     },
 
@@ -1053,7 +1053,8 @@ exports.actions = {
 
     "Lick the ground.": function(game_state, possible_outcomes) {
 
-        if (game_state.outcome === "burn") {
+        if (game_state.outcome === "burn" || 
+            game_state.character.place === "smoking_volcano") {
             raffle.add(possible_outcomes, "lick_ash", 10000);
         }
 

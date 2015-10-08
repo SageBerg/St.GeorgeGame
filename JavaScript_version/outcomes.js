@@ -798,6 +798,7 @@ var outcomes = {
             "You can't find a pool of lava to swim in.",
         ];
         game_state.message = functions.random_choice(messages);
+        game_state.character.person = null;
         return game_state;
     },
 
@@ -1150,6 +1151,36 @@ var outcomes = {
             "quickly lose.",
         ];
         game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
+    "choke_and_saved_by_blue_dragon": function(game_state) {
+        var messages = [
+            "You collapse and lay dying on the side of the volcano, but a " +
+            "blue dragon flies by and takes you to her lair.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        game_state.character.person = "dragon_blue";
+        return game_state;
+    },
+
+    "choke_on_fumes": function(game_state) {
+        var messages = [
+            "You caugh a lot.",
+            "You wheeze.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        game_state.topic = "volcanos";
+        return game_state;
+    },
+
+    "choke_on_fumes_and_die": function(game_state) {
+        var messages = [
+            "You caugh up a lung.",
+            "You die of air pollution.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        clover(game_state);
         return game_state;
     },
 
@@ -3198,6 +3229,7 @@ var outcomes = {
             "You have a nice swim in a pool of lava.",
         ];
         game_state.message = functions.random_choice(messages);
+        game_state.character.person = null;
         return game_state;
     },
 
