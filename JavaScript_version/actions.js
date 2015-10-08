@@ -351,6 +351,13 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Choke on fumes.": function(game_state, possible_outcomes) {
+        //raffle.add(possible_outcomes, "choke_on_fumes", 1);
+        //raffle.add(possible_outcomes, "choke_on_fumes_and_die", 1);
+        //raffle.add(possible_outcomes, "choke_and_saved_by_blue_dragon", 1);
+        return possible_outcomes;
+    },
+
     "Chop down a tree with your ax.": 
     function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "chop_down_tree", 2);
@@ -393,6 +400,14 @@ exports.actions = {
         raffle.add(possible_outcomes, "climb_and_get_sap", 1);
         raffle.add(possible_outcomes, "merchant_ship_nest", 1);
         raffle.add(possible_outcomes, "watch_duty", 4);
+        return possible_outcomes;
+    },
+
+    "Climb to the top of the volcano.": 
+        function(game_state, possible_outcomes) {
+        //raffle.add(possible_outcomes, "valcano_exercise", 3);
+        //raffle.add(possible_outcomes, "valcano_nothing", 3);
+        //raffle.add(possible_outcomes, "valcano_die", 3);
         return possible_outcomes;
     },
 
@@ -856,6 +871,16 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Go swimming in a pool of lava.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "cannot_find_lava", 1);
+        if (game_state.character.items["fancy red cloak"] < 1) {
+            raffle.add(possible_outcomes, "lava_and_die", 2);
+        } else {
+            raffle.add(possible_outcomes, "lava_swim", 2);
+        }
+        return possible_outcomes;
+    },
+
     "GO_TO": function(game_state, possible_outcomes, destination) {
         raffle.add(possible_outcomes, "go_to", 1);
         return possible_outcomes;
@@ -1097,6 +1122,14 @@ exports.actions = {
 
     "Look for a weapon.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "find_a_war_merchant", 1);
+        return possible_outcomes;
+    },
+
+    "Look for dragons.": function(game_state, possible_outcomes) {
+        //raffle.add(possible_outcomes, "cannot_find_dragon", 1);
+        //raffle.add(possible_outcomes, "dragon_and_die", 2);
+        //raffle.add(possible_outcomes, "meet_red_dragon", 1);
+        //raffle.add(possible_outcomes, "meet_blue_dragon", 1);
         return possible_outcomes;
     },
 
