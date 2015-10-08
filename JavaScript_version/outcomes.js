@@ -793,6 +793,14 @@ var outcomes = {
         return game_state;
     },
 
+    "cannot_find_lava": function(game_state) {
+        var messages = [
+            "You can't find a pool of lava to swim in.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
     "cannot_find_nymphs": function(game_state) {
         var messages = [
             "You can't find any nymphs, but you see some of Lord Carlos' " +
@@ -3169,6 +3177,25 @@ var outcomes = {
             "\"No laughing,\" he says.",
             "You feel good for a second, then you remember you're " +
             "in prison.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
+    "lava_and_die": function(game_state) {
+        var messages = [
+            "You meet a fiery end.",
+            "The lava is far less comfortable than you imagined.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        die(game_state);
+        return game_state;
+    },
+
+    "lava_swim": function(game_state) {
+        var messages = [
+            "The lava is hard to swim in, but it's nice and warm.",
+            "You have a nice swim in a pool of lava.",
         ];
         game_state.message = functions.random_choice(messages);
         return game_state;

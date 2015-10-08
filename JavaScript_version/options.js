@@ -376,6 +376,7 @@ function get_outcome_options(game_state, options) {
 
         case "cannot_afford":
         case "cannot_find_cat":
+        case "cannot_find_lava":
         case "cannot_tip_cow":
         case "celebrate_uncreatively":
         case "dance_in_puddle":
@@ -747,7 +748,7 @@ function get_place_options(game_state, options) {
         case "smoking_volcano":
             raffle.add(options.a, "Look for dragons.", 4);
             raffle.add(options.b, "Choke on fumes.", 2);
-            raffle.add(options.b, "Climb to the top of the volcano.", 4);
+            raffle.add(options.c, "Climb to the top of the volcano.", 4);
             raffle.add(options.d, "Go swimming in a pool of lava.", 2);
             break;
 
