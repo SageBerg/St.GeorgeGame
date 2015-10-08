@@ -405,9 +405,9 @@ exports.actions = {
 
     "Climb to the top of the volcano.": 
         function(game_state, possible_outcomes) {
-        //raffle.add(possible_outcomes, "valcano_exercise", 3);
-        //raffle.add(possible_outcomes, "valcano_nothing", 3);
-        //raffle.add(possible_outcomes, "valcano_die", 3);
+        raffle.add(possible_outcomes, "volcano_die", 3);
+        raffle.add(possible_outcomes, "volcano_exercise", 2);
+        raffle.add(possible_outcomes, "volcano_nothing", 2);
         return possible_outcomes;
     },
 
@@ -1127,10 +1127,10 @@ exports.actions = {
     },
 
     "Look for dragons.": function(game_state, possible_outcomes) {
-        //raffle.add(possible_outcomes, "cannot_find_dragon", 1);
-        //raffle.add(possible_outcomes, "dragon_and_die", 2);
-        //raffle.add(possible_outcomes, "meet_red_dragon", 1);
-        //raffle.add(possible_outcomes, "meet_blue_dragon", 1);
+        raffle.add(possible_outcomes, "cannot_find_dragon", 1);
+        raffle.add(possible_outcomes, "dragon_and_die", 2);
+        raffle.add(possible_outcomes, "meet_dragon_blue", 1);
+        raffle.add(possible_outcomes, "meet_dragon_red", 1);
         return possible_outcomes;
     },
 

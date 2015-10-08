@@ -793,6 +793,16 @@ var outcomes = {
         return game_state;
     },
 
+    "cannot_find_dragon": function(game_state) {
+        var messages = [
+            "You can't find any dragons. Only rocks.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        game_state.character.person = null;
+        game_state.topic = "dragons";
+        return game_state;
+    },
+
     "cannot_find_lava": function(game_state) {
         var messages = [
             "You can't find a pool of lava to swim in.",
@@ -1584,6 +1594,17 @@ var outcomes = {
     "do_not_see_assassins": function(game_state) {
         game_state.message = "You don't see one.";
         die(game_state);
+        return game_state;
+    },
+
+    "dragon_and_die": function(game_state) {
+        var messages = [
+            "You find a red dragon. He is not happy to be disturbed.",
+            "While you're looking for dragons, you get taken out by an " +
+            "avalanche."
+        ];
+        game_state.message = functions.random_choice(messages);
+        clover(game_state);
         return game_state;
     },
 
@@ -3611,6 +3632,20 @@ var outcomes = {
         return game_state;
     },
 
+    "meet_dragon_blue": function(game_state) {
+        game_state.message = "You come across a blue dragon. She invites " +
+            "you to her lair for tea.";
+        game_state.character.person = "dragon_blue";
+        return game_state;
+    },
+
+    "meet_dragon_red": function(game_state) {
+        game_state.message = "You walk into a red dragon's treasure trove. " +
+            "The dragon eyes you suspciously.";
+        game_state.character.person = "dragon_red";
+        return game_state;
+    },
+
     "meet_eve": function(game_state) {
         game_state.message = "You manage to sneak into Lord Carlos' " +
             "daughter's bedroom. She is " + 
@@ -5406,6 +5441,42 @@ var outcomes = {
     },
 
     //v
+
+    "volcano_die": function(game_state) {
+        var messages = [
+            "A red dragon flies out of the volcano and roasts you with a " +
+            "jet of falme.",
+            "While you're climbing, you get incinerated by a cloud of hot " +
+            "ash.",
+            "You fall into a fissure.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        die(game_state);
+        return game_state;
+    },
+
+    "volcano_exercise": function(game_state) {
+        var messages = [
+            "You can't find your way up the volcano, but the exercise " +
+            "helps you grow stronger.",
+            "You find some unscalable cliffs near the top of the volcano, " +
+            "but the exercise helps you grow stronger.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        game_state.character.strength += 1;
+        return game_state;
+    },
+
+    "volcano_nothing": function(game_state) {
+        var messages = [
+            "You can't find your way to the top of the volcano.",
+            "You make it to the top of the volcano, but your view is " +
+            "bloked out by smoke, so you get bored and start climbing " +
+            "back down.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
 
     //w
 
