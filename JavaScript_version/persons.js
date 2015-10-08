@@ -28,6 +28,24 @@ exports.persons = {
         "preferred_attack": "kill",
         "type": "male", 
     },
+    "dragon_blue":
+    {
+        "alive": true,
+        "attack": 101,
+        "attracted": 0,
+        "name": "the blue dragon",
+        "preferred_attack": "kill",
+        "type": "female", 
+    },
+    "dragon_red":
+    {
+        "alive": true,
+        "attack": 100,
+        "attracted": 0,
+        "name": "the red dragon",
+        "preferred_attack": "kill",
+        "type": "male", 
+    },
     "eve":
     {
         "alive": true,
