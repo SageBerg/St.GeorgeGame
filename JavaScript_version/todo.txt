@@ -23,11 +23,14 @@ play testing:
 css:
     upload rest of bootstrap file
 
-content: (optional)
+content:
     the smoking volcano  
         look for dragons
             show dragon your foreign coin
                 get sword of great good
+                love potion
+                large_fortune
+                kill lord carlos
             chat with dragon
                 dragon burns stuff
             try to steal treasure
