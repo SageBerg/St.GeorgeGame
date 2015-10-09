@@ -215,12 +215,13 @@ function move_character(game_state, destination) {
     if (destination === "docks" || 
         destination === "mermaid_rock" || 
         destination === "pirate_ship") {
-        game_state.message += " You find yourself on " + 
-            game_state.places[destination].name + ".";
+        game_state.message += " You find yourself on ";
+    } else if (destination === "smoking_volcano") {
+        game_state.message += " You find yourself at ";
     } else {
-        game_state.message += " You find yourself in " + 
-            game_state.places[destination].name + ".";
+        game_state.message += " You find yourself in ";
     }
+    game_state.message += game_state.places[destination].name + ".";
 }
 
 function teleport(game_state) {
@@ -4804,6 +4805,16 @@ var outcomes = {
             );
         }
         game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
+    "sneak_eve_and_die": function(game_state) {
+        var messages = [
+            "You can't find Lord Carlos' daughter before Lord Carlos' " +
+            "assassins find you.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        clover(game_state);
         return game_state;
     },
 

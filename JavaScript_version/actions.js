@@ -698,13 +698,15 @@ exports.actions = {
             case "eve":
                 raffle.add(possible_outcomes, "wowed_eve", 8);
                 raffle.add(possible_outcomes, "killed_by_eve", 1);
-                raffle.add(possible_outcomes, "eve_name", 1);
+                if (game_state.outcome !== "right_name") {
+                    raffle.add(possible_outcomes, "eve_name", 1);
+                }
                 raffle.add(possible_outcomes, "eve_loses_you_in_woods", 1);
                 if (game_state.persons.eve.attracted >= 4) {
-                    raffle.add(possible_outcomes, "forced_to_marry_eve", 100);
+                    raffle.add(possible_outcomes, "forced_to_marry_eve", 1000);
                 }
                 if (game_state.character.has_tail === true) {
-                    raffle.add(possible_outcomes, "tail_eve", 1);
+                    raffle.add(possible_outcomes, "tail_eve", 2);
                 }
                 break;
             case "mermaid":
@@ -1131,6 +1133,13 @@ exports.actions = {
         raffle.add(possible_outcomes, "dragon_and_die", 2);
         raffle.add(possible_outcomes, "meet_dragon_blue", 1);
         raffle.add(possible_outcomes, "meet_dragon_red", 1);
+        return possible_outcomes;
+    },
+
+    "Look for Lord Carlos' daughter.": 
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "meet_eve", 4);
+        raffle.add(possible_outcomes, "sneak_eve_and_die", 1);
         return possible_outcomes;
     },
 

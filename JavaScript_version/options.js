@@ -673,6 +673,7 @@ function get_place_options(game_state, options) {
                 if (game_state.places.lord_carlos_manor.burnable === true) {
                     raffle.add(options.b, "BURN", 2);
                 }
+                raffle.add(options.c, "Look for Lord Carlos' daughter.", 2);
                 raffle.add(options.d, "Sneak around.", 8);
             }
             break;
