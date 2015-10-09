@@ -112,6 +112,7 @@ function equip_best_weapon(game_state) {
     for (var i = 0; i < keys.length; i++) {
         if (game_state.character.equipped_weapon === "") {
             game_state.character.equipped_weapon = keys[i];
+            found_weapon_flag = true;
         } else if (game_state.character.items[keys[i]] > 0 &&
                    items.weapons_map[keys[i]].attack >= 
                    items.weapons_map[
@@ -1088,6 +1089,8 @@ var outcomes = {
             "The blind bartender says assassins like to frequent the tavern.",
             "The blind bartender tells you a story about how he was " +
             "blinded by the nymph queen.",
+            "You tell the blind bartender about your travels in the Orient. " +
+            "He's quite interested in your stories about the samurai.",
         ];
         game_state.message = functions.random_choice(messages);
         return game_state;
