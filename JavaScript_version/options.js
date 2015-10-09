@@ -507,10 +507,6 @@ function get_outcome_options(game_state, options) {
             raffle.add(options.d, "Ask for a draw.", 10000);
             break;
 
-        case "lose_coin_arthur":
-            raffle.add(options.b, "Scrub the deck.", 10000);
-            break;
-
         case "lose_peg":
             raffle.add(options.a, "Yell, \"I've lost my leg!\"", 10000);
             break;

@@ -3477,7 +3477,8 @@ var outcomes = {
 
     "lose_coin_arthur": function(game_state) {
         var messages = [
-            "Lord arthur takes the coin and tells you to scrub the deck.",
+            "Lord arthur takes the coin and tells you to forget you "
+            "ever had it.",
         ];
         game_state.message = functions.random_choice(messages);
         lose_item(game_state, "shiny foreign coin");
