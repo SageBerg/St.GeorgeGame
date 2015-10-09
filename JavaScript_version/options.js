@@ -635,15 +635,15 @@ function get_place_options(game_state, options) {
         case "lord_bartholomew_manor":
             if (functions.get_place(game_state).burnable === true) {
                 if (game_state.character.person === null) {
-                    raffle.add(options.b, "Tell the first person you meet " +
+                    raffle.add(options.b, "Tell the next person you meet " +
                             "that you're Lord Arthur.", 1);
-                    raffle.add(options.b, "Tell the first person you meet " +
+                    raffle.add(options.b, "Tell the next person you meet " +
                             "that you're Lord Bartholomew.", 1);
-                    raffle.add(options.b, "Tell the first person you meet " +
+                    raffle.add(options.b, "Tell the next person you meet " +
                             "that you're Lord Daniel.", 1);
-                    raffle.add(options.b, "Tell the first person you meet " +
+                    raffle.add(options.b, "Tell the next person you meet " +
                             "that you're Lord Carlos.", 1);
-                    raffle.add(options.b, "Tell the first person you meet " +
+                    raffle.add(options.b, "Tell the next person you meet " +
                             "that you're St. George.", 1);
                 }
                 if (game_state.persons.lord_bartholomew.alive === true && 
@@ -657,17 +657,16 @@ function get_place_options(game_state, options) {
 
         case "lord_carlos_manor":
             if (functions.get_place(game_state).burnable === true) {
-                if (game_state.character.person === null && 
-                    game_state.outcome !== "wait_here_please") {
-                    raffle.add(options.b, "Tell the first person you meet " +
+                if (game_state.character.person === null) {
+                    raffle.add(options.b, "Tell the next person you meet " +
                             "that you're Lord Arthur.", 1);
-                    raffle.add(options.b, "Tell the first person you meet " +
+                    raffle.add(options.b, "Tell the next person you meet " +
                             "that you're Lord Bartholomew.", 1);
-                    raffle.add(options.b, "Tell the first person you meet " +
+                    raffle.add(options.b, "Tell the next person you meet " +
                             "that you're Lord Daniel.", 1);
-                    raffle.add(options.b, "Tell the first person you meet " +
+                    raffle.add(options.b, "Tell the next person you meet " +
                             "that you're Lord Carlos.", 1);
-                    raffle.add(options.b, "Tell the first person you meet " +
+                    raffle.add(options.b, "Tell the next person you meet " +
                             "that you're St. George.", 1);
                     raffle.add(options.a, "Ask about assassins.", 4);
                 }
@@ -779,15 +778,15 @@ function get_place_options(game_state, options) {
         case "tower":
             if (functions.get_place(game_state).burnable === true) {
                 if (game_state.character.person === null) {
-                    raffle.add(options.b, "Tell the first person you meet " +
+                    raffle.add(options.b, "Tell the next person you meet " +
                             "that you're Lord Arthur.", 1);
-                    raffle.add(options.b, "Tell the first person you meet " +
+                    raffle.add(options.b, "Tell the next person you meet " +
                             "that you're Lord Bartholomew.", 1);
-                    raffle.add(options.b, "Tell the first person you meet " +
+                    raffle.add(options.b, "Tell the next person you meet " +
                             "that you're Lord Daniel.", 1);
-                    raffle.add(options.b, "Tell the first person you meet " +
+                    raffle.add(options.b, "Tell the next person you meet " +
                             "that you're Lord Carlos.", 1);
-                    raffle.add(options.b, "Tell the first person you meet " +
+                    raffle.add(options.b, "Tell the next person you meet " +
                             "that you're St. George.", 1);
                 }
                 if (game_state.persons.lord_daniel.alive === true && 

@@ -1714,7 +1714,7 @@ exports.actions = {
         return possible_outcomes;
     },
 
-    "Tell the first person you meet that you're Lord Arthur.": 
+    "Tell the next person you meet that you're Lord Arthur.": 
         function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "no_one_believes_you", 1);
         switch (game_state.character.place) {
@@ -1740,7 +1740,7 @@ exports.actions = {
         return possible_outcomes;
     },
 
-    "Tell the first person you meet that you're Lord Bartholomew.": 
+    "Tell the next person you meet that you're Lord Bartholomew.": 
         function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "no_one_believes_you", 1);
         switch (game_state.character.place) {
@@ -1757,7 +1757,7 @@ exports.actions = {
         return possible_outcomes;
     },
 
-    "Tell the first person you meet that you're Lord Carlos.": 
+    "Tell the next person you meet that you're Lord Carlos.": 
         function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "no_one_believes_you", 1);
         switch (game_state.character.place) {
@@ -1780,7 +1780,7 @@ exports.actions = {
         return possible_outcomes;
     },
 
-    "Tell the first person you meet that you're Lord Daniel.": 
+    "Tell the next person you meet that you're Lord Daniel.": 
         function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "no_one_believes_you", 1);
         switch (game_state.character.place) {
@@ -1802,7 +1802,7 @@ exports.actions = {
         return possible_outcomes;
     },
 
-    "Tell the first person you meet that you're St. George.": 
+    "Tell the next person you meet that you're St. George.": 
         function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "no_one_believes_you", 1);
         switch (game_state.character.place) {
