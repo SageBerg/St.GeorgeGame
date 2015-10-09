@@ -1493,7 +1493,10 @@ exports.actions = {
         }
 
         raffle.add(possible_outcomes, "no_one_cares", 2);
-        raffle.add(possible_outcomes, "sing_about_stuff", 5);
+
+        if (game_state.topic === null) {
+            raffle.add(possible_outcomes, "sing_about_stuff", 5);
+        }
 
         if (game_state.character.place === "streets" || 
             game_state.character.place === "market") {
