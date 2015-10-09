@@ -147,7 +147,7 @@ function get_default_options(game_state, options) {
 
     raffle.add(options.a, "Think.", 1);
     if (game_state.character.place !== "void") {
-        raffle.add(options.a, "Lick the ground.", 1);
+        raffle.add(options.a, "LICK_THE_GROUND", 1);
         raffle.add(options.c, "Leave in a puff.", 1);
     }
     raffle.add(options.b, "Pray to a higher power.", 1);
@@ -560,7 +560,7 @@ function get_outcome_options(game_state, options) {
 
         case "think_four_ideas":
             if (game_state.character.place !== "void") {
-                raffle.add(options.a, "Lick the ground.", 10);
+                raffle.add(options.a, "LICK_THE_GROUND", 10);
             }
             break;
 
@@ -657,7 +657,8 @@ function get_place_options(game_state, options) {
 
         case "lord_carlos_manor":
             if (functions.get_place(game_state).burnable === true) {
-                if (game_state.character.person === null) {
+                if (game_state.character.person === null && 
+                    game_state.outcome !== "wait_here_please") {
                     raffle.add(options.b, "Tell the first person you meet " +
                             "that you're Lord Arthur.", 1);
                     raffle.add(options.b, "Tell the first person you meet " +

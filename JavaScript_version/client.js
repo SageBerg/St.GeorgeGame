@@ -168,6 +168,15 @@ function set_a(game_state) {
             $("#a").text("a. Give " + get_person_name(game_state) + cat + ".");
             break;
 
+        case "LICK_THE_GROUND":
+            if (game_state.places[game_state.character.place].outside 
+                    === true) {
+                $("#a").text("a. Lick the ground."); 
+            } else {
+                $("#a").text("a. Lick the floor."); 
+            }
+            break;
+
         case "MARRY":
             $("#a").text("a. Marry " + get_person_name(game_state) + ".");
             break;

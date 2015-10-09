@@ -1051,7 +1051,7 @@ exports.actions = {
         return possible_outcomes;
     },
 
-    "Lick the ground.": function(game_state, possible_outcomes) {
+    "LICK_THE_GROUND": function(game_state, possible_outcomes) {
 
         if (game_state.outcome === "burn" || 
             game_state.character.place === "smoking_volcano") {
