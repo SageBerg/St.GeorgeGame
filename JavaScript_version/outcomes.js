@@ -3012,7 +3012,9 @@ var outcomes = {
     "kill": function(game_state) {
         var weapon = "bare hands";
         if (game_state.character.equipped_weapon !== "") {
-            weapon = game_state.character.equipped_weapon;
+            weapon = items.weapons_map[
+                game_state.character.equipped_weapon
+            ].name;
         }
         game_state.message =
             "You kill " +
