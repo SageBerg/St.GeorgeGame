@@ -5,15 +5,14 @@ testing: (optional)
 style: (do at the end)
     lint the game
     spell check the game
-    make sure my code style is consistent accross the board
+    look for "and and" "to to" etc.
 
 IT:
     host on AWS
     minify code
 
 play testing:
-    love potion the priestess, mermaid, nymph_queen
-    flirt with Olga, Eve
+    love potion the priestess, mermaid, nymph_queen, olga, eve
     lords victory
     pyro victory
     get feedback from a dozen or so people
@@ -24,27 +23,7 @@ css:
     upload rest of bootstrap file
 
 content:
-    the smoking volcano  
-        look for dragons
-            show dragon your foreign coin
-                get sword of great good
-                love potion
-                large_fortune
-                kill lord carlos
-            chat with dragon
-                dragon burns stuff
-            try to steal treasure
-                bag of jewels
-                pearl
-                fancy red cloak 
-        choke on fumes
-            die
-            nothing
-            saved by blue dragon
-        climb to the top of the volcano 
-            get exercise
-            get a good view
-            killed by red dragon
-        go swimming in a pool of lava
-            you can't find one
-            die
+    concoct an even more elaborate scheme (optional)
+    restrict who you can kill with the sword of great good
+    allow burning the lords
+    make clover actions remove your person if appropriate

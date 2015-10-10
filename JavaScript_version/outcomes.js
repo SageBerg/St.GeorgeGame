@@ -2134,6 +2134,7 @@ var outcomes = {
         var messages = [
             "You find a ferocious cat. It kills you.",
         ]; 
+        game_state.character.person = null;
         clover(game_state);
         return game_state;
     },
