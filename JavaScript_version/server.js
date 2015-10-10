@@ -69,7 +69,7 @@ function respond_with_outcome(req, res) {
         }
     } catch(err) { // if bad input would bring down the server
         console.log("\nUser input that would break the server was entered: ");
-        console.log(err);
+        console.log(err.message);
         res.json({"message": "error"});
     }
 }
@@ -194,7 +194,8 @@ function validate_options(game_state) {
         console.log("options is not an object");
         return false;    
     } else if (typeof(actions[game_state.options.a]) !== "function") {
-        console.log("option a does not map to a function");
+        console.log("option a:", game_state.options.a, 
+            "does not map to a function");
         return false;    
     } else if (typeof(actions[game_state.options.b]) !== "function") {
         console.log("option b does not map to a function");
