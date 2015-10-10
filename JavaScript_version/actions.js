@@ -338,16 +338,34 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Chat with Lord Bartholomew.": 
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "chat_with_lord_bartholomew", 1);
+        return possible_outcomes;
+    },
+
     "Chat with the blind bartender.": 
         function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "chat_with_blind_bartender", 15);
+        raffle.add(possible_outcomes, "chat_with_blind_bartender", 16);
         raffle.add(possible_outcomes, "chat_with_blind_bartender_and_die", 1);
         return possible_outcomes;
     },
 
-    "Chat with Lord Bartholomew.": 
+    "Chat with the dragon.": 
         function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "chat_with_lord_bartholomew", 1);
+        switch (game_state.character.person) {
+            case "dragon_blue":
+                raffle.add(possible_outcomes, "chat_with_dragon_blue", 3);
+                raffle.add(possible_outcomes, "dragon_teleports_you", 1);
+                break;
+            case "dragon_red":
+                raffle.add(possible_outcomes, "chat_with_dragon_red", 2);
+                raffle.add(possible_outcomes, "dragon_burns_stuff", 1);
+                raffle.add(possible_outcomes, "killed_by_dragon_red", 1);
+                break;
+            default:
+                raffle.add(possible_outcomes, "universe_blows_up", 1);
+        }
         return possible_outcomes;
     },
 

@@ -79,6 +79,29 @@ function burn(game_state) {
     game_state.places[game_state.character.place].name + ".";
 }
 
+function burn_a_bunch_of_places(game_state) {
+    var number_of_places_burned = functions.random_int(8);
+    //the order of burnable matters
+    var burnable = [
+        "lord_bartholomew_manor",
+        "woods",
+        "lord_carlos_manor",
+        "tower",
+        "market",
+        "wizard_lab",
+        "church",
+        "tavern",
+    ];
+    for (var i = 0; i < number_of_places_burned; i++) {
+        if (game_state.places[burnable[i]].burnable === true) {
+            game_state.places[burnable[i]].burnable = false;
+            game_state.places[burnable[i]].name = "the smoldering remains " +
+            "of " + game_state.places[burnable[i]].name;
+        }
+    }
+    console.log("number of places burned:", number_of_places_burned);
+}
+
 function capitalize(string) {
     return string[0].toUpperCase() + string.slice(1);
 }
@@ -1107,6 +1130,38 @@ var outcomes = {
         return game_state;
     },
 
+    "chat_with_dragon_blue": function(game_state) {
+        var messages = [
+            "The blue dragon poses several riddles for you, but you can't " +
+            "solve any of them.",
+            "The blue dragon says she senses some magic about you.",
+            "The blue dragon wishes you luck on your quest to find a wife.",
+            "You and the blue dragon agree that Lord Bartholomew is the " +
+            "best hope for the realm.",
+            "You and the blue dragon talk about the Orient.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
+    "chat_with_dragon_red": function(game_state) {
+        var messages = [
+            "You find that you both have a mutual interest in burning things.",
+            "You tell the dragon that assassins are trying to kill you. The " +
+            "dragon says he knows exactly how you feel.",
+            "The red dragon boasts about his treasure horde for hours and " +
+            "you barely manage to get a word in edgewise.",
+            "The red dragon says you're wasting your time trying to find a " +
+            "wife and that you should be trying to collect a horde of " +
+            "treasure to sleep on.",
+            "The red dragon says technology is moving too quickly for him " +
+            "to keep up. \"Back in my day, we had catapults and traveling " +
+            "story-tellers. Now there are far too many cannons and books.\"",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
     "chat_with_lord_bartholomew": function(game_state) {
         var messages = [
             "Lord Bartholomew is genuinely interested in your life story.",
@@ -1612,12 +1667,43 @@ var outcomes = {
         return game_state;
     },
 
+    "dragon_burns_stuff": function(game_state) {
+        var messages = [
+            "You and the red dragon get in a heated argument about " +
+            functions.random_choice(["about how maps should be oriented",
+                                     "whether cats or dogs make better pets",
+                                     "what weighs more, a pound of bricks " +
+                                     "or a pound of feathers"]) + 
+            ". At a certain point, the dragon gets so angry that he tries " +
+            "to eat you, but you hide in tunnel he can't get into. When " +
+            "you finally come out of the tunnel, you see that the dragon is " +
+            "not guarding his treasure, but is flying around the " +
+            "countryside torching everything.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        game_state.character.person = null;
+        get_money(game_state, "large_fortune");
+        get_item(game_state, "bag of jewels");
+        burn_a_bunch_of_places(game_state);
+        return game_state;
+    },
+
     "dragon_coin_die": function(game_state) {
         var messages = [
             "The red dragon takes the coin from you and eats you.",
         ];
         game_state.message = functions.random_choice(messages);
         die(game_state);
+        return game_state;
+    },
+
+    "dragon_teleports_you": function(game_state) {
+        var messages = [
+            "The blue dragon tires of your nonsense stories casts a spell " +
+            "on you."
+        ];
+        game_state.message = functions.random_choice(messages);
+        teleport(game_state);
         return game_state;
     },
 
@@ -3109,6 +3195,12 @@ var outcomes = {
     "killed_by_dragon": function(game_state) {
         game_state.message = "Everything was going fine until you tried to " +
             "get a dragon to do your biding.";
+        die(game_state);
+        return game_state;
+    },
+
+    "killed_by_dragon_red": function(game_state) {
+        game_state.message = "The dragon is in no mood to chat.";
         die(game_state);
         return game_state;
     },
