@@ -507,6 +507,7 @@ var outcomes = {
         game_state.message = "You don't catch any fish, but the assassins " +
             "catch you.";
         clover(game_state);
+        game_state.character.person = null;
         return game_state;
     },
 
@@ -731,6 +732,7 @@ var outcomes = {
         ];
         game_state.message = functions.random_choice(messages);
         clover(game_state);
+        game_state.character.person = null;
         return game_state;
     },
 
@@ -1271,6 +1273,7 @@ var outcomes = {
         ];
         game_state.message = functions.random_choice(messages);
         clover(game_state);
+        game_state.character.person = null;
         return game_state;
     },
 
@@ -1284,6 +1287,7 @@ var outcomes = {
         ];
         game_state.message = functions.random_choice(messages);
         clover(game_state);
+        game_state.character.person = null;
         return game_state;
     },
 
@@ -1453,6 +1457,7 @@ var outcomes = {
         ];
         game_state.message = functions.random_choice(messages);
         clover(game_state);
+        game_state.character.person = null;
         return game_state;
     },
 
@@ -1507,6 +1512,7 @@ var outcomes = {
         ]; 
         game_state.message = functions.random_choice(messages);
         clover(game_state);
+        game_state.character.person = null;
         return game_state;
     },
 
@@ -1678,6 +1684,7 @@ var outcomes = {
         ];
         game_state.message = functions.random_choice(messages);
         clover(game_state);
+        game_state.character.person = null;
         return game_state;
     },
 
@@ -2055,6 +2062,7 @@ var outcomes = {
         ]; 
         game_state.message = functions.random_choice(messages);
         clover(game_state);
+        game_state.character.person = null;
         return game_state;
     },
   
@@ -2996,6 +3004,7 @@ var outcomes = {
         ];
         game_state.message = functions.random_choice(messages);
         clover(game_state);
+        game_state.character.person = null;
         return game_state;
     },
 
@@ -4939,6 +4948,7 @@ var outcomes = {
             "assassins find you.",
         ];
         game_state.message = functions.random_choice(messages);
+        game_state.character.person = null;
         clover(game_state);
         return game_state;
     },
@@ -5626,6 +5636,7 @@ var outcomes = {
 
     "trip_over_a_cat": function(game_state) {
         game_state.message = "You trip over a cat and break your neck.";
+        game_state.character.person = null;
         clover(game_state);
         return game_state;
     },
