@@ -1621,7 +1621,13 @@ var outcomes = {
     },
 
     "distasteful": function(game_state) {
-        game_state.message = "You find the flavor of the ground distasteful.";
+        if (game_state.character.place.outside === true) {
+            game_state.message = 
+                "You find the flavor of the ground distasteful.";
+        } else {
+            game_state.message = 
+                "You find the flavor of the floor distasteful.";
+        }
         return game_state;
     },
 
@@ -1676,8 +1682,8 @@ var outcomes = {
                                      "or a pound of feathers"]) + 
             ". At a certain point, the dragon gets so angry that he tries " +
             "to eat you, but you hide in tunnel he can't get into. When " +
-            "you finally come out of the tunnel, you see that the dragon is " +
-            "not guarding his treasure, but is flying around the " +
+            "you finally come out of the tunnel, you see that the dragon " +
+            "is not guarding his treasure, but is flying around the " +
             "countryside torching everything.",
         ];
         game_state.message = functions.random_choice(messages);
@@ -1694,6 +1700,15 @@ var outcomes = {
         ];
         game_state.message = functions.random_choice(messages);
         die(game_state);
+        return game_state;
+    },
+
+    "dragon_coin_trade": function(game_state) {
+        var messages = [
+            "The blue dragon says that this coin is very valuable and " +
+            "that she will make you a fair traid for it.",
+        ];
+        game_state.message = functions.random_choice(messages);
         return game_state;
     },
 
@@ -5430,9 +5445,51 @@ var outcomes = {
         return game_state;
     },
 
-    "trip_over_a_cat": function(game_state) {
-        game_state.message = "You trip over a cat and break your neck.";
-        clover(game_state);
+    "trade_coin_for_sword_of_great_good": function(game_state) {
+        var messages = [
+            "The blue dragon says she hopes you use the blade well.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        lose_item(game_state, "shiny foreign coin");
+        get_weapon(game_state, "sword_of_great_good");
+        return game_state;
+    },
+
+    "trade_coin_for_potion_of_love": function(game_state) {
+        var messages = [
+            "The dragon is happy to make the trade with you, but she warns " +
+            "you that a potion of love has many unethical uses.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        lose_item(game_state, "shiny foreign coin");
+        get_item(game_state, "potion of love");
+        return game_state;
+    },
+
+    "trade_coin_for_large_fortune": function(game_state) {
+        var messages = [
+            "The blue dragon gives you a chest of gold and " +
+            "flies you down mountain so you don't have to make the long " +
+            "hike with so much weight on your back.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        lose_item(game_state, "shiny foreign coin");
+        get_money(game_state, "large_fortune");
+        return game_state;
+    },
+
+    "trade_coin_for_lord_carlos": function(game_state) {
+        var messages = [
+            "The blue dragon flies you to the woods and burns Lord Carlos' " +
+            "manor to a crisp. She thanks you for the trade and flies away.",
+        ];
+        game_state.persons.lord_carlos.alive = false;
+        game_state.places.lord_carlos_manor.burnable = false;
+        game_state.places.lord_carlos_manor.name = 
+            "the smoldering remains of Lord Carlos' manor";
+        game_state.message = functions.random_choice(messages);
+        lose_item(game_state, "shiny foreign coin");
+        move_character(game_state, "woods");
         return game_state;
     },
 
@@ -5555,6 +5612,12 @@ var outcomes = {
         }
         game_state.message = functions.random_choice(messages);
         die(game_state);
+        return game_state;
+    },
+
+    "trip_over_a_cat": function(game_state) {
+        game_state.message = "You trip over a cat and break your neck.";
+        clover(game_state);
         return game_state;
     },
 

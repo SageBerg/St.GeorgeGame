@@ -112,6 +112,21 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Ask the blue dragon to kill Lord Carlos.": 
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "trade_coin_for_lord_carlos", 1);
+        return possible_outcomes;
+    },
+ 
+    "Ask the mermaid to take you back to land.": 
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "mermaid_gives_you_fish", 1);
+        raffle.add(possible_outcomes, "mermaid_refuses", 1);
+        raffle.add(possible_outcomes, "mermaid_strands_you", 1);
+        raffle.add(possible_outcomes, "mermaid_takes_you_back_to_land", 1);
+        return possible_outcomes;
+    },
+ 
     "Ask the witch to brew you a potion.": 
         function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "witch_says_no", 1);
@@ -131,15 +146,6 @@ exports.actions = {
         return possible_outcomes;
     },
 
-    "Ask the mermaid to take you back to land.": 
-        function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "mermaid_gives_you_fish", 1);
-        raffle.add(possible_outcomes, "mermaid_refuses", 1);
-        raffle.add(possible_outcomes, "mermaid_strands_you", 1);
-        raffle.add(possible_outcomes, "mermaid_takes_you_back_to_land", 1);
-        return possible_outcomes;
-    },
- 
     "ATTACK": function(game_state, possible_outcomes) {
         var weapon_bonus = 0; 
         if (game_state.character.equipped_weapon !== "") {
@@ -1085,9 +1091,6 @@ exports.actions = {
             raffle.add(possible_outcomes, "lick_blood", 10000);
         }
 
-        raffle.add(possible_outcomes, "distasteful", 5);
-        raffle.add(possible_outcomes, "infection", 1);
-
         if (functions.get_place(game_state).town) {
             raffle.add(possible_outcomes, "guards_stop_you_licking", 6);
         }
@@ -1979,6 +1982,24 @@ exports.actions = {
         raffle.add(possible_outcomes, "cannot_tip_cow", 4);
         raffle.add(possible_outcomes, "tip_cow_and_die", 1);
         raffle.add(possible_outcomes, "tip_cow_and_lynch_mob", 1);
+        return possible_outcomes;
+    },
+
+    "Trade it for a fancy paladin sword.":
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "trade_coin_for_sword_of_great_good", 1);
+        return possible_outcomes;
+    },
+
+    "Trade it for a potion of love.":
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "trade_coin_for_potion_of_love", 1);
+        return possible_outcomes;
+    },
+
+    "Trade it for a large fortune.":
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "trade_coin_for_large_fortune", 1);
         return possible_outcomes;
     },
 

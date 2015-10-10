@@ -447,6 +447,18 @@ function get_outcome_options(game_state, options) {
             raffle.add(options.a, "Kill everybody in a fit of rage.", 1);
             break;
   
+        case "dragon_coin_trade":
+            raffle.add(options.a, "Trade it for a fancy paladin sword.", 
+                10000);
+            raffle.add(options.b, "Trade it for a potion of love.", 10000);
+            if (game_state.persons.lord_carlos.alive === true &&
+                game_state.places.lord_carlos_manor.burnable === true) {
+                raffle.add(options.c, "Ask the blue dragon to kill Lord " +
+                    "Carlos.", 10000);
+            } 
+            raffle.add(options.d, "Trade it for a large fortune.", 10000);
+            break;
+  
         case "fail_to_save_cat":
             raffle.add(options.a, "Kill yourself in frustration.", 2);
             raffle.add(options.d, 

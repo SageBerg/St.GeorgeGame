@@ -39,18 +39,23 @@ exports.weapons_map = {
         "cost": "small_fortune"
     },
     "jeweled_cutlass": { 
-        "name": "jeweled cutlass", 
-        "attack": 7, 
+        "name": "jeweled cutlass",
+        "attack": 7,
         "cost": "large_fortune"
     },
     "iron_hammer": {
-        "name": "iron hammer", 
-        "attack": 8, 
+        "name": "iron hammer",
+        "attack": 8,
         "cost": "small_fortune"
     },
     "sword_of_great_evil": {
-        "name": "sword of great evil", 
-        "attack": 101, 
+        "name": "sword of great evil",
+        "attack": 101,
+        "cost": "large_fortune"
+    },
+    "sword_of_great_good": {
+        "name": "sword of great good",
+        "attack": 102,
         "cost": "large_fortune"
     },
 }
