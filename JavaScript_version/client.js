@@ -291,7 +291,7 @@ function set_d(game_state) {
 
             case "Go swimming in a pool of lava.":
                 if (game_state.outcome === "lava_swim") {
-                    $("#d").text("d. Go swimming in a another pool of lava.")
+                    $("#d").text("d. Go swimming in another pool of lava.")
                 } else {
                     $("#d").text("d. Go swimming in a pool of lava.")
                 }

@@ -700,7 +700,7 @@ var outcomes = {
         game_state.message = "St. George is impressed with your noble " +
             "deeds and rewards you.",
         get_money(game_state, "large_fortune");
-        game_state.topic = "how rich your are";
+        game_state.topic = "how rich you are";
         return game_state;
     },
 
@@ -2624,7 +2624,7 @@ var outcomes = {
             functions.random_choice([
                 "beating you with his cat. The cat is more traumatized " +
                 "by the experience than you are.",
-                "making you clean the the deck with your tongue. You're " +
+                "making you clean the deck with your tongue. You're " +
                 "pretty good at it.",
                 "tying you to the front of the ship for a week. You find " +
                 "the wooden mermaid figurehead very sexy.",
@@ -2913,7 +2913,7 @@ var outcomes = {
     },
 
     "guards_stop_you_killing": function(game_state) {
-        game_state.message = "The local guards see your killing everybody " +
+        game_state.message = "The local guards see you killing everybody " +
             "and conclude that you must be a lunatic.";
         game_state.character.person = "guards";
         game_state.character.is_threatened = true;
@@ -6086,7 +6086,7 @@ var outcomes = {
 
     "women_gawk_at_you": function(game_state) {
         var messages = [
-            "The women also gawk at you since you have have a tail.",
+            "The women also gawk at you since you have a tail.",
         ];
         game_state.message = functions.random_choice(messages);
         return game_state;

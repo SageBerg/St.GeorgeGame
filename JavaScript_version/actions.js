@@ -2171,7 +2171,7 @@ exports.actions = {
     },
 
     "Yell, \"I've lost my leg!\"": function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "no_one_care_about_your_leg", 1);
+        raffle.add(possible_outcomes, "no_one_cares_about_your_leg", 1);
         if (game_state.persons.lord_arthur.alive === true) {
             raffle.add(possible_outcomes, "lord_arthur_helps", 1);
         }
