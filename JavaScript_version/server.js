@@ -58,7 +58,6 @@ function respond_with_outcome(req, res) {
             game_state.outcome = outcome;
             game_state         = outcomes.apply_outcome(outcome, game_state);
             game_state.options = options.get_options(game_state);
-            set_destination(game_state, outcome);
             game_state.score   = parseInt(game_state.score) + 1;
             stop_tripping(game_state);
             res.json(game_state);
@@ -70,26 +69,6 @@ function respond_with_outcome(req, res) {
         console.log("\nUser input that would break the server was entered: ");
         console.log(err);
         res.json({"message": "error"});
-    }
-}
-
-function set_destination(game_state, outcome) {
-    if (game_state.options.c === "GO_TO") {
-        switch (outcome) {
-            case "directions_to_manor":
-                game_state.destination = "lord_bartholomew_manor";
-                break;
-            case "directions_to_town":
-                game_state.destination = "streets";
-                break;
-            case "directions_to_woods":
-                game_state.destination = "woods";
-                break;
-            default:
-                game_state.destination = get_destination(game_state);
-        }
-    } else {
-        game_state.destination = null; 
     }
 }
 

@@ -1560,6 +1560,14 @@ var outcomes = {
         return game_state;
     },
 
+    "directions_to_volcano": function(game_state) {
+        var messages = [
+            "He tells you how to get to the smoking volcano.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
     "directions_to_woods": function(game_state) {
         var messages = [
             "She tells you how to get to the woods and goes on her way.",

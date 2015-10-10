@@ -83,7 +83,7 @@ exports.get_options = function get_options(game_state) {
             game_state.outcome !== "think_four_ideas" &&
             game_state.character.place !== "void") {
             options.e = "Enter the void.";
-        } else if (Math.floor(Math.random() * 8) === 0 &&
+        } else if (Math.floor(Math.random() * 4) === 0 &&
                    game_state.character.place === "void") {
             options.e = "Exit the void.";
         } else {
@@ -91,6 +91,7 @@ exports.get_options = function get_options(game_state) {
         }
     }
 
+    set_destination(game_state, game_state.outcome);
     game_state.marriage = false;
 
     return options;
@@ -437,6 +438,7 @@ function get_outcome_options(game_state, options) {
 
         case "directions_to_manor":
         case "directions_to_town":
+        case "directions_to_volcano":
         case "directions_to_woods":
             raffle.add(options.c, "GO_TO", 1000);
             break;
@@ -871,6 +873,25 @@ function marriage_victory(game_state) {
         return true;
     }
     return false;
+}
+
+function set_destination(game_state) {
+    switch (game_state.outcome) {
+        case "directions_to_manor":
+            game_state.destination = "lord_bartholomew_manor";
+            break;
+        case "directions_to_town":
+            game_state.destination = "streets";
+            break;
+        case "directions_to_volcano":
+            game_state.destination = "smoking_volcano";
+            break;
+        case "directions_to_woods":
+            game_state.destination = "woods";
+            break;
+        default:
+            game_state.destination = null; 
+    }
 }
 
 function set_game_over_options(options) {

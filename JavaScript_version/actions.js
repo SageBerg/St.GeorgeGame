@@ -105,6 +105,7 @@ exports.actions = {
                 break;
             case "simple_peasant":
                 raffle.add(possible_outcomes, "directions_simple_peasant", 2);
+                raffle.add(possible_outcomes, "directions_to_volcano", 1);
                 break;
             default:
                 raffle.add(possible_outcomes, "universe_blows_up", 1);
