@@ -1228,17 +1228,17 @@ var outcomes = {
 
     "choke_on_fumes": function(game_state) {
         var messages = [
-            "You caugh a lot.",
+            "You cough a lot.",
             "You wheeze.",
         ];
         game_state.message = functions.random_choice(messages);
-        game_state.topic = "volcanos";
+        game_state.topic = "volcanoes";
         return game_state;
     },
 
     "choke_on_fumes_and_die": function(game_state) {
         var messages = [
-            "You caugh up a lung.",
+            "You caught up a lung.",
             "You die of air pollution.",
         ];
         game_state.message = functions.random_choice(messages);
@@ -1612,7 +1612,7 @@ var outcomes = {
 
     "disguise_meet_lord_carlos": function(game_state) {
         game_state.message = "You are soon taken to Lord Carlos. He is " +
-            "livid when he discovers you're an imposter.";
+            "livid when he discovers you're an impostor.";
         game_state.character.is_threatened = true;
         game_state.character.person = "lord_carlos";
         return game_state;
@@ -1712,7 +1712,7 @@ var outcomes = {
     "dragon_coin_trade": function(game_state) {
         var messages = [
             "The blue dragon says that this coin is very valuable and " +
-            "that she will make you a fair traid for it.",
+            "that she will make you a fair trade for it.",
         ];
         game_state.message = functions.random_choice(messages);
         return game_state;
@@ -3772,7 +3772,7 @@ var outcomes = {
 
     "meet_dragon_red": function(game_state) {
         game_state.message = "You walk into a red dragon's treasure trove. " +
-            "The dragon eyes you suspciously.";
+            "The dragon eyes you suspiciously.";
         game_state.character.person = "dragon_red";
         return game_state;
     },
@@ -5659,7 +5659,7 @@ var outcomes = {
     "volcano_die": function(game_state) {
         var messages = [
             "A red dragon flies out of the volcano and roasts you with a " +
-            "jet of falme.",
+            "jet of flame.",
             "While you're climbing, you get incinerated by a cloud of hot " +
             "ash.",
             "You fall into a fissure.",
@@ -5685,7 +5685,7 @@ var outcomes = {
         var messages = [
             "You can't find your way to the top of the volcano.",
             "You make it to the top of the volcano, but your view is " +
-            "bloked out by smoke, so you get bored and start climbing " +
+            "blocked out by smoke, so you get bored and start climbing " +
             "back down.",
         ];
         game_state.message = functions.random_choice(messages);

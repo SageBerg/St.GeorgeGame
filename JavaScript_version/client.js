@@ -126,7 +126,7 @@ function request_outcome_of_action(action) {
            handle_new_world);
 }
 
-// CREDITS: funcction based on top answer by community wiki at:
+// CREDITS: function based on top answer by community wiki at:
 // http://stackoverflow.com/questions/2450954/
 //        how-to-randomize-shuffle-a-javascript-array
 function scramble(text) {
