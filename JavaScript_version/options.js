@@ -231,7 +231,9 @@ function get_item_options(game_state, options) {
     }
 
     if (game_state.character.items["shiny foreign coin"] > 0 &&
-        (game_state.character.person === "lord_arthur" ||
+        (game_state.character.person === "dragon_blue" ||
+         game_state.character.person === "dragon_red" ||
+         game_state.character.person === "lord_arthur" ||
          game_state.character.person === "lord_bartholomew" ||
          game_state.character.person === "lord_carlos" ||
          game_state.character.person === "lord_daniel")) {

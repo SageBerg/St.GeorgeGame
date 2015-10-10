@@ -1612,6 +1612,15 @@ var outcomes = {
         return game_state;
     },
 
+    "dragon_coin_die": function(game_state) {
+        var messages = [
+            "The red dragon takes the coin from you and eats you.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        die(game_state);
+        return game_state;
+    },
+
     "drink_piss": function(game_state) {
         var messages = [
             "The potion tastes foul and you begin wondering if the wizard " +
@@ -3477,7 +3486,7 @@ var outcomes = {
 
     "lose_coin_arthur": function(game_state) {
         var messages = [
-            "Lord arthur takes the coin and tells you to forget you "
+            "Lord arthur takes the coin and tells you to forget you " +
             "ever had it.",
         ];
         game_state.message = functions.random_choice(messages);
@@ -4264,7 +4273,6 @@ var outcomes = {
             "kill.",
         ];
         game_state.message = functions.random_choice(messages);
-        die(game_state);
         return game_state;
     },
 

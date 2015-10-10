@@ -1477,6 +1477,12 @@ exports.actions = {
 
     "SHOW_COIN": function(game_state, possible_outcomes) {
         switch (game_state.character.person) {
+            case "dragon_blue":
+                raffle.add(possible_outcomes, "dragon_coin_trade", 1);
+                break;
+            case "dragon_red":
+                raffle.add(possible_outcomes, "dragon_coin_die", 1);
+                break;
             case "lord_arthur":
                 raffle.add(possible_outcomes, "lose_coin_arthur", 1);
                 break;
