@@ -1,4 +1,6 @@
 "use strict";
+/*jslint vars: true, plusplus: true, devel: true, nomen: true*/ 
+/*global define */
 
 exports.destringify = function destringify(game_state) {
 
@@ -84,4 +86,4 @@ exports.destringify = function destringify(game_state) {
     
     return game_state;
 
-}
+};

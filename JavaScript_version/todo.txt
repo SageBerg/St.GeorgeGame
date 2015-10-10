@@ -1,15 +1,13 @@
 testing: (optional)
-    make some unit tests
+    make some unit tests with jasmine
     test the game with Selenium
 
 style: (do at the end)
-    lint the game
     spell check the game
-    look for "and and" "to to" etc.
 
 IT:
     host on AWS
-    minify code
+    minify code (a while after testing is complete)
 
 play testing:
     love potion the priestess, mermaid, nymph_queen, olga, eve
@@ -24,6 +22,6 @@ css:
 
 content:
     concoct an even more elaborate scheme (optional)
-    restrict who you can kill with the sword of great good
-    allow burning the lords
-    make clover actions remove your person if appropriate
+
+bugs:
+    look for a cat and die

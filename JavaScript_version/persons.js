@@ -1,4 +1,6 @@
 "use strict";
+/*jslint vars: true, plusplus: true, devel: true, nomen: true*/ 
+/*global define */
 
 exports.persons = {
     "assassin":

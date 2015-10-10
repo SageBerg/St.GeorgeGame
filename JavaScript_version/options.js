@@ -1,4 +1,6 @@
 "use strict";
+/*jslint vars: true, plusplus: true, devel: true, nomen: true*/ 
+/*global define */
 
 var functions = require("./functions");
 var items     = require("./items");
@@ -50,20 +52,23 @@ exports.get_options = function get_options(game_state) {
             " Some people just like to watch the world " +
             "burn. You are one of them. You win.",
             " You are satisfied with how everything has been burned. You win.",
-        ] 
+        ];
         game_state.message += messages[functions.random_int(messages.length)];
         set_game_over_options(options);
     } else if (lords_victory(game_state)) {
-        var messages = [
+        var lords_messages = [
             " With the last of the four lords dead, you have destroyed the " +
             "establishment and brought about a Utopian anarchy... " +
             "more or less. You win!",
-        ] 
-        game_state.message += messages[functions.random_int(messages.length)];
+        ];
+        game_state.message += lords_messages[
+            functions.random_int(lords_messages.length)
+        ];
         set_game_over_options(options);
     } else if (Math.floor(Math.random() * 250) === 0 && 
-               game_state.places[game_state.character.place].burnable 
-               === true) {
+               game_state.places[
+                   game_state.character.place
+               ].burnable === true) {
         set_pyro_options(options);
     } else {
         
@@ -95,7 +100,7 @@ exports.get_options = function get_options(game_state) {
     game_state.marriage = false;
 
     return options;
-}
+};
 
 exports.starting_options = {"a": "Ask about assassins.",
                             "b": "Buy a drink.",
@@ -176,17 +181,17 @@ function get_item_options(game_state, options) {
         raffle.add(options.b, "GIVE_FLOWERS", 100);
     }
 
-    if (game_state.character.items["cat"] > 0) {
+    if (game_state.character.items.cat > 0) {
         raffle.add(options.d, "Swing your cat.", 1);
     }
 
-    if (game_state.character.items["cat"] > 0 &&
-        game_state.character.items["pearl"] > 0 &&
+    if (game_state.character.items.cat > 0 &&
+        game_state.character.items.pearl> 0 &&
         game_state.character.person === "witch") {
         raffle.add(options.b, "Ask the witch to brew you a potion.", 100);
     }
 
-    if (game_state.character.items["cat"] > 0 &&
+    if (game_state.character.items.cat > 0 &&
         (game_state.character.person === "eve" ||
          game_state.character.person === "olga")) {
         raffle.add(options.a, "GIVE_HER_CAT", 5);
@@ -205,7 +210,7 @@ function get_item_options(game_state, options) {
         raffle.add(options.b, "Ask the witch to brew you a potion.", 100);
     }
 
-    if (game_state.character.items["frog"] > 0 &&
+    if (game_state.character.items.frog > 0 &&
         game_state.places[game_state.character.place].locked === false) {
         raffle.add(options.b, "Kiss your frog.", 1);
     }

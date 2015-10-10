@@ -1,4 +1,6 @@
 "use strict";
+/*jslint vars: true, plusplus: true, devel: true, nomen: true*/ 
+/*global define */
 
 var actions     = require("./actions").actions;
 var character   = require("./character").character;
@@ -79,7 +81,7 @@ function stop_tripping(game_state) {
     }
 }
 
-function validate(game_state, conditions) {
+function validate(game_state) {
     var conditions = [
         typeof(game_state) === "object",
         

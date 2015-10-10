@@ -1,4 +1,6 @@
 "use strict";
+/*jslint vars: true, plusplus: true, devel: true, nomen: true*/ 
+/*global define */
 
 exports.character = {
     "equipped_weapon": "",
@@ -51,4 +53,4 @@ exports.character = {
     "person": "",
     "place": "tavern",
     "strength": 0
-}
+};

@@ -1,4 +1,6 @@
 "use strict";
+/*jslint vars: true, plusplus: true, devel: true, nomen: true*/ 
+/*global define */
 
 var functions = require("./functions");
 var items     = require("./items");
@@ -136,8 +138,8 @@ exports.actions = {
             game_state.character.items["many-colored mushroom"] > 0) {
             raffle.add(possible_outcomes, "witch_makes_potion_love", 5);
         }
-        if (game_state.character.items["cat"] > 0 &&
-            game_state.character.items["pearl"] > 0) {
+        if (game_state.character.items.cat > 0 &&
+            game_state.character.items.pearl > 0) {
             raffle.add(possible_outcomes, "witch_makes_potion_tail_growth", 5);
         }
         if (game_state.character.items["deep-cave newt"] > 0 &&
@@ -168,10 +170,8 @@ exports.actions = {
     //b
 
     "Beg for money.": function(game_state, possible_outcomes) {
-        game_state.outcome === "st_george_gives_you_money" 
-            ?
-        raffle.add(possible_outcomes, "st_george_kills_you", 1)
-            :
+        game_state.outcome === "st_george_gives_you_money" ?
+        raffle.add(possible_outcomes, "st_george_kills_you", 1) :
         raffle.add(possible_outcomes, "st_george_gives_you_money", 1);
         return possible_outcomes;
     },
@@ -236,7 +236,7 @@ exports.actions = {
         raffle.add(possible_outcomes, "cannot_build_igloo", 1);
         if (game_state.character.items["seal carcass"] >= 1) {
             raffle.add(possible_outcomes, "eat_seal_in_igloo", 20);
-        } else if (game_state.character.items["fish"] >= 3) {
+        } else if (game_state.character.items.fish >= 3) {
             raffle.add(possible_outcomes, "eat_fish_in_igloo", 20);
         }else { 
             raffle.add(possible_outcomes, "starve_in_igloo", 1);
@@ -282,8 +282,10 @@ exports.actions = {
     },
 
     "BUY_WEAPON": function(game_state, possible_outcomes) {
-        if (items.money_map[items.weapons_map[game_state.for_sell].cost].value 
-            <= items.money_map[game_state.character.money].value) {
+        if (items.money_map[
+                items.weapons_map[game_state.for_sell
+            ].cost].value <= 
+            items.money_map[game_state.character.money].value) {
             raffle.add(possible_outcomes, "buy_a_weapon", 1);
         } else {
             raffle.add(possible_outcomes, "cannot_afford", 1);
@@ -789,7 +791,7 @@ exports.actions = {
         function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "rebuffed_by_fat_lady", 2);
         raffle.add(possible_outcomes, "wowed_fat_lady", 5);
-        if (game_state.character.person = "other_lunatics") {
+        if (game_state.character.person === "other_lunatics") {
             raffle.add(possible_outcomes, "lunatics_jeer", 2);
         }
         return possible_outcomes;
@@ -1874,10 +1876,8 @@ exports.actions = {
     },
 
     "TELL_GUARDS": function(game_state, possible_outcomes) {
-        game_state.character.excuse === "rich" 
-            ? 
-        raffle.add(possible_outcomes, "a_rich_lunatic", 1)
-            :
+        game_state.character.excuse === "rich" ? 
+        raffle.add(possible_outcomes, "a_rich_lunatic", 1) :
         raffle.add(possible_outcomes, "an_excuse_lunatic", 1);
         return possible_outcomes;
     },
@@ -1970,8 +1970,10 @@ exports.actions = {
     "Thump yourself on the chest.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "feel_manly", 9);
         raffle.add(possible_outcomes, "thump_self_and_die", 1);
-        if (game_state.places[game_state.character.place].populated === true
-            || game_state.character.place === "countryside") {
+        if (game_state.places[
+                game_state.character.place
+            ].populated === true || 
+            game_state.character.place === "countryside") {
             raffle.add(possible_outcomes, "peasant_woman_impressed", 1);
             raffle.add(possible_outcomes, "peasants_laugh_at_you", 2);
         }
@@ -2180,7 +2182,7 @@ exports.actions = {
 
     //z
 
-}
+};
 
 function check_if_sword_of_great_good_stops_you(game_state) {
     if (game_state.character.equipped_weapon === "sword_of_great_good") {
@@ -2196,10 +2198,9 @@ function check_if_sword_of_great_good_stops_you(game_state) {
             case "wizard":
                 //the good sword will allow you to kill evil people
                 return false;
-                break;
             default: 
                 //the good sword does not allow you to kill innocents
-                return true
+                return true;
        }
     } else {
         return false;

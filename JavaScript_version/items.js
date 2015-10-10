@@ -1,11 +1,13 @@
 "use strict";
+/*jslint vars: true, plusplus: true, devel: true, nomen: true*/ 
+/*global define */
 
 exports.money_map = {
     "none":          {"value": 0, "name": "no money"},
     "pittance":      {"value": 1, "name": "a pittance"},
     "small_fortune": {"value": 2, "name": "a small fortune"},
     "large_fortune": {"value": 3, "name": "a large fortune"}
-}
+};
 
 exports.weapons_map = {
     "pitchfork": {
@@ -58,4 +60,4 @@ exports.weapons_map = {
         "attack": 102,
         "cost": "large_fortune"
     },
-}
+};

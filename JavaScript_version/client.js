@@ -1,4 +1,6 @@
 "use strict";
+/*jslint vars: true, plusplus: true, devel: true, nomen: true*/ 
+/*global define */
 
 var game_state = {};
 
@@ -36,17 +38,17 @@ function bind_keys() {
             a_execute();
         } else if (ascii == 50 || ascii == 66 || ascii == 98) {
             b_execute();
-        } else if (ascii == 51 || ascii == 67 || ascii == 99 
-                   && game_state.options.c !== "") {
+        } else if (ascii == 51 || ascii == 67 || ascii == 99 &&
+                   game_state.options.c !== "") {
             execute("c");
-        } else if (ascii == 52 || ascii == 68 || ascii == 100
-                   && game_state.options.d !== "") {
+        } else if (ascii == 52 || ascii == 68 || ascii == 100 &&
+                   game_state.options.d !== "") {
             execute("d");
-        } else if (ascii == 53 || ascii == 69 || ascii == 101
-                   && game_state.options.e !== "") {
+        } else if (ascii == 53 || ascii == 69 || ascii == 101 &&
+                   game_state.options.e !== "") {
             execute("e");
         }
-    }
+    };
 }
 
 function execute(letter) {
@@ -162,15 +164,16 @@ function set_a(game_state) {
 
         case "GIVE_HER_CAT":
             var cat = "your cat";
-            if (game_state.character.items["cat"] > 1) {
+            if (game_state.character.items.cat > 1) {
                 cat = "one of your cats";
             }
             $("#a").text("a. Give " + get_person_name(game_state) + cat + ".");
             break;
 
         case "LICK_THE_GROUND":
-            if (game_state.places[game_state.character.place].outside 
-                    === true) {
+            if (game_state.places[
+                    game_state.character.place
+                ].outside === true) {
                 $("#a").text("a. Lick the ground."); 
             } else {
                 $("#a").text("a. Lick the floor."); 
@@ -291,9 +294,9 @@ function set_d(game_state) {
 
             case "Go swimming in a pool of lava.":
                 if (game_state.outcome === "lava_swim") {
-                    $("#d").text("d. Go swimming in another pool of lava.")
+                    $("#d").text("d. Go swimming in another pool of lava.");
                 } else {
-                    $("#d").text("d. Go swimming in a pool of lava.")
+                    $("#d").text("d. Go swimming in a pool of lava.");
                 }
                 break;
 
@@ -344,6 +347,6 @@ var weapons_map = {
     "pitchfork": "pitchfork",
     "long_pitchfork": "long pitchfork",
     "poison_dagger": "poison dagger",
-}
+};
 
 $(document).ready(request_initial_world);
