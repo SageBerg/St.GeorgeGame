@@ -63,6 +63,7 @@ function respond_with_outcome(req, res) {
             stop_tripping(game_state);
             res.json(game_state);
         } else { // if input validation fails
+            console.log("validation returned false");
             res.json({"message": "error"});
         }
     } catch(err) { // if bad input would bring down the server
@@ -114,7 +115,9 @@ function validate(game_state, conditions) {
         typeof(game_state.outcome) === "string" &&
         (game_state.outcome === "" ||
          typeof(outcomes.outcomes[game_state.outcome]) === "function"),
-
+        
+        validate_character(game_state),
+        validate_options(game_state),
         validate_persons(game_state),
         validate_places(game_state),
 
@@ -123,11 +126,6 @@ function validate(game_state, conditions) {
 
         typeof(game_state.topic) === "string",
     ];
-
-    if (validate_character(game_state) === false ||
-        validate_options(game_state) === false) {
-        return false;
-    }
 
     //return a boolean that says if all conditions in the list are true or not
     return conditions.every(function(condition) {
@@ -142,10 +140,12 @@ function validate_character(game_state) {
     if (character_keys.length === input_character_keys.length) {
         for (var i in character_keys) {
             if (character_keys[i] !== input_character_keys[i]) {
+                console.log("character attributes are wrong");
                 return false;
             }
         }
     } else {
+        console.log("character is wrong size");
         return false;
     }
 
@@ -161,7 +161,8 @@ function validate_character(game_state) {
         game_state.character.equipped_weapon === "poison_dagger" ||
         game_state.character.equipped_weapon === "jeweled_cutlass" ||
         game_state.character.equipped_weapon === "iron_hammer" ||
-        game_state.character.equipped_weapon === "sword_of_great_evil",
+        game_state.character.equipped_weapon === "sword_of_great_evil" ||
+        game_state.character.equipped_weapon === "sword_of_great_good",
         typeof(game_state.character.excuse)  === "string",
 
         game_state.character.has_found_true_love === "false" ||
@@ -193,7 +194,7 @@ function validate_character(game_state) {
         typeof(game_state.character.person) === "string" &&
         (typeof(places[game_state.character.place]) === "object" ||
          game_state.character.place === ""),
-    
+
         !isNaN(parseInt(game_state.character.strength)),
     ];
 
@@ -208,20 +209,37 @@ function validate_character(game_state) {
 }
 
 function validate_options(game_state) {
-    return typeof(game_state.options)             === "object" &&
-           typeof(actions[game_state.options.a])  === "function" &&
-           Object.keys(game_state.options).length ===  
-               Object.keys(options.starting_options).length &&
-           typeof(actions[game_state.options.b])  === "function" &&
-           (typeof(actions[game_state.options.c]) === "function" ||
-            game_state.options.c === "") &&
-           (typeof(actions[game_state.options.d]) === "function" || 
-            game_state.options.d === "") &&
-           (typeof(actions[game_state.options.e]) === "function" || 
-            game_state.options.e === "");
+    if (typeof(game_state.options) !== "object") {
+        console.log("options is not an object");
+        return false;    
+    } else if (typeof(actions[game_state.options.a]) !== "function") {
+        console.log("option a does not map to a function");
+        return false;    
+    } else if (typeof(actions[game_state.options.b]) !== "function") {
+        console.log("option b does not map to a function");
+        return false;    
+    } else if (Object.keys(game_state.options).length !==
+               Object.keys(options.starting_options).length) {
+        console.log("wrong amount of options");
+        return false;    
+    } else if (typeof(actions[game_state.options.c]) !== "function" &&
+               game_state.options.c !== "") {
+        console.log("problem with option c");
+        return false;    
+    } else if (typeof(actions[game_state.options.d]) !== "function" &&
+               game_state.options.d !== "") {
+        console.log("problem with option d");
+        return false;    
+    } else if (typeof(actions[game_state.options.e]) !== "function" &&
+               game_state.options.e !== "") {
+        console.log("problem with option e");
+        return false;    
+    }
+    return true;
 }
 
 function validate_persons(game_state) {
+
     if (typeof(game_state.persons) !== "object") {
         return false;
     }
