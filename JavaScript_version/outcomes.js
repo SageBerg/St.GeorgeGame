@@ -6255,6 +6255,14 @@ var outcomes = {
         return game_state;
     },
 
+    "your_sword_stops_you": function(game_state) {
+        var messages = [
+            "You can't get your sword of great good out of its sheath.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
     //z
 
     "zone_out": function(game_state) {

@@ -154,7 +154,9 @@ exports.actions = {
                 game_state.character.equipped_weapon
             ].attack;
         }
-        if (game_state.character.strength + weapon_bonus > 
+        if (check_if_sword_of_great_good_stops_you(game_state) === true) { 
+            raffle.add(possible_outcomes, "your_sword_stops_you", 1);
+        } else if (game_state.character.strength + weapon_bonus > 
             game_state.persons[game_state.character.person].attack) {
             raffle.add(possible_outcomes, "kill", 1);
         } else {
@@ -2178,6 +2180,30 @@ exports.actions = {
 
     //z
 
+}
+
+function check_if_sword_of_great_good_stops_you(game_state) {
+    if (game_state.character.equipped_weapon === "sword_of_great_good") {
+       switch (game_state.character.person) {
+            case "assassin":
+            case "assassins":
+            case "eve":
+            case "dragon_red":
+            case "lord_arthur":
+            case "lord_carlos":
+            case "lord_daniel":
+            case "pirates":
+            case "wizard":
+                //the good sword will allow you to kill evil people
+                return false;
+                break;
+            default: 
+                //the good sword does not allow you to kill innocents
+                return true
+       }
+    } else {
+        return false;
+    }
 }
 
 function dead_lunatic_repercussions(game_state, possible_outcomes) {
