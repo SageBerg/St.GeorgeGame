@@ -51,11 +51,6 @@ function a_or_an(next_letter) {
     return "a";
 }
 
-function add_move_message(game_state) {
-    game_state.message += "You find yourself in " + 
-        game_state.places[game_state.character.place].name + ".";
-}
-
 function arrested(game_state) {
     lose_all_items(game_state);
     move_character(game_state, "prison");
@@ -2734,10 +2729,7 @@ var outcomes = {
 
     "go_to": function(game_state) {
         game_state.message = "";
-        game_state.character.place = game_state.destination;
-        game_state.destination = null;
-        game_state.character.person = null;
-        add_move_message(game_state);
+        move_character(game_state, game_state.destination);
         return game_state;
     },
 
