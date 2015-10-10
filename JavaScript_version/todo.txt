@@ -1,9 +1,8 @@
-testing: (optional)
-    make some unit tests with jasmine
-    test the game with Selenium
+testing:
+    make some unit tests with jasmine?
 
-style: (do at the end)
-    spell check the game
+style:
+    set up some directories to give the project more organization?
 
 IT:
     host on AWS
@@ -11,17 +10,14 @@ IT:
 
 play testing:
     love potion the priestess, mermaid, nymph_queen, olga, eve
-    lords victory
-    pyro victory
     get feedback from a dozen or so people
         (Jon, Cheryl, Taylor, Kyle, Tony, Jackson, 
          Melissa, Josh, Max, Skyler, Clayton, Jeff, Raleigh)
 
 css:
-    upload rest of bootstrap file
+    upload rest of bootstrap file?
 
 content:
-    concoct an even more elaborate scheme (optional)
+    concoct an even more elaborate scheme?
 
 bugs:
-    look for a cat and die
