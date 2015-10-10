@@ -2041,6 +2041,13 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Try to steal some of the dragon's treasure.":
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "steal_dragon_treasure", 1);
+        raffle.add(possible_outcomes, "steal_and_die", 1);
+        return possible_outcomes;
+    },
+
     //u
 
     //v

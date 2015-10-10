@@ -5012,6 +5012,30 @@ var outcomes = {
         return game_state;
     },
 
+    "steal_and_die": function(game_state) {
+        game_state.message = "The dragon is having none of it.";
+        die(game_state);
+        return game_state;
+    },
+
+    "steal_dragon_treasure": function(game_state) {
+        var item = functions.random_choice([
+            "bag of jewels", "fancy red cloak", "jeweled cutlass", "pearl", 
+            "pittance", "potion of love",
+        ]);
+        game_state.message = "You grab a " + item + " and make an epic " +
+            "escape down the mountain.";
+        if (item === "pittance") {
+            get_money(game_state, item); 
+        } else if (item === "jeweled cutlass") {
+            get_weapon(game_state, "jeweled_cutlass");
+        } else {
+            get_item(game_state, item);
+        }
+        move_character(game_state, "countryside");
+        return game_state;
+    },
+
     "steal_cutlass": function(game_state) {
         game_state.message = "Your plan goes swimmingly.";
         move_character(game_state, "ocean");

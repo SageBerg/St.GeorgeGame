@@ -271,8 +271,8 @@ function get_person_options(game_state, options) {
         case "dragon_blue":
         case "dragon_red":
             raffle.add(options.c, "Chat with the dragon.", 10);
-            //raffle.add(options.d, "Try to steal some of the dragon's " +
-            //    "treasure.", 10);
+            raffle.add(options.d, "Try to steal some of the dragon's " +
+                "treasure.", 10);
             break;
 
         case "eve":
