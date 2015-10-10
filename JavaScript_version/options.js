@@ -91,7 +91,7 @@ exports.get_options = function get_options(game_state) {
         }
     }
 
-    set_destination(game_state, game_state.outcome);
+    set_destination(game_state, options.c);
     game_state.marriage = false;
 
     return options;
@@ -875,7 +875,12 @@ function marriage_victory(game_state) {
     return false;
 }
 
-function set_destination(game_state) {
+function set_destination(game_state, option) {
+    if (option === "GO_TO") {
+        game_state.destination = 
+            functions.get_random_adjacent_destination(game_state);
+    }
+
     switch (game_state.outcome) {
         case "directions_to_manor":
             game_state.destination = "lord_bartholomew_manor";
@@ -889,8 +894,6 @@ function set_destination(game_state) {
         case "directions_to_woods":
             game_state.destination = "woods";
             break;
-        default:
-            game_state.destination = null; 
     }
 }
 

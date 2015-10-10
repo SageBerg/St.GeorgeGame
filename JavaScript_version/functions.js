@@ -8,6 +8,13 @@ exports.get_place = function get_place(game_state) {
     return game_state.places[game_state.character.place];
 }
 
+exports.get_random_adjacent_destination =
+    function get_random_adjacent_destination(game_state) {
+    var links = game_state.places[game_state.character.place].links;
+    var dest = links[exports.random_int(links.length)];
+    return dest;
+}
+
 exports.random_choice = function random_choice(array) {
     return array[exports.random_int(array.length)]; 
 }

@@ -99,7 +99,6 @@ function burn_a_bunch_of_places(game_state) {
             "of " + game_state.places[burnable[i]].name;
         }
     }
-    console.log("number of places burned:", number_of_places_burned);
 }
 
 function capitalize(string) {
@@ -175,11 +174,6 @@ function get_money(game_state, money) {
 
 function get_name(game_state) {
     return game_state.persons[game_state.character.person].name;
-}
-
-function get_random_adjacent_destination(game_state) {
-    var links = game_state.places[game_state.character.place].links;
-    return links[functions.random_int(links.length)];
 }
 
 function get_subject(game_state) {
@@ -1912,7 +1906,7 @@ var outcomes = {
         game_state.message = 
             "The Devil is pretty fast, so you manage to get away.";
         move_character(game_state, 
-            get_random_adjacent_destination(game_state));
+            functions.get_random_adjacent_destination(game_state));
         return game_state;
     },
 
@@ -1922,7 +1916,7 @@ var outcomes = {
             " also " + conjugate(game_state, "waddle") + " like God, so " +
             "you manage to get away.";
         move_character(game_state, 
-                       get_random_adjacent_destination(game_state));
+                       functions.get_random_adjacent_destination(game_state));
         return game_state;
     },
 
@@ -1941,7 +1935,7 @@ var outcomes = {
                 break;
         }
         move_character(game_state, 
-                       get_random_adjacent_destination(game_state));
+                       functions.get_random_adjacent_destination(game_state));
         return game_state;
     },
 
@@ -2419,7 +2413,7 @@ var outcomes = {
     "forget_what_you_were_doing": function(game_state) {
         game_state.message = "You forget what you were trying to do.";
         move_character(
-                game_state, get_random_adjacent_destination(game_state));
+                game_state, functions.get_random_adjacent_destination(game_state));
         return game_state;
     },
 
@@ -3057,7 +3051,7 @@ var outcomes = {
     "hop_a_lot": function(game_state) {
         game_state.message = "You hop a lot.";
         move_character(game_state, 
-                       get_random_adjacent_destination(game_state));
+                       functions.get_random_adjacent_destination(game_state));
         return game_state;
     },
 
@@ -3509,7 +3503,7 @@ var outcomes = {
         get_item(game_state, item_one);
         get_item(game_state, item_two);
         move_character(game_state, 
-            get_random_adjacent_destination(game_state));
+            functions.get_random_adjacent_destination(game_state));
         return game_state;
     },
 
@@ -4579,7 +4573,7 @@ var outcomes = {
     "random_move": function(game_state) {
         game_state.message = "";
         move_character(game_state, 
-            get_random_adjacent_destination(game_state));
+            functions.get_random_adjacent_destination(game_state));
         return game_state;
     },
 
@@ -5827,7 +5821,7 @@ var outcomes = {
     "wake_up_somewhere_else": function(game_state) {
         game_state.message = "You wake up a few hours later."
         move_character(game_state, 
-                       get_random_adjacent_destination(game_state));
+                       functions.get_random_adjacent_destination(game_state));
         game_state.character.person = null;
         return game_state;
     },
@@ -5879,7 +5873,7 @@ var outcomes = {
         game_state.message = "You wander aimlessly as you work your way " +
             "through an epic ballad."; 
         move_character(game_state, 
-                       get_random_adjacent_destination(game_state));
+                       functions.get_random_adjacent_destination(game_state));
         return game_state;
     },
 
