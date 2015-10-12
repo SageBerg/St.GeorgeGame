@@ -2021,14 +2021,14 @@ var outcomes = {
 
     "farm_work": function(game_state) {
         var messages = [
-            "You spend a season picking apples.",
+            "You earn a pittance picking apples.",
             "You spend a season milking cows for a farmer woman. " +
             "She keeps trying to marry you to her attractive " +
             "daughter, but her daughter is having none of it.",
-            "You spend a season harvesting wheat. You enjoy the change of " +
+            "You earn a pittance harvesting wheat. You enjoy the change " +
             "pace.",
             "During your duties, you get kicked by a mule. You somehow " +
-            "don't die.",
+            "don't die. You are paid for your efforts but not your injuries.",
         ]; 
         game_state.message = functions.random_choice(messages);
         get_money(game_state, "pittance");
@@ -2037,7 +2037,7 @@ var outcomes = {
   
     "farm_work_and_coin": function(game_state) {
         var messages = [
-            "You spend a season slaughtering hogs. You find a shiny " +
+            "You earn a pittance slaughtering hogs. You also find a shiny " +
             "foreign coin in one of the hogs.",
         ]; 
         game_state.message = functions.random_choice(messages);
@@ -2059,7 +2059,7 @@ var outcomes = {
   
     "farm_work_and_pitchfork": function(game_state) {
         var messages = [
-            "You spend a season bailing hay.",
+            "You earn a pittance bailing hay.",
         ]; 
         game_state.message = functions.random_choice(messages);
         get_weapon(game_state, "pitchfork");
@@ -3108,7 +3108,7 @@ var outcomes = {
 
     "ignored": function(game_state) {
         game_state.message = "God ignores your prayers.";
-        game_state.topic = "God to try to get his attention";
+        game_state.topic = "God to get his attention";
         return game_state;
     },
 
