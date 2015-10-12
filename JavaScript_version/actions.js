@@ -1190,13 +1190,14 @@ exports.actions = {
     },
 
     "Look for nymphs.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "make_out_with_dryad", 2);
         raffle.add(possible_outcomes, "cannot_find_nymphs", 2);
         raffle.add(possible_outcomes, "fall_into_cave", 1);
         raffle.add(possible_outcomes, "find_assassin_instead", 1);
         raffle.add(possible_outcomes, "find_nymphs", 2);
         raffle.add(possible_outcomes, "look_for_nymphs_and_die", 1);
         if (game_state.persons.nymph_queen.alive === true) {
-            raffle.add(possible_outcomes, "meet_nymph_queen", 2);
+            raffle.add(possible_outcomes, "meet_nymph_queen", 3);
         } 
         return possible_outcomes;
     },
@@ -1389,7 +1390,7 @@ exports.actions = {
         raffle.add(possible_outcomes, "god_shows_you_the_way", 1);
         raffle.add(possible_outcomes, "god_tells_you_to_marry", 1);
         raffle.add(possible_outcomes, "god_tests_you", 1);
-        raffle.add(possible_outcomes, "ignored", 2);
+        raffle.add(possible_outcomes, "ignored", 3);
 
         if (game_state.places[game_state.character.place].burnable) {
             raffle.add(possible_outcomes, "god_commits_arson", 2);
@@ -1397,7 +1398,7 @@ exports.actions = {
 
         if (game_state.character.place === "tavern" &&
             game_state.places.tavern.burnable === true) {
-            raffle.add(possible_outcomes, "god_gives_you_jewels", 2);
+            raffle.add(possible_outcomes, "god_gives_you_jewels", 3);
         }
 
         if (game_state.places[game_state.character.place].town &&

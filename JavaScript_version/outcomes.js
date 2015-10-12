@@ -2940,7 +2940,7 @@ var outcomes = {
         return game_state;
     },
 
-    "guards_stop_you_swinging": function(game_state) {
+    "guards_stop_you_swinging_cat": function(game_state) {
         game_state.message = "The local guards see you swinging your cat " +
             "and conclude that you must be a lunatic.";
         game_state.character.person = "guards";
@@ -3107,7 +3107,12 @@ var outcomes = {
     },
 
     "ignored": function(game_state) {
-        game_state.message = "God ignores your prayers.";
+        var messages = [
+            "God ignores your prayers.",
+            "God slights you by ignoring you.",
+            "God tests your faith by ignoring your prayers.",
+        ];
+        game_state.message = functions.random_choice(messages);
         game_state.topic = "God to get his attention";
         return game_state;
     },
@@ -3404,12 +3409,12 @@ var outcomes = {
 
     "leer_at_women": function(game_state) {
         var messages = [
-            "You fair woman notices you and hastens away.",
-            "You stop gawking when you realize it isn't a woman.",
-            "An equally creepy woman stares back at you before " +
-            "disappearing into the crowd.",
+            "A fair woman notices you and hastens away.",
             "A woman becomes annoyed with your gawking and throws salt in " +
             "your eyes.",
+            "An equally creepy woman stares back at you before " +
+            "disappearing into the crowd.",
+            "You stop gawking when you realize it isn't a woman.",
         ];
         game_state.message = functions.random_choice(messages);
         return game_state;
@@ -3703,6 +3708,23 @@ var outcomes = {
         game_state.message = functions.random_choice(messages);
         game_state.character.money = NONE;
         move_character(game_state, "streets");
+        return game_state;
+    },
+
+    "make_out_with_dryad": function(game_state) {
+        var messages = [
+            "You find a " + 
+            functions.random_choice(["flirtatious", "lustful", 
+                                     "seductive"]) +
+            " dryad. She " +
+            functions.random_choice(["copulates", "fools around", 
+                                     "makes love", "makes out"]) +
+            " with you for a while and then " +
+            "disappears. It takes hours to get all the twigs out of your " +
+            "hair and scrape the sap off your clothes.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        get_item(game_state, "ball of sap");
         return game_state;
     },
 
