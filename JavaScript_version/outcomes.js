@@ -856,7 +856,7 @@ var outcomes = {
     },
 
     "cannot_hear_assassin": function(game_state) {
-        game_state.message = "Your singing is too laud for you to hear the " +
+        game_state.message = "Your singing is too loud for you to hear the " +
             "assassin sneaking up behind you.";
         clover(game_state);
         return game_state;
