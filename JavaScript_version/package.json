@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/SageBerg/St.GeorgeGame/issues"
   },
-  "homepage": "https://github.com/SageBerg/St.GeorgeGame#readme"
+  "homepage": "https://github.com/SageBerg/St.GeorgeGame#readme",
+  "dependencies": {
+    "jquery": "^2.1.4"
+  }
 }
