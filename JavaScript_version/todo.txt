@@ -1,6 +1,3 @@
-testing:
-    make some unit tests with jasmine?
-
 style:
     set up some directories to give the project more organization?
 
@@ -14,10 +11,8 @@ play testing:
         (Jon, Cheryl, Taylor, Kyle, Tony, Jackson, 
          Melissa, Josh, Max, Skyler, Clayton, Jeff, Raleigh)
 
-css:
-    upload rest of bootstrap file?
-
 content:
-    concoct an even more elaborate scheme?
-
-bugs:
+    hire an assassin
+    pull wizard's beard
+    ask wizard for advice
+    start in different locations
