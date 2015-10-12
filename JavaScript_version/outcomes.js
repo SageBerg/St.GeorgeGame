@@ -78,7 +78,7 @@ function burn(game_state) {
 
 function burn_a_bunch_of_places(game_state) {
     var number_of_places_burned = functions.random_int(8);
-    //the order of burnable matters
+    //the order of burnable matters based on the story
     var burnable = [
         "lord_bartholomew_manor",
         "woods",
@@ -214,7 +214,6 @@ function lose_all_items(game_state) {
 function lose_item(game_state, item) {
     game_state.character.items[item] -= 1;
 
-    game_state.message += item + "." ;
     game_state.character.items[item] === 0 ?
     game_state.message += " You no longer have " + a_or_an(item[0]) + " " :
     game_state.message += " You have one less ";
@@ -1682,7 +1681,7 @@ var outcomes = {
     "dragon_burns_stuff": function(game_state) {
         var messages = [
             "You and the red dragon get in a heated argument about " +
-            functions.random_choice(["about how maps should be oriented",
+            functions.random_choice(["how maps should be oriented",
                                      "whether cats or dogs make better pets",
                                      "what weighs more, a pound of bricks " +
                                      "or a pound of feathers"]) + 
@@ -3793,7 +3792,7 @@ var outcomes = {
     },
 
     "meet_dragon_red": function(game_state) {
-        game_state.message = "You walk into a red dragon's treasure trove. " +
+        game_state.message = "You walk into a red dragon's den. " +
             "The dragon eyes you suspiciously.";
         game_state.character.person = "dragon_red";
         return game_state;
@@ -4499,7 +4498,9 @@ var outcomes = {
             functions.random_choice(["heated", "horrible", "protracted", 
                                      "spirited"]) +
             " argument with the priest, but you eventually both agree that " +
-            "there are at least 17 gods and that " +
+            "there are at least " +
+            functions.random_int(21) +
+            " gods and that " +
             functions.random_choice(["Lord Bartholomew", "St. George",]) + 
             " is a good man.",
         ];
@@ -5773,6 +5774,7 @@ var outcomes = {
     "wake_up": function(game_state) {
         var messages = [
             "You dream of fire.",
+            "You have a nightmare about Lord Carlos.",
             "You have a nightmare about weasels.",
             "You have a wonderful dream that you are in bed with Lord " +
             "Carlos' daughter.",
