@@ -353,6 +353,13 @@ function get_person_options(game_state, options) {
         case "witch":
             raffle.add(options.b, "Ask the witch to brew you a potion.", 10);
             break;
+
+        case "wizard":
+            //raffle.add(options.b, "Ask the wizard for advice.", 10);
+            //raffle.add(options.d, "Pull on the wizard's beard to see if " +
+            //    "it's real ", 10);
+            break;
+
     }
 }
 
@@ -470,10 +477,6 @@ function get_outcome_options(game_state, options) {
             raffle.add(options.a, "Kill yourself in frustration.", 2);
             raffle.add(options.d, 
                 "Look up into the sky and yell, \"NOOOOOOOOOOOOO!\"", 100);
-            break;
-
-        case "felicity_loves_you":
-            raffle.add(options.a, "Say you love her too.", 10000);
             break;
 
         case "god_shows_you_the_way":
@@ -772,7 +775,9 @@ function get_place_options(game_state, options) {
             break;
 
         case "smoking_volcano":
-            raffle.add(options.a, "Look for dragons.", 4);
+            if (game_state.character.person === null) {
+                raffle.add(options.a, "Look for dragons.", 6);
+            }
             raffle.add(options.b, "Choke on fumes.", 2);
             raffle.add(options.c, "Climb to the top of the volcano.", 4);
             raffle.add(options.d, "Go swimming in a pool of lava.", 2);
