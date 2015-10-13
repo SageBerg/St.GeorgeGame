@@ -149,6 +149,15 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Ask the wizard for advice.": 
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "frog_advice", 5);
+        raffle.add(possible_outcomes, "wizard_gives_you_advice", 10);
+        raffle.add(possible_outcomes, "wizard_gives_you_item", 4);
+        raffle.add(possible_outcomes, "wizard_gives_you_sword", 1);
+        return possible_outcomes;
+    },
+ 
     "ATTACK": function(game_state, possible_outcomes) {
         var weapon_bonus = 0; 
         if (game_state.character.equipped_weapon !== "") {

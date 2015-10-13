@@ -2484,6 +2484,13 @@ var outcomes = {
         return game_state;
     },
 
+    "frog_advice": function(game_state) {
+        game_state.message = "The wizard advises you to hop around. " +
+            "He helps you follow his advice by turning you into a frog.";
+        game_state.character.is_frog = true;
+        return game_state;
+    },
+
     "frog_and_die": function(game_state) {
         game_state.message = "You find the wizard. He turns you into a frog " +
             "and steps on you.";
@@ -6146,6 +6153,52 @@ var outcomes = {
         ];
         game_state.character.items["yellow mushroom"] -= 1;
         game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
+    "wizard_gives_you_advice": function(game_state) {
+        var messages = [
+            "The wizard advises you to collect potion ingredients.",
+            "The wizard advises you to find a dragon and take it's treasure.",
+            "The wizard advises you to find a woman before you get old " +
+            "an weird like him.",
+            "The wizard advises you to follow your passion.",
+            "The wizard advises you to kill all of the lords and bring " +
+            "about a Utopian anarchy.",
+            "The wizard advises you to stay away from him.",
+            "The wizard says he's proved that P = NP, so you'd better " +
+            "be careful.",
+            "The wizard says St. George is a chump who will give you money.",
+            "The wizard says you should go find him some void dust.",
+            "The wizard says you should learn Esperanto.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
+    "wizard_gives_you_item": function(game_state) {
+        var wizard_item = functions.random_choice(["ball of sap", "cat", 
+                                                   "frog",
+                                                   "potion of tail growth",
+                                                  ]);
+        var messages = [
+            "The wizard gives you a " + wizard_item + " and tells you " +
+            functions.random_choice(["to make use of it",
+                                     "find a use for it",
+                                     "have fun with it"]) + ".",
+        ];
+        game_state.message = functions.random_choice(messages);
+        get_item(game_state, wizard_item);
+        return game_state;
+    },
+
+    "wizard_gives_you_sword": function(game_state) {
+        var messages = [
+            "The wizard gives you an evil looking sword and advises you " +
+            "to cause as much mayhem as you can.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        get_weapon(game_state, "sword_of_great_evil");
         return game_state;
     },
 
