@@ -307,6 +307,17 @@ var outcomes = {
         return game_state;
     },
 
+    "already_dead": function(game_state) {
+        var messages = [
+            "The assassin says he's already dead.",
+            "The assassin says he can't kill him because he's already dead.",
+            "The assassin says your request can't be completed because " +
+            "he's already dead.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
     "an_excuse_lunatic": function(game_state) {
         game_state.message = "\"A " + game_state.character.excuse + 
             " lunatic,\" one of the guards says. They arrest you " +
@@ -468,6 +479,36 @@ var outcomes = {
     "assassin_song": function(game_state) {
         game_state.message = "Some assassins overhear you singing about them.";
         clover(game_state);
+        return game_state;
+    },
+
+    "assassinate_lord_arthur": function(game_state) {
+        game_state.message = "The assassin says your wish will be granted. " +
+            "When you meet him in the tavern a few weeks later, he leaves " +
+            "you with Lord Arthur's prized possession as proof.";
+        game_state.persons.lord_arthur.alive = false; 
+        get_weapon(game_state, "jeweled_cutlass");
+        move_character(game_state, "tavern");
+        return game_state;
+    },
+
+    "assassinate_lord_bartholomew": function(game_state) {
+        game_state.message = "The assassin says your wish will be granted." +
+            " When you meet him in the tavern a few weeks later, he " +
+            "leaves you with Lord Bartholomew's prized possession as proof.";
+        game_state.persons.lord_bartholomew.alive = false; 
+        get_weapon(game_state, "long_pitchfork");
+        move_character(game_state, "tavern");
+        return game_state;
+    },
+
+    "assassinate_lord_daniel": function(game_state) {
+        game_state.message = "The assassin says your wish will be granted." +
+            " When you meet him in a dark alley a few weeks later, he " +
+            "leaves you with Lord Daniel's prized possession as proof.";
+        game_state.persons.lord_daniel.alive = false; 
+        get_weapon(game_state, "iron_hammer");
+        move_character(game_state, "dark_alley");
         return game_state;
     },
 
@@ -3023,6 +3064,27 @@ var outcomes = {
         return game_state;
     },
 
+    "hire_assassin": function(game_state) {
+        var messages = [
+            "\"Whom should I kill?\" the assassin asks.",
+            "\"Who needs killing?\" the assassin asks.",
+            "You hire a fat assassin. He says he can kill anyone you name, " +
+            "but you have your doubts.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        game_state.character.person = "assassins";
+        return game_state;
+    },
+
+    "hire_assassin_and_die": function(game_state) {
+        var messages = [
+            "The assassin recognizes you.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        die(game_state);
+        return game_state;
+    },
+
     "hit_assassin_with_cat": function(game_state) {
         game_state.message = "You hit an assassin with your cat.";
         game_state.character.person = "assassin";
@@ -3221,7 +3283,7 @@ var outcomes = {
 
     "killed_by_dragon": function(game_state) {
         game_state.message = "Everything was going fine until you tried to " +
-            "get a dragon to do your biding.";
+            "get a dragon to do your bidding.";
         die(game_state);
         return game_state;
     },
@@ -4254,6 +4316,15 @@ var outcomes = {
 
     //o
     
+    "offend_assassin": function(game_state) {
+        var messages = [
+            "The assassin is offended by your request. He assassinates you.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        die(game_state);
+        return game_state;
+    },
+
     "overhear_stuff": function(game_state) {
         var messages = [
             "you overhear some peasants excitedly talking about Lord " +
@@ -5508,6 +5579,16 @@ var outcomes = {
             "form a lynch mob.",
         game_state.character.person = "mob";
         game_state.character.is_threatened = true;
+        return game_state;
+    },
+
+    "too_poor_to_hire_assassin": function(game_state) {
+        var messages = [
+            "It turns out assassins are a bit out of your price range.",
+            "The market value of assassins is higher than you anticipated.",
+            "You're too poor to hire an assassin.",
+        ];
+        game_state.message = functions.random_choice(messages);
         return game_state;
     },
 

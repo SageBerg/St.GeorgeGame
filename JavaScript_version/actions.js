@@ -977,6 +977,17 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Hire an assassin.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "hire_assassin_and_die", 1);
+        if (game_state.character.money === "small_fortune" ||
+            game_state.character.money === "large_fortune") {
+            raffle.add(possible_outcomes, "hire_assassin", 4);
+        } else {
+            raffle.add(possible_outcomes, "too_poor_to_hire_assassin", 4);
+        }
+        return possible_outcomes;
+    },
+
     "Hop.": function(game_state, possible_outcomes) {
         if (functions.get_place(game_state).outside === true) {
             raffle.add(possible_outcomes, "eaten_by_bird", 1);
@@ -1764,6 +1775,42 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Tell him to assassinate Lord Arthur.":
+        function(game_state, possible_outcomes) {
+        if (game_state.persons.lord_arthur.alive === true) {
+            raffle.add(possible_outcomes, "assassinate_lord_arthur", 1);
+        } else {
+            raffle.add(possible_outcomes, "already_dead", 1);
+        }
+        return possible_outcomes;
+    },
+
+    "Tell him to assassinate Lord Bartholomew.":
+        function(game_state, possible_outcomes) {
+        if (game_state.persons.lord_bartholomew.alive === true) {
+            raffle.add(possible_outcomes, "assassinate_lord_bartholomew", 1);
+        } else {
+            raffle.add(possible_outcomes, "already_dead", 1);
+        }
+        return possible_outcomes;
+    },
+
+    "Tell him to assassinate Lord Carlos.":
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "offend_assassin", 1);
+        return possible_outcomes;
+    },
+
+    "Tell him to assassinate Lord Daniel.":
+        function(game_state, possible_outcomes) {
+        if (game_state.persons.lord_daniel.alive === true) {
+            raffle.add(possible_outcomes, "assassinate_lord_daniel", 1);
+        } else {
+            raffle.add(possible_outcomes, "already_dead", 1);
+        }
+        return possible_outcomes;
+    },
+
     "Tell the next person you meet that you're Lord Arthur.": 
         function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "no_one_believes_you", 1);
@@ -2205,10 +2252,10 @@ function check_if_sword_of_great_good_stops_you(game_state) {
             case "lord_daniel":
             case "pirates":
             case "wizard":
-                //the good sword will allow you to kill evil people
+                // the good sword will allow you to kill evil people
                 return false;
             default: 
-                //the good sword does not allow you to kill innocents
+                // the good sword does not allow you to kill innocents
                 return true;
        }
     } else {

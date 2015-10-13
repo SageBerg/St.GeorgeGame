@@ -47,6 +47,13 @@ exports.get_options = function get_options(game_state) {
         options.c = "";
         options.d = "";
         options.e = "";
+    } else if (game_state.outcome === "hire_assassin" ||
+               game_state.outcome === "already_dead") {
+        options.a = "Tell him to assassinate Lord Arthur.";
+        options.b = "Tell him to assassinate Lord Bartholomew.";
+        options.c = "Tell him to assassinate Lord Carlos.";
+        options.d = "Tell him to assassinate Lord Daniel.";
+        options.e = "";
     } else if (burned_everything_victory(game_state)) {
         var messages = [
             " Some people just like to watch the world " +
@@ -421,6 +428,7 @@ function get_outcome_options(game_state, options) {
         case "see_ship":
         case "sunburnt":
         case "think_think_think":
+        case "too_poor_to_hire_assassin":
         case "train_thrown_out":
         case "trash_nothing":
         case "waiting_for_seal":
@@ -686,6 +694,9 @@ function get_place_options(game_state, options) {
         case "lord_carlos_manor":
             if (functions.get_place(game_state).burnable === true) {
                 if (game_state.character.person === null) {
+                    raffle.add(options.a, "Ask about assassins.", 4);
+                    //raffle.add(options.a, "Hire an assassin.", 4);
+                    raffle.add(options.b, "BURN", 5);
                     raffle.add(options.b, "Tell the next person you meet " +
                             "that you're Lord Arthur.", 1);
                     raffle.add(options.b, "Tell the next person you meet " +
@@ -696,10 +707,6 @@ function get_place_options(game_state, options) {
                             "that you're Lord Carlos.", 1);
                     raffle.add(options.b, "Tell the next person you meet " +
                             "that you're St. George.", 1);
-                    raffle.add(options.a, "Ask about assassins.", 4);
-                }
-                if (game_state.places.lord_carlos_manor.burnable === true) {
-                    raffle.add(options.b, "BURN", 2);
                 }
                 raffle.add(options.c, "Look for Lord Carlos' daughter.", 2);
                 raffle.add(options.d, "Sneak around.", 8);
