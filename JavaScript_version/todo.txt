@@ -3,16 +3,10 @@ style:
 
 IT:
     host on AWS
-    minify code (a while after testing is complete)
+    minify code
 
 play testing:
     love potion the priestess, mermaid, nymph_queen, olga, eve
     get feedback from a dozen or so people
         (Jon, Cheryl, Taylor, Kyle, Tony, Jackson, 
          Melissa, Josh, Max, Skyler, Clayton, Jeff, Raleigh)
-
-content:
-    hire an assassin
-    pull wizard's beard
-    ask wizard for advice
-    start in different locations
