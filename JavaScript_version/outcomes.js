@@ -33,6 +33,7 @@ exports.get_outcome = function get_outcome(game_state) {
         game_state.action !== "SHOW_COIN" &&
         game_state.action !== "SUCK_UP" &&
         game_state.action !== "TELL_GUARDS" &&
+        game_state.action !== "Tell her you're sorry." &&
         game_state.action !== "Try to reason with the mob." &&
         game_state.action !== "Waddle like God.") {
         possible_outcomes = actions.GET_ATTACKED(game_state, {});
