@@ -1409,6 +1409,14 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Pull on the wizard's beard to make sure it's real.":
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "pull_beard_and_die", 1);
+        raffle.add(possible_outcomes, "pull_beard_and_frog", 1);
+        raffle.add(possible_outcomes, "pull_beard_and_teleport", 1);
+        return possible_outcomes;
+    },
+
     //q
     
     "Quit while you're ahead.": function(game_state, possible_outcomes) {

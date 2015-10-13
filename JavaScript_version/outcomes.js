@@ -3039,6 +3039,7 @@ var outcomes = {
 
     "hop": function(game_state) {
         game_state.message = "You hop.";
+        game_state.character.person = null;
         return game_state;
     },
 
@@ -4541,8 +4542,9 @@ var outcomes = {
 
     "priestess_takes_offense": function(game_state) {
         game_state.message = "A priestess finds your lyrics " +
-        functions.random_choice(["blasphemous", "cliché", "crude", "idiotic", "lewd", 
-                       "mildly offensive", "uncreative"]) +
+        functions.random_choice(["blasphemous", "cliché", "crude", 
+                                 "idiotic", "lewd", 
+                                 "mildly offensive", "uncreative"]) +
         " and has you thrown out of the church.";
         move_character(game_state, "streets");
         return game_state;
@@ -4558,6 +4560,37 @@ var outcomes = {
         game_state.message = functions.random_choice(messages);
         game_state.character.is_threatened = true;
         game_state.character.person = "mob";
+        return game_state;
+    },
+
+    "pull_beard_and_die": function(game_state) {
+        var messages = [
+            "It's real.",
+            "\"Never do that again,\" the wizard says. He turns you into " +
+            "a frog and stomps on you.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        die(game_state, "streets");
+        return game_state;
+    },
+
+    "pull_beard_and_frog": function(game_state) {
+        var messages = [
+            "The wizard's beard is real, but he is so offended he turns " +
+            "you into a frog.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        game_state.character.is_frog = true;
+        return game_state;
+    },
+
+    "pull_beard_and_teleport": function(game_state) {
+        var messages = [
+            "The wizard lets out a yelp when you pull is beard. He " +
+            "retaliates by conking you on the head with his staff.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        move_character(game_state, "ocean");
         return game_state;
     },
 

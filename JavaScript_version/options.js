@@ -329,7 +329,7 @@ function get_person_options(game_state, options) {
 
         case "peasant_lass":
         case "simple_peasant":
-            raffle.add(options.d, "Ask for directions.", 10);
+            raffle.add(options.d, "Ask for directions.", 100);
             break;
 
         case "pirates":
@@ -356,8 +356,8 @@ function get_person_options(game_state, options) {
 
         case "wizard":
             //raffle.add(options.b, "Ask the wizard for advice.", 10);
-            //raffle.add(options.d, "Pull on the wizard's beard to see if " +
-            //    "it's real ", 10);
+            raffle.add(options.d, "Pull on the wizard's beard to make sure " +
+                "it's real ", 10);
             break;
 
     }
@@ -722,7 +722,7 @@ function get_place_options(game_state, options) {
                                  "sailor peg"];
                     var item  = functions.random_choice(stuff);
                     game_state.for_sell = item;
-                    raffle.add(options.c, "BUY_ITEM", 6);
+                    raffle.add(options.b, "BUY_ITEM", 6);
                 }
                 raffle.add(options.d, "Watch a play.", 2);
             }
