@@ -173,7 +173,7 @@ exports.places = {
     "tavern":
     {
         "burnable":  true,
-        "links":     ["dark_alley", "streets"],
+        "links":     ["streets"],
         "locked":    false,
         "name":      "the tavern",
         "outside":   false,
