@@ -288,7 +288,6 @@ var outcomes = {
         ];
         game_state.message = functions.random_choice(messages);
         game_state.character.person = null;
-        game_state.topic = "your jewels";
         return game_state;
     },
 
@@ -476,12 +475,6 @@ var outcomes = {
         return game_state;
     },
 
-    "assassin_song": function(game_state) {
-        game_state.message = "Some assassins overhear you singing about them.";
-        clover(game_state);
-        return game_state;
-    },
-
     "assassinate_lord_arthur": function(game_state) {
         game_state.message = "The assassin says your wish will be granted. " +
             "When you meet him in the tavern a few weeks later, he leaves " +
@@ -621,7 +614,6 @@ var outcomes = {
             " out of you.",
         ];
         game_state.message = functions.random_choice(messages);
-        game_state.topic = "the guards";
         return game_state;
     },
 
@@ -632,7 +624,6 @@ var outcomes = {
             "mercilessly and leave you for dead.",
         ];
         game_state.message = functions.random_choice(messages);
-        game_state.topic = "heroism";
         return game_state;
     },
 
@@ -652,7 +643,6 @@ var outcomes = {
             "not counting anything.",
         ];
         game_state.message = functions.random_choice(messages);
-        game_state.topic = "boredom";
         return game_state;
     },
 
@@ -710,7 +700,6 @@ var outcomes = {
     "blessed": function(game_state) {
         game_state.message = "A priestess blesses you.";
         game_state.character.person = "priestess";
-        game_state.topic = "God";
         return game_state;
     },
 
@@ -732,7 +721,6 @@ var outcomes = {
         game_state.message = "St. George is impressed with your noble " +
             "deeds and rewards you.",
         get_money(game_state, "large_fortune");
-        game_state.topic = "how rich you are";
         return game_state;
     },
 
@@ -811,7 +799,6 @@ var outcomes = {
 
     "cannot_afford": function(game_state) {
         game_state.message = "You cannot afford this item.";
-        game_state.topic = "poverty";
         return game_state;
     },
 
@@ -848,7 +835,6 @@ var outcomes = {
         ];
         game_state.message = functions.random_choice(messages);
         game_state.character.person = null;
-        game_state.topic = "cats";
         return game_state;
     },
 
@@ -858,7 +844,6 @@ var outcomes = {
         ];
         game_state.message = functions.random_choice(messages);
         game_state.character.person = null;
-        game_state.topic = "dragons";
         return game_state;
     },
 
@@ -1066,7 +1051,6 @@ var outcomes = {
         ];
         game_state.message = functions.random_choice(messages);
         move_character(game_state, "streets");
-        game_state.topic = "ladies of the night";
         return game_state;
     },
 
@@ -1273,7 +1257,6 @@ var outcomes = {
             "You wheeze.",
         ];
         game_state.message = functions.random_choice(messages);
-        game_state.topic = "volcanoes";
         return game_state;
     },
 
@@ -1293,7 +1276,6 @@ var outcomes = {
             "The tree crashes to the ground.",
         ];
         game_state.message = functions.random_choice(messages);
-        game_state.topic = "lumber";
         return game_state;
     },
 
@@ -2144,7 +2126,6 @@ var outcomes = {
             functions.random_choice(["heroic", "macho", "manly"]) + ".",
         ]; 
         game_state.message = functions.random_choice(messages);
-        game_state.topic = "yourself";
         return game_state;
     },
 
@@ -2226,7 +2207,6 @@ var outcomes = {
         game_state.message = "You don't find a way out, but you find a " +
             "deep-cave newt.";
         get_item(game_state, "deep-cave newt");
-        game_state.topic = "finding slimy things in the dark";
         return game_state;
     },
 
@@ -2286,7 +2266,6 @@ var outcomes = {
 
     "find_sea_turtle": function(game_state) {
         game_state.message = "You find a sea turtle and follow it to shore.";
-        game_state.topic = "sea turtles";
         move_character(game_state, "countryside");
         return game_state;
     },
@@ -2539,7 +2518,6 @@ var outcomes = {
             game_state.message = "You win many games of dice.";
         }
         get_money(game_state, "small_fortune");
-        game_state.topic = "how rich you are";
         return game_state;
     },
 
@@ -2680,7 +2658,6 @@ var outcomes = {
     "get_sap": function(game_state) {
         game_state.message = "You fall a tree and scrape the sap off your ax.";
         get_item(game_state, "ball of sap");
-        game_state.topic = "sap";
         return game_state;
     },
 
@@ -3183,7 +3160,6 @@ var outcomes = {
             "God tests your faith by ignoring your prayers.",
         ];
         game_state.message = functions.random_choice(messages);
-        game_state.topic = "God to get his attention";
         return game_state;
     },
 
@@ -4252,7 +4228,6 @@ var outcomes = {
             "Nobody wants to talk to you.",
         ];
         game_state.message = functions.random_choice(messages);
-        game_state.topic = "assassins";
         return game_state;
     },
 
@@ -5117,7 +5092,6 @@ var outcomes = {
         game_state.message = "St. George gives you " + 
             items.money_map[money].name + ".";
         get_money(game_state, money);
-        game_state.topic = "St George";
         return game_state;
     },
 
@@ -5474,7 +5448,6 @@ var outcomes = {
 
     "think_death": function(game_state) {
         game_state.message = "You think about death.";
-        game_state.topic = "death";
         return game_state;
     },
 

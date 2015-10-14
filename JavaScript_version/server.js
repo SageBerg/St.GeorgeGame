@@ -45,7 +45,6 @@ function respond_with_initial_world(req, res) {
         "persons":     persons,
         "places":      places,
         "score":       0,
-        "topic":       null,
     };
     res.json(game_state);
 }
@@ -55,7 +54,6 @@ function respond_with_outcome(req, res) {
         if (validate(req.query) === true) { 
             var game_state     = req.query;
             game_state         = destringify(game_state);
-            game_state.topic   = null;
             var outcome        = outcomes.get_outcome(game_state);
             game_state.outcome = outcome;
             game_state         = outcomes.apply_outcome(outcome, game_state);
@@ -104,8 +102,6 @@ function validate(game_state) {
 
         typeof(game_state.score) === "string" &&
         !isNaN(parseInt(game_state.score)),
-
-        typeof(game_state.topic) === "string",
     ];
 
     //return a boolean that says if all conditions in the list are true or not

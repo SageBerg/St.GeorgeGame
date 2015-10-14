@@ -300,15 +300,6 @@ function set_d(game_state) {
                 }
                 break;
 
-            case "Sing a song.":
-                if (game_state.topic !== null) {
-                    $("#d").text("d. Sing a song about " + 
-                        game_state.topic + ".");
-                } else {
-                    $("#d").text("d. Sing a song.");
-                }
-                break;
-
             case "TELL_GUARDS":
                 $("#d").text("d. Tell the guards you're not a lunatic, " +
                     "you're just " + game_state.character.excuse + ".");

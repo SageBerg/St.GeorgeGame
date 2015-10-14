@@ -1558,21 +1558,14 @@ exports.actions = {
 
     "Sing a song.": function(game_state, possible_outcomes) {
         
-        if (game_state.topic === "assassins") {
-            raffle.add(possible_outcomes, "assassin_song", 10000);
-        }
-
         raffle.add(possible_outcomes, "no_one_cares", 2);
-
-        if (game_state.topic === null) {
-            raffle.add(possible_outcomes, "sing_about_stuff", 5);
-        }
+        raffle.add(possible_outcomes, "sing_about_stuff", 5);
 
         if (game_state.character.place === "streets" || 
             game_state.character.place === "market") {
             raffle.add(possible_outcomes, "guards_stop_you_singing", 2);
         }
-
+        
         if (game_state.character.place === "streets" || 
             game_state.character.place === "market" ||
             game_state.character.place === "tavern") {
@@ -1633,7 +1626,7 @@ exports.actions = {
         if (game_state.character.person !== null) {
             raffle.add(possible_outcomes, "not_impressed", 1);
         }
-        
+
         return possible_outcomes;
     },
 
