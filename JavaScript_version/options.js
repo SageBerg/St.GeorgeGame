@@ -523,6 +523,10 @@ function get_outcome_options(game_state, options) {
             raffle.add(options.d, "TELL_GUARDS", 10000);
             break;
 
+        case "hide":
+            raffle.add(options.c, "GO_TO", 10000);
+            break;
+  
         case "hit_assassin_with_cat":
             raffle.add(options.a, "Tell her you're sorry.", 100);
             break;
