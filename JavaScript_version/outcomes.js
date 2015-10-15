@@ -4193,6 +4193,7 @@ var outcomes = {
             "You don't find a single mushroom, but you find a single frog.",
         ];
         game_state.message = functions.random_choice(messages);
+        game_state.character.person = null;
         get_item(game_state, "frog");
         return game_state;
     },
@@ -4410,31 +4411,14 @@ var outcomes = {
         return game_state;
     },
 
-    "pick_black_mushroom": function(game_state) {
-        game_state.message = "You pick a black mushroom.";
+    "pick_mushroom": function(game_state) {
+        var mushroom = functions.random_choice(["black mushroom",
+                                                "many-colored mushroom",
+                                                "white mushroom",
+                                                "yellow mushroom",]);
+        game_state.message = "You pick a " + mushroom + ".";
         game_state.character.person = null;
-        get_item(game_state, "black mushroom");
-        return game_state;
-    },
-
-    "pick_many_colored_mushroom": function(game_state) {
-        game_state.message = "You pick a many-colored mushroom.";
-        game_state.character.person = null;
-        get_item(game_state, "many-colored mushroom");
-        return game_state;
-    },
-
-    "pick_white_mushroom": function(game_state) {
-        game_state.message = "You pick a white mushroom.";
-        game_state.character.person = null;
-        get_item(game_state, "white mushroom");
-        return game_state;
-    },
-
-    "pick_yellow_mushroom": function(game_state) {
-        game_state.message = "You pick a yellow mushroom.";
-        game_state.character.person = null;
-        get_item(game_state, "yellow mushroom");
+        get_item(game_state, mushroom);
         return game_state;
     },
 
@@ -5970,6 +5954,9 @@ var outcomes = {
 
     "wander_the_countryside": function(game_state) {
         var messages = [
+            "A black cat crosses your path and dissapears into the fields.",
+            "A rainstorm sweeps over the land and leaves you soaking wet.",
+            "A traveling fortune teller says you will meet a fiery end.",
             "All of the peasants you meet talk about Lord Bartholomew like " +
             "he's God's gift to the world.",
             "Not all those who wander are lost, but you are.",
@@ -5977,7 +5964,8 @@ var outcomes = {
             "You find a mob of peasants burning Lord Daniel in effigy.",
             "You see a beautiful peasant woman, unfortunately she also has " +
             "a beautiful husband.",
-            "A traveling fortune teller says you will meet a fiery end.",
+            "While you're wandering the countryside, some sheep look at you " +
+            "funny.",
         ];
         game_state.message = functions.random_choice(messages);
         game_state.character.person = null;
