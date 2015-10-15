@@ -224,6 +224,11 @@ function set_b(game_state) {
                 " to the ground.");
             break;
 
+        case "BUY_ITEM":
+            var item = game_state.for_sell;
+            $("#b").text("b. Buy " + a_or_an(item[0]) + " " + item + ".");
+            break;
+
         case "GIVE_FLOWERS":
             if (game_state.character.place === "prison") {
                 if (game_state.persons.felicity.name === "the fat lady") {
@@ -262,11 +267,6 @@ function set_c(game_state) {
             case "GO_TO":
                 var dest = game_state.destination;
                 $("#c").text("c. Go to " + game_state.places[dest].name + ".");
-                break;
-
-            case "BUY_ITEM":
-                var item = game_state.for_sell;
-                $("#c").text("c. Buy " + a_or_an(item[0]) + " " + item + ".");
                 break;
 
             default:
