@@ -281,6 +281,16 @@ function get_person_options(game_state, options) {
             raffle.add(options.c, "Chat with the blind bartender.", 14);
             break;
 
+        case "dog":
+            if (game_state.character.items.fish > 0) {
+                raffle.add(options.b, "Bribe the dog with a fish.", 1000);
+            }
+            if (game_state.character.items.cat > 0) {
+                raffle.add(options.c, "Throw your cat at the dog.", 10000);
+            }
+            raffle.add(options.d, "Try to reason with the dog.", 100);
+            break;
+
         case "dragon_blue":
         case "dragon_red":
             raffle.add(options.c, "Chat with the dragon.", 10);
@@ -382,6 +392,7 @@ function get_outcome_options(game_state, options) {
         case "panic_and_escape":
         case "save_cat":
         case "swim_to_woods":
+        case "throw_cat_and_keep_cat":
         case "train_and_win":
         case "you_get_away_with_it":
             raffle.add(options.a, "Thump yourself on the chest.", 1);

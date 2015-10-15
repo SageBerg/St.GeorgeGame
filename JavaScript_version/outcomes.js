@@ -19,6 +19,7 @@ exports.get_outcome = function get_outcome(game_state) {
         game_state.action !== "A3." &&
         game_state.action !== "Apologize." &&
         game_state.action !== "ATTACK" &&
+        game_state.action !== "Bribe the dog with a fish." &&
         game_state.action !== "Challenge Lord Carlos to a game of chess." &&
         game_state.action !== "E4." &&
         game_state.action !== "Enter the void." &&
@@ -34,6 +35,8 @@ exports.get_outcome = function get_outcome(game_state) {
         game_state.action !== "SUCK_UP" &&
         game_state.action !== "TELL_GUARDS" &&
         game_state.action !== "Tell her you're sorry." &&
+        game_state.action !== "Throw your cat at the dog." &&
+        game_state.action !== "Try to reason with the dog." &&
         game_state.action !== "Try to reason with the mob." &&
         game_state.action !== "Waddle like God.") {
         possible_outcomes = actions.GET_ATTACKED(game_state, {});
@@ -1687,6 +1690,46 @@ var outcomes = {
     "do_not_see_assassins": function(game_state) {
         game_state.message = "You don't see one.";
         die(game_state);
+        return game_state;
+    },
+
+    "dog_catches_you": function(game_state) {
+        game_state.message = "Not even the Devil can outrun a dog.";
+        die(game_state);
+        return game_state;
+    },
+
+    "dog_kills_you": function(game_state) {
+        game_state.message = "There's no reasoning with dogs.";
+        die(game_state);
+        return game_state;
+    },
+
+    "dog_lets_you_off_the_hook": function(game_state) {
+        var messages = [
+            "After a while, the dog gets tired of your arguments and " +
+            "slinks away.",
+            "The dog listens to reason and leaves you alone.",
+            "The dog decides not to kill you and settles for being petted " +
+            " instead. It wanders off after it gets all the petting it " +
+            "wanted.",
+            "You manage to convince the dog that this is all just a " +
+            "misunderstanding.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        game_state.character.is_threatened = false;
+        game_state.character.person = null;
+        return game_state;
+    },
+
+    "dog_takes_fish": function(game_state) {
+        var messages = [
+            "The dog takes the fish and scampers off with it.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        game_state.character.is_threatened = false;
+        game_state.character.person = null;
+        lose_item(game_state, "fish");
         return game_state;
     },
 
@@ -3899,9 +3942,10 @@ var outcomes = {
                            "teaching a goblin to read",
                            "watering flowers in a meadow",
                           ]) + ". Her beauty is " +
-            functions.random_choice(["dazzling", "exhilarating", "intoxicating",
-                           "only rivaled by her attractiveness",
-                           "overwhelming"]) + ".";
+            functions.random_choice(["dazzling", "exhilarating", 
+                                     "intoxicating",
+                                     "only rivaled by her attractiveness",
+                                     "overwhelming"]) + ".";
         game_state.character.person = "nymph_queen";
         return game_state;
     },
@@ -3928,6 +3972,14 @@ var outcomes = {
     "meet_simple_peasant": function(game_state) {
         game_state.message = "You find a simple peasant man.";
         game_state.character.person = "simple_peasant";
+        return game_state;
+    },
+
+    "meet_stray_dog": function(game_state) {
+        game_state.message = "Unfortunately, you come across a stray dog. " +
+            "It growls at you threateningly.";
+        game_state.character.is_threatened = true;
+        game_state.character.person = "dog";
         return game_state;
     },
 
@@ -4538,7 +4590,7 @@ var outcomes = {
                                      "spirited"]) +
             " argument with the priest, but you eventually both agree that " +
             "there are at least " +
-            functions.random_int(21) +
+            Math.ceil(2 + Math.random() * 19)  +
             " gods and that " +
             functions.random_choice(["Lord Bartholomew", "St. George",]) + 
             " is a good man.",
@@ -5514,6 +5566,14 @@ var outcomes = {
 
     "think_you_shouldnt_be_here": function(game_state) {
         game_state.message = "You think you probably shouldn't be here."; 
+        return game_state;
+    },
+
+    "throw_cat_and_keep_cat": function(game_state) {
+        game_state.message = "Your cat goes ballistic and the dog runs " +
+            "away in terror.";
+        game_state.character.is_threatened = false;
+        game_state.character.person = null;
         return game_state;
     },
 

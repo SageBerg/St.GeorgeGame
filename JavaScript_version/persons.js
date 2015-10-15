@@ -48,6 +48,15 @@ exports.persons = {
         "preferred_attack": "kill",
         "type": "male", 
     },
+    "dog":
+    {
+        "alive": true,
+        "attack": 0,
+        "attracted": 0,
+        "name": "the stray dog",
+        "preferred_attack": "kill",
+        "type": "female", 
+    },
     "eve":
     {
         "alive": true,

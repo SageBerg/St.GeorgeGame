@@ -241,6 +241,11 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Bribe the dog with a fish.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "dog_takes_fish", 1);
+        return possible_outcomes;
+    },
+
     "Build an igloo.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "cannot_build_igloo", 1);
         if (game_state.character.items["seal carcass"] >= 1) {
@@ -898,10 +903,8 @@ exports.actions = {
     },
 
     "Go mushroom picking.": function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "pick_black_mushroom", 1);
-        raffle.add(possible_outcomes, "pick_many_colored_mushroom", 1);
-        raffle.add(possible_outcomes, "pick_white_mushroom", 1);
-        raffle.add(possible_outcomes, "pick_yellow_mushroom", 1);
+        raffle.add(possible_outcomes, "pick_mushroom", 8);
+        raffle.add(possible_outcomes, "meet_stray_dog", 1);
         raffle.add(possible_outcomes, "no_mushroom_frog", 1);
         return possible_outcomes;
     },
@@ -1269,6 +1272,7 @@ exports.actions = {
         raffle.add(possible_outcomes, "trash_ax", 1);
         raffle.add(possible_outcomes, "trash_cat", 1);
         raffle.add(possible_outcomes, "trash_die", 1);
+        raffle.add(possible_outcomes, "meet_stray_dog", 1);
         raffle.add(possible_outcomes, "trash_nothing", 3);
         return possible_outcomes;
     },
@@ -1487,7 +1491,11 @@ exports.actions = {
 
     "Run like the Devil.": function(game_state, possible_outcomes) {
         if (game_state.character.is_threatened) {
-            raffle.add(possible_outcomes, "escape", 9);
+            if (game_state.character.person === "dog") {
+                raffle.add(possible_outcomes, "dog_catches_you", 9);
+            } else {
+                raffle.add(possible_outcomes, "escape", 9);
+            }
             if (game_state.character.has_tail === true) {
                 raffle.add(possible_outcomes, "caught_by_tail_and_die", 1);
             } else {
@@ -2025,6 +2033,11 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Throw your cat at the dog.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "throw_cat_and_keep_cat", 1);
+        return possible_outcomes;
+    },
+
     "Thump yourself on the chest.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "feel_manly", 9);
         raffle.add(possible_outcomes, "thump_self_and_die", 1);
@@ -2094,6 +2107,12 @@ exports.actions = {
         if (game_state.character.place === "market") {
             raffle.add(possible_outcomes, "trash_the_market_and_die", 2);
         }
+        return possible_outcomes;
+    },
+
+    "Try to reason with the dog.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "dog_kills_you", 1);
+        raffle.add(possible_outcomes, "dog_lets_you_off_the_hook", 4);
         return possible_outcomes;
     },
 
@@ -2183,13 +2202,14 @@ exports.actions = {
 
     "Wander the countryside.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "cat_burning", 1);
+        raffle.add(possible_outcomes, "meet_stray_dog", 1);
         if (game_state.persons.peasant_lass.alive === true) {
-            raffle.add(possible_outcomes, "meet_peasant_lass", 1);
+            raffle.add(possible_outcomes, "meet_peasant_lass", 2);
         } 
         if (game_state.persons.simple_peasant.alive === true) {
             raffle.add(possible_outcomes, "meet_simple_peasant", 1);
         }
-        raffle.add(possible_outcomes, "wander_the_countryside", 6);
+        raffle.add(possible_outcomes, "wander_the_countryside", 9);
         raffle.add(possible_outcomes, "witch_burning", 1);
         if (game_state.character.has_tail === true) {
             raffle.add(possible_outcomes, "peasants_laugh_at_tail", 1);
