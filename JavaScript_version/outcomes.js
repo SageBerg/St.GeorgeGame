@@ -133,7 +133,8 @@ function equip_best_weapon(game_state) {
     var found_weapon_flag = false;
     var keys = Object.keys(items.weapons_map);
     for (var i = 0; i < keys.length; i++) {
-        if (game_state.character.equipped_weapon === "") {
+        if (game_state.character.equipped_weapon === "" &&
+            game_state.character.items[keys[i]] > 0) {
             game_state.character.equipped_weapon = keys[i];
             found_weapon_flag = true;
         } else if (game_state.character.items[keys[i]] > 0 &&
@@ -324,8 +325,7 @@ var outcomes = {
         game_state.message = "\"A " + game_state.character.excuse + 
             " lunatic,\" one of the guards says. They arrest you " +
             "and throw you in prison with the other lunatics.";
-        move_character(game_state, "prison");
-        game_state.character.person = "other_lunatics";
+        arrested(game_state);
         return game_state;
     },
 
@@ -3573,9 +3573,9 @@ var outcomes = {
     },
 
     "loot_arrested": function(game_state) {
-        game_state.message = "You are arrested for attempting to steal " +
-            functions.random_choice(["apple", "cart", "chicken", "goat", 
-                                     "grape",]) + ".";
+        game_state.message = "You are arrested for attempting to steal a " +
+            functions.random_choice(["cart", "chicken", "goat", "grape",]) + 
+            ". You are thrown in prison with the other lunatics.";
         arrested(game_state);
         return game_state;
     },
