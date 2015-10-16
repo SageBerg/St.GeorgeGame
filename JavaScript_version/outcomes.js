@@ -3497,6 +3497,13 @@ var outcomes = {
         return game_state;
     },
 
+    "leer_and_get_money": function(game_state) {
+        game_state.message = "A woman mistakes you for a beggar and takes " +
+            "pity on you.";
+        get_money(game_state, "pittance");
+        return game_state;
+    },
+
     "leer_at_cat": function(game_state) {
         game_state.message = "You don't see any woman worth gawking at, " +
             "but you do see a cat worth gawking at.";
