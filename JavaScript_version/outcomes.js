@@ -642,7 +642,7 @@ var outcomes = {
         var messages = [
             "As the days drag on, you go insane.",
             "The days turn to weeks and the weeks turn to months.",
-            "You make a lot of hash marks on the wall, but you're " +
+            "You make a lot of tally marks on the wall, but you're " +
             "not counting anything.",
         ];
         game_state.message = functions.random_choice(messages);
@@ -1491,7 +1491,7 @@ var outcomes = {
     "denied_audience_with_lord_daniel": function(game_state) {
         var messages = [
             "The guards laugh. \"" + functions.random_choice([
-                "He has no time for peasants.", 
+                "He has no time for peasants", 
                 "Such audacity",]) +
             ",\" one of the guards says.",
             "The amount of paperwork required to get an audience with Lord " +
