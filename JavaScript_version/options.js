@@ -374,7 +374,7 @@ function get_person_options(game_state, options) {
         case "wizard":
             raffle.add(options.b, "Ask the wizard for advice.", 10);
             raffle.add(options.d, "Pull on the wizard's beard to make sure " +
-                "it's real ", 10);
+                "it's real.", 10);
             break;
 
     }
