@@ -2053,6 +2053,13 @@ var outcomes = {
         var messages = [
             "After a days of searching, you're not sure mermaids exist.",
             "You aren't sure where to look.",
+        ]; 
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
+    "fail_to_find_mermaids_find_turtle": function(game_state) {
+        var messages = [
             "You find a sea turtle instead.",
         ]; 
         game_state.message = functions.random_choice(messages);

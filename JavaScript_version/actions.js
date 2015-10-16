@@ -1200,7 +1200,9 @@ exports.actions = {
                 raffle.add(possible_outcomes, "find_shiny_coin", 1);
                 break;
             case "ocean":
-                raffle.add(possible_outcomes, "fail_to_find_mermaids", 3);
+                raffle.add(possible_outcomes, "fail_to_find_mermaids", 2);
+                raffle.add(possible_outcomes, 
+                        "fail_to_find_mermaids_find_turtle", 1);
                 raffle.add(possible_outcomes, "find_mermaid_rock", 1);
                 raffle.add(possible_outcomes, "find_wooden_mermaid", 1);
                 raffle.add(possible_outcomes, "look_for_mermaids_and_drown", 1);

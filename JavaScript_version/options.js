@@ -761,7 +761,9 @@ function get_place_options(game_state, options) {
 
         case "ocean":
             raffle.add(options.a, "Look for mermaids.", 5);
-            raffle.add(options.a, "Look for sea turtles.", 5);
+            if (game_state.outcome !== "fail_to_find_mermaids_find_turtle") {
+                raffle.add(options.a, "Look for sea turtles.", 5);
+            }
             raffle.add(options.b, "Sink.", 10);
             raffle.add(options.c, "Swim.", 20);
             raffle.add(options.d, "Dive for pearls.", 5);
