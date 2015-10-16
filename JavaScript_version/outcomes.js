@@ -2464,9 +2464,8 @@ var outcomes = {
 
     "forced_to_marry_eve": function(game_state) {
         game_state.message = 
-            "Your suave advances lead to several rounds of passionate " +
-            "sex with Lord Carlos' daughter that night. Unfortunately, " +
-            "you don't wake up at " +
+            "Lord Carlos' daughter lets you sleep next to her in bed that " +
+            "night. Unfortunately, you don't wake up at " +
             "dawn. You wake up in the middle of the night when two " +
             "hooded assassins kidnap you take you to a dungeon full " +
             "of torture devices. They are about to put you in an " +
@@ -2481,7 +2480,8 @@ var outcomes = {
     "forget_what_you_were_doing": function(game_state) {
         game_state.message = "You forget what you were trying to do.";
         move_character(
-                game_state, functions.get_random_adjacent_destination(game_state));
+                game_state, 
+                functions.get_random_adjacent_destination(game_state));
         return game_state;
     },
 
@@ -2695,7 +2695,8 @@ var outcomes = {
                 "making you clean the deck with your tongue. You're " +
                 "pretty good at it.",
                 "tying you to the front of the ship for a week. You find " +
-                "the wooden mermaid figurehead very sexy.",
+                "the wooden mermaid figurehead very sexy, but the " +
+                "experience is mostly just terrible.",
                 "putting you on kitchen duty with the ship's cook, who " +
                 "bores you with stories about his life.",
                 "putting you in a barrel and letting his men roll you " +
@@ -3828,8 +3829,7 @@ var outcomes = {
             functions.random_choice(["flirtatious", "lustful", 
                                      "seductive"]) +
             " dryad. She " +
-            functions.random_choice(["copulates", "fools around", 
-                                     "makes love", "makes out"]) +
+            functions.random_choice(["fools around", "makes out"]) +
             " with you for a while and then " +
             "disappears. It takes hours to get all the twigs out of your " +
             "hair and scrape the sap off your clothes.",
@@ -6433,12 +6433,15 @@ var outcomes = {
 
     "wowed_olga_upstairs": function(game_state) {
         var messages = [
-            "You make passionate love together.",
-            "You sleep together.",
-            "Olga does lots of nice things to you.",
+            "Olga puts your hair in fancy braids.",
             "Olga whispers that she's been stalking you.",
+            "Olga tells you her life story. Half of it seems made up. " +
+            "The other half is definitely made up.",
+            "You and Olga share a long kiss together.",
             "You both stay up late talking by candlelight.",
-            "Olga tells you her life story. Half of it seems made up.",
+            "You teach Olga the steps to a dance you invented.",
+            "You tell Olga your life story. She say's she doesn't believe " +
+            "you, but you're good at telling stories.",
         ];
         game_state.message = functions.random_choice(messages);
         game_state.persons.olga.attracted += 1;
