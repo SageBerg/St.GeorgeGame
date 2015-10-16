@@ -137,7 +137,7 @@ function get_character_options(game_state, options) {
 
     if (game_state.places[game_state.character.place].locked === false &&
         game_state.character.is_threatened === false) {
-        raffle.add(options.c, "GO_TO", 2);
+        raffle.add(options.c, "GO_TO", 4);
     }
 
     if (game_state.character.is_threatened === true) {
@@ -332,12 +332,13 @@ function get_person_options(game_state, options) {
 
         case "lord_daniel":
             raffle.add(options.b, "SUCK_UP", 10);
-            raffle.add(options.c, "Complain about unfair imprisonment policies.", 10);
+            raffle.add(options.c, 
+                "Complain about unfair imprisonment policies.", 10);
             break;
 
         case "mermaid":
             raffle.add(options.c, 
-                "Ask the mermaid to take you back to land.", 10);
+                "Ask the mermaid to take you back to land.", 15);
             raffle.add(options.d, "FLIRT_WITH", 100);
             break;
 
@@ -409,7 +410,7 @@ function get_outcome_options(game_state, options) {
         case "pace_and_get_frog":
         case "raise_sail_and_get_to_land":
         case "wake_up_richer":
-            raffle.add(options.c, "Celebrate your success.", 1);
+            raffle.add(options.c, "Celebrate your success.", 2);
             break;
 
         case "cat_burning":
@@ -450,7 +451,7 @@ function get_outcome_options(game_state, options) {
             raffle.add(options.a, "Kill yourself in frustration.", 1);
             if (game_state.places[game_state.character.place].locked === 
                 false) {
-                raffle.add(options.c, "Leave in a huff.", 1);
+                raffle.add(options.c, "Leave in a huff.", 2);
             }
             break;
 
@@ -645,7 +646,7 @@ function get_place_options(game_state, options) {
             raffle.add(options.a, "Go fishing.", 4);
             raffle.add(options.b, "Build an igloo.", 4);
             raffle.add(options.b, "Play in the snow.", 2);
-            raffle.add(options.c, "Club a seal.", 4);
+            raffle.add(options.c, "Club a seal.", 8);
             raffle.add(options.d, "Freeze to death.", 2);
             break;
 
@@ -668,7 +669,7 @@ function get_place_options(game_state, options) {
         case "countryside":
             raffle.add(options.a, "Go flower picking.", 4);
             raffle.add(options.b, "Tip a cow.", 4);
-            raffle.add(options.c, "Wander the countryside.", 10);
+            raffle.add(options.c, "Wander the countryside.", 20);
             raffle.add(options.d, "Do some farm work.", 4);
             break;
 
@@ -680,7 +681,7 @@ function get_place_options(game_state, options) {
             break;
 
         case "docks":
-            raffle.add(options.c, "Go fishing.", 2);
+            raffle.add(options.c, "Go fishing.", 8);
             raffle.add(options.d, "Do some gambling.", 2);
             break;
 
@@ -724,7 +725,7 @@ function get_place_options(game_state, options) {
                     raffle.add(options.b, "Tell the next person you meet " +
                             "that you're St. George.", 1);
                 }
-                raffle.add(options.c, "Look for Lord Carlos' daughter.", 2);
+                raffle.add(options.c, "Look for Lord Carlos' daughter.", 4);
                 raffle.add(options.d, "Sneak around.", 8);
             }
             break;
@@ -755,7 +756,7 @@ function get_place_options(game_state, options) {
             if (game_state.character.person !== "mermaid") {
                 raffle.add(options.a, "Look for mermaids.", 10);
             }
-            raffle.add(options.c, "Go fishing.", 4);
+            raffle.add(options.c, "Go fishing.", 20);
             raffle.add(options.d, "Sun yourself on a rock.", 4);
             break;
 
@@ -788,7 +789,7 @@ function get_place_options(game_state, options) {
 
         case "prison":
             raffle.add(options.b, "Bide your time.", 6);
-            raffle.add(options.c, "Pace around.", 10);
+            raffle.add(options.c, "Pace around.", 20);
             if (game_state.persons.felicity.attracted > 0) {
                 if (game_state.persons.felicity.name === "the fat lady") {
                     raffle.add(options.d, 
@@ -881,7 +882,7 @@ function get_place_options(game_state, options) {
                     raffle.add(options.a, "Trash the place.", 4);
                 }
                 raffle.add(options.b, "Read a spellbook.", 4);
-                raffle.add(options.c, "Snoop around.", 4);
+                raffle.add(options.c, "Snoop around.", 6);
                 raffle.add(options.d, "Drink a random potion.", 4);
             }
             break;
