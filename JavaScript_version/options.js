@@ -332,7 +332,7 @@ function get_person_options(game_state, options) {
 
         case "lord_daniel":
             raffle.add(options.b, "SUCK_UP", 10);
-            raffle.add(options.c, "Complain about unfair imprisonment.", 10);
+            raffle.add(options.c, "Complain about unfair imprisonment policies.", 10);
             break;
 
         case "mermaid":
@@ -850,7 +850,7 @@ function get_place_options(game_state, options) {
                     raffle.add(options.a, 
                         "Ask for an audience with Lord Daniel.", 4);
                 }
-                raffle.add(options.c, "Complain about unfair imprisonment.", 4);
+                raffle.add(options.c, "Complain about unfair imprisonment policies.", 4);
                 raffle.add(options.d, "Train with the guards.", 8);
             }
             break;

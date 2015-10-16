@@ -465,7 +465,7 @@ exports.actions = {
         return possible_outcomes;
     },
 
-    "Complain about unfair imprisonment.":
+    "Complain about unfair imprisonment policies.":
         function(game_state, possible_outcomes) {
         if (game_state.character.person === "lord_daniel") {
             raffle.add(possible_outcomes, "lord_daniel_throws_you_out", 1);
