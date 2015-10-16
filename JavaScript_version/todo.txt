@@ -1,12 +1,22 @@
-style:
-    set up some directories to give the project more organization?
-
 IT:
-    host on AWS
     minify code
+    look into gzipping code
 
 play testing:
     love potion the priestess, mermaid, nymph_queen, olga, eve
     get feedback from a dozen or so people
         (Jon, Cheryl, Taylor, Kyle, Tony, Jackson, 
-         Melissa, Josh, Max, Skyler, Clayton, Jeff, Raleigh)
+         Melissa, Josh, Max, Skyler, Clayton, Raleigh)
+
+various:
+    prevent second request from getting sent until you get a response
+
+    rickroll popup not working on firefox, but for safari and chrome
+    keys may not always be working (or server is laggy)
+
+    idea: womean mistakes you for a beggar and gives you coins (gawk at women)
+    idea: wardon is really a dog (barks, gives you keys)
+    leave in a puff comes up too much
+    log stuff when errors happen
+
+    flower picking is too safe
