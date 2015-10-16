@@ -3,6 +3,7 @@
 /*global define */
 
 var game_state = {};
+var USER_INPUT_ALLOWED = true;
 
 function a_execute() {
     if (game_state.options.a === "Play again.") {
@@ -34,17 +35,17 @@ function b_execute() {
 function bind_keys() {
     document.onkeypress = function(event) {
         var ascii = event.which;
-        if (ascii == 49 || ascii == 65 || ascii == 97) {
+        if ((ascii == 49 || ascii == 65 || ascii == 97) && USER_INPUT_ALLOWED) {
             a_execute();
-        } else if (ascii == 50 || ascii == 66 || ascii == 98) {
+        } else if ((ascii == 50 || ascii == 66 || ascii == 98) && USER_INPUT_ALLOWED) {
             b_execute();
-        } else if (ascii == 51 || ascii == 67 || ascii == 99 &&
+        } else if ((ascii == 51 || ascii == 67 || ascii == 99) && USER_INPUT_ALLOWED &&
                    game_state.options.c !== "") {
             execute("c");
-        } else if (ascii == 52 || ascii == 68 || ascii == 100 &&
+        } else if ((ascii == 52 || ascii == 68 || ascii == 100) && USER_INPUT_ALLOWED &&
                    game_state.options.d !== "") {
             execute("d");
-        } else if (ascii == 53 || ascii == 69 || ascii == 101 &&
+        } else if ((ascii == 53 || ascii == 69 || ascii == 101) && USER_INPUT_ALLOWED &&
                    game_state.options.e !== "") {
             execute("e");
         }
@@ -91,6 +92,8 @@ function handle_new_world(resp) {
             bind_keys();
         }
     }
+    USER_INPUT_ALLOWED = true; // re-allow user inputs now that we have a new 
+                               // game state
 }
 
 function handle_world_error(game_state) {
@@ -121,6 +124,7 @@ function request_initial_world() {
 
 function request_outcome_of_action(action) {
     game_state.action = action;
+    USER_INPUT_ALLOWED = false;
     $.get("request_outcome_of_action.json", 
            game_state,
            handle_new_world);
