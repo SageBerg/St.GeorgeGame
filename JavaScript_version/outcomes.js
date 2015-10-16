@@ -2032,6 +2032,7 @@ var outcomes = {
             "what it takes to be a priest.",
         ]; 
         game_state.message = functions.random_choice(messages);
+        game_state.character.person = null;
         return game_state;
     },
 
