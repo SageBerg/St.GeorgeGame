@@ -1652,7 +1652,7 @@ var outcomes = {
     },
 
     "distasteful": function(game_state) {
-        if (game_state.character.place.outside === true) {
+        if (game_state.places[game_state.character.place].outside === true) {
             game_state.message = 
                 "You find the flavor of the ground distasteful.";
         } else {
