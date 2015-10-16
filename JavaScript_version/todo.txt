@@ -1,22 +1,21 @@
-IT:
-    minify code
-    look into gzipping code
+High priority:
+    prevent subsequent client requests from working until you get a response
 
-play testing:
-    love potion the priestess, mermaid, nymph_queen, olga, eve
-    get feedback from a dozen or so people
-        (Jon, Cheryl, Taylor, Kyle, Tony, Jackson, 
-         Melissa, Josh, Max, Skyler, Clayton, Raleigh)
+Medium priority:
+    idea: womean mistakes you for a beggar and gives you coins (gawk at women)
+    log stuff when errors happen
+    flower picking is too safe
 
-various:
-    prevent second request from getting sent until you get a response
-
+Low priority:
+    look for options that are too safe
+    leave in a puff comes up too much
     rickroll popup not working on firefox, but for safari and chrome
     keys may not always be working (or server is laggy)
-
-    idea: womean mistakes you for a beggar and gives you coins (gawk at women)
     idea: wardon is really a dog (barks, gives you keys)
-    leave in a puff comes up too much
-    log stuff when errors happen
-
-    flower picking is too safe
+    minify code
+    look into gzipping code
+    add an extra option for b in the cave
+    experiment with responsive views in boostrap
+    change the display if I get more feedback about it being bad
+    try to fix the mouseover problem for phones
+    spellcheck the game (once things settle down)
