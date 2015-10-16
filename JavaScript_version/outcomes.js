@@ -2867,8 +2867,15 @@ var outcomes = {
     },
 
     "god_shows_you_the_way": function(game_state) {
-        game_state.message = 
-            "God speaks to you and shows you the way.";
+        game_state.message = "God speaks to you and shows you the way.";
+        switch (game_state.character.place) {
+            case "ocean":
+                move_character(game_state, "docks");
+                break;
+            case "woods":
+                move_character(game_state, "woods");
+                break;
+        } 
         return game_state;
     },
 
@@ -3318,7 +3325,7 @@ var outcomes = {
 
     "killed_by_bee": function(game_state) {
         game_state.message = "You get stung by a killer bee. The bee isn't " +
-            "a killer by breed but is by disposition.";
+            "a killer by breed but by disposition.";
         die(game_state);
         return game_state;
     },
