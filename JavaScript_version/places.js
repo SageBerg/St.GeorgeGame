@@ -72,7 +72,7 @@ exports.places = {
     "lord_bartholomew_manor": 
     {
         "burnable":  true,
-        "links":     ["countryside", "smoking_volcano"],
+        "links":     ["countryside"],
         "locked":    false,
         "name":      "Lord Bartholomew's Manor",
         "outside":   false,
