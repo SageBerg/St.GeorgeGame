@@ -196,8 +196,7 @@ exports.actions = {
         raffle.add(possible_outcomes, "bide_your_time_and_escape", 1);
         raffle.add(possible_outcomes, "notice_pattern", 1);
         dead_lunatic_repercussions(game_state, possible_outcomes);
-        if (game_state.character.person !== "other_lunatics" &&
-            game_state.persons.other_lunatics.alive === true) {
+        if (game_state.character.person !== "other_lunatics") {
             raffle.add(possible_outcomes, "more_lunatics", 3);
         } else {
             raffle.add(possible_outcomes, "lunatics_laugh_at_you", 1);
