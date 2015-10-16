@@ -3315,6 +3315,13 @@ var outcomes = {
         return game_state;
     },
 
+    "killed_by_bee": function(game_state) {
+        game_state.message = "You get stung by a killer bee. The bee isn't " +
+            "a killer by breed but is by disposition.";
+        die(game_state);
+        return game_state;
+    },
+
     "killed_by_dragon": function(game_state) {
         game_state.message = "Everything was going fine until you tried to " +
             "get a dragon to do your bidding.";

@@ -896,6 +896,7 @@ exports.actions = {
     "Go flower picking.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "get_a_four-leaf_clover", 2);
         raffle.add(possible_outcomes, "get_a_bouquet", 4);
+        raffle.add(possible_outcomes, "killed_by_bee", 1);
         raffle.add(possible_outcomes, "no_flowers", 1);
         raffle.add(possible_outcomes, "no_flowers_frog", 1);
         return possible_outcomes;
