@@ -96,6 +96,7 @@ exports.get_options = function get_options(game_state) {
             game_state.character.place !== "void") {
             options.e = "Enter the void.";
         } else if (Math.floor(Math.random() * 4) === 0 &&
+                   game_state.outcome !== "think_four_ideas" &&
                    game_state.character.place === "void") {
             options.e = "Exit the void.";
         } else {
