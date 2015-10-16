@@ -5037,7 +5037,7 @@ var outcomes = {
 
     "slip_and_die": function(game_state) {
         var messages = [
-            "You slip on a slippery slope and fall to your death.",
+            "You fall into a deep ravine.",
         ];
         game_state.message = functions.random_choice(messages);
         clover(game_state);
