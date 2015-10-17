@@ -2,6 +2,8 @@
 /*jslint vars: true, plusplus: true, devel: true, nomen: true*/ 
 /*global define */
 
+// NOTE: this module requires functions.js
+
 var game_state = {};
 var USER_INPUT_ALLOWED = true;
 
@@ -11,17 +13,6 @@ function a_execute() {
     } else {
         request_outcome_of_action(game_state.options.a);
     }
-}
-
-function a_or_an(next_letter) {
-    if (next_letter === "a" ||
-        next_letter === "e" ||
-        next_letter === "i" ||
-        next_letter === "o" ||
-        next_letter === "u") {
-        return "an";
-    }
-    return "a";
 }
 
 function b_execute() {
@@ -35,17 +26,22 @@ function b_execute() {
 function bind_keys() {
     document.onkeypress = function(event) {
         var ascii = event.which;
-        if ((ascii == 49 || ascii == 65 || ascii == 97) && USER_INPUT_ALLOWED) {
+        if ((ascii == 49 || ascii == 65 || ascii == 97) && 
+            USER_INPUT_ALLOWED) {
             a_execute();
-        } else if ((ascii == 50 || ascii == 66 || ascii == 98) && USER_INPUT_ALLOWED) {
+        } else if ((ascii == 50 || ascii == 66 || ascii == 98) &&
+                   USER_INPUT_ALLOWED) {
             b_execute();
-        } else if ((ascii == 51 || ascii == 67 || ascii == 99) && USER_INPUT_ALLOWED &&
+        } else if ((ascii == 51 || ascii == 67 || ascii == 99) &&
+                   USER_INPUT_ALLOWED &&
                    game_state.options.c !== "") {
             execute("c");
-        } else if ((ascii == 52 || ascii == 68 || ascii == 100) && USER_INPUT_ALLOWED &&
+        } else if ((ascii == 52 || ascii == 68 || ascii == 100) &&
+                   USER_INPUT_ALLOWED &&
                    game_state.options.d !== "") {
             execute("d");
-        } else if ((ascii == 53 || ascii == 69 || ascii == 101) && USER_INPUT_ALLOWED &&
+        } else if ((ascii == 53 || ascii == 69 || ascii == 101) &&
+                   USER_INPUT_ALLOWED &&
                    game_state.options.e !== "") {
             execute("e");
         }
@@ -230,7 +226,8 @@ function set_b(game_state) {
 
         case "BUY_ITEM":
             var item = game_state.for_sell;
-            $("#b").text("b. Buy " + a_or_an(item[0]) + " " + item + ".");
+            $("#b").text("b. Buy " + 
+                functions.a_or_an(item[0]) + " " + item + ".");
             break;
 
         case "GIVE_FLOWERS":
@@ -286,9 +283,9 @@ function set_d(game_state) {
         switch (game_state.options.d) {
             case "BUY_WEAPON": 
                 var weapon = game_state.for_sell;
-                $("#d").text("d. Buy " + a_or_an(weapons_map[weapon][0]) + 
-                    " " +
-                    weapons_map[weapon] + ".");
+                $("#d").text("d. Buy " + 
+                    functions.a_or_an(weapons_map[weapon][0]) + 
+                    " " + weapons_map[weapon] + ".");
                 break;
 
             case "FLIRT_WITH":
