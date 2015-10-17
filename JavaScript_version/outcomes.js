@@ -46,17 +46,6 @@ exports.get_outcome = function get_outcome(game_state) {
     return raffle.get(possible_outcomes);
 };
 
-function a_or_an(next_letter) {
-    if (next_letter === "a" ||
-        next_letter === "e" ||
-        next_letter === "i" ||
-        next_letter === "o" ||
-        next_letter === "u") {
-        return "an";
-    }
-    return "a";
-}
-
 function arrested(game_state) {
     lose_all_items(game_state);
     move_character(game_state, "prison");
@@ -153,7 +142,7 @@ function equip_best_weapon(game_state) {
 
 function get_item(game_state, item) {
     if (game_state.character.items[item] === 0) {
-        game_state.message += " You now have " + a_or_an(item[0]) + " " + 
+        game_state.message += " You now have " + functions.a_or_an(item[0]) + " " + 
         item + ".";
     } else {
         game_state.message += " You now have another " + item + ".";
@@ -185,7 +174,7 @@ function get_subject(game_state) {
 function get_weapon(game_state, weapon) {
     if (game_state.character.items[weapon] === 0) {
         game_state.message += " You now have " + 
-        a_or_an(items.weapons_map[weapon].name[0]) + " " +
+        functions.a_or_an(items.weapons_map[weapon].name[0]) + " " +
         items.weapons_map[weapon].name + ".";
     } else {
         game_state.message += " You now have another " +
@@ -220,7 +209,8 @@ function lose_item(game_state, item) {
     game_state.character.items[item] -= 1;
 
     game_state.character.items[item] === 0 ?
-    game_state.message += " You no longer have " + a_or_an(item[0]) + " " :
+    game_state.message += " You no longer have " + 
+        functions.a_or_an(item[0]) + " " :
     game_state.message += " You have one less ";
 
     game_state.message += item + "." ;
@@ -3605,8 +3595,8 @@ var outcomes = {
     "loot_item": function(game_state) {
         var item = functions.random_choice(["ax", "cat", "fish", "pearl", 
                                             "sailor peg"]);
-        game_state.message = "You get away with " + a_or_an(item[0]) + " " +
-            item + ".";
+        game_state.message = "You get away with " + 
+            functions.a_or_an(item[0]) + " " + item + ".";
         get_item(game_state, item);
         move_character(game_state, "streets");
         return game_state;
@@ -3630,8 +3620,8 @@ var outcomes = {
                                               "cutlass", "hammer", 
                                               "iron_hammer", 
                                               "jeweled_cutlass"]);
-        game_state.message = "You swipe " + a_or_an(weapon[0]) + " " +
-            weapon + ".";
+        game_state.message = "You swipe " + 
+            functions.a_or_an(weapon[0]) + " " + weapon + ".";
         get_weapon(game_state, weapon);
         return game_state;
     },
@@ -3837,11 +3827,12 @@ var outcomes = {
                                      "seductive"]) +
             " dryad. She " +
             functions.random_choice(["fools around", "makes out"]) +
-            " with you for a while and then " +
-            "disappears. It takes hours to get all the twigs out of your " +
+            " with you for a while and then turns into a tree. " +
+            "It takes hours to get all the twigs out of your " +
             "hair and scrape the sap off your clothes.",
         ];
         game_state.message = functions.random_choice(messages);
+        game_state.character.person = null;
         get_item(game_state, "ball of sap");
         return game_state;
     },
