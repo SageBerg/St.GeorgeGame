@@ -11,6 +11,7 @@ exports.character = {
     "is_dead": false,
     "is_frog": false,
     "is_monstrosity": false,
+    "is_shrub": false,
     "is_threatened": false,
     "is_tripping": false,
     "items": 
