@@ -1,21 +1,20 @@
 High priority:
-    prevent subsequent client requests from working until you get a response
+    try to fix the mouseover problem for phones
+    make shopping deadlier
+    spending system (for church donations)
 
 Medium priority:
-    idea: womean mistakes you for a beggar and gives you coins (gawk at women)
+    make items do more stuff
     log stuff when errors happen
-    flower picking is too safe
+    experiment with responsive views in boostrap
+    make the game run faster (better hardware? fatter client?)
+    provide a loading indication so the user knows their command was sent
+    more outcomes for lick the ground
 
 Low priority:
     look for options that are too safe
-    leave in a puff comes up too much
-    rickroll popup not working on firefox, but for safari and chrome
-    keys may not always be working (or server is laggy)
-    idea: wardon is really a dog (barks, gives you keys)
     minify code
     look into gzipping code
-    add an extra option for b in the cave
-    experiment with responsive views in boostrap
     change the display if I get more feedback about it being bad
-    try to fix the mouseover problem for phones
+    make flirting less linear (lose track of Olga)
     spellcheck the game (once things settle down)
