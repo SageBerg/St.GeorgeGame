@@ -813,7 +813,16 @@ var outcomes = {
     //c
 
     "cannot_afford": function(game_state) {
-        game_state.message = "You cannot afford this item.";
+        game_state.message = "You cannot afford " +
+            functions.a_or_an(game_state.for_sell[0]) + " " +
+            game_state.for_sell + "."; 
+        return game_state;
+    },
+
+    "cannot_afford_weapon": function(game_state) {
+        game_state.message = "You cannot afford " +
+            functions.a_or_an(game_state.for_sell[0]) + " " +
+            items.weapons_map[game_state.for_sell].name + "."; 
         return game_state;
     },
 

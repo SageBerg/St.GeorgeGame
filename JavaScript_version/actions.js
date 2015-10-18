@@ -301,7 +301,7 @@ exports.actions = {
             items.money_map[game_state.character.money].value) {
             raffle.add(possible_outcomes, "buy_a_weapon", 1);
         } else {
-            raffle.add(possible_outcomes, "cannot_afford", 1);
+            raffle.add(possible_outcomes, "cannot_afford_weapon", 1);
         }
         return possible_outcomes;
     },
