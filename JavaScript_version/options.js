@@ -725,7 +725,10 @@ function get_place_options(game_state, options) {
                     raffle.add(options.b, "Tell the next person you meet " +
                             "that you're St. George.", 1);
                 }
-                raffle.add(options.c, "Look for Lord Carlos' daughter.", 4);
+                if (game_state.character.person !== "eve" &&
+                    game_state.persons.eve.alive === true) {
+                    raffle.add(options.c, "Look for Lord Carlos' daughter.", 4);
+                }
                 raffle.add(options.d, "Sneak around.", 8);
             }
             break;
