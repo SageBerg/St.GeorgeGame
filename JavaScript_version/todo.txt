@@ -1,13 +1,13 @@
 High priority:
     try to fix the mouseover problem for phones
-    make shopping deadlier
-    spending system (for church donations)
+    make god only take your stuff if you have stuff
 
 Medium priority:
-    make items do more stuff
+    use more constants and less hardcoding
+    make items do more stuff (cats save you, sailor peg as floation device)
     log stuff when errors happen
     experiment with responsive views in boostrap
-    make the game run faster (better hardware? fatter client?)
+    make the game run faster? (better hardware? fatter client?)
     provide a loading indication so the user knows their command was sent
     more outcomes for lick the ground
 
@@ -16,5 +16,5 @@ Low priority:
     minify code
     look into gzipping code
     change the display if I get more feedback about it being bad
-    make flirting less linear (lose track of Olga)
+    make flirting less linear (lose track of Olga, think up poem for Felicity)
     spellcheck the game (once things settle down)
