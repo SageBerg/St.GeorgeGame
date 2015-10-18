@@ -4262,7 +4262,7 @@ var outcomes = {
 
     "nf3_win_bartholomew": function(game_state) {
         var messages = [
-            "Lord bartholomew talks about politics during the whole game, " +
+            "Lord Bartholomew talks about politics during the whole game, " +
             "but at least you manage to beat him.",
         ];
         game_state.message = functions.random_choice(messages);
