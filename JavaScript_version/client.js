@@ -276,7 +276,13 @@ function set_c(game_state) {
         switch (game_state.options.c) {
             case "GO_TO":
                 var dest = game_state.destination;
-                $("#c").text("c. Go to " + game_state.places[dest].name + ".");
+                if (game_state.character.items.donkey > 0) {
+                    $("#c").text("c. Ride your donkey to " + 
+                        game_state.places[dest].name + ".");
+                } else {
+                    $("#c").text("c. Go to " + game_state.places[dest].name + 
+                        ".");
+                }
                 break;
 
             default:

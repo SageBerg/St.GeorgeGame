@@ -34,6 +34,7 @@ exports.character = {
         "bouquet of flowers": 0,
         "cat": 0,
         "deep-cave newt": 0,
+        "donkey": 0,
         "fancy red cloak": 0,
         "fish": 0,
         "four-leaf clover": 0,

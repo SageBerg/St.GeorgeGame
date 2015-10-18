@@ -2207,6 +2207,7 @@ exports.actions = {
     "Wander the countryside.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "cat_burning", 1);
         raffle.add(possible_outcomes, "meet_stray_dog", 1);
+        raffle.add(possible_outcomes, "meet_stray_donkey", 1);
         if (game_state.persons.peasant_lass.alive === true) {
             raffle.add(possible_outcomes, "meet_peasant_lass", 2);
         } 

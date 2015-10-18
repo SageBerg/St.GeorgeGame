@@ -176,6 +176,13 @@ function get_item_options(game_state, options) {
         raffle.add(options.a, "Admire your jewels.", 1);
     }
 
+    if (game_state.character.items["ball of sap"] > 0 &&
+        game_state.character.items["bouquet of flowers"] > 0 &&
+        game_state.character.items["many-colored mushroom"] > 0 &&
+        game_state.character.person === "witch") {
+        raffle.add(options.b, "Ask the witch to brew you a potion.", 100);
+    }
+
     if (game_state.character.items["black mushroom"] > 0) {
         raffle.add(options.c, "Chow down on your black mushroom.", 1);
     }
@@ -205,17 +212,14 @@ function get_item_options(game_state, options) {
         raffle.add(options.a, "GIVE_HER_CAT", 5);
     }
 
-    if (game_state.character.items["ball of sap"] > 0 &&
-        game_state.character.items["bouquet of flowers"] > 0 &&
-        game_state.character.items["many-colored mushroom"] > 0 &&
-        game_state.character.person === "witch") {
-        raffle.add(options.b, "Ask the witch to brew you a potion.", 100);
-    }
-
     if (game_state.character.items["deep-cave newt"] > 0 &&
         game_state.character.items["white mushroom"] > 0 &&
         game_state.character.person === "witch") {
         raffle.add(options.b, "Ask the witch to brew you a potion.", 100);
+    }
+
+    if (game_state.character.items.donkey > 0) {
+        raffle.add(options.c, "GO_TO", 6);
     }
 
     if (game_state.character.items.frog > 0 &&
@@ -745,8 +749,8 @@ function get_place_options(game_state, options) {
                     raffle.add(options.b, "Look for the wizard.", 1);
                 }
                 if (game_state.character.person === null) {
-                    var stuff = ["ax", "bouquet of flowers", "fish", "pearl", 
-                                 "sailor peg"];
+                    var stuff = ["ax", "bouquet of flowers", "donkey", "fish", 
+                                 "pearl", "sailor peg"];
                     var item  = functions.random_choice(stuff);
                     game_state.for_sell = item;
                     raffle.add(options.b, "BUY_ITEM", 6);

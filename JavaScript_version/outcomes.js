@@ -4053,6 +4053,13 @@ var outcomes = {
         return game_state;
     },
 
+    "meet_stray_donkey": function(game_state) {
+        game_state.message = "While wandering the countryside, you find a " +
+            "stray donkey... At least you think it's stray.";
+        get_item(game_state, "donkey");
+        return game_state;
+    },
+
     "meet_witch": function(game_state) {
         game_state.message = "You find a witch deep in the woods.";
         game_state.character.person = "witch";
