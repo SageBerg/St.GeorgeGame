@@ -2868,6 +2868,12 @@ var outcomes = {
         return game_state;
     },
 
+    "god_gives_you_holy_strength": function(game_state) {
+        game_state.message = "God gives you holy strength.";
+        game_state.character.strength += 2;
+        return game_state;
+    },
+
     "god_gives_you_jewels": function(game_state) {
         game_state.message = 
             "God does nothing for you, but you " +
@@ -2912,8 +2918,16 @@ var outcomes = {
         return game_state;
     },
 
-    "god_tells_you_to_marry": function(game_state) {
-        game_state.message = "God tells you to get married.";
+    "god_tells_you_stuff": function(game_state) {
+        var messages = [
+            "God tells you he is the Alpha and the Omega, but it's all " +
+            "Greek to you.",
+            "God tells you to burn stuff.",
+            "God tells you to get married.",
+            "God tells you to kill Lord Carlos.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        game_state.character.person = null;
         return game_state;
     },
 

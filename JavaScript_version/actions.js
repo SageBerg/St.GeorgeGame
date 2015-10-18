@@ -1413,9 +1413,10 @@ exports.actions = {
 
         raffle.add(possible_outcomes, "assassin_prayer_answered", 1);
         raffle.add(possible_outcomes, "god_gives_you_a_wife", 1);
+        raffle.add(possible_outcomes, "god_gives_you_holy_strength", 1);
         raffle.add(possible_outcomes, "god_showers_you_with_gold", 1);
         raffle.add(possible_outcomes, "god_shows_you_the_way", 1);
-        raffle.add(possible_outcomes, "god_tells_you_to_marry", 1);
+        raffle.add(possible_outcomes, "god_tells_you_stuff", 4);
         raffle.add(possible_outcomes, "god_tests_you", 1);
         raffle.add(possible_outcomes, "ignored", 3);
 
