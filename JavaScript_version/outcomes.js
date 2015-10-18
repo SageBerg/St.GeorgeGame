@@ -4289,6 +4289,7 @@ var outcomes = {
 
     "no_flowers": function(game_state) {
         game_state.message = "You can't find any flowers. Only grass.";
+        game_state.character.person = null;
         return game_state;
     },
 
@@ -4298,6 +4299,7 @@ var outcomes = {
         ];
         game_state.message = functions.random_choice(messages);
         get_item(game_state, "frog");
+        game_state.character.person = null;
         return game_state;
     },
 
