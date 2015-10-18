@@ -2,8 +2,6 @@
 /*jslint vars: true, plusplus: true, devel: true, nomen: true*/ 
 /*global define */
 
-// NOTE: this module requires functions.js
-
 var game_state = {};
 var USER_INPUT_ALLOWED = true;
 
@@ -13,6 +11,17 @@ function a_execute() {
     } else {
         request_outcome_of_action(game_state.options.a);
     }
+}
+
+function a_or_an(next_letter) {
+    if (next_letter === "a" ||
+        next_letter === "e" ||
+        next_letter === "i" ||
+        next_letter === "o" ||
+        next_letter === "u") {
+        return "an";
+    }
+    return "a";
 }
 
 function b_execute() {
@@ -227,7 +236,7 @@ function set_b(game_state) {
         case "BUY_ITEM":
             var item = game_state.for_sell;
             $("#b").text("b. Buy " + 
-                functions.a_or_an(item[0]) + " " + item + ".");
+                a_or_an(item[0]) + " " + item + ".");
             break;
 
         case "GIVE_FLOWERS":
@@ -284,8 +293,8 @@ function set_d(game_state) {
             case "BUY_WEAPON": 
                 var weapon = game_state.for_sell;
                 $("#d").text("d. Buy " + 
-                    functions.a_or_an(weapons_map[weapon][0]) + 
-                    " " + weapons_map[weapon] + ".");
+                    a_or_an(weapons_map[weapon][0]) + " " + 
+                    weapons_map[weapon] + ".");
                 break;
 
             case "FLIRT_WITH":
