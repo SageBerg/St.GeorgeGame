@@ -3486,7 +3486,7 @@ var outcomes = {
     "kiss_frog_mushrooms": function(game_state) {
         var messages = [
             "Your frog turns into an old woman. She thanks you and gives " +
-            "a bunch of mushrooms.",
+            "you a bunch of mushrooms.",
         ];
         game_state.message = functions.random_choice(messages);
         lose_item(game_state, "frog");
