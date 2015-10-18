@@ -113,6 +113,25 @@ function conjugate(game_state, word) {
     return word;
 } 
 
+function decrement_money(game_state) {
+    switch (game_state.character.money) {
+        case "large_fortune":
+            game_state.character.money = "small_fortune";
+            game_state.message += " You now only have a small fortune.";
+            break;
+        case "small_fortune":
+            game_state.character.money = "pittance";
+            game_state.message += " You now only have a pittance.";
+            break;
+        case "pittance":
+            game_state.character.money = NONE;
+            game_state.message += " You now have no money.";
+            break;
+        default:
+            console.log("decrement_money called when character had no money");
+    }
+}
+
 // kills character
 function die(game_state) {
     game_state.character.is_dead = true;
@@ -717,18 +736,6 @@ var outcomes = {
         return game_state;
     },
 
-    "buy_a_weapon": function(game_state) {
-        game_state.message = "";
-        get_weapon(game_state, game_state.for_sell);
-        return game_state;
-    },
-
-    "buy_an_item": function(game_state) {
-        game_state.message = "";
-        get_item(game_state, game_state.for_sell);
-        return game_state;
-    },
-
     "bronzed": function(game_state) {
         game_state.message = "You get bronzed.";
         return game_state;
@@ -759,6 +766,20 @@ var outcomes = {
         return game_state;
     },
 
+    "buy_a_weapon": function(game_state) {
+        game_state.message = "";
+        get_weapon(game_state, game_state.for_sell);
+        decrement_money(game_state);
+        return game_state;
+    },
+
+    "buy_an_item": function(game_state) {
+        game_state.message = "";
+        get_item(game_state, game_state.for_sell);
+        decrement_money(game_state);
+        return game_state;
+    },
+
     "buy_black_market_item": function(game_state) {
         var item = functions.random_choice(["deep-cave newt", 
                                             "potion of love", 
@@ -778,6 +799,7 @@ var outcomes = {
             ];
             game_state.message = functions.random_choice(messages);
             get_item(game_state, item);
+            decrement_money(game_state);
         } else {
             messages = [
                 "You cannot afford to make a shady deal.",
@@ -1414,6 +1436,7 @@ var outcomes = {
         ];
         game_state.message = functions.random_choice(messages);
         get_money(game_state, "pittance");
+        game_state.character.person = null;
         return game_state;
     },
 
@@ -2141,6 +2164,8 @@ var outcomes = {
                 ]) + ".",
         ]; 
         game_state.message = functions.random_choice(messages);
+        decrement_money(game_state);
+        game_state.character.person = null;
         return game_state;
     },
 
@@ -2156,6 +2181,8 @@ var outcomes = {
                 ]) + ".",
         ]; 
         game_state.message = functions.random_choice(messages);
+        decrement_money(game_state);
+        game_state.character.person = null;
         return game_state;
     },
 
