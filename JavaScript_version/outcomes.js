@@ -1538,7 +1538,7 @@ var outcomes = {
             "The local polar bears aren't happy with you on their turf. " +
             "You are soon mauled.",
             "After a few days of waiting at a hole in the ice, you freeze " +
-            "do death.",
+            "to death.",
         ]; 
         game_state.message = functions.random_choice(messages);
         clover(game_state);
