@@ -922,7 +922,7 @@ function marriage_victory(game_state) {
 }
 
 function set_destination(game_state, option) {
-    if (option === "GO_TO") {
+    if (option === "GO_TO" || option === "Wander the countryside.") {
         game_state.destination = 
             functions.get_random_adjacent_destination(game_state);
     }

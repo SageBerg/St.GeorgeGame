@@ -2219,18 +2219,19 @@ exports.actions = {
 
     "Wander the countryside.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "cat_burning", 1);
+        raffle.add(possible_outcomes, "go_to", 2);
         raffle.add(possible_outcomes, "meet_stray_dog", 1);
         raffle.add(possible_outcomes, "meet_stray_donkey", 1);
+        raffle.add(possible_outcomes, "wander_the_countryside", 9);
+        raffle.add(possible_outcomes, "witch_burning", 1);
+        if (game_state.character.has_tail === true) {
+            raffle.add(possible_outcomes, "peasants_laugh_at_tail", 2);
+        }
         if (game_state.persons.peasant_lass.alive === true) {
             raffle.add(possible_outcomes, "meet_peasant_lass", 2);
         } 
         if (game_state.persons.simple_peasant.alive === true) {
             raffle.add(possible_outcomes, "meet_simple_peasant", 1);
-        }
-        raffle.add(possible_outcomes, "wander_the_countryside", 9);
-        raffle.add(possible_outcomes, "witch_burning", 1);
-        if (game_state.character.has_tail === true) {
-            raffle.add(possible_outcomes, "peasants_laugh_at_tail", 1);
         }
         return possible_outcomes;
     },
