@@ -143,7 +143,7 @@ exports.places = {
         "locked":    true,
         "name":      "prison",
         "outside":   false,
-        "populated": true,
+        "populated": false,
         "town":      false,
         "trashable": false,
     },
