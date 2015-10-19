@@ -35,3 +35,10 @@ exports.random_choice = function random_choice(array) {
 exports.random_int = function random_int(n) {
     return Math.floor(Math.random() * n);
 };
+
+exports.stop_tripping = function stop_tripping(game_state) {
+    if (game_state.character.is_tripping && 
+        Math.floor(Math.random() * 8) === 0) {
+        game_state.character.is_tripping = false; 
+    }
+}
