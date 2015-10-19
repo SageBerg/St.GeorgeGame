@@ -46,6 +46,44 @@ exports.get_outcome = function get_outcome(game_state) {
     return raffle.get(possible_outcomes);
 };
 
+function add_next_target_suggestion(game_state) {
+    var burnable_places = [
+        "church",
+        "lord_bartholomew_manor",
+        "lord_carlos_manor",
+        "market",
+        "tavern",
+        "tower",
+        "wizard_lab",
+        "woods",
+    ];
+    var burned_count = 0;
+    var still_burnable = [];
+    for (var i = 0; i < burnable_places.length; i++) {
+        if (game_state.places[burnable_places[i]].burnable === false) {
+            burned_count += 1;
+        } else {
+            still_burnable.push(burnable_places[i]);
+        }
+    }
+    if (burned_count >= burnable_places.length / 2 && 
+        burned_count < burnable_places.length) {
+        var next_target = game_state.places[
+            functions.random_choice(still_burnable)
+        ].name;
+        var burn_messages = [
+            " God tells you to burn down " + next_target + " next.",
+            " It irks you that you still haven't burned down " + 
+            next_target + ".",
+            " That was so fun you feel like burning down " + 
+            next_target + "now.",
+            " You think you should celebrate your success by burning down " +
+            next_target + ".",
+        ];
+        game_state.message += functions.random_choice(burn_messages); 
+    }
+}
+
 function arrested(game_state) {
     lose_all_items(game_state);
     move_character(game_state, "prison");
@@ -67,6 +105,7 @@ function burn(game_state) {
     game_state.character.person = null;
     game_state.message = "You find yourself in " +
     game_state.places[game_state.character.place].name + ".";
+    add_next_target_suggestion(game_state);
 }
 
 function burn_a_bunch_of_places(game_state) {
