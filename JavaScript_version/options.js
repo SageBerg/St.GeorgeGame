@@ -660,10 +660,13 @@ function get_place_options(game_state, options) {
 
         case "church":
             if (functions.get_place(game_state).burnable === true) {
-                raffle.add(options.a, "Tell a priest he's fat.", 2);
-                raffle.add(options.a, "Tell a priest God doesn't exist.", 2);
-                raffle.add(options.a, 
-                    "Tell a priest you're the chosen one.", 2);
+                if (game_state.character.person === null) {
+                    raffle.add(options.a, "Tell a priest he's fat.", 2);
+                    raffle.add(options.a, 
+                        "Tell a priest God doesn't exist.", 2);
+                    raffle.add(options.a, 
+                        "Tell a priest you're the chosen one.", 2);
+                }
                 if (items.money_map[game_state.character.money].value > 0) {
                     raffle.add(options.d, "Donate to the church.", 6);
                 }
