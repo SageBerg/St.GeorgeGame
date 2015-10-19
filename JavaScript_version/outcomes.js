@@ -198,10 +198,24 @@ function equip_best_weapon(game_state) {
     }
 }
 
+function get_ground(game_state) {
+    switch (game_state.character.place) {
+        case "pirate_ship":
+            return "deck";    
+        case "docks":
+            return "docks";    
+    }
+    if (functions.get_place(game_state).outside === false) {
+        return "floor";    
+    } else {
+        return "ground";    
+    }
+}
+
 function get_item(game_state, item) {
     if (game_state.character.items[item] === 0) {
-        game_state.message += " You now have " + functions.a_or_an(item[0]) + " " + 
-        item + ".";
+        game_state.message += " You now have " + functions.a_or_an(item[0]) +
+        " " + item + ".";
     } else {
         game_state.message += " You now have another " + item + ".";
     }
@@ -1429,7 +1443,8 @@ var outcomes = {
         var messages = [
             "While you're dancing, you twist your ankle, fall to the " +
             "ground, try to catch yourself, but break your wrist, " +
-            "hit your head on the ground and break your neck.",
+            "hit your head on the " + get_ground(game_state) + 
+            " and break your neck.",
             "You dance so vigorously you become exhausted and die.",
             "You dance to death.",
         ];
@@ -1713,13 +1728,15 @@ var outcomes = {
     },
 
     "distasteful": function(game_state) {
-        if (game_state.places[game_state.character.place].outside === true) {
-            game_state.message = 
-                "You find the flavor of the ground distasteful.";
-        } else {
-            game_state.message = 
-                "You find the flavor of the floor distasteful.";
-        }
+        var messages = [
+            "It tastes like something that shouldn't be licked.",
+            "It tastes terrible.",
+            "It tastes worse than you anticipated.",
+            "You get an ant on your tongue.",
+            "You find the flavor of the " + get_ground(game_state) +
+            " distasteful.",
+        ];
+        game_state.message = functions.random_choice(messages);
         return game_state;
     },
 
@@ -2316,6 +2333,13 @@ var outcomes = {
             "you.";
         game_state.character.person = "assassin";
         game_state.character.is_threatened = true;
+        return game_state;
+    },
+
+    "find_dagger": function(game_state) {
+        game_state.message = "While you're licking the " +
+            get_ground(game_state) + ", you notice an old dagger.";
+        get_weapon(game_state, "dagger");
         return game_state;
     },
 
@@ -3072,9 +3096,8 @@ var outcomes = {
     },
 
     "guards_stop_you_licking": function(game_state) {
-        game_state.message = "The local guards see you licking the ground " +
-            "and conclude you must be a lunatic.";
-        game_state.character.person = "guards";
+        game_state.message = "The local guards see you licking the " +
+            get_ground(game_state) + " and conclude you must be a lunatic.";
         game_state.character.person = "guards";
         game_state.character.is_threatened = true;
         return game_state;
@@ -3628,7 +3651,8 @@ var outcomes = {
     },
 
     "lick_blood": function(game_state) {
-        game_state.message = "You lick the blood off the ground.";
+        game_state.message = "You lick the blood off the " + 
+            get_ground(game_state) + ".";
         return game_state;
     },
 

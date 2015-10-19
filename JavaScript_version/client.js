@@ -61,6 +61,20 @@ function execute(letter) {
     request_outcome_of_action(game_state.options[letter]);
 }
 
+function get_ground(game_state) {
+    switch (game_state.character.place) {
+        case "pirate_ship":
+            return "deck";    
+        case "docks":
+            return "docks";    
+    }
+    if (game_state.places[game_state.character.place].outside === false) {
+        return "floor";    
+    } else {
+        return "ground";    
+    }
+}
+
 function get_person_name(game_state) {
     return game_state.persons[game_state.character.person].name;
 }
@@ -180,13 +194,7 @@ function set_a(game_state) {
             break;
 
         case "LICK_THE_GROUND":
-            if (game_state.places[
-                    game_state.character.place
-                ].outside === true) {
-                $("#a").text("a. Lick the ground."); 
-            } else {
-                $("#a").text("a. Lick the floor."); 
-            }
+            $("#a").text("a. Lick the " + get_ground(game_state) + "."); 
             break;
 
         case "MARRY":

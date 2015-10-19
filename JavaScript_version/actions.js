@@ -1124,6 +1124,10 @@ exports.actions = {
             raffle.add(possible_outcomes, "guards_stop_you_licking", 6);
         }
 
+        if (functions.get_place(game_state).populated) {
+            raffle.add(possible_outcomes, "find_dagger", 1);
+        }
+
         if (game_state.character.place === "arctic") {
             raffle.add(possible_outcomes, "ground_tastes_cold", 6);
         }
