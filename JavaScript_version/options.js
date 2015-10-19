@@ -276,7 +276,7 @@ function get_item_options(game_state, options) {
 function get_person_options(game_state, options) {
 
     if (game_state.character.person !== null) {
-        raffle.add(options.a, "ATTACK", 10);
+        raffle.add(options.a, "ATTACK", 20);
         raffle.add(options.b, "Boast of your bravery.", 1);
     }
 
