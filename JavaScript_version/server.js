@@ -67,7 +67,7 @@ function respond_with_outcome(req, res) {
         }
     } catch(err) { // if bad input would bring down the server
         console.log("\nUser input that would break the server was entered: ");
-        console.log(err.message);
+        console.log(err.stack);
         res.json({"message": "error"});
     }
 }
