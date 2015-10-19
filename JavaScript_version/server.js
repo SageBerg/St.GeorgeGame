@@ -14,7 +14,7 @@ var validation  = require("./validation");
 
 var express     = require("express");
 var http        = require("http");
-var port        = 3000;
+var port        = 80;
 var app         = express();
 var server;
 
