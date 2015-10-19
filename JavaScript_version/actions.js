@@ -1417,8 +1417,15 @@ exports.actions = {
         raffle.add(possible_outcomes, "god_showers_you_with_gold", 1);
         raffle.add(possible_outcomes, "god_shows_you_the_way", 1);
         raffle.add(possible_outcomes, "god_tells_you_stuff", 4);
-        raffle.add(possible_outcomes, "god_tests_you", 1);
         raffle.add(possible_outcomes, "ignored", 3);
+
+        for (var item in game_state.character.items) {
+            if (game_state.character.items[item] > 0 ||
+                game_state.character.money !== "none") {
+                raffle.add(possible_outcomes, "god_tests_you", 1);
+                break;
+            }
+        }
 
         if (game_state.places[game_state.character.place].burnable) {
             raffle.add(possible_outcomes, "god_commits_arson", 2);
@@ -1959,12 +1966,14 @@ exports.actions = {
 
     "Think.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "think_about_sex", 1);
-        raffle.add(possible_outcomes, "think_elaborate_scheme", 1);
         raffle.add(possible_outcomes, "think_four_ideas", 1);
         raffle.add(possible_outcomes, "think_get_lost", 1);
         raffle.add(possible_outcomes, "think_reevaluate_life", 1);
         raffle.add(possible_outcomes, "think_think_think", 1);
 
+        if (game_state.places[game_state.character.place].locked === false) {
+            raffle.add(possible_outcomes, "think_elaborate_scheme", 1);
+        }
         if (game_state.character.place !== "tavern") {
             raffle.add(possible_outcomes, "think_about_olga", 1);
         }
