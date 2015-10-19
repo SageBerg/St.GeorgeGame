@@ -4850,6 +4850,8 @@ var outcomes = {
     "read_and_die": function(game_state) {
         var messages = [
             "You open a cursed book.",
+            "You read some arcane words aloud and accidentally cast a spell " +
+            "that fills the room with flying swords.",
         ];
         game_state.message = functions.random_choice(messages);
         clover(game_state);
@@ -4871,24 +4873,35 @@ var outcomes = {
 
     "read_spell_book": function(game_state) {
         var messages = [
-            "You learn that it takes sap, flowers, and a many-colored " +
-            "mushroom to brew a love potion.",
-            "You learn that it takes a cat and a pearl " +
-            "to brew a potion of tail growth.",
-            "You learn that it takes a white mushroom and a deep-cave " +
-            "newt to brew a potion of strength.",
-            "You find the book arcane and boring.",
-            "You learn a spell to set things on fire, unfortunately it " +
-            "requires a focused mind.",
-            "The wizard's handwriting is terrible.",
-            "The first book you open appears to be the wizard's diary. " +
-            "It's mostly math proofs.",
             "The first book you open appears to be the wizard's diary. " +
             "He appears to be obsessed with void dust, but doesn't know " +
             "how to get any.",
+
             "The first book you open appears to be the wizard's diary. " +
             "It's full of accounts about how he's too chicken to ask out " +
             "a woman he often sees in the market.",
+
+            "The first book you open appears to be the wizard's diary. " +
+            "It's mostly math proofs.",
+
+            "The wizard's handwriting is terrible.",
+
+            "You find the book arcane and boring.",
+
+            "You learn a spell to set things on fire, unfortunately it " +
+            "requires a focused mind.",
+
+            "You learn that it takes a cat and a pearl " +
+            "to brew a potion of tail growth.",
+
+            "You learn that it takes a white mushroom and a deep-cave " +
+            "newt to brew a potion of strength.",
+
+            "You learn that it takes sap, flowers, and a many-colored " +
+            "mushroom to brew a love potion.",
+
+            "You read about a magical red cloak that protects the wearer " +
+            "from fire.",
         ];
         game_state.message = functions.random_choice(messages);
         return game_state;
