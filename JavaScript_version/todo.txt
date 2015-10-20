@@ -1,20 +1,24 @@
 High priority:
     try to fix the mouseover problem for phones
-    make god only take your stuff if you have stuff
+    experiment with responsive views in boostrap
+    provide a loading indication so the user knows their command was sent
 
 Medium priority:
-    use more constants and less hardcoding
-    make items do more stuff (cats save you, sailor peg as floation device)
-    log stuff when errors happen
-    experiment with responsive views in boostrap
-    make the game run faster? (better hardware? fatter client?)
-    provide a loading indication so the user knows their command was sent
-    more outcomes for lick the ground
+    make items do more stuff
+        sailor peg floation device
+        chow down on your ball of sap
+        breed your deep newts, cats
+        race your deep cave newt in the countryside (see race sometimes)
+        give your cat to the witch
+        give her your seal carcass, she doesn't like your seal carcass
+        trade seal to wizard (tell him there's more where that came from)
+    have fire spread sometimes
+    dark cloaks outcome is too common for singing in tavern
 
 Low priority:
+    make flirting less linear (lose track of Olga, think up poem for Felicity)
     look for options that are too safe
+    use more constants and less hardcoding
     minify code
     look into gzipping code
-    change the display if I get more feedback about it being bad
-    make flirting less linear (lose track of Olga, think up poem for Felicity)
     spellcheck the game (once things settle down)
