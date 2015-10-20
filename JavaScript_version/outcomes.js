@@ -2030,6 +2030,59 @@ var outcomes = {
         return game_state;
     },
 
+    "enter_newt_and_lose": function(game_state) {
+        var messages = [
+            "Your deep-cave newt wanders around in circles, loses the " +
+            "race, and humiliates you both.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
+    "enter_newt_and_provoke_mob": function(game_state) {
+        game_state.message = "You deep-cave newt easily wins the race " +
+            "and the peasants claim deep-cave newts are not fair. You " +
+            "soon have an angry mob on your hands.";
+        game_state.character.person = "mob";
+        game_state.character.is_threatened = true;
+        return game_state;
+    },
+
+    "enter_newt_and_win_donkey": function(game_state) {
+        var messages = [
+            "Your deep-cave newt turns out to be as fast as it is slimy. " +
+            "It wins the race. " +
+            "You win a donkey and your newt gets to eat some leeches.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        get_item(game_state, "donkey");
+        return game_state;
+    },
+
+    "enter_newt_and_win_money": function(game_state) {
+        var messages = [
+            "Your deep-cave newt steals the show and wins the race. " +
+            "You get to take home the jackpot and your newt gets to eat " +
+            "some worms.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        get_money(game_state, functions.random_choice(["large_fortune",
+                                                       "pittance", 
+                                                       "small_fortune"]));
+        return game_state;
+    },
+
+    "enter_newt_and_win_pitchfork": function(game_state) {
+        var messages = [
+            "Your deep-cave newt dominates the competition and wins you " +
+            "a weapon.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        get_weapon(game_state, functions.random_choice(["long_pitchfork", 
+                                                        "pitchfork"]));
+        return game_state;
+    },
+
     "escape_to_cave": function(game_state) {
         game_state.message = "You run into the woods and hide deep in a " +
             "cave... Perhaps a little too deep.";
@@ -4311,6 +4364,14 @@ var outcomes = {
     },
 
     //n
+
+    "newt_race": function(game_state) {
+        var messages = [
+            "You come across a crowd of peasants racing newts.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
 
     "nf3_lose_bartholomew": function(game_state) {
         var messages = [

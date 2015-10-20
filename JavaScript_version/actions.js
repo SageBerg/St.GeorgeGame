@@ -694,6 +694,16 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Enter your deep-cave newt in the race.":
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "enter_newt_and_lose", 1);
+        raffle.add(possible_outcomes, "enter_newt_and_provoke_mob", 1);
+        raffle.add(possible_outcomes, "enter_newt_and_win_donkey", 1);
+        raffle.add(possible_outcomes, "enter_newt_and_win_money", 1);
+        raffle.add(possible_outcomes, "enter_newt_and_win_pitchfork", 1);
+        return possible_outcomes;
+    },
+
     "Enter the void.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "enter_the_void", 1);
         return possible_outcomes;
@@ -2222,6 +2232,7 @@ exports.actions = {
         raffle.add(possible_outcomes, "go_to", 2);
         raffle.add(possible_outcomes, "meet_stray_dog", 1);
         raffle.add(possible_outcomes, "meet_stray_donkey", 1);
+        raffle.add(possible_outcomes, "newt_race", 2);
         raffle.add(possible_outcomes, "wander_the_countryside", 9);
         raffle.add(possible_outcomes, "witch_burning", 1);
         if (game_state.character.has_tail === true) {

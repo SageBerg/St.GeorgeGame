@@ -581,6 +581,13 @@ function get_outcome_options(game_state, options) {
             raffle.add(options.d, "Do some swashbuckling.", 10000);
             break;
 
+        case "newt_race":
+            if (game_state.character.items["deep-cave newt"] > 0) {
+                raffle.add(options.a, "Enter your deep-cave newt in the race.", 
+                    10000);
+            }
+            break;
+
         case "no_progress_swimming":
         case "see_ship":
             raffle.add(options.c, "Keep swimming.", 10000);
