@@ -76,7 +76,7 @@ function add_next_target_suggestion(game_state) {
             " It irks you that you still haven't burned down " + 
             next_target + ".",
             " That was so fun you feel like burning down " + 
-            next_target + "now.",
+            next_target + " now.",
             " You think you should celebrate your success by burning down " +
             next_target + ".",
         ];
@@ -106,6 +106,9 @@ function burn(game_state) {
     game_state.message = "You find yourself in " +
     game_state.places[game_state.character.place].name + ".";
     add_next_target_suggestion(game_state);
+    if (functions.random_int(3) === 0) {
+        spread_fire(game_state);
+    }
 }
 
 function burn_a_bunch_of_places(game_state) {
@@ -171,7 +174,6 @@ function decrement_money(game_state) {
     }
 }
 
-// kills character
 function die(game_state) {
     game_state.character.is_dead = true;
 }
@@ -302,6 +304,32 @@ function move_character(game_state, destination) {
         game_state.message += " You find yourself in ";
     }
     game_state.message += game_state.places[destination].name + ".";
+}
+
+function spread_fire(game_state) {
+    var burnables = [];
+    var links = functions.get_place(game_state).links;
+    console.log("links", links);
+    for (var i = 0; i < links.length; i++) {
+        if (game_state.places[links[i]].burnable === true) {
+            burnables.push(links[i]);
+        }
+    }
+    if (burnables.length === 0) {
+        return; // nothing left to do if fire can't spread
+    }
+    var next_fire = functions.random_choice(burnables);
+    if (game_state.places[next_fire].burnable === true) {
+        game_state.message += functions.random_choice([
+            " The blaze also takes out ",
+            " The fire spreads to ",
+            " The fire also destroys ",
+            " The flames spread to ",
+        ]) + game_state.places[next_fire].name + ".";
+        game_state.places[next_fire].burnable = false;
+        game_state.places[next_fire].name = "the smoldering remains of " + 
+            game_state.places[next_fire].name;
+    }
 }
 
 function teleport(game_state) {
