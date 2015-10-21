@@ -309,7 +309,6 @@ function move_character(game_state, destination) {
 function spread_fire(game_state) {
     var burnables = [];
     var links = functions.get_place(game_state).links;
-    console.log("links", links);
     for (var i = 0; i < links.length; i++) {
         if (game_state.places[links[i]].burnable === true) {
             burnables.push(links[i]);
