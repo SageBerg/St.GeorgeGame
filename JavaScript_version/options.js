@@ -375,6 +375,9 @@ function get_person_options(game_state, options) {
 
         case "witch":
             raffle.add(options.b, "Ask the witch to brew you a potion.", 10);
+            if (game_state.character.items.cat > 0) {
+                raffle.add(options.c, "Give your cat to the witch.", 20);
+            }
             break;
 
         case "wizard":

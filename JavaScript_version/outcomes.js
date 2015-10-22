@@ -6332,6 +6332,41 @@ var outcomes = {
         return game_state;
     },
 
+    "witch_cat_refuse": function(game_state) {
+        var messages = [
+            "The witch says she already has too many cats.", 
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
+    "witch_cat_nothing": function(game_state) {
+        var messages = [
+            "The witch takes your cat and says it will give her an " +
+            "opportunity to find more ways to skin cats.",
+            "The witch takes your cat and says it will taste great in a pie.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        lose_item(game_state, "cat");
+        return game_state;
+    },
+
+    "witch_cat_trade": function(game_state) {
+        var potion = functions.random_choice(["potion of love", 
+                                              "potion of strength",
+                                              "potion of tail growth",]);
+        var messages = [
+            "The witch gives you a " + potion + " in exchange.",
+            "The witch smiles a terrible smile and gives you a " + 
+            potion + ".",
+            "The witch thanks you and gives you a " + potion + ".",
+        ];
+        game_state.message = functions.random_choice(messages);
+        lose_item(game_state, "cat");
+        get_item(game_state, potion);
+        return game_state;
+    },
+
     "witch_makes_potion_love": function(game_state) {
         var messages = [
             "The witch takes some of your items and brews you a potion.",

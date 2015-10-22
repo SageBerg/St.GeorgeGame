@@ -889,6 +889,13 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Give your cat to the witch.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "witch_cat_nothing", 2);
+        raffle.add(possible_outcomes, "witch_cat_refuse", 1);
+        raffle.add(possible_outcomes, "witch_cat_trade", 3);
+        return possible_outcomes;
+    },
+
     "Go fishing.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "catch_a_lot_of_fish", 1);
         raffle.add(possible_outcomes, "catch_big_fish", 1);
