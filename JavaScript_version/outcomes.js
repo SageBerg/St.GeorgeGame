@@ -1502,8 +1502,9 @@ var outcomes = {
 
     "dance_a_jig": function(game_state) {
         var messages = [
-            "You have a grand old time.",
+            "You enjoy yourself immensely.",
             "You get sweaty.",
+            "You have a grand old time.",
         ];
         game_state.message = functions.random_choice(messages);
         return game_state;
@@ -1586,7 +1587,7 @@ var outcomes = {
             "Some goblins dance with you and then kill you.",
         ];
         game_state.message = functions.random_choice(messages);
-        die(game_state);
+        clover(game_state);
         return game_state;
     },
 
@@ -1598,6 +1599,7 @@ var outcomes = {
             " Lord Bartholomew.",
         ];
         game_state.message = functions.random_choice(messages);
+        game_state.character.person = null;
         return game_state;
     },
 
@@ -1611,6 +1613,7 @@ var outcomes = {
             ".",
         ];
         game_state.message = functions.random_choice(messages);
+        game_state.character.person = null;
         return game_state;
     },
 
