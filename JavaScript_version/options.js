@@ -198,6 +198,9 @@ function get_item_options(game_state, options) {
 
     if (game_state.character.items.cat > 0) {
         raffle.add(options.d, "Swing your cat.", 1);
+        if (game_state.character.items.cat > 1) {
+            raffle.add(options.b, "Breed your cats.", 1);
+        }
     }
 
     if (game_state.character.items.cat > 0 &&
@@ -392,38 +395,8 @@ function get_person_options(game_state, options) {
 function get_outcome_options(game_state, options) {
 
     switch (game_state.outcome) {
-        case "bronzed":
-        case "boast_and_get_money":
-        case "chop_down_tree":
-        case "impress_simple_peasant":
-        case "kill":
-        case "kill_lord_carlos":
-        case "panic_and_escape":
-        case "save_cat":
-        case "swim_to_woods":
-        case "throw_cat_and_keep_cat":
-        case "train_and_win":
-        case "you_get_away_with_it":
-            raffle.add(options.a, "Thump yourself on the chest.", 1);
-            break;
 
-        case "cat_smells_fish":
-        case "club_a_seal":
-        case "eat_fish_in_igloo":
-        case "eat_seal_in_igloo":
-        case "find_sea_turtle":
-        case "gambling_win":
-        case "god_showers_you_with_gold":
-        case "pace_and_get_frog":
-        case "raise_sail_and_get_to_land":
-        case "wake_up_richer":
-            raffle.add(options.c, "Celebrate your success.", 2);
-            break;
-
-        case "cat_burning":
-            raffle.add(options.a, "Try to save the cat.", 100);
-            break;
-
+        case "breed_cats_fail":
         case "cannot_afford":
         case "cannot_find_cat":
         case "cannot_find_lava":
@@ -460,6 +433,38 @@ function get_outcome_options(game_state, options) {
                 false) {
                 raffle.add(options.c, "Leave in a huff.", 2);
             }
+            break;
+
+        case "bronzed":
+        case "boast_and_get_money":
+        case "chop_down_tree":
+        case "impress_simple_peasant":
+        case "kill":
+        case "kill_lord_carlos":
+        case "panic_and_escape":
+        case "save_cat":
+        case "swim_to_woods":
+        case "throw_cat_and_keep_cat":
+        case "train_and_win":
+        case "you_get_away_with_it":
+            raffle.add(options.a, "Thump yourself on the chest.", 1);
+            break;
+
+        case "cat_smells_fish":
+        case "club_a_seal":
+        case "eat_fish_in_igloo":
+        case "eat_seal_in_igloo":
+        case "find_sea_turtle":
+        case "gambling_win":
+        case "god_showers_you_with_gold":
+        case "pace_and_get_frog":
+        case "raise_sail_and_get_to_land":
+        case "wake_up_richer":
+            raffle.add(options.c, "Celebrate your success.", 2);
+            break;
+
+        case "cat_burning":
+            raffle.add(options.a, "Try to save the cat.", 100);
             break;
 
         case "chance_to_escape":

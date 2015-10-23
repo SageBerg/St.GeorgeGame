@@ -240,6 +240,12 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Breed your cats.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "breed_cats", 3);
+        raffle.add(possible_outcomes, "breed_cats_fail", 3);
+        return possible_outcomes;
+    },
+
     "Bribe the dog with a fish.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "dog_takes_fish", 1);
         return possible_outcomes;

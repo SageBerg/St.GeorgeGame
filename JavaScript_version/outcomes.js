@@ -827,6 +827,38 @@ var outcomes = {
         return game_state;
     },
 
+    "breed_cats": function(game_state) {
+        var number_names = {
+            "2": "two",
+            "3": "three",
+            "4": "four",
+            "5": "five",
+            "6": "six",
+            "7": "seven",
+            "8": "eight",
+            "9": "nine",
+            "10": "ten",
+            "11": "eleven",
+            "12": "twelve",
+            "13": "thirteen",
+        };
+        var kittens = 2 + functions.random_int(11);
+        game_state.character.items.cat += kittens;
+        game_state.message = "You now have " + 
+            number_names[kittens.toString()] + " more cats.";
+        return game_state;
+    },
+
+    "breed_cats_fail": function(game_state) {
+        var messages = [
+            "Mashing them together doesn't work.",
+            "You can't figure out how to make them breed.",
+            "You perform a wedding for you cats, but they don't breed.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
     "bronzed": function(game_state) {
         game_state.message = "You get bronzed.";
         return game_state;
