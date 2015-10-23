@@ -1357,6 +1357,21 @@ var outcomes = {
         return game_state;
     },
 
+    "chat_with_st_george": function(game_state) {
+        var messages = [
+            "St. George warns against attacking people.",
+            "St. George warns against bragging.",
+            "St. George warns against gawking at women.",
+            "St. George warns against living your life just to get a " +
+            "large fortune.",
+            "St. George warns against resenting the success of others.",
+            "St. George warns against sleeping during the day.",
+            "St. George warns against stuffing your face with grub.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
     "chess_cutlass": function(game_state) {
         var messages = [
             "The pirates slash the chessboard in half with a cutlass and " +

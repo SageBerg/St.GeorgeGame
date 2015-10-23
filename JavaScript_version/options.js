@@ -365,6 +365,7 @@ function get_person_options(game_state, options) {
 
         case "st_george":
             raffle.add(options.b, "Beg for money.", 100);
+            raffle.add(options.c, "Chat with St. George.", 2);
             break;
 
         case "war_merchant":

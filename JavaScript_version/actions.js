@@ -368,9 +368,13 @@ exports.actions = {
         return possible_outcomes;
     },
 
-    "Chat with Lord Bartholomew.": 
-        function(game_state, possible_outcomes) {
+    "Chat with Lord Bartholomew.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "chat_with_lord_bartholomew", 1);
+        return possible_outcomes;
+    },
+
+    "Chat with St. George.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "chat_with_st_george", 1);
         return possible_outcomes;
     },
 
@@ -381,8 +385,7 @@ exports.actions = {
         return possible_outcomes;
     },
 
-    "Chat with the dragon.": 
-        function(game_state, possible_outcomes) {
+    "Chat with the dragon.": function(game_state, possible_outcomes) {
         switch (game_state.character.person) {
             case "dragon_blue":
                 raffle.add(possible_outcomes, "chat_with_dragon_blue", 3);
