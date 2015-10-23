@@ -578,6 +578,7 @@ exports.actions = {
         raffle.add(possible_outcomes, "farm_work", 4);
         raffle.add(possible_outcomes, "farm_work_and_coin", 1);
         raffle.add(possible_outcomes, "farm_work_and_die", 1);
+        raffle.add(possible_outcomes, "farm_work_and_donkey", 1);
         raffle.add(possible_outcomes, "farm_work_and_pitchfork", 1);
         return possible_outcomes;
     },

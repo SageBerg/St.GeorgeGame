@@ -269,6 +269,16 @@ function grow_tail(game_state) {
     }
 }
 
+function leave_donkey_behind(game_state) {
+    if (game_state.character.items.donkey === 1) {
+        game_state.character.items.donkey = 0;
+        game_state.message += " You have no idea where your donkey went.";
+    } else if (game_state.character.items.donkey > 1) {
+        game_state.character.items.donkey = 0;
+        game_state.message += " You have no idea where your donkeys went.";
+    }
+}
+
 function lose_all_items(game_state) {
     for (var item in game_state.character.items) {
         game_state.character.items[item] = 0;
@@ -344,6 +354,7 @@ function teleport(game_state) {
     var roll = functions.random_int(place_list.length);
     var destination = place_list[roll];
     move_character(game_state, destination);
+    leave_donkey_behind(game_state);
 }
 
 function trash(game_state) {
@@ -2128,6 +2139,7 @@ var outcomes = {
             "The Devil is pretty fast, so you manage to get away.";
         move_character(game_state, 
             functions.get_random_adjacent_destination(game_state));
+        leave_donkey_behind(game_state);
         return game_state;
     },
 
@@ -2286,6 +2298,18 @@ var outcomes = {
         game_state.message = functions.random_choice(messages);
         clover(game_state);
         game_state.character.person = null;
+        return game_state;
+    },
+  
+    "farm_work_and_donkey": function(game_state) {
+        var messages = [
+            "You spend a season picking grapes at a small vineyard. " +
+            "The old lady who owns the vineyard says she has no money, so " +
+            "she gives you a donkey for your efforts.",
+        ]; 
+        game_state.message = functions.random_choice(messages);
+        game_state.character.person = null;
+        get_item(game_state, "donkey");
         return game_state;
     },
   
@@ -3786,8 +3810,8 @@ var outcomes = {
     },
 
     "loot_item": function(game_state) {
-        var item = functions.random_choice(["ax", "cat", "fish", "pearl", 
-                                            "sailor peg"]);
+        var item = functions.random_choice(["ax", "cat", "donkey", "fish", 
+                                            "pearl", "sailor peg"]);
         game_state.message = "You get away with " + 
             functions.a_or_an(item[0]) + " " + item + ".";
         get_item(game_state, item);
@@ -3797,9 +3821,9 @@ var outcomes = {
 
     "loot_items": function(game_state) {
         var item_one = functions.random_choice(["fancy red cloak", "fish", 
-                                      "many-colored mushroom" ]);
-        var item_two = functions.random_choice(["bouquet of flowers", "frog", 
-                                      "white mushroom"]);
+                                                "many-colored mushroom" ]);
+        var item_two = functions.random_choice(["bouquet of flowers", "frog",
+                                                "white mushroom"]);
         game_state.message = "You grab some stuff and flee the market.";
         get_item(game_state, item_one);
         get_item(game_state, item_two);
