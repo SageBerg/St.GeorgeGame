@@ -6352,18 +6352,18 @@ var outcomes = {
     },
 
     "witch_cat_trade": function(game_state) {
-        var potion = functions.random_choice(["potion of love", 
-                                              "potion of strength",
-                                              "potion of tail growth",]);
+        var ingredient = functions.random_choice(["ball of sap", 
+                                                  "deep-cave newt",
+                                                  "pearl",]);
         var messages = [
-            "The witch gives you a " + potion + " in exchange.",
+            "The witch gives you a " + ingredient + " in exchange.",
             "The witch smiles a terrible smile and gives you a " + 
-            potion + ".",
-            "The witch thanks you and gives you a " + potion + ".",
+            ingredient + ".",
+            "The witch thanks you and gives you a " + ingredient + ".",
         ];
         game_state.message = functions.random_choice(messages);
         lose_item(game_state, "cat");
-        get_item(game_state, potion);
+        get_item(game_state, ingredient);
         return game_state;
     },
 
