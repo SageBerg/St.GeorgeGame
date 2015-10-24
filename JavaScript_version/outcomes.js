@@ -3372,6 +3372,7 @@ var outcomes = {
         ];
         game_state.message = functions.random_choice(messages);
         game_state.character.person = "assassins";
+        decrement_money(game_state);
         return game_state;
     },
 

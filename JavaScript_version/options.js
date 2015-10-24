@@ -735,7 +735,7 @@ function get_place_options(game_state, options) {
             if (functions.get_place(game_state).burnable === true) {
                 if (game_state.character.person === null) {
                     raffle.add(options.a, "Ask about assassins.", 4);
-                    //raffle.add(options.a, "Hire an assassin.", 4);
+                    raffle.add(options.a, "Hire an assassin.", 4);
                     raffle.add(options.b, "BURN", 5);
                     raffle.add(options.b, "Tell the next person you meet " +
                             "that you're Lord Arthur.", 1);
@@ -877,7 +877,8 @@ function get_place_options(game_state, options) {
                     raffle.add(options.a, 
                         "Ask for an audience with Lord Daniel.", 4);
                 }
-                raffle.add(options.c, "Complain about unfair imprisonment policies.", 4);
+                raffle.add(options.c, 
+                    "Complain about unfair imprisonment policies.", 4);
                 raffle.add(options.d, "Train with the guards.", 8);
             }
             break;
