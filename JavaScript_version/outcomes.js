@@ -2067,6 +2067,13 @@ var outcomes = {
         return game_state;
     },
 
+    "eat_sap": function(game_state) {
+        game_state.message = "It tastes less like maple syrup than you " +
+            "hoped it would.";
+        lose_item(game_state, "ball of sap");
+        return game_state;
+    },
+
     "eat_seal_in_igloo": function(game_state) {
         game_state.message = "You survive in your igloo until winter by " +
             "eating your seal carcass. The winter ice sheet allows you to " +
@@ -6405,7 +6412,7 @@ var outcomes = {
         var messages = [
             "you don't see anything interesting.",
             "you see a \"birdle,\" a bird standing on a turtle.",
-            "you see sea in every direction.",
+            "you see ocean in every direction.",
             "you see some storm clouds.",
         ];
         game_state.message = "During your watch duty, " +

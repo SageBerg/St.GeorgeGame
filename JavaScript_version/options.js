@@ -176,6 +176,10 @@ function get_item_options(game_state, options) {
         raffle.add(options.a, "Admire your jewels.", 1);
     }
 
+    if (game_state.character.items["ball of sap"] > 0) {
+        raffle.add(options.c, "Chow down on your ball of sap.", 1);
+    }
+
     if (game_state.character.items["ball of sap"] > 0 &&
         game_state.character.items["bouquet of flowers"] > 0 &&
         game_state.character.items["many-colored mushroom"] > 0 &&
