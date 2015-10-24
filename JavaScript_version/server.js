@@ -53,6 +53,9 @@ function respond_with_outcome(req, res) {
             game_state.options = options.get_options(game_state);
             game_state.score   = parseInt(game_state.score) + 1;
             functions.stop_tripping(game_state);
+            if (game_state.character.place === "ocean") {
+                functions.animal_drown(game_state);
+            }
             res.json(game_state);
         } else { // if input validation fails
             console.log("validation returned false");

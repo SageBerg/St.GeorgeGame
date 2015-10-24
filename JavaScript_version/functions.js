@@ -13,6 +13,23 @@ exports.a_or_an = function a_or_an(next_letter) {
     return "a";
 }
 
+exports.animal_drown = function animal_drown(game_state) {
+    if (game_state.character.items.cat === 1) {
+        game_state.character.items.cat = 0;
+        game_state.message += " Your cat drowns.";
+    } else if (game_state.character.items.cat > 1) {
+        game_state.character.items.cat = 0;
+        game_state.message += " Your cats drown.";
+    }
+    if (game_state.character.items.donkey === 1) {
+        game_state.character.items.donkey = 0;
+        game_state.message += " Your donkey drowns.";
+    } else if (game_state.character.items.donkey > 1) {
+        game_state.character.items.donkey = 0;
+        game_state.message += " Your donkeys drown.";
+    }
+}
+
 exports.get_person = function get_person(game_state) {
     return game_state.persons[game_state.character.person];
 };
