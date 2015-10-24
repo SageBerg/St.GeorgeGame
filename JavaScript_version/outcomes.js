@@ -3226,8 +3226,8 @@ var outcomes = {
     },
 
     "guards_stop_you_burning": function(game_state) {
-        game_state.message = "The guards see you trying to burn the " +
-            "place to the ground and conclude you must be a lunatic.";
+        game_state.message = "The guards see you trying to start a fire " +
+            "and conclude you must be a lunatic.";
         game_state.character.person = "guards";
         game_state.character.is_threatened = true;
         return game_state;
@@ -4055,9 +4055,28 @@ var outcomes = {
     },
 
     "lose_fight": function(game_state) {
-        game_state.message = 
-            "You get killed by " + 
-            game_state.persons[game_state.character.person].name + ".";
+        var foe = game_state.persons[game_state.character.person].name;
+        var messages = [
+            "You are slain by " + foe + ".",
+            "You are overpowered by " + foe + ".",
+            "You get killed by " + foe + ".",
+            "You get defeated by " + foe + ".",
+            "You misjudged the strength of " + foe + ".",
+            "Your attack goes much worse for you than it does for " + foe + ".",
+            "Your attack is lethal.",
+            "Your attack is fatal.",
+            "Your attack results in your death.",
+            "Your martial efforts are fruitless.",
+        ];
+        if (functions.get_person(game_state).type !== "group") {
+            messages = messages.concat([
+                capitalize(foe) + " is too quick for you.",
+                "You punch " + foe + " in the face, but " + foe + 
+                " escalates the situation by killing you.",
+            ]);
+            console.log(messages);
+        }
+        game_state.message = functions.random_choice(messages);
         die(game_state);
         return game_state;
     },
