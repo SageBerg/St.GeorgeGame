@@ -5792,6 +5792,22 @@ var outcomes = {
         return game_state;
     },
 
+    "think": function(game_state) {
+        var messages = [
+            "Since you're a man, you think about sex.",
+            "You spend some time reevaluating your life " +
+            "and conclude that you need to stay the course.",
+            "You think God is probably listening to your thoughts.",
+            "You think up some lyrics for a song.",
+            "You think you might be the chosen one.",
+            "You think you would make a good husband.",
+            "Your contemplations lead to dark places.",
+            "Your thinking ensures your existence.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
     "think_about_lord_arthur": function(game_state) {
         game_state.message = "You think it would be a bad idea to join " +
         "Lord Arthur's crew. He gives no choice.";
@@ -5811,11 +5827,6 @@ var outcomes = {
         } else {
             game_state.message = "You think about Olga and feel lonely.";
         }
-        return game_state;
-    },
-
-    "think_about_sex": function(game_state) {
-        game_state.message = "Since you're a man, you think about sex.";
         return game_state;
     },
 
@@ -5850,6 +5861,16 @@ var outcomes = {
         return game_state;
     },
 
+    "think_discouraged": function(game_state) {
+        var messages = [
+            "After thinking for a while, you feel like the examined life " +
+            "isn't worht living either.",
+            "All you can think is \"Think. Think. Think.\"",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
     "think_death": function(game_state) {
         game_state.message = "You think about death.";
         return game_state;
@@ -5867,11 +5888,6 @@ var outcomes = {
 
     "think_four_ideas": function(game_state) {
         game_state.message = "You come up with four brilliant ideas.";
-        return game_state;
-    },
-
-    "think_get_lost": function(game_state) {
-        game_state.message = "You get lost in your thoughts."; 
         return game_state;
     },
 
@@ -5916,19 +5932,8 @@ var outcomes = {
         return game_state;
     },
 
-    "think_reevaluate_life": function(game_state) {
-        game_state.message = "You spend some time reevaluating your life " +
-            "and conclude that you need to stay the course.";
-        return game_state;
-    },
-
     "think_suffocation": function(game_state) {
         game_state.message = "You think about suffocation.";
-        return game_state;
-    },
-
-    "think_think_think": function(game_state) {
-        game_state.message = "All you can think is \"Think. Think. Think.\""; 
         return game_state;
     },
 

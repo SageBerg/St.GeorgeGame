@@ -425,7 +425,7 @@ function get_outcome_options(game_state, options) {
         case "priest_disagrees":
         case "see_ship":
         case "sunburnt":
-        case "think_think_think":
+        case "think_discouraged":
         case "too_poor_to_hire_assassin":
         case "train_thrown_out":
         case "trash_nothing":

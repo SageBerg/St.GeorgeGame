@@ -2005,11 +2005,9 @@ exports.actions = {
     },
 
     "Think.": function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "think_about_sex", 1);
+        raffle.add(possible_outcomes, "think", 8);
+        raffle.add(possible_outcomes, "think_discouraged", 2);
         raffle.add(possible_outcomes, "think_four_ideas", 1);
-        raffle.add(possible_outcomes, "think_get_lost", 1);
-        raffle.add(possible_outcomes, "think_reevaluate_life", 1);
-        raffle.add(possible_outcomes, "think_think_think", 1);
 
         if (game_state.places[game_state.character.place].locked === false) {
             raffle.add(possible_outcomes, "think_elaborate_scheme", 1);
@@ -2020,7 +2018,7 @@ exports.actions = {
 
         if (game_state.character.place === "lord_carlos_manor" ||
             game_state.character.place === "wizard_lab") {
-            raffle.add(possible_outcomes, "think_you_shouldnt_be_here", 1);
+            raffle.add(possible_outcomes, "think_you_shouldnt_be_here", 3);
         }
 
         if (game_state.character.place === "tavern" ||
@@ -2031,7 +2029,7 @@ exports.actions = {
       
         if (game_state.character.place === "docks" ||
             game_state.character.place === "pirate_ship") {
-            raffle.add(possible_outcomes, "think_pirates_laugh", 2);
+            raffle.add(possible_outcomes, "think_pirates_laugh", 3);
         }
 
         if (game_state.character.place === "docks" ||
@@ -2051,12 +2049,12 @@ exports.actions = {
         if (game_state.character.place === "tower" &&
             game_state.places.tower.burnable === true) {
             raffle.add(possible_outcomes, "think_ax", 2);
-            raffle.add(possible_outcomes, "think_jump", 2);
+            raffle.add(possible_outcomes, "think_jump", 4);
         }
 
         if (game_state.character.place === "countryside") {
             raffle.add(possible_outcomes, "think_about_lord_bartholomew", 2);
-            raffle.add(possible_outcomes, "think_peasant_women", 2);
+            raffle.add(possible_outcomes, "think_peasant_women", 4);
         }
 
         if (game_state.character.place === "woods") {
