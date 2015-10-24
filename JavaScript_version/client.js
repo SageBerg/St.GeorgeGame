@@ -201,6 +201,11 @@ function set_a(game_state) {
             $("#a").text("a. Give " + get_person_name(game_state) + cat + ".");
             break;
 
+        case "Go flower picking.":
+            set_alt_option_name("a", "Go flower picking.", 
+                                "Go flower picking again.");
+            break;
+
         case "LICK_THE_GROUND":
             $("#a").text("a. Lick the " + get_ground(game_state) + "."); 
             break;
@@ -271,6 +276,11 @@ function set_b(game_state) {
         case "LOVE_POTION":
             $("#b").text("b. Use your love potion on " + 
                 get_person_name(game_state) + ".");
+            break;
+
+        case "Pray to a higher power.":
+            set_alt_option_name("b", "Pray to a higher power.", 
+                                "Continue praying.");
             break;
 
         case "SHOW_COIN":
