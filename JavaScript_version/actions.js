@@ -420,6 +420,11 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Chow down on your ball of sap.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "eat_sap", 1);
+        return possible_outcomes;
+    },
+
     "Chow down on your black mushroom.":
     function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "mushroom_kills_you", 1);
