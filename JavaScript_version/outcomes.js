@@ -5937,6 +5937,19 @@ var outcomes = {
         return game_state;
     },
 
+    "think_void": function(game_state) {
+        var messages = [
+            "You think about nothingness.",
+            "You wonder what kind of god created God.",
+            "You think about a person thinking about a person thinking " +
+            "about a person thinking about a person thinking about...",
+            "You wonder if there is such a thing as free will or if you're " +
+            "just an observer in a pre-scripted universe.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
     "think_you_shouldnt_be_here": function(game_state) {
         game_state.message = "You think you probably shouldn't be here."; 
         return game_state;

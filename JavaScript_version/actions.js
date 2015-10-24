@@ -2077,6 +2077,10 @@ exports.actions = {
             raffle.add(possible_outcomes, "think_meaning_of_life", 2);
         }
 
+        if (game_state.character.place === "void") {
+            raffle.add(possible_outcomes, "think_void", 8);
+        }
+
         if (game_state.character.person !== null) {
             raffle.add(possible_outcomes, "zone_out", 4);
         }
