@@ -24,6 +24,14 @@ function a_or_an(next_letter) {
     return "a";
 }
 
+function set_alt_option_name(letter, option, alternate) {
+    if (game_state.action === option) {
+        $("#" + letter).text(letter + ". " + alternate);
+    } else {
+        $("#" + letter).text(letter + ". " + option);
+    }
+}
+
 function b_execute() {
     if (game_state.options.b === "Don't play again.") {
         window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
@@ -202,11 +210,7 @@ function set_a(game_state) {
             break;
 
         case "Think.":
-            if (game_state.action === "Think.") {
-                $("#a").text("a. Think some more.");
-            } else {
-                $("#a").text("a. Think.");
-            }
+            set_alt_option_name("a", "Think.", "Think some more.");
             break;
 
         case "YELL_A_PIRATE_PHRASE":
@@ -239,6 +243,10 @@ function set_b(game_state) {
         case "BURN":
             $("#b").text("b. Burn " +  get_place_name(game_state) +
                 " to the ground.");
+            break;
+
+        case "Buy a drink.":
+            set_alt_option_name("b", "Buy a drink.", "Buy another drink.");
             break;
 
         case "BUY_ITEM":
@@ -282,6 +290,11 @@ function set_b(game_state) {
 function set_c(game_state) {
     if (game_state.options.c !== "") {
         switch (game_state.options.c) {
+
+            case "Go to sleep.":
+                set_alt_option_name("c", "Go to sleep.", "Go back to sleep.");
+                break;
+
             case "GO_TO":
                 var dest = game_state.destination;
                 if (game_state.character.items.donkey > 0) {
@@ -309,6 +322,10 @@ function set_d(game_state) {
                 $("#d").text("d. Buy " + 
                     a_or_an(weapons_map[weapon][0]) + " " + 
                     weapons_map[weapon] + ".");
+                break;
+
+            case "Dance a jig.":
+                set_alt_option_name("d", "Dance a jig.", "Dance some more.");
                 break;
 
             case "FLIRT_WITH":
