@@ -519,6 +519,11 @@ function get_outcome_options(game_state, options) {
             }
             break;
 
+        case "guards_stop_you_burning":
+            game_state.character.excuse = "cold";
+            raffle.add(options.d, "TELL_GUARDS", 10000);
+            break;
+
         case "guards_stop_you_dancing":
             game_state.character.excuse = "happy";
             raffle.add(options.d, "TELL_GUARDS", 10000);
@@ -657,7 +662,8 @@ function get_outcome_options(game_state, options) {
 
 function get_place_options(game_state, options) {
 
-    if (game_state.places[game_state.character.place].burnable) {
+    if (game_state.places[game_state.character.place].burnable &&
+        game_state.outcome != "guards_stop_you_burning") {
         raffle.add(options.b, "BURN", 1);
     }
 

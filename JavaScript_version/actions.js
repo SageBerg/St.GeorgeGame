@@ -274,6 +274,8 @@ exports.actions = {
             }
         } else {
             raffle.add(possible_outcomes, "burn", 1);
+            game_state.character.person === "guards" ?
+            raffle.add(possible_outcomes, "guards_stop_you_burning", 1) :
             raffle.add(possible_outcomes, "someone_stops_you_burning", 1);
         }
         return possible_outcomes;

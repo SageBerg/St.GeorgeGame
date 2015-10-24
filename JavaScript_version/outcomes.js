@@ -3225,6 +3225,14 @@ var outcomes = {
         return game_state;
     },
 
+    "guards_stop_you_burning": function(game_state) {
+        game_state.message = "The guards see you trying to burn the " +
+            "place to the ground and conclude you must be a lunatic.";
+        game_state.character.person = "guards";
+        game_state.character.is_threatened = true;
+        return game_state;
+    },
+
     "guards_stop_you_complaining": function(game_state) {
         game_state.message = "The guards arrest you for " +
             functions.random_choice(["annoying them", "bringing down the mood",  
