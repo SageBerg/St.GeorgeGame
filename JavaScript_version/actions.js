@@ -1002,8 +1002,10 @@ exports.actions = {
     //h
     
     "Hide.": function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "hide", 2);
-        raffle.add(possible_outcomes, "hide_and_die", 2);
+        raffle.add(possible_outcomes, "hide", 3);
+        raffle.add(possible_outcomes, "hide_and_die", 3);
+        raffle.add(possible_outcomes, "hide_and_find_coins", 1);
+        raffle.add(possible_outcomes, "hide_in_void", 1);
         return possible_outcomes;
     },
 

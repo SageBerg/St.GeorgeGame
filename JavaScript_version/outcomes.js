@@ -3320,6 +3320,7 @@ var outcomes = {
             "You hide for a couple of days, long enough " +
             "that you think the whole assassin thing has probably " +
             "blown over.",
+            "You hide yourself very well, but you feel lonely.",
         ];
         game_state.message = functions.random_choice(messages);
         return game_state;
@@ -3327,12 +3328,24 @@ var outcomes = {
 
     "hide_and_die": function(game_state) {
         var messages = [
-            "You try to hide in a sewer, but you get killed by a rat.",
+            "You don't hide well enough. The assassins find you anyway.",
             "You trip in the darkness and break your neck.",
+            "You hide in a sewer, but you get killed by a rat.",
         ];
         game_state.message = functions.random_choice(messages);
         clover(game_state);
         game_state.character.person = null;
+        return game_state;
+    },
+
+    "hide_and_find_coins": function(game_state) {
+        var messages = [
+            "While you're hiding in the alley, you notice some coins on " +
+            "the ground.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        game_state.character.person = null;
+        get_money(game_state, "pittance");
         return game_state;
     },
 
@@ -3360,6 +3373,15 @@ var outcomes = {
         ];
         game_state.message = functions.random_choice(messages);
         die(game_state);
+        return game_state;
+    },
+
+    "hide_in_void": function(game_state) {
+        var messages = [
+            "You hide so well, you leave the universe.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        move_character(game_state, "void");
         return game_state;
     },
 
@@ -4596,12 +4618,6 @@ var outcomes = {
             "You manage to stay afloat.",
         ];
         game_state.message = functions.random_choice(messages);
-        if (game_state.character.items.cat === 1) {
-            game_state.message += " Your cat drowns.";
-        } else if (game_state.character.items.cat > 1) {
-            game_state.message += " Your cats drown.";
-        }
-        game_state.character.items.cat = 0;
         return game_state;
     },
 
