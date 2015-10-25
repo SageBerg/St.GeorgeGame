@@ -1643,6 +1643,13 @@ exports.actions = {
         if (game_state.character.place === "tavern" &&
             game_state.places.tavern.burnable === true) {
             raffle.add(possible_outcomes, "assassins_approach", 5);
+            raffle.add(possible_outcomes, "tavern_song", 3);
+            if (game_state.persons.olga.alive === true) {
+                raffle.add(possible_outcomes, "tavern_song_and_meet_olga", 2);
+            }
+            if (game_state.persons.drunk.alive === true) {
+                raffle.add(possible_outcomes, "tavern_song_and_meet_drunk", 2);
+            }
         }
 
         if (game_state.character.place === "church" &&

@@ -5792,6 +5792,36 @@ var outcomes = {
         return game_state;
     },
 
+    "tavern_song": function(game_state) {
+        var messages = [
+            "The sweet sound of your voice livens up the room.",
+            "You get everyone in the tavern to sing along with you.",
+            "Your voice gets lost in the noise of the room.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
+    "tavern_song_and_meet_drunk": function(game_state) {
+        var messages = [
+            "A drunk man tells you you're singing the lyrics wrong.",
+            "A drunk man sings along with you and ruins your song.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        game_state.character.person = "drunk";
+        return game_state;
+    },
+
+    "tavern_song_and_meet_olga": function(game_state) {
+        var messages = [
+            "A pretty lady tells you that you have a beautiful voice.",
+            "You singing attracts the attention of a pretty lady.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        game_state.character.person = "olga";
+        return game_state;
+    },
+
     "think": function(game_state) {
         var messages = [
             "Since you're a man, you think about sex.",
