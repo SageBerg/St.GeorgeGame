@@ -2087,6 +2087,10 @@ exports.actions = {
         if (game_state.character.place === "void") {
             raffle.add(possible_outcomes, "think_void", 8);
         }
+       
+        if (game_state.outcome === "distasteful") {
+            raffle.add(possible_outcomes, "think_should_not_lick_ground", 50);
+        }
 
         if (game_state.character.person !== null) {
             raffle.add(possible_outcomes, "zone_out", 4);

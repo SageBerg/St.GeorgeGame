@@ -5962,6 +5962,12 @@ var outcomes = {
         return game_state;
     },
 
+    "think_should_not_lick_ground": function(game_state) {
+        game_state.message = "You think you probably shouldn't have licked " +
+            "the " + get_ground(game_state) + ".";
+        return game_state;
+    },
+
     "think_suffocation": function(game_state) {
         game_state.message = "You think about suffocation.";
         return game_state;
