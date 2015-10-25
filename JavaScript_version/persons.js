@@ -48,6 +48,15 @@ exports.persons = {
         "preferred_attack": "kill",
         "type": "male", 
     },
+    "drunk":
+    {
+        "alive": true,
+        "attack": -1,
+        "attracted": 0,
+        "name": "the drunk man",
+        "preferred_attack": "kill",
+        "type": "male",
+    },
     "dog":
     {
         "alive": true,
