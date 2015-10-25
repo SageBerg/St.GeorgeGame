@@ -12,10 +12,14 @@ Medium priority:
     make more outcomes for tavern options
     make more outcomes for default options
     make flirting less linear (lose track of Olga, think up poem for Felicity)
-    look for options that are too safe
+    look for options that are too safe (like buying a weapon)
     make the void more intesting
     Add 'Let yourself eat cake.' and cake item
     have God strike you down if you commit all seven deadly sins
+    add argue with the drunk man
+    have 'God tells you to burn stuff.' add weight to BURN
+    consolidate outcomes for 'Think.'
+    you shouldn't be able to lick a burnt floor
 
 Low priority:
     use more constants and less hardcoding
