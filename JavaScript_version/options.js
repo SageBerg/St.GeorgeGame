@@ -523,6 +523,12 @@ function get_outcome_options(game_state, options) {
             }
             break;
 
+        case "god_tells_you_to_burn_stuff":
+            if (functions.get_place(game_state).burnable === true) {
+                raffle.add(options.b, "BURN", 10000);
+            }
+            break;
+
         case "guards_stop_you_burning":
             game_state.character.excuse = "cold";
             raffle.add(options.d, "TELL_GUARDS", 10000);

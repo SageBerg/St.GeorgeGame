@@ -1456,7 +1456,8 @@ exports.actions = {
         raffle.add(possible_outcomes, "god_gives_you_holy_strength", 1);
         raffle.add(possible_outcomes, "god_showers_you_with_gold", 1);
         raffle.add(possible_outcomes, "god_shows_you_the_way", 1);
-        raffle.add(possible_outcomes, "god_tells_you_stuff", 4);
+        raffle.add(possible_outcomes, "god_tells_you_stuff", 3);
+        raffle.add(possible_outcomes, "god_tells_you_to_burn_stuff", 1);
         raffle.add(possible_outcomes, "ignored", 3);
 
         for (var item in game_state.character.items) {

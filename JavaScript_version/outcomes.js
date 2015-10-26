@@ -3155,9 +3155,17 @@ var outcomes = {
         var messages = [
             "God tells you he is the Alpha and the Omega, but it's all " +
             "Greek to you.",
-            "God tells you to burn stuff.",
             "God tells you to get married.",
             "God tells you to kill Lord Carlos.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        game_state.character.person = null;
+        return game_state;
+    },
+
+    "god_tells_you_to_burn_stuff": function(game_state) {
+        var messages = [
+            "God tells you to burn stuff.",
         ];
         game_state.message = functions.random_choice(messages);
         game_state.character.person = null;
