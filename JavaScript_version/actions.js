@@ -309,7 +309,12 @@ exports.actions = {
             items.money_map[game_state.character.money].value) {
             raffle.add(possible_outcomes, "buy_a_weapon", 1);
         } else {
-            raffle.add(possible_outcomes, "cannot_afford_weapon", 1);
+            raffle.add(possible_outcomes, "cannot_afford_weapon", 2);
+            raffle.add(possible_outcomes, "war_merchant_annoyed", 2);
+            if (game_state.for_sell === "dagger" ||
+                game_state.for_sell === "poison_dagger") {
+                raffle.add(possible_outcomes, "killed_at_weapon_store", 8);
+            }
         }
         return possible_outcomes;
     },

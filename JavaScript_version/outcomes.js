@@ -3625,6 +3625,14 @@ var outcomes = {
         return game_state;
     },
 
+    "killed_at_weapon_store": function(game_state) {
+        game_state.message = "You now have a dagger. In your back. " +
+            "You turn around to see an assassin looking satisfied with " +
+            "herself.";
+        clover(game_state);
+        return game_state;
+    },
+
     "killed_by_bee": function(game_state) {
         game_state.message = "You get stung by a killer bee. The bee isn't " +
             "a killer by breed but by disposition.";
@@ -6467,6 +6475,24 @@ var outcomes = {
             "through an epic ballad."; 
         move_character(game_state, 
                        functions.get_random_adjacent_destination(game_state));
+        return game_state;
+    },
+
+    "war_merchant_annoyed": function(game_state) {
+        var messages = [
+            "Since you can't afford this weapon, the war merchant says he " +
+            "can't afford to waste his time with you. He has you forcibly " +
+            "removed from his presence.",
+
+            "The war merchant says he has no time for peasants who can't " +
+            "afford his wares. He has some men carry you out of the market.",
+
+            "When the war merchant finds out you can't afford this " +
+            "weapon, he becomes annoyed and has some thugs throw you " +
+            "out of the market.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        move_character(game_state, "streets");
         return game_state;
     },
 
