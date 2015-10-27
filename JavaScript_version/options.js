@@ -368,7 +368,7 @@ function get_person_options(game_state, options) {
             break;
 
         case "st_george":
-            raffle.add(options.b, "Beg for money.", 100);
+            raffle.add(options.b, "Beg for money.", 10000);
             raffle.add(options.c, "Chat with St. George.", 2);
             break;
 
@@ -852,7 +852,7 @@ function get_place_options(game_state, options) {
             break;
 
         case "streets":
-            raffle.add(options.a, "Look for a cat.", 2);
+            raffle.add(options.a, "Look for a cat.", 4);
             raffle.add(options.b, "Gawk at women.", 2);
             raffle.add(options.c, "GO_TO", 2);
             if (game_state.character.person !== "st_george" && 
