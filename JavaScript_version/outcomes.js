@@ -2717,7 +2717,7 @@ var outcomes = {
             "Lord Carlos' daughter lets you sleep next to her in bed that " +
             "night. Unfortunately, you don't wake up at " +
             "dawn. You wake up in the middle of the night when two " +
-            "hooded assassins kidnap you take you to a dungeon full " +
+            "hooded assassins kidnap you and take you to a dungeon full " +
             "of torture devices. They are about to put you in an " +
             "iron maiden when they take off their hoods and reveal " +
             "that they are Lord Carlos' daughter and a priest. The " +
