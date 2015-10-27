@@ -6452,7 +6452,7 @@ var outcomes = {
 
     "wander_the_countryside": function(game_state) {
         var messages = [
-            "A black cat crosses your path and dissapears into the fields.",
+            "A black cat crosses your path and disappears into the fields.",
             "A rainstorm sweeps over the land and leaves you soaking wet.",
             "A traveling fortune teller says you will meet a fiery end.",
             "All of the peasants you meet talk about Lord Bartholomew like " +
