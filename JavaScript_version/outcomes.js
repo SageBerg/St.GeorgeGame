@@ -5910,7 +5910,7 @@ var outcomes = {
     "think_discouraged": function(game_state) {
         var messages = [
             "After thinking for a while, you feel like the examined life " +
-            "isn't worht living either.",
+            "isn't worth living either.",
             "All you can think is \"Think. Think. Think.\"",
         ];
         game_state.message = functions.random_choice(messages);
