@@ -150,6 +150,7 @@ function request_initial_world() {
 }
 
 function request_outcome_of_action(action) {
+    $("#message").text("...");
     game_state.action = action;
     USER_INPUT_ALLOWED = false;
     $.get("request_outcome_of_action.json", 
