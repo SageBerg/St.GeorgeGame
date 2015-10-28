@@ -1009,6 +1009,10 @@ exports.actions = {
             case "tower":
                 raffle.add(possible_outcomes, "wake_up_in_prison", 2);
                 break;
+            case "void":
+                raffle.add(possible_outcomes, "void_sleep", 12);
+                raffle.add(possible_outcomes, "wake_in_world", 6);
+                break;
         }
         return possible_outcomes;
     },

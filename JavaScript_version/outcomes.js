@@ -6296,6 +6296,18 @@ var outcomes = {
         return game_state;
     },
 
+    "void_sleep": function(game_state) {
+        var messages = [
+            "You dream of void dust.",
+            "You have dreamless sleep.",
+            "When you wake up, you have no idea how long you slept.",
+            "The secrets of the universe are revealed to you in your " +
+            "dreams. Unfortunately, you forget them when you wake up.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
     "void_strength": function(game_state) {
         var messages = [
             "The energy of the void gives you superhuman strength.",
@@ -6394,6 +6406,12 @@ var outcomes = {
             "While waiting for a seal, you get very cold.",
         ];
         game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
+    "wake_in_world": function(game_state) {
+        game_state.message = "You wake up back on Earth.";
+        teleport(game_state);
         return game_state;
     },
 
