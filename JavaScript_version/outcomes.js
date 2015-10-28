@@ -6256,6 +6256,17 @@ var outcomes = {
 
     //v
 
+    "void_dance": function(game_state) {
+        var messages = [
+            "Dancing by yourself in the void makes you feel lonely.",
+            "It's hard to dance with nothing to stand on.",
+            "You dance across the stars.",
+            "You flail around in the void.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
     "void_float": function(game_state) {
         var messages = [
             "You're not sure you're getting anywhere.",
@@ -6291,6 +6302,16 @@ var outcomes = {
             "You wonder if you're too far way from God for him to hear you.",
             "Your prayer echoes through the void.",
             "Your prayers for void dust go unanswered.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
+    "void_song": function(game_state) {
+        var messages = [
+            "You sing about how lost you are.", 
+            "Your song echoes across the universe.", 
+            "Your song scatters some void dust.", 
         ];
         game_state.message = functions.random_choice(messages);
         return game_state;

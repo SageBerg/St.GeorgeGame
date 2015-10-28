@@ -562,6 +562,10 @@ exports.actions = {
             raffle.add(possible_outcomes, "dance_for_coin", 2);
         }
 
+        if (game_state.character.place === "void") {
+            raffle.add(possible_outcomes, "void_dance", 8);
+        }
+
         if (functions.get_place(game_state).town === true) {
             raffle.add(possible_outcomes, "guards_stop_you_dancing", 2);
         }
@@ -1691,6 +1695,10 @@ exports.actions = {
         if (game_state.character.place === "lord_carlos_manor" &&
             game_state.places.lord_carlos_manor.burnable === true) {
             raffle.add(possible_outcomes, "sing_at_lord_carlos_manor", 10);
+        }
+
+        if (game_state.character.place === "void") {
+            raffle.add(possible_outcomes, "void_song", 9);
         }
 
         if (functions.get_place(game_state).locked === false) {
