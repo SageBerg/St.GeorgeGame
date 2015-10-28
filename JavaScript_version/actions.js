@@ -1459,8 +1459,8 @@ exports.actions = {
         raffle.add(possible_outcomes, "assassin_prayer_answered", 1);
         raffle.add(possible_outcomes, "god_gives_you_a_wife", 1);
         raffle.add(possible_outcomes, "god_gives_you_holy_strength", 1);
-        raffle.add(possible_outcomes, "god_showers_you_with_gold", 1);
         raffle.add(possible_outcomes, "god_shows_you_the_way", 1);
+        raffle.add(possible_outcomes, "god_showers_you_with_gold", 1);
         raffle.add(possible_outcomes, "god_tells_you_stuff", 3);
         raffle.add(possible_outcomes, "god_tells_you_to_burn_stuff", 1);
         raffle.add(possible_outcomes, "ignored", 3);
@@ -1480,6 +1480,10 @@ exports.actions = {
         if (game_state.character.place === "tavern" &&
             game_state.places.tavern.burnable === true) {
             raffle.add(possible_outcomes, "god_gives_you_jewels", 3);
+        }
+
+        if (game_state.character.place === "void") {
+            raffle.add(possible_outcomes, "void_prayer", 12);
         }
 
         if (game_state.places[game_state.character.place].town &&

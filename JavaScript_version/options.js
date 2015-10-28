@@ -95,9 +95,10 @@ exports.get_options = function get_options(game_state) {
             game_state.outcome !== "think_four_ideas" &&
             game_state.character.place !== "void") {
             options.e = "Enter the void.";
-        } else if (Math.floor(Math.random() * 4) === 0 &&
+        } else if (game_state.character.place === "void" &&
                    game_state.outcome !== "think_four_ideas" &&
-                   game_state.character.place === "void") {
+                   (Math.floor(Math.random() * 4) === 0 ||
+                    game_state.outcome === "god_shows_you_the_way")) {
             options.e = "Exit the void.";
         } else {
             options.e = "";

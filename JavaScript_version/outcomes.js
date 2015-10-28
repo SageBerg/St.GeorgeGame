@@ -6256,6 +6256,17 @@ var outcomes = {
 
     //v
 
+    "void_prayer": function(game_state) {
+        var messages = [
+            "You pray into the void.",
+            "You wonder if you're too far way from God for him to hear you.",
+            "Your prayer echoes through the void.",
+            "Your prayers for void dust go unanswered.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
     "volcano_die": function(game_state) {
         var messages = [
             "A red dragon flies out of the volcano and roasts you with a " +
