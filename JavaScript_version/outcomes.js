@@ -6256,6 +6256,35 @@ var outcomes = {
 
     //v
 
+    "void_float": function(game_state) {
+        var messages = [
+            "You're not sure you're getting anywhere.",
+            "You bump into the edge of the universe.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
+    "void_float_dust": function(game_state) {
+        var messages = [
+            "As you float through the void, your gravity attracts rings of " +
+            "void dust.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        get_item(game_state, "handful of void dust");
+        return game_state;
+    },
+
+    "void_killed_by_anomaly": function(game_state) {
+        var messages = [
+            "You get cought in a void storm.",
+            "You get pulled into an anomaly.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        clover(game_state);
+        return game_state;
+    },
+
     "void_prayer": function(game_state) {
         var messages = [
             "You pray into the void.",
@@ -6264,6 +6293,15 @@ var outcomes = {
             "Your prayers for void dust go unanswered.",
         ];
         game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
+    "void_strength": function(game_state) {
+        var messages = [
+            "The energy of the void gives you superhuman strength.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        game_state.character.strength += 3;
         return game_state;
     },
 

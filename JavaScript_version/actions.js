@@ -757,6 +757,14 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Float through the void.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "void_float", 2);
+        raffle.add(possible_outcomes, "void_float_dust", 1);
+        raffle.add(possible_outcomes, "void_killed_by_anomaly", 1);
+        raffle.add(possible_outcomes, "void_strength", 1);
+        return possible_outcomes;
+    },
+
     "Flaunt your wealth.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "guards_stop_you_rich", 1);
         if (game_state.persons.st_george.alive === true) {

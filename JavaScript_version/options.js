@@ -901,6 +901,7 @@ function get_place_options(game_state, options) {
             break;
 
         case "void":
+            raffle.add(options.c, "Float through the void.", 5);
             raffle.add(options.d, "Gather void dust.", 2);
             break;
 
