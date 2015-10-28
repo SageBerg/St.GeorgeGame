@@ -46,6 +46,8 @@ function respond_with_outcome(req, res) {
     try {
         if (validation.validate(req.query) === true) { 
             var game_state     = req.query;
+            console.log(game_state.action); // stopgap until I set up more
+            console.log(new Date());        // sophisticated logging
             game_state         = destringify(game_state);
             var outcome        = outcomes.get_outcome(game_state);
             game_state.outcome = outcome;
