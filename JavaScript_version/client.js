@@ -124,7 +124,7 @@ function handle_new_world(resp) {
 }
 
 function handle_world_error(game_state) {
-    $("#message").text("The universe rips apart, because an error occured on the server. Please email sberg@uoregon.edu about what you were doing in the game when the error ocurred or raise an issue at https://github.com/SageBerg/St.GeorgeGame/issues/. I'll try to fix the issue ASAP.");
+    $("#message").text("The universe rips apart because an error occured on the server. Please email sberg@uoregon.edu about what you were doing in the game when the error ocurred or raise an issue at https://github.com/SageBerg/St.GeorgeGame/issues/. I'll try to fix the issue ASAP.");
     $("#a").text("Play again.");
     $("#b").text("Don't play again.");
     $("#c").text("");
