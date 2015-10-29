@@ -28,6 +28,7 @@ exports.character = {
         "sword_of_great_good": 0,
 
         "ax": 0,
+        "apple": 0,
         "bag of jewels": 0,
         "ball of sap": 0,
         "black mushroom": 0,
@@ -45,6 +46,7 @@ exports.character = {
         "potion of love": 0,
         "potion of strength": 0,
         "potion of tail growth": 0,
+        "potion of transformation": 0,
         "sailor peg": 0,
         "seal carcass": 0,
         "shiny foreign coin": 0,
@@ -54,5 +56,6 @@ exports.character = {
     "money": "none",
     "person": "",
     "place": "tavern",
+    "sex": "male",
     "strength": 0
 };
