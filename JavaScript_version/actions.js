@@ -27,9 +27,15 @@ exports.actions = {
         raffle.add(possible_outcomes, "admire_jewels", 2);
         raffle.add(possible_outcomes, "admire_jewels_and_die", 1);
         raffle.add(possible_outcomes, "find_pearl_in_jewels", 1);
-        if (game_state.places[game_state.character.place].town === true) {
+        if (game_state.places[game_state.character.place].town === true &&
+            game_state.character.sex === "male") {
             raffle.add(possible_outcomes, "guards_stop_you_naked", 1);
         }
+        return possible_outcomes;
+    },
+
+    "Admire your own bosoms.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "admire_your_bosoms", 1);
         return possible_outcomes;
     },
 

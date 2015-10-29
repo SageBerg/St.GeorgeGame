@@ -159,7 +159,9 @@ function get_character_options(game_state, options) {
 }
 
 function get_default_options(game_state, options) {
-
+    if (game_state.character.sex === "female") {
+        raffle.add(options.a, "Admire your own bosoms.", 1);
+    }
     raffle.add(options.a, "Think.", 1);
     if (game_state.character.place !== "void") {
         raffle.add(options.a, "LICK_THE_GROUND", 1);

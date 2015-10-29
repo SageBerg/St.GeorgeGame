@@ -419,6 +419,18 @@ var outcomes = {
         return game_state;
     },
 
+    "admire_your_bosoms": function(game_state) {
+        var messages = [
+            "You feel attractive.",
+            "You feel beautiful.",
+            "You feel like a goddess.",
+            "You wonder if they have milk in them.",
+            "Your bosoms look very good.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
     "alley_is_clear": function(game_state) {
         game_state.message = "The dark alley appears to be safe.";
         return game_state;
