@@ -19,8 +19,6 @@ exports.actions = {
                 raffle.add(possible_outcomes, "stupid_move_and_die", 4);
                 raffle.add(possible_outcomes, "stupid_move_and_win", 1);
                 break;
-            default:
-                raffle.add(possible_outcomes, "universe_blows_up", 1);
         }
         return possible_outcomes;
     },
@@ -109,8 +107,6 @@ exports.actions = {
                 raffle.add(possible_outcomes, "directions_simple_peasant", 2);
                 raffle.add(possible_outcomes, "directions_to_volcano", 1);
                 break;
-            default:
-                raffle.add(possible_outcomes, "universe_blows_up", 1);
         }
         return possible_outcomes;
     },
@@ -403,8 +399,6 @@ exports.actions = {
                 raffle.add(possible_outcomes, "dragon_burns_stuff", 1);
                 raffle.add(possible_outcomes, "killed_by_dragon_red", 1);
                 break;
-            default:
-                raffle.add(possible_outcomes, "universe_blows_up", 1);
         }
         return possible_outcomes;
     },
@@ -690,8 +684,6 @@ exports.actions = {
                 raffle.add(possible_outcomes, "e4_lose_carlos", 1);
                 raffle.add(possible_outcomes, "e4_win_carlos", 1);
                 break;
-            default:
-                raffle.add(possible_outcomes, "universe_blows_up", 1);
         }
         return possible_outcomes;
     },
@@ -828,8 +820,6 @@ exports.actions = {
                     }
                 }
                 break;
-            default:
-                raffle.add(possible_outcomes, "universe_blows_up", 1);
         }
         return possible_outcomes;
     },
@@ -909,8 +899,6 @@ exports.actions = {
             case "olga":
                 raffle.add(possible_outcomes, "give_cat_olga", 1);
                 break;
-            default:
-                raffle.add(possible_outcomes, "universe_blows_up", 1);
         }
         return possible_outcomes;
     },
@@ -1270,8 +1258,6 @@ exports.actions = {
                 raffle.add(possible_outcomes, "find_wooden_mermaid", 1);
                 raffle.add(possible_outcomes, "look_for_mermaids_and_drown", 1);
                 break;
-            default:
-                raffle.add(possible_outcomes, "universe_blows_up", 1);
         }
         return possible_outcomes;
     },
@@ -1381,8 +1367,6 @@ exports.actions = {
                 raffle.add(possible_outcomes, "miss_priestess", 1);
                 raffle.add(possible_outcomes, "potion_priestess", 1);
                 break;
-            default:
-                raffle.add(possible_outcomes, "universe_blows_up", 1);
         }
         return possible_outcomes;
     },
@@ -1421,8 +1405,6 @@ exports.actions = {
                 raffle.add(possible_outcomes, "nf3_lose_carlos", 1);
                 raffle.add(possible_outcomes, "nf3_win_carlos", 1);
                 break;
-            default:
-                raffle.add(possible_outcomes, "universe_blows_up", 1);
         }
         return possible_outcomes;
     },
@@ -1589,10 +1571,7 @@ exports.actions = {
             raffle.add(possible_outcomes, "caught_by_olga", 1);
         } else if (game_state.character.person === "felicity") {
             raffle.add(possible_outcomes, "escape_unmarried", 1);
-        } else {
-            // there must always be at least one outcome added to the raffle
-            raffle.add(possible_outcomes, "universe_blows_up", 1);
-        }
+        } 
         return possible_outcomes;
     },
 
@@ -1635,8 +1614,6 @@ exports.actions = {
             case "lord_daniel":
                 raffle.add(possible_outcomes, "lose_coin_daniel", 1);
                 break;
-            default:
-                raffle.add(possible_outcomes, "universe_blows_up", 1);
         }
         return possible_outcomes;
     },
@@ -1646,18 +1623,6 @@ exports.actions = {
         raffle.add(possible_outcomes, "no_one_cares", 2);
         raffle.add(possible_outcomes, "sing_about_stuff", 5);
 
-        if (game_state.character.place === "streets" || 
-            game_state.character.place === "market") {
-            raffle.add(possible_outcomes, "guards_stop_you_singing", 2);
-        }
-        
-        if (game_state.character.place === "streets" || 
-            game_state.character.place === "market" ||
-            game_state.character.place === "tavern") {
-            raffle.add(possible_outcomes, "earn_small_fortune_in_coins", 3);
-            raffle.add(possible_outcomes, "crowd_hates_your_voice", 1);
-        }
-
         if (functions.get_place(game_state).town) {
             if (game_state.character.has_tail === false) {
                 raffle.add(possible_outcomes, "cannot_hear_assassin", 1);
@@ -1666,61 +1631,77 @@ exports.actions = {
             }
         }
 
-        if (game_state.character.place === "tavern" &&
-            game_state.places.tavern.burnable === true) {
-            raffle.add(possible_outcomes, "assassins_approach", 5);
-            raffle.add(possible_outcomes, "tavern_song", 3);
-            if (game_state.persons.olga.alive === true) {
-                raffle.add(possible_outcomes, "tavern_song_and_meet_olga", 2);
-            }
-            if (game_state.persons.drunk.alive === true) {
-                raffle.add(possible_outcomes, "tavern_song_and_meet_drunk", 2);
-            }
-        }
-
-        if (game_state.character.place === "church" &&
-            game_state.places.church.burnable === true) {
-            raffle.add(possible_outcomes, "priestess_takes_offense", 10);
-        }
-
-        if (game_state.character.place === "docks") {
-            raffle.add(possible_outcomes, "pirates_ruin_song", 10);
-        }
-
-        if (game_state.character.place === "mermaid_rock" &&
-            game_state.character.person !== "mermaid") {
-            raffle.add(possible_outcomes, "sing_to_greeks", 10);
-        }
-
-        if (game_state.character.place === "lord_carlos_manor" &&
-            game_state.places.lord_carlos_manor.burnable === true) {
-            raffle.add(possible_outcomes, "sing_at_lord_carlos_manor", 10);
-        }
-
-        if (game_state.character.place === "void") {
-            raffle.add(possible_outcomes, "void_song", 9);
-        }
-
         if (functions.get_place(game_state).locked === false) {
             raffle.add(possible_outcomes, "wander_while_singing", 1);
         }
 
-        if (game_state.character.person === "wizard") {
-            raffle.add(possible_outcomes, "wizard_complains", 10);
-        }
-
-        if (game_state.character.person === "mermaid") {
-            raffle.add(possible_outcomes, "sing_to_mermaid", 10);
-            raffle.add(possible_outcomes, "mermaid_dislikes_your_song", 5);
-        }
-
-        if (game_state.character.person === "olga" && 
-            functions.get_person(game_state).name === "Olga") {
-            raffle.add(possible_outcomes, "sing_to_olga", 100);
-        }
-
         if (game_state.character.person !== null) {
             raffle.add(possible_outcomes, "not_impressed", 1);
+        }
+
+        switch (game_state.character.place) {
+            case "church":
+                if (game_state.places.church.burnable === true) {
+                    raffle.add(possible_outcomes, 
+                        "priestess_takes_offense", 10);
+                }
+                break;
+            case "docks":
+                raffle.add(possible_outcomes, "pirates_ruin_song", 10);
+                break;
+            case "streets":
+            case "market":
+                raffle.add(possible_outcomes, "crowd_hates_your_voice", 1);
+                raffle.add(possible_outcomes, 
+                    "earn_small_fortune_in_coins", 3);
+                raffle.add(possible_outcomes, "guards_stop_you_singing", 2);
+                break;
+            case "mermaid_rock":
+                if (game_state.character.person !== "mermaid") {
+                    raffle.add(possible_outcomes, "sing_to_greeks", 10);
+                }
+                break;
+            case "lord_carlos_manor":
+                if (game_state.places.lord_carlos_manor.burnable === true) {
+                    raffle.add(possible_outcomes, 
+                        "sing_at_lord_carlos_manor", 10);
+                }
+                break;
+            case "tavern":
+                if (game_state.places.tavern.burnable === true) {
+                    raffle.add(possible_outcomes, "assassins_approach", 5);
+                    raffle.add(possible_outcomes, "crowd_hates_your_voice", 1);
+                    raffle.add(possible_outcomes, 
+                        "earn_small_fortune_in_coins", 3);
+                    raffle.add(possible_outcomes, "tavern_song", 3);
+                    if (game_state.persons.olga.alive === true) {
+                        raffle.add(possible_outcomes, 
+                            "tavern_song_and_meet_olga", 2);
+                    }
+                    if (game_state.persons.drunk.alive === true) {
+                        raffle.add(possible_outcomes, 
+                            "tavern_song_and_meet_drunk", 2);
+                    }
+                }
+                break;
+            case "void":
+                raffle.add(possible_outcomes, "void_song", 9);
+                break;
+        }
+
+        switch (game_state.character.person) {
+            case "mermaid":
+                raffle.add(possible_outcomes, "mermaid_dislikes_your_song", 5);
+                raffle.add(possible_outcomes, "sing_to_mermaid", 10);
+                break;
+            case "olga":
+                if (functions.get_person(game_state).name === "Olga") {
+                    raffle.add(possible_outcomes, "sing_to_olga", 100);
+                } 
+                break;
+            case "wizard":
+                raffle.add(possible_outcomes, "wizard_complains", 10);
+                break;
         }
 
         return possible_outcomes;
@@ -1803,8 +1784,6 @@ exports.actions = {
                 raffle.add(possible_outcomes, 
                     "suck_up_to_lord_daniel_streets", 1);
                 break;
-            default:
-                raffle.add(possible_outcomes, "universe_blows_up", 1);
         }
         return possible_outcomes;
     },
@@ -2264,11 +2243,7 @@ exports.actions = {
             } else {
                 raffle.add(possible_outcomes, "caught_like_god", 9);
             }
-        } else {
-            // there must always be at least one outcome added to the raffle
-            raffle.add(possible_outcomes, "universe_blows_up", 1);
-        }
-        return possible_outcomes;
+        } 
     },
 
     "Wait for a holiday to make your move.":
