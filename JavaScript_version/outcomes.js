@@ -648,6 +648,13 @@ var outcomes = {
         return game_state;
     },
 
+    "assassinated_in_church_not": function(game_state) {
+        game_state.message = "You see Lord Carlos sitting in one of the " +
+            "pews, but he doesn't recognize you since you're a woman now.";
+        game_state.character.person = "lord_carlos";
+        return game_state;
+    },
+
     "assassins_approach": function(game_state) {
         game_state.message = 
             "Some men in dark cloaks notice you singing " + 
@@ -1618,9 +1625,16 @@ var outcomes = {
     },
 
     "dance_in_puddle": function(game_state) {
-        var messages = [
-            "You dance through a puddle and get your britches wet.",
-        ];
+        var messages = [];
+        if (game_state.character.sex === "female") {
+            messages.push(
+                "You dance through a puddle and get your skirt wet."
+            );
+        } else {
+            messages.push(
+                "You dance through a puddle and get your britches wet."
+            );
+        }
         game_state.message = functions.random_choice(messages);
         return game_state;
     },
@@ -2350,16 +2364,30 @@ var outcomes = {
 
     "farm_work": function(game_state) {
         var messages = [
-            "You earn a pittance picking apples.",
-            "You spend a season milking cows for a farmer woman. " +
-            "She keeps trying to marry you to her attractive " +
-            "daughter, but her daughter is having none of it.",
             "You earn a pittance harvesting wheat. You enjoy the change " +
             "pace.",
             "During your duties, you get kicked by a mule. You somehow " +
             "don't die. You are paid for your efforts but not your injuries.",
         ]; 
+        if (game_state.character.sex === "male") {
+            messages.push(
+                "You spend a season milking cows for a farmer woman. " +
+                "She keeps trying to marry you to her attractive " +
+                "daughter, but her daughter is having none of it."
+            );
+        }
         game_state.message = functions.random_choice(messages);
+        get_money(game_state, "pittance");
+        return game_state;
+    },
+
+    "farm_work_and_apple": function(game_state) {
+        var messages = [
+            "You earn a pittance picking apples. You also save one for " +
+            "the road.",
+        ]; 
+        game_state.message = functions.random_choice(messages);
+        get_item(game_state, "apple");
         get_money(game_state, "pittance");
         return game_state;
     },
@@ -2812,6 +2840,12 @@ var outcomes = {
         game_state.message =  "The assassins see you gambling and " +
             "assassinate you.";
         die(game_state);
+        return game_state;
+    },
+
+    "gambling_die_not": function(game_state) {
+        game_state.message =  "The assassins see you gambling, but " +
+            "don't recognize you since you're a woman now.";
         return game_state;
     },
 
@@ -3357,8 +3391,14 @@ var outcomes = {
     //h
     
     "hammer_from_st_george": function(game_state) {
-        game_state.message = "St. George sees that you are a righteous man " +
-            "and gives you a weapon to do God's work.";
+        var gender_noun;
+        if (game_state.character.sex === "female") {
+            gender_noun = "woman";
+        } else {
+            gender_noun = "man";
+        }
+        game_state.message = "St. George sees that you are a righteous " +
+            gender_noun + " and gives you a weapon to do God's work.";
         get_weapon(game_state, "iron_hammer");
         game_state.character.person = "st_george";
         return game_state;
@@ -3379,10 +3419,14 @@ var outcomes = {
 
     "hide_and_die": function(game_state) {
         var messages = [
-            "You don't hide well enough. The assassins find you anyway.",
             "You trip in the darkness and break your neck.",
             "You hide in a sewer, but you get killed by a rat.",
         ];
+        if (game_state.character.sex === "male") {
+            messages.push(
+                "You don't hide well enough. The assassins find you anyway."
+            )
+        }
         game_state.message = functions.random_choice(messages);
         clover(game_state);
         game_state.character.person = null;
