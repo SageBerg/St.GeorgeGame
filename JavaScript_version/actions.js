@@ -242,6 +242,12 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Breed your deep-cave newts.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "breed_newts", 3);
+        raffle.add(possible_outcomes, "breed_newts_fail", 1);
+        return possible_outcomes;
+    },
+
     "Bribe the dog with a fish.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "dog_takes_fish", 1);
         return possible_outcomes;

@@ -209,7 +209,7 @@ function get_item_options(game_state, options) {
     }
 
     if (game_state.character.items.cat > 0 &&
-        game_state.character.items.pearl> 0 &&
+        game_state.character.items.pearl > 0 &&
         game_state.character.person === "witch") {
         raffle.add(options.b, "Ask the witch to brew you a potion.", 100);
     }
@@ -218,6 +218,10 @@ function get_item_options(game_state, options) {
         (game_state.character.person === "eve" ||
          game_state.character.person === "olga")) {
         raffle.add(options.a, "GIVE_HER_CAT", 5);
+    }
+
+    if (game_state.character.items["deep-cave newt"] > 1) {
+        raffle.add(options.b, "Breed your deep-cave newts.", 1);
     }
 
     if (game_state.character.items["deep-cave newt"] > 0 &&

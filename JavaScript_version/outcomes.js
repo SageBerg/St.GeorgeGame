@@ -8,6 +8,20 @@ var items     = require("./items");
 var raffle    = require("./raffle");
 
 var NONE = "none";
+var NUMBER_NAMES = {
+    "2": "two",
+    "3": "three",
+    "4": "four",
+    "5": "five",
+    "6": "six",
+    "7": "seven",
+    "8": "eight",
+    "9": "nine",
+    "10": "ten",
+    "11": "eleven",
+    "12": "twelve",
+    "13": "thirteen",
+};
 
 exports.apply_outcome = function apply_outcome(outcome, game_state) {
     return outcomes[outcome](game_state);
@@ -828,24 +842,10 @@ var outcomes = {
     },
 
     "breed_cats": function(game_state) {
-        var number_names = {
-            "2": "two",
-            "3": "three",
-            "4": "four",
-            "5": "five",
-            "6": "six",
-            "7": "seven",
-            "8": "eight",
-            "9": "nine",
-            "10": "ten",
-            "11": "eleven",
-            "12": "twelve",
-            "13": "thirteen",
-        };
         var kittens = 2 + functions.random_int(11);
         game_state.character.items.cat += kittens;
         game_state.message = "You now have " + 
-            number_names[kittens.toString()] + " more cats.";
+            NUMBER_NAMES[kittens.toString()] + " more cats.";
         return game_state;
     },
 
@@ -854,6 +854,22 @@ var outcomes = {
             "Mashing them together doesn't work.",
             "You can't figure out how to make them breed.",
             "You perform a wedding for you cats, but they don't breed.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
+    "breed_newts": function(game_state) {
+        var baby_newts = 2 + functions.random_int(11);
+        game_state.character.items["deep-cave newt"] += baby_newts;
+        game_state.message = "You now have " + 
+            NUMBER_NAMES[baby_newts.toString()] + " more deep-cave newts.";
+        return game_state;
+    },
+
+    "breed_newts_fail": function(game_state) {
+        var messages = [
+            "You're not sure your newts have different genders.",
         ];
         game_state.message = functions.random_choice(messages);
         return game_state;
