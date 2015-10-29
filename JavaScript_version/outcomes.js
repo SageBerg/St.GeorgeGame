@@ -6245,15 +6245,6 @@ var outcomes = {
 
     //u
     
-    "universe_blows_up": function(game_state) {
-        var messages = [
-            "The universe blows up.",
-        ];
-        game_state.message = functions.random_choice(messages);
-        die(game_state);
-        return game_state;
-    },
-
     //v
 
     "void_dance": function(game_state) {
