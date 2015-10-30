@@ -5580,7 +5580,7 @@ var outcomes = {
 
     "sneak_and_die": function(game_state) {
         var messages = [
-            "One of the assassin guards sees you tiptoeing around in " +
+            "One of the assassins sees you tiptoeing around in " +
             "broad daylight. He assassinates you.",
             "Your smell gives you away. You are soon assassinated.",
             "You get the hiccups. You are soon assassinated.",
@@ -5600,6 +5600,21 @@ var outcomes = {
         ];
         game_state.message = functions.random_choice(messages);
         die(game_state);
+        return game_state;
+    },
+
+    "sneak_and_die_not": function(game_state) {
+        var messages = [
+            "One of the assassin sees you tiptoeing around. " +
+            "Since he doesn't recognize you as a woman, he escorts you " +
+            "out of the manor rather than assassinating you.",
+            "You get the hiccups. You are soon discovered and escorted to " +
+            "the woods.",
+            "You are sneaking through the stables when a man too fat to " +
+            "avoid bumps into you. You are soon escorted off the premises.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        move_character(game_state, "woods");
         return game_state;
     },
 

@@ -1846,7 +1846,7 @@ exports.actions = {
             if (game_state.character.sex === "male") {
                 raffle.add(possible_outcomes, "sneak_and_die", 4);
             } else {
-                //raffle.add(possible_outcomes, "sneak_and_die_not", 4);
+                raffle.add(possible_outcomes, "sneak_and_die_not", 3);
             }
             raffle.add(possible_outcomes, "get_poison_dagger", 1);
             if (game_state.persons.lord_carlos.alive === true) {
