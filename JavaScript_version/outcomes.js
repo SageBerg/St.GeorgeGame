@@ -127,7 +127,7 @@ function burn(game_state) {
 
 function burn_a_bunch_of_places(game_state) {
     var number_of_places_burned = functions.random_int(8);
-    //the order of burnable matters based on the story
+    // the order of burnable matters based on the story
     var burnable = [
         "lord_bartholomew_manor",
         "woods",
@@ -945,7 +945,8 @@ var outcomes = {
                                             "white mushroom", 
                                             "black mushroom", 
                                             "fancy red cloak", 
-                                            "potion of strength",]);
+                                            "potion of strength",
+                                            "potion of transformation",]);
         var messages;
         if (game_state.character.money === "small_fortune" ||
             game_state.character.money === "large_fortune") {
@@ -3156,10 +3157,14 @@ var outcomes = {
         return game_state;
     },
 
-    "god_gives_you_a_wife": function(game_state) {
-        game_state.message = 
-            "Your prayers for a beautiful wife are answered, but she soon " +
-            "leaves you.";
+    "god_gives_you_a_spouse": function(game_state) {
+        if (game_state.character.sex === "female") {
+            game_state.message = "Your prayers for a beautiful husband are " +
+                "answered, but he soon leaves you.";
+        } else {
+            game_state.message = "Your prayers for a beautiful wife are " +
+                "answered, but she soon leaves you.";
+        }
         return game_state;
     },
 
@@ -3388,6 +3393,13 @@ var outcomes = {
         return game_state;
     },
 
+    "guards_watch_you_swinging_cat": function(game_state) {
+        game_state.message = "The local guards gawk at you while you're " +
+            "swinging your cat around.";
+        game_state.character.person = "gaurds";
+        return game_state;
+    },
+
     //h
     
     "hammer_from_st_george": function(game_state) {
@@ -3506,6 +3518,17 @@ var outcomes = {
         game_state.message = "You hit an assassin with your cat.";
         game_state.character.person = "assassin";
         game_state.character.is_threatened = true;
+        return game_state;
+    },
+
+    "hit_assassin_with_cat_not": function(game_state) {
+        game_state.message = "You hit an assassin with your cat. ";
+        var messages = [
+            "She gives you a dirty look and goes about her business.",
+            "She tells you to be more careful where you swing your cat " +
+            "and goes about her business.",
+        ];
+        game_state.message += functions.random_choice(messages);
         return game_state;
     },
 
@@ -3908,6 +3931,40 @@ var outcomes = {
         return game_state;
     },
 
+    "leer_at_men": function(game_state) {
+        var messages = [
+            "A strapping young lad notices you watching him, but he's too " +
+            "shy to approach you and hastens away.",
+            "A man makes eye contact with you and glances back at you " +
+            "as he passes by. His wife is not pleased.",
+            "A creepy old man winks at you as he walks by.",
+            "You stop gawking when you realize the man is simple.",
+            "The men also gawk at you since you're a woman.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
+    "leer_at_men_and_meet_drunk": function(game_state) {
+        var messages = [
+            "A drunk man notices you gawking at him and says, \"What you " +
+            "looking at?\"",
+        ];
+        game_state.message = functions.random_choice(messages);
+        game_state.character.person = "drunk";
+        return game_state;
+    },
+
+    "leer_at_men_and_meet_nobleman": function(game_state) {
+        var messages = [
+            "A nobleman looks you up and down and says he'd sleep with " +
+            "you if he wasn't so busy.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        game_state.character.person = "nobleman";
+        return game_state;
+    },
+
     "leer_at_women": function(game_state) {
         var messages = [
             "A fair woman notices you and hastens away.",
@@ -4115,8 +4172,15 @@ var outcomes = {
     },
 
     "lose_coin_bartholomew": function(game_state) {
+        var gender_noun;
+        if (game_state.character.sex === "female") {
+            gender_noun = "girl";
+        } else {
+            gender_noun = "son";
+        }
         var messages = [
-            "\"Damn, son. Where'd you find this?\" Lord Bartholomew asks. " +
+            "\"Damn, " + gender_noun +". Where'd you find this?\" Lord " +
+            "Bartholomew asks. " +
             "He doesn't wait for your answer. Instead he takes your coin, " +
             "gives you a small fortune, and sends you on your way.",
         ];
@@ -4425,6 +4489,14 @@ var outcomes = {
     "meet_witch": function(game_state) {
         game_state.message = "You find a witch deep in the woods.";
         game_state.character.person = "witch";
+        return game_state;
+    },
+
+    "men_gawk_at_you": function(game_state) {
+        var messages = [
+            "The men also gawk at you since you have a tail.",
+        ];
+        game_state.message = functions.random_choice(messages);
         return game_state;
     },
 
@@ -5155,6 +5227,17 @@ var outcomes = {
         return game_state;
     },
 
+    "random_killed_by_wizard": function(game_state) {
+        var messages = [
+            "The potion has no effect, but when the wizard comes in to the " +
+            "lab, you feel compelled to flirt with him stroke his " +
+            "beard. He is revolted and incinerates you.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        die(game_state);
+        return game_state;
+    },
+
     "random_move": function(game_state) {
         game_state.message = "";
         move_character(game_state, 
@@ -5224,6 +5307,9 @@ var outcomes = {
 
             "You learn that it takes sap, flowers, and a many-colored " +
             "mushroom to brew a love potion.",
+
+            "You learn that it takes sap, a black mushroom, and an apple " +
+            "to brew a potion of transformation.",
 
             "You read about a magical red cloak that protects the wearer " +
             "from fire.",
@@ -5912,23 +5998,27 @@ var outcomes = {
 
     "think": function(game_state) {
         var messages = [
-            "Since you're a man, you think about sex.",
             "You spend some time reevaluating your life " +
             "and conclude that you need to stay the course.",
             "You think God is probably listening to your thoughts.",
             "You think up some lyrics for a song.",
             "You think you might be the chosen one.",
-            "You think you would make a good husband.",
             "Your contemplations lead to dark places.",
             "Your thinking ensures your existence.",
         ];
+        if (game_state.character.sex === "male") {
+            messages.push("Since you're a man, you think about sex.");
+            messages.push("You think you would make a good husband.");
+        } else {
+            messages.push("You think you would make a good wife.");
+        }
         game_state.message = functions.random_choice(messages);
         return game_state;
     },
 
     "think_about_lord_arthur": function(game_state) {
         game_state.message = "You think it would be a bad idea to join " +
-        "Lord Arthur's crew. He gives no choice.";
+            "Lord Arthur's crew. He gives no choice.";
         move_character(game_state, "pirate_ship");
         return game_state;
     },
@@ -5950,32 +6040,32 @@ var outcomes = {
 
     "think_ax": function(game_state) {
         game_state.message = "While you're thinking, a guard hands you an " +
-        "ax and tells you to chop some firewood for the cooks.";
+            "ax and tells you to chop some firewood for the cooks.";
         get_item(game_state, "ax");
         return game_state;
     },
 
     "think_bad_smell": function(game_state) {
         game_state.message = "You think the bad smell might be coming from " + 
-        "you.";
+            "you.";
         return game_state;
     },
 
     "think_bats": function(game_state) {
         game_state.message = "You think you hear bats, but you also think " + 
-        "you might be crazy.";
+            "you might be crazy.";
         return game_state;
     },
 
     "think_cold": function(game_state) {
         game_state.message = "You can't think about much besides how cold " +
-        "you are.";
+            "you are.";
         return game_state;
     },
 
     "think_darkness": function(game_state) {
         game_state.message = "You think about the darkness that is crushing " +
-        "in on you from all sides.";
+            "in on you from all sides.";
         return game_state;
     },
 
@@ -6009,6 +6099,12 @@ var outcomes = {
         return game_state;
     },
 
+    "think_guard_men": function(game_state) {
+        game_state.message = "You wonder if any guards would go for a " +
+            "woman like you.";
+        return game_state;
+    },
+
     "think_ice": function(game_state) {
         game_state.message = "You think about ice."; 
         return game_state;
@@ -6016,14 +6112,14 @@ var outcomes = {
 
     "think_jump": function(game_state) {
         game_state.message = "You think you can survive the jump from the " +
-        "top of the tower."; 
+            "top of the tower."; 
         game_state.character.is_dead = true;
         return game_state;
     },
 
     "think_meaning_of_life": function(game_state) {
         game_state.message = "You ponder the meaning of life and " +
-        "feel smug for being so philosophical.";
+            "feel smug for being so philosophical.";
         return game_state;
     },
 
@@ -6034,14 +6130,14 @@ var outcomes = {
 
     "think_of_getting_stabbed": function(game_state) {
         game_state.message = "You think about how painful it would be to " +
-        "get stabbed. You soon find out.";
+            "get stabbed. You soon find out.";
         game_state.character.is_dead = true;
         return game_state;
     },
 
     "think_peasant_women": function(game_state) {
         game_state.message = "You wonder if any peasant women would go for " +
-        "a man like you.";
+            "a man like you.";
         return game_state;
     },
 
@@ -6220,6 +6316,24 @@ var outcomes = {
         game_state.message = "The guards throw you out for not filling out " +
         "the proper paperwork.";
         move_character(game_state, "streets");
+        return game_state;
+    },
+
+    "transform": function(game_state) {
+        var messages = [];
+        if (game_state.character.sex === "female") {
+            messages.push("You transform back into a man.");
+            messages.push("You turn back into a man.");
+            messages.push("You're back to being a man.");
+            game_state.character.sex = "male";
+        } else {
+            messages.push("You are now a woman.");
+            messages.push("You transform into a woman.");
+            messages.push("You turn into a lady version of yourself.");
+            game_state.character.sex = "female";
+        }
+        lose_item(game_state, "potion of transformation");
+        game_state.message = functions.random_choice(messages);
         return game_state;
     },
 
@@ -6611,11 +6725,18 @@ var outcomes = {
             "Not all those who wander are lost, but you are.",
             "You find a fork in the road and take it.",
             "You find a mob of peasants burning Lord Daniel in effigy.",
-            "You see a beautiful peasant woman, unfortunately she also has " +
-            "a beautiful husband.",
             "While you're wandering the countryside, some sheep look at you " +
             "funny.",
         ];
+        if (game_state.character.sex === "female") {
+            messages.push("You see a beautiful peasant man, unfortunately " +
+                "he also has a beautiful wife."
+            );
+        } else {
+            messages.push("You see a beautiful peasant woman, unfortunately " +
+                "she also has a beautiful husband."
+            );
+        }
         game_state.message = functions.random_choice(messages);
         game_state.character.person = null;
         return game_state;

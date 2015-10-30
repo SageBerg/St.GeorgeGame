@@ -698,10 +698,15 @@ exports.actions = {
         raffle.add(possible_outcomes, "grow_tail", 2);
         raffle.add(possible_outcomes, "monstrosity_potion", 1);
         raffle.add(possible_outcomes, "random_strength", 2);
-        //raffle.add(possible_outcomes, "random_transform", 2);
+        raffle.add(possible_outcomes, "random_transform", 2);
         if (game_state.persons.wizard.alive === true) {
-            raffle.add(possible_outcomes, "random_death", 2);
+            if (game_state.character.sex === "male") {
+                raffle.add(possible_outcomes, "random_killed_by_wizard", 1);
+            } else {
+                //raffle.add(possible_outcomes, "random_out_of_lab", 1);
+            }
         } 
+        raffle.add(possible_outcomes, "random_death", 1);
         raffle.add(possible_outcomes, "start_tripping", 1);
         return possible_outcomes;
     },
@@ -1215,6 +1220,16 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Gawk at men.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "leer_at_men", 4);
+        //raffle.add(possible_outcomes, "leer_at_men_and_meet_nobleman", 2);
+        raffle.add(possible_outcomes, "leer_at_men_and_meet_drunk", 1);
+        if (game_state.character.has_tail === true) {
+            raffle.add(possible_outcomes, "men_gawk_at_you", 2);
+        }
+        return possible_outcomes;
+    },
+
     "Gawk at women.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "leer_and_get_assassinated", 1);
         raffle.add(possible_outcomes, "leer_and_get_money", 1);
@@ -1270,7 +1285,9 @@ exports.actions = {
 
     "Look for assassins.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "alley_is_clear", 1);
-        raffle.add(possible_outcomes, "do_not_see_assassins", 1);
+        if (game_state.character.sex === "male") {
+            raffle.add(possible_outcomes, "do_not_see_assassins", 1);
+        }
         return possible_outcomes;
     },
 
@@ -1338,12 +1355,14 @@ exports.actions = {
     },
 
     "Look for nymphs.": function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "make_out_with_dryad", 2);
+        if (game_state.character.sex === "male") {
+            raffle.add(possible_outcomes, "find_assassin_instead", 1);
+            raffle.add(possible_outcomes, "look_for_nymphs_and_die", 1);
+            raffle.add(possible_outcomes, "make_out_with_dryad", 2);
+        }
         raffle.add(possible_outcomes, "cannot_find_nymphs", 2);
         raffle.add(possible_outcomes, "fall_into_cave", 1);
-        raffle.add(possible_outcomes, "find_assassin_instead", 1);
         raffle.add(possible_outcomes, "find_nymphs", 2);
-        raffle.add(possible_outcomes, "look_for_nymphs_and_die", 1);
         if (game_state.persons.nymph_queen.alive === true) {
             raffle.add(possible_outcomes, "meet_nymph_queen", 3);
         } 
@@ -1393,10 +1412,12 @@ exports.actions = {
     },
 
     "Look through the trash.": function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "guards_stop_you_trash", 1);
+        if (game_state.character.sex === "male") {
+            raffle.add(possible_outcomes, "guards_stop_you_trash", 1);
+            raffle.add(possible_outcomes, "trash_die", 1);
+        }
         raffle.add(possible_outcomes, "trash_ax", 1);
         raffle.add(possible_outcomes, "trash_cat", 1);
-        raffle.add(possible_outcomes, "trash_die", 1);
         raffle.add(possible_outcomes, "meet_stray_dog", 1);
         raffle.add(possible_outcomes, "trash_nothing", 3);
         return possible_outcomes;
@@ -1529,8 +1550,10 @@ exports.actions = {
 
     "Pray to a higher power.": function(game_state, possible_outcomes) {
 
-        raffle.add(possible_outcomes, "assassin_prayer_answered", 1);
-        raffle.add(possible_outcomes, "god_gives_you_a_wife", 1);
+        if (game_state.character.sex === "male") {
+            raffle.add(possible_outcomes, "assassin_prayer_answered", 1);
+        }
+        raffle.add(possible_outcomes, "god_gives_you_a_spouse", 1);
         raffle.add(possible_outcomes, "god_gives_you_holy_strength", 1);
         raffle.add(possible_outcomes, "god_shows_you_the_way", 1);
         raffle.add(possible_outcomes, "god_showers_you_with_gold", 1);
@@ -1599,7 +1622,7 @@ exports.actions = {
     "Read a spellbook.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "read_and_die", 2);
         raffle.add(possible_outcomes, "read_clover", 2);
-        raffle.add(possible_outcomes, "read_spell_book", 10);
+        raffle.add(possible_outcomes, "read_spell_book", 11);
         return possible_outcomes;
     },
 
@@ -1700,7 +1723,9 @@ exports.actions = {
 
         if (functions.get_place(game_state).town) {
             if (game_state.character.has_tail === false) {
-                raffle.add(possible_outcomes, "cannot_hear_assassin", 1);
+                if (game_state.character.sex === "male") {
+                    raffle.add(possible_outcomes, "cannot_hear_assassin", 1);
+                }
             } else {
                 raffle.add(possible_outcomes, "saved_by_tail", 1);
             }
@@ -1729,7 +1754,13 @@ exports.actions = {
                 raffle.add(possible_outcomes, "crowd_hates_your_voice", 1);
                 raffle.add(possible_outcomes, 
                     "earn_small_fortune_in_coins", 3);
-                raffle.add(possible_outcomes, "guards_stop_you_singing", 2);
+                if (game_state.character.sex === "female") {
+                    //raffle.add(possible_outcomes, 
+                    //    "guards_watch_you_singing", 2);
+                } else {
+                    raffle.add(possible_outcomes, 
+                        "guards_stop_you_singing", 2);
+                }
                 break;
             case "mermaid_rock":
                 if (game_state.character.person !== "mermaid") {
@@ -1744,8 +1775,12 @@ exports.actions = {
                 break;
             case "tavern":
                 if (game_state.places.tavern.burnable === true) {
-                    raffle.add(possible_outcomes, "assassins_approach", 5);
-                    raffle.add(possible_outcomes, "crowd_hates_your_voice", 1);
+                    if (game_state.character.sex === "male") {
+                        raffle.add(possible_outcomes, 
+                            "assassins_approach", 5);
+                    }
+                    raffle.add(possible_outcomes, 
+                        "crowd_hates_your_voice", 1);
                     raffle.add(possible_outcomes, 
                         "earn_small_fortune_in_coins", 3);
                     raffle.add(possible_outcomes, "tavern_song", 3);
@@ -1800,13 +1835,28 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Slurp down your potion of transformation.":
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "transform", 1);
+        return possible_outcomes;
+    },
+
     "Sneak around.": function(game_state, possible_outcomes) {
         if (game_state.character.place === "lord_carlos_manor") {
-            raffle.add(possible_outcomes, "sneak_and_die", 4);
+            if (game_state.character.sex === "male") {
+                raffle.add(possible_outcomes, "sneak_and_die", 4);
+            } else {
+                //raffle.add(possible_outcomes, "sneak_and_die_not", 4);
+            }
             raffle.add(possible_outcomes, "get_poison_dagger", 1);
             if (game_state.persons.lord_carlos.alive === true) {
-                raffle.add(possible_outcomes, "killed_by_lord_carlos", 1);
-                raffle.add(possible_outcomes, "meet_lord_carlos", 4);
+                if (game_state.character.sex === "female") {
+                    //raffle.add(possible_outcomes, 
+                    //    "meet_lord_carlos_as_woman", 4);
+                } else {
+                    raffle.add(possible_outcomes, "killed_by_lord_carlos", 1);
+                    raffle.add(possible_outcomes, "meet_lord_carlos", 4);
+                }
             }
             if (game_state.persons.eve.alive === true) {
                 raffle.add(possible_outcomes, "meet_eve", 4);
@@ -1846,8 +1896,10 @@ exports.actions = {
                     "suck_up_to_lord_bartholomew_pitchfork", 1);
                 break;
             case "lord_carlos":
-                raffle.add(possible_outcomes, 
-                    "suck_up_to_lord_carlos_and_die", 1);
+                if (game_state.character.sex === "male") {
+                    raffle.add(possible_outcomes, 
+                        "suck_up_to_lord_carlos_and_die", 1);
+                }
                 raffle.add(possible_outcomes, 
                     "suck_up_to_lord_carlos_woods", 1);
                 break;
@@ -1893,8 +1945,15 @@ exports.actions = {
     "Swing your cat.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "cat_escapes", 1);
         if (game_state.places[game_state.character.place].town === true) {
-            raffle.add(possible_outcomes, "hit_assassin_with_cat", 3);
-            raffle.add(possible_outcomes, "guards_stop_you_swinging_cat", 1);
+            if (game_state.character.sex === "female") {
+                raffle.add(possible_outcomes, 
+                    "guards_watch_you_swinging_cat", 1);
+                raffle.add(possible_outcomes, "hit_assassin_with_cat_not", 3);
+            } else {
+                raffle.add(possible_outcomes, 
+                    "guards_stop_you_swinging_cat", 1);
+                raffle.add(possible_outcomes, "hit_assassin_with_cat", 3);
+            }
         }
         return possible_outcomes;
     },
@@ -2112,9 +2171,10 @@ exports.actions = {
             raffle.add(possible_outcomes, "think_you_shouldnt_be_here", 3);
         }
 
-        if (game_state.character.place === "tavern" ||
+        if ((game_state.character.place === "tavern" ||
             game_state.character.place === "dark_alley" ||
-            game_state.character.place === "lord_carlos_manor") {
+            game_state.character.place === "lord_carlos_manor") &&
+            game_state.character.sex === "male") {
             raffle.add(possible_outcomes, "think_of_getting_stabbed", 2);
         }
       
@@ -2126,8 +2186,7 @@ exports.actions = {
         if (game_state.character.place === "docks" ||
             game_state.character.place === "pirate_ship" ||
             game_state.character.place === "ocean" ||
-            game_state.character.place === "mermaid_rock"
-           ) {
+            game_state.character.place === "mermaid_rock") {
             raffle.add(possible_outcomes, "think_ocean_is_big", 2);
             raffle.add(possible_outcomes, "think_bad_smell", 2);
         }
@@ -2139,13 +2198,18 @@ exports.actions = {
 
         if (game_state.character.place === "tower" &&
             game_state.places.tower.burnable === true) {
+            if (game_state.character.sex === "female") {
+                raffle.add(possible_outcomes, "think_guard_men", 4);
+            }
             raffle.add(possible_outcomes, "think_ax", 2);
             raffle.add(possible_outcomes, "think_jump", 4);
         }
 
         if (game_state.character.place === "countryside") {
             raffle.add(possible_outcomes, "think_about_lord_bartholomew", 2);
-            raffle.add(possible_outcomes, "think_peasant_women", 4);
+            if (game_state.character.sex === "male") {
+                raffle.add(possible_outcomes, "think_peasant_women", 4);
+            }
         }
 
         if (game_state.character.place === "woods") {

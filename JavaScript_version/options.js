@@ -253,6 +253,10 @@ function get_item_options(game_state, options) {
         raffle.add(options.d, "Slurp down your potion of tail growth.", 2);
     }
 
+    if (game_state.character.items["potion of transformation"] > 0) {
+        raffle.add(options.d, "Slurp down your potion of transformation.", 2);
+    }
+
     if (game_state.character.items["potion of love"] > 0 && 
         (game_state.character.person === "eve" ||
         game_state.character.person === "mermaid" ||
@@ -733,7 +737,8 @@ function get_place_options(game_state, options) {
 
         case "lord_bartholomew_manor":
             if (functions.get_place(game_state).burnable === true) {
-                if (game_state.character.person === null) {
+                if (game_state.character.person === null &&
+                    game_state.character.sex === "male") {
                     raffle.add(options.b, "Tell the next person you meet " +
                             "that you're Lord Arthur.", 1);
                     raffle.add(options.b, "Tell the next person you meet " +
@@ -757,19 +762,23 @@ function get_place_options(game_state, options) {
         case "lord_carlos_manor":
             if (functions.get_place(game_state).burnable === true) {
                 if (game_state.character.person === null) {
-                    raffle.add(options.a, "Ask about assassins.", 4);
+                    if (game_state.character.sex === "male") {
+                        raffle.add(options.a, "Ask about assassins.", 4);
+                    }
                     raffle.add(options.a, "Hire an assassin.", 4);
                     raffle.add(options.b, "BURN", 5);
-                    raffle.add(options.b, "Tell the next person you meet " +
-                            "that you're Lord Arthur.", 1);
-                    raffle.add(options.b, "Tell the next person you meet " +
-                            "that you're Lord Bartholomew.", 1);
-                    raffle.add(options.b, "Tell the next person you meet " +
-                            "that you're Lord Daniel.", 1);
-                    raffle.add(options.b, "Tell the next person you meet " +
-                            "that you're Lord Carlos.", 1);
-                    raffle.add(options.b, "Tell the next person you meet " +
-                            "that you're St. George.", 1);
+                    if (game_state.character.sex === "male") {
+                        raffle.add(options.b, "Tell the next person you " +
+                            "meet that you're Lord Arthur.", 1);
+                        raffle.add(options.b, "Tell the next person you " +
+                            "meet that you're Lord Bartholomew.", 1);
+                        raffle.add(options.b, "Tell the next person you " +
+                            "meet that you're Lord Daniel.", 1);
+                        raffle.add(options.b, "Tell the next person you " +
+                            "meet that you're Lord Carlos.", 1);
+                        raffle.add(options.b, "Tell the next person you " +
+                            "meet that you're St. George.", 1);
+                    }
                 }
                 if (game_state.character.person !== "eve" &&
                     game_state.persons.eve.alive === true) {
@@ -860,7 +869,11 @@ function get_place_options(game_state, options) {
 
         case "streets":
             raffle.add(options.a, "Look for a cat.", 4);
-            raffle.add(options.b, "Gawk at women.", 2);
+            if (game_state.character.sex === "female") {
+                raffle.add(options.b, "Gawk at men.", 2);
+            } else if (game_state.character.sex === "male") {
+                raffle.add(options.b, "Gawk at women.", 2);
+            }
             raffle.add(options.c, "GO_TO", 2);
             if (game_state.character.person !== "st_george" && 
                 game_state.persons.st_george.alive === true) {
@@ -883,7 +896,8 @@ function get_place_options(game_state, options) {
 
         case "tower":
             if (functions.get_place(game_state).burnable === true) {
-                if (game_state.character.person === null) {
+                if (game_state.character.person === null &&
+                    game_state.character.sex === "male") {
                     raffle.add(options.b, "Tell the next person you meet " +
                             "that you're Lord Arthur.", 1);
                     raffle.add(options.b, "Tell the next person you meet " +
