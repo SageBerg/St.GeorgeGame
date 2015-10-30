@@ -2885,6 +2885,74 @@ var outcomes = {
         return game_state;
     },
 
+    "gawk_and_get_assassinated": function(game_state) {
+        game_state.message = "You are too distracted by all the pretty " +
+            "women to notice the assassins closing in on you.";
+        game_state.character.is_dead = true;
+        return game_state;
+    },
+
+    "gawk_and_get_money": function(game_state) {
+        game_state.message = "A woman mistakes you for a beggar and takes " +
+            "pity on you.";
+        get_money(game_state, "pittance");
+        return game_state;
+    },
+
+    "gawk_at_cat": function(game_state) {
+        game_state.message = "You don't see any woman worth gawking at, " +
+            "but you do see a cat worth gawking at.";
+        get_item(game_state, "cat");
+        return game_state;
+    },
+
+    "gawk_at_men": function(game_state) {
+        var messages = [
+            "A strapping young lad notices you watching him, but he's too " +
+            "shy to approach you and hastens away.",
+            "A man makes eye contact with you and glances back at you " +
+            "as he passes by. His wife is not pleased.",
+            "A creepy old man winks at you as he walks by.",
+            "You stop gawking when you realize the man is simple.",
+            "The men also gawk at you since you're a woman.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
+    "gawk_at_men_and_meet_drunk": function(game_state) {
+        var messages = [
+            "A drunk man notices you gawking at him and says, \"What you " +
+            "looking at?\"",
+        ];
+        game_state.message = functions.random_choice(messages);
+        game_state.character.person = "drunk";
+        return game_state;
+    },
+
+    "gawk_at_men_and_meet_nobleman": function(game_state) {
+        var messages = [
+            "A nobleman looks you up and down and says he'd sleep with " +
+            "you if he wasn't so busy.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        game_state.character.person = "nobleman";
+        return game_state;
+    },
+
+    "gawk_at_women": function(game_state) {
+        var messages = [
+            "A fair woman notices you and hastens away.",
+            "A woman becomes annoyed with your gawking and throws salt in " +
+            "your eyes.",
+            "An equally creepy woman stares back at you before " +
+            "disappearing into the crowd.",
+            "You stop gawking when you realize it isn't a woman.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
     "get_asylum_and_get_arrested": function(game_state) {
 
         game_state.message = "Lord Bartholomew grants you asylum, but his " +
@@ -3907,74 +3975,6 @@ var outcomes = {
     "leave_in_a_puff": function(game_state) {
         game_state.message = "";
         teleport(game_state);
-        return game_state;
-    },
-
-    "leer_and_get_assassinated": function(game_state) {
-        game_state.message = "You are too distracted by all the pretty " +
-            "women to notice the assassins closing in on you.";
-        game_state.character.is_dead = true;
-        return game_state;
-    },
-
-    "leer_and_get_money": function(game_state) {
-        game_state.message = "A woman mistakes you for a beggar and takes " +
-            "pity on you.";
-        get_money(game_state, "pittance");
-        return game_state;
-    },
-
-    "leer_at_cat": function(game_state) {
-        game_state.message = "You don't see any woman worth gawking at, " +
-            "but you do see a cat worth gawking at.";
-        get_item(game_state, "cat");
-        return game_state;
-    },
-
-    "leer_at_men": function(game_state) {
-        var messages = [
-            "A strapping young lad notices you watching him, but he's too " +
-            "shy to approach you and hastens away.",
-            "A man makes eye contact with you and glances back at you " +
-            "as he passes by. His wife is not pleased.",
-            "A creepy old man winks at you as he walks by.",
-            "You stop gawking when you realize the man is simple.",
-            "The men also gawk at you since you're a woman.",
-        ];
-        game_state.message = functions.random_choice(messages);
-        return game_state;
-    },
-
-    "leer_at_men_and_meet_drunk": function(game_state) {
-        var messages = [
-            "A drunk man notices you gawking at him and says, \"What you " +
-            "looking at?\"",
-        ];
-        game_state.message = functions.random_choice(messages);
-        game_state.character.person = "drunk";
-        return game_state;
-    },
-
-    "leer_at_men_and_meet_nobleman": function(game_state) {
-        var messages = [
-            "A nobleman looks you up and down and says he'd sleep with " +
-            "you if he wasn't so busy.",
-        ];
-        game_state.message = functions.random_choice(messages);
-        game_state.character.person = "nobleman";
-        return game_state;
-    },
-
-    "leer_at_women": function(game_state) {
-        var messages = [
-            "A fair woman notices you and hastens away.",
-            "A woman becomes annoyed with your gawking and throws salt in " +
-            "your eyes.",
-            "An equally creepy woman stares back at you before " +
-            "disappearing into the crowd.",
-            "You stop gawking when you realize it isn't a woman.",
-        ];
-        game_state.message = functions.random_choice(messages);
         return game_state;
     },
 
