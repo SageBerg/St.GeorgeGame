@@ -2295,12 +2295,16 @@ var outcomes = {
     //f
     
     "fail_at_new_career": function(game_state) {
+        var gender_noun;
+        game_state.character.sex === "female" ?
+            gender_noun = "priestess" :
+            gender_noun = "priest";
         var messages = [
             "After a couple of months, you conclude that you don't have " +
             "what it takes to be a clown.",
             "After a couple of months, you conclude that you don't have " +
-            "what it takes to be a priest.",
-        ]; 
+            "what it takes to be a " + gender_noun + ".",
+        ];
         game_state.message = functions.random_choice(messages);
         game_state.character.person = null;
         return game_state;
@@ -2437,6 +2441,21 @@ var outcomes = {
         return game_state;
     },
   
+    "feel_accomplished": function(game_state) {
+        var messages = [
+            "You feel " + 
+            functions.random_choice(["extremely", "quite", "really", 
+                                     "very",]) + " " +
+            functions.random_choice(["accomplished", 
+                                     "pleased with yourself",
+                                     "proud of yourself",
+                                     "self-satisfied",
+                                    ]) + ".",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
     "feel_bad_about_donation": function(game_state) {
         var messages = [
             "You feel " + functions.random_choice([

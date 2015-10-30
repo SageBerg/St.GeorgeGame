@@ -754,7 +754,7 @@ exports.actions = {
 
     "Enact your elaborate scheme.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "steal_cutlass", 1);
-        raffle.add(possible_outcomes, "fail_at_new_career", 2);
+        raffle.add(possible_outcomes, "fail_at_new_career", 2000);
         if (game_state.persons.lord_carlos.alive === true) {
             raffle.add(possible_outcomes, "kill_lord_carlos", 1);
         }
@@ -1527,6 +1527,11 @@ exports.actions = {
     "Panic!": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "panic_and_die", 2);
         raffle.add(possible_outcomes, "panic_and_escape", 1);
+        return possible_outcomes;
+    },
+
+    "Pat yourself on the back.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "feel_accomplished", 1);
         return possible_outcomes;
     },
 

@@ -463,7 +463,11 @@ function get_outcome_options(game_state, options) {
         case "throw_cat_and_keep_cat":
         case "train_and_win":
         case "you_get_away_with_it":
-            raffle.add(options.a, "Thump yourself on the chest.", 1);
+            if (game_state.character.sex === "female") {
+                raffle.add(options.a, "Pat yourself on the back.", 1);
+            } else {
+                raffle.add(options.a, "Thump yourself on the chest.", 1);
+            }
             break;
 
         case "cat_smells_fish":
