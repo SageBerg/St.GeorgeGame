@@ -5450,7 +5450,8 @@ var outcomes = {
     "save_witch": function(game_state) {
         game_state.message = "You manage to save the witch and escape into " +
             "the woods with her. The witch rewards you for saving her.";
-        var item = functions.random_choice(["deep-cave newt", 
+        var item = functions.random_choice(["apple",
+                                            "deep-cave newt", 
                                             "four-leaf clover",
                                             "potion of love",]);
         get_item(game_state, item);
@@ -5717,6 +5718,13 @@ var outcomes = {
         ];
         game_state.message = functions.random_choice(messages);
         die(game_state);
+        return game_state;
+    },
+
+    "st_george_gives_you_apple": function(game_state) {
+        game_state.message = "St. George says he just gave away the last of " +
+            "his money, but he gives you an apple to console you.";
+        get_item(game_state, "apple");
         return game_state;
     },
 
