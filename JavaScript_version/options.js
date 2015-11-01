@@ -804,9 +804,7 @@ function get_place_options(game_state, options) {
                     raffle.add(options.b, "Look for the wizard.", 1);
                 }
                 if (game_state.character.person === null) {
-                    var stuff = ["ax", "bouquet of flowers", "donkey", "fish", 
-                                 "pearl", "sailor peg"];
-                    var item  = functions.random_choice(stuff);
+                    var item  = functions.random_choice(items.MARKET_ITEMS);
                     game_state.for_sell = item;
                     raffle.add(options.b, "BUY_ITEM", 6);
                 }

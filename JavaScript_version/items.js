@@ -2,6 +2,10 @@
 /*jslint vars: true, plusplus: true, devel: true, nomen: true*/ 
 /*global define */
 
+exports.MARKET_ITEMS = [
+    "apple", "ax", "boquet of flowers", "donkey", "fish", "pearl", "sailor peg",
+];
+
 exports.money_map = {
     "none":          {"value": 0, "name": "no money"},
     "pittance":      {"value": 1, "name": "a pittance"},

@@ -4085,8 +4085,7 @@ var outcomes = {
     },
 
     "loot_item": function(game_state) {
-        var item = functions.random_choice(["ax", "cat", "donkey", "fish", 
-                                            "pearl", "sailor peg"]);
+        var item = functions.random_choice(items.MARKET_ITEMS);
         game_state.message = "You get away with " + 
             functions.a_or_an(item[0]) + " " + item + ".";
         get_item(game_state, item);
