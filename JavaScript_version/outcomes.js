@@ -5751,6 +5751,8 @@ var outcomes = {
 
     "st_george_kills_you": function(game_state) {
         var messages = [
+            "St. George becomes annoyed with your lack of self-sufficiency " + 
+            "and smites you with his iron hammer.",
             "St. George becomes irritated with your begging and crushes " +
             "you with his iron hammer.",
             "St. George smites you with his saintly wrath for being " + 
