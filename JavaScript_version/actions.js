@@ -754,7 +754,7 @@ exports.actions = {
 
     "Enact your elaborate scheme.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "steal_cutlass", 1);
-        raffle.add(possible_outcomes, "fail_at_new_career", 2000);
+        raffle.add(possible_outcomes, "fail_at_new_career", 2);
         if (game_state.persons.lord_carlos.alive === true) {
             raffle.add(possible_outcomes, "kill_lord_carlos", 1);
         }
