@@ -193,10 +193,12 @@ exports.actions = {
     //b
 
     "Beg for money.": function(game_state, possible_outcomes) {
-        game_state.outcome === "st_george_gives_you_money" ?
-        raffle.add(possible_outcomes, "st_george_kills_you", 9) :
-        raffle.add(possible_outcomes, "st_george_gives_you_money", 9);
-        raffle.add(possible_outcomes, "st_george_gives_you_apple", 1);
+        if (game_state.character.has_begged_st_george === true) {
+            raffle.add(possible_outcomes, "st_george_kills_you", 1);
+        } else {
+            raffle.add(possible_outcomes, "st_george_gives_you_money", 9);
+            raffle.add(possible_outcomes, "st_george_gives_you_apple", 1);
+        }
         return possible_outcomes;
     },
 

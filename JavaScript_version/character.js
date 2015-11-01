@@ -5,6 +5,7 @@
 exports.character = {
     "equipped_weapon": "",
     "excuse": "",
+    "has_begged_st_george": false,
     "has_found_true_love": false,
     "has_lost_leg": false,
     "has_tail": false,

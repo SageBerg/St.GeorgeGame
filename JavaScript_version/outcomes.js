@@ -5722,8 +5722,9 @@ var outcomes = {
     },
 
     "st_george_gives_you_apple": function(game_state) {
+        game_state.character.has_begged_st_george = true;
         game_state.message = "St. George says he just gave away the last of " +
-            "his money, but he gives you an apple to console you.";
+            "his money, but he gives you an apple in consolation.";
         get_item(game_state, "apple");
         return game_state;
     },
@@ -5731,6 +5732,7 @@ var outcomes = {
     "st_george_gives_you_money": function(game_state) {
         var money = functions.random_choice(["pittance", "small_fortune", 
                                    "large_fortune"]);
+        game_state.character.has_begged_st_george = true;
         game_state.message = "St. George gives you " + 
             items.money_map[money].name + ".";
         get_money(game_state, money);
@@ -6396,8 +6398,10 @@ var outcomes = {
             messages.push("You turn into a lady version of yourself.");
             game_state.character.sex = "female";
         }
-        lose_item(game_state, "potion of transformation");
+        //St. George will not recognize you once you change sexes
+        game_state.character.has_begged_st_george = false;
         game_state.message = functions.random_choice(messages);
+        lose_item(game_state, "potion of transformation");
         return game_state;
     },
 
