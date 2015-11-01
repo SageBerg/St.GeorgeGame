@@ -2120,8 +2120,12 @@ var outcomes = {
     },
 
     "eat_sap": function(game_state) {
-        game_state.message = "It tastes less like maple syrup than you " +
-            "hoped it would.";
+        var messages = [
+            "It tastes less like maple syrup than you hoped it would.",
+            "It tastes much less like candy than you hoped it would.",
+            "It tastes much worse than it smelled.",
+        ];
+        game_state.message = functions.random_choice(messages);
         lose_item(game_state, "ball of sap");
         return game_state;
     },
