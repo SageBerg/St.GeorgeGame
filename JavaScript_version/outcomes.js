@@ -1093,8 +1093,8 @@ var outcomes = {
     },
 
     "cass_answer": function(game_state) {
-        game_state.message = "Lord Carlos' daughter wrinkles her nose in " +
-            "disgust. \"Not even close.\" she says.";
+        game_state.message = "Lord Carlos' daughter is appalled. \"Cass " +
+            "is my mother,\" she says. You are soon assassinated.";
         game_state.character.is_threatened = true;
         return game_state;
     },
@@ -1741,8 +1741,8 @@ var outcomes = {
     },
 
     "dina_death": function(game_state) {
-        game_state.message = "Lord Carlos' daughter is appalled. \"Dina " +
-            "is my mother,\" she says. You are soon assassinated.";
+        game_state.message = "Lord Carlos' daughter wrinkles her nose in " +
+            "disgust. \"Not even close.\" she says.";
         die(game_state);
         return game_state;
     },
