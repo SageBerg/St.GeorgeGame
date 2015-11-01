@@ -1373,7 +1373,8 @@ exports.actions = {
             raffle.add(possible_outcomes, "look_for_nymphs_and_die", 1);
             raffle.add(possible_outcomes, "make_out_with_dryad", 2);
         }
-        raffle.add(possible_outcomes, "cannot_find_nymphs", 2);
+        raffle.add(possible_outcomes, "cannot_find_nymphs", 3);
+        raffle.add(possible_outcomes, "cannot_find_nymphs_find_apple", 1);
         raffle.add(possible_outcomes, "fall_into_cave", 1);
         raffle.add(possible_outcomes, "find_nymphs", 2);
         if (game_state.persons.nymph_queen.alive === true) {

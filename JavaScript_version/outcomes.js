@@ -1046,11 +1046,20 @@ var outcomes = {
             "You get distracted by a squirrel and forget what you were " +
             "doing.",
             "You see a comely woman picking berries, but she's not a nymph.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        game_state.character.person = null;
+        return game_state;
+    },
+
+    "cannot_find_nymphs_find_apple": function(game_state) {
+        var messages = [
             "Your efforts to find nymphs are fruitless, but you find an " +
             "apple tree.",
         ];
         game_state.message = functions.random_choice(messages);
         game_state.character.person = null;
+        get_item(game_state, "apple");
         return game_state;
     },
 
