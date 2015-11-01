@@ -834,7 +834,11 @@ exports.actions = {
         switch (game_state.character.person) {
             case "eve":
                 raffle.add(possible_outcomes, "wowed_eve", 8);
-                raffle.add(possible_outcomes, "killed_by_eve", 1);
+                if (game_state.character.sex === "female") {
+                    //raffle.add(possible_outcomes, "killed_by_eve_not", 1);
+                } else {
+                    raffle.add(possible_outcomes, "killed_by_eve", 1);
+                }
                 if (game_state.outcome !== "right_name") {
                     raffle.add(possible_outcomes, "eve_name", 1);
                 }
@@ -861,18 +865,27 @@ exports.actions = {
                 var name = 
                     game_state.persons[game_state.character.person].name;
                 if (name === "the pretty lady") {
+                    if (game_state.character.sex === "female") {
+                        raffle.add(possible_outcomes, "killed_by_olga_not", 1);
+                    } else {
+                        raffle.add(possible_outcomes, "killed_by_olga", 1);
+                    }
                     raffle.add(possible_outcomes, "rebuffed_by_olga", 1);
-                    raffle.add(possible_outcomes, "killed_by_olga", 1);
                     raffle.add(possible_outcomes, "wowed_olga", 8);
                     if (game_state.character.has_tail === true) {
-                        raffle.add(possible_outcomes, "tail_olga", 1);
+                        raffle.add(possible_outcomes, "tail_olga", 2);
                     }
                 } else if (name === "Olga") {
                     if (game_state.character.place === "tavern") {
                         raffle.add(possible_outcomes, 
                             "go_upstairs_with_olga", 9);
-                        raffle.add(possible_outcomes,
-                            "go_upstairs_and_die", 1);
+                        if (game_state.character.sex === "female") {
+                            raffle.add(possible_outcomes,
+                                "go_upstairs_and_die_not", 1);
+                        } else {
+                            raffle.add(possible_outcomes,
+                                "go_upstairs_and_die", 1);
+                        }
                     } else {
                         raffle.add(possible_outcomes, 
                             "wowed_olga_upstairs", 1);

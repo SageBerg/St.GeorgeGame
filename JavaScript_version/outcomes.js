@@ -3219,6 +3219,14 @@ var outcomes = {
         return game_state;
     },
 
+    "go_upstairs_and_die_not": function(game_state) {
+        game_state.message = "Olga invites you to her room upstairs. " +
+            "When you get there, you realize she's one of Lord Carlos' " +
+            "assassins, but, since you're a woman now, you don't think she " +
+            "recognizes you.";
+        return game_state;
+    },
+
     "go_upstairs_with_olga": function(game_state) {
         var messages = [
             "After dancing with Olga for a couple of hours, she takes " +
@@ -3877,6 +3885,12 @@ var outcomes = {
             "When you squeeze her butt, she stabs you in the heart with a " +
             "poisoned dagger.";
         die(game_state);
+        return game_state;
+    },
+
+    "killed_by_olga_noe": function(game_state) {
+        game_state.message = "When you squeeze her butt, she looks back and " +
+            "winks at you.";
         return game_state;
     },
 
@@ -7178,30 +7192,45 @@ var outcomes = {
     },
 
     "wowed_olga": function(game_state) {
+        var gender_noun;
+        var gender_possessive;
+        if (game_state.character.sex === "female") {
+            gender_noun = "woman";
+            gender_possessive = "her";
+        } else {
+            gender_noun = "man";
+            gender_possessive = "his";
+        }
         var messages = [
-            "You play a game of darts together. " +
-            "She is delighted when she beats you.",
-            "You find out that you both like " +
-            "cats. She says her cat loves being petted.",
-            "You amuse her with realistic impressions of bird " +
-            "songs. She says she likes a man who's good with his tongue.",
-            "She is impressed with your juggling and says she likes a man " +
-            "with skilled hands.", 
-            "You say the flower in her hair goes well with " +
-            "her eyes. She says you can smell her flower if you like.",
+            "She is impressed with your juggling and says she likes a " +
+            gender_noun + " with skilled hands.", 
+            "She plays with your hair while you talk of your exploits.",
             "She sits on your lap when you buy her a drink.",
+            "You amuse her with realistic impressions of bird " +
+            "songs. She says she likes a " + gender_noun + " who's good " +
+            "with " + gender_possessive + " tongue.",
             "You both laugh about how bad the ale is. The bartender " +
             "is not pleased.",
-            "You have a meal together.",
-            "She plays with your hair while you talk of your exploits."
+            "You find out that you both like " +
+            "cats. She says her cat loves being petted.",
+            "You have a nice meal together.",
+            "You play a game of darts together. " +
+            "She is delighted when she beats you.",
+            "You say the flower in her hair goes well with " +
+            "her eyes. She says you can smell her flower if you like.",
         ];
         game_state.message = functions.random_choice(messages);
         game_state.persons.olga.attracted += 1;
         if (game_state.persons.olga.attracted > 2 && 
             game_state.persons.olga.name === "the pretty lady") {
             game_state.persons.olga.name = "Olga";
-            game_state.message += " She tells you her name is Olga. " +
-            "You also tell her your name.";
+            if (game_state.character.sex === "female") {
+                game_state.message += " She tells you her name is Olga. " +
+                "You tell her your name is Josephine.";
+            } else {
+                game_state.message += " She tells you her name is Olga. " +
+                "You also tell her your name.";
+            }
         }
         return game_state;
     },
