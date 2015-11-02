@@ -433,7 +433,12 @@ var outcomes = {
     },
 
     "alley_is_clear": function(game_state) {
-        game_state.message = "The dark alley appears to be safe.";
+        var messages = [
+            "If there are any assassins here, they're hidden very well.",
+            "The dark alley appears to be free of assassins.",
+            "The dark alley appears to be safe.",
+        ];
+        game_state.message = functions.random_choice(messages);
         return game_state;
     },
 
