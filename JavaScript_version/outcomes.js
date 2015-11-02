@@ -7117,8 +7117,6 @@ var outcomes = {
         var messages = [
             "The wizard advises you to collect potion ingredients.",
             "The wizard advises you to find a dragon and take it's treasure.",
-            "The wizard advises you to find a woman before you get old " +
-            "an weird like him.",
             "The wizard advises you to follow your passion.",
             "The wizard advises you to kill all of the lords and bring " +
             "about a Utopian anarchy.",
@@ -7129,6 +7127,13 @@ var outcomes = {
             "The wizard says you should go find him some void dust.",
             "The wizard says you should learn Esperanto.",
         ];
+        if (game_state.character.sex === "female") {
+            messages.push("The wizard advises you to find a husband before " +
+                "you get old and wrinkly like him.");
+        }  else {
+            messages.push("The wizard advises you to find a woman before " +
+                "you get old and weird like him.");
+        }
         game_state.message = functions.random_choice(messages);
         return game_state;
     },
@@ -7137,6 +7142,7 @@ var outcomes = {
         var wizard_item = functions.random_choice(["ball of sap", "cat", 
                                                    "frog",
                                                    "potion of tail growth",
+                                                   "potion of transformation",
                                                   ]);
         var messages = [
             "The wizard gives you a " + wizard_item + " and tells you " +

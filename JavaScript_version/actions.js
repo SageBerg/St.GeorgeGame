@@ -184,7 +184,7 @@ exports.actions = {
         function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "frog_advice", 5);
         raffle.add(possible_outcomes, "wizard_gives_you_advice", 10);
-        raffle.add(possible_outcomes, "wizard_gives_you_item", 4);
+        raffle.add(possible_outcomes, "wizard_gives_you_item", 5);
         raffle.add(possible_outcomes, "wizard_gives_you_sword", 1);
         return possible_outcomes;
     },
