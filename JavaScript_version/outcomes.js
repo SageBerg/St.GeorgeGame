@@ -3978,6 +3978,22 @@ var outcomes = {
         return game_state;
     },
 
+    "kiss_frog_and_die_not": function(game_state) {
+        var messages = [
+            "When you kiss your frog, it turns into a prince. He keeps " +
+            "kissing you for a while, but then tells you not to get your " +
+            "hopes up because he would never fall for a peasant woman like " +
+            "you.",
+            "Your frog turns into an assassin. He thanks you for saving " +
+            "him and asks if you've meet a man named Joseph who likes to " +
+            "sing and burn things. You tell him you've never met anyone " +
+            "that interesting. The assassin goes on his way.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        lose_item(game_state, "frog");
+        return game_state;
+    },
+
     "kiss_frog_cat": function(game_state) {
         var messages = [
             "Your frog turns into a cat. ",

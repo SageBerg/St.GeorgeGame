@@ -1228,7 +1228,7 @@ exports.actions = {
 
     "Kiss your frog.": function(game_state, possible_outcomes) {
         if (game_state.character.sex === "female") {
-            //raffle.add(possible_outcomes, "kiss_frog_and_die_not", 2);
+            raffle.add(possible_outcomes, "kiss_frog_and_die_not", 4);
         } else {
             raffle.add(possible_outcomes, "kiss_frog_and_die", 2);
         }
