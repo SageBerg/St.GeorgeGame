@@ -723,7 +723,7 @@ exports.actions = {
             if (game_state.character.sex === "male") {
                 raffle.add(possible_outcomes, "random_killed_by_wizard", 1);
             } else {
-                //raffle.add(possible_outcomes, "random_out_of_lab", 1);
+                raffle.add(possible_outcomes, "random_out_of_lab", 1000);
             }
         } 
         raffle.add(possible_outcomes, "random_death", 1);

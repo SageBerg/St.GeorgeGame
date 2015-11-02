@@ -5335,9 +5335,6 @@ var outcomes = {
     "random_death": function(game_state) {
         var messages = [
             "The potion tastes bittersweet.",
-            "The potion has no effect, but when the wizard comes in to the " +
-            "lab, you feel compelled to flirt with him stroke his " +
-            "beard. He is revolted and incinerates you.",
         ];
         game_state.message = functions.random_choice(messages);
         die(game_state);
@@ -5369,6 +5366,16 @@ var outcomes = {
         ];
         game_state.message = functions.random_choice(messages);
         game_state.character.strength += 3;
+        return game_state;
+    },
+
+    "random_out_of_lab": function(game_state) {
+        game_state.message = "The potion has no effect, but when the wizard " +
+            "comes in to the lab, you feel compelled to flirt with him " +
+            "stroke his beard. He casts a spell on you to make you see him " +
+            "for the horrible old man that he is and shoos you out of his " +
+            "lab.";
+        move_character(game_state, "market");
         return game_state;
     },
 
