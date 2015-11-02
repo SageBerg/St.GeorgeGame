@@ -7040,6 +7040,18 @@ var outcomes = {
         return game_state;
     },
 
+    "witch_makes_potion_transformation": function(game_state) {
+        var messages = [
+            "The witch takes some of your items and brews you a potion.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        lose_item(game_state, "apple");
+        lose_item(game_state, "ball of sap");
+        lose_item(game_state, "black mushroom");
+        get_item(game_state, "potion of transformation");
+        return game_state;
+    },
+
     "witch_says_no": function(game_state) {
         var messages = [
             "The witch says she doesn't owe you any favors.",

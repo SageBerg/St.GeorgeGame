@@ -254,7 +254,7 @@ function get_item_options(game_state, options) {
     }
 
     if (game_state.character.items["potion of transformation"] > 0) {
-        raffle.add(options.d, "Slurp down your potion of transformation.", 2);
+        raffle.add(options.d, "Slurp down your potion of transformation.", 4);
     }
 
     if (game_state.character.items["potion of love"] > 0 && 

@@ -156,26 +156,26 @@ exports.actions = {
     "Ask the witch to brew you a potion.": 
         function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "witch_says_no", 1);
-        /*
         if (game_state.character.items.apple > 0 &&
             game_state.character.items["ball of sap"] > 0 &&
             game_state.character.items["black mushroom"] > 0) {
             raffle.add(possible_outcomes, 
-                "witch_makes_potion_transformation", 1);
+                "witch_makes_potion_transformation", 10000);
         }
-        */
         if (game_state.character.items["ball of sap"] > 0 &&
             game_state.character.items["bouquet of flowers"] > 0 &&
             game_state.character.items["many-colored mushroom"] > 0) {
-            raffle.add(possible_outcomes, "witch_makes_potion_love", 1);
+            raffle.add(possible_outcomes, "witch_makes_potion_love", 10000);
         }
         if (game_state.character.items.cat > 0 &&
             game_state.character.items.pearl > 0) {
-            raffle.add(possible_outcomes, "witch_makes_potion_tail_growth", 1);
+            raffle.add(possible_outcomes, 
+                "witch_makes_potion_tail_growth", 10000);
         }
         if (game_state.character.items["deep-cave newt"] > 0 &&
             game_state.character.items["white mushroom"] > 0) {
-            raffle.add(possible_outcomes, "witch_makes_potion_strength", 1);
+            raffle.add(possible_outcomes, 
+                "witch_makes_potion_strength", 10000);
         }
         return possible_outcomes;
     },
