@@ -424,6 +424,7 @@ var outcomes = {
             "You feel attractive.",
             "You feel beautiful.",
             "You feel like a goddess.",
+            "You notice that one of them is slightly bigger than the other.",
             "You wonder if they have milk in them.",
             "Your bosoms look very good.",
         ];
@@ -5471,6 +5472,14 @@ var outcomes = {
         game_state.message = "You are picked up by Lord Arthur's pirate " +
             "ship.";
         move_character(game_state, "pirate_ship");
+        return game_state;
+    },
+
+    "rescued_by_lord_arthur_as_woman": function(game_state) {
+        game_state.message = "You are picked up by Lord Arthur's pirate " +
+            "ship. Since it's bad luck to have a woman on board a pirate " +
+            "ship, he takes you back to land.";
+        move_character(game_state, "docks");
         return game_state;
     },
 

@@ -1186,7 +1186,12 @@ exports.actions = {
         raffle.add(possible_outcomes, "keep_swimming", 2);
         raffle.add(possible_outcomes, "arrive_at_mermaid_rock", 1);
         if (game_state.persons.lord_arthur.alive === true) {
-            raffle.add(possible_outcomes, "rescued_by_lord_arthur", 1);
+            if (game_state.character.sex === "female") {
+                raffle.add(possible_outcomes, 
+                    "rescued_by_lord_arthur_as_woman", 6);
+            } else {
+                raffle.add(possible_outcomes, "rescued_by_lord_arthur", 1);
+            }
         }
         raffle.add(possible_outcomes, "swim_and_die", 2);
         return possible_outcomes;
