@@ -860,6 +860,56 @@ var outcomes = {
         return game_state;
     },
 
+    "bosoms_drunk": function(game_state) {
+        var messages = [
+            "The drunk man joins you in admiring you bosoms.",
+            "When you look back at the drunk man, you realize you weren't " +
+            "the only one admiring your bosoms.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
+    "bosoms_olga": function(game_state) {
+        var olga = game_state.persons.olga.name;
+        var messages = [
+            capitalize(olga) + " busies herself by admiring hers own.",
+            "\"It's hard not to look,\" " + olga + " says.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
+    "bosoms_st_george": function(game_state) {
+        var messages = [
+            "St. George notices you admiring your own bosoms and says you " +
+            "should not become too enamored of yourself.",
+            "St. George notices you admiring your own bosoms and warns you " +
+            "not to be arrogant.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
+    "bosoms_witch": function(game_state) {
+        var messages = [
+            "\"Believe it or not, I was once young and beautiful too,\" the " +
+            "witch says. \"Enjoy it while it lasts kid. The only good " +
+            "thing about being old is the magical powers.\"",
+            "\"Oh get over yourself!\" the witch snaps.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
+    "bosoms_wizard": function(game_state) {
+        var messages = [
+            "The wizard notices what you're doing and blushes bright red.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
     "breed_cats": function(game_state) {
         var kittens = 2 + functions.random_int(11);
         game_state.character.items.cat += kittens;

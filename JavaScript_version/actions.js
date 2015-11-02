@@ -36,6 +36,23 @@ exports.actions = {
 
     "Admire your own bosoms.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "admire_your_bosoms", 1);
+        switch (game_state.character.person) {
+            case "drunk":
+                raffle.add(possible_outcomes, "bosoms_drunk", 9);
+                break;
+            case "olga":
+                raffle.add(possible_outcomes, "bosoms_olga", 9);
+                break;
+            case "st_george":
+                raffle.add(possible_outcomes, "bosoms_st_george", 9);
+                break;
+            case "witch":
+                raffle.add(possible_outcomes, "bosoms_witch", 9);
+                break;
+            case "wizard":
+                raffle.add(possible_outcomes, "bosoms_wizard", 9);
+                break;
+        }
         return possible_outcomes;
     },
 
