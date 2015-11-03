@@ -6590,6 +6590,16 @@ var outcomes = {
         return game_state;
     },
 
+    "turn_to_woman": function(game_state) {
+        var messages = [
+            "The wizard interrupts your boasting by saying you are a " +
+            "tiresome man. He solves the problem by turning you into a woman.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        game_state.character.sex = "female";
+        return game_state;
+    },
+
     //u
     
     //v

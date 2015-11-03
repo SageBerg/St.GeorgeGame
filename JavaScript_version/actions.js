@@ -269,7 +269,8 @@ exports.actions = {
                 raffle.add(possible_outcomes, "boast_and_get_money", 1);
                 break;
             case "wizard":
-                raffle.add(possible_outcomes, "annoy_wizard", 3);
+                raffle.add(possible_outcomes, "annoy_wizard", 1);
+                raffle.add(possible_outcomes, "turn_to_woman", 1);
         }
         return possible_outcomes;
     },
