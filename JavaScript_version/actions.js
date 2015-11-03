@@ -270,7 +270,9 @@ exports.actions = {
                 break;
             case "wizard":
                 raffle.add(possible_outcomes, "annoy_wizard", 1);
-                raffle.add(possible_outcomes, "turn_to_woman", 1);
+                if (game_state.character.sex === "male") {
+                    raffle.add(possible_outcomes, "turn_to_woman", 1);
+                }
         }
         return possible_outcomes;
     },
@@ -626,6 +628,10 @@ exports.actions = {
 
         if (game_state.character.person === "mermaid") {
             raffle.add(possible_outcomes, "mermaid_likes_your_dance", 8);
+        }
+
+        if (game_state.character.person === "wizard") {
+            raffle.add(possible_outcomes, "turn_to_woman", 4);
         }
 
         if (game_state.character.person !== null) {
@@ -1856,6 +1862,9 @@ exports.actions = {
                 break;
             case "wizard":
                 raffle.add(possible_outcomes, "wizard_complains", 10);
+                if (game_state.character.sex === "male") {
+                    raffle.add(possible_outcomes, "turn_to_woman", 10);
+                }
                 break;
         }
 

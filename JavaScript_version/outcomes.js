@@ -5891,7 +5891,7 @@ var outcomes = {
     "steal_dragon_treasure": function(game_state) {
         var item = functions.random_choice([
             "bag of jewels", "fancy red cloak", "jeweled cutlass", "pearl", 
-            "pittance", "potion of love",
+            "pittance", "potion of love", "potion of transformation",
         ]);
         game_state.message = "You grab a " + item + " and make an epic " +
             "escape down the mountain.";
@@ -6592,8 +6592,9 @@ var outcomes = {
 
     "turn_to_woman": function(game_state) {
         var messages = [
-            "The wizard interrupts your boasting by saying you are a " +
-            "tiresome man. He solves the problem by turning you into a woman.",
+            "The wizard says you are a " +
+            functions.random_choice(["tedious", "tiresome",]) +
+            " man. He solves the problem by turning you into a woman.",
         ];
         game_state.message = functions.random_choice(messages);
         game_state.character.sex = "female";
