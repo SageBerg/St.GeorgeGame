@@ -971,6 +971,13 @@ exports.actions = {
         return possible_outcomes;
     },
   
+    "Give your apple to an orphan.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "give_apple_to_orphan", 2);
+        raffle.add(possible_outcomes, "give_apple_to_orphan_rebuffed", 1);
+        raffle.add(possible_outcomes, "give_apple_to_self", 1);
+        return possible_outcomes;
+    },
+
     "GIVE_FLOWERS": function(game_state, possible_outcomes) {
         switch (game_state.character.person) {
             case "eve":

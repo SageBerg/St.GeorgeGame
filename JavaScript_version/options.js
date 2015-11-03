@@ -870,6 +870,10 @@ function get_place_options(game_state, options) {
             break;
 
         case "streets":
+            if (game_state.character.items.apple > 0) {
+                raffle.add(options.a, "Give your apple to an orphan.", 4);
+            }
+            raffle.add(options.a, "Look for a cat.", 4);
             raffle.add(options.a, "Look for a cat.", 4);
             if (game_state.character.sex === "female") {
                 raffle.add(options.b, "Gawk at men.", 2);

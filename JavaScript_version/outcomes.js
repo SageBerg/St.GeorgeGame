@@ -3206,6 +3206,34 @@ var outcomes = {
         return game_state;
     },
 
+    "give_apple_to_orphan": function(game_state) {
+        var messages = [
+            "The orphan thanks you and runs off with the apple.",
+            "The orphan thanks you and splits the apple with seven other " +
+            "orphans.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        lose_item(game_state, "apple");
+        return game_state;
+    },
+
+    "give_apple_to_orphan_rebuffed": function(game_state) {
+        var messages = [
+            "\"I don't need your charity!\" the orphan yells. He " +
+            "spits on your shoes and runs away.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
+    "give_apple_to_self": function(game_state) {
+        var messages = [
+            "Since you're an orphan, you give the apple to yourself.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
     "give_cat_eve": function(game_state) {
         var messages = [
             "Lord Carlos' daughter kills the cat.",
