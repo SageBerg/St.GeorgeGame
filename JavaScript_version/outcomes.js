@@ -2176,6 +2176,39 @@ var outcomes = {
         return game_state;
     },
 
+    "eat_apple": function(game_state) {
+        game_state.message = functions.random_choice([
+            "You eat the apple, core and all.",
+            "You made a solid decision. The apple tastes great.",
+            "You're pretty sure there was a worm in the apple you just ate.",
+        ]);
+        lose_item(game_state, "apple");
+        return game_state;
+    },
+
+    "eat_apple_and_die": function(game_state) {
+        game_state.message = functions.random_choice([
+            "You choke on the apple and die.",
+        ]);
+        clover(game_state);
+        if (game_state.character.is_dead === false) {
+            lose_item(game_state, "apple");
+        }
+        return game_state;
+    },
+
+    "eat_apple_strength": function(game_state) {
+        game_state.message = functions.random_choice([
+            "The apple is so healthy it makes you grow stronger.",
+            "You feel " + 
+            functions.random_choice(["invigorated", "rejuvenated", 
+                                     "revitalized",]) +".",
+        ]);
+        lose_item(game_state, "apple");
+        game_state.character.strength += 1;
+        return game_state;
+    },
+
     "eat_fish_in_igloo": function(game_state) {
         game_state.message = "You survive in your igloo until winter by " +
             "eating your fish. The winter ice sheet allows you to get back " +

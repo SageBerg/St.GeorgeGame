@@ -175,6 +175,10 @@ function get_default_options(game_state, options) {
 
 function get_item_options(game_state, options) {
 
+    if (game_state.character.items.apple > 0) {
+        raffle.add(options.c, "Chow down on your apple.", 2);
+    }
+
     if (game_state.character.items["bag of jewels"] > 0) {
         raffle.add(options.a, "Admire your jewels.", 1);
     }
@@ -238,7 +242,7 @@ function get_item_options(game_state, options) {
 
     if (game_state.character.items.frog > 0 &&
         game_state.places[game_state.character.place].locked === false) {
-        raffle.add(options.b, "Kiss your frog.", 1);
+        raffle.add(options.b, "Kiss your frog.", 2);
     }
 
     if (game_state.character.items["many-colored mushroom"] > 0) {
@@ -282,7 +286,7 @@ function get_item_options(game_state, options) {
     }
 
     if (game_state.character.items["white mushroom"] > 0) {
-        raffle.add(options.c, "Chow down on your white mushroom.", 1);
+        raffle.add(options.c, "Chow down on your white mushroom.", 2);
     }
 
     if (game_state.character.items["yellow mushroom"] > 0) {
