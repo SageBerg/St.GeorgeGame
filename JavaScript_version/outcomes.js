@@ -1608,6 +1608,16 @@ var outcomes = {
         return game_state;
     },
 
+    "croak_not": function(game_state) {
+        var messages = [
+            "Lady frogs don't croak.",
+            "Since you're a lady frog, you don't croak.",
+            "You can't croak, only male frogs do that.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
     "crowd_hates_your_voice": function(game_state) {
         game_state.message = "The locals hate your voice and soon mob you.";
         clover(game_state);

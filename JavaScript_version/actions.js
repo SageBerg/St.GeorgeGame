@@ -559,8 +559,12 @@ exports.actions = {
     },
 
     "Croak.": function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "croak", 4);
-        raffle.add(possible_outcomes, "attract_lady_frog", 1);
+        if (game_state.character.sex === "female") {
+            raffle.add(possible_outcomes, "croak_not", 1);
+        } else {
+            raffle.add(possible_outcomes, "attract_lady_frog", 1);
+            raffle.add(possible_outcomes, "croak", 2);
+        }
         return possible_outcomes;
     },
 
