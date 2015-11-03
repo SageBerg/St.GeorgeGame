@@ -4360,7 +4360,6 @@ var outcomes = {
                 "You punch " + foe + " in the face, but " + foe + 
                 " escalates the situation by killing you.",
             ]);
-            console.log(messages);
         }
         game_state.message = functions.random_choice(messages);
         die(game_state);
