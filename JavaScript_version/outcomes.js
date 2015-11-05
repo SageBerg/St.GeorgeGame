@@ -848,7 +848,8 @@ var outcomes = {
     "blow_up_the_lab": function(game_state) {
         burn(game_state);
         var temp_message = " " + game_state.message;
-        game_state.message =  "One of the potions you smash blows up the lab.";
+        game_state.message =  "One of the potions you smash blows up the " +
+            "laboratory.";
         if (game_state.character.items["fancy red cloak"] < 1) {
             die(game_state);
         } else {
@@ -5451,7 +5452,7 @@ var outcomes = {
     "random_killed_by_wizard": function(game_state) {
         var messages = [
             "The potion has no effect, but when the wizard comes in to the " +
-            "lab, you feel compelled to flirt with him stroke his " +
+            "laboratory, you feel compelled to flirt with him stroke his " +
             "beard. He is revolted and incinerates you.",
         ];
         game_state.message = functions.random_choice(messages);
@@ -5478,10 +5479,10 @@ var outcomes = {
 
     "random_out_of_lab": function(game_state) {
         game_state.message = "The potion has no effect, but when the wizard " +
-            "comes in to the lab, you feel compelled to flirt with him " +
+            "comes in to the laboratory, you feel compelled to flirt with him " +
             "stroke his beard. He casts a spell on you to make you see him " +
             "for the horrible old man that he is and shoos you out of his " +
-            "lab.";
+            "laboratory.";
         move_character(game_state, "market");
         return game_state;
     },
@@ -6671,7 +6672,7 @@ var outcomes = {
         if (game_state.persons.wizard.alive === true &&
             game_state.character.items["fancy red cloak"] < 1) {
             messages.push("While you're wrecking stuff, the wizard runs " +
-                "into the lab and incinerates you.");
+                "into the laboratory and incinerates you.");
         }
         game_state.message = functions.random_choice(messages);
         die(game_state);

@@ -219,7 +219,7 @@ exports.places = {
         "burnable":  true,
         "links":     ["market"],
         "locked":    false,
-        "name":      "the wizard's lab",
+        "name":      "the wizard's laboratory",
         "outside":   false,
         "populated": false,
         "town":      false,
