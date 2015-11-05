@@ -871,21 +871,23 @@ exports.actions = {
     "FLIRT_WITH": function(game_state, possible_outcomes) {
         switch (game_state.character.person) {
             case "eve":
-                raffle.add(possible_outcomes, "wowed_eve", 8);
                 if (game_state.character.sex === "female") {
                     //raffle.add(possible_outcomes, "killed_by_eve_not", 1);
+                    raffle.add(possible_outcomes, "lesbian_flirt_with_eve", 1);
                 } else {
                     raffle.add(possible_outcomes, "killed_by_eve", 1);
-                }
-                if (game_state.outcome !== "right_name") {
-                    raffle.add(possible_outcomes, "eve_name", 1);
-                }
-                raffle.add(possible_outcomes, "eve_loses_you_in_woods", 1);
-                if (game_state.persons.eve.attracted >= 4) {
-                    raffle.add(possible_outcomes, "forced_to_marry_eve", 1000);
-                }
-                if (game_state.character.has_tail === true) {
-                    raffle.add(possible_outcomes, "tail_eve", 2);
+                    raffle.add(possible_outcomes, "wowed_eve", 8);
+                    raffle.add(possible_outcomes, "eve_loses_you_in_woods", 1);
+                    if (game_state.outcome !== "right_name") {
+                        raffle.add(possible_outcomes, "eve_name", 1);
+                    }
+                    if (game_state.persons.eve.attracted >= 4) {
+                        raffle.add(possible_outcomes,
+                            "forced_to_marry_eve", 1000);
+                    }
+                    if (game_state.character.has_tail === true) {
+                        raffle.add(possible_outcomes, "tail_eve", 2);
+                    }
                 }
                 break;
             case "mermaid":
@@ -935,21 +937,29 @@ exports.actions = {
     },
 
     "Flirt with Felicity.": function(game_state, possible_outcomes) {
-        if (game_state.persons.felicity.attracted > 5) { 
-            raffle.add(possible_outcomes, "felicity_loves_you", 1);
+        if (game_state.character.sex === "female") {
+            raffle.add(possible_outcomes, "lesbian_flirt_with_felicity", 1);
         } else {
-            raffle.add(possible_outcomes, "rebuffed_by_felicity", 1);
-            raffle.add(possible_outcomes, "wowed_felicity", 6);
+            if (game_state.persons.felicity.attracted > 5) { 
+                raffle.add(possible_outcomes, "felicity_loves_you", 1);
+            } else {
+                raffle.add(possible_outcomes, "rebuffed_by_felicity", 1);
+                raffle.add(possible_outcomes, "wowed_felicity", 6);
+            }
         }
         return possible_outcomes;
     },
 
     "Flirt with the fat lady who feeds you.": 
         function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "rebuffed_by_fat_lady", 2);
-        raffle.add(possible_outcomes, "wowed_fat_lady", 5);
-        if (game_state.character.person === "other_lunatics") {
-            raffle.add(possible_outcomes, "lunatics_jeer", 2);
+        if (game_state.character.sex === "female") {
+            raffle.add(possible_outcomes, "lesbian_flirt_with_felicity", 2);
+        } else {
+            raffle.add(possible_outcomes, "rebuffed_by_fat_lady", 2);
+            raffle.add(possible_outcomes, "wowed_fat_lady", 5);
+            if (game_state.character.person === "other_lunatics") {
+                raffle.add(possible_outcomes, "lunatics_jeer", 2);
+            }
         }
         return possible_outcomes;
     },

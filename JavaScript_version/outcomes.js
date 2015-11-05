@@ -4167,6 +4167,23 @@ var outcomes = {
         return game_state;
     },
 
+    "lesbian_flirt_with_eve": function(game_state) {
+        game_state.message = "Lord Carlos' daughter calls in an assassin " +
+            "and orders him to escort you out of the manor.";
+        move_character(game_state, "woods");
+        return game_state;
+    },
+
+    "lesbian_flirt_with_felicity": function(game_state) {
+        game_state.message = functions.random_choice([
+            "She is not pleased by your lesbian advances. She leaves in a " +
+            "huff.",
+            "She seems really embarrassed and leaves in a huff.",
+        ]);
+        game_state.persons.felicity.attracted = 0;
+        return game_state;
+    },
+
     "lick_ash": function(game_state) {
         var messages = [
             "You burn your tongue on an ember.",
