@@ -222,10 +222,18 @@ function get_ground(game_state) {
             return "docks";    
     }
     if (functions.get_place(game_state).outside === false) {
-        return "floor";    
-    } else {
-        return "ground";    
+        if (functions.get_place(game_state).burnable === false &&
+            (game_state.character.place === "church" ||
+             game_state.character.place === "lord_bartholomew_manor" ||
+             game_state.character.place === "lord_carlos_manor" ||
+             game_state.character.place === "tavern" ||
+             game_state.character.place === "tower" ||
+             game_state.character.place === "wizard_lab")) {
+            return "ground";
+        }
+        return "floor";
     }
+    return "ground";
 }
 
 function get_item(game_state, item) {

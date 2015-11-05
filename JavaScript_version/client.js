@@ -76,11 +76,20 @@ function get_ground(game_state) {
         case "docks":
             return "docks";    
     }
-    if (game_state.places[game_state.character.place].outside === false) {
-        return "floor";    
-    } else {
-        return "ground";    
+    if (functions.get_place(game_state).outside === false) {
+        if (functions.get_place(game_state).burnable === false &&
+            (game_state.character.place === "church" ||
+             game_state.character.place === "lord_bartholomew_manor" ||
+             game_state.character.place === "lord_carlos_manor" ||
+             game_state.character.place === "tavern" ||
+             game_state.character.place === "tower" ||
+             game_state.character.place === "wizard_lab")) {
+            console.log("can't lick burnt floor");
+            return "ground";
+        }
+        return "floor";
     }
+    return "ground";
 }
 
 function get_person_name(game_state) {
