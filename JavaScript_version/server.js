@@ -14,7 +14,7 @@ var validation  = require("./validation");
 
 var express     = require("express");
 var http        = require("http");
-var port        = 3000; // change back to 80 before pushing
+var port        = 80; // change to 80 before pushing
 var app         = express();
 var server;
 
