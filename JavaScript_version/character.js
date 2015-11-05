@@ -58,5 +58,15 @@ exports.character = {
     "person": "",
     "place": "tavern",
     "sex": "male",
+    "sins": 
+    {
+        "envy": 0,
+        "gluttony": 0,
+        "greed": 0,
+        "lust": 0,
+        "pride": 0,
+        "sloth": 0,
+        "wrath": 0,
+    },
     "strength": 0
 };
