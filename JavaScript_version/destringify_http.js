@@ -1,5 +1,5 @@
 "use strict";
-/*jslint vars: true, plusplus: true, devel: true, nomen: true*/ 
+/*jslint vars: true, plusplus: true, devel: true, nomen: true*/
 /*global define */
 
 exports.destringify = function destringify(game_state) {
@@ -7,10 +7,10 @@ exports.destringify = function destringify(game_state) {
     for (var attribute in game_state.character) {
         if (game_state.character[attribute] === "false") {
             game_state.character[attribute] = false;
-        } else if (game_state.character[attribute] === "true") {    
+        } else if (game_state.character[attribute] === "true") {
             game_state.character[attribute] = true;
         } else if (!isNaN(parseInt(game_state.character[attribute]))) {
-            game_state.character[attribute] = 
+            game_state.character[attribute] =
             parseInt(game_state.character[attribute]);
         }
     }
@@ -29,7 +29,7 @@ exports.destringify = function destringify(game_state) {
         if (game_state.persons[person].alive === "true") {
             game_state.persons[person].alive = true;
         } else {
-            game_state.persons[person].alive = false; 
+            game_state.persons[person].alive = false;
         }
 
         game_state.persons[person].attack =
@@ -38,7 +38,7 @@ exports.destringify = function destringify(game_state) {
         game_state.persons[person].attracted =
         parseInt(game_state.persons[person].attracted);
 
-    } 
+    }
 
     for (var place in game_state.places) {
 
@@ -79,7 +79,7 @@ exports.destringify = function destringify(game_state) {
         }
 
     }
-    
+
     return game_state;
 
 };

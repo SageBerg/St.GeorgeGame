@@ -1,28 +1,75 @@
-High priority:
+Technical:
     try to fix the mouseover problem for phones
     experiment with responsive views in boostrap
-    provide a loading indication so the user knows their command was sent
-    organize the game into directories
-
-Medium priority:
-    make items do more stuff
-        breed your deep newts
-        give her your seal carcass, she doesn't like your seal carcass
-        trade seal to wizard (tell him there's more where that came from)
-    make more outcomes for tavern options
-    make more outcomes for default options
-    make flirting less linear (lose track of Olga, think up poem for Felicity)
-    look for options that are too safe (like buying a weapon)
-    make the void more intesting
-    Add 'Let yourself eat cake.' and cake item
-    have God strike you down if you commit all seven deadly sins
-    add argue with the drunk man
-    have 'God tells you to burn stuff.' add weight to BURN
-    consolidate outcomes for 'Think.'
-    you shouldn't be able to lick a burnt floor
-
-Low priority:
-    use more constants and less hardcoding
     minify code
     look into gzipping code
+
+Content:
+    search for assignment when it should be an equality check
+
+    make tails do more
+    options in Lord Carlos' manor could use a little work
+    make more outcomes for tavern options
+    make more outcomes for default options
+    make flirting less linear (lose track of Olga, 
+                               require flowers, 
+                               think up poem for Felicity)
+    look for options that are too safe or don't have any good outcomes
+
+    make more outcome-influenced outcomes
+        the wizard could be mad at you
+        st_george could only give you money once
+    
+    don't allow you to buy weapons you already have
+
+    say you have no money if you make it rain
+    celebrate your success doesn't come up much
+    have priest actually be there in game, make sure he's alive
+    add argue with the drunk man
+    add hint that other hints that your name is Joseph
+    have the wizard teleport you places
+    add the gates of hell?
+
+    eat a little of a black mushroom and "turn into a ghost"
+        haunt people
+        float to the <place>
+        make ghost sounds
+        fly into the sky, fly into the ground
+        if you haunt the wizard, he takes your black mushroom
+        disappear (instread of run like the devil)
+        travel through the eather (instead of leave in a puff)
+    
+    gender changing potion
+        comb through actions.js (100%)
+        comb through options.js (0%)
+        comb through outcomes.js (0%)
+
+        search for gendered words like
+            man, wife, husband, woman, men, women, son, daughter
+        have any time you would have gotten killed by the assassins be noted
+        guards don't arrest you, they just gawk at you
+        lord Arthur is nicer to you (doesn't conscript you)
+        wizard is nicer (won't turn you into a frog)
+        change some turned into frog outcomes
+
+        tell the next person you meet that you're Lady Beatrice, Cass
+
+        deal with 'GIVE_FLOWERS'
+
+        gawk at women -> gawk at men
+            add nobelman
+        get a fancy dress and perfume to impress noble 
+        flirt with lord daniel, lord arthur
+        Love potion different lords, noble
+
+        update validaton to deal with new game_state traits
+
+    Add 'Let yourself eat cake.' and cake item
+    have God strike you down if you commit all seven deadly sins
+
+Style:
+    make the game object oriented
+    use more constants and less hardcoding
+    organize the game into directories
     spellcheck the game (once things settle down)
+    remove trailing whitespace

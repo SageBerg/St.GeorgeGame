@@ -1,5 +1,5 @@
 "use strict";
-/*jslint vars: true, plusplus: true, devel: true, nomen: true*/ 
+/*jslint vars: true, plusplus: true, devel: true, nomen: true*/
 /*global define */
 
 var game_state = {};
@@ -43,7 +43,7 @@ function b_execute() {
 function bind_keys() {
     document.onkeypress = function(event) {
         var ascii = event.which;
-        if ((ascii == 49 || ascii == 65 || ascii == 97) && 
+        if ((ascii == 49 || ascii == 65 || ascii == 97) &&
             USER_INPUT_ALLOWED) {
             a_execute();
         } else if ((ascii == 50 || ascii == 66 || ascii == 98) &&
@@ -72,12 +72,12 @@ function execute(letter) {
 function get_ground(game_state) {
     switch (game_state.character.place) {
         case "pirate_ship":
-            return "deck";    
+            return "deck";
         case "docks":
-            return "docks";    
+            return "docks";
     }
     if (functions.get_place(game_state).outside === false) {
-        if (functions.get_place(game_state).burnable === false &&
+        if (get_place(game_state).burnable === false &&
             (game_state.character.place === "church" ||
              game_state.character.place === "lord_bartholomew_manor" ||
              game_state.character.place === "lord_carlos_manor" ||
@@ -107,7 +107,7 @@ function handle_new_world(resp) {
         game_state = resp;
 
         if (game_state.character.is_dead) {
-            game_state.message += " You are dead."; 
+            game_state.message += " You are dead.";
         }
 
         set_message(game_state);
@@ -121,14 +121,14 @@ function handle_new_world(resp) {
         if (parseInt(game_state.score) === 0) {
         // we only need to bind the keys if this is the first frame of the game
         // and the player has a score of 0 at the first frame of the game
-        
+
         // I am binding the keys at the end of the handle_new_world function
         // to prevent the client from being able to make a bad server request
-        // before the server has given the client the initial game state 
+        // before the server has given the client the initial game state
             bind_keys();
         }
     }
-    USER_INPUT_ALLOWED = true; // re-allow user inputs now that we have a new 
+    USER_INPUT_ALLOWED = true; // re-allow user inputs now that we have a new
                                // game state
 }
 
@@ -147,7 +147,7 @@ function handle_world_error(game_state) {
 }
 
 function random_choice(array) {
-    return array[random_int(array.length)]; 
+    return array[random_int(array.length)];
 }
 
 function random_int(n) {
@@ -162,7 +162,7 @@ function request_outcome_of_action(action) {
     $("#message").text("...");
     game_state.action = action;
     USER_INPUT_ALLOWED = false;
-    $.get("request_outcome_of_action.json", 
+    $.get("request_outcome_of_action.json",
            game_state,
            handle_new_world);
 }
@@ -212,12 +212,12 @@ function set_a(game_state) {
             break;
 
         case "Go flower picking.":
-            set_alt_option_name("a", "Go flower picking.", 
+            set_alt_option_name("a", "Go flower picking.",
                                 "Go flower picking again.");
             break;
 
         case "LICK_THE_GROUND":
-            $("#a").text("a. Lick the " + get_ground(game_state) + "."); 
+            $("#a").text("a. Lick the " + get_ground(game_state) + ".");
             break;
 
         case "MARRY":
@@ -229,7 +229,7 @@ function set_a(game_state) {
             break;
 
         case "YELL_A_PIRATE_PHRASE":
-            $("#a").text("a. Yell, \"" + 
+            $("#a").text("a. Yell, \"" +
                 random_choice([
                     "Ahoy",
                     "All hands on deck",
@@ -266,7 +266,7 @@ function set_b(game_state) {
 
         case "BUY_ITEM":
             var item = game_state.for_sell;
-            $("#b").text("b. Buy " + 
+            $("#b").text("b. Buy " +
                 a_or_an(item[0]) + " " + item + ".");
             break;
 
@@ -284,17 +284,17 @@ function set_b(game_state) {
             break;
 
         case "LOVE_POTION":
-            $("#b").text("b. Use your love potion on " + 
+            $("#b").text("b. Use your love potion on " +
                 get_person_name(game_state) + ".");
             break;
 
         case "Pray to a higher power.":
-            set_alt_option_name("b", "Pray to a higher power.", 
+            set_alt_option_name("b", "Pray to a higher power.",
                                 "Continue praying.");
             break;
 
         case "SHOW_COIN":
-            $("#b").text("b. Show " + get_person_name(game_state) + 
+            $("#b").text("b. Show " + get_person_name(game_state) +
                 " your shiny foreign coin.");
             break;
 
@@ -318,10 +318,10 @@ function set_c(game_state) {
             case "GO_TO":
                 var dest = game_state.destination;
                 if (game_state.character.items.donkey > 0) {
-                    $("#c").text("c. Ride your donkey to " + 
+                    $("#c").text("c. Ride your donkey to " +
                         game_state.places[dest].name + ".");
                 } else {
-                    $("#c").text("c. Go to " + game_state.places[dest].name + 
+                    $("#c").text("c. Go to " + game_state.places[dest].name +
                         ".");
                 }
                 break;
@@ -337,10 +337,10 @@ function set_c(game_state) {
 function set_d(game_state) {
     if (game_state.options.d !== "") {
         switch (game_state.options.d) {
-            case "BUY_WEAPON": 
+            case "BUY_WEAPON":
                 var weapon = game_state.for_sell;
-                $("#d").text("d. Buy " + 
-                    a_or_an(weapons_map[weapon][0]) + " " + 
+                $("#d").text("d. Buy " +
+                    a_or_an(weapons_map[weapon][0]) + " " +
                     weapons_map[weapon] + ".");
                 break;
 
@@ -349,7 +349,7 @@ function set_d(game_state) {
                 break;
 
             case "FLIRT_WITH":
-                $("#d").text("d. Flirt with " + 
+                $("#d").text("d. Flirt with " +
                     get_person_name(game_state) + ".");
                 break;
 

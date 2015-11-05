@@ -1,9 +1,9 @@
 "use strict";
-/*jslint vars: true, plusplus: true, devel: true, nomen: true*/ 
+/*jslint vars: true, plusplus: true, devel: true, nomen: true*/
 /*global define */
 
 exports.places = {
-    "arctic": 
+    "arctic":
     {
         "burnable":  false,
         "links":     [],
@@ -14,7 +14,7 @@ exports.places = {
         "town":      false,
         "trashable": false,
     },
-    "cave": 
+    "cave":
     {
         "burnable":  false,
         "links":     [],
@@ -25,7 +25,7 @@ exports.places = {
         "town":      false,
         "trashable": false,
     },
-    "church": 
+    "church":
     {
         "burnable":  true,
         "links":     ["market", "streets"],
@@ -36,7 +36,7 @@ exports.places = {
         "town":      true,
         "trashable": false,
     },
-    "countryside": 
+    "countryside":
     {
         "burnable":  false,
         "links":     ["lord_bartholomew_manor", "streets", "woods"],
@@ -47,7 +47,7 @@ exports.places = {
         "town":      false,
         "trashable": false,
     },
-    "dark_alley": 
+    "dark_alley":
     {
         "burnable":  false,
         "links":     ["streets", "tavern"],
@@ -58,7 +58,7 @@ exports.places = {
         "town":      true,
         "trashable": false,
     },
-    "docks": 
+    "docks":
     {
         "burnable":  false,
         "links":     ["market", "streets", "woods"],
@@ -69,7 +69,7 @@ exports.places = {
         "town":      true,
         "trashable": false,
     },
-    "lord_bartholomew_manor": 
+    "lord_bartholomew_manor":
     {
         "burnable":  true,
         "links":     ["countryside"],
@@ -80,7 +80,7 @@ exports.places = {
         "town":      false,
         "trashable": false,
     },
-    "lord_carlos_manor": 
+    "lord_carlos_manor":
     {
         "burnable":  true,
         "links":     ["woods"],
@@ -91,10 +91,10 @@ exports.places = {
         "town":      false,
         "trashable": true,
     },
-    "market": 
+    "market":
     {
         "burnable":  true,
-        "links":     ["church", "countryside", "streets", "docks", 
+        "links":     ["church", "countryside", "streets", "docks",
                       "wizard_lab"],
         "locked":    false,
         "name":      "the market",
@@ -114,7 +114,7 @@ exports.places = {
         "town":      false,
         "trashable": false,
     },
-    "ocean": 
+    "ocean":
     {
         "burnable":  false,
         "links":     [],
@@ -125,7 +125,7 @@ exports.places = {
         "town":      false,
         "trashable": false,
     },
-    "pirate_ship": 
+    "pirate_ship":
     {
         "burnable":  false,
         "links":     [],
@@ -136,7 +136,7 @@ exports.places = {
         "town":      false,
         "trashable": false,
     },
-    "prison": 
+    "prison":
     {
         "burnable":  false,
         "links":     [],
@@ -161,7 +161,7 @@ exports.places = {
     "streets":
     {
         "burnable":  false,
-        "links":     ["church", "countryside", "dark_alley", "market", 
+        "links":     ["church", "countryside", "dark_alley", "market",
                       "tavern", "tower"],
         "locked":    false,
         "name":      "the streets",
@@ -203,7 +203,7 @@ exports.places = {
         "town":      false,
         "trashable": true,
     },
-    "void": 
+    "void":
     {
         "burnable":  false,
         "links":     [],
@@ -214,7 +214,7 @@ exports.places = {
         "town":      false,
         "trashable": false,
     },
-    "wizard_lab": 
+    "wizard_lab":
     {
         "burnable":  true,
         "links":     ["market"],
@@ -225,7 +225,7 @@ exports.places = {
         "town":      false,
         "trashable": true,
     },
-    "woods": 
+    "woods":
     {
         "burnable":  true,
         "links":     ["countryside", "lord_carlos_manor"],
@@ -233,7 +233,7 @@ exports.places = {
         "name":      "the woods",
         "outside":   true,
         "populated": false,
-        "town":      false, 
+        "town":      false,
         "trashable": false,
     },
 };

@@ -1,5 +1,5 @@
 "use strict";
-/*jslint vars: true, plusplus: true, devel: true, nomen: true*/ 
+/*jslint vars: true, plusplus: true, devel: true, nomen: true*/
 /*global define */
 
 exports.character = {
@@ -15,7 +15,7 @@ exports.character = {
     "is_shrub": false,
     "is_threatened": false,
     "is_tripping": false,
-    "items": 
+    "items":
     {
         "dagger": 0,
         "cutlass": 0,

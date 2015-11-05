@@ -1,5 +1,5 @@
 "use strict";
-/*jslint vars: true, plusplus: true, devel: true, nomen: true*/ 
+/*jslint vars: true, plusplus: true, devel: true, nomen: true*/
 /*global define */
 
 exports.MARKET_ITEMS = [
@@ -15,36 +15,36 @@ exports.money_map = {
 
 exports.weapons_map = {
     "pitchfork": {
-        "name": "pitchfork", 
-        "attack": 1, 
+        "name": "pitchfork",
+        "attack": 1,
         "cost": "pittance"
     },
     "dagger": {
-        "name": "dagger", 
-        "attack": 2, 
+        "name": "dagger",
+        "attack": 2,
         "cost": "pittance"
     },
     "cutlass": {
-        "name": "cutlass", 
-        "attack": 3, 
+        "name": "cutlass",
+        "attack": 3,
         "cost": "pittance"
     },
-    "hammer": { 
-        "name": "hammer", 
-        "attack": 4, 
+    "hammer": {
+        "name": "hammer",
+        "attack": 4,
         "cost": "pittance"
     },
     "long_pitchfork": {
-        "name": "long pitchfork", 
-        "attack": 5, 
+        "name": "long pitchfork",
+        "attack": 5,
         "cost": "pittance"
     },
     "poison_dagger": {
-        "name": "poison dagger", 
-        "attack": 6, 
+        "name": "poison dagger",
+        "attack": 6,
         "cost": "small_fortune"
     },
-    "jeweled_cutlass": { 
+    "jeweled_cutlass": {
         "name": "jeweled cutlass",
         "attack": 7,
         "cost": "large_fortune"

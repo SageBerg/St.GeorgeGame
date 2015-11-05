@@ -1,5 +1,5 @@
 "use strict";
-/*jslint vars: true, plusplus: true, devel: true, nomen: true*/ 
+/*jslint vars: true, plusplus: true, devel: true, nomen: true*/
 /*global define */
 
 exports.persons = {
@@ -10,7 +10,7 @@ exports.persons = {
         "attracted": 0,
         "name": "the assassin",
         "preferred_attack": "assassinate",
-        "type": "female", 
+        "type": "female",
     },
     "assassins":
     {
@@ -19,7 +19,7 @@ exports.persons = {
         "attracted": 0,
         "name": "the assassins",
         "preferred_attack": "assassinate",
-        "type": "group", 
+        "type": "group",
     },
     "blind_bartender":
     {
@@ -28,7 +28,7 @@ exports.persons = {
         "attracted": 0,
         "name": "the blind bartender",
         "preferred_attack": "kill",
-        "type": "male", 
+        "type": "male",
     },
     "dragon_blue":
     {
@@ -37,7 +37,7 @@ exports.persons = {
         "attracted": 0,
         "name": "the blue dragon",
         "preferred_attack": "kill",
-        "type": "female", 
+        "type": "female",
     },
     "dragon_red":
     {
@@ -46,7 +46,7 @@ exports.persons = {
         "attracted": 0,
         "name": "the red dragon",
         "preferred_attack": "kill",
-        "type": "male", 
+        "type": "male",
     },
     "drunk":
     {
@@ -64,7 +64,7 @@ exports.persons = {
         "attracted": 0,
         "name": "the stray dog",
         "preferred_attack": "kill",
-        "type": "female", 
+        "type": "female",
     },
     "eve":
     {
@@ -73,7 +73,7 @@ exports.persons = {
         "attracted": 1,
         "name": "Lord Carlos' daughter",
         "preferred_attack": "assassinate",
-        "type": "female", 
+        "type": "female",
     },
     "felicity":
     {
@@ -82,7 +82,7 @@ exports.persons = {
         "attracted": 1,
         "name": "the fat lady",
         "preferred_attack": "kill",
-        "type": "female", 
+        "type": "female",
     },
     "guards":
     {
@@ -91,7 +91,7 @@ exports.persons = {
         "attracted": 0,
         "name": "the guards",
         "preferred_attack": "arrest",
-        "type": "group", 
+        "type": "group",
     },
     "lord_arthur":
     {
@@ -100,7 +100,7 @@ exports.persons = {
         "attracted": 0,
         "name": "Lord Arthur",
         "preferred_attack": "walk_the_plank",
-        "type": "male", 
+        "type": "male",
     },
     "lord_bartholomew":
     {
@@ -109,7 +109,7 @@ exports.persons = {
         "attracted": 0,
         "name": "Lord Bartholomew",
         "preferred_attack": "kill",
-        "type": "male", 
+        "type": "male",
     },
     "lord_carlos":
     {
@@ -118,7 +118,7 @@ exports.persons = {
         "attracted": 0,
         "name": "Lord Carlos",
         "preferred_attack": "assassinate",
-        "type": "male", 
+        "type": "male",
     },
     "lord_daniel":
     {
@@ -136,7 +136,7 @@ exports.persons = {
         "attracted": 1,
         "name": "the mermaid",
         "preferred_attack": "drown",
-        "type": "female", 
+        "type": "female",
     },
     "mob":
     {
@@ -145,7 +145,7 @@ exports.persons = {
         "attracted": 0,
         "name": "the angry mob",
         "preferred_attack": "burn",
-        "type": "male", 
+        "type": "male",
     },
     "nymph_queen":
     {
@@ -154,7 +154,7 @@ exports.persons = {
         "attracted": 1,
         "name": "the nymph queen",
         "preferred_attack": "hex",
-        "type": "female", 
+        "type": "female",
     },
     "olga":
     {
@@ -163,7 +163,7 @@ exports.persons = {
         "attracted": 1,
         "name": "the pretty lady",
         "preferred_attack": "kill",
-        "type": "female", 
+        "type": "female",
     },
     "other_lunatics":
     {
@@ -172,7 +172,7 @@ exports.persons = {
         "attracted": 0,
         "name": "the other lunatics",
         "preferred_attack": "kill",
-        "type": "group", 
+        "type": "group",
     },
     "peasant_lass":
     {
@@ -181,7 +181,7 @@ exports.persons = {
         "attracted": 0,
         "name": "the peasant lass",
         "preferred_attack": "kill",
-        "type": "female", 
+        "type": "female",
     },
     "pirates":
     {
@@ -190,7 +190,7 @@ exports.persons = {
         "attracted": 0,
         "name": "the pirates",
         "preferred_attack": "kill",
-        "type": "group", 
+        "type": "group",
     },
     "priestess":
     {
@@ -199,7 +199,7 @@ exports.persons = {
         "attracted": 0,
         "name": "the priestess",
         "preferred_attack": "kill",
-        "type": "female", 
+        "type": "female",
     },
     "simple_peasant":
     {
@@ -208,7 +208,7 @@ exports.persons = {
         "attracted": 0,
         "name": "the simple peasant",
         "preferred_attack": "kill",
-        "type": "male", 
+        "type": "male",
     },
     "st_george":
     {
@@ -217,7 +217,7 @@ exports.persons = {
         "attracted": 0,
         "name": "St. George",
         "preferred_attack": "smite",
-        "type": "male", 
+        "type": "male",
     },
     "war_merchant":
     {
@@ -226,7 +226,7 @@ exports.persons = {
         "attracted": 0,
         "name": "the wealthy war merchant",
         "preferred_attack": "kill",
-        "type": "male", 
+        "type": "male",
     },
     "witch":
     {
@@ -235,7 +235,7 @@ exports.persons = {
         "attracted": 0,
         "name": "the witch",
         "preferred_attack": "frog",
-        "type": "female", 
+        "type": "female",
     },
     "wizard":
     {
@@ -244,6 +244,6 @@ exports.persons = {
         "attracted": 0,
         "name": "the wizard",
         "preferred_attack": "frog",
-        "type": "male", 
+        "type": "male",
     },
 };

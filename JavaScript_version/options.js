@@ -1,5 +1,5 @@
 "use strict";
-/*jslint vars: true, plusplus: true, devel: true, nomen: true*/ 
+/*jslint vars: true, plusplus: true, devel: true, nomen: true*/
 /*global define */
 
 var functions = require("./functions");
@@ -72,13 +72,13 @@ exports.get_options = function get_options(game_state) {
             functions.random_int(lords_messages.length)
         ];
         set_game_over_options(options);
-    } else if (Math.floor(Math.random() * 250) === 0 && 
+    } else if (Math.floor(Math.random() * 250) === 0 &&
                game_state.places[
                    game_state.character.place
                ].burnable === true) {
         set_pyro_options(options);
     } else {
-        
+
         get_character_options(game_state, options);
         get_default_options(game_state, options);
         get_item_options(game_state, options);
@@ -126,7 +126,7 @@ function burned_everything_victory(game_state) {
     }
     game_state.score = parseInt(game_state.score) + 100;
     return true;
-} 
+}
 
 function get_character_options(game_state, options) {
 
@@ -198,7 +198,7 @@ function get_item_options(game_state, options) {
         raffle.add(options.c, "Chow down on your black mushroom.", 1);
     }
 
-    if (game_state.character.items["bouquet of flowers"] > 0 && 
+    if (game_state.character.items["bouquet of flowers"] > 0 &&
         (game_state.character.person === "eve" ||
          game_state.character.person === "mermaid" ||
          game_state.character.person === "nymph_queen" ||
@@ -261,7 +261,7 @@ function get_item_options(game_state, options) {
         raffle.add(options.d, "Slurp down your potion of transformation.", 4);
     }
 
-    if (game_state.character.items["potion of love"] > 0 && 
+    if (game_state.character.items["potion of love"] > 0 &&
         (game_state.character.person === "eve" ||
         game_state.character.person === "mermaid" ||
         game_state.character.person === "olga" ||
@@ -339,31 +339,31 @@ function get_person_options(game_state, options) {
             raffle.add(options.a, "Ask for asylum.", 10);
             raffle.add(options.b, "SUCK_UP", 10);
             raffle.add(options.c, "Chat with Lord Bartholomew.", 10);
-            raffle.add(options.d, 
+            raffle.add(options.d,
                 "Challenge Lord Bartholomew to a game of chess.", 10);
             break;
 
         case "lord_carlos":
-            if (game_state.character.money === "large_fortune" && 
+            if (game_state.character.money === "large_fortune" &&
                 game_state.character.money === "small_fortune") {
                 raffle.add(options.a, "Repay your debts.", 10);
             }
             raffle.add(options.b, "SUCK_UP", 5);
             raffle.add(options.b, "Grovel.", 10);
-            raffle.add(options.c,  
+            raffle.add(options.c,
                 "Challenge Lord Carlos to a game of chess.", 15);
-            raffle.add(options.d, 
+            raffle.add(options.d,
                 "Make it hard for Lord Carlos to kill you.", 15);
             break;
 
         case "lord_daniel":
             raffle.add(options.b, "SUCK_UP", 10);
-            raffle.add(options.c, 
+            raffle.add(options.c,
                 "Complain about unfair imprisonment policies.", 10);
             break;
 
         case "mermaid":
-            raffle.add(options.c, 
+            raffle.add(options.c,
                 "Ask the mermaid to take you back to land.", 15);
             raffle.add(options.d, "FLIRT_WITH", 100);
             break;
@@ -378,7 +378,7 @@ function get_person_options(game_state, options) {
             break;
 
         case "pirates":
-            raffle.add(options.c, 
+            raffle.add(options.c,
                 "Challenge the pirates to a game of chess.", 10);
             break;
 
@@ -388,7 +388,7 @@ function get_person_options(game_state, options) {
             break;
 
         case "war_merchant":
-            var weapons = ["cutlass", "dagger", "hammer", "iron_hammer", 
+            var weapons = ["cutlass", "dagger", "hammer", "iron_hammer",
                            "jeweled_cutlass", "long_pitchfork", "pitchfork",
                            "poison_dagger", ];
             var weapon = functions.random_choice(weapons);
@@ -449,7 +449,7 @@ function get_outcome_options(game_state, options) {
         case "wealthy_people_sneer":
         case "wizard_leaves_without_you":
             raffle.add(options.a, "Kill yourself in frustration.", 1);
-            if (game_state.places[game_state.character.place].locked === 
+            if (game_state.places[game_state.character.place].locked ===
                 false) {
                 raffle.add(options.c, "Leave in a huff.", 2);
             }
@@ -517,22 +517,22 @@ function get_outcome_options(game_state, options) {
         case "peasants_laugh_at_you":
             raffle.add(options.a, "Kill everybody in a fit of rage.", 1);
             break;
-  
+
         case "dragon_coin_trade":
-            raffle.add(options.a, "Trade it for a fancy paladin sword.", 
+            raffle.add(options.a, "Trade it for a fancy paladin sword.",
                 10000);
             raffle.add(options.b, "Trade it for a potion of love.", 10000);
             if (game_state.persons.lord_carlos.alive === true &&
                 game_state.places.lord_carlos_manor.burnable === true) {
                 raffle.add(options.c, "Ask the blue dragon to kill Lord " +
                     "Carlos.", 10000);
-            } 
+            }
             raffle.add(options.d, "Trade it for a large fortune.", 10000);
             break;
-  
+
         case "fail_to_save_cat":
             raffle.add(options.a, "Kill yourself in frustration.", 2);
-            raffle.add(options.d, 
+            raffle.add(options.d,
                 "Look up into the sky and yell, \"NOOOOOOOOOOOOO!\"", 100);
             break;
 
@@ -586,11 +586,11 @@ function get_outcome_options(game_state, options) {
         case "hide":
             raffle.add(options.c, "GO_TO", 10000);
             break;
-  
+
         case "hit_assassin_with_cat":
             raffle.add(options.a, "Tell her you're sorry.", 100);
             break;
-  
+
         case "keep_swimming":
             raffle.add(options.c, "Just keep swimming.", 10000);
             break;
@@ -599,8 +599,8 @@ function get_outcome_options(game_state, options) {
             raffle.add(options.a, "A3.", 10000);
             raffle.add(options.b, "Nf3.", 10000);
             raffle.add(options.c, "E4.", 10000);
-            raffle.add(options.d, 
-                "Play poorly and turn the board around once you're losing.", 
+            raffle.add(options.d,
+                "Play poorly and turn the board around once you're losing.",
                 10000);
             break;
 
@@ -626,7 +626,7 @@ function get_outcome_options(game_state, options) {
 
         case "newt_race":
             if (game_state.character.items["deep-cave newt"] > 0) {
-                raffle.add(options.a, "Enter your deep-cave newt in the race.", 
+                raffle.add(options.a, "Enter your deep-cave newt in the race.",
                     10000);
             }
             break;
@@ -637,11 +637,11 @@ function get_outcome_options(game_state, options) {
             break;
 
         case "notice_pattern":
-            raffle.add(options.a, 
+            raffle.add(options.a,
                 "Laugh about the warden doing it alone on holidays.", 10000);
-            raffle.add(options.b, 
+            raffle.add(options.b,
                 "Try to snatch the keys the first chance you get.", 10000);
-            raffle.add(options.d, 
+            raffle.add(options.d,
                 "Wait for a holiday to make your move.", 10000);
             break;
 
@@ -713,9 +713,9 @@ function get_place_options(game_state, options) {
             if (functions.get_place(game_state).burnable === true) {
                 if (game_state.character.person === null) {
                     raffle.add(options.a, "Tell a priest he's fat.", 2);
-                    raffle.add(options.a, 
+                    raffle.add(options.a,
                         "Tell a priest God doesn't exist.", 2);
-                    raffle.add(options.a, 
+                    raffle.add(options.a,
                         "Tell a priest you're the chosen one.", 2);
                 }
                 if (items.money_map[game_state.character.money].value > 0) {
@@ -758,9 +758,9 @@ function get_place_options(game_state, options) {
                     raffle.add(options.b, "Tell the next person you meet " +
                             "that you're St. George.", 1);
                 }
-                if (game_state.persons.lord_bartholomew.alive === true && 
+                if (game_state.persons.lord_bartholomew.alive === true &&
                     game_state.character.person !== "lord_bartholomew") {
-                    raffle.add(options.a, 
+                    raffle.add(options.a,
                         "Ask for an audience with Lord Bartholomew.", 4);
                 }
                 raffle.add(options.d, "Sneak around.", 4);
@@ -803,7 +803,7 @@ function get_place_options(game_state, options) {
                     game_state.persons.war_merchant.alive === true) {
                     raffle.add(options.a, "Look for a weapon.", 10);
                 }
-                if (game_state.persons.wizard.alive === true && 
+                if (game_state.persons.wizard.alive === true &&
                     game_state.character.person !== "wizard") {
                     raffle.add(options.b, "Look for the wizard.", 1);
                 }
@@ -847,7 +847,7 @@ function get_place_options(game_state, options) {
                 game_state.outcome !== "merchant_ship_nest" &&
                 game_state.outcome !== "watch_duty") {
                 raffle.add(options.c, "Climb into the crow's nest.", 8);
-            } 
+            }
             raffle.add(options.d, "Drop anchor.", 7);
             break;
 
@@ -856,7 +856,7 @@ function get_place_options(game_state, options) {
             raffle.add(options.c, "Pace around.", 20);
             if (game_state.persons.felicity.attracted > 0) {
                 if (game_state.persons.felicity.name === "the fat lady") {
-                    raffle.add(options.d, 
+                    raffle.add(options.d,
                         "Flirt with the fat lady who feeds you.", 10);
                 } else {
                     raffle.add(options.d, "Flirt with Felicity.",10);
@@ -885,7 +885,7 @@ function get_place_options(game_state, options) {
                 raffle.add(options.b, "Gawk at women.", 2);
             }
             raffle.add(options.c, "GO_TO", 2);
-            if (game_state.character.person !== "st_george" && 
+            if (game_state.character.person !== "st_george" &&
                 game_state.persons.st_george.alive === true) {
                 raffle.add(options.d, "Look for St. George.", 2);
             }
@@ -919,12 +919,12 @@ function get_place_options(game_state, options) {
                     raffle.add(options.b, "Tell the next person you meet " +
                             "that you're St. George.", 1);
                 }
-                if (game_state.persons.lord_daniel.alive === true && 
+                if (game_state.persons.lord_daniel.alive === true &&
                     game_state.character.person !== "lord_daniel") {
-                    raffle.add(options.a, 
+                    raffle.add(options.a,
                         "Ask for an audience with Lord Daniel.", 4);
                 }
-                raffle.add(options.c, 
+                raffle.add(options.c,
                     "Complain about unfair imprisonment policies.", 4);
                 raffle.add(options.d, "Train with the guards.", 8);
             }
@@ -967,15 +967,15 @@ function get_place_options(game_state, options) {
 
 function lords_victory(game_state) {
 
-    if (game_state.persons.lord_arthur.alive === false && 
-        game_state.persons.lord_bartholomew.alive === false && 
-        game_state.persons.lord_carlos.alive === false && 
+    if (game_state.persons.lord_arthur.alive === false &&
+        game_state.persons.lord_bartholomew.alive === false &&
+        game_state.persons.lord_carlos.alive === false &&
         game_state.persons.lord_daniel.alive === false) {
         game_state.score = parseInt(game_state.score) + 100;
         return true;
     }
     return false;
-} 
+}
 
 function marriage_victory(game_state) {
 
@@ -988,7 +988,7 @@ function marriage_victory(game_state) {
 
 function set_destination(game_state, option) {
     if (option === "GO_TO" || option === "Wander the countryside.") {
-        game_state.destination = 
+        game_state.destination =
             functions.get_random_adjacent_destination(game_state);
     }
 

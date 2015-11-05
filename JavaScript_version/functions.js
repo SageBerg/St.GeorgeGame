@@ -1,7 +1,7 @@
 "use strict";
-/*jslint vars: true, plusplus: true, devel: true, nomen: true*/ 
+/*jslint vars: true, plusplus: true, devel: true, nomen: true*/
 /*global define */
- 
+
 exports.a_or_an = function a_or_an(next_letter) {
     if (next_letter === "a" ||
         next_letter === "e" ||
@@ -46,7 +46,7 @@ exports.get_random_adjacent_destination =
 };
 
 exports.random_choice = function random_choice(array) {
-    return array[exports.random_int(array.length)]; 
+    return array[exports.random_int(array.length)];
 };
 
 exports.random_int = function random_int(n) {
@@ -54,8 +54,8 @@ exports.random_int = function random_int(n) {
 };
 
 exports.stop_tripping = function stop_tripping(game_state) {
-    if (game_state.character.is_tripping && 
+    if (game_state.character.is_tripping &&
         Math.floor(Math.random() * 8) === 0) {
-        game_state.character.is_tripping = false; 
+        game_state.character.is_tripping = false;
     }
 }

@@ -1,5 +1,5 @@
 "use strict";
-/*jslint vars: true, plusplus: true, devel: true, nomen: true*/ 
+/*jslint vars: true, plusplus: true, devel: true, nomen: true*/
 /*global define */
 
 var actions     = require("./actions").actions;
@@ -14,12 +14,12 @@ var validation  = require("./validation");
 
 var express     = require("express");
 var http        = require("http");
-var port        = 80;
+var port        = 3000; // change back to 80 before pushing
 var app         = express();
 var server;
 
 app.get("/request_initial_world.json", respond_with_initial_world);
-app.get("/request_outcome_of_action.json", respond_with_outcome); 
+app.get("/request_outcome_of_action.json", respond_with_outcome);
 app.use(express.static(__dirname));
 
 server = http.createServer(app);
@@ -44,7 +44,7 @@ function respond_with_initial_world(req, res) {
 
 function respond_with_outcome(req, res) {
     try {
-        if (validation.validate(req.query) === true) { 
+        if (validation.validate(req.query) === true) {
             var game_state     = req.query;
             console.log(game_state.action); // stopgap until I set up more
             console.log(new Date());        // sophisticated logging

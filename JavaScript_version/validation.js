@@ -1,5 +1,5 @@
 "use strict";
-/*jslint vars: true, plusplus: true, devel: true, nomen: true*/ 
+/*jslint vars: true, plusplus: true, devel: true, nomen: true*/
 /*global define */
 
 var actions     = require("./actions").actions;
@@ -12,10 +12,10 @@ var places      = require("./places").places;
 exports.validate = function validate(game_state) {
     var conditions = [
         typeof(game_state) === "object",
-        
+
         typeof(game_state.destination) === "string" &&
         (game_state.destination === "" ||
-         typeof(places[game_state.destination]) === "object"), 
+         typeof(places[game_state.destination]) === "object"),
 
         typeof(game_state.for_sell) === "string",
 
@@ -24,7 +24,7 @@ exports.validate = function validate(game_state) {
         typeof(game_state.outcome) === "string" &&
         (game_state.outcome === "" ||
          typeof(outcomes.outcomes[game_state.outcome]) === "function"),
-        
+
         validate_character(game_state),
         validate_options(game_state),
         validate_persons(game_state),
@@ -118,30 +118,30 @@ function validate_character(game_state) {
 function validate_options(game_state) {
     if (typeof(game_state.options) !== "object") {
         console.log("options is not an object");
-        return false;    
+        return false;
     } else if (typeof(actions[game_state.options.a]) !== "function") {
-        console.log("option a:", game_state.options.a, 
+        console.log("option a:", game_state.options.a,
             "does not map to a function");
-        return false;    
+        return false;
     } else if (typeof(actions[game_state.options.b]) !== "function") {
         console.log("option b does not map to a function");
-        return false;    
+        return false;
     } else if (Object.keys(game_state.options).length !==
                Object.keys(options.starting_options).length) {
         console.log("wrong amount of options");
-        return false;    
+        return false;
     } else if (typeof(actions[game_state.options.c]) !== "function" &&
                game_state.options.c !== "") {
         console.log("problem with option c");
-        return false;    
+        return false;
     } else if (typeof(actions[game_state.options.d]) !== "function" &&
                game_state.options.d !== "") {
         console.log("problem with option d");
-        return false;    
+        return false;
     } else if (typeof(actions[game_state.options.e]) !== "function" &&
                game_state.options.e !== "") {
         console.log("problem with option e");
-        return false;    
+        return false;
     }
     return true;
 }
@@ -154,7 +154,7 @@ function validate_persons(game_state) {
 
     var input_persons = Object.keys(game_state.persons);
     var default_persons    = Object.keys(persons);
-    var person_traits   = ["alive", "attack", "attracted", "name", 
+    var person_traits   = ["alive", "attack", "attracted", "name",
                            "preferred_attack", "type"];
     var input_trait;
     var default_trait;
@@ -172,17 +172,17 @@ function validate_persons(game_state) {
         }
 
         for (var j = 0; j < person_traits.length; j++) {
-            input_trait = 
+            input_trait =
                 game_state.persons[input_persons[i]][person_traits[j]];
             default_trait = persons[default_persons[i]][person_traits[j]];
-            if ((person_traits[j] === "alive" && 
-                 input_trait !== "false" && 
+            if ((person_traits[j] === "alive" &&
+                 input_trait !== "false" &&
                  input_trait !== "true") ||
-                (person_traits[j] === "attack" && 
+                (person_traits[j] === "attack" &&
                  isNaN(parseInt(input_trait))) ||
-                (person_traits[j] === "attracted" && 
+                (person_traits[j] === "attracted" &&
                  isNaN(parseInt(input_trait))) ||
-                (person_traits[j] === "type" && 
+                (person_traits[j] === "type" &&
                  input_trait !== "female" &&
                  input_trait !== "group" &&
                  input_trait !== "male")) {
@@ -219,8 +219,8 @@ function validate_places(game_state) {
         }
 
         if (places[input_places[i]].links.length > 0) {
-            for (var p = 0; 
-                 p < game_state.places[input_places[i]].links.length; 
+            for (var p = 0;
+                 p < game_state.places[input_places[i]].links.length;
                  p++) {
                 if (typeof(places[
                     game_state.places[input_places[i]].links[p]
@@ -231,26 +231,26 @@ function validate_places(game_state) {
         }
 
         for (var j = 0; j < place_traits.length; j++) {
-            input_trait = 
+            input_trait =
                 game_state.places[input_places[i]][place_traits[j]];
             default_trait = places[default_places[i]][place_traits[j]];
-            if ((place_traits[j] === "burnable" && 
-                 input_trait !== "false" && 
+            if ((place_traits[j] === "burnable" &&
+                 input_trait !== "false" &&
                  input_trait !== "true") ||
-                (place_traits[j] === "locked" && 
-                 input_trait !== "false" && 
+                (place_traits[j] === "locked" &&
+                 input_trait !== "false" &&
                  input_trait !== "true") ||
-                (place_traits[j] === "outside" && 
-                 input_trait !== "false" && 
+                (place_traits[j] === "outside" &&
+                 input_trait !== "false" &&
                  input_trait !== "true") ||
-                (place_traits[j] === "populated" && 
-                 input_trait !== "false" && 
+                (place_traits[j] === "populated" &&
+                 input_trait !== "false" &&
                  input_trait !== "true") ||
-                (place_traits[j] === "town" && 
-                 input_trait !== "false" && 
+                (place_traits[j] === "town" &&
+                 input_trait !== "false" &&
                  input_trait !== "true") ||
-                (place_traits[j] === "trashable" && 
-                 input_trait !== "false" && 
+                (place_traits[j] === "trashable" &&
+                 input_trait !== "false" &&
                  input_trait !== "true") ||
                 (place_traits[j] === "name" &&
                  typeof(game_state.places[input_places[i]].name) !== "string")

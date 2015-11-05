@@ -12,7 +12,7 @@ var NUMBER_OF_TESTS = 100;
 
 driver.get('http://localhost:3000');
 var options = ["a", "b", "c", "d",];
-//e is not included in options because it creates some superfluous output 
+//e is not included in options because it creates some superfluous output
 
 for (var i = 0; i < NUMBER_OF_TESTS; i++) {
     var option = functions.random_choice(options);
