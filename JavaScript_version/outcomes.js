@@ -5320,6 +5320,26 @@ var outcomes = {
         return game_state;
     },
 
+    "priest_sexist_chosen_one": function(game_state) {
+        var messages = [
+            "The priest says the chosen one will most certainly be a man.",
+            "The priest tells you God would never have a woman to be " +
+            "the chosen one.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
+    "priest_sexist_fat": function(game_state) {
+        var messages = [
+            "The priest says it's unbecoming for a woman in insult a man.",
+            "The priest tells you it's not a woman's place to critisize " +
+            "men.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
     "priest_takes_pity": function(game_state) {
         var messages = [
             "The priest finds your argument so pitiful that he gives you " + 

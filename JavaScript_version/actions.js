@@ -2041,7 +2041,10 @@ exports.actions = {
 
     "Tell a priest he's fat.": 
         function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "priest_fat", 1);
+        raffle.add(possible_outcomes, "priest_fat", 3);
+        if (game_state.character.sex === "female") {
+            raffle.add(possible_outcomes, "priest_sexist_fat", 2);
+        }
         return possible_outcomes;
     },
 
@@ -2049,6 +2052,9 @@ exports.actions = {
         function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "priest_takes_pity", 1);
         raffle.add(possible_outcomes, "priest_disagrees", 2);
+        if (game_state.character.sex === "female") {
+            raffle.add(possible_outcomes, "priest_sexist_chosen_one", 4);
+        }
         return possible_outcomes;
     },
 
