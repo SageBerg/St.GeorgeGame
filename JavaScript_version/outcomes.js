@@ -2832,6 +2832,16 @@ var outcomes = {
         return game_state;
     },
 
+    "find_wizard_teleport": function(game_state) {
+        var messages = [
+            "You find the wizard. He offers to teleport you anywhere you'd " +
+            "like to go.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        game_state.character.person = "wizard";
+        return game_state;
+    },
+
     "find_wooden_mermaid": function(game_state) {
         game_state.message = "You find a wooden mermaid figurehead on the " +
             "front of a ship. The crew hoists you abroad.";
@@ -7332,6 +7342,21 @@ var outcomes = {
         game_state.message = functions.random_choice(messages);
         game_state.character.is_threatened = true;
         game_state.character.person = "wizard";
+        return game_state;
+    },
+
+    "wizard_teleport_arctic": function(game_state) {
+        var messages = [
+            "The wizard conks you on the head with his staff.",
+            "The wizard douses you with a potion.",
+            "The wizard grabs your arm and spins you around.",
+            "The wizard makes you leave in a puff.",
+            "The wizard starts reading some magic words from a scroll. " +
+            "He keeps reading for a while so you get bored and try to " +
+            "sneak away. You must have sneaked pretty well.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        move_character(game_state, "arctic");
         return game_state;
     },
 

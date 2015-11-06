@@ -17,6 +17,24 @@ exports.get_options = function get_options(game_state) {
         options.c = "Cass.";
         options.d = "Dina.";
         options.e = "Eve.";
+    } else if (game_state.outcome === "find_wizard_teleport") {
+        options.a = functions.random_choice([
+                "Ask him to teleport you to Lord Arthur's pirate ship.",
+                "Ask him to teleport you to the Arctic.",
+                ]);
+        options.b = functions.random_choice([
+                "Beg him to teleport you to Lord Bartholomew's manor.",
+                "Beg him to teleport you to the woods.",
+                ]);
+        options.c = functions.random_choice([
+                "Command him to teleport you to the countryside.",
+                "Command him to teleport you to Lord Carlos' manor.",
+                ]);
+        options.d = functions.random_choice([
+                "Demand that he teleport you to the smoking volcano.",
+                "Demand that he teleport you to the tower.",
+                ]);
+        options.e = "";
     } else if (game_state.character.is_frog) {
         options.a = "Ribbit.";
         options.b = "Hop.";

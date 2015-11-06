@@ -138,6 +138,18 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Ask him to teleport you to the Arctic.":
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "wizard_teleport_arctic", 1);
+        return possible_outcomes;
+    },
+
+    "Ask him to teleport you to Lord Arthur's pirate ship.":
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "wizard_teleport_pirate_ship", 1);
+        return possible_outcomes;
+    },
+
     "Ask the blue dragon to kill Lord Carlos.":
         function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "trade_coin_for_lord_carlos", 1);
@@ -1467,13 +1479,14 @@ exports.actions = {
     },
 
     "Look for the wizard.": function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "frog", 2);
-        raffle.add(possible_outcomes, "frog_and_die", 1);
+        raffle.add(possible_outcomes, "frog", 4);
+        raffle.add(possible_outcomes, "frog_and_die", 2);
         if (game_state.character.items["yellow mushroom"] > 0) {
-            raffle.add(possible_outcomes, "wizard_wants_mushroom", 10);
+            raffle.add(possible_outcomes, "wizard_wants_mushroom", 1000);
         }
+        raffle.add(possible_outcomes, "find_wizard_teleport", 4000);
         raffle.add(possible_outcomes, "find_wizard", 6);
-        raffle.add(possible_outcomes, "find_wizard_get_frog", 1);
+        raffle.add(possible_outcomes, "find_wizard_get_frog", 2);
         return possible_outcomes;
     },
 
