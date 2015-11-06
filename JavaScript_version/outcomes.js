@@ -3941,11 +3941,9 @@ var outcomes = {
 
     "kill_self": function(game_state) {
         var messages = [
-            "You perform the ritual of seppuku.",
         ];
         if (game_state.character.place !== "ocean") {
-            messages.push("You set yourself on fire and promptly burn to a " +
-                "crisp.");
+            messages.push("You set yourself on fire and burn to a crisp.");
         } else {
             messages.push("You drown trying to set yourself on fire.");
         }
@@ -4014,6 +4012,12 @@ var outcomes = {
         game_state.message =
             "You throw out your arm destroying the first three " +
             "civilizations and an opportunistic hero slays you.";
+        die(game_state);
+        return game_state;
+    },
+
+    "killed_by_horse": function(game_state) {
+        game_state.message = "You sneak up behind a horse and yell, \"Boo!\"";
         die(game_state);
         return game_state;
     },

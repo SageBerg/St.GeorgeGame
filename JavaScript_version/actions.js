@@ -1293,19 +1293,28 @@ exports.actions = {
     },
 
     "Kill yourself in frustration.": function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "kill_self", 9);
+        raffle.add(possible_outcomes, "kill_self", 2);
+        if (game_state.character.items.dagger > 0 ||
+            game_state.character.items.poison_dagger > 0 ||
+            game_state.character.items.cutlass > 0 ||
+            game_state.character.items.jeweled_cutlass > 0) {
+            //seppuku
+        }
         switch (game_state.character.place) {
             case "arctic":
             case "docks":
             case "mermaid_rock":
-                raffle.add(possible_outcomes, "kill_self_in_ocean", 10);
+                raffle.add(possible_outcomes, "kill_self_in_ocean", 2);
                 break;
-            case "church":
             case "market":
             case "streets":
                 if (game_state.persons.st_george.alive === true) {
-                    raffle.add(possible_outcomes, "saved_by_st_george", 5);
+                    raffle.add(possible_outcomes, "saved_by_st_george", 1);
                 }
+                raffle.add(possible_outcomes, "killed_by_horse", 2);
+                break;
+            case "countryside":
+                raffle.add(possible_outcomes, "killed_by_horse", 2);
                 break;
         }
         return possible_outcomes;
