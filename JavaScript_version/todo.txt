@@ -7,6 +7,9 @@ Technical:
 Content:
     search for assignment when it should be an equality check
 
+    make lick_the_ocean deterministic
+    see a rainbow, find a pot of gold
+
     make tails do more
     options in Lord Carlos' manor could use a little work
     make more outcomes for tavern options
@@ -16,19 +19,55 @@ Content:
                                think up poem for Felicity)
     look for options that are too safe or don't have any good outcomes
 
+    kill yourself
+        pick fight with st. george
+        attack gaurds (homocidal lunatic)
+        you fail
+        make seppuku require dagger or cutlass
+        you get behind a horse and yell "Boo!"
+
+    wizard's theory that if he puts penguins at the north pole, the world flips
+
+    tongue stuck to ice
+        yell this isn't how physics work
+
     make more outcome-influenced outcomes
         the wizard could be mad at you
         st_george could only give you money once
     
     don't allow you to buy weapons you already have
 
+    snoop on pirate ship
+        find map with volcano "Here thare be dragons"
+        too small 
+
+    long pitchfork, get caught up in peasant mob, burn tower
+
+    Lord Arthur fires you out of cannon
+
     say you have no money if you make it rain
     celebrate your success doesn't come up much
     have priest actually be there in game, make sure he's alive
     add argue with the drunk man
-    add hint that other hints that your name is Joseph
     have the wizard teleport you places
+        wizard proves you could have teleported you there by teleporting you 
+        somehwere else
     add the gates of hell?
+        three headed dog
+            reason with Cerberus
+                convince two heads, not third
+                your logic is convoluted you get all three heads arguing
+            feed your donkey to Cerberus
+                donkey is having none if, donkey kills you
+                you whet cerberus' appitate and get eaten
+            throw three of your cats at cerberus
+    bribe the guards with your jewels
+        guards don't take money (already got money from St. George)
+    make a distraction 
+        unleash cats, cut down chandaleer with cutlass
+    cloak of invisibility - protects you from losing items
+        no one sees you snooping around, but you can't see through the cloak
+        put it on backwards?
 
     eat a little of a black mushroom and "turn into a ghost"
         haunt people
@@ -61,15 +100,20 @@ Content:
         get a fancy dress and perfume to impress noble 
         flirt with lord daniel, lord arthur
         Love potion different lords, noble
-
+        change mirror outcome in alley
         update validaton to deal with new game_state traits
 
-    Add 'Let yourself eat cake.' and cake item
+    Cake
+        'Let yourself have cake.'
+        'Have your cake and eat it too.'
+        'Take the cake.'
+
     have God strike you down if you commit all seven deadly sins
+    show user when they're commiting a sin
 
 Style:
     make the game object oriented
     use more constants and less hardcoding
     organize the game into directories
     spellcheck the game (once things settle down)
-    remove trailing whitespace
+    remove trailing whitespace with sed
