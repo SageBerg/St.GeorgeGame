@@ -7346,17 +7346,50 @@ var outcomes = {
     },
 
     "wizard_teleport_arctic": function(game_state) {
-        var messages = [
-            "The wizard conks you on the head with his staff.",
-            "The wizard douses you with a potion.",
-            "The wizard grabs your arm and spins you around.",
-            "The wizard makes you leave in a puff.",
-            "The wizard starts reading some magic words from a scroll. " +
-            "He keeps reading for a while so you get bored and try to " +
-            "sneak away. You must have sneaked pretty well.",
-        ];
-        game_state.message = functions.random_choice(messages);
+        game_state.message = get_wizard_teleport_message();
         move_character(game_state, "arctic");
+        return game_state;
+    },
+
+    "wizard_teleport_countryside": function(game_state) {
+        game_state.message = get_wizard_teleport_message();
+        move_character(game_state, "countryside");
+        return game_state;
+    },
+
+    "wizard_teleport_lord_bartholomew_manor": function(game_state) {
+        game_state.message = get_wizard_teleport_message();
+        move_character(game_state, "lord_bartholomew_manor");
+        return game_state;
+    },
+
+    "wizard_teleport_lord_carlos_manor": function(game_state) {
+        game_state.message = get_wizard_teleport_message();
+        move_character(game_state, "lord_carlos_manor");
+        return game_state;
+    },
+
+    "wizard_teleport_pirate_ship": function(game_state) {
+        game_state.message = get_wizard_teleport_message();
+        move_character(game_state, "pirate_ship");
+        return game_state;
+    },
+
+    "wizard_teleport_smoking_volcano": function(game_state) {
+        game_state.message = get_wizard_teleport_message();
+        move_character(game_state, "smoking_volcano");
+        return game_state;
+    },
+
+    "wizard_teleport_tower": function(game_state) {
+        game_state.message = get_wizard_teleport_message();
+        move_character(game_state, "tower");
+        return game_state;
+    },
+
+    "wizard_teleport_woods": function(game_state) {
+        game_state.message = get_wizard_teleport_message();
+        move_character(game_state, "woods");
         return game_state;
     },
 
@@ -7596,3 +7629,15 @@ var outcomes = {
 };
 
 exports.outcomes = outcomes;
+
+function get_wizard_teleport_message() {
+    return functions.random_choice([
+        "The wizard conks you on the head with his staff.",
+        "The wizard douses you with a potion.",
+        "The wizard grabs your arm and spins you around.",
+        "The wizard makes you leave in a puff.",
+        "The wizard starts reading some magic words from a scroll. " +
+        "He keeps reading for a while so you get bored and try to " +
+        "sneak away. You must have sneaked pretty well.",
+    ]);
+}

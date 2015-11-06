@@ -231,6 +231,19 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Beg him to teleport you to Lord Bartholomew's manor.":
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes,
+            "wizard_teleport_lord_bartholomew_manor", 1);
+        return possible_outcomes;
+    },
+
+    "Beg him to teleport you to the woods.":
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "wizard_teleport_woods", 1);
+        return possible_outcomes;
+    },
+
     "Beth.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "beth_death", 1);
         return possible_outcomes;
@@ -556,6 +569,19 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Command him to teleport you to the countryside.":
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "wizard_teleport_countryside", 1);
+        return possible_outcomes;
+    },
+
+    "Command him to teleport you to Lord Carlos' manor.":
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes,
+            "wizard_teleport_lord_carlos_manor", 1);
+        return possible_outcomes;
+    },
+
     "Complain about unfair imprisonment policies.":
         function(game_state, possible_outcomes) {
         if (game_state.character.person === "lord_daniel") {
@@ -661,6 +687,18 @@ exports.actions = {
             raffle.add(possible_outcomes, "not_impressed", 2);
         }
 
+        return possible_outcomes;
+    },
+
+    "Demand that he teleport you to the smoking volcano.":
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "wizard_teleport_smoking_volcano", 1);
+        return possible_outcomes;
+    },
+
+    "Demand that he teleport you to the tower.":
+        function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "wizard_teleport_tower", 1);
         return possible_outcomes;
     },
 
@@ -1484,7 +1522,7 @@ exports.actions = {
         if (game_state.character.items["yellow mushroom"] > 0) {
             raffle.add(possible_outcomes, "wizard_wants_mushroom", 1000);
         }
-        raffle.add(possible_outcomes, "find_wizard_teleport", 4000);
+        raffle.add(possible_outcomes, "find_wizard_teleport", 4);
         raffle.add(possible_outcomes, "find_wizard", 6);
         raffle.add(possible_outcomes, "find_wizard_get_frog", 2);
         return possible_outcomes;
