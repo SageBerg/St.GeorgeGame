@@ -88,7 +88,6 @@ function get_ground(game_state) {
              game_state.character.place === "tavern" ||
              game_state.character.place === "tower" ||
              game_state.character.place === "wizard_lab")) {
-            console.log("can't lick burnt floor");
             return "ground";
         }
         return "floor";
