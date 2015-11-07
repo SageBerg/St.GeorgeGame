@@ -141,12 +141,14 @@ exports.actions = {
     "Ask him to teleport you to the Arctic.":
         function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "wizard_teleport_arctic", 1);
+        raffle.add(possible_outcomes, "wizard_teleport_random", 1);
         return possible_outcomes;
     },
 
     "Ask him to teleport you to Lord Arthur's pirate ship.":
         function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "wizard_teleport_pirate_ship", 1);
+        raffle.add(possible_outcomes, "wizard_teleport_pirate_ship", 5);
+        raffle.add(possible_outcomes, "wizard_teleport_random", 1);
         return possible_outcomes;
     },
 
@@ -234,13 +236,15 @@ exports.actions = {
     "Beg him to teleport you to Lord Bartholomew's manor.":
         function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes,
-            "wizard_teleport_lord_bartholomew_manor", 1);
+            "wizard_teleport_lord_bartholomew_manor", 5);
+        raffle.add(possible_outcomes, "wizard_teleport_random", 1);
         return possible_outcomes;
     },
 
     "Beg him to teleport you to the woods.":
         function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "wizard_teleport_woods", 1);
+        raffle.add(possible_outcomes, "wizard_teleport_woods", 5);
+        raffle.add(possible_outcomes, "wizard_teleport_random", 1);
         return possible_outcomes;
     },
 
@@ -571,14 +575,16 @@ exports.actions = {
 
     "Command him to teleport you to the countryside.":
         function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "wizard_teleport_countryside", 1);
+        raffle.add(possible_outcomes, "wizard_teleport_countryside", 5);
+        raffle.add(possible_outcomes, "wizard_teleport_random", 1);
         return possible_outcomes;
     },
 
     "Command him to teleport you to Lord Carlos' manor.":
         function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes,
-            "wizard_teleport_lord_carlos_manor", 1);
+            "wizard_teleport_lord_carlos_manor", 5);
+        raffle.add(possible_outcomes, "wizard_teleport_random", 1);
         return possible_outcomes;
     },
 
@@ -692,13 +698,15 @@ exports.actions = {
 
     "Demand that he teleport you to the smoking volcano.":
         function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "wizard_teleport_smoking_volcano", 1);
+        raffle.add(possible_outcomes, "wizard_teleport_smoking_volcano", 5);
+        raffle.add(possible_outcomes, "wizard_teleport_random", 1);
         return possible_outcomes;
     },
 
     "Demand that he teleport you to the tower.":
         function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "wizard_teleport_tower", 1);
+        raffle.add(possible_outcomes, "wizard_teleport_tower", 5);
+        raffle.add(possible_outcomes, "wizard_teleport_random", 1);
         return possible_outcomes;
     },
 
@@ -1529,7 +1537,7 @@ exports.actions = {
         raffle.add(possible_outcomes, "frog", 4);
         raffle.add(possible_outcomes, "frog_and_die", 2);
         if (game_state.character.items["yellow mushroom"] > 0) {
-            raffle.add(possible_outcomes, "wizard_wants_mushroom", 1000);
+            raffle.add(possible_outcomes, "wizard_wants_mushroom", 10000);
         }
         raffle.add(possible_outcomes, "find_wizard_teleport", 4);
         raffle.add(possible_outcomes, "find_wizard", 6);

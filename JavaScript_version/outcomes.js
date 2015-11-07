@@ -7379,6 +7379,25 @@ var outcomes = {
         return game_state;
     },
 
+    "wizard_teleport_random": function(game_state) {
+        var place = functions.random_choice([
+                                             "docks",
+                                             "dark_alley",
+                                             "mermaid_rock",
+                                             "ocean",
+                                             "tavern",
+                                             ]);
+        game_state.message = functions.random_choice([
+            "The wizard proves he could have teleported you there by " +
+            "teleporting you to " + game_state.places[place].name + 
+            " instead.",
+            "The wizard ignores you request and teleports you to " +
+            game_state.places[place].name + " instead.",
+        ]);
+        move_character(game_state, place);
+        return game_state;
+    },
+
     "wizard_teleport_smoking_volcano": function(game_state) {
         game_state.message = get_wizard_teleport_message();
         move_character(game_state, "smoking_volcano");
