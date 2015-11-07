@@ -7,6 +7,8 @@ var functions = require("./functions");
 var items     = require("./items");
 var raffle    = require("./raffle");
 
+var FEMALE    = "female";
+var MALE      = "male";
 var NONE = "none";
 var NUMBER_NAMES = {
     "2": "two",
@@ -390,8 +392,8 @@ function trash(game_state) {
 }
 
 var he_she_they = {
-    "female": "she",
-    "male": "he",
+    FEMALE: "she",
+    MALE: "he",
     "group": "they"
 };
 
@@ -581,6 +583,15 @@ var outcomes = {
             "Arthur to bark orders at his men to press-gang hands for the " +
             "voyage.";
         move_character(game_state, "pirate_ship");
+        return game_state;
+    },
+
+    "arm_wrestle_and_impressment_not": function(game_state) {
+        game_state.message = "You manage to hold out long enough for Lord " +
+            "Arthur to bark orders at his men to press-gang hands for the " +
+            "voyage. The pirate you were arm wrestling seems glad to " +
+            "have an excuse to call the match a tie and not lose to a woman.";
+        game_state.character.person = null;
         return game_state;
     },
 
@@ -1503,6 +1514,16 @@ var outcomes = {
         return game_state;
     },
 
+    "chess_impressment_not": function(game_state) {
+        var messages = [
+            "You beat all the pirates easily. Lord Arthur laughs at " +
+            "his men for losing to a woman.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        game_state.character.person = "lord_arthur";
+        return game_state;
+    },
+
     "chess_lose_to_pirates": function(game_state) {
         var messages = [
             "Their opening move is smashing a bottle of rum over your " +
@@ -1711,7 +1732,7 @@ var outcomes = {
 
     "dance_in_puddle": function(game_state) {
         var messages = [];
-        if (game_state.character.sex === "female") {
+        if (game_state.character.sex === FEMALE) {
             messages.push(
                 "You dance through a puddle and get your skirt wet."
             );
@@ -2417,7 +2438,7 @@ var outcomes = {
 
     "fail_at_new_career": function(game_state) {
         var gender_noun;
-        game_state.character.sex === "female" ?
+        game_state.character.sex === FEMALE ?
             gender_noun = "priestess" :
             gender_noun = "priest";
         var messages = [
@@ -2495,7 +2516,7 @@ var outcomes = {
             "During your duties, you get kicked by a mule. You somehow " +
             "don't die. You are paid for your efforts but not your injuries.",
         ];
-        if (game_state.character.sex === "male") {
+        if (game_state.character.sex === MALE) {
             messages.push(
                 "You spend a season milking cows for a farmer woman. " +
                 "She keeps trying to marry you to her attractive " +
@@ -2846,6 +2867,14 @@ var outcomes = {
         game_state.message = "You find a wooden mermaid figurehead on the " +
             "front of a ship. The crew hoists you abroad.";
         move_character(game_state, "pirate_ship");
+        return game_state;
+    },
+
+    "find_wooden_mermaid_as_woman": function(game_state) {
+        game_state.message = "You find a wooden mermaid figurehead on the " +
+            "front of a ship. The crew hoists you abroad and soon takes " +
+            "you back to land.";
+        move_character(game_state, "docks");
         return game_state;
     },
 
@@ -3412,7 +3441,7 @@ var outcomes = {
     },
 
     "god_gives_you_a_spouse": function(game_state) {
-        if (game_state.character.sex === "female") {
+        if (game_state.character.sex === FEMALE) {
             game_state.message = "Your prayers for a beautiful husband are " +
                 "answered, but he soon leaves you.";
         } else {
@@ -3658,7 +3687,7 @@ var outcomes = {
 
     "hammer_from_st_george": function(game_state) {
         var gender_noun;
-        if (game_state.character.sex === "female") {
+        if (game_state.character.sex === FEMALE) {
             gender_noun = "woman";
         } else {
             gender_noun = "man";
@@ -3688,7 +3717,7 @@ var outcomes = {
             "You trip in the darkness and break your neck.",
             "You hide in a sewer, but you get killed by a rat.",
         ];
-        if (game_state.character.sex === "male") {
+        if (game_state.character.sex === MALE) {
             messages.push(
                 "You don't hide well enough. The assassins find you anyway."
             )
@@ -3835,6 +3864,13 @@ var outcomes = {
         game_state.message = "Lord Arthur says, \"Your bravery would be " +
             "useful on the high seas.\" It soon is.";
         move_character(game_state, "pirate_ship");
+        return game_state;
+    },
+
+    "impress_lord_arthur_brave_as_woman": function(game_state) {
+        game_state.message = "Lord Arthur says, \"Your bravery would be " +
+            "useful on the high seas. I would make you part of my crew " +
+            "if you weren't a bonnie lass.\"";
         return game_state;
     },
 
@@ -4401,7 +4437,7 @@ var outcomes = {
 
     "lose_coin_bartholomew": function(game_state) {
         var gender_noun;
-        if (game_state.character.sex === "female") {
+        if (game_state.character.sex === FEMALE) {
             gender_noun = "girl";
         } else {
             gender_noun = "son";
@@ -6295,7 +6331,7 @@ var outcomes = {
             "Your contemplations lead to dark places.",
             "Your thinking ensures your existence.",
         ];
-        if (game_state.character.sex === "male") {
+        if (game_state.character.sex === MALE) {
             messages.push("Since you're a man, you think about sex.");
             messages.push("You think you would make a good husband.");
         } else {
@@ -6306,9 +6342,15 @@ var outcomes = {
     },
 
     "think_about_lord_arthur": function(game_state) {
-        game_state.message = "You think it would be a bad idea to join " +
-            "Lord Arthur's crew. He gives no choice.";
-        move_character(game_state, "pirate_ship");
+        if (game_state.character.sex === FEMALE) {
+            game_state.message = "You think it would be a bad idea to join " +
+                "Lord Arthur's crew. Fortunately, Lord Arthur's pirates " +
+                "are only press-ganging men.";
+        } else {
+            game_state.message = "You think it would be a bad idea to join " +
+                "Lord Arthur's crew. He gives no choice.";
+            move_character(game_state, "pirate_ship");
+        }
         return game_state;
     },
 
@@ -6610,16 +6652,16 @@ var outcomes = {
 
     "transform": function(game_state) {
         var messages = [];
-        if (game_state.character.sex === "female") {
+        if (game_state.character.sex === FEMALE) {
             messages.push("You transform back into a man.");
             messages.push("You turn back into a man.");
             messages.push("You're back to being a man.");
-            game_state.character.sex = "male";
+            game_state.character.sex = MALE;
         } else {
             messages.push("You are now a woman.");
             messages.push("You transform into a woman.");
             messages.push("You turn into a lady version of yourself.");
-            game_state.character.sex = "female";
+            game_state.character.sex = FEMALE;
         }
         //St. George will not recognize you once you change sexes
         game_state.character.has_begged_st_george = false;
@@ -6727,7 +6769,7 @@ var outcomes = {
             " man. He solves the problem by turning you into a woman.",
         ];
         game_state.message = functions.random_choice(messages);
-        game_state.character.sex = "female";
+        game_state.character.sex = FEMALE;
         return game_state;
     },
 
@@ -7030,7 +7072,7 @@ var outcomes = {
             "While you're wandering the countryside, some sheep look at you " +
             "funny.",
         ];
-        if (game_state.character.sex === "female") {
+        if (game_state.character.sex === FEMALE) {
             messages.push("You see a beautiful peasant man, unfortunately " +
                 "he also has a beautiful wife."
             );
@@ -7268,7 +7310,7 @@ var outcomes = {
             "The wizard says you should go find him some void dust.",
             "The wizard says you should learn Esperanto.",
         ];
-        if (game_state.character.sex === "female") {
+        if (game_state.character.sex === FEMALE) {
             messages.push("The wizard advises you to find a husband before " +
                 "you get old and wrinkly like him.");
         }  else {
@@ -7533,7 +7575,7 @@ var outcomes = {
     "wowed_olga": function(game_state) {
         var gender_noun;
         var gender_possessive;
-        if (game_state.character.sex === "female") {
+        if (game_state.character.sex === FEMALE) {
             gender_noun = "woman";
             gender_possessive = "her";
         } else {
@@ -7563,7 +7605,7 @@ var outcomes = {
         if (game_state.persons.olga.attracted > 2 &&
             game_state.persons.olga.name === "the pretty lady") {
             game_state.persons.olga.name = "Olga";
-            if (game_state.character.sex === "female") {
+            if (game_state.character.sex === FEMALE) {
                 game_state.message += " She tells you her name is Olga. " +
                 "You tell her your name is Josephine.";
             } else {
