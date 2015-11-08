@@ -5603,6 +5603,10 @@ var outcomes = {
 
             "You read about a magical red cloak that protects the wearer " +
             "from fire.",
+
+            "You read about the wizard's theory that, since penguins live " +
+            "at the bottom of the world, if he moves enough penguins " +
+            "to the top of the world then the world should turn upsidedown.",
         ];
         game_state.message = functions.random_choice(messages);
         return game_state;

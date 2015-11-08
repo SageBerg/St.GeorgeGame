@@ -1794,7 +1794,7 @@ exports.actions = {
     "Read a spellbook.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "read_and_die", 2);
         raffle.add(possible_outcomes, "read_clover", 2);
-        raffle.add(possible_outcomes, "read_spell_book", 11);
+        raffle.add(possible_outcomes, "read_spell_book", 12);
         return possible_outcomes;
     },
 
