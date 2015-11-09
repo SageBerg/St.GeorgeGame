@@ -6,6 +6,9 @@ var functions = require("./functions");
 var items     = require("./items");
 var raffle    = require("./raffle");
 
+var FEMALE    = "female";
+var MALE      = "male";
+
 exports.get_options = function get_options(game_state) {
 
     var options = {"a": {}, "b": {}, "c": {}, "d": {} };
@@ -177,7 +180,7 @@ function get_character_options(game_state, options) {
 }
 
 function get_default_options(game_state, options) {
-    if (game_state.character.sex === "female") {
+    if (game_state.character.sex === FEMALE) {
         raffle.add(options.a, "Admire your own bosoms.", 1);
     }
     raffle.add(options.a, "Think.", 1);
@@ -281,11 +284,22 @@ function get_item_options(game_state, options) {
 
     if (game_state.character.items["potion of love"] > 0 &&
         (game_state.character.person === "eve" ||
-        game_state.character.person === "mermaid" ||
-        game_state.character.person === "olga" ||
-        game_state.character.person === "nymph_queen" ||
-        game_state.character.person === "priestess")) {
+         game_state.character.person === "mermaid" ||
+         game_state.character.person === "olga" ||
+         game_state.character.person === "nymph_queen" ||
+         game_state.character.person === "priestess")) {
         raffle.add(options.b, "LOVE_POTION", 10000);
+    }
+
+    if (game_state.character.items["potion of love"] > 0 &&
+        game_state.character.sex === FEMALE &&
+        (game_state.character.person === "lord_arthur" ||
+         game_state.character.person === "lord_bartholomew" ||
+         game_state.character.person === "lord_carlos" ||
+         game_state.character.person === "lord_daniel" ||
+         game_state.character.person === "nobelman" ||
+         game_state.character.person === "st_george")) {
+        //raffle.add(options.b, "LOVE_POTION", 10000);
     }
 
     if (game_state.character.items["shiny foreign coin"] > 0 &&
@@ -362,16 +376,20 @@ function get_person_options(game_state, options) {
             break;
 
         case "lord_carlos":
-            if (game_state.character.money === "large_fortune" &&
-                game_state.character.money === "small_fortune") {
-                raffle.add(options.a, "Repay your debts.", 10);
+            if (game_state.character.sex === MALE) {
+                if (game_state.character.money === "large_fortune" &&
+                    game_state.character.money === "small_fortune") {
+                    raffle.add(options.a, "Repay your debts.", 10);
+                }
+                raffle.add(options.b, "SUCK_UP", 5);
+                raffle.add(options.b, "Grovel.", 10);
+                raffle.add(options.c,
+                    "Challenge Lord Carlos to a game of chess.", 15);
+                raffle.add(options.d,
+                    "Make it hard for Lord Carlos to kill you.", 15);
+            } else {
+                //raffle.add(options.d, "FLIRT_WITH", 100);
             }
-            raffle.add(options.b, "SUCK_UP", 5);
-            raffle.add(options.b, "Grovel.", 10);
-            raffle.add(options.c,
-                "Challenge Lord Carlos to a game of chess.", 15);
-            raffle.add(options.d,
-                "Make it hard for Lord Carlos to kill you.", 15);
             break;
 
         case "lord_daniel":
@@ -485,7 +503,7 @@ function get_outcome_options(game_state, options) {
         case "throw_cat_and_keep_cat":
         case "train_and_win":
         case "you_get_away_with_it":
-            if (game_state.character.sex === "female") {
+            if (game_state.character.sex === FEMALE) {
                 raffle.add(options.a, "Pat yourself on the back.", 1);
             } else {
                 raffle.add(options.a, "Thump yourself on the chest.", 1);
@@ -725,6 +743,7 @@ function get_place_options(game_state, options) {
 
         case "cave":
             raffle.add(options.c, "Look for a way out.", 10);
+            //raffle.add(options.d, "Go deeper.", 10);
             break;
 
         case "church":
@@ -764,7 +783,7 @@ function get_place_options(game_state, options) {
         case "lord_bartholomew_manor":
             if (functions.get_place(game_state).burnable === true) {
                 if (game_state.character.person === null &&
-                    game_state.character.sex === "male") {
+                    game_state.character.sex === MALE) {
                     raffle.add(options.b, "Tell the next person you meet " +
                             "that you're Lord Arthur.", 1);
                     raffle.add(options.b, "Tell the next person you meet " +
@@ -788,12 +807,12 @@ function get_place_options(game_state, options) {
         case "lord_carlos_manor":
             if (functions.get_place(game_state).burnable === true) {
                 if (game_state.character.person === null) {
-                    if (game_state.character.sex === "male") {
+                    if (game_state.character.sex === MALE) {
                         raffle.add(options.a, "Ask about assassins.", 4);
                     }
                     raffle.add(options.a, "Hire an assassin.", 4);
                     raffle.add(options.b, "BURN", 5);
-                    if (game_state.character.sex === "male") {
+                    if (game_state.character.sex === MALE) {
                         raffle.add(options.b, "Tell the next person you " +
                             "meet that you're Lord Arthur.", 1);
                         raffle.add(options.b, "Tell the next person you " +
@@ -897,9 +916,9 @@ function get_place_options(game_state, options) {
             }
             raffle.add(options.a, "Look for a cat.", 4);
             raffle.add(options.a, "Look for a cat.", 4);
-            if (game_state.character.sex === "female") {
+            if (game_state.character.sex === FEMALE) {
                 raffle.add(options.b, "Gawk at men.", 2);
-            } else if (game_state.character.sex === "male") {
+            } else if (game_state.character.sex === MALE) {
                 raffle.add(options.b, "Gawk at women.", 2);
             }
             raffle.add(options.c, "GO_TO", 2);
@@ -925,7 +944,7 @@ function get_place_options(game_state, options) {
         case "tower":
             if (functions.get_place(game_state).burnable === true) {
                 if (game_state.character.person === null &&
-                    game_state.character.sex === "male") {
+                    game_state.character.sex === MALE) {
                     raffle.add(options.b, "Tell the next person you meet " +
                             "that you're Lord Arthur.", 1);
                     raffle.add(options.b, "Tell the next person you meet " +
@@ -957,7 +976,8 @@ function get_place_options(game_state, options) {
             if (functions.get_place(game_state).burnable === true) {
                 raffle.add(options.a, "Go mushroom picking.", 4);
                 if (game_state.character.items.ax > 0) {
-                    raffle.add(options.c, "Chop down a tree with your ax.", 10);
+                    raffle.add(options.c,
+                        "Chop down a tree with your ax.", 10);
                 }
                 if (game_state.character.person !== "nymph_queen") {
                     raffle.add(options.d, "Look for nymphs.", 4);
