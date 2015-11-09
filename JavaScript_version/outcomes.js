@@ -3370,6 +3370,16 @@ var outcomes = {
         return game_state;
     },
 
+    "give_flowers_more_than_twice": function(game_state) {
+        var messages = [
+            "She's even less impressed with these flowers than she was " +
+            "with the previous ones.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        lose_item(game_state, "bouquet of flowers");
+        return game_state;
+    },
+
     "give_flowers_nymph_queen": function(game_state) {
         var messages = [
             "The nymph queen smiles at you and throws the flowers in the " +
@@ -3390,6 +3400,15 @@ var outcomes = {
         ];
         game_state.message = functions.random_choice(messages);
         functions.get_person(game_state).attracted += 1;
+        lose_item(game_state, "bouquet of flowers");
+        return game_state;
+    },
+
+    "give_flowers_twice": function(game_state) {
+        var messages = [
+            "She's less impressed with the second boquet of flowers.",
+        ];
+        game_state.message = functions.random_choice(messages);
         lose_item(game_state, "bouquet of flowers");
         return game_state;
     },

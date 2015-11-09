@@ -1073,24 +1073,37 @@ exports.actions = {
     },
 
     "GIVE_FLOWERS": function(game_state, possible_outcomes) {
-        switch (game_state.character.person) {
-            case "eve":
-                raffle.add(possible_outcomes, "give_flowers_eve", 1);
-                break;
-            case "mermaid":
-                raffle.add(possible_outcomes, "give_flowers_mermaid", 1);
-                break;
-            case "nymph_queen":
-                raffle.add(possible_outcomes, "give_flowers_nymph_queen", 1);
-                break;
-            case "olga":
-                raffle.add(possible_outcomes, "give_flowers_olga", 1);
-                break;
-            default:
-                // Felicity is not actually there when you're interacting
-                // with her; if we get here in the logic, the character
-                // should be in the prison
-                raffle.add(possible_outcomes, "give_flowers_felicity", 1);
+        if (game_state.outcome === "give_flowers_felicity" ||
+            game_state.outcome === "give_flowers_eve" ||
+            game_state.outcome === "give_flowers_mermaid" ||
+            game_state.outcome === "give_flowers_nymph_queen" ||
+            game_state.outcome === "give_flowers_olga") {
+            raffle.add(possible_outcomes, "give_flowers_twice", 1);
+        } else if (game_state.outcome === "give_flowers_twice" ||
+                   game_state.outcome === "give_flowers_more_than_twice") {
+            raffle.add(possible_outcomes, "give_flowers_more_than_twice", 1);
+        } else {
+            switch (game_state.character.person) {
+                case "eve":
+                    raffle.add(possible_outcomes,"give_flowers_eve", 1);
+                    break;
+                case "mermaid":
+                    raffle.add(possible_outcomes,
+                        "give_flowers_mermaid", 1);
+                    break;
+                case "nymph_queen":
+                    raffle.add(possible_outcomes,
+                        "give_flowers_nymph_queen", 1);
+                    break;
+                case "olga":
+                    raffle.add(possible_outcomes, "give_flowers_olga", 1);
+                    break;
+                default:
+                    // Felicity is not actually there when you're interacting
+                    // with her; if we get here in the logic, the character
+                    // should be in the prison
+                    raffle.add(possible_outcomes, "give_flowers_felicity", 1);
+            }
         }
         return possible_outcomes;
     },
