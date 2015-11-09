@@ -1410,6 +1410,7 @@ exports.actions = {
         raffle.add(possible_outcomes, "gawk_and_get_assassinated", 1);
         raffle.add(possible_outcomes, "gawk_and_get_money", 1);
         raffle.add(possible_outcomes, "gawk_at_cat", 1);
+        raffle.add(possible_outcomes, "gawk_at_cake", 1);
         raffle.add(possible_outcomes, "gawk_at_women", 4);
         if (game_state.character.has_tail === true) {
             raffle.add(possible_outcomes, "women_gawk_at_you", 2);
@@ -2151,6 +2152,11 @@ exports.actions = {
     },
 
     //t
+
+    "Take the cake.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "take_the_cake", 1);
+        return possible_outcomes;
+    },
 
     "Tell a priest God doesn't exist.":
         function(game_state, possible_outcomes) {

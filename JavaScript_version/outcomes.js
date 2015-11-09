@@ -3085,6 +3085,12 @@ var outcomes = {
         return game_state;
     },
 
+    "gawk_at_cake": function(game_state) {
+        game_state.message = "Comely women appear to be in short supply, " +
+            "but you do notice a cake cooling on a window seal.";
+        return game_state;
+    },
+
     "gawk_at_men": function(game_state) {
         var messages = [
             "A strapping young lad notices you watching him, but he's too " +
@@ -6318,6 +6324,12 @@ var outcomes = {
         game_state.message = "She says your tail is freaky and she likes " +
             "a lot.";
         game_state.persons.olga.attracted += 1;
+        return game_state;
+    },
+
+    "take_the_cake": function(game_state) {
+        game_state.message = "";
+        get_item(game_state, "cake");
         return game_state;
     },
 

@@ -572,6 +572,10 @@ function get_outcome_options(game_state, options) {
                 "Look up into the sky and yell, \"NOOOOOOOOOOOOO!\"", 100);
             break;
 
+        case "gawk_at_cake":
+            raffle.add(options.c, "Take the cake.", 1);
+            break;
+
         case "god_shows_you_the_way":
             if (functions.get_place(game_state).locked === false) {
                 raffle.add(options.c, "GO_TO", 10000);

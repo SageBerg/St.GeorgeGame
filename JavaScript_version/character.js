@@ -34,6 +34,7 @@ exports.character = {
         "ball of sap": 0,
         "black mushroom": 0,
         "bouquet of flowers": 0,
+        "cake": 0,
         "cat": 0,
         "deep-cave newt": 0,
         "donkey": 0,
