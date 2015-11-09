@@ -1338,7 +1338,7 @@ exports.actions = {
             game_state.character.items.poison_dagger > 0 ||
             game_state.character.items.cutlass > 0 ||
             game_state.character.items.jeweled_cutlass > 0) {
-            //seppuku
+            //TODO seppuku
         }
         switch (game_state.character.place) {
             case "arctic":
@@ -1356,6 +1356,10 @@ exports.actions = {
             case "countryside":
                 raffle.add(possible_outcomes, "killed_by_horse", 2);
                 break;
+        }
+        if (functions.get_place(game_state).town === true &&
+            game_state.persons.st_george.alive === true) {
+            raffle.add(possible_outcomes, "suicide_by_st_george", 1);
         }
         return possible_outcomes;
     },

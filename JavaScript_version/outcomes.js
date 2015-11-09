@@ -6211,6 +6211,13 @@ var outcomes = {
         return game_state;
     },
 
+    "suicide_by_st_george": function(game_state) {
+        game_state.message =
+            "You find St. George and pick a fight with him."; 
+        die(game_state);
+        return game_state;
+    },
+
     "sunbathe_with_mermaid": function(game_state) {
         game_state.message = "When you open your eyes, you see a mermaid " +
             "sunbathing next to you.";
