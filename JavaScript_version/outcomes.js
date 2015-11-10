@@ -3701,17 +3701,30 @@ var outcomes = {
         return game_state;
     },
 
+    "guards_watch_you_dancing": function(game_state) {
+        game_state.message = 
+            "The local guards gawk at you while you dance.";
+        game_state.character.person = "guards";
+        return game_state;
+    },
+
+    "guards_watch_you_rich": function(game_state) {
+        game_state.message = "The local guards gape at your wealth.";
+        game_state.character.person = "guards";
+        return game_state;
+    },
+
     "guards_watch_you_singing": function(game_state) {
         game_state.message = "The local guards gawk at you while you're " +
             "singing.";
-        game_state.character.person = "gaurds";
+        game_state.character.person = "guards";
         return game_state;
     },
 
     "guards_watch_you_swinging_cat": function(game_state) {
         game_state.message = "The local guards gawk at you while you're " +
             "swinging your cat around.";
-        game_state.character.person = "gaurds";
+        game_state.character.person = "guards";
         return game_state;
     },
 

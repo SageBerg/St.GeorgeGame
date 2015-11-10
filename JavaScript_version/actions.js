@@ -694,7 +694,7 @@ exports.actions = {
 
         if (functions.get_place(game_state).town === true) {
             if (game_state.character.sex === FEMALE) {
-                //raffle.add(possible_outcomes, "guards_watch_you_dancing", 2);
+                raffle.add(possible_outcomes, "guards_watch_you_dancing", 2);
             } else if (game_state.character.sex === MALE) {
                 raffle.add(possible_outcomes, "guards_stop_you_dancing", 2);
             }
@@ -933,7 +933,7 @@ exports.actions = {
 
     "Flaunt your wealth.": function(game_state, possible_outcomes) {
         if (game_state.character.sex === FEMALE) {
-            //raffle.add(possible_outcomes, "guards_watch_you_rich", 1);
+            raffle.add(possible_outcomes, "guards_watch_you_rich", 1);
         } else {
             raffle.add(possible_outcomes, "guards_stop_you_rich", 1);
         }
