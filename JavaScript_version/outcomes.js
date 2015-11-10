@@ -3701,6 +3701,13 @@ var outcomes = {
         return game_state;
     },
 
+    "guards_watch_you_singing": function(game_state) {
+        game_state.message = "The local guards gawk at you while you're " +
+            "singing.";
+        game_state.character.person = "gaurds";
+        return game_state;
+    },
+
     "guards_watch_you_swinging_cat": function(game_state) {
         game_state.message = "The local guards gawk at you while you're " +
             "swinging your cat around.";

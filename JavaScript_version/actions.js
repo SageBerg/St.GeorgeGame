@@ -1945,8 +1945,8 @@ exports.actions = {
                 raffle.add(possible_outcomes,
                     "earn_small_fortune_in_coins", 3);
                 if (game_state.character.sex === FEMALE) {
-                    //raffle.add(possible_outcomes,
-                    //    "guards_watch_you_singing", 2);
+                    raffle.add(possible_outcomes,
+                        "guards_watch_you_singing", 2);
                 } else {
                     raffle.add(possible_outcomes,
                         "guards_stop_you_singing", 2);
