@@ -69,6 +69,17 @@ exports.places = {
         "town":      true,
         "trashable": false,
     },
+    "gates_of_hell":
+    {
+        "burnable":  false,
+        "links":     [],
+        "locked":    true,
+        "name":      "the gates of Hell",
+        "outside":   false,
+        "populated": false,
+        "town":      false,
+        "trashable": false,
+    },
     "lord_bartholomew_manor":
     {
         "burnable":  true,
