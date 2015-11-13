@@ -75,7 +75,7 @@ exports.places = {
         "links":     [],
         "locked":    true,
         "name":      "the gates of Hell",
-        "outside":   false,
+        "outside":   true,
         "populated": false,
         "town":      false,
         "trashable": false,

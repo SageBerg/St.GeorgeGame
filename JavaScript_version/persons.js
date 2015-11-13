@@ -30,6 +30,15 @@ exports.persons = {
         "preferred_attack": "kill",
         "type": "male",
     },
+    "cerberus":
+    {
+        "alive": true,
+        "attack": 13,
+        "attracted": 0,
+        "name": "the giant three-headed dog",
+        "preferred_attack": "devour",
+        "type": "male",
+    },
     "dragon_blue":
     {
         "alive": true,

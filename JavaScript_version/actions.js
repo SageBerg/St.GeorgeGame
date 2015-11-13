@@ -1136,6 +1136,13 @@ exports.actions = {
         return possible_outcomes;
     },
 
+    "Go deeper.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "go_deeper_and_die", 2);
+        raffle.add(possible_outcomes, "go_deeper_to_hell", 2);
+        raffle.add(possible_outcomes, "go_deeper_out", 1);
+        return possible_outcomes;
+    },
+
     "Go fishing.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "catch_a_lot_of_fish", 1);
         raffle.add(possible_outcomes, "catch_big_fish", 1);

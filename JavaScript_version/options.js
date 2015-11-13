@@ -761,7 +761,7 @@ function get_place_options(game_state, options) {
 
         case "cave":
             raffle.add(options.c, "Look for a way out.", 10);
-            //raffle.add(options.d, "Go deeper.", 10);
+            raffle.add(options.d, "Go deeper.", 10);
             break;
 
         case "church":

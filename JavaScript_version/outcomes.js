@@ -332,12 +332,19 @@ function move_character(game_state, destination) {
         destination === "mermaid_rock" ||
         destination === "pirate_ship") {
         game_state.message += " You find yourself on ";
-    } else if (destination === "smoking_volcano") {
+    } else if (destination === "gates_of_hell" ||
+               destination === "smoking_volcano") {
         game_state.message += " You find yourself at ";
     } else {
         game_state.message += " You find yourself in ";
     }
     game_state.message += game_state.places[destination].name + ".";
+    if (destination === "gates_of_hell" &&
+        game_state.persons.cerberus.alive === true) {
+        game_state.character.person = "cerberus";
+        game_state.message += " A giant three-headed dog is blocking " +
+            "your way."; 
+    }
 }
 
 function spread_fire(game_state) {
@@ -3419,6 +3426,36 @@ var outcomes = {
         ];
         game_state.message = functions.random_choice(messages);
         lose_item(game_state, "bouquet of flowers");
+        return game_state;
+    },
+
+    "go_deeper_and_die": function(game_state) {
+        var messages = [
+            "You get utterly lost and die of dehydration.",
+            "You manage to go very deep by falling into a chasm.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        die(game_state);
+        return game_state;
+    },
+
+    "go_deeper_to_hell": function(game_state) {
+        var messages = [
+            "You go so deep it starts getting warmer.",
+            "You go so deep you get to the bottom of the world.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        move_character(game_state, "gates_of_hell");
+        return game_state;
+    },
+
+    "go_deeper_out": function(game_state) {
+        var messages = [
+            "You can't find a way to go deeper, but you find a way " +
+            "out of the cave.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        move_character(game_state, "countryside");
         return game_state;
     },
 
