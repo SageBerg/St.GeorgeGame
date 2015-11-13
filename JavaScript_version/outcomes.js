@@ -4266,6 +4266,21 @@ var outcomes = {
         return game_state;
     },
 
+    "learn_about_assassins": function(game_state) {
+        var messages = [
+            "After asking around, you learn that the assassins live in a " +
+            "manor out in the woods.",
+            "Most people seem to think the town's guards are worse than " +
+            "the assassins.",
+            "Some of the people you talk to say that the assassins work " +
+            "for Lord Carlos.",
+            "Word on the street is that the assassins are hunting for " +
+            "a man who likes to sing, dance, and set things on fire.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
     "leave_in_a_puff": function(game_state) {
         game_state.message = "";
         teleport(game_state);
@@ -4673,8 +4688,14 @@ var outcomes = {
     },
 
     "meet_blind_bartender": function(game_state) {
-        game_state.message =
-            "The blind bartender grumbles as he passes you a drink.";
+        var messages = [
+            "The blind bartender sniffs the drink and grimaces before he " +
+            "passses it to you.",
+            "The blind bartender grumbles as he passes you a drink.",
+            "The blind bartender says the drink's free on behalf of Lord " +
+            "Bartholomew.",
+        ];
+        game_state.message = functions.random_choice(messages);
         game_state.character.person = "blind_bartender";
         return game_state;
     },
@@ -5106,9 +5127,10 @@ var outcomes = {
 
     "no_one_wants_to_talk": function(game_state) {
         var messages = [
+            "Assassins appear to be a taboo subject for most people.",
+            "Nobody wants to talk to you.",
             "You ask around, but nobody has heard anything about " +
             "assassins.",
-            "Nobody wants to talk to you.",
         ];
         game_state.message = functions.random_choice(messages);
         return game_state;
@@ -5190,6 +5212,13 @@ var outcomes = {
             "Bartholomew.",
             "you overhear a woman say a wizard turned her husband into a " +
             "frog.",
+            "you overhear a some peasants talking about newt racing.",
+            "you overhear a man complaining that he lost the best years of " +
+            "his life working on Lord Arthur's pirate ship.",
+            "you hear a man saying he would follow Lord Bartholomew to " +
+            "the gates of Hell.",
+            "you overhear a barmaid telling another barmaid that St. " +
+            "George is as handsom as he is generous.",
         ];
         game_state.message = "While you're drinking, " +
             functions.random_choice(messages);
@@ -6093,6 +6122,15 @@ var outcomes = {
             functions.get_place(game_state).name +
             " to the ground and " +
             conjugate(game_state, "kill") + " you.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        die(game_state);
+        return game_state;
+    },
+
+    "song_cut_short": function(game_state) {
+        var messages = [
+            "Your song is cut short by an assassin's blade.",
         ];
         game_state.message = functions.random_choice(messages);
         die(game_state);

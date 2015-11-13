@@ -90,10 +90,11 @@ exports.actions = {
             raffle.add(possible_outcomes, "assassinated", 1);
         }
         if (game_state.character.place === "tavern") {
-            raffle.add(possible_outcomes, "no_one_wants_to_talk", 2);
+            raffle.add(possible_outcomes, "no_one_wants_to_talk", 3);
             if (game_state.persons.olga.alive === true) {
-                raffle.add(possible_outcomes, "meet_olga", 1);
+                raffle.add(possible_outcomes, "meet_olga", 3);
             }
+            raffle.add(possible_outcomes, "learn_about_assassins", 4);
         }
         if (game_state.character.place === "lord_carlos_manor") {
             raffle.add(possible_outcomes, "wait_here_please", 3);
@@ -373,12 +374,12 @@ exports.actions = {
         if (game_state.character.sex === MALE) {
             raffle.add(possible_outcomes, "buy_a_drink_and_die", 1);
         }
-        raffle.add(possible_outcomes, "buy_a_drink_and_meet_olga", 2);
+        raffle.add(possible_outcomes, "buy_a_drink_and_meet_olga", 3);
         if (game_state.character.person !== "blind_bartender" &&
             game_state.persons.blind_bartender.alive === true) {
-            raffle.add(possible_outcomes, "meet_blind_bartender", 6);
+            raffle.add(possible_outcomes, "meet_blind_bartender", 8);
         }
-        raffle.add(possible_outcomes, "overhear_stuff", 2);
+        raffle.add(possible_outcomes, "overhear_stuff", 6);
         return possible_outcomes;
     },
 
@@ -1986,6 +1987,8 @@ exports.actions = {
                     if (game_state.character.sex === MALE) {
                         raffle.add(possible_outcomes,
                             "assassins_approach", 5);
+                        raffle.add(possible_outcomes,
+                            "song_cut_short", 1);
                     }
                     raffle.add(possible_outcomes,
                         "crowd_hates_your_voice", 1);
