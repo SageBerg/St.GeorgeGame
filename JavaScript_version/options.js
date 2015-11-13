@@ -427,7 +427,21 @@ function get_person_options(game_state, options) {
             var weapons = ["cutlass", "dagger", "hammer", "iron_hammer",
                            "jeweled_cutlass", "long_pitchfork", "pitchfork",
                            "poison_dagger", ];
-            var weapon = functions.random_choice(weapons);
+            // you can't buy weapons you already have
+            // available_weapons holds weapons you don't have
+            var available_weapons = [];
+            for (var i = 0; i < weapons.length; i++) {
+                if (game_state.character.items[weapons[i]] === 0) {
+                    available_weapons.push(weapons[i]);
+                }
+            }
+            console.log(available_weapons);
+            // if you have all of the weapons the merchant sells
+            // then BUY_WEAPON will not be added to the raffle
+            if (available_weapons.length === 0) {
+                break;
+            }
+            var weapon = functions.random_choice(available_weapons);
             game_state.for_sell = weapon;
             raffle.add(options.d, "BUY_WEAPON", 10000);
             break;
