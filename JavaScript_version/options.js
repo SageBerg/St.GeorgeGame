@@ -297,9 +297,9 @@ function get_item_options(game_state, options) {
          game_state.character.person === "lord_bartholomew" ||
          game_state.character.person === "lord_carlos" ||
          game_state.character.person === "lord_daniel" ||
-         game_state.character.person === "nobelman" ||
+         game_state.character.person === "noblman" ||
          game_state.character.person === "st_george")) {
-        //raffle.add(options.b, "LOVE_POTION", 10000);
+        raffle.add(options.b, "LOVE_POTION", 10000);
     }
 
     if (game_state.character.items["shiny foreign coin"] > 0 &&
@@ -419,7 +419,7 @@ function get_person_options(game_state, options) {
             break;
 
         case "st_george":
-            raffle.add(options.b, "Beg for money.", 10000);
+            raffle.add(options.b, "Beg for money.", 100);
             raffle.add(options.c, "Chat with St. George.", 2);
             break;
 

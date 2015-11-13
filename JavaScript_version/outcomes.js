@@ -5352,6 +5352,53 @@ var outcomes = {
         return game_state;
     },
 
+    "potion_lord_arthur": function(game_state) {
+        var messages = [
+            "Lord Arthur falls madly in love with you. He has his first " +
+            "mate officiate your wedding on the deck of his ship. " +
+            "You rule the seas together.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        game_state.character.has_found_true_love = true;
+        return game_state;
+    },
+
+    "potion_lord_bartholomew": function(game_state) {
+        var messages = [
+            "Lord Bartholomew falls madly in love with you and professes " +
+            "his love for you in an epic speech that hasn't ended by the " +
+            "time his wife Beatrice finds you. When she sees how taken " +
+            "Lord Bartholomew is with you, she has a mob of peasants burn " +
+            "you at the stake for witchcraft.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        die(game_state);
+        return game_state;
+    },
+
+    "potion_lord_carlos": function(game_state) {
+        var messages = [
+            "Lord Carlos falls madly in love with you and decides to keep " +
+            "you locked away in a tower so his wife Cass won't find you. " +
+            "However, your presence doesn't escape her for long. You are " +
+            "soon assassinated.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        die(game_state);
+        return game_state;
+    },
+
+    "potion_lord_daniel": function(game_state) {
+        var messages = [
+            "Lord Daniel falls madly in love with you. He arranges a " +
+            "massive wedding and has 100 lunatics locked up to celebrate " +
+            "the occassion. You both live happily ever after.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        game_state.character.has_found_true_love = true;
+        return game_state;
+    },
+
     "potion_mermaid": function(game_state) {
         var messages = [
             "The mermaid falls madly in love with you. You run into the " +
@@ -5359,6 +5406,19 @@ var outcomes = {
             functions.random_choice(["has a mouth", "has breasts",
                            "is fun to be around"]) +
             " so you still live happily ever after.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        game_state.character.has_found_true_love = true;
+        return game_state;
+    },
+
+    "potion_nobleman": function(game_state) {
+        var messages = [
+            "The noble falls madly in love with you. He invites you to " +
+            "his estate and shows you the high life. You eat so much cake " +
+            "at the parties he throws that you grow a fashionable double " +
+            "chin. You and the noble eventually get married and both live " +
+            "happily ever after.",
         ];
         game_state.message = functions.random_choice(messages);
         game_state.character.has_found_true_love = true;
@@ -5398,6 +5458,17 @@ var outcomes = {
             "husband. The priestess responds by starting her own church, " +
             "which eventually leads to dozens of religious wars, however " +
             "you still both live happily ever after.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        game_state.character.has_found_true_love = true;
+        return game_state;
+    },
+
+    "potion_st_george": function(game_state) {
+        var messages = [
+            "St. George falls madly in love with you. He says God has " +
+            "inspired him to take you as his bride. He soon does. You " +
+            "both live happily ever after.",
         ];
         game_state.message = functions.random_choice(messages);
         game_state.character.has_found_true_love = true;

@@ -1628,14 +1628,29 @@ exports.actions = {
         switch (game_state.character.person) {
             case "eve":
                 raffle.add(possible_outcomes, "miss_eve", 1);
-                raffle.add(possible_outcomes, "potion_eve", 1);
+                raffle.add(possible_outcomes, "potion_eve", 2);
+                break;
+            case "lord_arthur":
+                raffle.add(possible_outcomes, "potion_lord_arthur", 1);
+                break;
+            case "lord_bartholomew":
+                raffle.add(possible_outcomes, "potion_lord_bartholomew", 1);
+                break;
+            case "lord_carlos":
+                raffle.add(possible_outcomes, "potion_lord_carlos", 1);
+                break;
+            case "lord_daniel":
+                raffle.add(possible_outcomes, "potion_lord_daniel", 1);
                 break;
             case "mermaid":
-                raffle.add(possible_outcomes, "potion_mermaid", 2);
+                raffle.add(possible_outcomes, "potion_mermaid", 1);
+                break;
+            case "nobleman":
+                raffle.add(possible_outcomes, "potion_nobleman", 1);
                 break;
             case "nymph_queen":
                 raffle.add(possible_outcomes, "miss_nymph_queen", 1);
-                raffle.add(possible_outcomes, "potion_nymph_queen", 1);
+                raffle.add(possible_outcomes, "potion_nymph_queen", 2);
                 break;
             case "olga":
                 raffle.add(possible_outcomes, "potion_olga", 1);
@@ -1646,7 +1661,10 @@ exports.actions = {
                 break;
             case "priestess":
                 raffle.add(possible_outcomes, "miss_priestess", 1);
-                raffle.add(possible_outcomes, "potion_priestess", 1);
+                raffle.add(possible_outcomes, "potion_priestess", 2);
+                break;
+            case "st_george":
+                raffle.add(possible_outcomes, "potion_st_george", 1);
                 break;
         }
         return possible_outcomes;

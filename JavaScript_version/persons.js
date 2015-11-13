@@ -147,6 +147,15 @@ exports.persons = {
         "preferred_attack": "burn",
         "type": "male",
     },
+    "nobleman":
+    {
+        "alive": true,
+        "attack": 1,
+        "attracted": 1,
+        "name": "the nobleman",
+        "preferred_attack": "kill",
+        "type": "male",
+    },
     "nymph_queen":
     {
         "alive": true,
