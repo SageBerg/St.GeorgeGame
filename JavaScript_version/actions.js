@@ -1257,6 +1257,15 @@ exports.actions = {
 
     //h
 
+    "Have your cake and eat it too.": function(game_state, possible_outcomes) {
+        raffle.add(possible_outcomes, "have_cake_keep_cake", 2);
+        raffle.add(possible_outcomes, "have_cake_lose_cake", 2);
+        if (game_state.character.place !== "void") {
+            raffle.add(possible_outcomes, "have_cake_void", 1);
+        }
+        return possible_outcomes;
+    },
+
     "Hide.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "hide", 3);
         raffle.add(possible_outcomes, "hide_and_die", 3);

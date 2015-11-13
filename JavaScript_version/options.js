@@ -219,6 +219,10 @@ function get_item_options(game_state, options) {
         raffle.add(options.c, "Chow down on your black mushroom.", 1);
     }
 
+    if (game_state.character.items.cake > 0) {
+        raffle.add(options.d, "Have your cake and eat it too.", 1);
+    }
+
     if (game_state.character.items["bouquet of flowers"] > 0 &&
         (game_state.character.person === "eve" ||
          game_state.character.person === "mermaid" ||

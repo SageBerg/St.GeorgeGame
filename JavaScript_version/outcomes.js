@@ -3784,6 +3784,35 @@ var outcomes = {
         return game_state;
     },
 
+    "have_cake_keep_cake": function(game_state) {
+        var messages = [
+            "You can't.",
+            "You can't figure out a way to make it work.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        return game_state;
+    },
+
+    "have_cake_lose_cake": function(game_state) {
+        var messages = [
+            "You only manage to eat it.",
+            "You still have your cake, but now it's in your belly.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        game_state.character.cake -= 1;
+        return game_state;
+    },
+
+    "have_cake_void": function(game_state) {
+        var messages = [
+            "You succeed in doing both things. The paradox rips " +
+            "a hole in the universe.",
+        ];
+        game_state.message = functions.random_choice(messages);
+        move_character(game_state, "void");
+        return game_state;
+    },
+
     "hide": function(game_state) {
         var messages = [
             "You hide from the assassins, but not from your own " +
