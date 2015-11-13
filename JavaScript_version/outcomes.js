@@ -984,6 +984,8 @@ var outcomes = {
     "buy_a_drink_and_die": function(game_state) {
         var messages = [
             "An assassin walks up and starts hitting on you... very hard.",
+            "You get roaring drunk, start a tavern brawl, and perish in " +
+            "the chaos.",
         ];
         game_state.message = functions.random_choice(messages);
         clover(game_state);

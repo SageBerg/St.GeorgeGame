@@ -372,7 +372,7 @@ exports.actions = {
     "Buy a drink.": function(game_state, possible_outcomes) {
         raffle.add(possible_outcomes, "assassins_sit_down", 1);
         if (game_state.character.sex === MALE) {
-            raffle.add(possible_outcomes, "buy_a_drink_and_die", 1);
+            raffle.add(possible_outcomes, "buy_a_drink_and_die", 2);
         }
         raffle.add(possible_outcomes, "buy_a_drink_and_meet_olga", 3);
         if (game_state.character.person !== "blind_bartender" &&
