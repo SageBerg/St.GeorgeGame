@@ -1151,13 +1151,10 @@ exports.actions = {
         if (game_state.character.place === "docks") {
             raffle.add(possible_outcomes, "fish_up_ax", 1);
             raffle.add(possible_outcomes, "fish_up_pitchfork", 1);
-            if (game_state.character.sex === FEMALE) {
-                //raffle.add(possible_outcomes, "fish_pirates_harass", 4);
-                //raffle.add(possible_outcomes,
-                //    "assassins_catch_you_fishing_not", 1);
-            } else {
+            if (game_state.character.sex === MALE) {
                 raffle.add(possible_outcomes, "fish_pirates_laugh", 2);
-                raffle.add(possible_outcomes, "assassins_catch_you_fishing", 1);
+                raffle.add(possible_outcomes,
+                    "assassins_catch_you_fishing", 1);
             }
         }
         return possible_outcomes;
