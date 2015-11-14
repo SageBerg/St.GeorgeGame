@@ -505,7 +505,7 @@ function get_outcome_options(game_state, options) {
             raffle.add(options.a, "Kill yourself in frustration.", 1);
             if (game_state.places[game_state.character.place].locked ===
                 false) {
-                raffle.add(options.c, "Leave in a huff.", 2);
+                raffle.add(options.c, "Leave in a huff.", 4);
             }
             break;
 
