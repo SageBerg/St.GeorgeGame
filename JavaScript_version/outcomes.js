@@ -4686,7 +4686,7 @@ var outcomes = {
     "make_it_rain": function(game_state) {
         var messages = [
             "You celebrate by wandering around town throwing all of your " +
-            "money in the air.",
+            "money in the air. You now have no money.",
         ];
         game_state.message = functions.random_choice(messages);
         game_state.character.money = NONE;
