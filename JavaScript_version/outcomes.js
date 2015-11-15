@@ -3177,8 +3177,14 @@ var outcomes = {
             case "BURN":
                 attempted_action = "start a fire";
                 break;
+            case "BUY_ITEM":
+                attempted_action = "go shopping";
+                break;
             case "GO_TO":
                 attempted_action = "leave";
+                break;
+            case "LICK_THE_GROUND":
+                attempted_action = "lick the " + get_ground(game_state);
                 break;
             default:
                 attempted_action = game_state.action[0].toLowerCase() +
