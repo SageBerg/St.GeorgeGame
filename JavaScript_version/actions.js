@@ -184,22 +184,22 @@ exports.actions = {
             game_state.character.items["ball of sap"] > 0 &&
             game_state.character.items["black mushroom"] > 0) {
             raffle.add(possible_outcomes,
-                "witch_makes_potion_transformation", 10000);
+                "witch_makes_potion_transformation", 1);
         }
         if (game_state.character.items["ball of sap"] > 0 &&
             game_state.character.items["bouquet of flowers"] > 0 &&
             game_state.character.items["many-colored mushroom"] > 0) {
-            raffle.add(possible_outcomes, "witch_makes_potion_love", 10000);
+            raffle.add(possible_outcomes, "witch_makes_potion_love", 1);
         }
         if (game_state.character.items.cat > 0 &&
             game_state.character.items.pearl > 0) {
             raffle.add(possible_outcomes,
-                "witch_makes_potion_tail_growth", 10000);
+                "witch_makes_potion_tail_growth", 1);
         }
         if (game_state.character.items["deep-cave newt"] > 0 &&
             game_state.character.items["white mushroom"] > 0) {
             raffle.add(possible_outcomes,
-                "witch_makes_potion_strength", 10000);
+                "witch_makes_potion_strength", 1);
         }
         return possible_outcomes;
     },
@@ -1197,9 +1197,6 @@ exports.actions = {
     },
 
     "Go to sleep.": function(game_state, possible_outcomes) {
-        raffle.add(possible_outcomes, "wake_up", 5);
-        raffle.add(possible_outcomes, "wake_up_dead", 1);
-
         if (functions.get_place(game_state).locked === false) {
             raffle.add(possible_outcomes, "wake_up_somewhere_else", 1);
         }
@@ -1225,6 +1222,7 @@ exports.actions = {
                 break;
             case "ocean":
                 raffle.add(possible_outcomes, "wake_up_drown", 10000);
+                return possible_outcomes;
                 break;
             case "prison":
                 if (game_state.character.sex === MALE) {
@@ -1243,6 +1241,9 @@ exports.actions = {
                 raffle.add(possible_outcomes, "wake_in_world", 6);
                 break;
         }
+        raffle.add(possible_outcomes, "wake_up", 5);
+        raffle.add(possible_outcomes, "wake_up_dead", 1);
+
         return possible_outcomes;
     },
 
@@ -1434,6 +1435,11 @@ exports.actions = {
 
     "LICK_THE_GROUND": function(game_state, possible_outcomes) {
 
+        if (game_state.character.place === "ocean") {
+            raffle.add(possible_outcomes, "lick_the_ocean", 10000);
+            return possible_outcomes;
+        }
+
         if (game_state.outcome === "burn" ||
             game_state.character.place === "smoking_volcano") {
             raffle.add(possible_outcomes, "lick_ash", 10000);
@@ -1460,10 +1466,6 @@ exports.actions = {
 
         if (game_state.character.place === "mermaid_rock") {
             raffle.add(possible_outcomes, "lick_the_salt", 6);
-        }
-
-        if (game_state.character.place === "ocean") {
-            raffle.add(possible_outcomes, "lick_the_ocean", 10000);
         }
 
         if (game_state.character.place === "wizard_lab" &&
