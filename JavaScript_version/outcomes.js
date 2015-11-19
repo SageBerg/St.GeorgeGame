@@ -25,8 +25,9 @@ var NUMBER_NAMES = {
     "13": "thirteen",
 };
 
-exports.apply_outcome = function apply_outcome(outcome, game_state) {
-    return outcomes[outcome](game_state);
+/*
+exports.apply_outcome = function apply_outcome(outcome, game) {
+    return outcomes[outcome](game);
 };
 
 exports.get_outcome = function get_outcome(game_state) {
@@ -149,10 +150,6 @@ function burn_a_bunch_of_places(game_state) {
     }
 }
 
-function capitalize(string) {
-    return string[0].toUpperCase() + string.slice(1);
-}
-
 // kills character if he or she doesn't have a four-leaf clover
 function clover(game_state) {
     if (game_state.character.items["four-leaf clover"] < 1) {
@@ -191,6 +188,7 @@ function decrement_money(game_state) {
 function die(game_state) {
     game_state.character.is_dead = true;
 }
+*/
 
 function equip_best_weapon(game_state) {
     var found_weapon_flag = false;
@@ -278,6 +276,18 @@ function get_weapon(game_state, weapon) {
     }
     game_state.character.items[weapon] += 1;
     equip_best_weapon(game_state);
+}
+
+function get_wizard_teleport_message() {
+    return functions.random_choice([
+        "The wizard conks you on the head with his staff.",
+        "The wizard douses you with a potion.",
+        "The wizard grabs your arm and spins you around.",
+        "The wizard makes you leave in a puff.",
+        "The wizard starts reading some magic words from a scroll. " +
+        "He keeps reading for a while so you get bored and try to " +
+        "sneak away. You must have sneaked pretty well.",
+    ]);
 }
 
 function grow_tail(game_state) {
@@ -905,7 +915,7 @@ var outcomes = {
     "bosoms_olga": function(game_state) {
         var olga = game_state.persons.olga.name;
         var messages = [
-            capitalize(olga) + " busies herself by admiring hers own.",
+            functions.capitalize(olga) + " busies herself by admiring hers own.",
             "\"It's hard not to look,\" " + olga + " says.",
         ];
         game_state.message = functions.random_choice(messages);
@@ -1284,7 +1294,7 @@ var outcomes = {
             "You run like the Devil, but " + get_name(game_state) +
             " also " + conjugate(game_state, "run") + " like the Devil and " +
             conjugate(game_state, "overtake") + " you. " +
-            capitalize(get_subject(game_state)) + " " +
+            functions.capitalize(get_subject(game_state)) + " " +
             conjugate(game_state, "arrest") +
             " you and throw you in prison with the other lunatics.";
         move_character(game_state, "prison");
@@ -1295,7 +1305,7 @@ var outcomes = {
     "caught_and_arrested_like_god": function(game_state) {
         game_state.message =
             "God is very slow, so you don't manage to get away. " +
-            capitalize(get_subject(game_state)) + " " +
+            functions.capitalize(get_subject(game_state)) + " " +
             conjugate(game_state, "arrest") +
             " you and throw you in prison with the other lunatics.";
         move_character(game_state, "prison");
@@ -3994,7 +4004,7 @@ var outcomes = {
 
     "impress_olga": function(game_state) {
         var messages = [
-            capitalize(game_state.persons.olga.name) + " is enthralled by " +
+            functions.capitalize(game_state.persons.olga.name) + " is enthralled by " +
             "your story.",
         ];
         game_state.message = functions.random_choice(messages);
@@ -4626,7 +4636,7 @@ var outcomes = {
         ];
         if (functions.get_person(game_state).type !== "group") {
             messages = messages.concat([
-                capitalize(foe) + " is too quick for you.",
+                functions.capitalize(foe) + " is too quick for you.",
                 "You punch " + foe + " in the face, but " + foe +
                 " escalates the situation by killing you.",
             ]);
@@ -5250,7 +5260,7 @@ var outcomes = {
 
     "not_impressed": function(game_state) {
         var messages = [
-            capitalize(functions.get_person(game_state).name) + " " +
+            functions.capitalize(functions.get_person(game_state).name) + " " +
             are_or_is(game_state) + " not impressed.",
             "You're the only one who's impressed.",
         ];
@@ -5420,7 +5430,7 @@ var outcomes = {
 
     "play_dead_works": function(game_state) {
         var messages = [
-            capitalize(get_name(game_state)) + " " +
+            functions.capitalize(get_name(game_state)) + " " +
             conjugate(game_state, "decide") + " you are too pathetic to " +
             "kill.",
         ];
@@ -6188,7 +6198,7 @@ var outcomes = {
 
     "someone_stops_you_burning": function(game_state) {
         var messages = [
-            capitalize(functions.get_person(game_state).name) + " " +
+            functions.capitalize(functions.get_person(game_state).name) + " " +
             conjugate(game_state, "notice") +
             " you trying to burn " +
             functions.get_place(game_state).name +
@@ -7938,15 +7948,3 @@ var outcomes = {
 };
 
 exports.outcomes = outcomes;
-
-function get_wizard_teleport_message() {
-    return functions.random_choice([
-        "The wizard conks you on the head with his staff.",
-        "The wizard douses you with a potion.",
-        "The wizard grabs your arm and spins you around.",
-        "The wizard makes you leave in a puff.",
-        "The wizard starts reading some magic words from a scroll. " +
-        "He keeps reading for a while so you get bored and try to " +
-        "sneak away. You must have sneaked pretty well.",
-    ]);
-}

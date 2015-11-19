@@ -15,7 +15,7 @@ var validation  = require("./validation");
 
 var express     = require("express");
 var http        = require("http");
-var port        = 80; // change to 80 before pushing
+var port        = 3000; // change to 80 before pushing
 var app         = express();
 var server;
 
@@ -49,17 +49,17 @@ function respond_with_outcome(req, res) {
             var game_state     = destringify(req.query);
             console.log(game_state.action); // stopgap until I set up more
             console.log(new Date());        // sophisticated logging
+
             var game           = new Game(game_state);
-            var outcome        = outcomes.get_outcome(game_state);
-            game_state.outcome = outcome;
-            game_state         = outcomes.apply_outcome(outcome, game_state);
-            game_state.options = options.get_options(game_state);
-            game_state.score   = parseInt(game_state.score) + 1;
-            functions.stop_tripping(game_state);
-            if (game_state.character.place === "ocean") {
-                functions.animal_drown(game_state);
+            game.set_outcome();   // generates and sets outcome string
+            game.enact_outcome(); // modifies game state based on outcome
+            //game.options = options.get_options(game_state);
+            game.score   = parseInt(game_state.score) + 1;
+            //game.stop_tripping();
+            if (game.character.place === "ocean") {
+                //game.animal_drown();
             }
-            res.json(game_state);
+            res.json(game.get_state());
         } else { // if input validation fails
             console.log("validation returned false");
             res.json({"message": "error"});

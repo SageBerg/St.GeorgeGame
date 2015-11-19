@@ -13,6 +13,10 @@ exports.a_or_an = function a_or_an(next_letter) {
     return "a";
 }
 
+exports.capitalize = function capitalize(string) {
+    return string[0].toUpperCase() + string.slice(1);
+}
+
 exports.animal_drown = function animal_drown(game_state) {
     if (game_state.character.items.cat === 1) {
         game_state.character.items.cat = 0;
