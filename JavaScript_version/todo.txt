@@ -6,13 +6,11 @@ Technical:
 
 Bugs:
     search for assignment when it should be an equality check
-    you try to lICK_THE_GROUND
-        look for similar bugs
 
 Content:
-    make lick_the_ocean deterministic
     see a rainbow, find a pot of gold
 
+    make more frustration outcomes
     make tails do more
     options in Lord Carlos' manor could use a little work
     make more outcomes for tavern options
@@ -40,11 +38,45 @@ Content:
 
     Lord Arthur fires you out of cannon
 
-    say you have no money if you make it rain
     celebrate your success doesn't come up much
 
     have priest actually be there in game, make sure he's alive
     add argue with the drunk man
+
+    Hellfire torch
+        gives more options to torch the place
+        fire spreads automatically
+        opens up more outcomes in cave (since you can see)
+
+    add outcomes with stilagmite, stilagtite
+    run out of oxygen
+    yell to hear echo, echo is different
+
+    listen carefully (default option)
+        you overhear stuff on the street, in tavern
+        you hear singing in the woods -> find nymph queen
+        sounds in cave
+
+    on fire (rather than just burn up
+        stop (stop and burn up)
+        drop (burn up on ground)
+        roll
+        all of the above or run like the devil
+        other disaster related actions
+            get under something sturdy
+            do the Heimlich manuvour
+                you think Heimlich invented stop drop and roll
+        throw yourself in the ocean (drown or save you)
+        ask someone what to do
+        go out in a blaze of glory (you may not be glorious, but the blaze is)
+        tell the guards you're just flamable 
+
+    execution scene
+        beheaded
+            run around like a chicken
+            watch yourself run around like a chicken
+            run away with your head
+            run away without your head
 
     add the gates of hell
         Go deeper.
@@ -56,6 +88,16 @@ Content:
                 donkey is having none if, donkey kills you
                 you whet cerberus' appitate and get eaten
             throw three of your cats at cerberus
+    
+    you find traveling guide written by Dante
+
+    th layer:
+        centaurs shooting people
+
+    9th layer:
+        icy, Devil skating
+        Devil leaves in a puff?
+        Try to take the Devil's long pitchfork
 
     make a distraction 
         unleash cats
@@ -83,12 +125,13 @@ Content:
         add nobelman
             get a fancy dress impress noble 
             add more ways to find him
+        killed_by_eve_not (or remove comment from actions.js)
+        wake_up_in_prison_not (or remove comment from actions.js)
         flirt with lords
         update validaton to deal with new game_state traits
 
     Cake:
         'Let yourself have cake.'
-        'Have your cake and eat it too.'
         'Take the cake.' (add more ways for it to come up)
 
     have God strike you down if you commit all seven deadly sins
