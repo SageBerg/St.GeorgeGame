@@ -3,11 +3,14 @@
 /*global define */
 
 var actions     = require("./actions").actions;
+var character   = require("./character").character;
 var destringify = require("./destringify_http").destringify;
 var functions   = require("./functions");
-var GameState   = require("./game_state").GameState;
+var Game        = require("./game").Game;
 var options     = require("./options");
 var outcomes    = require("./outcomes");
+var persons     = require("./persons").persons;
+var places      = require("./places").places;
 var validation  = require("./validation");
 
 var express     = require("express");
@@ -24,17 +27,29 @@ server = http.createServer(app);
 server.listen(port);
 
 function respond_with_initial_world(req, res) {
-    var game_state = new GameState();
+    var game_state = {
+        "action":      null,
+        "character":   character,
+        "destination": null,
+        "for_sell":    null,
+        "marriage":    false,
+        "message":     "You are in a tavern. The local assassins hate you.",
+        "options":     options.starting_options,
+        "outcome":     null,
+        "persons":     persons,
+        "places":      places,
+        "score":       0,
+    };
     res.json(game_state);
 }
 
 function respond_with_outcome(req, res) {
     try {
         if (validation.validate(req.query) === true) {
-            var game_state     = req.query;
+            var game_state     = destringify(req.query);
             console.log(game_state.action); // stopgap until I set up more
             console.log(new Date());        // sophisticated logging
-            game_state         = destringify(game_state);
+            var game           = new Game(game_state);
             var outcome        = outcomes.get_outcome(game_state);
             game_state.outcome = outcome;
             game_state         = outcomes.apply_outcome(outcome, game_state);
