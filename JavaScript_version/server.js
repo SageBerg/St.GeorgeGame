@@ -3,13 +3,11 @@
 /*global define */
 
 var actions     = require("./actions").actions;
-var character   = require("./character").character;
 var destringify = require("./destringify_http").destringify;
 var functions   = require("./functions");
+var GameState   = require("./game_state").GameState;
 var options     = require("./options");
 var outcomes    = require("./outcomes");
-var persons     = require("./persons").persons;
-var places      = require("./places").places;
 var validation  = require("./validation");
 
 var express     = require("express");
@@ -26,19 +24,7 @@ server = http.createServer(app);
 server.listen(port);
 
 function respond_with_initial_world(req, res) {
-    var game_state = {
-        "action":      null,
-        "character":   character,
-        "destination": null,
-        "for_sell":    null,
-        "marriage":    false,
-        "message":     "You are in a tavern. The local assassins hate you.",
-        "options":     options.starting_options,
-        "outcome":     null,
-        "persons":     persons,
-        "places":      places,
-        "score":       0,
-    };
+    var game_state = new GameState();
     res.json(game_state);
 }
 
