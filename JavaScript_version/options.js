@@ -439,7 +439,6 @@ function get_person_options(game_state, options) {
                     available_weapons.push(weapons[i]);
                 }
             }
-            console.log(available_weapons);
             // if you have all of the weapons the merchant sells
             // then BUY_WEAPON will not be added to the raffle
             if (available_weapons.length === 0) {

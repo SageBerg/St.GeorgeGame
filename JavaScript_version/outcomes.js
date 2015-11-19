@@ -185,8 +185,6 @@ function decrement_money(game_state) {
             game_state.character.money = NONE;
             game_state.message += " You now have no money.";
             break;
-        default:
-            console.log("decrement_money called when character had no money");
     }
 }
 
