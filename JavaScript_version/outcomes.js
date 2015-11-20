@@ -5,7 +5,6 @@
 var actions   = require("./actions").actions;
 var functions = require("./functions");
 var items     = require("./items");
-//var raffle    = require("./raffle");
 
 var FEMALE    = "female";
 var MALE      = "male";

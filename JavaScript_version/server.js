@@ -2,13 +2,10 @@
 /*jslint vars: true, plusplus: true, devel: true, nomen: true*/
 /*global define */
 
-//var actions     = require("./actions").actions;
 var character   = require("./character").character;
 var destringify = require("./destringify_http").destringify;
-//var functions   = require("./functions");
 var Game        = require("./game").Game;
 var options     = require("./options");
-//var outcomes    = require("./outcomes");
 var persons     = require("./persons").persons;
 var places      = require("./places").places;
 var validation  = require("./validation");
