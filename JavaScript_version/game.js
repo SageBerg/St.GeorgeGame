@@ -6,7 +6,7 @@ var actions   = require("./actions").actions;
 var functions = require("./functions");
 var items     = require("./items");
 var outcomes  = require("./outcomes").outcomes;
-var raffle    = require("./raffle");
+var Raffle    = require("./raffle").Raffle;
 
 // the order of BURNABLE_PLACES matters based on the story
 var BURNABLE_PLACES = [
@@ -205,41 +205,41 @@ Game.prototype.get_character_options = function(options) {
     if (this.character.money === "large_fortune" &&
         this.character.strength > 5 &&
         Math.floor(Math.random() * 3) === 0) {
-        raffle.add(options.c, "Quit while you're ahead.", 1);
+        options.c.add("Quit while you're ahead.", 1);
     }
     if (this.places[this.character.place].locked === false &&
         this.character.is_threatened === false) {
-        raffle.add(options.c, "GO_TO", 4);
+        options.c.add("GO_TO", 4);
     }
     if (this.character.is_threatened === true) {
         if (this.character.person !== "guards") {
-            raffle.add(options.b, "Play dead.", 1);
-            raffle.add(options.d, "Panic!", 1);
+            options.b.add("Play dead.", 1);
+            options.d.add("Panic!", 1);
         }
-        raffle.add(options.c, "Run like the Devil.", 90);
-        raffle.add(options.c, "Waddle like God.", 10);
+        options.c.add("Run like the Devil.", 90);
+        options.c.add("Waddle like God.", 10);
     }
     if ((this.character.money === "large_fortune" ||
         this.character.money === "small_fortune") &&
         this.places[this.character.place].town === true
         ) {
-        raffle.add(options.d, "Flaunt your wealth.", 1);
+        options.d.add("Flaunt your wealth.", 1);
     }
 };
 
 Game.prototype.get_default_options = function(options) {
     if (this.character.sex === FEMALE) {
-        raffle.add(options.a, "Admire your own bosoms.", 1);
+        options.a.add("Admire your own bosoms.", 1);
     }
-    raffle.add(options.a, "Think.", 1);
+    options.a.add("Think.", 1);
     if (this.character.place !== "void") {
-        raffle.add(options.a, "LICK_THE_GROUND", 1);
-        raffle.add(options.c, "Leave in a puff.", 1);
+        options.a.add("LICK_THE_GROUND", 1);
+        options.c.add("Leave in a puff.", 1);
     }
-    raffle.add(options.b, "Pray to a higher power.", 1);
-    raffle.add(options.c, "Go to sleep.", 1);
-    raffle.add(options.d, "Sing a song.", 1);
-    raffle.add(options.d, "Dance a jig.", 1);
+    options.b.add("Pray to a higher power.", 1);
+    options.c.add("Go to sleep.", 1);
+    options.d.add("Sing a song.", 1);
+    options.d.add("Dance a jig.", 1);
 };
 
 Game.prototype.get_ground = function() {
@@ -277,25 +277,25 @@ Game.prototype.get_item = function(item) {
 
 Game.prototype.get_item_options = function(options) {
     if (this.character.items.apple > 0) {
-        raffle.add(options.c, "Chow down on your apple.", 2);
+        options.c.add("Chow down on your apple.", 2);
     }
     if (this.character.items["bag of jewels"] > 0) {
-        raffle.add(options.a, "Admire your jewels.", 1);
+        options.a.add("Admire your jewels.", 1);
     }
     if (this.character.items["ball of sap"] > 0) {
-        raffle.add(options.c, "Chow down on your ball of sap.", 1);
+        options.c.add("Chow down on your ball of sap.", 1);
     }
     if (this.character.items["ball of sap"] > 0 &&
         this.character.items["bouquet of flowers"] > 0 &&
         this.character.items["many-colored mushroom"] > 0 &&
         this.character.person === "witch") {
-        raffle.add(options.b, "Ask the witch to brew you a potion.", 100);
+        options.b.add("Ask the witch to brew you a potion.", 100);
     }
     if (this.character.items["black mushroom"] > 0) {
-        raffle.add(options.c, "Chow down on your black mushroom.", 1);
+        options.c.add("Chow down on your black mushroom.", 1);
     }
     if (this.character.items.cake > 0) {
-        raffle.add(options.d, "Have your cake and eat it too.", 1);
+        options.d.add("Have your cake and eat it too.", 1);
     }
     if (this.character.items["bouquet of flowers"] > 0 &&
         (this.character.person === "eve" ||
@@ -303,50 +303,50 @@ Game.prototype.get_item_options = function(options) {
          this.character.person === "nymph_queen" ||
          this.character.person === "olga" ||
          this.character.place === "prison")) {
-        raffle.add(options.b, "GIVE_FLOWERS", 100);
+        options.b.add("GIVE_FLOWERS", 100);
     }
     if (this.character.items.cat > 0) {
-        raffle.add(options.d, "Swing your cat.", 1);
+        options.d.add("Swing your cat.", 1);
         if (this.character.items.cat > 1) {
-            raffle.add(options.b, "Breed your cats.", 1);
+            options.b.add("Breed your cats.", 1);
         }
     }
     if (this.character.items.cat > 0 &&
         this.character.items.pearl > 0 &&
         this.character.person === "witch") {
-        raffle.add(options.b, "Ask the witch to brew you a potion.", 100);
+        options.b.add("Ask the witch to brew you a potion.", 100);
     }
     if (this.character.items.cat > 0 &&
         (this.character.person === "eve" ||
          this.character.person === "olga")) {
-        raffle.add(options.a, "GIVE_HER_CAT", 5);
+        options.a.add("GIVE_HER_CAT", 5);
     }
     if (this.character.items["deep-cave newt"] > 1) {
-        raffle.add(options.b, "Breed your deep-cave newts.", 1);
+        options.b.add("Breed your deep-cave newts.", 1);
     }
     if (this.character.items["deep-cave newt"] > 0 &&
         this.character.items["white mushroom"] > 0 &&
         this.character.person === "witch") {
-        raffle.add(options.b, "Ask the witch to brew you a potion.", 100);
+        options.b.add("Ask the witch to brew you a potion.", 100);
     }
     if (this.character.items.donkey > 0) {
-        raffle.add(options.c, "GO_TO", 6);
+        options.c.add("GO_TO", 6);
     }
     if (this.character.items.frog > 0 &&
         this.places[this.character.place].locked === false) {
-        raffle.add(options.b, "Kiss your frog.", 2);
+        options.b.add("Kiss your frog.", 2);
     }
     if (this.character.items["many-colored mushroom"] > 0) {
-        raffle.add(options.c, "Chow down on your many-colored mushroom.", 2);
+        options.c.add("Chow down on your many-colored mushroom.", 2);
     }
     if (this.character.items["potion of strength"] > 0) {
-        raffle.add(options.d, "Slurp down your potion of strength.", 2);
+        options.d.add("Slurp down your potion of strength.", 2);
     }
     if (this.character.items["potion of tail growth"] > 0) {
-        raffle.add(options.d, "Slurp down your potion of tail growth.", 2);
+        options.d.add("Slurp down your potion of tail growth.", 2);
     }
     if (this.character.items["potion of transformation"] > 0) {
-        raffle.add(options.d, "Slurp down your potion of transformation.", 4);
+        options.d.add("Slurp down your potion of transformation.", 4);
     }
     if (this.character.items["potion of love"] > 0 &&
         (this.character.person === "eve" ||
@@ -354,7 +354,7 @@ Game.prototype.get_item_options = function(options) {
          this.character.person === "olga" ||
          this.character.person === "nymph_queen" ||
          this.character.person === "priestess")) {
-        raffle.add(options.b, "LOVE_POTION", 10000);
+        options.b.add("LOVE_POTION", 10000);
     }
     if (this.character.items["potion of love"] > 0 &&
         this.character.sex === FEMALE &&
@@ -364,7 +364,7 @@ Game.prototype.get_item_options = function(options) {
          this.character.person === "lord_daniel" ||
          this.character.person === "noblman" ||
          this.character.person === "st_george")) {
-        raffle.add(options.b, "LOVE_POTION", 10000);
+        options.b.add("LOVE_POTION", 10000);
     }
     if (this.character.items["shiny foreign coin"] > 0 &&
         (this.character.person === "dragon_blue" ||
@@ -373,17 +373,17 @@ Game.prototype.get_item_options = function(options) {
          this.character.person === "lord_bartholomew" ||
          this.character.person === "lord_carlos" ||
          this.character.person === "lord_daniel")) {
-        raffle.add(options.b, "SHOW_COIN", 100);
+        options.b.add("SHOW_COIN", 100);
     }
     if (this.character.items["handful of void dust"] > 0 &&
         this.character.person === "wizard") {
-        raffle.add(options.d, "Trade your void dust to the wizard.", 10000);
+        options.d.add("Trade your void dust to the wizard.", 10000);
     }
     if (this.character.items["white mushroom"] > 0) {
-        raffle.add(options.c, "Chow down on your white mushroom.", 2);
+        options.c.add("Chow down on your white mushroom.", 2);
     }
     if (this.character.items["yellow mushroom"] > 0) {
-        raffle.add(options.c, "Chow down on your yellow mushroom.", 1);
+        options.c.add("Chow down on your yellow mushroom.", 1);
     }
 };
 
@@ -438,9 +438,9 @@ Game.prototype.get_outcome_options = function(options) {
         case "wake_up_robbed":
         case "wealthy_people_sneer":
         case "wizard_leaves_without_you":
-            raffle.add(options.a, "Kill yourself in frustration.", 1);
+            options.a.add("Kill yourself in frustration.", 1);
             if (this.places[this.character.place].locked === false) {
-                raffle.add(options.c, "Leave in a huff.", 4);
+                options.c.add("Leave in a huff.", 4);
             }
             break;
         case "bronzed":
@@ -456,9 +456,9 @@ Game.prototype.get_outcome_options = function(options) {
         case "train_and_win":
         case "you_get_away_with_it":
             if (this.character.sex === FEMALE) {
-                raffle.add(options.a, "Pat yourself on the back.", 1);
+                options.a.add("Pat yourself on the back.", 1);
             } else {
-                raffle.add(options.a, "Thump yourself on the chest.", 1);
+                options.a.add("Thump yourself on the chest.", 1);
             }
             break;
         case "cat_smells_fish":
@@ -471,175 +471,175 @@ Game.prototype.get_outcome_options = function(options) {
         case "pace_and_get_frog":
         case "raise_sail_and_get_to_land":
         case "wake_up_richer":
-            raffle.add(options.c, "Celebrate your success.", 2);
+            options.c.add("Celebrate your success.", 2);
             break;
         case "cat_burning":
-            raffle.add(options.a, "Try to save the cat.", 100);
+            options.a.add("Try to save the cat.", 100);
             break;
         case "chance_to_escape":
-            raffle.add(options.c, "Leave in a puff.", 100);
-            raffle.add(options.c, "Run like the Devil.", 1000);
+            options.c.add("Leave in a puff.", 100);
+            options.c.add("Run like the Devil.", 1000);
             break;
         case "chess_lose_to_pirates":
         case "fish_pirates_laugh":
         case "think_pirates_laugh":
-            raffle.add(options.a, "Kill yourself in frustration.", 1);
-            raffle.add(options.a, "Kill everybody in a fit of rage.", 1);
-            raffle.add(options.d, "Challenge them to an arm wrestling match " +
+            options.a.add("Kill yourself in frustration.", 1);
+            options.a.add("Kill everybody in a fit of rage.", 1);
+            options.d.add("Challenge them to an arm wrestling match " +
                 "to reclaim your dignity.", 15);
             break;
         case "directions_to_manor":
         case "directions_to_town":
         case "directions_to_volcano":
         case "directions_to_woods":
-            raffle.add(options.c, "GO_TO", 1000);
+            options.c.add("GO_TO", 1000);
             break;
         case "disguise_guards_laugh":
         case "gambling_lose":
         case "peasants_laugh_at_you":
-            raffle.add(options.a, "Kill everybody in a fit of rage.", 1);
+            options.a.add("Kill everybody in a fit of rage.", 1);
             break;
         case "dragon_coin_trade":
-            raffle.add(options.a, "Trade it for a fancy paladin sword.",
+            options.a.add("Trade it for a fancy paladin sword.",
                 10000);
-            raffle.add(options.b, "Trade it for a potion of love.", 10000);
+            options.b.add("Trade it for a potion of love.", 10000);
             if (this.persons.lord_carlos.alive === true &&
                 this.places.lord_carlos_manor.burnable === true) {
-                raffle.add(options.c, "Ask the blue dragon to kill Lord " +
+                options.c.add("Ask the blue dragon to kill Lord " +
                     "Carlos.", 10000);
             }
-            raffle.add(options.d, "Trade it for a large fortune.", 10000);
+            options.d.add("Trade it for a large fortune.", 10000);
             break;
         case "fail_to_save_cat":
-            raffle.add(options.a, "Kill yourself in frustration.", 2);
-            raffle.add(options.d,
+            options.a.add("Kill yourself in frustration.", 2);
+            options.d.add(
                 "Look up into the sky and yell, \"NOOOOOOOOOOOOO!\"", 100);
             break;
         case "gawk_at_cake":
-            raffle.add(options.c, "Take the cake.", 1);
+            options.c.add("Take the cake.", 1);
             break;
         case "god_shows_you_the_way":
             if (this.get_place().locked === false) {
-                raffle.add(options.c, "GO_TO", 10000);
+                options.c.add("GO_TO", 10000);
             }
             break;
         case "god_tells_you_to_burn_stuff":
             if (this.get_place().burnable === true) {
-                raffle.add(options.b, "BURN", 10000);
+                options.b.add("BURN", 10000);
             }
             break;
         case "guards_stop_you_burning":
             this.character.excuse = "cold";
-            raffle.add(options.d, "TELL_GUARDS", 10000);
+            options.d.add("TELL_GUARDS", 10000);
             break;
         case "guards_stop_you_dancing":
             this.character.excuse = "happy";
-            raffle.add(options.d, "TELL_GUARDS", 10000);
+            options.d.add("TELL_GUARDS", 10000);
             break;
         case "guards_stop_you_killing":
             this.character.excuse = "mad";
-            raffle.add(options.d, "TELL_GUARDS", 10000);
+            options.d.add("TELL_GUARDS", 10000);
             break;
         case "guards_stop_you_licking":
             this.character.excuse = "hungry";
-            raffle.add(options.d, "TELL_GUARDS", 10000);
+            options.d.add("TELL_GUARDS", 10000);
             break;
         case "guards_stop_you_rich":
             this.character.excuse = "rich";
-            raffle.add(options.d, "Tell the guards you're a lunatic.", 10000);
+            options.d.add("Tell the guards you're a lunatic.", 10000);
             break;
         case "guards_stop_you_singing":
             this.character.excuse = "talented";
-            raffle.add(options.d, "TELL_GUARDS", 10000);
+            options.d.add("TELL_GUARDS", 10000);
             break;
         case "guards_stop_you_swinging":
             this.character.excuse = "insane";
-            raffle.add(options.d, "TELL_GUARDS", 10000);
+            options.d.add("TELL_GUARDS", 10000);
             break;
         case "hide":
-            raffle.add(options.c, "GO_TO", 10000);
+            options.c.add("GO_TO", 10000);
             break;
         case "hit_assassin_with_cat":
-            raffle.add(options.a, "Tell her you're sorry.", 100);
+            options.a.add("Tell her you're sorry.", 100);
             break;
         case "keep_swimming":
-            raffle.add(options.c, "Just keep swimming.", 10000);
+            options.c.add("Just keep swimming.", 10000);
             break;
         case "lord_bartholomew_chess":
-            raffle.add(options.a, "A3.", 10000);
-            raffle.add(options.b, "Nf3.", 10000);
-            raffle.add(options.c, "E4.", 10000);
-            raffle.add(options.d,
+            options.a.add("A3.", 10000);
+            options.b.add("Nf3.", 10000);
+            options.c.add("E4.", 10000);
+            options.d.add(
                 "Play poorly and turn the board around once you're losing.",
                 10000);
             break;
         case "lord_carlos_chess":
-            raffle.add(options.a, "A3.", 10000);
-            raffle.add(options.b, "Nf3.", 10000);
-            raffle.add(options.c, "E4.", 10000);
-            raffle.add(options.d, "Ask for a draw.", 10000);
+            options.a.add("A3.", 10000);
+            options.b.add("Nf3.", 10000);
+            options.c.add("E4.", 10000);
+            options.d.add("Ask for a draw.", 10000);
             break;
         case "lose_peg":
-            raffle.add(options.a, "Yell, \"I've lost my leg!\"", 10000);
+            options.a.add("Yell, \"I've lost my leg!\"", 10000);
             break;
         case "merchant_ship_nest":
         case "merchant_ship_sail":
         case "merchant_ship_scrub":
-            raffle.add(options.a, "Fire a cannon.", 10000);
-            raffle.add(options.b, "Hide beneath the deck.", 10000);
-            raffle.add(options.c, "Swing on a rope.", 10000);
-            raffle.add(options.d, "Do some swashbuckling.", 10000);
+            options.a.add("Fire a cannon.", 10000);
+            options.b.add("Hide beneath the deck.", 10000);
+            options.c.add("Swing on a rope.", 10000);
+            options.d.add("Do some swashbuckling.", 10000);
             break;
         case "newt_race":
             if (this.character.items["deep-cave newt"] > 0) {
-                raffle.add(options.a, "Enter your deep-cave newt in the race.",
+                options.a.add("Enter your deep-cave newt in the race.",
                     10000);
             }
             break;
         case "no_progress_swimming":
         case "see_ship":
-            raffle.add(options.c, "Keep swimming.", 10000);
+            options.c.add("Keep swimming.", 10000);
             break;
         case "notice_pattern":
-            raffle.add(options.a,
+            options.a.add(
                 "Laugh about the warden doing it alone on holidays.", 10000);
-            raffle.add(options.b,
+            options.b.add(
                 "Try to snatch the keys the first chance you get.", 10000);
-            raffle.add(options.d,
+            options.d.add(
                 "Wait for a holiday to make your move.", 10000);
             break;
         case "penguins":
-            raffle.add(options.a, "Yell that there aren't penguins in the " +
+            options.a.add("Yell that there aren't penguins in the " +
                     "Arctic.", 10000);
             break;
         case "riot":
-            raffle.add(options.a, "ATTACK", 10000);
-            raffle.add(options.b, "BURN", 10000);
-            raffle.add(options.c, "Trash the place.", 10000);
-            raffle.add(options.d, "Loot.", 10000);
+            options.a.add("ATTACK", 10000);
+            options.b.add("BURN", 10000);
+            options.c.add("Trash the place.", 10000);
+            options.d.add("Loot.", 10000);
             break;
         case "see_wizard_with_penguins":
-            raffle.add(options.a, "Yell, \"Don't leave without me!\"", 10000);
+            options.a.add("Yell, \"Don't leave without me!\"", 10000);
             break;
         case "suck_up_to_lord_arthur_ocean":
-            raffle.add(options.a, "Look for sea turtles.", 10000);
+            options.a.add("Look for sea turtles.", 10000);
             break;
         case "think_four_ideas":
             if (this.character.place !== "void") {
-                raffle.add(options.a, "LICK_THE_GROUND", 10);
+                options.a.add("LICK_THE_GROUND", 10);
             }
             break;
         case "think_elaborate_scheme":
-            raffle.add(options.b, "Enact your elaborate scheme.", 10000);
+            options.b.add("Enact your elaborate scheme.", 10000);
             break;
         case "wait_here_please":
-            raffle.add(options.a, "Wait where you are.", 10000);
+            options.a.add("Wait where you are.", 10000);
             break;
         case "witch_burning":
-            raffle.add(options.a, "Try to save the witch.", 100);
+            options.a.add("Try to save the witch.", 100);
             break;
         case "wizard_wants_mushroom":
-            raffle.add(options.a, "Give the wizard what he wants.", 10000);
+            options.a.add("Give the wizard what he wants.", 10000);
             break;
     }
 };
@@ -654,83 +654,83 @@ Game.prototype.get_place = function() {
 
 Game.prototype.get_person_options = function(options) {
     if (this.character.person !== null) {
-        raffle.add(options.a, "ATTACK", 20);
-        raffle.add(options.b, "Boast of your bravery.", 1);
+        options.a.add("ATTACK", 20);
+        options.b.add("Boast of your bravery.", 1);
     }
     switch (this.character.person) {
         case "blind_bartender":
-            raffle.add(options.c, "Chat with the blind bartender.", 14);
+            options.c.add("Chat with the blind bartender.", 14);
             break;
         case "dog":
             if (this.character.items.fish > 0) {
-                raffle.add(options.b, "Bribe the dog with a fish.", 1000);
+                options.b.add("Bribe the dog with a fish.", 1000);
             }
             if (this.character.items.cat > 0) {
-                raffle.add(options.c, "Throw your cat at the dog.", 10000);
+                options.c.add("Throw your cat at the dog.", 10000);
             }
-            raffle.add(options.d, "Try to reason with the dog.", 100);
+            options.d.add("Try to reason with the dog.", 100);
             break;
         case "dragon_blue":
         case "dragon_red":
-            raffle.add(options.c, "Chat with the dragon.", 10);
-            raffle.add(options.d, "Try to steal some of the dragon's " +
+            options.c.add("Chat with the dragon.", 10);
+            options.d.add("Try to steal some of the dragon's " +
                 "treasure.", 10);
             break;
         case "eve":
         case "nymph_queen":
         case "olga":
-            raffle.add(options.d, "FLIRT_WITH", 100);
+            options.d.add("FLIRT_WITH", 100);
             break;
         case "lord_arthur":
-            raffle.add(options.b, "SUCK_UP", 10);
+            options.b.add("SUCK_UP", 10);
             break;
         case "lord_bartholomew":
-            raffle.add(options.a, "Ask for asylum.", 10);
-            raffle.add(options.b, "SUCK_UP", 10);
-            raffle.add(options.c, "Chat with Lord Bartholomew.", 10);
-            raffle.add(options.d,
+            options.a.add("Ask for asylum.", 10);
+            options.b.add("SUCK_UP", 10);
+            options.c.add("Chat with Lord Bartholomew.", 10);
+            options.d.add(
                 "Challenge Lord Bartholomew to a game of chess.", 10);
             break;
         case "lord_carlos":
             if (this.character.sex === MALE) {
                 if (this.character.money === "large_fortune" &&
                     this.character.money === "small_fortune") {
-                    raffle.add(options.a, "Repay your debts.", 10);
+                    options.a.add("Repay your debts.", 10);
                 }
-                raffle.add(options.b, "SUCK_UP", 5);
-                raffle.add(options.b, "Grovel.", 10);
-                raffle.add(options.c,
+                options.b.add("SUCK_UP", 5);
+                options.b.add("Grovel.", 10);
+                options.c.add(
                     "Challenge Lord Carlos to a game of chess.", 15);
-                raffle.add(options.d,
+                options.d.add(
                     "Make it hard for Lord Carlos to kill you.", 15);
             } else {
-                //raffle.add(options.d, "FLIRT_WITH", 100);
+                //options.d.add("FLIRT_WITH", 100);
             }
             break;
         case "lord_daniel":
-            raffle.add(options.b, "SUCK_UP", 10);
-            raffle.add(options.c,
+            options.b.add("SUCK_UP", 10);
+            options.c.add(
                 "Complain about unfair imprisonment policies.", 10);
             break;
         case "mermaid":
-            raffle.add(options.c,
+            options.c.add(
                 "Ask the mermaid to take you back to land.", 15);
-            raffle.add(options.d, "FLIRT_WITH", 100);
+            options.d.add("FLIRT_WITH", 100);
             break;
         case "mob":
-            raffle.add(options.d, "Try to reason with the mob.", 10);
+            options.d.add("Try to reason with the mob.", 10);
             break;
         case "peasant_lass":
         case "simple_peasant":
-            raffle.add(options.d, "Ask for directions.", 100);
+            options.d.add("Ask for directions.", 100);
             break;
         case "pirates":
-            raffle.add(options.c,
+            options.c.add(
                 "Challenge the pirates to a game of chess.", 10);
             break;
         case "st_george":
-            raffle.add(options.b, "Beg for money.", 100);
-            raffle.add(options.c, "Chat with St. George.", 2);
+            options.b.add("Beg for money.", 100);
+            options.c.add("Chat with St. George.", 2);
             break;
         case "war_merchant":
             var weapons = ["cutlass", "dagger", "hammer", "iron_hammer",
@@ -751,17 +751,17 @@ Game.prototype.get_person_options = function(options) {
             }
             var weapon = functions.random_choice(available_weapons);
             this.for_sell = weapon;
-            raffle.add(options.d, "BUY_WEAPON", 10000);
+            options.d.add("BUY_WEAPON", 10000);
             break;
         case "witch":
-            raffle.add(options.b, "Ask the witch to brew you a potion.", 10);
+            options.b.add("Ask the witch to brew you a potion.", 10);
             if (this.character.items.cat > 0) {
-                raffle.add(options.c, "Give your cat to the witch.", 20);
+                options.c.add("Give your cat to the witch.", 20);
             }
             break;
         case "wizard":
-            raffle.add(options.b, "Ask the wizard for advice.", 10);
-            raffle.add(options.d, "Pull on the wizard's beard to make sure " +
+            options.b.add("Ask the wizard for advice.", 10);
+            options.d.add("Pull on the wizard's beard to make sure " +
                 "it's real.", 10);
             break;
     }
@@ -770,99 +770,99 @@ Game.prototype.get_person_options = function(options) {
 Game.prototype.get_place_options = function(options) {
     if (this.places[this.character.place].burnable &&
         this.outcome != "guards_stop_you_burning") {
-        raffle.add(options.b, "BURN", 1);
+        options.b.add("BURN", 1);
     }
     switch (this.character.place) {
         case "arctic":
-            raffle.add(options.a, "Go fishing.", 4);
-            raffle.add(options.b, "Build an igloo.", 4);
-            raffle.add(options.b, "Play in the snow.", 2);
-            raffle.add(options.c, "Club a seal.", 8);
-            raffle.add(options.d, "Freeze to death.", 2);
+            options.a.add("Go fishing.", 4);
+            options.b.add("Build an igloo.", 4);
+            options.b.add("Play in the snow.", 2);
+            options.c.add("Club a seal.", 8);
+            options.d.add("Freeze to death.", 2);
             break;
         case "cave":
-            raffle.add(options.c, "Look for a way out.", 10);
-            raffle.add(options.d, "Go deeper.", 10);
+            options.c.add("Look for a way out.", 10);
+            options.d.add("Go deeper.", 10);
             break;
         case "church":
             if (this.get_place().burnable === true) {
                 if (this.character.person === null) {
-                    raffle.add(options.a, "Tell a priest he's fat.", 2);
-                    raffle.add(options.a,
+                    options.a.add("Tell a priest he's fat.", 2);
+                    options.a.add(
                         "Tell a priest God doesn't exist.", 2);
-                    raffle.add(options.a,
+                    options.a.add(
                         "Tell a priest you're the chosen one.", 2);
                 }
                 if (items.money_map[this.character.money].value > 0) {
-                    raffle.add(options.d, "Donate to the church.", 6);
+                    options.d.add("Donate to the church.", 6);
                 }
             }
             break;
         case "countryside":
-            raffle.add(options.a, "Go flower picking.", 4);
-            raffle.add(options.b, "Tip a cow.", 4);
-            raffle.add(options.c, "Wander the countryside.", 20);
-            raffle.add(options.d, "Do some farm work.", 4);
+            options.a.add("Go flower picking.", 4);
+            options.b.add("Tip a cow.", 4);
+            options.c.add("Wander the countryside.", 20);
+            options.d.add("Do some farm work.", 4);
             break;
         case "dark_alley":
-            raffle.add(options.a, "Look for assassins.", 6);
-            raffle.add(options.b, "Make a shady deal.", 6);
-            raffle.add(options.c, "Hide.", 4);
-            raffle.add(options.d, "Look through the trash.", 6);
+            options.a.add("Look for assassins.", 6);
+            options.b.add("Make a shady deal.", 6);
+            options.c.add("Hide.", 4);
+            options.d.add("Look through the trash.", 6);
             break;
         case "docks":
-            raffle.add(options.c, "Go fishing.", 8);
-            raffle.add(options.d, "Do some gambling.", 2);
+            options.c.add("Go fishing.", 8);
+            options.d.add("Do some gambling.", 2);
             break;
         case "lord_bartholomew_manor":
             if (this.get_place().burnable === true) {
                 if (this.character.person === null &&
                     this.character.sex === MALE) {
-                    raffle.add(options.b, "Tell the next person you meet " +
+                    options.b.add("Tell the next person you meet " +
                             "that you're Lord Arthur.", 1);
-                    raffle.add(options.b, "Tell the next person you meet " +
+                    options.b.add("Tell the next person you meet " +
                             "that you're Lord Bartholomew.", 1);
-                    raffle.add(options.b, "Tell the next person you meet " +
+                    options.b.add("Tell the next person you meet " +
                             "that you're Lord Daniel.", 1);
-                    raffle.add(options.b, "Tell the next person you meet " +
+                    options.b.add("Tell the next person you meet " +
                             "that you're Lord Carlos.", 1);
-                    raffle.add(options.b, "Tell the next person you meet " +
+                    options.b.add("Tell the next person you meet " +
                             "that you're St. George.", 1);
                 }
                 if (this.persons.lord_bartholomew.alive === true &&
                     this.character.person !== "lord_bartholomew") {
-                    raffle.add(options.a,
+                    options.a.add(
                         "Ask for an audience with Lord Bartholomew.", 4);
                 }
-                raffle.add(options.d, "Sneak around.", 4);
+                options.d.add("Sneak around.", 4);
             }
             break;
         case "lord_carlos_manor":
             if (this.get_place().burnable === true) {
                 if (this.character.person === null) {
                     if (this.character.sex === MALE) {
-                        raffle.add(options.a, "Ask about assassins.", 4);
+                        options.a.add("Ask about assassins.", 4);
                     }
-                    raffle.add(options.a, "Hire an assassin.", 4);
-                    raffle.add(options.b, "BURN", 5);
+                    options.a.add("Hire an assassin.", 4);
+                    options.b.add("BURN", 5);
                     if (this.character.sex === MALE) {
-                        raffle.add(options.b, "Tell the next person you " +
+                        options.b.add("Tell the next person you " +
                             "meet that you're Lord Arthur.", 1);
-                        raffle.add(options.b, "Tell the next person you " +
+                        options.b.add("Tell the next person you " +
                             "meet that you're Lord Bartholomew.", 1);
-                        raffle.add(options.b, "Tell the next person you " +
+                        options.b.add("Tell the next person you " +
                             "meet that you're Lord Daniel.", 1);
-                        raffle.add(options.b, "Tell the next person you " +
+                        options.b.add("Tell the next person you " +
                             "meet that you're Lord Carlos.", 1);
-                        raffle.add(options.b, "Tell the next person you " +
+                        options.b.add("Tell the next person you " +
                             "meet that you're St. George.", 1);
                     }
                 }
                 if (this.character.person !== "eve" &&
                     this.persons.eve.alive === true) {
-                    raffle.add(options.c, "Look for Lord Carlos' daughter.", 4);
+                    options.c.add("Look for Lord Carlos' daughter.", 4);
                 }
-                raffle.add(options.d, "Sneak around.", 8);
+                options.d.add("Sneak around.", 8);
             }
             break;
         case "market":
@@ -870,98 +870,98 @@ Game.prototype.get_place_options = function(options) {
                 this.get_place().trashable === true) {
                 if (this.character.person !== "war_merchant" &&
                     this.persons.war_merchant.alive === true) {
-                    raffle.add(options.a, "Look for a weapon.", 10);
+                    options.a.add("Look for a weapon.", 10);
                 }
                 if (this.persons.wizard.alive === true &&
                     this.character.person !== "wizard") {
-                    raffle.add(options.b, "Look for the wizard.", 1);
+                    options.b.add("Look for the wizard.", 1);
                 }
                 if (this.character.person === null) {
                     var item  = functions.random_choice(items.MARKET_ITEMS);
                     this.for_sell = item;
-                    raffle.add(options.b, "BUY_ITEM", 6);
+                    options.b.add("BUY_ITEM", 6);
                 }
-                raffle.add(options.d, "Watch a play.", 2);
+                options.d.add("Watch a play.", 2);
             }
             break;
         case "mermaid_rock":
             if (this.character.person !== "mermaid") {
-                raffle.add(options.a, "Look for mermaids.", 10);
+                options.a.add("Look for mermaids.", 10);
             }
-            raffle.add(options.c, "Go fishing.", 20);
-            raffle.add(options.d, "Sun yourself on a rock.", 4);
+            options.c.add("Go fishing.", 20);
+            options.d.add("Sun yourself on a rock.", 4);
             break;
         case "ocean":
-            raffle.add(options.a, "Look for mermaids.", 5);
+            options.a.add("Look for mermaids.", 5);
             if (this.outcome !== "fail_to_find_mermaids_find_turtle") {
-                raffle.add(options.a, "Look for sea turtles.", 5);
+                options.a.add("Look for sea turtles.", 5);
             }
-            raffle.add(options.b, "Sink.", 10);
-            raffle.add(options.c, "Swim.", 20);
-            raffle.add(options.d, "Dive for pearls.", 5);
-            raffle.add(options.d, "Drown.", 1);
+            options.b.add("Sink.", 10);
+            options.c.add("Swim.", 20);
+            options.d.add("Dive for pearls.", 5);
+            options.d.add("Drown.", 1);
             break;
         case "pirate_ship":
-            raffle.add(options.a, "YELL_A_PIRATE_PHRASE", 6);
-            raffle.add(options.b, "Raise a sail.", 8);
-            raffle.add(options.b, "Scrub the deck.", 8);
-            raffle.add(options.c, "Walk the plank.", 2);
+            options.a.add("YELL_A_PIRATE_PHRASE", 6);
+            options.b.add("Raise a sail.", 8);
+            options.b.add("Scrub the deck.", 8);
+            options.c.add("Walk the plank.", 2);
             if (this.character.items["sailor peg"] > 0) {
-                raffle.add(options.c, "Climb up the top sails.", 10);
+                options.c.add("Climb up the top sails.", 10);
             }
             if (this.outcome !== "climb_and_get_sap" &&
                 this.outcome !== "merchant_ship_nest" &&
                 this.outcome !== "watch_duty") {
-                raffle.add(options.c, "Climb into the crow's nest.", 8);
+                options.c.add("Climb into the crow's nest.", 8);
             }
-            raffle.add(options.d, "Drop anchor.", 7);
+            options.d.add("Drop anchor.", 7);
             break;
         case "prison":
-            raffle.add(options.b, "Bide your time.", 6);
-            raffle.add(options.c, "Pace around.", 20);
+            options.b.add("Bide your time.", 6);
+            options.c.add("Pace around.", 20);
             if (this.persons.felicity.attracted > 0) {
                 if (this.persons.felicity.name === "the fat lady") {
-                    raffle.add(options.d,
+                    options.d.add(
                         "Flirt with the fat lady who feeds you.", 10);
                 } else {
-                    raffle.add(options.d, "Flirt with Felicity.",10);
+                    options.d.add("Flirt with Felicity.",10);
                 }
             }
             break;
         case "smoking_volcano":
             if (this.character.person === null) {
-                raffle.add(options.a, "Look for dragons.", 6);
+                options.a.add("Look for dragons.", 6);
             }
-            raffle.add(options.b, "Choke on fumes.", 2);
-            raffle.add(options.c, "Climb to the top of the volcano.", 4);
-            raffle.add(options.d, "Go swimming in a pool of lava.", 2);
+            options.b.add("Choke on fumes.", 2);
+            options.c.add("Climb to the top of the volcano.", 4);
+            options.d.add("Go swimming in a pool of lava.", 2);
             break;
         case "streets":
             if (this.character.items.apple > 0) {
-                raffle.add(options.a, "Give your apple to an orphan.", 4);
+                options.a.add("Give your apple to an orphan.", 4);
             }
-            raffle.add(options.a, "Look for a cat.", 4);
-            raffle.add(options.a, "Look for a cat.", 4);
+            options.a.add("Look for a cat.", 4);
+            options.a.add("Look for a cat.", 4);
             if (this.character.sex === FEMALE) {
-                raffle.add(options.b, "Gawk at men.", 2);
+                options.b.add("Gawk at men.", 2);
             } else if (this.character.sex === MALE) {
-                raffle.add(options.b, "Gawk at women.", 2);
+                options.b.add("Gawk at women.", 2);
             }
-            raffle.add(options.c, "GO_TO", 2);
+            options.c.add("GO_TO", 2);
             if (this.character.person !== "st_george" &&
                 this.persons.st_george.alive === true) {
-                raffle.add(options.d, "Look for St. George.", 2);
+                options.d.add("Look for St. George.", 2);
             }
             break;
         case "tavern":
             if (this.get_place().burnable === true) {
-                raffle.add(options.a, "Ask about assassins.", 4);
-                raffle.add(options.b, "Buy a drink.", 4);
-                raffle.add(options.d, "Do some gambling.", 4);
+                options.a.add("Ask about assassins.", 4);
+                options.b.add("Buy a drink.", 4);
+                options.d.add("Do some gambling.", 4);
                 if (this.persons.olga.alive === true &&
                     this.persons.olga.name === "Olga" &&
                     this.character.person !== "olga") {
-                    raffle.add(options.b, "Look for Olga.", 10);
+                    options.b.add("Look for Olga.", 10);
                 }
             }
             break;
@@ -969,55 +969,53 @@ Game.prototype.get_place_options = function(options) {
             if (this.get_place().burnable === true) {
                 if (this.character.person === null &&
                     this.character.sex === MALE) {
-                    raffle.add(options.b, "Tell the next person you meet " +
+                    options.b.add("Tell the next person you meet " +
                             "that you're Lord Arthur.", 1);
-                    raffle.add(options.b, "Tell the next person you meet " +
+                    options.b.add("Tell the next person you meet " +
                             "that you're Lord Bartholomew.", 1);
-                    raffle.add(options.b, "Tell the next person you meet " +
+                    options.b.add("Tell the next person you meet " +
                             "that you're Lord Daniel.", 1);
-                    raffle.add(options.b, "Tell the next person you meet " +
+                    options.b.add("Tell the next person you meet " +
                             "that you're Lord Carlos.", 1);
-                    raffle.add(options.b, "Tell the next person you meet " +
+                    options.b.add("Tell the next person you meet " +
                             "that you're St. George.", 1);
                 }
                 if (this.persons.lord_daniel.alive === true &&
                     this.character.person !== "lord_daniel") {
-                    raffle.add(options.a,
-                        "Ask for an audience with Lord Daniel.", 4);
+                    options.a.add("Ask for an audience with Lord Daniel.", 4);
                 }
-                raffle.add(options.c,
+                options.c.add(
                     "Complain about unfair imprisonment policies.", 4);
-                raffle.add(options.d, "Train with the guards.", 8);
+                options.d.add("Train with the guards.", 8);
             }
             break;
         case "void":
-            raffle.add(options.c, "Float through the void.", 5);
-            raffle.add(options.d, "Gather void dust.", 2);
+            options.c.add("Float through the void.", 5);
+            options.d.add("Gather void dust.", 2);
             break;
         case "woods":
             if (this.get_place().burnable === true) {
-                raffle.add(options.a, "Go mushroom picking.", 4);
+                options.a.add("Go mushroom picking.", 4);
                 if (this.character.items.ax > 0) {
-                    raffle.add(options.c,
-                        "Chop down a tree with your ax.", 10);
+                    options.c.add("Chop down a tree with your ax.", 10);
                 }
                 if (this.character.person !== "nymph_queen") {
-                    raffle.add(options.d, "Look for nymphs.", 4);
+                    options.d.add("Look for nymphs.", 4);
                 }
             }
             if (this.character.person !== "witch") {
-                raffle.add(options.b, "Look for witches.", 4);
+                options.b.add("Look for witches.", 4);
             }
             break;
         case "wizard_lab":
             if (this.get_place().burnable === true) {
                 if (this.places.wizard_lab.trashable === true &&
                     this.outcome !== "wizard_stops_you_trashing") {
-                    raffle.add(options.a, "Trash the place.", 4);
+                    options.a.add("Trash the place.", 4);
                 }
-                raffle.add(options.b, "Read a spellbook.", 4);
-                raffle.add(options.c, "Snoop around.", 6);
-                raffle.add(options.d, "Drink a random potion.", 4);
+                options.b.add("Read a spellbook.", 4);
+                options.c.add("Snoop around.", 6);
+                options.d.add("Drink a random potion.", 4);
             }
             break;
     }
@@ -1189,7 +1187,10 @@ Game.prototype.set_pyro_options = function(options) {
 };
 
 Game.prototype.set_options= function() {
-    var options = {"a": {}, "b": {}, "c": {}, "d": {} };
+    var options = {"a": new Raffle(),
+                   "b": new Raffle(), 
+                   "c": new Raffle(),
+                   "d": new Raffle()};
     if (this.character.is_dead || this.marriage_victory()) {
         this.set_game_over_options(options);
     } else if (this.outcome === "eve_name") {
@@ -1283,10 +1284,10 @@ Game.prototype.set_options= function() {
         this.get_outcome_options(options);
         this.get_person_options(options);
         this.get_place_options(options);
-        options.a = raffle.get(options.a);
-        options.b = raffle.get(options.b);
-        options.c = raffle.get(options.c);
-        options.d = raffle.get(options.d);
+        options.a = options.a.get();
+        options.b = options.b.get();
+        options.c = options.c.get();
+        options.d = options.d.get();
         if (Math.floor(Math.random() * 250) === 0 &&
             this.outcome !== "think_four_ideas" &&
             this.character.place !== "void") {
@@ -1306,7 +1307,7 @@ Game.prototype.set_options= function() {
 };
 
 Game.prototype.set_outcome = function() {
-    var possible_outcomes;
+    var possible_outcomes = new Raffle();
     if (this.character.is_threatened === true &&
         this.action !== "A3." &&
         this.action !== "Apologize." &&
@@ -1331,11 +1332,13 @@ Game.prototype.set_outcome = function() {
         this.action !== "Try to reason with the dog." &&
         this.action !== "Try to reason with the mob." &&
         this.action !== "Waddle like God.") {
-        possible_outcomes = actions.GET_ATTACKED(this.get_state(), {});
+        possible_outcomes = actions.GET_ATTACKED(this.get_state(),
+                                                 possible_outcomes);
     } else {
-        possible_outcomes = actions[this.action](this.get_state(), {});
+        possible_outcomes = actions[this.action](this.get_state(),
+                                                 possible_outcomes);
     }
-    this.outcome = raffle.get(possible_outcomes);
+    this.outcome = possible_outcomes.get();
 };
 
 Game.prototype.spread_fire = function() {

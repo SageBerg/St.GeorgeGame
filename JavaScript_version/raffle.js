@@ -2,25 +2,29 @@
 /*jslint vars: true, plusplus: true, devel: true, nomen: true*/
 /*global define */
 
-exports.add = function raffle_add(raffle, outcome, votes) {
-    if (raffle[outcome]) {
-        raffle[outcome] += votes;
-    } else {
-        raffle[outcome] = votes;
-    }
+var Raffle = function() {};
+
+Raffle.prototype.add = function(outcome, votes) {
+    this[outcome] ? this[outcome] += votes : this[outcome] = votes;
 };
 
-exports.get = function raffle_get(raffle) {
+Raffle.prototype.get = function() {
     var raffle_size = 0;
-    for (var key in raffle) {
-        raffle_size += raffle[key];
+    for (var key in this) {
+        if (this.hasOwnProperty(key)) {
+            raffle_size += this[key];
+        }
     }
     var roll = Math.floor(Math.random() * raffle_size) + 1;
-    for (key in raffle) {
-        roll -= raffle[key];
-        if (roll <= 0) {
-            break;
+    for (key in this) {
+        if (this.hasOwnProperty(key)) {
+            roll -= this[key];
+            if (roll <= 0) {
+                break;
+            }
         }
     }
     return key;
 };
+
+exports.Raffle = Raffle;
