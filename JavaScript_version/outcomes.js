@@ -225,8 +225,8 @@ function game.get_ground() {
         case "docks":
             return "docks";
     }
-    if (functions.get_place(game).outside === false) {
-        if (functions.get_place(game).burnable === false &&
+    if (game.get_place().outside === false) {
+        if (game.get_place().burnable === false &&
             (game.character.place === "church" ||
              game.character.place === "lord_bartholomew_manor" ||
              game.character.place === "lord_carlos_manor" ||
@@ -361,7 +361,7 @@ function game.move_character(destination) {
 
 function spread_fire(game) {
     var burnables = [];
-    var links = functions.get_place(game).links;
+    var links = game.get_place().links;
     for (var i = 0; i < links.length; i++) {
         if (game.places[links[i]].burnable === true) {
             burnables.push(links[i]);
@@ -2396,8 +2396,7 @@ var outcomes = {
     "escape": function(game) {
         game.message =
             "The Devil is pretty fast, so you manage to get away.";
-        game.move_character(
-            functions.get_random_adjacent_destination(game));
+        game.move_character(game.get_random_adjacent_destination());
         game.leave_donkey_behind();
         return game;
     },
@@ -2407,8 +2406,7 @@ var outcomes = {
             "God is very slow, but " + game.get_name() +
             " also " + game.conjugate("waddle") + " like God, so " +
             "you manage to get away.";
-        game.move_character(
-                       functions.get_random_adjacent_destination(game));
+        game.move_character(game.get_random_adjacent_destination());
         return game;
     },
 
@@ -2426,8 +2424,7 @@ var outcomes = {
                 game.persons.olga.attracted = 0;
                 break;
         }
-        game.move_character(
-                       functions.get_random_adjacent_destination(game));
+        game.move_character(game.get_random_adjacent_destination());
         return game;
     },
 
@@ -2982,9 +2979,7 @@ var outcomes = {
 
     "forget_what_you_were_doing": function(game) {
         game.message = "You forget what you were trying to do.";
-        move_character(
-                game,
-                functions.get_random_adjacent_destination(game));
+        game.move_character(game.get_random_adjacent_destination());
         return game;
     },
 
@@ -3349,7 +3344,7 @@ var outcomes = {
             "Lord Carlos' daughter kills the cat.",
         ];
         game.message = functions.random_choice(messages);
-        functions.get_person(game).attracted += 1;
+        game.get_person().attracted += 1;
         game.lose_item("cat");
         return game;
     },
@@ -3359,7 +3354,7 @@ var outcomes = {
             "She thinks the cat is adorable.",
         ];
         game.message = functions.random_choice(messages);
-        functions.get_person(game).attracted += 1;
+        game.get_person().attracted += 1;
         game.lose_item("cat");
         return game;
     },
@@ -3370,7 +3365,7 @@ var outcomes = {
             "She rips the bouquet to shreds.",
         ];
         game.message = functions.random_choice(messages);
-        functions.get_person(game).attracted += 1;
+        game.get_person().attracted += 1;
         game.lose_item("bouquet of flowers");
         return game;
     },
@@ -3394,7 +3389,7 @@ var outcomes = {
             "with your gift.",
         ];
         game.message = functions.random_choice(messages);
-        functions.get_person(game).attracted += 1;
+        game.get_person().attracted += 1;
         game.lose_item("bouquet of flowers");
         return game;
     },
@@ -3428,7 +3423,7 @@ var outcomes = {
             "She says she loves the flowers.",
         ];
         game.message = functions.random_choice(messages);
-        functions.get_person(game).attracted += 1;
+        game.get_person().attracted += 1;
         game.lose_item("bouquet of flowers");
         return game;
     },
@@ -3957,8 +3952,7 @@ var outcomes = {
 
     "hop_a_lot": function(game) {
         game.message = "You hop a lot.";
-        game.move_character(
-                       functions.get_random_adjacent_destination(game));
+        game.move_character(game.get_random_adjacent_destination());
         return game;
     },
 
@@ -4466,8 +4460,7 @@ var outcomes = {
         game.message = "You grab some stuff and flee the market.";
         game.get_item(item_one);
         game.get_item(item_two);
-        game.move_character(
-            functions.get_random_adjacent_destination(game));
+        game.move_character(game.get_random_adjacent_destination());
         return game;
     },
 
@@ -4633,7 +4626,7 @@ var outcomes = {
             "Your attack results in your death.",
             "Your martial efforts are fruitless.",
         ];
-        if (functions.get_person(game).type !== "group") {
+        if (game.get_person().type !== "group") {
             messages = messages.concat([
                 functions.capitalize(foe) + " is too quick for you.",
                 "You punch " + foe + " in the face, but " + foe +
@@ -4947,7 +4940,7 @@ var outcomes = {
     "mermaid_likes_your_dance": function(game) {
         game.message = "The mermaid laughs and claps her hands. " +
             "She is completely in awe of your legs.";
-        functions.get_person(game).attracted += 1;
+        game.get_person().attracted += 1;
         return game;
     },
 
@@ -5259,7 +5252,7 @@ var outcomes = {
 
     "not_impressed": function(game) {
         var messages = [
-            functions.capitalize(functions.get_person(game).name) + " " +
+            functions.capitalize(game.get_person().name) + " " +
             game.are_or_is() + " not impressed.",
             "You're the only one who's impressed.",
         ];
@@ -5747,8 +5740,7 @@ var outcomes = {
 
     "random_move": function(game) {
         game.message = "";
-        game.move_character(
-            functions.get_random_adjacent_destination(game));
+        game.move_character(game.get_random_adjacent_destination());
         return game;
     },
 
@@ -6085,7 +6077,7 @@ var outcomes = {
     "sing_to_mermaid": function(game) {
         game.message = "The mermaid enjoys your singing and sings " +
             "with you.";
-        functions.get_person(game).attracted += 1;
+        game.get_person().attracted += 1;
         return game;
     },
 
@@ -6197,10 +6189,10 @@ var outcomes = {
 
     "someone_stops_you_burning": function(game) {
         var messages = [
-            functions.capitalize(functions.get_person(game).name) + " " +
+            functions.capitalize(game.get_person().name) + " " +
             game.conjugate("notice") +
             " you trying to burn " +
-            functions.get_place(game).name +
+            game.get_place().name +
             " to the ground and " +
             game.conjugate("kill") + " you.",
         ];
@@ -7278,8 +7270,7 @@ var outcomes = {
 
     "wake_up_somewhere_else": function(game) {
         game.message = "You wake up a few hours later.";
-        game.move_character(
-                       functions.get_random_adjacent_destination(game));
+        game.move_character(game.get_random_adjacent_destination());
         game.character.person = null;
         return game;
     },
@@ -7341,8 +7332,7 @@ var outcomes = {
     "wander_while_singing": function(game) {
         game.message = "You wander aimlessly as you work your way " +
             "through an epic ballad.";
-        game.move_character(
-                       functions.get_random_adjacent_destination(game));
+        game.move_character(game.get_random_adjacent_destination());
         return game;
     },
 

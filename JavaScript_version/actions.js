@@ -2031,7 +2031,7 @@ exports.actions = {
                 raffle.add(possible_outcomes, "sing_to_mermaid", 10);
                 break;
             case "olga":
-                if (functions.get_person(game_state).name === "Olga") {
+                if (game.get_plerson().name === "Olga") {
                     raffle.add(possible_outcomes, "sing_to_olga", 100);
                 }
                 break;

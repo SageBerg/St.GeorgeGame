@@ -10,7 +10,6 @@ var FEMALE    = "female";
 var MALE      = "male";
 
 exports.get_options = function get_options(game_state) {
-
     var options = {"a": {}, "b": {}, "c": {}, "d": {} };
     if (game_state.character.is_dead || marriage_victory(game_state)) {
         set_game_over_options(options);
@@ -99,19 +98,16 @@ exports.get_options = function get_options(game_state) {
                ].burnable === true) {
         set_pyro_options(options);
     } else {
-
         get_character_options(game_state, options);
         get_default_options(game_state, options);
         get_item_options(game_state, options);
         get_outcome_options(game_state, options);
         get_person_options(game_state, options);
         get_place_options(game_state, options);
-
         options.a = raffle.get(options.a);
         options.b = raffle.get(options.b);
         options.c = raffle.get(options.c);
         options.d = raffle.get(options.d);
-
         if (Math.floor(Math.random() * 250) === 0 &&
             game_state.outcome !== "think_four_ideas" &&
             game_state.character.place !== "void") {
@@ -125,10 +121,8 @@ exports.get_options = function get_options(game_state) {
             options.e = "";
         }
     }
-
     set_destination(game_state, options.c);
     game_state.marriage = false;
-
     return options;
 };
 
@@ -139,7 +133,6 @@ exports.starting_options = {"a": "Ask about assassins.",
                             "e": ""};
 
 function burned_everything_victory(game_state) {
-
     for (var place in game_state.places) {
         if (game_state.places[place].burnable) {
             return false;
@@ -1025,7 +1018,6 @@ function get_place_options(game_state, options) {
 }
 
 function lords_victory(game_state) {
-
     if (game_state.persons.lord_arthur.alive === false &&
         game_state.persons.lord_bartholomew.alive === false &&
         game_state.persons.lord_carlos.alive === false &&
@@ -1037,7 +1029,6 @@ function lords_victory(game_state) {
 }
 
 function marriage_victory(game_state) {
-
     if (game_state.character.has_found_true_love) {
         game_state.score = parseInt(game_state.score) + 100;
         return true;
@@ -1050,7 +1041,6 @@ function set_destination(game_state, option) {
         game_state.destination =
             functions.get_random_adjacent_destination(game_state);
     }
-
     switch (game_state.outcome) {
         case "directions_to_manor":
             game_state.destination = "lord_bartholomew_manor";
@@ -1068,7 +1058,6 @@ function set_destination(game_state, option) {
 }
 
 function set_game_over_options(options) {
-
     options.a = "Play again.";
     options.b = "Don't play again.";
     options.c = "";
@@ -1077,7 +1066,6 @@ function set_game_over_options(options) {
 }
 
 function set_pyro_options(options) {
-
     options.a = "Fill the place with fire.";
     options.b = "Ignite an inferno.";
     options.c = "Release your inner arsonist.";
