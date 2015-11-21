@@ -2,7 +2,8 @@
 /*jslint vars: true, plusplus: true, devel: true, nomen: true*/
 /*global define */
 
-var character   = require("./character").character;
+var char_state  = require("./character").starting_character_state;
+var Character   = require("./character").Character;
 var destringify = require("./destringify_http").destringify;
 var Game        = require("./game").Game;
 var options     = require("./options");
@@ -12,7 +13,7 @@ var validation  = require("./validation");
 
 var express     = require("express");
 var http        = require("http");
-var port        = 80; // change to 80 before pushing
+var port        = 80; // change to 80 before committing 
 var app         = express();
 var server;
 
@@ -23,10 +24,16 @@ app.use(express.static(__dirname));
 server = http.createServer(app);
 server.listen(port);
 
+// stopgap until I set up more sophisticated logging
+function log(game_state) {
+    console.log(game_state.action);
+    console.log(new Date());
+}
+
 function respond_with_initial_world(req, res) {
     var game_state = {
         "action":      null,
-        "character":   character,
+        "character":   char_state,
         "destination": null,
         "for_sell":    null,
         "marriage":    false,
@@ -44,18 +51,26 @@ function respond_with_outcome(req, res) {
     try {
         if (validation.validate(req.query) === true) {
             var game_state = destringify(req.query);
-            console.log(game_state.action); // stopgap until I set up more
-            console.log(new Date());        // sophisticated logging
 
+            log(game_state);
+
+            game_state.character = new Character(game_state.character);
             var game = new Game(game_state);
+
             game.set_outcome();   // generates and sets outcome string
-            game.enact_outcome(); // modifies game state based on outcome
+            game.enact_outcome(); //   modifies game state based on outcome
             game.set_options();
-            game.score   = parseInt(game_state.score) + 1;
+            game.score = parseInt(game_state.score) + 1;
             game.stop_tripping();
             if (game.character.place === "ocean") {
                 game.animal_drown();
             }
+
+            //don't send the character object's methods to the client
+            //  just send the character's state
+            game.character = game.character.get_state();
+            console.log(game.character);
+
             res.json(game.get_state());
         } else { // if input validation fails
             console.log("validation returned false");

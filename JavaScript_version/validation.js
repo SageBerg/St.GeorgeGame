@@ -3,7 +3,7 @@
 /*global define */
 
 var actions     = require("./actions").actions;
-var character   = require("./character").character;
+var character   = require("./character").starting_character_state;
 var options     = require("./options");
 var outcomes    = require("./outcomes");
 var persons     = require("./persons").persons;
@@ -52,6 +52,10 @@ function validate_character(game_state) {
             }
         }
     } else {
+        console.log("character_keys", character_keys);
+        console.log("input_character_keys", input_character_keys);
+        console.log("expected:", character_keys.length,
+                    "got:", input_character_keys.length);
         console.log("character is wrong size");
         return false;
     }

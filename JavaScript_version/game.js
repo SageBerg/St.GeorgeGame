@@ -1027,7 +1027,7 @@ Game.prototype.get_random_adjacent_destination = function() {
     return dest;
 };
 
-//so we can send the state of the game sending the game logic 
+//so we can send the state of the game without sending the game logic 
 Game.prototype.get_state = function() {
     var game_state = {};
     for (var property in this) {
