@@ -19,6 +19,31 @@ var BURNABLE_PLACES = [
     "church",
     "tavern",
 ];
+var COMBAT_ALLOWABLE_ACTIONS = [
+    "A3.",
+    "Apologize.",
+    "ATTACK",
+    "Bribe the dog with a fish.",
+    "Challenge Lord Carlos to a this of chess.",
+    "E4.",
+    "Enter the void.",
+    "Grovel.",
+    "Leave in a puff.",
+    "Make it hard for Lord Carlos to kill you.",
+    "Nf3.",
+    "Panic!",
+    "Play dead.",
+    "Repay your debts.",
+    "Run like the Devil.",
+    "SHOW_COIN",
+    "SUCK_UP",
+    "TELL_GUARDS",
+    "Tell her you're sorry.",
+    "Throw your cat at the dog.",
+    "Try to reason with the dog.",
+    "Try to reason with the mob.",
+    "Waddle like God.",
+];
 var FEMALE = "female";
 var MALE   = "male";
 var NONE   = "none";
@@ -315,6 +340,15 @@ Game.prototype.grow_tail = function() {
     }
 };
 
+Game.prototype.in_array = function(term, array) {
+    for (var i = 0; i < array.length; i++) {
+        if (term === array[i]) {
+            return true;
+        }
+    } 
+    return false;
+};
+
 Game.prototype.leave_donkey_behind = function() {
     if (this.character.items.donkey === 1) {
         this.character.items.donkey = 0;
@@ -410,34 +444,12 @@ Game.prototype.set_destination = function(option) {
 Game.prototype.set_outcome = function() {
     var possible_outcomes = new Raffle();
     if (this.character.is_threatened === true &&
-        this.action !== "A3." &&
-        this.action !== "Apologize." &&
-        this.action !== "ATTACK" &&
-        this.action !== "Bribe the dog with a fish." &&
-        this.action !== "Challenge Lord Carlos to a this of chess." &&
-        this.action !== "E4." &&
-        this.action !== "Enter the void." &&
-        this.action !== "Grovel." &&
-        this.action !== "Leave in a puff." &&
-        this.action !== "Make it hard for Lord Carlos to kill you." &&
-        this.action !== "Nf3." &&
-        this.action !== "Panic!" &&
-        this.action !== "Play dead." &&
-        this.action !== "Repay your debts." &&
-        this.action !== "Run like the Devil." &&
-        this.action !== "SHOW_COIN" &&
-        this.action !== "SUCK_UP" &&
-        this.action !== "TELL_GUARDS" &&
-        this.action !== "Tell her you're sorry." &&
-        this.action !== "Throw your cat at the dog." &&
-        this.action !== "Try to reason with the dog." &&
-        this.action !== "Try to reason with the mob." &&
-        this.action !== "Waddle like God.") {
-        possible_outcomes = actions.GET_ATTACKED(this.get_state(),
-                                                 possible_outcomes);
+        !this.in_array(this.action, COMBAT_ALLOWABLE_ACTIONS)) { 
+        possible_outcomes =
+            actions.GET_ATTACKED(this.get_state(), possible_outcomes);
     } else {
-        possible_outcomes = actions[this.action](this.get_state(),
-                                                 possible_outcomes);
+        possible_outcomes = 
+            actions[this.action](this.get_state(), possible_outcomes);
     }
     this.outcome = possible_outcomes.get();
 };
