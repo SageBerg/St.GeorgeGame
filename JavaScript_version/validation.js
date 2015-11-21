@@ -2,12 +2,12 @@
 /*jslint vars: true, plusplus: true, devel: true, nomen: true*/
 /*global define */
 
-var actions     = require("./actions").actions;
-var character   = require("./character").starting_character_state;
-var options     = require("./options");
-var outcomes    = require("./outcomes");
-var persons     = require("./persons").persons;
-var places      = require("./places").places;
+var actions   = require("./actions").actions;
+var character = require("./character").character;
+var options   = require("./options");
+var outcomes  = require("./outcomes");
+var persons   = require("./persons").persons;
+var places    = require("./places").places;
 
 exports.validate = function validate(game_state) {
     var conditions = [

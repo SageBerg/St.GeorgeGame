@@ -9,6 +9,43 @@ var raffle    = require("./raffle");
 var FEMALE    = "female";
 var MALE      = "male";
 
+exports.starting_options = {"a": "Ask about assassins.",
+                            "b": "Buy a drink.",
+                            "c": "Leave in a huff.",
+                            "d": "Sing a song.",
+                            "e": ""};
+
+var OptionsGenerator = function() {
+    this.options = {"a": {}, "b": {}, "c": {}, "d": {} };
+};
+
+OptionsGenerator.prototype.get_character_options = function(options) {
+    if (this.character.money === "large_fortune" &&
+        this.character.strength > 5 &&
+        Math.floor(Math.random() * 3) === 0) {
+        options.c.add("Quit while you're ahead.", 1);
+    }
+    if (this.places[this.character.place].locked === false &&
+        this.character.is_threatened === false) {
+        options.c.add("GO_TO", 4);
+    }
+    if (this.character.is_threatened === true) {
+        if (this.character.person !== "guards") {
+            options.b.add("Play dead.", 1);
+            options.d.add("Panic!", 1);
+        }
+        options.c.add("Run like the Devil.", 90);
+        options.c.add("Waddle like God.", 10);
+    }
+    if ((this.character.money === "large_fortune" ||
+        this.character.money === "small_fortune") &&
+        this.places[this.character.place].town === true
+        ) {
+        options.d.add("Flaunt your wealth.", 1);
+    }
+};
+
+/*
 exports.get_options = function get_options(game_state) {
     var options = {"a": {}, "b": {}, "c": {}, "d": {} };
     if (game_state.character.is_dead || marriage_victory(game_state)) {
@@ -125,12 +162,6 @@ exports.get_options = function get_options(game_state) {
     game_state.marriage = false;
     return options;
 };
-
-exports.starting_options = {"a": "Ask about assassins.",
-                            "b": "Buy a drink.",
-                            "c": "Leave in a huff.",
-                            "d": "Sing a song.",
-                            "e": ""};
 
 function burned_everything_victory(game_state) {
     for (var place in game_state.places) {
@@ -1071,4 +1102,7 @@ function set_pyro_options(options) {
     options.c = "Release your inner arsonist.";
     options.d = "Engulf everything in flames.";
     options.e = "";
-}
+} 
+*/
+
+exports.OptionsGenerator = OptionsGenerator;

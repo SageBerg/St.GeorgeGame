@@ -19,10 +19,9 @@ var BURNABLE_PLACES = [
     "church",
     "tavern",
 ];
-var FEMALE    = "female";
-var MALE      = "male";
-var NONE = "none";
-
+var FEMALE = "female";
+var MALE   = "male";
+var NONE   = "none";
 var HE_SHE_THEY = {
     FEMALE: "she",
     MALE: "he",
@@ -1186,7 +1185,7 @@ Game.prototype.set_pyro_options = function(options) {
     options.e = "";
 };
 
-Game.prototype.set_options= function() {
+Game.prototype.set_options = function() {
     var options = {"a": new Raffle(),
                    "b": new Raffle(), 
                    "c": new Raffle(),

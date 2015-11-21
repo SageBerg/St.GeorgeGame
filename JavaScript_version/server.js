@@ -2,11 +2,9 @@
 /*jslint vars: true, plusplus: true, devel: true, nomen: true*/
 /*global define */
 
-var char_state  = require("./character").starting_character_state;
-var Character   = require("./character").Character;
+var character   = require("./character").character;
 var destringify = require("./destringify_http").destringify;
 var Game        = require("./game").Game;
-var options     = require("./options");
 var persons     = require("./persons").persons;
 var places      = require("./places").places;
 var validation  = require("./validation");
@@ -33,12 +31,16 @@ function log(game_state) {
 function respond_with_initial_world(req, res) {
     var game_state = {
         "action":      null,
-        "character":   char_state,
+        "character":   character,
         "destination": null,
         "for_sell":    null,
         "marriage":    false,
         "message":     "You are in a tavern. The local assassins hate you.",
-        "options":     options.starting_options,
+        "options":     {"a": "Ask about assassins.",
+                        "b": "Buy a drink.",
+                        "c": "Leave in a huff.",
+                        "d": "Sing a song.",
+                        "e": ""},
         "outcome":     null,
         "persons":     persons,
         "places":      places,
@@ -54,22 +56,17 @@ function respond_with_outcome(req, res) {
 
             log(game_state);
 
-            game_state.character = new Character(game_state.character);
             var game = new Game(game_state);
 
-            game.set_outcome();   // generates and sets outcome string
-            game.enact_outcome(); //   modifies game state based on outcome
+            game.set_outcome();   // generates and sets outcome
+            game.enact_outcome(); // modifies game state based on outcome
             game.set_options();
-            game.score = parseInt(game_state.score) + 1;
+            game.score = parseInt(game.score) + 1;
+
             game.stop_tripping();
             if (game.character.place === "ocean") {
                 game.animal_drown();
             }
-
-            //don't send the character object's methods to the client
-            //  just send the character's state
-            game.character = game.character.get_state();
-            console.log(game.character);
 
             res.json(game.get_state());
         } else { // if input validation fails
