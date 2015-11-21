@@ -5,6 +5,7 @@
 var character   = require("./character").character;
 var destringify = require("./destringify_http").destringify;
 var Game        = require("./game").Game;
+var OptionsGen  = require("./options").OptionsGenerator;
 var persons     = require("./persons").persons;
 var places      = require("./places").places;
 var validation  = require("./validation");
@@ -60,7 +61,12 @@ function respond_with_outcome(req, res) {
 
             game.set_outcome();   // generates and sets outcome
             game.enact_outcome(); // modifies game state based on outcome
-            game.set_options();
+
+            var options_gen = new OptionsGen();
+            options_gen.set_options(game);
+    
+            game.marriage = false;
+
             game.score = parseInt(game.score) + 1;
 
             game.stop_tripping();
