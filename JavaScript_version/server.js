@@ -63,16 +63,8 @@ function respond_with_outcome(req, res) {
             game.enact_outcome(); // modifies game state based on outcome
 
             var options_gen = new OptionsGen();
-            options_gen.set_options(game);
+            options_gen.set_options(game); // generates and sets options
     
-            game.marriage = false;
-
-            game.score = parseInt(game.score) + 1;
-
-            game.stop_tripping();
-            if (game.character.place === "ocean") {
-                game.animal_drown();
-            }
 
             res.json(game.get_state());
         } else { // if input validation fails

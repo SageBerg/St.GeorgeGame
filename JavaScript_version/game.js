@@ -451,7 +451,14 @@ Game.prototype.set_outcome = function() {
         possible_outcomes = 
             actions[this.action](this.get_state(), possible_outcomes);
     }
+    // revoke the marriage option if you declined it in the previous round
+    this.marriage = false;
     this.outcome = possible_outcomes.get();
+    this.stop_tripping();
+    if (this.character.place === "ocean") {
+        this.animal_drown();
+    }
+    this.score = parseInt(this.score) + 1;
 };
 
 Game.prototype.spread_fire = function() {
