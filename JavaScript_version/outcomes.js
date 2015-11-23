@@ -5209,6 +5209,16 @@ var outcomes = {
         return game;
     },
 
+    "priest_asks_you_to_breed_cats_elsewhere": function(game) {
+        var messages = [
+            "A priest asks you to do that elsewhere.",
+            "A priest asks you to find a different place to breed your cats.",
+        ];
+        game.message = functions.random_choice(messages);
+        return game;
+    },
+
+
     "priest_disagrees": function(game) {
         var messages = [
             "The priest says he has is doubts.",
