@@ -288,7 +288,8 @@ OptionsGenerator.prototype.get_outcome_options = function(game) {
                 "Look up into the sky and yell, \"NOOOOOOOOOOOOO!\"", 100);
             break;
         case "gawk_at_cake":
-            this.options.c.add("Take the cake.", 1);
+        case "sneak_cake":
+            this.options.c.add("Take the cake.", 10000);
             break;
         case "god_shows_you_the_way":
             if (game.get_place().locked === false) {

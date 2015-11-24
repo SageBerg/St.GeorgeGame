@@ -5838,6 +5838,15 @@ var outcomes = {
         return game;
     },
 
+    "sneak_cake": function(game) {
+        var messages = [
+            "While creeping around in the kitchens, you find a freshly " +
+            "baked cake.",
+        ];
+        game.message = functions.random_choice(messages);
+        return game;
+    },
+
     "sneak_eve_and_die": function(game) {
         var messages = [
             "You can't find Lord Carlos' daughter before Lord Carlos' " +

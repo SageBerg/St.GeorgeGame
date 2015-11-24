@@ -2105,6 +2105,7 @@ exports.actions = {
             outcomes.add("sneak_and_die_bartholomew", 1);
             outcomes.add("sneak_bartholomew", 3);
             outcomes.add("sneak_pitchfork", 1);
+            outcomes.add("sneak_cake", 1);
         }
         return outcomes;
     },
