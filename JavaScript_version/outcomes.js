@@ -4037,6 +4037,19 @@ var outcomes = {
         return game;
     },
 
+    "look_for_a_way_out_and_die": function(game) {
+        var messages = [
+            "You fall into a deep ravine.",
+            "While you're looking for a way out, you breathe up all the " +
+            "oxygen in the cave.",
+            "While you're looking for a way out, you impale yourself on a " +
+            "stalagmite.",
+        ];
+        game.message = functions.random_choice(messages);
+        game.clover();
+        return game;
+    },
+
     "look_for_mermaids_and_die": function(game) {
         game.message = "You slip on a rock.";
         game.die();
@@ -5765,15 +5778,6 @@ var outcomes = {
         ];
         game.message = functions.random_choice(messages);
         game.persons.olga.attracted += 1;
-        return game;
-    },
-
-    "slip_and_die": function(game) {
-        var messages = [
-            "You fall into a deep ravine.",
-        ];
-        game.message = functions.random_choice(messages);
-        game.clover();
         return game;
     },
 

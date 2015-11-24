@@ -1511,10 +1511,10 @@ exports.actions = {
     },
 
     "Look for a way out.": function(game_state, outcomes) {
-        outcomes.add("find_a_way_out", 1);
-        outcomes.add("find_deep_cave_newt", 1);
+        outcomes.add("find_a_way_out", 2);
+        outcomes.add("find_deep_cave_newt", 2);
         outcomes.add("no_way_out", 3);
-        outcomes.add("slip_and_die", 1);
+        outcomes.add("look_for_a_way_out_and_die", 3);
         return outcomes;
     },
 
