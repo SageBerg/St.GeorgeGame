@@ -1887,6 +1887,28 @@ exports.actions = {
         return outcomes;
     },
 
+    "Run around like a chicken with its head cut off.":
+        function(game_state, outcomes) {
+        outcomes.add("run_like_chicken", 1);
+        return outcomes;
+    },
+
+    "Run away with your head.":
+        function(game_state, outcomes) {
+        outcomes.add("run_away_with_head_die", 1);
+        if (game_state.persons.wizard.alive === true && 
+            game_state.places.wizard_lab.burnable === true) {
+            outcomes.add("run_away_with_head_survive", 3);
+        }
+        return outcomes;
+    },
+
+    "Run away without your head.":
+        function(game_state, outcomes) {
+        outcomes.add("run_away_without_head", 1);
+        return outcomes;
+    },
+
     "Run like the Devil.": function(game_state, outcomes) {
         if (game_state.character.is_threatened) {
             if (game_state.character.person === "dog") {
@@ -2708,6 +2730,12 @@ exports.actions = {
         return outcomes;
     },
 
+    "Watch yourself run around like a chicken with its head cut off.":
+        function(game_state, outcomes) {
+        outcomes.add("run_like_chicken_watch", 1);
+        return outcomes;
+    },
+
     //x
 
     //y
@@ -2772,6 +2800,7 @@ function check_if_sword_of_great_good_stops_you(game_state) {
 
 function dead_lunatic_repercussions(game_state, outcomes) {
     if (game_state.persons.other_lunatics.alive === false) {
+        outcomes.add("warden_executes_you_for_homicide", 6);
         outcomes.add("guards_take_away_bodies", 6);
         outcomes.add("guards_kill_you_for_homicide", 6);
     }

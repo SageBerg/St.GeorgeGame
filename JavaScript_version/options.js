@@ -854,6 +854,13 @@ OptionsGenerator.prototype.set_options = function(game) {
         this.options.c = "";
         this.options.d = "";
         this.options.e = "";
+    } else if (game.outcome === "warden_executes_you_for_homicide") {
+        this.options.a = "Run around like a chicken with its head cut off.";
+        this.options.b =
+            "Watch yourself run around like a chicken with its head cut off.";
+        this.options.c = "Run away with your head.";
+        this.options.d = "Run away without your head.";
+        this.options.e = "";
     } else if (game.outcome === "hire_assassin" ||
                game.outcome === "already_dead") {
         this.options.a = "Tell him to assassinate Lord Arthur.";

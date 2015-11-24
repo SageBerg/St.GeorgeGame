@@ -5626,6 +5626,39 @@ var outcomes = {
         return game;
     },
 
+    "run_away_with_head_die": function(game) {
+        game.message = "You don't get very far.";
+        game.die();
+        return game;
+    },
+
+    "run_away_with_head_survive": function(game) {
+        game.message = "You wake up in the wizard's laboratory. " +
+            "The wizard mumbles something about his " +
+            "resurrection spell working and conks you on the head " +
+            "with his staff.";
+        game.teleport();
+        return game;
+    },
+
+    "run_away_without_head": function(game) {
+        game.message = "Your body runs off into the sunset.";
+        game.die();
+        return game;
+    },
+
+    "run_like_chicken": function(game) {
+        game.message = "You get a lot of laughs from your audience.";
+        game.die();
+        return game;
+    },
+
+    "run_like_chicken_watch": function(game) {
+        game.message = "Your body puts on a good show for a few seconds.";
+        game.die();
+        return game;
+    },
+
     //s
 
     "save_cat": function(game) {
@@ -7067,6 +7100,12 @@ var outcomes = {
         ];
         game.message = functions.random_choice(messages);
         game.move_character("streets");
+        return game;
+    },
+
+    "warden_executes_you_for_homicide": function(game) {
+        game.message = "When the wardon finds out what you've done, he has " +
+            "you beheaded in the town square.";
         return game;
     },
 
