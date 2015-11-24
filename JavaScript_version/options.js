@@ -199,6 +199,7 @@ OptionsGenerator.prototype.get_outcome_options = function(game) {
         case "pinguins_dont_care":
         case "pirates_ruin_song":
         case "priest_disagrees":
+        case "rainbow_fail":
         case "see_ship":
         case "sunburnt":
         case "think_discouraged":
@@ -366,6 +367,12 @@ OptionsGenerator.prototype.get_outcome_options = function(game) {
                 this.options.a.add("Enter your deep-cave newt in the race.",
                     10000);
             }
+            break;
+        case "rainbow":
+            this.options.c.add("Try to find the bottom of the rainbow.", 10000);
+            break;
+        case "rainbow_gold":
+            this.options.c.add("Go to the other end of the rainbow.", 30);
             break;
         case "no_progress_swimming":
         case "see_ship":

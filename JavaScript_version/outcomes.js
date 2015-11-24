@@ -179,6 +179,15 @@ var outcomes = {
         return game;
     },
 
+    "another_pot_of_gold": function(game) {
+        var messages = [
+            "You find another pot of gold at the other end of the rainbow.",
+        ];
+        game.message = functions.random_choice(messages);
+        game.get_money("large_fortune");
+        return game;
+    },
+
     "apocalypse": function(game) {
         game.message =
             "You start annihilating everything, but the Four Horsemen of " +
@@ -5336,6 +5345,42 @@ var outcomes = {
     //q
 
     //r
+
+    "rainbow": function(game) {
+        var messages = [
+            "You see a beautiful rainbow spanning over the countryside",
+        ];
+        game.message = functions.random_choice(messages);
+        return game;
+    },
+
+    "rainbow_die": function(game) {
+        var messages = [
+            "While you're trying to find the bottom of the rainbow, you " +
+            "slip on a pile of cow dung and break your neck.",
+        ];
+        game.message = functions.random_choice(messages);
+        game.clover();
+        return game;
+    },
+
+    "rainbow_fail": function(game) {
+        var messages = [
+            "Unfortunatley the rainbow escapes you.",
+        ];
+        game.message = functions.random_choice(messages);
+        return game;
+    },
+
+    "rainbow_gold": function(game) {
+        var messages = [
+            "You walk to where the rainbow meets the ground and find pot of " +
+            "gold."
+        ];
+        game.message = functions.random_choice(messages);
+        game.get_money("small_fortune");
+        return game;
+    },
 
     "raise_sail_and_get_to_land": function(game) {
         var destination = functions.random_choice(["arctic", "docks",

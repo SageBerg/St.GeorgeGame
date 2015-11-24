@@ -1252,6 +1252,12 @@ exports.actions = {
         return outcomes;
     },
 
+    "Go to the other end of the rainbow.":
+        function(game_state, outcomes, destination) {
+        outcomes.add("another_pot_of_gold", 1);
+        return outcomes;
+    },
+
     "Grovel.": function(game_state, outcomes, destination) {
         outcomes.add("grovel_and_die", 2);
         outcomes.add("grovel_and_go_to_woods", 1);
@@ -2575,6 +2581,14 @@ exports.actions = {
         return outcomes;
     },
 
+    "Try to find the bottom of the rainbow.":
+        function(game_state, outcomes) {
+        outcomes.add("rainbow_gold", 2);
+        outcomes.add("rainbow_fail", 1);
+        outcomes.add("rainbow_die", 1);
+        return outcomes;
+    },
+
     "Try to reason with the dog.": function(game_state, outcomes) {
         outcomes.add("dog_kills_you", 1);
         outcomes.add("dog_lets_you_off_the_hook", 4);
@@ -2666,6 +2680,7 @@ exports.actions = {
         outcomes.add("meet_stray_dog", 1);
         outcomes.add("meet_stray_donkey", 1);
         outcomes.add("newt_race", 2);
+        outcomes.add("rainbow", 1);
         outcomes.add("wander_the_countryside", 9);
         outcomes.add("witch_burning", 1);
         if (game_state.character.has_tail === true) {
