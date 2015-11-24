@@ -1064,6 +1064,28 @@ exports.actions = {
         return outcomes;
     },
 
+    "Gawk at men.": function(game_state, outcomes) {
+        outcomes.add("gawk_at_men", 4);
+        //outcomes.add("gawk_at_men_and_meet_nobleman", 2);
+        outcomes.add("gawk_at_men_and_meet_drunk", 1);
+        if (game_state.character.has_tail === true) {
+            outcomes.add("men_gawk_at_you", 2);
+        }
+        return outcomes;
+    },
+
+    "Gawk at women.": function(game_state, outcomes) {
+        outcomes.add("gawk_and_get_assassinated", 1);
+        outcomes.add("gawk_and_get_money", 1);
+        outcomes.add("gawk_at_cat", 1);
+        outcomes.add("gawk_at_cake", 1);
+        outcomes.add("gawk_at_women", 4);
+        if (game_state.character.has_tail === true) {
+            outcomes.add("women_gawk_at_you", 2);
+        }
+        return outcomes;
+    },
+
     // this special action interrupts your action when you're threatened and
     // you don't choose to fight or run away
     "GET_ATTACKED": function(game_state, outcomes) {
@@ -1422,25 +1444,8 @@ exports.actions = {
         return outcomes;
     },
 
-    "Gawk at men.": function(game_state, outcomes) {
-        outcomes.add("gawk_at_men", 4);
-        //outcomes.add("gawk_at_men_and_meet_nobleman", 2);
-        outcomes.add("gawk_at_men_and_meet_drunk", 1);
-        if (game_state.character.has_tail === true) {
-            outcomes.add("men_gawk_at_you", 2);
-        }
-        return outcomes;
-    },
-
-    "Gawk at women.": function(game_state, outcomes) {
-        outcomes.add("gawk_and_get_assassinated", 1);
-        outcomes.add("gawk_and_get_money", 1);
-        outcomes.add("gawk_at_cat", 1);
-        outcomes.add("gawk_at_cake", 1);
-        outcomes.add("gawk_at_women", 4);
-        if (game_state.character.has_tail === true) {
-            outcomes.add("women_gawk_at_you", 2);
-        }
+    "Let yourself have cake.": function(game_state, outcomes) {
+        outcomes.add("eat_cake", 2);
         return outcomes;
     },
 

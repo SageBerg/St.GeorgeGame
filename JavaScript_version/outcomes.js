@@ -1887,6 +1887,16 @@ var outcomes = {
         return game;
     },
 
+    "eat_cake": function(game) {
+        var messages = [
+            "You feel less riotous.",
+            "You now have a stomach ache.",
+        ];
+        game.message = functions.random_choice(messages);
+        game.lose_item("cake");
+        return game;
+    },
+
     "eat_fish_in_igloo": function(game) {
         game.message = "You survive in your igloo until winter by " +
             "eating your fish. The winter ice sheet allows you to get back " +

@@ -83,6 +83,7 @@ OptionsGenerator.prototype.get_item_options = function(game) {
         this.options.c.add("Chow down on your black mushroom.", 1);
     }
     if (game.character.items.cake > 0) {
+        this.options.c.add("Let yourself have cake.", 1);
         this.options.d.add("Have your cake and eat it too.", 1);
     }
     if (game.character.items["bouquet of flowers"] > 0 &&
