@@ -325,6 +325,7 @@ exports.actions = {
     "Breed your cats.": function(game_state, outcomes) {
         outcomes.add("breed_cats", 3);
         outcomes.add("breed_cats_fail", 3);
+        outcomes.add("breed_cats_lose_cats", 1);
         if (game_state.character.place === "church" &&
             game_state.places.church.burnable === true) {
             outcomes.add("priest_asks_you_to_breed_cats_elsewhere", 12);

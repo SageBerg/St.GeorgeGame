@@ -581,6 +581,16 @@ var outcomes = {
         return game;
     },
 
+    "breed_cats_lose_cats": function(game) {
+        var messages = [
+            "You try to get your cats to breed, but they are having none of " +
+            "it. Your cats run away.",
+        ];
+        game.message = functions.random_choice(messages);
+        game.character.items.cats -= 2;
+        return game;
+    },
+
     "breed_newts": function(game) {
         var baby_newts = 2 + functions.random_int(11);
         game.character.items["deep-cave newt"] += baby_newts;
