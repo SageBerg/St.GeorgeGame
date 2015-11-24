@@ -3,13 +3,12 @@ Technical:
     experiment with responsive views in boostrap
     minify code
     look into gzipping code
+    destringify the score
 
 Bugs:
     search for assignment when it should be an equality check
 
 Content:
-    see a rainbow, find a pot of gold
-
     make more frustration outcomes
     make tails do more
     options in Lord Carlos' manor could use a little work
@@ -24,7 +23,6 @@ Content:
 
     kill yourself
         attack gaurds (homocidal lunatic)
-        you fail
         make seppuku require dagger or cutlass
 
     make more outcome-influenced outcomes
@@ -48,8 +46,6 @@ Content:
         fire spreads automatically
         opens up more outcomes in cave (since you can see)
 
-    add outcomes with stilagmite, stilagtite
-    run out of oxygen
     yell to hear echo, echo is different
 
     listen carefully (default option)
@@ -71,13 +67,6 @@ Content:
         go out in a blaze of glory (you may not be glorious, but the blaze is)
         tell the guards you're just flamable 
 
-    execution scene
-        beheaded
-            run around like a chicken
-            watch yourself run around like a chicken
-            run away with your head
-            run away without your head
-
     add the gates of hell
         Go deeper.
         three headed dog
@@ -87,7 +76,6 @@ Content:
             feed your donkey to Cerberus
                 donkey is having none if, donkey kills you
                 you whet cerberus' appitate and get eaten
-            throw three of your cats at cerberus
     
     you find traveling guide written by Dante
 
@@ -131,7 +119,6 @@ Content:
         update validaton to deal with new game_state traits
 
     Cake:
-        'Let yourself have cake.'
         'Take the cake.' (add more ways for it to come up)
 
     have God strike you down if you commit all seven deadly sins
@@ -145,3 +132,4 @@ Style:
     organize the game into directories
     spellcheck the game (once things settle down)
     remove trailing whitespace with sed (periodically)
+    have your score not increment when you die
