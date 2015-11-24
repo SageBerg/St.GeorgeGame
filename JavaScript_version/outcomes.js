@@ -6391,6 +6391,14 @@ var outcomes = {
         return game;
     },
 
+    "throw_cats_at_cerberus": function(game) {
+        game.message = "Each of the dog's heads chows down on a cat, giving " +
+            "you enough time to run past the monster.";
+        game.character.person = null;
+        game.move_character("hell_1");
+        return game;
+    },
+
     "thrown_off_ship": function(game) {
         game.message = "Lord Arthur cringes and has you thrown off " +
             "the ship.";

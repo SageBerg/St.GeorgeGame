@@ -424,6 +424,10 @@ OptionsGenerator.prototype.get_person_options = function(game) {
         case "blind_bartender":
             this.options.c.add("Chat with the blind bartender.", 14);
             break;
+        case "cerberus":
+            this.options.c.add(
+                "Throw three of your cats at the giant three-headed dog.", 10000);
+            break;
         case "dog":
             if (game.character.items.fish > 0) {
                 this.options.b.add("Bribe the dog with a fish.", 1000);

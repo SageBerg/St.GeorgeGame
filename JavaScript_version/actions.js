@@ -2492,6 +2492,12 @@ exports.actions = {
         return outcomes;
     },
 
+    "Throw three of your cats at the giant three-headed dog.":
+        function(game_state, outcomes) {
+        outcomes.add("throw_cats_at_cerberus", 1);
+        return outcomes;
+    },
+
     "Throw your cat at the dog.": function(game_state, outcomes) {
         outcomes.add("throw_cat_and_keep_cat", 1);
         return outcomes;

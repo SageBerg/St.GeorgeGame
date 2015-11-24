@@ -80,6 +80,17 @@ exports.places = {
         "town":      false,
         "trashable": false,
     },
+    "hell_1":
+    {
+        "burnable":  false,
+        "links":     ["cave"],
+        "locked":    true,
+        "name":      "the first layer of Hell",
+        "outside":   true,
+        "populated": false,
+        "town":      false,
+        "trashable": false,
+    },
     "lord_bartholomew_manor":
     {
         "burnable":  true,
