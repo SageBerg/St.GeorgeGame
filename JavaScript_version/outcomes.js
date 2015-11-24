@@ -3750,6 +3750,14 @@ var outcomes = {
         return game;
     },
 
+    "kill_self_fail": function(game) {
+        var messages = [
+            "You fail to come up with a good way to kill yourself.",
+        ];
+        game.message = functions.random_choice(messages);
+        return game;
+    },
+
     "kill_self_in_fit_of_rage": function(game) {
         var messages = [
             "You start with yourself.",

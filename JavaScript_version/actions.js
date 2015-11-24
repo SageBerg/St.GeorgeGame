@@ -1381,6 +1381,7 @@ exports.actions = {
     },
 
     "Kill yourself in frustration.": function(game_state, outcomes) {
+        outcomes.add("kill_self_fail", 1);
         outcomes.add("kill_self", 2);
         if (game_state.character.items.dagger > 0 ||
             game_state.character.items.poison_dagger > 0 ||
