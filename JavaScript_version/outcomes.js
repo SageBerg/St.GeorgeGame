@@ -5774,6 +5774,21 @@ var outcomes = {
         return game;
     },
 
+    "seppuku": function(game) {
+        game.message = "You perform the ritual of seppuku with your ";
+        if (game.character.items.dagger > 0) {
+            game.message += "dagger.";
+        } else if (game.character.items.poison_dagger > 0) {
+            game.message += "poisoned dagger.";
+        } else if (game.character.items.cutlass > 0) {
+            game.message += "cutlass.";
+        } else if (game.character.items.jeweled_cutlass > 0) {
+            game.message += "jeweled cutlass.";
+        }
+        game.die();
+        return game;
+    },
+
     "set_self_on_fire": function(game) {
         game.message = "You accidentally set yourself on fire and " +
         "promptly burn to a crisp.";

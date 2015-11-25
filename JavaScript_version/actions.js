@@ -1387,7 +1387,7 @@ exports.actions = {
             game_state.character.items.poison_dagger > 0 ||
             game_state.character.items.cutlass > 0 ||
             game_state.character.items.jeweled_cutlass > 0) {
-            //TODO seppuku
+            outcomes.add("seppuku", 12);
         }
         switch (game_state.character.place) {
             case "arctic":
