@@ -25,8 +25,7 @@ server.listen(port);
 
 // stopgap until I set up more sophisticated logging
 function log(game_state) {
-    console.log(game_state.action);
-    console.log(new Date());
+    console.log(game_state.action, new Date());
 }
 
 function respond_with_initial_world(req, res) {
@@ -35,7 +34,6 @@ function respond_with_initial_world(req, res) {
         "character":   character,
         "destination": null,
         "for_sell":    null,
-        "marriage":    false,
         "message":     "You are in a tavern. The local assassins hate you.",
         "options":     {"a": "Ask about assassins.",
                         "b": "Buy a drink.",
@@ -59,7 +57,6 @@ function respond_with_outcome(req, res) {
 
             var game = new Game(game_state);
 
-            game.revoke_marriage_option();
             game.set_outcome();   // randomly generates outcome
             game.enact_outcome(); // modifies game state based on outcome
 

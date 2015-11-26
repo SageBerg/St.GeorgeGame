@@ -1000,18 +1000,16 @@ exports.actions = {
                     }
                 } else if (name === "Olga") {
                     if (game_state.character.place === "tavern") {
-                        outcomes.add(
-                            "go_upstairs_with_olga", 9);
+                        outcomes.add("go_upstairs_with_olga", 9);
                         if (game_state.character.sex === FEMALE) {
-                            outcomes.add(
-                                "go_upstairs_and_die_not", 1);
+                            outcomes.add("go_upstairs_and_die_not", 1);
                         } else {
-                            outcomes.add(
-                                "go_upstairs_and_die", 1);
+                            outcomes.add("go_upstairs_and_die", 1);
                         }
+                    } else if (game_state.persons.olga.attracted > 5) {
+                        outcomes.add("wowed_olga_upstairs_marriage", 1);
                     } else {
-                        outcomes.add(
-                            "wowed_olga_upstairs", 1);
+                        outcomes.add("wowed_olga_upstairs", 1);
                     }
                 }
                 break;
@@ -2070,7 +2068,7 @@ exports.actions = {
                 outcomes.add("sing_to_mermaid", 10);
                 break;
             case "olga":
-                if (game.get_plerson().name === "Olga") {
+                if (game_state.persons.olga.name === "Olga") {
                     outcomes.add("sing_to_olga", 100);
                 }
                 break;

@@ -58,7 +58,6 @@ var Game = function(game_state) {
     this.character =   game_state.character;
     this.destination = game_state.destination;
     this.for_sell =    game_state.for_sell;
-    this.marriage =    game_state.marriage;
     this.message =     game_state.message;
     this.options =     game_state.options;
     this.outcome =     game_state.outcome;
@@ -425,11 +424,6 @@ Game.prototype.move_character = function(destination) {
         this.message += " A giant three-headed dog is blocking " +
             "your way."; 
     }
-};
-
-// reset flag used for some marriage outcomes
-Game.prototype.revoke_marriage_option = function() {
-    this.marriage = false;
 };
 
 Game.prototype.set_destination = function(option) {

@@ -842,7 +842,8 @@ OptionsGenerator.prototype.set_options = function(game) {
         this.options.c = "Continue being a shrub.";
         this.options.d = "Continue being a shrub.";
         this.options.e = "";
-    } else if (game.marriage === true) {
+    } else if (game.outcome === "felicity_lets_you_out" ||
+               game.outcome === "wowed_olga_upstairs_marriage") {
         this.options.a = "MARRY";
         this.options.b = "Run like the Devil.";
         this.options.c = "";

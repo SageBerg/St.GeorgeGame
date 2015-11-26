@@ -2314,7 +2314,6 @@ var outcomes = {
         game.message = functions.random_choice(messages);
         game.move_character("streets");
         game.character.person = "felicity";
-        game.marriage = true;
         return game;
     },
 
@@ -7642,11 +7641,12 @@ var outcomes = {
         ];
         game.message = functions.random_choice(messages);
         game.persons.olga.attracted += 1;
-        if (game.persons.olga.attracted > 5) {
-            game.message = "Olga grabs your hand. \"Life's too short, " +
+        return game;
+    },
+
+    "wowed_olga_upstairs_marriage": function(game) {
+        game.message = "Olga grabs your hand. \"Life's too short, " +
             "let's get married!\"";
-            game.marriage = true;
-        }
         return game;
     },
 
