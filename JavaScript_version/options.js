@@ -32,7 +32,7 @@ OptionsGenerator.prototype.get_character_options = function(game) {
         game.character.is_threatened === false) {
         this.options.c.add("GO_TO", 4);
     }
-    if (game.character.is_threatened === true) {
+    if (game.character.is_threatened) {
         if (game.character.person !== "guards") {
             this.options.b.add("Play dead.", 1);
             this.options.d.add("Panic!", 1);
@@ -42,7 +42,7 @@ OptionsGenerator.prototype.get_character_options = function(game) {
     }
     if ((game.character.money === "large_fortune" ||
         game.character.money === "small_fortune") &&
-        game.places[game.character.place].town === true
+        game.places[game.character.place].town
         ) {
         this.options.d.add("Flaunt your wealth.", 1);
     }
@@ -276,8 +276,8 @@ OptionsGenerator.prototype.get_outcome_options = function(game) {
             this.options.a.add("Trade it for a fancy paladin sword.",
                 10000);
             this.options.b.add("Trade it for a potion of love.", 10000);
-            if (game.persons.lord_carlos.alive === true &&
-                game.places.lord_carlos_manor.burnable === true) {
+            if (game.persons.lord_carlos.alive &&
+                game.places.lord_carlos_manor.burnable) {
                 this.options.c.add("Ask the blue dragon to kill Lord " +
                     "Carlos.", 10000);
             }
@@ -298,7 +298,7 @@ OptionsGenerator.prototype.get_outcome_options = function(game) {
             }
             break;
         case "god_tells_you_to_burn_stuff":
-            if (game.get_place().burnable === true) {
+            if (game.get_place().burnable) {
                 this.options.b.add("BURN", 10000);
             }
             break;
@@ -561,7 +561,7 @@ OptionsGenerator.prototype.get_place_options = function(game) {
             this.options.d.add("Go deeper.", 10);
             break;
         case "church":
-            if (game.get_place().burnable === true) {
+            if (game.get_place().burnable) {
                 if (game.character.person === null) {
                     this.options.a.add("Tell a priest he's fat.", 2);
                     this.options.a.add(
@@ -591,7 +591,7 @@ OptionsGenerator.prototype.get_place_options = function(game) {
             this.options.d.add("Do some gambling.", 2);
             break;
         case "lord_bartholomew_manor":
-            if (game.get_place().burnable === true) {
+            if (game.get_place().burnable) {
                 if (game.character.person === null &&
                     game.character.sex === MALE) {
                     this.options.b.add("Tell the next person you meet " +
@@ -605,7 +605,7 @@ OptionsGenerator.prototype.get_place_options = function(game) {
                     this.options.b.add("Tell the next person you meet " +
                             "that you're St. George.", 1);
                 }
-                if (game.persons.lord_bartholomew.alive === true &&
+                if (game.persons.lord_bartholomew.alive &&
                     game.character.person !== "lord_bartholomew") {
                     this.options.a.add(
                         "Ask for an audience with Lord Bartholomew.", 4);
@@ -614,7 +614,7 @@ OptionsGenerator.prototype.get_place_options = function(game) {
             }
             break;
         case "lord_carlos_manor":
-            if (game.get_place().burnable === true) {
+            if (game.get_place().burnable) {
                 if (game.character.person === null) {
                     if (game.character.sex === MALE) {
                         this.options.a.add("Ask about assassins.", 4);
@@ -635,20 +635,20 @@ OptionsGenerator.prototype.get_place_options = function(game) {
                     }
                 }
                 if (game.character.person !== "eve" &&
-                    game.persons.eve.alive === true) {
+                    game.persons.eve.alive) {
                     this.options.c.add("Look for Lord Carlos' daughter.", 4);
                 }
                 this.options.d.add("Sneak around.", 8);
             }
             break;
         case "market":
-            if (game.get_place().burnable === true &&
-                game.get_place().trashable === true) {
+            if (game.get_place().burnable &&
+                game.get_place().trashable) {
                 if (game.character.person !== "war_merchant" &&
-                    game.persons.war_merchant.alive === true) {
+                    game.persons.war_merchant.alive) {
                     this.options.a.add("Look for a weapon.", 10);
                 }
-                if (game.persons.wizard.alive === true &&
+                if (game.persons.wizard.alive &&
                     game.character.person !== "wizard") {
                     this.options.b.add("Look for the wizard.", 1);
                 }
@@ -725,16 +725,16 @@ OptionsGenerator.prototype.get_place_options = function(game) {
             }
             this.options.c.add("GO_TO", 2);
             if (game.character.person !== "st_george" &&
-                game.persons.st_george.alive === true) {
+                game.persons.st_george.alive) {
                 this.options.d.add("Look for St. George.", 2);
             }
             break;
         case "tavern":
-            if (game.get_place().burnable === true) {
+            if (game.get_place().burnable) {
                 this.options.a.add("Ask about assassins.", 4);
                 this.options.b.add("Buy a drink.", 4);
                 this.options.d.add("Do some gambling.", 4);
-                if (game.persons.olga.alive === true &&
+                if (game.persons.olga.alive &&
                     game.persons.olga.name === "Olga" &&
                     game.character.person !== "olga") {
                     this.options.b.add("Look for Olga.", 10);
@@ -742,7 +742,7 @@ OptionsGenerator.prototype.get_place_options = function(game) {
             }
             break;
         case "tower":
-            if (game.get_place().burnable === true) {
+            if (game.get_place().burnable) {
                 if (game.character.person === null &&
                     game.character.sex === MALE) {
                     this.options.b.add("Tell the next person you meet " +
@@ -756,7 +756,7 @@ OptionsGenerator.prototype.get_place_options = function(game) {
                     this.options.b.add("Tell the next person you meet " +
                             "that you're St. George.", 1);
                 }
-                if (game.persons.lord_daniel.alive === true &&
+                if (game.persons.lord_daniel.alive &&
                     game.character.person !== "lord_daniel") {
                     this.options.a.add("Ask for an audience with Lord Daniel.", 4);
                 }
@@ -770,7 +770,7 @@ OptionsGenerator.prototype.get_place_options = function(game) {
             this.options.d.add("Gather void dust.", 2);
             break;
         case "woods":
-            if (game.get_place().burnable === true) {
+            if (game.get_place().burnable) {
                 this.options.a.add("Go mushroom picking.", 4);
                 if (game.character.items.ax > 0) {
                     this.options.c.add("Chop down a tree with your ax.", 10);
@@ -784,8 +784,8 @@ OptionsGenerator.prototype.get_place_options = function(game) {
             }
             break;
         case "wizard_lab":
-            if (game.get_place().burnable === true) {
-                if (game.places.wizard_lab.trashable === true &&
+            if (game.get_place().burnable) {
+                if (game.places.wizard_lab.trashable &&
                     game.outcome !== "wizard_stops_you_trashing") {
                     this.options.a.add("Trash the place.", 4);
                 }
@@ -890,7 +890,7 @@ OptionsGenerator.prototype.set_options = function(game) {
     } else if (Math.floor(Math.random() * 250) === 0 &&
                game.places[
                    game.character.place
-               ].burnable === true) {
+               ].burnable) {
         this.set_pyro_options();
     } else {
         this.get_character_options(game);

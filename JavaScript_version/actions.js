@@ -30,7 +30,7 @@ exports.actions = {
         outcomes.add("admire_jewels", 2);
         outcomes.add("admire_jewels_and_die", 1);
         outcomes.add("find_pearl_in_jewels", 1);
-        if (game_state.places[game_state.character.place].town === true &&
+        if (game_state.places[game_state.character.place].town &&
             game_state.character.sex === MALE) {
             outcomes.add("guards_stop_you_naked", 1);
         }
@@ -71,7 +71,7 @@ exports.actions = {
 
     "Challenge them to an arm wrestling match to reclaim your dignity.":
         function(game_state, outcomes) {
-        if (game_state.persons.lord_arthur.alive === true) {
+        if (game_state.persons.lord_arthur.alive) {
             if (game_state.character.sex === FEMALE) {
                 outcomes.add(
                     "arm_wrestle_and_impressment_not", 1000);
@@ -91,7 +91,7 @@ exports.actions = {
         }
         if (game_state.character.place === "tavern") {
             outcomes.add("no_one_wants_to_talk", 3);
-            if (game_state.persons.olga.alive === true) {
+            if (game_state.persons.olga.alive) {
                 outcomes.add("meet_olga", 3);
             }
             outcomes.add("learn_about_assassins", 4);
@@ -220,7 +220,7 @@ exports.actions = {
                 game_state.character.equipped_weapon
             ].attack;
         }
-        if (check_if_sword_of_great_good_stops_you(game_state) === true) {
+        if (check_if_sword_of_great_good_stops_you(game_state)) {
             outcomes.add("your_sword_stops_you", 1);
         } else if (game_state.character.strength + weapon_bonus >
             game_state.persons[game_state.character.person].attack) {
@@ -234,7 +234,7 @@ exports.actions = {
     //b
 
     "Beg for money.": function(game_state, outcomes) {
-        if (game_state.character.has_begged_st_george === true) {
+        if (game_state.character.has_begged_st_george) {
             outcomes.add("st_george_kills_you", 1);
         } else {
             outcomes.add("st_george_gives_you_money", 9);
@@ -327,7 +327,7 @@ exports.actions = {
         outcomes.add("breed_cats_fail", 3);
         outcomes.add("breed_cats_lose_cats", 1);
         if (game_state.character.place === "church" &&
-            game_state.places.church.burnable === true) {
+            game_state.places.church.burnable) {
             outcomes.add("priest_asks_you_to_breed_cats_elsewhere", 12);
         }
         return outcomes;
@@ -381,7 +381,7 @@ exports.actions = {
         }
         outcomes.add("buy_a_drink_and_meet_olga", 3);
         if (game_state.character.person !== "blind_bartender" &&
-            game_state.persons.blind_bartender.alive === true) {
+            game_state.persons.blind_bartender.alive) {
             outcomes.add("meet_blind_bartender", 8);
         }
         outcomes.add("overhear_stuff", 6);
@@ -424,14 +424,14 @@ exports.actions = {
     "Celebrate your success.": function(game_state, outcomes) {
         outcomes.add("celebrate", 2);
         outcomes.add("celebrate_uncreatively", 1);
-        if (game_state.places[game_state.character.place].burnable === true) {
+        if (game_state.places[game_state.character.place].burnable) {
             outcomes.add("burn", 2);
         }
-        if (game_state.places[game_state.character.place].town === true) {
+        if (game_state.places[game_state.character.place].town) {
             if (game_state.character.sex === MALE) {
                 outcomes.add("celebrate_at_brothel", 1);
             }
-            if (game_state.places.market.burnable === true) {
+            if (game_state.places.market.burnable) {
                 outcomes.add("celebrate_at_market", 1);
             }
             if (game_state.character.money !== "none") {
@@ -439,7 +439,7 @@ exports.actions = {
             }
         }
         if (game_state.character.place === "tavern") {
-            if (game_state.persons.lord_arthur.alive === true &&
+            if (game_state.persons.lord_arthur.alive &&
                 game_state.character.sex === MALE) {
                 outcomes.add(
                     "black_out_and_become_pirate", 1);
@@ -468,7 +468,7 @@ exports.actions = {
     "Challenge the pirates to a game of chess.":
         function(game_state, outcomes) {
         outcomes.add("chess_cutlass", 1);
-        if (game_state.persons.lord_arthur.alive === true) {
+        if (game_state.persons.lord_arthur.alive) {
             if (game_state.character.sex === FEMALE) {
                 outcomes.add("chess_impressment_not", 1);
             } else {
@@ -652,15 +652,15 @@ exports.actions = {
         if (game_state.character.place !== "void" &&
             game_state.character.place !== "ocean") {
                 outcomes.add("dance_and_die", 1);
-            if (functions.get_place(game_state).outside === true) {
+            if (functions.get_place(game_state).outside) {
                 outcomes.add("dance_in_puddle", 1);
             }
         }
 
         if ((game_state.character.place === "tavern" &&
-             game_state.places.tavern.burnable === true) ||
+             game_state.places.tavern.burnable) ||
             (game_state.character.place === "lord_carlos_manor" &&
-             game_state.places.lord_carlos_manor.burnable === true) &&
+             game_state.places.lord_carlos_manor.burnable) &&
             game_state.character.sex === MALE) {
             outcomes.add("assassins_notice_dance", 4);
         }
@@ -672,7 +672,7 @@ exports.actions = {
         }
 
         if (game_state.character.place === "woods" &&
-            game_state.places.woods.burnable === true) {
+            game_state.places.woods.burnable) {
             outcomes.add(
                 "dance_with_woodland_creatures", 12);
             outcomes.add("dance_with_goblins", 2);
@@ -689,7 +689,7 @@ exports.actions = {
 
         if (game_state.character.place === "countryside" ||
             game_state.character.place === "lord_bartholomew_manor" ||
-            functions.get_place(game_state).town === true) {
+            functions.get_place(game_state).town) {
             outcomes.add("dance_with_peasants", 2);
             outcomes.add("dance_for_coin", 2);
         }
@@ -698,7 +698,7 @@ exports.actions = {
             outcomes.add("void_dance", 8);
         }
 
-        if (functions.get_place(game_state).town === true) {
+        if (functions.get_place(game_state).town) {
             if (game_state.character.sex === FEMALE) {
                 outcomes.add("guards_watch_you_dancing", 2);
             } else if (game_state.character.sex === MALE) {
@@ -772,7 +772,7 @@ exports.actions = {
             } else {
                 outcomes.add("gambling_die_not", 1);
             }
-            if (game_state.persons.olga.alive === true) {
+            if (game_state.persons.olga.alive) {
                 outcomes.add("gambling_lady", 1);
             }
         }
@@ -787,7 +787,7 @@ exports.actions = {
         }
         outcomes.add("swashbuckle_and_die", 1);
         if (game_state.character.has_lost_leg === false &&
-            game_state.persons.lord_arthur.alive === true) {
+            game_state.persons.lord_arthur.alive) {
             outcomes.add("lose_leg", 2);
         }
         outcomes.add("hold_your_own", 1);
@@ -795,7 +795,7 @@ exports.actions = {
     },
 
     "Donate to the church.": function(game_state, outcomes) {
-        if (game_state.persons.lord_carlos.alive === true) {
+        if (game_state.persons.lord_carlos.alive) {
             if (game_state.character.sex === FEMALE) {
                 outcomes.add(
                     "assassinated_in_church_not", 1);
@@ -803,12 +803,12 @@ exports.actions = {
                 outcomes.add("assassinated_in_church", 1);
             }
         }
-        if (game_state.persons.priestess.alive === true) {
+        if (game_state.persons.priestess.alive) {
             outcomes.add("blessed", 2);
         }
         outcomes.add("feel_bad_about_donation", 3);
         outcomes.add("feel_good_about_donation", 5);
-        if (game_state.persons.st_george.alive === true) {
+        if (game_state.persons.st_george.alive) {
             outcomes.add("hammer_from_st_george", 1);
         }
         return outcomes;
@@ -820,7 +820,7 @@ exports.actions = {
         outcomes.add("monstrosity_potion", 1);
         outcomes.add("random_strength", 2);
         outcomes.add("random_transform", 2);
-        if (game_state.persons.wizard.alive === true) {
+        if (game_state.persons.wizard.alive) {
             if (game_state.character.sex === MALE) {
                 outcomes.add("random_killed_by_wizard", 1);
             } else {
@@ -835,7 +835,7 @@ exports.actions = {
     "Drop anchor.": function(game_state, outcomes) {
         outcomes.add("cannot_drop_anchor", 2);
         outcomes.add("drop_anchor_and_die", 2);
-        if (game_state.persons.lord_arthur.alive === true) {
+        if (game_state.persons.lord_arthur.alive) {
             outcomes.add("drop_anchor_and_kill_whale", 1);
             outcomes.add("drop_anchor_and_save_ship", 1);
             outcomes.add("get_punished", 5);
@@ -867,7 +867,7 @@ exports.actions = {
     "Eat a fly.": function(game_state, outcomes) {
         outcomes.add("fly_tastes_good", 1);
         outcomes.add("human_with_fly_in_mouth", 1);
-        if (functions.get_place(game_state).populated === true) {
+        if (functions.get_place(game_state).populated) {
             outcomes.add("stepped_on", 1);
         }
         return outcomes;
@@ -876,7 +876,7 @@ exports.actions = {
     "Enact your elaborate scheme.": function(game_state, outcomes) {
         outcomes.add("steal_cutlass", 1);
         outcomes.add("fail_at_new_career", 2);
-        if (game_state.persons.lord_carlos.alive === true) {
+        if (game_state.persons.lord_carlos.alive) {
             outcomes.add("kill_lord_carlos", 1);
         }
         outcomes.add("killed_by_dragon", 1);
@@ -922,7 +922,7 @@ exports.actions = {
 
     "Fire a cannon.": function(game_state, outcomes) {
         outcomes.add("fire_cannon_and_die", 1);
-        if (game_state.persons.lord_arthur.alive === true) {
+        if (game_state.persons.lord_arthur.alive) {
             outcomes.add("fire_cannon_and_get_flogged", 1);
             outcomes.add("fire_cannon_and_get_rewarded", 1);
         }
@@ -943,7 +943,7 @@ exports.actions = {
         } else {
             outcomes.add("guards_stop_you_rich", 1);
         }
-        if (game_state.persons.st_george.alive === true) {
+        if (game_state.persons.st_george.alive) {
             outcomes.add("st_george_warns_you", 1);
         }
         outcomes.add("wealthy_people_sneer", 1);
@@ -968,7 +968,7 @@ exports.actions = {
                         outcomes.add(
                             "forced_to_marry_eve", 1000);
                     }
-                    if (game_state.character.has_tail === true) {
+                    if (game_state.character.has_tail) {
                         outcomes.add("tail_eve", 2);
                     }
                 }
@@ -977,7 +977,7 @@ exports.actions = {
                 outcomes.add("wowed_mermaid", 8);
                 outcomes.add(
                     "flirt_with_mermaid_and_die", 2);
-                if (game_state.character.has_tail === true) {
+                if (game_state.character.has_tail) {
                     outcomes.add("tail_mermaid", 1);
                 }
                 break;
@@ -995,7 +995,7 @@ exports.actions = {
                     }
                     outcomes.add("rebuffed_by_olga", 1);
                     outcomes.add("wowed_olga", 8);
-                    if (game_state.character.has_tail === true) {
+                    if (game_state.character.has_tail) {
                         outcomes.add("tail_olga", 2);
                     }
                 } else if (name === "Olga") {
@@ -1048,7 +1048,7 @@ exports.actions = {
     "Freeze to death.": function(game_state, outcomes) {
         outcomes.add("freeze", 3);
         outcomes.add("saved_by_inuits", 1);
-        if (game_state.persons.wizard.alive === true) {
+        if (game_state.persons.wizard.alive) {
             outcomes.add("see_wizard_with_penguins", 1);
         }
         return outcomes;
@@ -1066,7 +1066,7 @@ exports.actions = {
         outcomes.add("gawk_at_men", 4);
         //outcomes.add("gawk_at_men_and_meet_nobleman", 2);
         outcomes.add("gawk_at_men_and_meet_drunk", 1);
-        if (game_state.character.has_tail === true) {
+        if (game_state.character.has_tail) {
             outcomes.add("men_gawk_at_you", 2);
         }
         return outcomes;
@@ -1078,7 +1078,7 @@ exports.actions = {
         outcomes.add("gawk_at_cat", 1);
         outcomes.add("gawk_at_cake", 1);
         outcomes.add("gawk_at_women", 4);
-        if (game_state.character.has_tail === true) {
+        if (game_state.character.has_tail) {
             outcomes.add("women_gawk_at_you", 2);
         }
         return outcomes;
@@ -1240,7 +1240,7 @@ exports.actions = {
                 outcomes.add("freeze_in_sleep", 6);
                 break;
             case "lord_carlos_manor":
-                if (game_state.places.lord_carlos_manor.burnable === true &&
+                if (game_state.places.lord_carlos_manor.burnable &&
                     game_state.character.sex === MALE) {
                     outcomes.add("wake_up_in_dungeon", 2);
                 }
@@ -1306,7 +1306,7 @@ exports.actions = {
     "Hide beneath the deck.": function(game_state, outcomes) {
         outcomes.add("hide_and_fight_rat", 1);
         outcomes.add("hide_and_miss_out", 2);
-        if (game_state.persons.lord_arthur.alive === true) {
+        if (game_state.persons.lord_arthur.alive) {
             outcomes.add("hide_beneath_deck_and_die", 1);
         }
         return outcomes;
@@ -1326,7 +1326,7 @@ exports.actions = {
     },
 
     "Hop.": function(game_state, outcomes) {
-        if (functions.get_place(game_state).outside === true) {
+        if (functions.get_place(game_state).outside) {
             outcomes.add("eaten_by_bird", 1);
         }
         outcomes.add("hop", 1);
@@ -1356,7 +1356,7 @@ exports.actions = {
     "Keep swimming.": function(game_state, outcomes) {
         outcomes.add("keep_swimming", 2);
         outcomes.add("arrive_at_mermaid_rock", 1);
-        if (game_state.persons.lord_arthur.alive === true) {
+        if (game_state.persons.lord_arthur.alive) {
             if (game_state.character.sex === FEMALE) {
                 outcomes.add(
                     "rescued_by_lord_arthur_as_woman", 6);
@@ -1395,7 +1395,7 @@ exports.actions = {
                 break;
             case "market":
             case "streets":
-                if (game_state.persons.st_george.alive === true) {
+                if (game_state.persons.st_george.alive) {
                     outcomes.add("saved_by_st_george", 1);
                 }
                 outcomes.add("killed_by_horse", 2);
@@ -1404,8 +1404,8 @@ exports.actions = {
                 outcomes.add("killed_by_horse", 2);
                 break;
         }
-        if (functions.get_place(game_state).town === true &&
-            game_state.persons.st_george.alive === true) {
+        if (functions.get_place(game_state).town &&
+            game_state.persons.st_george.alive) {
             outcomes.add("suicide_by_st_george", 1);
         }
         return outcomes;
@@ -1484,7 +1484,7 @@ exports.actions = {
         }
 
         if (game_state.character.place === "wizard_lab" &&
-            game_state.places.wizard_lab.burnable === true) {
+            game_state.places.wizard_lab.burnable) {
             outcomes.add("monstrosity", 6);
         }
 
@@ -1508,7 +1508,7 @@ exports.actions = {
         outcomes.add("chase_cat_to_dark_alley", 1);
         outcomes.add("ferocious_cat", 1);
         outcomes.add("find_a_cat", 4);
-        if (game_state.persons.st_george.alive === true) {
+        if (game_state.persons.st_george.alive) {
             outcomes.add("find_st_george_instead", 1);
         }
         return outcomes;
@@ -1578,7 +1578,7 @@ exports.actions = {
         outcomes.add("cannot_find_nymphs_find_apple", 1);
         outcomes.add("fall_into_cave", 1);
         outcomes.add("find_nymphs", 2);
-        if (game_state.persons.nymph_queen.alive === true) {
+        if (game_state.persons.nymph_queen.alive) {
             outcomes.add("meet_nymph_queen", 3);
         }
         return outcomes;
@@ -1599,7 +1599,7 @@ exports.actions = {
 
     "Look for St. George.": function(game_state, outcomes) {
         outcomes.add("find_st_george", 3);
-        if (game_state.places.church.burnable === true) {
+        if (game_state.places.church.burnable) {
             outcomes.add("find_st_george_in_church", 5);
         }
         outcomes.add("trip_over_a_cat", 1);
@@ -1620,7 +1620,7 @@ exports.actions = {
     },
 
     "Look for witches.": function(game_state, outcomes) {
-        if (game_state.places.woods.burnable === true) {
+        if (game_state.places.woods.burnable) {
             outcomes.add("meet_witch", 1);
         }
         outcomes.add("cannot_find_witch", 1);
@@ -1750,7 +1750,7 @@ exports.actions = {
         outcomes.add("pace_and_get_mushroom", 1);
         dead_lunatic_repercussions(game_state, outcomes);
         if (game_state.character.person !== "other_lunatics" &&
-            game_state.persons.other_lunatics.alive === true) {
+            game_state.persons.other_lunatics.alive) {
             outcomes.add("more_lunatics", 3);
         } else {
             outcomes.add("lunatics_trip_you", 1);
@@ -1813,7 +1813,7 @@ exports.actions = {
         }
 
         if (game_state.character.place === "tavern" &&
-            game_state.places.tavern.burnable === true) {
+            game_state.places.tavern.burnable) {
             outcomes.add("god_gives_you_jewels", 3);
         }
 
@@ -1822,7 +1822,7 @@ exports.actions = {
         }
 
         if (game_state.places[game_state.character.place].town &&
-            game_state.persons.st_george.alive === true) {
+            game_state.persons.st_george.alive) {
             outcomes.add("st_george_joins_you_in_prayer", 1);
         }
 
@@ -1848,7 +1848,7 @@ exports.actions = {
     //r
 
     "Raise a sail.": function(game_state, outcomes) {
-        if (game_state.persons.lord_arthur.alive === true) {
+        if (game_state.persons.lord_arthur.alive) {
             outcomes.add("impress_lord_arthur", 1);
             outcomes.add("killed_by_lord_arthur", 1);
             outcomes.add("lord_arthur_tells_sail", 2);
@@ -1894,8 +1894,8 @@ exports.actions = {
     "Run away with your head.":
         function(game_state, outcomes) {
         outcomes.add("run_away_with_head_die", 1);
-        if (game_state.persons.wizard.alive === true && 
-            game_state.places.wizard_lab.burnable === true) {
+        if (game_state.persons.wizard.alive && 
+            game_state.places.wizard_lab.burnable) {
             outcomes.add("run_away_with_head_survive", 3);
         }
         return outcomes;
@@ -1914,7 +1914,7 @@ exports.actions = {
             } else {
                 outcomes.add("escape", 9);
             }
-            if (game_state.character.has_tail === true) {
+            if (game_state.character.has_tail) {
                 outcomes.add("caught_by_tail_and_die", 1);
             } else {
                 if (game_state.persons[
@@ -1944,7 +1944,7 @@ exports.actions = {
 
     "Scrub the deck.": function(game_state, outcomes) {
         outcomes.add("scrub_the_deck", 3);
-        if (game_state.persons.lord_arthur.alive === true) {
+        if (game_state.persons.lord_arthur.alive) {
             outcomes.add("scrub_get_thrown_off_ship", 1);
             outcomes.add("lord_arthur_tells_scrub", 2);
             outcomes.add("impress_lord_arthur", 1);
@@ -2002,7 +2002,7 @@ exports.actions = {
 
         switch (game_state.character.place) {
             case "church":
-                if (game_state.places.church.burnable === true) {
+                if (game_state.places.church.burnable) {
                     outcomes.add(
                         "priestess_takes_offense", 10);
                 }
@@ -2029,13 +2029,13 @@ exports.actions = {
                 }
                 break;
             case "lord_carlos_manor":
-                if (game_state.places.lord_carlos_manor.burnable === true) {
+                if (game_state.places.lord_carlos_manor.burnable) {
                     outcomes.add(
                         "sing_at_lord_carlos_manor", 10);
                 }
                 break;
             case "tavern":
-                if (game_state.places.tavern.burnable === true) {
+                if (game_state.places.tavern.burnable) {
                     if (game_state.character.sex === MALE) {
                         outcomes.add(
                             "assassins_approach", 5);
@@ -2047,11 +2047,11 @@ exports.actions = {
                     outcomes.add(
                         "earn_small_fortune_in_coins", 3);
                     outcomes.add("tavern_song", 3);
-                    if (game_state.persons.olga.alive === true) {
+                    if (game_state.persons.olga.alive) {
                         outcomes.add(
                             "tavern_song_and_meet_olga", 2);
                     }
-                    if (game_state.persons.drunk.alive === true) {
+                    if (game_state.persons.drunk.alive) {
                         outcomes.add(
                             "tavern_song_and_meet_drunk", 2);
                     }
@@ -2115,7 +2115,7 @@ exports.actions = {
                 outcomes.add("sneak_and_die_not", 3);
             }
             outcomes.add("get_poison_dagger", 1);
-            if (game_state.persons.lord_carlos.alive === true) {
+            if (game_state.persons.lord_carlos.alive) {
                 if (game_state.character.sex === FEMALE) {
                     //outcomes.add(
                     //    "meet_lord_carlos_as_woman", 4);
@@ -2124,7 +2124,7 @@ exports.actions = {
                     outcomes.add("meet_lord_carlos", 4);
                 }
             }
-            if (game_state.persons.eve.alive === true) {
+            if (game_state.persons.eve.alive) {
                 outcomes.add("meet_eve", 4);
             }
         } else if (game_state.character.place === "lord_bartholomew_manor") {
@@ -2140,7 +2140,7 @@ exports.actions = {
         outcomes.add("get_frog", 1);
         outcomes.add("red_cloak", 1);
         outcomes.add("snoop_around_and_die", 1);
-        if (game_state.persons.wizard.alive === true) {
+        if (game_state.persons.wizard.alive) {
             outcomes.add("wizard_sends_you_to_arctic", 1);
         }
         return outcomes;
@@ -2194,14 +2194,14 @@ exports.actions = {
         outcomes.add("no_progress_swimming", 3);
         outcomes.add("see_ship", 1);
         outcomes.add("swim_and_die", 2);
-        if (game_state.character.has_tail === true) {
+        if (game_state.character.has_tail) {
             outcomes.add("tail_helps_you_swim", 2);
         }
         return outcomes;
     },
 
     "Swing on a rope.": function(game_state, outcomes) {
-        if (game_state.persons.lord_arthur.alive === true) {
+        if (game_state.persons.lord_arthur.alive) {
             outcomes.add("swing_into_captain", 1);
         }
         outcomes.add("swing_into_ocean", 1);
@@ -2211,7 +2211,7 @@ exports.actions = {
 
     "Swing your cat.": function(game_state, outcomes) {
         outcomes.add("cat_escapes", 1);
-        if (game_state.places[game_state.character.place].town === true) {
+        if (game_state.places[game_state.character.place].town) {
             if (game_state.character.sex === FEMALE) {
                 outcomes.add(
                     "guards_watch_you_swinging_cat", 1);
@@ -2266,7 +2266,7 @@ exports.actions = {
 
     "Tell him to assassinate Lord Arthur.":
         function(game_state, outcomes) {
-        if (game_state.persons.lord_arthur.alive === true) {
+        if (game_state.persons.lord_arthur.alive) {
             outcomes.add("assassinate_lord_arthur", 1);
         } else {
             outcomes.add("already_dead", 1);
@@ -2276,7 +2276,7 @@ exports.actions = {
 
     "Tell him to assassinate Lord Bartholomew.":
         function(game_state, outcomes) {
-        if (game_state.persons.lord_bartholomew.alive === true) {
+        if (game_state.persons.lord_bartholomew.alive) {
             outcomes.add("assassinate_lord_bartholomew", 1);
         } else {
             outcomes.add("already_dead", 1);
@@ -2292,7 +2292,7 @@ exports.actions = {
 
     "Tell him to assassinate Lord Daniel.":
         function(game_state, outcomes) {
-        if (game_state.persons.lord_daniel.alive === true) {
+        if (game_state.persons.lord_daniel.alive) {
             outcomes.add("assassinate_lord_daniel", 1);
         } else {
             outcomes.add("already_dead", 1);
@@ -2305,19 +2305,19 @@ exports.actions = {
         outcomes.add("no_one_believes_you", 1);
         switch (game_state.character.place) {
             case "lord_bartholomew_manor":
-                if (game_state.persons.lord_bartholomew.alive === true) {
+                if (game_state.persons.lord_bartholomew.alive) {
                     outcomes.add(
                         "disguise_meet_lord_bartholomew", 1);
                 }
                 break;
             case "lord_carlos_manor":
-                if (game_state.persons.lord_carlos.alive === true) {
+                if (game_state.persons.lord_carlos.alive) {
                 outcomes.add(
                     "disguise_meet_lord_carlos", 1);
                 }
                 break;
             case "tower":
-                if (game_state.persons.lord_daniel.alive === true) {
+                if (game_state.persons.lord_daniel.alive) {
                     outcomes.add(
                         "disguise_meet_lord_daniel", 1);
                 }
@@ -2331,7 +2331,7 @@ exports.actions = {
         outcomes.add("no_one_believes_you", 1);
         switch (game_state.character.place) {
             case "lord_carlos_manor":
-                if (game_state.persons.lord_bartholomew.alive === true) {
+                if (game_state.persons.lord_bartholomew.alive) {
                     outcomes.add(
                         "disguise_meet_lord_carlos", 1);
                 }
@@ -2348,7 +2348,7 @@ exports.actions = {
         outcomes.add("no_one_believes_you", 1);
         switch (game_state.character.place) {
             case "lord_bartholomew_manor":
-                if (game_state.persons.lord_bartholomew.alive === true) {
+                if (game_state.persons.lord_bartholomew.alive) {
                     outcomes.add(
                         "disguise_meet_lord_bartholomew", 1);
                 }
@@ -2357,7 +2357,7 @@ exports.actions = {
                 outcomes.add("disguise_and_die", 3);
                 break;
             case "tower":
-                if (game_state.persons.lord_daniel.alive === true) {
+                if (game_state.persons.lord_daniel.alive) {
                     outcomes.add(
                         "disguise_meet_lord_daniel", 1);
                 }
@@ -2374,13 +2374,13 @@ exports.actions = {
                 outcomes.add("disguise_daniel_die", 1);
                 break;
             case "lord_carlos_manor":
-                if (game_state.persons.lord_carlos.alive === true) {
+                if (game_state.persons.lord_carlos.alive) {
                     outcomes.add(
                         "disguise_meet_lord_carlos", 1);
                 }
                 break;
             case "tower":
-                if (game_state.persons.lord_daniel.alive === true) {
+                if (game_state.persons.lord_daniel.alive) {
                     outcomes.add("disguise_guards_laugh", 1);
                 }
                 break;
@@ -2393,19 +2393,19 @@ exports.actions = {
         outcomes.add("no_one_believes_you", 1);
         switch (game_state.character.place) {
             case "lord_bartholomew_manor":
-                if (game_state.persons.lord_bartholomew.alive === true) {
+                if (game_state.persons.lord_bartholomew.alive) {
                     outcomes.add(
                         "disguise_meet_lord_bartholomew", 1);
                 }
                 break;
             case "lord_carlos_manor":
-                if (game_state.persons.lord_carlos.alive === true) {
+                if (game_state.persons.lord_carlos.alive) {
                 outcomes.add(
                     "disguise_meet_lord_carlos", 1);
                 }
                 break;
             case "tower":
-                if (game_state.persons.lord_daniel.alive === true) {
+                if (game_state.persons.lord_daniel.alive) {
                     outcomes.add(
                         "disguise_meet_lord_daniel", 1);
                 }
@@ -2475,7 +2475,7 @@ exports.actions = {
         }
 
         if (game_state.character.place === "tower" &&
-            game_state.places.tower.burnable === true) {
+            game_state.places.tower.burnable) {
             if (game_state.character.sex === FEMALE) {
                 outcomes.add("think_guard_men", 4);
             }
@@ -2541,7 +2541,7 @@ exports.actions = {
         outcomes.add("thump_self_and_die", 1);
         if (game_state.places[
                 game_state.character.place
-            ].populated === true ||
+            ].populated ||
             game_state.character.place === "countryside") {
             outcomes.add("peasant_woman_impressed", 1);
             outcomes.add("peasants_laugh_at_you", 2);
@@ -2598,7 +2598,7 @@ exports.actions = {
         if (game_state.character.place === "wizard_lab") {
             outcomes.add("trash_the_place_and_die", 2);
             outcomes.add("blow_up_the_lab", 1);
-            if (game_state.persons.wizard.alive === true) {
+            if (game_state.persons.wizard.alive) {
                 outcomes.add("wizard_stops_you_trashing", 1);
             }
         }
@@ -2686,10 +2686,10 @@ exports.actions = {
 
     "Wait where you are.": function(game_state, outcomes) {
         outcomes.add("wait_and_die", 2);
-        if (game_state.persons.eve.alive === true) {
+        if (game_state.persons.eve.alive) {
             outcomes.add("wait_and_meet_eve", 1);
         }
-        if (game_state.persons.lord_carlos.alive === true) {
+        if (game_state.persons.lord_carlos.alive) {
             outcomes.add("wait_and_meet_lord_carlos", 1);
         }
         return outcomes;
@@ -2710,13 +2710,13 @@ exports.actions = {
         outcomes.add("rainbow", 1);
         outcomes.add("wander_the_countryside", 9);
         outcomes.add("witch_burning", 1);
-        if (game_state.character.has_tail === true) {
+        if (game_state.character.has_tail) {
             outcomes.add("peasants_laugh_at_tail", 2);
         }
-        if (game_state.persons.peasant_lass.alive === true) {
+        if (game_state.persons.peasant_lass.alive) {
             outcomes.add("meet_peasant_lass", 2);
         }
-        if (game_state.persons.simple_peasant.alive === true) {
+        if (game_state.persons.simple_peasant.alive) {
             outcomes.add("meet_simple_peasant", 1);
         }
         return outcomes;
@@ -2745,7 +2745,7 @@ exports.actions = {
     },
 
     "YELL_A_PIRATE_PHRASE": function(game_state, outcomes) {
-        if (game_state.persons.lord_arthur.alive === true) {
+        if (game_state.persons.lord_arthur.alive) {
             outcomes.add("impress_lord_arthur", 1);
             outcomes.add("no_true_pirate_says_that", 1);
             outcomes.add("thrown_off_ship", 1);
@@ -2763,7 +2763,7 @@ exports.actions = {
 
     "Yell, \"I've lost my leg!\"": function(game_state, outcomes) {
         outcomes.add("no_one_cares_about_your_leg", 1);
-        if (game_state.persons.lord_arthur.alive === true) {
+        if (game_state.persons.lord_arthur.alive) {
             outcomes.add("lord_arthur_helps", 1);
         }
         return outcomes;

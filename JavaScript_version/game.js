@@ -141,7 +141,7 @@ Game.prototype.burn = function() {
 Game.prototype.burn_a_bunch_of_places = function() {
     var number_of_places_burned = functions.random_int(8);
     for (var i = 0; i < number_of_places_burned; i++) {
-        if (this.places[BURNABLE_PLACES[i]].burnable === true) {
+        if (this.places[BURNABLE_PLACES[i]].burnable) {
             this.places[BURNABLE_PLACES[i]].burnable = false;
             this.places[BURNABLE_PLACES[i]].name = "the smoldering remains " +
             "of " + this.places[BURNABLE_PLACES[i]].name;
@@ -419,7 +419,7 @@ Game.prototype.move_character = function(destination) {
     }
     this.message += this.places[destination].name + ".";
     if (destination === "gates_of_hell" &&
-        this.persons.cerberus.alive === true) {
+        this.persons.cerberus.alive) {
         this.character.person = "cerberus";
         this.message += " A giant three-headed dog is blocking " +
             "your way."; 
@@ -449,7 +449,7 @@ Game.prototype.set_destination = function(option) {
 
 Game.prototype.set_outcome = function() {
     var possible_outcomes = new Raffle();
-    if (this.character.is_threatened === true &&
+    if (this.character.is_threatened &&
         !this.in_array(this.action, COMBAT_ALLOWABLE_ACTIONS)) { 
         possible_outcomes =
             actions.GET_ATTACKED(this.get_state(), possible_outcomes);
@@ -464,7 +464,7 @@ Game.prototype.spread_fire = function() {
     var burnables = [];
     var links = this.get_place().links;
     for (var i = 0; i < links.length; i++) {
-        if (this.places[links[i]].burnable === true) {
+        if (this.places[links[i]].burnable) {
             burnables.push(links[i]);
         }
     }
@@ -472,7 +472,7 @@ Game.prototype.spread_fire = function() {
         return; // nothing left to do if fire can't spread
     }
     var next_fire = functions.random_choice(burnables);
-    if (this.places[next_fire].burnable === true) {
+    if (this.places[next_fire].burnable) {
         this.message += functions.random_choice([
             " The blaze also takes out ",
             " The fire spreads to ",

@@ -50,7 +50,7 @@ function respond_with_initial_world(req, res) {
 
 function respond_with_outcome(req, res) {
     try {
-        if (validation.validate(req.query) === true) {
+        if (validation.validate(req.query)) {
             var game_state = destringify(req.query);
 
             log(game_state);

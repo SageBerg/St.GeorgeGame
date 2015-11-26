@@ -788,7 +788,7 @@ var outcomes = {
     },
 
     "cannot_find_witch": function(game) {
-        if (game.places.woods.burnable === true) {
+        if (game.places.woods.burnable) {
             game.message = "You can't find any witches. Only trees.";
         } else {
             game.message = "You can't find any witches. Only burnt " +
@@ -1271,7 +1271,7 @@ var outcomes = {
             "A cook assures you that Lord Bartholomew will set things " +
             "right.",
         ];
-        if (game.persons.lord_daniel.alive === true) {
+        if (game.persons.lord_daniel.alive) {
             messages.push(
             "A bureaucrat says she'll let Lord Daniel know of your " +
             "concerns.");
@@ -2704,7 +2704,7 @@ var outcomes = {
     "gambling_win": function(game) {
         game.character.person = null;
         if (game.character.place === "docks" &&
-            game.persons.lord_arthur.alive === true) {
+            game.persons.lord_arthur.alive) {
             game.message = "You dice with Lord Arthur. " +
                 "He whips you soundly, however you also beat him at " +
                 "gambling.";
@@ -2795,7 +2795,7 @@ var outcomes = {
         game.message = "Lord Bartholomew grants you asylum, but his " +
             "manor is soon stormed by Lord Daniel's men. You are arrested " +
             "for treason.";
-        if (game.places.lord_bartholomew_manor.burnable === true) {
+        if (game.places.lord_bartholomew_manor.burnable) {
             game.places.lord_bartholomew_manor.burnable = false;
             game.places.lord_bartholomew_manor.name = "the smoldering " +
                 "remains of Lord Bartholomew's manor";
@@ -3720,7 +3720,7 @@ var outcomes = {
     "kill_merchants": function(game) {
         game.message = "You manage to kill several innocent " +
             "merchants.";
-        if (game.persons.lord_arthur.alive === true) {
+        if (game.persons.lord_arthur.alive) {
             game.message += " Lord Arthur is pleased and gives you a " +
                 "large share the loot.";
             game.get_money("small_fortune");
@@ -4380,21 +4380,21 @@ var outcomes = {
                 "priestess if she would like to come along for the " +
                 "honeymoon, but the priestess declines.",
             ];
-            if (game.persons.lord_arthur.alive === true) {
+            if (game.persons.lord_arthur.alive) {
                 messages.push(
                 "Lord Arthur performs a wedding for you and Olga on the " +
                 "deck of his pirate ship. By the time the ceremony is over, " +
                 "the ship has sailed. You are now both members of the crew."
                 );
             }
-            if (game.persons.lord_bartholomew.alive === true) {
+            if (game.persons.lord_bartholomew.alive) {
                 messages.push(
                 "Lord Bartholomew performs a wedding for you and Olga in " +
                 "the countryside. 20,000 people attend your wedding, but " +
                 "you suspect they just wanted to see Lord Bartholomew."
                 );
             }
-            if (game.persons.wizard.alive === true) {
+            if (game.persons.wizard.alive) {
                 messages.push(
                 "The wizard performs a wedding for you and Olga in the " +
                 "market. He turns you both into sheep after the vows, but " +
@@ -4408,7 +4408,7 @@ var outcomes = {
 
         if (game.character.person === "felicity") {
             var felicity_messages = [];
-            if (game.persons.st_george.alive === true) {
+            if (game.persons.st_george.alive) {
                 felicity_messages.push("St. George secretly performs your " +
                     "wedding.");
             } else {
@@ -5893,7 +5893,7 @@ var outcomes = {
             "While lurking in a shrub, you catch sight of the fair Lady " +
             "Beatrice.",
         ];
-        if (game.persons.lord_bartholomew.alive === true) {
+        if (game.persons.lord_bartholomew.alive) {
             messages.push(
                 "While hiding behind a door, you overhear Lord Bartholomew " +
                 "and his men plotting insurrection."
@@ -6741,7 +6741,7 @@ var outcomes = {
             "When you snap a fancy staff in half, you inadvertently set " +
             "a dark spirit free.",
         ];
-        if (game.persons.wizard.alive === true &&
+        if (game.persons.wizard.alive &&
             game.character.items["fancy red cloak"] < 1) {
             messages.push("While you're wrecking stuff, the wizard runs " +
                 "into the laboratory and incinerates you.");
