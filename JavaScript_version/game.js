@@ -458,7 +458,7 @@ Game.prototype.set_outcome = function() {
     if (this.character.place === "ocean") {
         this.animal_drown();
     }
-    this.score = parseInt(this.score) + 1;
+    this.score += 1;
 };
 
 Game.prototype.spread_fire = function() {

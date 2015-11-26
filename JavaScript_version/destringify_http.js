@@ -80,6 +80,8 @@ exports.destringify = function destringify(game_state) {
 
     }
 
+    game_state.score = parseInt(game_state.score);
+
     return game_state;
 
 };
