@@ -196,7 +196,14 @@ Game.prototype.decrement_money = function() {
 };
 
 Game.prototype.enact_outcome = function() {
+    this.stop_tripping();
+    if (this.character.place === "ocean") {
+        this.animal_drown();
+    }
     outcomes[this.outcome](this);
+    if (this.character.is_dead === false) {
+        this.score += 1;
+    }
 };
 
 Game.prototype.die = function() {
@@ -420,6 +427,11 @@ Game.prototype.move_character = function(destination) {
     }
 };
 
+// reset flag used for some marriage outcomes
+Game.prototype.revoke_marriage_option = function() {
+    this.marriage = false;
+};
+
 Game.prototype.set_destination = function(option) {
     if (option === "GO_TO" || option === "Wander the countryside.") {
         this.destination =
@@ -451,14 +463,7 @@ Game.prototype.set_outcome = function() {
         possible_outcomes = 
             actions[this.action](this.get_state(), possible_outcomes);
     }
-    // revoke the marriage option if you declined it in the previous round
-    this.marriage = false;
     this.outcome = possible_outcomes.get();
-    this.stop_tripping();
-    if (this.character.place === "ocean") {
-        this.animal_drown();
-    }
-    this.score += 1;
 };
 
 Game.prototype.spread_fire = function() {

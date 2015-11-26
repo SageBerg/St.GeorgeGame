@@ -59,7 +59,8 @@ function respond_with_outcome(req, res) {
 
             var game = new Game(game_state);
 
-            game.set_outcome();   // generates and sets outcome
+            game.revoke_marriage_option();
+            game.set_outcome();   // randomly generates outcome
             game.enact_outcome(); // modifies game state based on outcome
 
             var options_gen = new OptionsGen();
