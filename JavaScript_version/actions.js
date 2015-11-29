@@ -652,7 +652,8 @@ exports.actions = {
         if (game_state.character.place !== "void" &&
             game_state.character.place !== "ocean") {
                 outcomes.add("dance_and_die", 1);
-            if (functions.get_place(game_state).outside) {
+            if (functions.get_place(game_state).outside &&
+                game_state.character.place !== "hell_1") {
                 outcomes.add("dance_in_puddle", 1);
             }
         }
