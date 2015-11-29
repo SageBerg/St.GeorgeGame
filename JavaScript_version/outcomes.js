@@ -2482,6 +2482,13 @@ var outcomes = {
         return game;
     },
 
+    "find_st_george_warned_of_sins": function(game) {
+        game.message = "You find St. George. He warns you of the seven deadly sins.";
+        game.character.person = "st_george";
+        game.character.has_been_warned_of_sins = true;
+        return game;
+    },
+
     "find_wizard": function(game) {
         var messages = [
             "You find the wizard buying a map of the Arctic from a merchant.",

@@ -1599,6 +1599,7 @@ exports.actions = {
 
     "Look for St. George.": function(game_state, outcomes) {
         outcomes.add("find_st_george", 3);
+        outcomes.add("find_st_george_warned_of_sins", 2);
         if (game_state.places.church.burnable) {
             outcomes.add("find_st_george_in_church", 5);
         }
@@ -2674,6 +2675,7 @@ exports.actions = {
                 outcomes.add("caught_like_god", 9);
             }
         }
+        return outcomes;
     },
 
     "Wait for a holiday to make your move.":
