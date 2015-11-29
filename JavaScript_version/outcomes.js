@@ -1203,7 +1203,7 @@ var outcomes = {
 
     "choke_on_fumes_and_die": function(game) {
         var messages = [
-            "You caught up a lung.",
+            "You caugh up a lung.",
             "You die of air pollution.",
         ];
         game.message = functions.random_choice(messages);
@@ -3874,7 +3874,7 @@ var outcomes = {
     "kiss_frog_and_die": function(game) {
         var messages = [
             "Your frog turns into a prince. He is disgusted to be kissing " +
-            "man and has you put to death.",
+            "a man and has you put to death.",
             "Your frog turns into an assassin. He assassinates you.",
         ];
         game.message = functions.random_choice(messages);
@@ -7444,7 +7444,7 @@ var outcomes = {
             "The wizard proves he could have teleported you there by " +
             "teleporting you to " + game.places[place].name + 
             " instead.",
-            "The wizard ignores you request and teleports you to " +
+            "The wizard ignores your request and teleports you to " +
             game.places[place].name + " instead.",
         ]);
         game.move_character(place);
