@@ -3,7 +3,6 @@ Technical:
     experiment with responsive views in boostrap
     minify code
     look into gzipping code
-    destringify the score
 
 Bugs:
     search for assignment when it should be an equality check
@@ -23,7 +22,6 @@ Content:
 
     kill yourself
         attack gaurds (homocidal lunatic)
-        make seppuku require dagger or cutlass
 
     make more outcome-influenced outcomes
         the wizard could be mad at you
@@ -68,7 +66,6 @@ Content:
         tell the guards you're just flamable 
 
     add the gates of hell
-        Go deeper.
         three headed dog
             reason with Cerberus
                 convince two heads, not third
@@ -132,4 +129,3 @@ Style:
     organize the game into directories
     spellcheck the game (once things settle down)
     remove trailing whitespace with sed (periodically)
-    have your score not increment when you die
