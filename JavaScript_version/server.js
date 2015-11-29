@@ -5,7 +5,7 @@
 var character   = require("./character").character;
 var destringify = require("./destringify_http").destringify;
 var Game        = require("./game").Game;
-var OptionsGen  = require("./options").OptionsGenerator;
+var options     = require("./options");
 var persons     = require("./persons").persons;
 var places      = require("./places").places;
 var validation  = require("./validation");
@@ -35,11 +35,7 @@ function respond_with_initial_world(req, res) {
         "destination": null,
         "for_sell":    null,
         "message":     "You are in a tavern. The local assassins hate you.",
-        "options":     {"a": "Ask about assassins.",
-                        "b": "Buy a drink.",
-                        "c": "Leave in a huff.",
-                        "d": "Sing a song.",
-                        "e": ""},
+        "options":     options.starting_options,
         "outcome":     null,
         "persons":     persons,
         "places":      places,
@@ -60,7 +56,7 @@ function respond_with_outcome(req, res) {
             game.set_outcome();   // randomly generates outcome
             game.enact_outcome(); // modifies game state based on outcome
 
-            var options_gen = new OptionsGen();
+            var options_gen = new options.OptionsGenerator();
             options_gen.set_options(game); // generates and sets options
     
 
