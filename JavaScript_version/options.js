@@ -15,6 +15,7 @@ exports.starting_options = {"a": "Ask about assassins.",
                             "d": "Sing a song.",
                             "e": ""};
 
+// visitor for the game object
 var OptionsGenerator = function() {
     this.options = {"a": new Raffle(),
                     "b": new Raffle(),
