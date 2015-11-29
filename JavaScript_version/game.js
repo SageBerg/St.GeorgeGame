@@ -498,6 +498,7 @@ Game.prototype.teleport = function() {
         if (this.places[place] !==
             this.places[this.character.place] &&
             place !== "gates_of_hell" &&
+            place !== "hell_1" &&
             place !== "upstairs" &&
             place !== "void") {
             place_list.push(place);
