@@ -233,6 +233,8 @@ Game.prototype.equip_best_weapon = function() {
 
 Game.prototype.get_ground = function() {
     switch (this.character.place) {
+        case "cave":
+            return "floor of the cave";
         case "pirate_ship":
             return "deck";
         case "docks":
