@@ -66,6 +66,7 @@ var outcomes = {
             "Your bosoms look very good.",
         ];
         game.message = functions.random_choice(messages);
+        game.sin("pride");
         return game;
     },
 
@@ -112,6 +113,7 @@ var outcomes = {
             "The blind bartender starts pretending to also be deaf.",
         ];
         game.message = functions.random_choice(messages);
+        game.sin("pride");
         return game;
     },
 
@@ -135,6 +137,7 @@ var outcomes = {
             "She sees through your lies.",
         ];
         game.message = functions.random_choice(messages);
+        game.sin("pride");
         return game;
     },
 
@@ -143,6 +146,7 @@ var outcomes = {
             "Even the simple peasant thinks you're full of it.",
         ];
         game.message = functions.random_choice(messages);
+        game.sin("pride");
         return game;
     },
 
@@ -154,6 +158,7 @@ var outcomes = {
             ".",
         ];
         game.message = functions.random_choice(messages);
+        game.sin("pride");
         return game;
     },
 
@@ -272,6 +277,7 @@ var outcomes = {
         game.persons.lord_arthur.alive = false;
         game.get_weapon("jeweled_cutlass");
         game.move_character("tavern");
+        game.sin("wrath");
         return game;
     },
 
@@ -282,6 +288,7 @@ var outcomes = {
         game.persons.lord_bartholomew.alive = false;
         game.get_weapon("long_pitchfork");
         game.move_character("tavern");
+        game.sin("wrath");
         return game;
     },
 
@@ -292,6 +299,7 @@ var outcomes = {
         game.persons.lord_daniel.alive = false;
         game.get_weapon("iron_hammer");
         game.move_character("dark_alley");
+        game.sin("wrath");
         return game;
     },
 
@@ -468,6 +476,7 @@ var outcomes = {
             "with your duties.",
         game.move_character("pirate_ship");
         game.character.person = "lord_arthur";
+        game.sin("gluttony");
         return game;
     },
 
@@ -481,6 +490,7 @@ var outcomes = {
         game.message = "You drink until you black out. You wake up " +
             "horribly hung over.";
         game.teleport();
+        game.sin("gluttony");
         return game;
     },
 
@@ -511,6 +521,7 @@ var outcomes = {
             game.message += " However, your fancy red cloak protects " +
                 "you from annihilation.";
             game.message += temp_message;
+            game.sin("wrath");
         }
         return game;
     },
@@ -529,6 +540,7 @@ var outcomes = {
             "the only one admiring your bosoms.",
         ];
         game.message = functions.random_choice(messages);
+        game.sin("pride");
         return game;
     },
 
@@ -539,6 +551,7 @@ var outcomes = {
             "\"It's hard not to look,\" " + olga + " says.",
         ];
         game.message = functions.random_choice(messages);
+        game.sin("pride");
         return game;
     },
 
@@ -550,6 +563,7 @@ var outcomes = {
             "not to be arrogant.",
         ];
         game.message = functions.random_choice(messages);
+        game.sin("pride");
         return game;
     },
 
@@ -561,6 +575,7 @@ var outcomes = {
             "\"Oh get over yourself!\" the witch snaps.",
         ];
         game.message = functions.random_choice(messages);
+        game.sin("pride");
         return game;
     },
 
@@ -569,6 +584,7 @@ var outcomes = {
             "The wizard notices what you're doing and blushes bright red.",
         ];
         game.message = functions.random_choice(messages);
+        game.sin("pride");
         return game;
     },
 
@@ -623,6 +639,7 @@ var outcomes = {
 
     "burn": function(game) {
         game.burn();
+        game.sin("wrath");
         return game;
     },
 
@@ -1894,6 +1911,7 @@ var outcomes = {
         ];
         game.message = functions.random_choice(messages);
         game.lose_item("cake");
+        game.sin("gluttony");
         return game;
     },
 
@@ -2250,6 +2268,7 @@ var outcomes = {
                                     ]) + ".",
         ];
         game.message = functions.random_choice(messages);
+        game.sin("pride");
         return game;
     },
 
@@ -2293,6 +2312,7 @@ var outcomes = {
             functions.random_choice(["heroic", "macho", "manly"]) + ".",
         ];
         game.message = functions.random_choice(messages);
+        game.sin("pride");
         return game;
     },
 
@@ -2434,6 +2454,7 @@ var outcomes = {
         ];
         game.message = functions.random_choice(messages);
         game.character.person = null;
+        game.sin("lust");
         return game;
     },
 
@@ -2692,6 +2713,7 @@ var outcomes = {
         game.message = "You get cleaned out by a pretty lady.";
         game.character.person = "olga";
         game.lose_all_items();
+        game.sin("greed");
         return game;
     },
 
@@ -2705,6 +2727,7 @@ var outcomes = {
             game.message = "You lose many games of poker.";
         }
         game.lose_all_items();
+        game.sin("greed");
         return game;
     },
 
@@ -2720,6 +2743,7 @@ var outcomes = {
             game.message = "You win many games of dice.";
         }
         game.get_money("small_fortune");
+        game.sin("greed");
         return game;
     },
 
@@ -2734,6 +2758,7 @@ var outcomes = {
         game.message = "A woman mistakes you for a beggar and takes " +
             "pity on you.";
         game.get_money("pittance");
+        game.sin("lust");
         return game;
     },
 
@@ -2761,6 +2786,7 @@ var outcomes = {
             "The men also gawk at you since you're a woman.",
         ];
         game.message = functions.random_choice(messages);
+        game.sin("lust");
         return game;
     },
 
@@ -2771,6 +2797,7 @@ var outcomes = {
         ];
         game.message = functions.random_choice(messages);
         game.character.person = "drunk";
+        game.sin("lust");
         return game;
     },
 
@@ -2781,6 +2808,7 @@ var outcomes = {
         ];
         game.message = functions.random_choice(messages);
         game.character.person = "nobleman";
+        game.sin("lust");
         return game;
     },
 
@@ -2794,6 +2822,7 @@ var outcomes = {
             "You stop gawking when you realize it isn't a woman.",
         ];
         game.message = functions.random_choice(messages);
+        game.sin("lust");
         return game;
     },
 
@@ -3339,6 +3368,7 @@ var outcomes = {
             "and conclude that you must be a lunatic.";
         game.character.person = "guards";
         game.character.is_threatened = true;
+        game.sin("wrath");
         return game;
     },
 
@@ -3355,6 +3385,7 @@ var outcomes = {
             "down and conclude you must be a lunatic.";
         game.character.person = "guards";
         game.character.is_threatened = true;
+        game.sin("pride");
         return game;
     },
 
@@ -3362,6 +3393,7 @@ var outcomes = {
         game.message = "The local guards see you flaunting your " +
             "wealth and conclude that you must be rich.";
         game.character.person = "guards";
+        game.sin("pride");
         return game;
     },
 
@@ -3406,6 +3438,7 @@ var outcomes = {
     "guards_watch_you_rich": function(game) {
         game.message = "The local guards gape at your wealth.";
         game.character.person = "guards";
+        game.sin("pride");
         return game;
     },
 
@@ -3455,6 +3488,7 @@ var outcomes = {
         ];
         game.message = functions.random_choice(messages);
         game.character.items.cake -= 1;
+        game.sin("gluttony");
         return game;
     },
 
@@ -3465,6 +3499,7 @@ var outcomes = {
         ];
         game.message = functions.random_choice(messages);
         game.move_character("void");
+        game.sin("gluttony");
         return game;
     },
 
@@ -3570,6 +3605,7 @@ var outcomes = {
         game.message = "You hit an assassin with your cat.";
         game.character.person = "assassin";
         game.character.is_threatened = true;
+        game.sin("wrath");
         return game;
     },
 
@@ -3581,6 +3617,7 @@ var outcomes = {
             "and goes about her business.",
         ];
         game.message += functions.random_choice(messages);
+        game.sin("wrath");
         return game;
     },
 
@@ -3588,6 +3625,7 @@ var outcomes = {
         game.message = "You manage to hold your own during the " +
             "battle. You are given your share of the loot.";
         game.get_money("pittance");
+        game.sin("wrath");
         return game;
     },
 
@@ -3657,6 +3695,7 @@ var outcomes = {
             "You impress the simple peasant.",
         ];
         game.message = functions.random_choice(messages);
+        game.sin("pride");
         return game;
     },
 
@@ -3711,6 +3750,7 @@ var outcomes = {
             game.get_item("fancy red cloak");
         }
         game.character.person = null;
+        game.sin("wrath");
         return game;
     },
 
@@ -3721,6 +3761,7 @@ var outcomes = {
             "hot soup on him and he dies.",
         game.persons.lord_carlos.alive = false;
         game.move_character("lord_carlos_manor");
+        game.sin("wrath");
         return game;
     },
 
@@ -3732,6 +3773,7 @@ var outcomes = {
                 "large share the loot.";
             game.get_money("small_fortune");
         }
+        game.sin("wrath");
         return game;
     },
 
@@ -3960,6 +4002,7 @@ var outcomes = {
             "You feel stupid kissing a frog.",
         ];
         game.message = functions.random_choice(messages);
+        game.sin("lust");
         return game;
     },
 
@@ -4046,6 +4089,7 @@ var outcomes = {
     "lick_blood": function(game) {
         game.message = "You lick the blood off the " +
             game.get_ground() + ".";
+        game.sin("gluttony");
         return game;
     },
 
@@ -4108,6 +4152,7 @@ var outcomes = {
             functions.random_choice(["cart", "chicken", "goat", "grape",]) +
             ". You are thrown in prison with the other lunatics.";
         game.arrested();
+        game.sin("greed");
         return game;
     },
 
@@ -4117,6 +4162,7 @@ var outcomes = {
             functions.a_or_an(item[0]) + " " + item + ".";
         game.get_item(item);
         game.move_character("streets");
+        game.sin("greed");
         return game;
     },
 
@@ -4129,6 +4175,7 @@ var outcomes = {
         game.get_item(item_one);
         game.get_item(item_two);
         game.move_character(game.get_random_adjacent_destination());
+        game.sin("greed");
         return game;
     },
 
@@ -4140,6 +4187,7 @@ var outcomes = {
         game.message = "You swipe " +
             functions.a_or_an(weapon[0]) + " " + weapon + ".";
         game.get_weapon(weapon);
+        game.sin("greed");
         return game;
     },
 
@@ -4376,6 +4424,7 @@ var outcomes = {
         game.message = functions.random_choice(messages);
         game.character.person = null;
         game.get_item("ball of sap");
+        game.sin("lust");
         return game;
     },
 
@@ -4569,6 +4618,7 @@ var outcomes = {
             "The men also gawk at you since you have a tail.",
         ];
         game.message = functions.random_choice(messages);
+        game.sin("lust");
         return game;
     },
 
@@ -4644,6 +4694,7 @@ var outcomes = {
             "love potion. Meanwhile, the nymph queen turns you into a shrub.";
         game.lose_all_items();
         game.character.is_shrub = true;
+        game.sin("lust");
         return game;
     },
 
@@ -4654,6 +4705,7 @@ var outcomes = {
         game.persons.olga.attracted = 1;
         game.lose_item("potion of love");
         game.character.person = null;
+        game.sin("lust");
         return game;
     },
 
@@ -4663,6 +4715,7 @@ var outcomes = {
             "she's already in love with God and turns you over to the " +
             "guards. You are thrown in prison with the other lunatics.";
         game.arrested();
+        game.sin("lust");
         return game;
     },
 
@@ -5551,6 +5604,7 @@ var outcomes = {
             "She ignores your whistling.",
         ];
         game.message = functions.random_choice(messages);
+        game.sin("lust");
         return game;
     },
 
@@ -5937,6 +5991,7 @@ var outcomes = {
         ];
         game.get_weapon("long_pitchfork");
         game.message = functions.random_choice(messages);
+        game.sin("greed");
         return game;
     },
 
@@ -6014,6 +6069,7 @@ var outcomes = {
         game.message = "St. George sees you flaunting your wealth " +
             "and warns you about the dangers of flamboyance.";
         game.character.person = "st_george";
+        game.sin("pride");
         return game;
     },
 
@@ -6063,6 +6119,7 @@ var outcomes = {
             game.get_item(item);
         }
         game.move_character("countryside");
+        game.sin("greed");
         return game;
     },
 
@@ -6070,6 +6127,7 @@ var outcomes = {
         game.message = "Your plan goes swimmingly.";
         game.move_character("ocean");
         game.get_weapon("jeweled_cutlass");
+        game.sin("greed");
         return game;
     },
 
@@ -6249,6 +6307,7 @@ var outcomes = {
             "ship and knock him into the ocean. Lord Arthur rewards you " +
             "for your bravery after the battle.";
         game.get_item("fish");
+        game.sin("wrath");
         return game;
     },
 
@@ -6295,6 +6354,7 @@ var outcomes = {
     "take_the_cake": function(game) {
         game.message = "";
         game.get_item("cake");
+        game.sin("greed");
         return game;
     },
 
@@ -6729,6 +6789,7 @@ var outcomes = {
             game.message += " You find a red cloak in the wreckage.";
             game.get_item("fancy red cloak");
         }
+        game.sin("wrath");
         return game;
     },
 
@@ -6985,6 +7046,7 @@ var outcomes = {
         ];
         game.message = functions.random_choice(messages);
         game.character.person = null;
+        game.sin("sloth");
         return game;
     },
 
@@ -7020,6 +7082,7 @@ var outcomes = {
             "in prison with the other lunatics.";
         game.move_character("prison");
         game.character.person = "other_lunatics";
+        game.sin("sloth");
         return game;
     },
 
@@ -7027,6 +7090,7 @@ var outcomes = {
         game.message = "You wake with a few coins on your cloak.";
         game.character.person = null;
         game.get_money("pittance");
+        game.sin("sloth");
         return game;
     },
 
@@ -7035,6 +7099,7 @@ var outcomes = {
             "possessions.";
         game.character.person = null;
         game.lose_all_items();
+        game.sin("sloth");
         return game;
     },
 
@@ -7042,6 +7107,7 @@ var outcomes = {
         game.message = "You wake up a few hours later.";
         game.move_character(game.get_random_adjacent_destination());
         game.character.person = null;
+        game.sin("sloth");
         return game;
     },
 
@@ -7049,7 +7115,7 @@ var outcomes = {
         game.message = "You wake up just in time to see an assassin " +
             "slip a weasel through the bars of your cell. " +
             "The weasel kills you.";
-        game.character.is_dead = true;
+        game.die();
         return game;
     },
 
@@ -7058,6 +7124,7 @@ var outcomes = {
             "up against you.";
         game.character.person = null;
         game.get_item("cat");
+        game.sin("sloth");
         return game;
     },
 

@@ -460,6 +460,13 @@ Game.prototype.set_outcome = function() {
     this.outcome = possible_outcomes.get();
 };
 
+Game.prototype.sin = function(sin_type) {
+    this.character.sins[sin_type] += 1;
+    if (this.character.has_been_warned_of_sins) {
+        this.message += " You have committed the sin of " + sin_type + ".";
+    }
+};
+
 Game.prototype.spread_fire = function() {
     var burnables = [];
     var links = this.get_place().links;
