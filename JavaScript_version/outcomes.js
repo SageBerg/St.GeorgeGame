@@ -6885,8 +6885,11 @@ var outcomes = {
 
     "void_float": function(game) {
         var messages = [
-            "You're not sure you're getting anywhere.",
             "You bump into the edge of the universe.",
+            "You make good progress through the void.",
+            "You make good progress through time, but not space.",
+            "You think you might be going in circles.",
+            "You're not sure you're getting anywhere.",
         ];
         game.message = functions.random_choice(messages);
         return game;

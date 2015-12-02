@@ -771,7 +771,7 @@ OptionsGenerator.prototype.get_place_options = function(game) {
             }
             break;
         case "void":
-            this.options.c.add("Float through the void.", 5);
+            this.options.c.add("Float through the void.", 7);
             this.options.d.add("Gather void dust.", 2);
             break;
         case "woods":

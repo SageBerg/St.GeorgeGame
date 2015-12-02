@@ -123,11 +123,6 @@ Content:
     show user when they're commiting a sin if they've been warned by St. George
     validate sins
 
-    float through the void:
-        make good progress
-        make progress in time, but not space
-        go in circles
-
     hide:
         go and hide in cave
 
