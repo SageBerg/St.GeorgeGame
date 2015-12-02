@@ -3020,6 +3020,7 @@ var outcomes = {
             "You give your large fortune to the first lunatic you find.",
         ];
         game.character.money = NONE;
+        game.character.person = null;
         game.message = functions.random_choice(messages);
         return game;
     },
@@ -6975,6 +6976,7 @@ var outcomes = {
         ];
         game.message = functions.random_choice(messages);
         game.character.strength += 1;
+        game.character.person = null;
         return game;
     },
 
@@ -6986,6 +6988,7 @@ var outcomes = {
             "back down.",
         ];
         game.message = functions.random_choice(messages);
+        game.character.person = null;
         return game;
     },
 
@@ -7219,6 +7222,7 @@ var outcomes = {
         game.message = functions.random_choice([
             "You warn people about the seven deadly sins.",
         ]);
+        game.character.person = null;
         return game;
     },
 

@@ -123,8 +123,6 @@ Content:
     show user when they're commiting a sin if they've been warned by St. George
     validate sins
 
-    need to leave red dragon behind when climbing volcano
-
     float through the void:
         make good progress
         make progress in time, but not space
