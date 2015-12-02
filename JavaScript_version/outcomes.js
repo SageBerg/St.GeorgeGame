@@ -6,9 +6,9 @@ var actions   = require("./actions").actions;
 var functions = require("./functions");
 var items     = require("./items");
 
-var FEMALE    = "female";
-var MALE      = "male";
-var NONE = "none";
+var FEMALE = "female";
+var MALE   = "male";
+var NONE   = "none";
 var NUMBER_NAMES = {
     "2": "two",
     "3": "three",
@@ -3015,6 +3015,15 @@ var outcomes = {
         return game;
     },
 
+    "give_away_money": function(game) {
+        var messages = [
+            "You give your large fortune to the first lunatic you find.",
+        ];
+        game.character.money = NONE;
+        game.message = functions.random_choice(messages);
+        return game;
+    },
+
     "give_cat_eve": function(game) {
         var messages = [
             "Lord Carlos' daughter kills the cat.",
@@ -3146,6 +3155,15 @@ var outcomes = {
     "go_to": function(game) {
         game.message = "";
         game.move_character(game.destination);
+        return game;
+    },
+
+    "go_to_dragon": function(game) {
+        game.message = "You venture out into the wilderness and climb a smoking " +
+            "volcano in search of a red dragon. By the time you find one, you " +
+            "can't remember why you were you were looking for it.";
+        game.character.place = "smoking_volcano";
+        game.character.person = "dragon_red";
         return game;
     },
 
@@ -7194,6 +7212,13 @@ var outcomes = {
     "warden_executes_you_for_homicide": function(game) {
         game.message = "When the wardon finds out what you've done, he has " +
             "you beheaded in the town square.";
+        return game;
+    },
+
+    "warn_people_of_sins": function(game) {
+        game.message = functions.random_choice([
+            "You warn people about the seven deadly sins.",
+        ]);
         return game;
     },
 

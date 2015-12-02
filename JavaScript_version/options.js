@@ -24,10 +24,14 @@ var OptionsGenerator = function() {
 };
 
 OptionsGenerator.prototype.get_character_options = function(game) {
-    if (game.character.money === "large_fortune" &&
-        game.character.strength > 5 &&
-        Math.floor(Math.random() * 3) === 0) {
-        this.options.c.add("Quit while you're ahead.", 1);
+    if (game.character.money === "large_fortune") {
+        if (game.character.strength > 5 && 
+            Math.floor(Math.random() * 3) === 0) {
+            this.options.c.add("Quit while you're ahead.", 1);
+        }
+        if (game.character.place === "streets") {
+            this.options.d.add("Do what St. George would do.", 5);
+        }
     }
     if (game.places[game.character.place].locked === false &&
         game.character.is_threatened === false) {

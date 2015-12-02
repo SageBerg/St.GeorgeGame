@@ -795,6 +795,13 @@ exports.actions = {
         return outcomes;
     },
 
+    "Do what St. George would do.": function(game_state, outcomes) {
+        outcomes.add("give_away_money", 1);
+        outcomes.add("go_to_dragon", 1);
+        outcomes.add("warn_people_of_sins", 1);
+        return outcomes;
+    },
+
     "Donate to the church.": function(game_state, outcomes) {
         if (game_state.persons.lord_carlos.alive) {
             if (game_state.character.sex === FEMALE) {
