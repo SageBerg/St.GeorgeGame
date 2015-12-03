@@ -369,6 +369,18 @@ OptionsGenerator.prototype.get_outcome_options = function(game) {
             this.options.c.add("Swing on a rope.", 10000);
             this.options.d.add("Do some swashbuckling.", 10000);
             break;
+        case "nest_storm":
+        case "scrub_storm":
+            this.options.a.add("Panic!", 10000);
+            this.options.b.add("Throw yourself overboard.", 10000);
+            this.options.b.add("Pray to a higher power.", 5000);
+            this.options.c.add("Raise a sail.", 10000);
+            this.options.c.add("Run around in circles.", 10000);
+            this.options.d.add("Hide beneath the deck.", 10000);
+            if (game.persons.lord_arthur.alive) {
+                this.options.d.add("Ask Lord Arthur what to do.", 10000);
+            }
+            break;
         case "newt_race":
             if (game.character.items["deep-cave newt"] > 0) {
                 this.options.a.add("Enter your deep-cave newt in the race.",

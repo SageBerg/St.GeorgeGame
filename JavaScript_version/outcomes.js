@@ -3640,6 +3640,16 @@ var outcomes = {
         return game;
     },
 
+    "hit_by_ship": function(game) {
+        var messages = [
+            "Once you're in the water, the storm causes the ship to " +
+            "run you over.",
+        ];
+        game.message = functions.random_choice(messages);
+        game.die();
+        return game;
+    },
+
     "hold_your_own": function(game) {
         game.message = "You manage to hold your own during the " +
             "battle. You are given your share of the loot.";
@@ -4216,6 +4226,27 @@ var outcomes = {
             "a new wooden leg.",
         ];
         game.message = functions.random_choice(messages);
+        return game;
+    },
+
+    "lord_arthur_storm_advice": function(game) {
+        var messages = [
+            "Lord Arthur tells you to get below deck, so the people " +
+            "who aren't simpletons can save the ship.",
+            "Lord Arthur tells you to help lower the sails or the ship ",  
+            "will get ripped to peices.",
+        ];
+        game.message = functions.random_choice(messages);
+        return game;
+    },
+
+    "lord_arthur_storm_annoyed": function(game) {
+        var messages = [
+            "Lord Arthur is disgusted by your lack of initiative and has " +
+            "tossed into the thrashing waters.",
+        ];
+        game.message = functions.random_choice(messages);
+        game.die();
         return game;
     },
 
@@ -5100,6 +5131,16 @@ var outcomes = {
         return game;
     },
 
+    "panic_in_storm": function(game) {
+        var messages = [
+            "In your panic, you trip over a cannon and fall overboard. You " +
+            "soon drown amid the churning waves.",
+        ];
+        game.message = functions.random_choice(messages);
+        game.die();
+        return game;
+    },
+
     "peasant_woman_impressed": function(game) {
         game.message = "A peasant woman sees you thump your chest " +
             "and is impressed. Unfortunately, her husband is not. He " +
@@ -5821,6 +5862,17 @@ var outcomes = {
         return game;
     },
 
+    "scrub_storm": function(game) {
+        var messages = [
+            "While you're scrubbing the deck, the ship gets caught in a " +
+            "violent storm.",
+            "While you're scrubbing, the ship gets overtaken by " +
+            "a massive storm.",
+        ];
+        game.message = functions.random_choice(messages);
+        return game;
+    },
+
     "scrub_the_deck": function(game) {
         var messages = [
             "You get sore scrubbing all day.",
@@ -6167,6 +6219,15 @@ var outcomes = {
         game.message = "While you look for flies, someone steps on " +
             "you.";
         game.die();
+        return game;
+    },
+
+    "storm_ship_away": function(game) {
+        game.message = 
+            "After being tossed about by the storm for a few hours, " +
+            "you pass out from exhaustion. You wake up to a sunny " +
+            "morning.";
+        game.move_character("mermaid_rock");
         return game;
     },
 

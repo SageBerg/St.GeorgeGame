@@ -162,6 +162,12 @@ exports.actions = {
         return outcomes;
     },
 
+    "Ask Lord Arthur what to do.":
+        function(game_state, outcomes) {
+        outcomes.add("lord_arthur_storm_advice", 2);
+        return outcomes;
+    },
+
     "Ask the blue dragon to kill Lord Carlos.":
         function(game_state, outcomes) {
         outcomes.add("trade_coin_for_lord_carlos", 1);
@@ -572,8 +578,9 @@ exports.actions = {
 
     "Climb into the crow's nest.": function(game_state, outcomes) {
         outcomes.add("climb_and_die", 2);
+        outcomes.add("nest_storm", 1);
         outcomes.add("climb_and_get_sap", 1);
-        outcomes.add("merchant_ship_nest", 1);
+        outcomes.add("merchant_ship_nest", 2);
         outcomes.add("watch_duty", 4);
         return outcomes;
     },
@@ -1769,7 +1776,12 @@ exports.actions = {
 
     "Panic!": function(game_state, outcomes) {
         outcomes.add("panic_and_die", 2);
-        outcomes.add("panic_and_escape", 1);
+        if (game_state.outcome === "scrub_storm" ||
+            game_state.outcome === "nest_storm") {
+            outcomes.add("panic_in_storm", 1);
+        } else {
+            outcomes.add("panic_and_escape", 1);
+        }
         return outcomes;
     },
 
@@ -1894,6 +1906,14 @@ exports.actions = {
         return outcomes;
     },
 
+    "Run around in circles.": function(game_state, outcomes) {
+        outcomes.add("panic_in_storm", 1);
+        if (game_state.persons.lord_arthur.alive) {
+            outcomes.add("lord_arthur_storm_annoyed", 10);
+        }
+        return outcomes;
+    },
+
     "Run around like a chicken with its head cut off.":
         function(game_state, outcomes) {
         outcomes.add("run_like_chicken", 1);
@@ -1953,6 +1973,7 @@ exports.actions = {
 
     "Scrub the deck.": function(game_state, outcomes) {
         outcomes.add("scrub_the_deck", 3);
+        outcomes.add("scrub_storm", 9999);
         if (game_state.persons.lord_arthur.alive) {
             outcomes.add("scrub_get_thrown_off_ship", 1);
             outcomes.add("lord_arthur_tells_scrub", 2);
@@ -2542,6 +2563,12 @@ exports.actions = {
 
     "Throw your cat at the dog.": function(game_state, outcomes) {
         outcomes.add("throw_cat_and_keep_cat", 1);
+        return outcomes;
+    },
+
+    "Throw yourself overboard.": function(game_state, outcomes) {
+        outcomes.add("hit_by_ship", 1);
+        outcomes.add("storm_ship_away", 1);
         return outcomes;
     },
 
