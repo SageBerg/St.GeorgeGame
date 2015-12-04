@@ -1666,6 +1666,27 @@ var outcomes = {
         return game;
     },
 
+    "do_else_storm": function(game) {
+        var messages = [
+            "You sing a song to motivate the crew, but you fall overboard " +
+            "and perish in the storm.",
+            "You try to find a cat, but the ship gets destroyed by the " +
+            "storm before you can find one.",
+            "Your efforts to set the ship on fire are successful.", 
+        ];
+        game.message = functions.random_choice(messages);
+        game.die();
+        return game;
+    },
+
+    "do_it_storm": function(game) {
+        var messages = [
+            "Lord Arthur's plan works. The ship survives the storm.",
+        ];
+        game.message = functions.random_choice(messages);
+        return game;
+    },
+
     "do_not_see_assassins": function(game) {
         game.message = "You don't see one.";
         game.die();
@@ -3240,6 +3261,16 @@ var outcomes = {
         return game;
     },
 
+    "god_saves_ship": function(game) {
+        var messages = [
+            "God meets you halfway by making the storm short.",
+            "Your prayers must have worked, because the ship manages to " +
+            "weather the storm.",
+        ];
+        game.message = functions.random_choice(messages);
+        return game;
+    },
+
     "god_shows_you_the_way": function(game) {
         game.message = "God speaks to you and shows you the way.";
         switch (game.character.place) {
@@ -3583,6 +3614,24 @@ var outcomes = {
     "hide_beneath_deck_and_die": function(game) {
         var messages = [
             "Lord Arthur has you killed for your cowardice.",
+        ];
+        game.message = functions.random_choice(messages);
+        game.die();
+        return game;
+    },
+
+    "hide_from_storm": function(game) {
+        var messages = [
+            "Hiding from the storm eventually makes it go away.",
+        ];
+        game.message = functions.random_choice(messages);
+        return game;
+    },
+
+    "hide_from_storm_and_die": function(game) {
+        var messages = [
+            "While hiding beneath the deck, you get taken out by a loose " +
+            "cannon.",
         ];
         game.message = functions.random_choice(messages);
         game.die();
@@ -4233,8 +4282,8 @@ var outcomes = {
         var messages = [
             "Lord Arthur tells you to get below deck, so the people " +
             "who aren't simpletons can save the ship.",
-            "Lord Arthur tells you to help lower the sails or the ship ",  
-            "will get ripped to peices.",
+            "Lord Arthur tells you to help lower the sails or the ship " +
+            "will get ripped to shreads.",
         ];
         game.message = functions.random_choice(messages);
         return game;
@@ -5359,6 +5408,37 @@ var outcomes = {
         return game;
     },
 
+    "pray_storm_die": function(game) {
+        var messages = [
+            "God spites you by sending a kraken to attack the ship.",
+            "You pray that the ship survives the storm. It does. You don't.",
+        ];
+        game.message = functions.random_choice(messages);
+        game.clover(); 
+        return game;
+    },
+
+    "pray_storm_killed_by_lord_arthur": function(game) {
+        var messages = [
+            "When Lord Arthur sees you praying, he runs you through with a " +
+            "cutlass for not helping save the ship.",
+        ];
+        game.message = functions.random_choice(messages);
+        game.die();
+        return game;
+    },
+
+    "pray_storm_overboard": function(game) {
+        var messages = [
+            "You tumble off the ship while praying. Fortunately, the " +
+            "storm ends quickly. Unfortunately, you have no idea where the " +
+            "ship went.",
+        ];
+        game.message = functions.random_choice(messages);
+        game.move_character("ocean");
+        return game;
+    },
+
     "priest_agrees": function(game) {
         var messages = [
             "The priest thinks for a moment and realizes you're right. " +
@@ -6218,6 +6298,21 @@ var outcomes = {
     "stepped_on": function(game) {
         game.message = "While you look for flies, someone steps on " +
             "you.";
+        game.die();
+        return game;
+    },
+
+    "storm_sail": function(game) {
+        game.message = "Your efforts are fruitless, the ship gets ripped " +
+            "apart in the storm.";
+        game.die();
+        return game;
+    },
+
+    "storm_sail_killed_by_lord_arthur": function(game) {
+        game.message = "Lord Arthur kills you for " +
+            functions.random_choice(["incompetence", "seemingly no reason", 
+                                     "stupidity"]) + ".";
         game.die();
         return game;
     },

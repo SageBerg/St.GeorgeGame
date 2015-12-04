@@ -241,11 +241,13 @@ OptionsGenerator.prototype.get_outcome_options = function(game) {
             break;
         case "cat_smells_fish":
         case "club_a_seal":
+        case "do_it_storm":
         case "eat_fish_in_igloo":
         case "eat_seal_in_igloo":
         case "find_sea_turtle":
         case "gambling_win":
         case "god_showers_you_with_gold":
+        case "hide_from_storm":
         case "pace_and_get_frog":
         case "raise_sail_and_get_to_land":
         case "wake_up_richer":
@@ -373,7 +375,7 @@ OptionsGenerator.prototype.get_outcome_options = function(game) {
         case "scrub_storm":
             this.options.a.add("Panic!", 10000);
             this.options.b.add("Throw yourself overboard.", 10000);
-            this.options.b.add("Pray to a higher power.", 5000);
+            this.options.b.add("Pray to a higher power.", 10000);
             this.options.c.add("Raise a sail.", 10000);
             this.options.c.add("Run around in circles.", 10000);
             this.options.d.add("Hide beneath the deck.", 10000);
@@ -869,6 +871,12 @@ OptionsGenerator.prototype.set_options = function(game) {
     } else if (game.outcome === "felicity_loves_you") {
         this.options.a = "Say you love her too.";
         this.options.b = "Blow her off.";
+        this.options.c = "";
+        this.options.d = "";
+        this.options.e = "";
+    } else if (game.outcome === "lord_arthur_storm_advice") {
+        this.options.a = "Do it.";
+        this.options.b = "Do something else.";
         this.options.c = "";
         this.options.d = "";
         this.options.e = "";

@@ -761,6 +761,11 @@ exports.actions = {
         return outcomes;
     },
 
+    "Do it.": function(game_state, outcomes) {
+        outcomes.add("do_it_storm", 1);
+        return outcomes;
+    },
+
     "Do some farm work.": function(game_state, outcomes) {
         outcomes.add("farm_work", 3);
         outcomes.add("farm_work_and_apple", 1);
@@ -799,6 +804,11 @@ exports.actions = {
             outcomes.add("lose_leg", 2);
         }
         outcomes.add("hold_your_own", 1);
+        return outcomes;
+    },
+
+    "Do something else.": function(game_state, outcomes) {
+        outcomes.add("do_else_storm", 1);
         return outcomes;
     },
 
@@ -1319,6 +1329,14 @@ exports.actions = {
     },
 
     "Hide beneath the deck.": function(game_state, outcomes) {
+
+        if (game_state.outcome == "nest_storm" ||
+            game_state.outcome == "scrub_storm") {
+            outcomes.add("hide_from_storm", 1);
+            outcomes.add("hide_from_storm_and_die", 1);
+            return outcomes;
+        }
+
         outcomes.add("hide_and_fight_rat", 1);
         outcomes.add("hide_and_miss_out", 2);
         if (game_state.persons.lord_arthur.alive) {
@@ -1810,9 +1828,21 @@ exports.actions = {
 
     "Pray to a higher power.": function(game_state, outcomes) {
 
+        if (game_state.outcome == "nest_storm" ||
+            game_state.outcome == "scrub_storm") {
+            outcomes.add("god_saves_ship", 2);
+            outcomes.add("pray_storm_overboard", 1);
+            outcomes.add("pray_storm_die", 2);
+            if (game_state.persons.lord_arthur.alive) {
+                outcomes.add("pray_storm_killed_by_lord_arthur", 1);
+            }
+            return outcomes;
+        }
+
         if (game_state.character.sex === MALE) {
             outcomes.add("assassin_prayer_answered", 1);
         }
+
         outcomes.add("god_gives_you_a_spouse", 1);
         outcomes.add("god_gives_you_holy_strength", 1);
         outcomes.add("god_shows_you_the_way", 1);
@@ -1869,6 +1899,15 @@ exports.actions = {
     //r
 
     "Raise a sail.": function(game_state, outcomes) {
+        if (game_state.outcome == "nest_storm" ||
+            game_state.outcome == "scrub_storm") {
+            outcomes.add("storm_sail", 1);
+            if (game_state.persons.lord_arthur.alive) {
+                outcomes.add("storm_sail_killed_by_lord_arthur", 1);
+            }
+            return outcomes;
+        }
+
         if (game_state.persons.lord_arthur.alive) {
             outcomes.add("impress_lord_arthur", 1);
             outcomes.add("killed_by_lord_arthur", 1);
@@ -1973,12 +2012,12 @@ exports.actions = {
 
     "Scrub the deck.": function(game_state, outcomes) {
         outcomes.add("scrub_the_deck", 3);
-        outcomes.add("scrub_storm", 9999);
+        outcomes.add("scrub_storm", 2);
         if (game_state.persons.lord_arthur.alive) {
             outcomes.add("scrub_get_thrown_off_ship", 1);
             outcomes.add("lord_arthur_tells_scrub", 2);
             outcomes.add("impress_lord_arthur", 1);
-            outcomes.add("merchant_ship_scrub", 1);
+            outcomes.add("merchant_ship_scrub", 2);
         }
         return outcomes;
     },
