@@ -7346,6 +7346,23 @@ var outcomes = {
         return game;
     },
 
+    "wander_the_countryside_envy": function(game) {
+        var messages = [];
+        if (game.character.sex === FEMALE) {
+            messages.push("You see a beautiful peasant man, unfortunately " +
+                "he also has a beautiful wife."
+            );
+        } else {
+            messages.push("You see a beautiful peasant woman, unfortunately " +
+                "she also has a beautiful husband."
+            );
+        }
+        game.message = functions.random_choice(messages);
+        game.character.person = null;
+        game.sin("envy");
+        return game;
+    },
+
     "wander_while_singing": function(game) {
         game.message = "You wander aimlessly as you work your way " +
             "through an epic ballad.";

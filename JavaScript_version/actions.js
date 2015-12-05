@@ -2784,7 +2784,8 @@ exports.actions = {
         outcomes.add("meet_stray_donkey", 1);
         outcomes.add("newt_race", 2);
         outcomes.add("rainbow", 1);
-        outcomes.add("wander_the_countryside", 9);
+        outcomes.add("wander_the_countryside", 8);
+        outcomes.add("wander_the_countryside_envy", 2);
         outcomes.add("witch_burning", 1);
         if (game_state.character.has_tail) {
             outcomes.add("peasants_laugh_at_tail", 2);
