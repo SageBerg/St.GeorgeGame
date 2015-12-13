@@ -8,6 +8,7 @@ exports.character = {
     "has_been_warned_of_sins": false,
     "has_begged_st_george": false,
     "has_found_true_love": false,
+    "has_given_olga_flowers": false,
     "has_lost_leg": false,
     "has_tail": false,
     "is_dead": false,

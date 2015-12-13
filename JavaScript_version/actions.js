@@ -91,9 +91,11 @@ exports.actions = {
         }
         if (game_state.character.place === "tavern") {
             outcomes.add("no_one_wants_to_talk", 3);
+            /*
             if (game_state.persons.olga.alive) {
                 outcomes.add("meet_olga", 3);
             }
+            */
             outcomes.add("learn_about_assassins", 4);
         }
         if (game_state.character.place === "lord_carlos_manor") {
@@ -385,7 +387,7 @@ exports.actions = {
         if (game_state.character.sex === MALE) {
             outcomes.add("buy_a_drink_and_die", 2);
         }
-        outcomes.add("buy_a_drink_and_meet_olga", 3);
+        //outcomes.add("buy_a_drink_and_meet_olga", 3);
         if (game_state.character.person !== "blind_bartender" &&
             game_state.persons.blind_bartender.alive) {
             outcomes.add("meet_blind_bartender", 8);
@@ -786,7 +788,7 @@ exports.actions = {
                 outcomes.add("gambling_die_not", 1);
             }
             if (game_state.persons.olga.alive) {
-                outcomes.add("gambling_lady", 1);
+                //outcomes.add("gambling_lady", 1);
             }
         }
         return outcomes;
@@ -2117,12 +2119,10 @@ exports.actions = {
                         "earn_small_fortune_in_coins", 3);
                     outcomes.add("tavern_song", 3);
                     if (game_state.persons.olga.alive) {
-                        outcomes.add(
-                            "tavern_song_and_meet_olga", 2);
+                        //outcomes.add("tavern_song_and_meet_olga", 2);
                     }
                     if (game_state.persons.drunk.alive) {
-                        outcomes.add(
-                            "tavern_song_and_meet_drunk", 2);
+                        outcomes.add("tavern_song_and_meet_drunk", 2);
                     }
                 }
                 break;

@@ -428,6 +428,17 @@ Game.prototype.move_character = function(destination) {
     }
 };
 
+Game.prototype.rename_olga = function() {
+    this.persons.olga.name = "Olga";
+    if (this.character.sex === FEMALE) {
+        this.message += " She tells you her name is Olga. " +
+        "You tell her your name is Josephine.";
+    } else {
+        this.message += " She tells you her name is Olga. " +
+        "You also tell her your name.";
+    }
+};
+
 Game.prototype.set_destination = function(option) {
     if (option === "GO_TO" || option === "Wander the countryside.") {
         this.destination =

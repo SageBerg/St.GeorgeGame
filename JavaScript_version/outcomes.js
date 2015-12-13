@@ -3132,6 +3132,7 @@ var outcomes = {
         game.message = functions.random_choice(messages);
         game.get_person().attracted += 1;
         game.lose_item("bouquet of flowers");
+        game.character.has_given_olga_flowers = true;
         return game;
     },
 
@@ -7894,14 +7895,16 @@ var outcomes = {
         game.persons.olga.attracted += 1;
         if (game.persons.olga.attracted > 2 &&
             game.persons.olga.name === "the pretty lady") {
-            game.persons.olga.name = "Olga";
-            if (game.character.sex === FEMALE) {
-                game.message += " She tells you her name is Olga. " +
-                "You tell her your name is Josephine.";
-            } else {
-                game.message += " She tells you her name is Olga. " +
-                "You also tell her your name.";
-            }
+            game.rename_olga();
+        }
+        if (game.persons.olga.name === "Olga" &&
+            !game.character.has_given_olga_flowers) {
+            game.message += " Olga says it was nice meeting you and " +
+                "she hopes she sees you again soon. She waves goodbye and " +
+                "smiles back at you as she walks away.";
+            game.character.person = null;
+        } else {
+            // TODO go upstairs with Olga
         }
         return game;
     },

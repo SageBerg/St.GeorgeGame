@@ -753,11 +753,13 @@ OptionsGenerator.prototype.get_place_options = function(game) {
                 this.options.a.add("Ask about assassins.", 4);
                 this.options.b.add("Buy a drink.", 4);
                 this.options.d.add("Do some gambling.", 4);
+                /*
                 if (game.persons.olga.alive &&
                     game.persons.olga.name === "Olga" &&
                     game.character.person !== "olga") {
                     this.options.b.add("Look for Olga.", 10);
                 }
+                */
             }
             break;
         case "tower":
