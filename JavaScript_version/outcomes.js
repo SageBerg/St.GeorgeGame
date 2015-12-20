@@ -3639,6 +3639,17 @@ var outcomes = {
         return game;
     },
 
+    "hide_in_cave": function(game) {
+        var messages = [
+            "You walk out of town, through the countryside, into the woods, " +
+            "and into a cave. You hide deep in the cave. Perhaps a little " +
+            "too deep.",
+        ];
+        game.message = functions.random_choice(messages);
+        game.character.place = "cave";
+        return game;
+    },
+
     "hide_in_void": function(game) {
         var messages = [
             "You hide so well, you leave the universe.",

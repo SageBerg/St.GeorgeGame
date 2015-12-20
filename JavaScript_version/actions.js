@@ -1327,6 +1327,7 @@ exports.actions = {
         outcomes.add("hide_and_die", 3);
         outcomes.add("hide_and_find_coins", 1);
         outcomes.add("hide_in_void", 1);
+        outcomes.add("hide_in_cave", 1);
         return outcomes;
     },
 
