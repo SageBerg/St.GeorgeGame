@@ -8,6 +8,11 @@ Bugs:
     search for assignment when it should be an equality check
 
 Content:
+    double or nothing
+    absurdly large fortune
+        bribe dragon to burn everything
+        buy tower
+
     make more frustration outcomes
     make tails do more
     options in Lord Carlos' manor could use a little work
@@ -122,9 +127,6 @@ Content:
     have the Devil show up if you commit all seven deadly sins
     show user when they're commiting a sin if they've been warned by St. George
     validate sins
-
-    hide:
-        go and hide in cave
 
     devil asks you how you got past cerberus
 
