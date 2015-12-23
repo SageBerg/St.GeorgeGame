@@ -203,6 +203,15 @@ Game.prototype.enact_outcome = function() {
     if (this.character.is_dead === false) {
         this.score += 1;
     }
+    if (this.character.sins.envy > 0 &&
+        this.character.sins.gluttony > 0 &&
+        this.character.sins.greed > 0 &&
+        this.character.sins.lust > 0 &&
+        this.character.sins.pride > 0 &&
+        this.character.sins.sloth > 0 &&
+        this.character.sins.wrath > 0) {
+        this.go_to_hell();
+    }
 };
 
 Game.prototype.die = function() {
@@ -335,6 +344,12 @@ Game.prototype.get_wizard_teleport_message = function() {
         "He keeps reading for a while so you get bored and try to " +
         "sneak away. You must have sneaked pretty well.",
     ]);
+};
+
+Game.prototype.go_to_hell = function() {
+    this.message += " You have now committed all seven deadly sins. " +
+        "Flames engulf you.";
+    this.move_character("hell_1");
 };
 
 Game.prototype.grow_tail = function() {
