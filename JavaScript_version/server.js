@@ -58,7 +58,6 @@ function respond_with_outcome(req, res) {
 
             var options_gen = new options.OptionsGenerator();
             options_gen.set_options(game); // generates and sets options
-    
 
             res.json(game.get_state());
         } else { // if input validation fails
