@@ -124,8 +124,6 @@ Content:
         'Take the cake.' (add more ways for it to come up)
 
     have God strike you down if you commit all seven deadly sins
-    have the Devil show up if you commit all seven deadly sins
-    show user when they're commiting a sin if they've been warned by St. George
     validate sins
 
     devil asks you how you got past cerberus
