@@ -507,6 +507,7 @@ var outcomes = {
     "blessed": function(game) {
         game.message = "A priestess blesses you.";
         game.character.person = "priestess";
+        game.decrement_money();
         return game;
     },
 
