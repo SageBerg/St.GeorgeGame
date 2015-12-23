@@ -2013,6 +2013,21 @@ exports.actions = {
         return outcomes;
     },
 
+    "Set your deep-cave newt down and see where it goes.":
+        function(game_state, outcomes) {
+        outcomes.add("newt_nothing", 3);
+        if (!functions.get_place(game_state).locked) {
+            outcomes.add("newt_escape", 1);
+        }
+        if (game_state.character.place === "woods") {
+            outcomes.add("newt_to_cave", 100);
+        }
+        if (game_state.character.place === "arctic") {
+            outcomes.add("newt_freeze", 100);
+        }
+        return outcomes;
+    },
+
     "Scrub the deck.": function(game_state, outcomes) {
         outcomes.add("scrub_the_deck", 3);
         outcomes.add("scrub_storm", 2);

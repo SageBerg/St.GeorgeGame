@@ -87,10 +87,6 @@ OptionsGenerator.prototype.get_item_options = function(game) {
     if (game.character.items["black mushroom"] > 0) {
         this.options.c.add("Chow down on your black mushroom.", 1);
     }
-    if (game.character.items.cake > 0) {
-        this.options.c.add("Let yourself have cake.", 1);
-        this.options.d.add("Have your cake and eat it too.", 1);
-    }
     if (game.character.items["bouquet of flowers"] > 0 &&
         (game.character.person === "eve" ||
          game.character.person === "mermaid" ||
@@ -98,6 +94,10 @@ OptionsGenerator.prototype.get_item_options = function(game) {
          game.character.person === "olga" ||
          game.character.place === "prison")) {
         this.options.b.add("GIVE_FLOWERS", 100);
+    }
+    if (game.character.items.cake > 0) {
+        this.options.c.add("Let yourself have cake.", 1);
+        this.options.d.add("Have your cake and eat it too.", 1);
     }
     if (game.character.items.cat > 0) {
         this.options.d.add("Swing your cat.", 1);
@@ -114,6 +114,10 @@ OptionsGenerator.prototype.get_item_options = function(game) {
         (game.character.person === "eve" ||
          game.character.person === "olga")) {
         this.options.a.add("GIVE_HER_CAT", 5);
+    }
+    if (game.character.items["deep-cave newt"] > 0 &&
+        game.character.place !== "ocean") {
+        this.options.c.add("Set your deep-cave newt down and see where it goes.", 9999);
     }
     if (game.character.items["deep-cave newt"] > 1) {
         this.options.b.add("Breed your deep-cave newts.", 1);

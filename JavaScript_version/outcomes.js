@@ -4920,11 +4920,51 @@ var outcomes = {
 
     //n
 
+    "newt_freeze": function(game) {
+        var messages = [
+            "Your newt gets lazy and freezes to death.",
+        ];
+        game.message = functions.random_choice(messages);
+        game.lose_item("deep-cave newt");
+        return game;
+    },
+
+    "newt_escape": function(game) {
+        var messages = [
+            "After several hours, you are no longer able to keep pace " +
+            "with your newt and lose track of it.",
+        ];
+        game.message = functions.random_choice(messages);
+        game.lose_item("deep-cave newt");
+        game.move_character(game.get_random_adjacent_destination());
+        return game;
+    },
+
+    "newt_nothing": function(game) {
+        var messages = [
+            "After ten minutes of your newt wanding around aimlessly, " +
+            "your curiosity is satisified.",
+            "The newt was happier with you and doesn't want to leave.",
+            "You spend hours following your newt around in circles.",
+        ];
+        game.message = functions.random_choice(messages);
+        return game;
+    },
+
     "newt_race": function(game) {
         var messages = [
             "You come across a crowd of peasants racing newts.",
         ];
         game.message = functions.random_choice(messages);
+        return game;
+    },
+
+    "newt_to_cave": function(game) {
+        var messages = [
+            "You follow your newt into a hole in the ground.",
+        ];
+        game.message = functions.random_choice(messages);
+        game.move_character("cave");
         return game;
     },
 
