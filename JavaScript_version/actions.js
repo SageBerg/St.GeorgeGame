@@ -866,6 +866,7 @@ exports.actions = {
             outcomes.add("drop_anchor_and_kill_whale", 1);
             outcomes.add("drop_anchor_and_save_ship", 1);
             outcomes.add("get_punished", 5);
+            outcomes.add("fired_from_cannon", 1);
         }
         return outcomes;
     },
@@ -1906,7 +1907,8 @@ exports.actions = {
             game_state.outcome == "scrub_storm") {
             outcomes.add("storm_sail", 1);
             if (game_state.persons.lord_arthur.alive) {
-                outcomes.add("storm_sail_killed_by_lord_arthur", 1);
+                outcomes.add("storm_sail_killed_by_lord_arthur", 2);
+                outcomes.add("fired_from_cannon", 1);
             }
             return outcomes;
         }

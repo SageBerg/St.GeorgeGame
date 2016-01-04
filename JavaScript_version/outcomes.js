@@ -2604,6 +2604,13 @@ var outcomes = {
         return game;
     },
 
+    "fired_from_cannon": function(game) {
+        game.message = "Lord Arthur is enraged by your incompetence and " +
+                       "has you fired out of a cannon." ;
+        game.move_character("ocean");
+        return game;
+    },
+
     "fish_pirates_laugh": function(game) {
         game.message = "Some pirates notice you fishing. One of them " +
             "says, \"You'll never get a large fortune like that.\" The " +
