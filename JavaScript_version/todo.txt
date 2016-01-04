@@ -31,14 +31,6 @@ Content:
     make more outcome-influenced outcomes
         the wizard could be mad at you
     
-    snoop on pirate ship
-        find map with volcano "Here thare be dragons"
-        too small snoop, you get thrown off the ship
-
-    long pitchfork, get caught up in peasant mob, burn tower
-
-    Lord Arthur fires you out of cannon
-
     celebrate your success doesn't come up much
 
     have priest actually be there in game, make sure he's alive
@@ -127,6 +119,7 @@ Content:
     validate sins
 
     devil asks you how you got past cerberus
+    sneeze (gets you killed in some places)
 
 Style:
     make the game object oriented
