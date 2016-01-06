@@ -264,4 +264,13 @@ exports.persons = {
         "preferred_attack": "frog",
         "type": "male",
     },
+    "wolf_pack":
+    {
+        "alive": true,
+        "attack": 7,
+        "attracted": 0,
+        "name": "pack of big scary grey dogs",
+        "preferred_attack": "kill",
+        "type": "group",
+    },
 };
