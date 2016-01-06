@@ -1225,7 +1225,7 @@ exports.actions = {
     "Go mushroom picking.": function(game_state, outcomes) {
         outcomes.add("pick_mushroom", 8);
         outcomes.add("meet_stray_dog", 1);
-        outcomes.add("meet_wolves", 9999);
+        outcomes.add("meet_wolves", 9);
         outcomes.add("no_mushroom_frog", 1);
         return outcomes;
     },
