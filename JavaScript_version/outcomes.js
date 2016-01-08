@@ -4732,6 +4732,13 @@ var outcomes = {
         return game;
     },
 
+    "meet_wolves": function(game) {
+        game.message = "Unluckily, you come across a pack of big scary " +
+            "grey dogs. They devour you.";
+        game.clover();
+        return game;
+    },
+
     "men_gawk_at_you": function(game) {
         var messages = [
             "The men also gawk at you since you have a tail.",
