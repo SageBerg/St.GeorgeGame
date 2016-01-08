@@ -42,25 +42,40 @@ function b_execute() {
 
 function bind_keys() {
     document.onkeypress = function(event) {
-        var ascii = event.which;
-        if ((ascii == 49 || ascii == 65 || ascii == 97) &&
-            USER_INPUT_ALLOWED) {
-            a_execute();
-        } else if ((ascii == 50 || ascii == 66 || ascii == 98) &&
-                   USER_INPUT_ALLOWED) {
-            b_execute();
-        } else if ((ascii == 51 || ascii == 67 || ascii == 99) &&
-                   USER_INPUT_ALLOWED &&
-                   game_state.options.c !== "") {
-            execute("c");
-        } else if ((ascii == 52 || ascii == 68 || ascii == 100) &&
-                   USER_INPUT_ALLOWED &&
-                   game_state.options.d !== "") {
-            execute("d");
-        } else if ((ascii == 53 || ascii == 69 || ascii == 101) &&
-                   USER_INPUT_ALLOWED &&
-                   game_state.options.e !== "") {
-            execute("e");
+        var input = String.fromCharCode(event.which);
+        if (USER_INPUT_ALLOWED) {
+            switch (input) {
+                case "a":
+                case "A":
+                case "1":
+                    a_execute();
+                    break;
+                case "b":
+                case "B":
+                case "2":
+                    b_execute();
+                    break;
+                case "c":
+                case "C":
+                case "3":
+                    if (game_state.options.c !== ""){
+                        execute("c");
+                    }
+                    break;
+                case "d":
+                case "D":
+                case "4":
+                    if (game_state.options.d !== "") {
+                        execute("d");
+                    }
+                    break;
+                case "e":
+                case "E":
+                case "5":
+                    if (game_state.options.e !== "") {
+                        execute("e");
+                    }
+            }
         }
     };
 }
