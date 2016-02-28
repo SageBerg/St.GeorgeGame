@@ -121,6 +121,9 @@ Content:
     devil asks you how you got past cerberus
     sneeze (gets you killed in some places)
 
+    You could build a huge igloo and have it collapse on you 
+        or have a draft that kills you
+
 Style:
     make the game object oriented
     use more constants and less hardcoding
